@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+}
+
+group 'ch.konnexions'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.oracle.ojdbc:ojdbc8:19.3.0.0'
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    implementation 'mysql:mysql-connector-java:8.0.20'
+    implementation 'org.apache.commons:commons-configuration2:2.7'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.6.2'
+}
+
+jar {
+    archivesBaseName = project.name
+
+    from {
+        project.configurations.runtimeClasspath.collect {File file -> project.zipTree(file)}
+    }
+
+    manifest {
+        attributes 'Implementation-Title' : 'Gradle all inclusive jar',
+                   'Implementation-Version' : project.version,
+                   'Created-By' : 'Konnexions GmbH',
+                   'Main-Class' : 'ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder'
+    }
+}
+
+test {
+    jvmArgs(['--enable-preview'])
+}
+
+task copyJarToLib(type: Copy, dependsOn: 'jar') {
+    description = 'Create the jar file and copy it to the lib directory'
+
+    from "$buildDir/libs"
+    rename project.name + '-' + version + '.jar', project.name + '.jar'
+    into "lib"
+}
+
+tasks.withType(JavaCompile).each {
+    it.options.compilerArgs.add('--enable-preview')
+}
+
