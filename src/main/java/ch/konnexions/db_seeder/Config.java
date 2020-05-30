@@ -21,40 +21,36 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 
 /**
  * The configuration parameters for the Oracle database. The configuration 
- * parameters are made available to the configuration object in a text
- * file. This text file must contain the values of the following
- * configuration parameters:
+ * parameters are made available to the configuration object in a text file.
+ * This text file must contain the values of the following configuration
+ * parameters:
  * <ul>
  * <li>db_seeder.file.configuration.name
  * <li>db_seeder.jdbc.connection.host
  * <li>db_seeder.jdbc.connection.port
- * <li>db_seeder.jdbc.connection.service
- * <li>db_seeder.jdbc.oracle.password
- * <li>db_seeder.jdbc.oracle.password.sys
- * <li>db_seeder.jdbc.oracle.user
- * <li>db_seeder.jdbc.oracle.user.sys
+ * <li>db_seeder.oracle.connection.service
+ * <li>db_seeder.oracle.password
+ * <li>db_seeder.oracle.password.sys
+ * <li>db_seeder.oracle.user
+ * <li>db_seeder.oracle.user.sys
  * </ul>
  * The parameter name and parameter value must be separated by an equal sign
  * (=).
  */
 public class Config {
 
-  @SuppressWarnings("unused")
-  private static Logger                                                logger     = Logger.getLogger(Config.class);
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
+  private String                                                       fileConfigurationName;
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
-  private String                                                       fileConfigurationName;
   private String                                                       jdbcConnectionHost;
   private int                                                          jdbcConnectionPort;
-  private String                                                       jdbcConnectionService;
-  private String                                                       jdbcOraclePassword;
-  private String                                                       jdbcOraclePasswordSys;
-  private String                                                       jdbcOracleUser;
-  private String                                                       jdbcOracleUserSys;
 
   private ArrayList<String>                                            keysSorted = new ArrayList<>();
+
+  @SuppressWarnings("unused")
+  private static Logger                                                logger     = Logger.getLogger(Config.class);
 
   private int                                                          maxRowCity;
   private int                                                          maxRowCompany;
@@ -62,10 +58,16 @@ public class Config {
   private int                                                          maxRowCountryState;
   private int                                                          maxRowTimezone;
 
+  private String                                                       oracleConnectionService;
+  private String                                                       oraclePassword;
+  private String                                                       oraclePasswordSys;
+  private String                                                       oracleUser;
+  private String                                                       oracleUserSys;
+
   private PropertiesConfiguration                                      propertiesConfiguration;
 
   /**
-   * Constructs a Config object.
+   * Constructs a Configuration object.
    */
   public Config() {
     super();
@@ -99,41 +101,6 @@ public class Config {
    */
   public final int getJdbcConnectionPort() {
     return jdbcConnectionPort;
-  }
-
-  /**
-   * @return the service name to connect to the database
-   */
-  public final String getJdbcConnectionService() {
-    return jdbcConnectionService;
-  }
-
-  /**
-   * @return the password to connect as normal user to the database
-   */
-  public String getJdbcOraclePassword() {
-    return jdbcOraclePassword;
-  }
-
-  /**
-   * @return the password to connect as privileged user to the database
-   */
-  public final String getJdbcOraclePasswordSys() {
-    return jdbcOraclePasswordSys;
-  }
-
-  /**
-   * @return the user name to connect as normal user to the database
-   */
-  public String getJdbcOracleUser() {
-    return jdbcOracleUser.toUpperCase();
-  }
-
-  /**
-   * @return the user name to connect as privileged user to the database
-   */
-  public final String getJdbcOracleUserSys() {
-    return jdbcOracleUserSys.toUpperCase();
   }
 
   private ArrayList<String> getKeysSorted() {
@@ -186,7 +153,7 @@ public class Config {
 
     List<String> list = new ArrayList<>();
 
-    // wwe list.add("db_seeder.jdbc.connection.service");
+    // wwe list.add("db_seeder.oracle.connection.service");
 
     return list;
   }
@@ -204,6 +171,41 @@ public class Config {
     list.add("db_seeder.max.row.timezone");
 
     return list;
+  }
+
+  /**
+   * @return the service name to connect to the database
+   */
+  public final String getOracleConnectionService() {
+    return oracleConnectionService;
+  }
+
+  /**
+   * @return the password to connect as normal user to the database
+   */
+  public String getOraclePassword() {
+    return oraclePassword;
+  }
+
+  /**
+   * @return the password to connect as privileged user to the database
+   */
+  public final String getOraclePasswordSys() {
+    return oraclePasswordSys;
+  }
+
+  /**
+   * @return the user name to connect as normal user to the database
+   */
+  public String getOracleUser() {
+    return oracleUser.toUpperCase();
+  }
+
+  /**
+   * @return the user name to connect as privileged user to the database
+   */
+  public final String getOracleUserSys() {
+    return oracleUserSys.toUpperCase();
   }
 
   /**
@@ -243,22 +245,22 @@ public class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
-    fileConfigurationName = propertiesConfiguration.getString("db_seeder.file.configuration.name");
+    fileConfigurationName   = propertiesConfiguration.getString("db_seeder.file.configuration.name");
 
-    jdbcConnectionHost    = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
-    jdbcConnectionPort    = propertiesConfiguration.getInt("db_seeder.jdbc.connection.port");
-    jdbcConnectionService = propertiesConfiguration.getString("db_seeder.jdbc.connection.service");
+    jdbcConnectionHost      = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
+    jdbcConnectionPort      = propertiesConfiguration.getInt("db_seeder.jdbc.connection.port");
 
-    jdbcOraclePassword    = propertiesConfiguration.getString("db_seeder.jdbc.oracle.password");
-    jdbcOraclePasswordSys = propertiesConfiguration.getString("db_seeder.jdbc.oracle.password.sys");
-    jdbcOracleUser        = propertiesConfiguration.getString("db_seeder.jdbc.oracle.user");
-    jdbcOracleUserSys     = propertiesConfiguration.getString("db_seeder.jdbc.oracle.user.sys");
+    oracleConnectionService = propertiesConfiguration.getString("db_seeder.oracle.connection.service");
+    oraclePassword          = propertiesConfiguration.getString("db_seeder.oracle.password");
+    oraclePasswordSys       = propertiesConfiguration.getString("db_seeder.oracle.password.sys");
+    oracleUser              = propertiesConfiguration.getString("db_seeder.oracle.user");
+    oracleUserSys           = propertiesConfiguration.getString("db_seeder.oracle.user.sys");
 
-    maxRowCity            = propertiesConfiguration.getInt("db_seeder.max.row.city");
-    maxRowCompany         = propertiesConfiguration.getInt("db_seeder.max.row.company");
-    maxRowCountry         = propertiesConfiguration.getInt("db_seeder.max.row.country");
-    maxRowCountryState    = propertiesConfiguration.getInt("db_seeder.max.row.country_state");
-    maxRowTimezone        = propertiesConfiguration.getInt("db_seeder.max.row.timezone");
+    maxRowCity              = propertiesConfiguration.getInt("db_seeder.max.row.city");
+    maxRowCompany           = propertiesConfiguration.getInt("db_seeder.max.row.company");
+    maxRowCountry           = propertiesConfiguration.getInt("db_seeder.max.row.country");
+    maxRowCountryState      = propertiesConfiguration.getInt("db_seeder.max.row.country_state");
+    maxRowTimezone          = propertiesConfiguration.getInt("db_seeder.max.row.timezone");
   }
 
   private void updatePropertiesFromOs() {
@@ -280,29 +282,29 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", jdbcConnectionPort);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_JDBC_CONNECTION_SERVICE")) {
-      jdbcConnectionService = environmentVariables.get("DB_SEEDER_JDBC_CONNECTION_SERVICE");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.service", jdbcConnectionService);
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_CONNECTION_SERVICE")) {
+      oracleConnectionService = environmentVariables.get("DB_SEEDER_ORACLE_CONNECTION_SERVICE");
+      propertiesConfiguration.setProperty("db_seeder.oracle.connection.service", oracleConnectionService);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_JDBC_ORACLE_PASSWORD")) {
-      jdbcOraclePassword = environmentVariables.get("DB_SEEDER_JDBC_ORACLE_PASSWORD");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.oracle.password", jdbcOraclePassword);
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_PASSWORD")) {
+      oraclePassword = environmentVariables.get("DB_SEEDER_ORACLE_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.oracle.password", oraclePassword);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_JDBC_ORACLE_PASSWORD_SYS")) {
-      jdbcOraclePasswordSys = environmentVariables.get("DB_SEEDER_JDBC_ORACLE_PASSWORD_SYS");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.oracle.password.sys", jdbcOraclePasswordSys);
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_PASSWORD_SYS")) {
+      oraclePasswordSys = environmentVariables.get("DB_SEEDER_ORACLE_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.oracle.password.sys", oraclePasswordSys);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_JDBC_ORACLE_USER")) {
-      jdbcOracleUser = environmentVariables.get("DB_SEEDER_JDBC_ORACLE_USER");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.oracle.user", jdbcOracleUser);
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_USER")) {
+      oracleUser = environmentVariables.get("DB_SEEDER_ORACLE_USER");
+      propertiesConfiguration.setProperty("db_seeder.oracle.user", oracleUser);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_JDBC_ORACLE_USER_SYS")) {
-      jdbcOracleUserSys = environmentVariables.get("DB_SEEDER_JDBC_ORACLE_USER_SYS");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.oracle.user.sys", jdbcOracleUserSys);
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_USER_SYS")) {
+      oracleUserSys = environmentVariables.get("DB_SEEDER_ORACLE_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.oracle.user.sys", oracleUserSys);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_CITY")) {

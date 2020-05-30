@@ -5,7 +5,9 @@ package ch.konnexions.db_seeder.jdbc;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
 import ch.konnexions.db_seeder.Config;
+import ch.konnexions.db_seeder.DatabaseSeeder;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -29,7 +31,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @version 1.0.0
  * @since   2020-05-01
  */
-public abstract class AbstractJdbcSeeder {
+public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private static Logger       logger                   = Logger.getLogger(AbstractJdbcSeeder.class);
 
@@ -38,12 +40,7 @@ public abstract class AbstractJdbcSeeder {
   protected Connection        connection;
 
   protected final String      FILE_IMAGE_MIME_TYPE     = "image/png";
-  protected final String      FILE_IMAGE_NAME          = "Icon.png";
-
-  protected final String      FORMAT_IDENTIFIER        = "%04d";
-  protected final String      FORMAT_METHOD_NAME       = "%-17s";
-  protected final String      FORMAT_ROW_NO            = "%1$5d";
-  protected final String      FORMAT_TABLE_NAME        = "%-17s";
+  protected final String      FILE_IMAGE_NAME          = "blob.png";
 
   protected final File        IMAGE_FILE               = new File(
       Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + FILE_IMAGE_NAME);
@@ -67,12 +64,33 @@ public abstract class AbstractJdbcSeeder {
   protected final String      TABLE_NAME_TIMEZONE      = "TIMEZONE";
 
   /**
+   *
+   */
+  public AbstractJdbcSeeder() {
+    config = new Config();
+  }
+
+  /**
    * Add optional foreign keys related to current database table.
    *
+   * Foreign Keys              ===> DB Table
+   * ------------- ----------- ---- -------------------
+   * COUNTRY_STATE             ===> CITY
+   *
    * @param tableName the table name
-   * @param fkList    the foreign key list
+   * @param fKList the foreign key list
    */
-  protected abstract void addOptionalFk(final String tableName, final ArrayList<Object> fkList);
+  protected final void addOptionalFk(final String tableName, final ArrayList<Object> fKList) {
+    switch (tableName) {
+    case TABLE_NAME_COUNTRY_STATE:
+      if (pkListCity == null) {
+        recreatePkList(TABLE_NAME_CITY);
+      }
+
+      addOptionalFk(TABLE_NAME_CITY, "PK_CITY_ID", pkListCity, "FK_COUNTRY_STATE_ID", fKList);
+      break;
+    }
+  }
 
   /**
    * Add optional foreign keys related to current database table.
@@ -161,8 +179,44 @@ public abstract class AbstractJdbcSeeder {
 
   /**
    * Create the test data for all database tables.
+   *
+   * The following database tables are currently supported:
+   * <br>
+   * <br>
+   * <ul>
+   * <li>CITY</li>
+   * <li>COMPANY</li>
+   * <li>COUNTRY</li>
+   * <li>COUNTRY_STATE</li>
+   * <li>TIMEZONE</li>
+   * </ul>
    */
-  protected abstract void createData();
+  public final void createData() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+
+    dropCreateSchemaUser();
+
+    // Level 1 -------------------------------------------------------------
+    createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
+    createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+
+    // Level 2 -------------------------------------------------------------
+    createData(TABLE_NAME_COUNTRY_STATE, config.getMaxRowCountryState());
+
+    // Level 3 -------------------------------------------------------------
+    createData(TABLE_NAME_CITY, config.getMaxRowCity());
+
+    // Level 4 -------------------------------------------------------------
+    createData(TABLE_NAME_COMPANY, config.getMaxRowCompany());
+
+    disconnect();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+  }
 
   /**
    * Generate test data for specific database table.
@@ -175,8 +229,9 @@ public abstract class AbstractJdbcSeeder {
 
     methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + " - Start - database table \" + String.format(FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(FORMAT_ROW_NO, rowCount) + \" rows to be created");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
 
     tableName = tableName.toUpperCase();
 
@@ -199,8 +254,8 @@ public abstract class AbstractJdbcSeeder {
     final int countExisting = countData(tableName);
 
     if (countExisting != 0) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + " - found existing test data in database table "
-          + String.format(FORMAT_TABLE_NAME, tableName));
+      logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - found existing test data in database table "
+          + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
 
       return;
     }
@@ -238,8 +293,8 @@ public abstract class AbstractJdbcSeeder {
 
     addOptionalFk(tableName, pkList);
 
-    logger.info(String.format(FORMAT_METHOD_NAME, methodName) + " - End   - database table " + String.format(FORMAT_TABLE_NAME, tableName) + " - "
-        + String.format(FORMAT_ROW_NO, rowCount) + " rows created");
+    logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End   - database table "
+        + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + " - " + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + " rows created");
 
     try {
       preparedStatement.close();
@@ -271,16 +326,85 @@ public abstract class AbstractJdbcSeeder {
    * Create the DML statement: INSERT.
    *
    * @param tableName the database table name
+   *
    * @return the insert statement
    */
-  protected abstract String createDmlStmnt(final String tableName);
+  protected final String createDmlStmnt(final String tableName) {
+    switch (tableName) {
+    case TABLE_NAME_CITY:
+      return "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
+    case TABLE_NAME_COMPANY:
+      return "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+    case TABLE_NAME_COUNTRY:
+      return "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?";
+    case TABLE_NAME_COUNTRY_STATE:
+      return "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?";
+    case TABLE_NAME_TIMEZONE:
+      return "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
+    default:
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+    }
+  }
 
   /**
    * Create the not yet existing mandatory foreign keys.
    *
+   * DB Table            ===> Foreign Keys
+   * ------------------- ---- -------------
+   * COMPANY             ===> CITY
+   * COUNTRY_STATE       ===> COUNTRY
+   *                          TIMEZONE
+   *
    * @param tableName the database table name
    */
-  protected abstract void createFkList(final String tableName);
+  protected final void createFkList(final String tableName) {
+    switch (tableName) {
+    case TABLE_NAME_COMPANY:
+      if (pkListCity.size() == 0) {
+        createData(TABLE_NAME_CITY, config.getMaxRowCity());
+      }
+
+      break;
+    case TABLE_NAME_COUNTRY_STATE:
+      if (pkListCountry.size() == 0) {
+        createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
+      }
+
+      if (pkListTimezone.size() == 0) {
+        createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+      }
+
+      break;
+    }
+
+    if (TABLE_NAME_COMPANY.equals(tableName)) {
+      if (pkListCity.size() == 0) {
+        if (countData(TABLE_NAME_CITY) == 0) {
+          createData(TABLE_NAME_CITY, config.getMaxRowCity());
+        } else {
+          recreatePkList(TABLE_NAME_CITY);
+        }
+      }
+    }
+
+    if (TABLE_NAME_COUNTRY_STATE.equals(tableName)) {
+      if (pkListCountry.size() == 0) {
+        if (countData(TABLE_NAME_COUNTRY) == 0) {
+          createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
+        } else {
+          recreatePkList(TABLE_NAME_COUNTRY);
+        }
+      }
+
+      if (pkListTimezone.size() == 0) {
+        if (countData(TABLE_NAME_TIMEZONE) == 0) {
+          createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+        } else {
+          recreatePkList(TABLE_NAME_TIMEZONE);
+        }
+      }
+    }
+  }
 
   /**
    * Close the database connection.
@@ -309,7 +433,22 @@ public abstract class AbstractJdbcSeeder {
    * @param tableName the database table name
    * @return the default number of required database rows
    */
-  protected abstract int getDefaultRowSize(final String tableName);
+  protected final int getDefaultRowSize(final String tableName) {
+    switch (tableName) {
+    case TABLE_NAME_CITY:
+      return 1200;
+    case TABLE_NAME_COMPANY:
+      return 6000;
+    case TABLE_NAME_COUNTRY:
+      return 100;
+    case TABLE_NAME_COUNTRY_STATE:
+      return 400;
+    case TABLE_NAME_TIMEZONE:
+      return 11;
+    default:
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+    }
+  }
 
   /**
    * Get a random double of the interval lowerLimit..upperLimit.
@@ -413,16 +552,38 @@ public abstract class AbstractJdbcSeeder {
    * Prepare the variable part of the INSERT statement.
    *
    * @param preparedStatement the prepared statement
-   * @param tableName         the database table name
-   * @param rowCount          the total row count
-   * @param rowNo             the current row number
-   * @param pkList            current primary key list
+   * @param tableName the database table name
+   * @param rowCount the total row count
+   * @param rowNo the current row number
+   * @param pkList current primary key list
    */
-  protected abstract void prepDmlStmntInsert(final PreparedStatement preparedStatement,
-                                             final String tableName,
-                                             final int rowCount,
-                                             final int rowNo,
-                                             final ArrayList<Object> pkList);
+  protected final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
+                                          final String tableName,
+                                          final int rowCount,
+                                          final int rowNo,
+                                          final ArrayList<Object> pkList) {
+    String identifier04 = String.format(DatabaseSeeder.FORMAT_IDENTIFIER, rowNo);
+
+    switch (tableName) {
+    case TABLE_NAME_CITY:
+      prepDmlStmntInsertCity(preparedStatement, rowCount, identifier04);
+      break;
+    case TABLE_NAME_COMPANY:
+      prepDmlStmntInsertCompany(preparedStatement, rowCount, identifier04);
+      break;
+    case TABLE_NAME_COUNTRY:
+      prepDmlStmntInsertCountry(preparedStatement, rowCount, identifier04);
+      break;
+    case TABLE_NAME_COUNTRY_STATE:
+      prepDmlStmntInsertCountryState(preparedStatement, rowCount, identifier04);
+      break;
+    case TABLE_NAME_TIMEZONE:
+      prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier04);
+      break;
+    default:
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+    }
+  }
 
   /**
    * Prepare the variable part of the INSERT statement - CITY.
@@ -651,15 +812,67 @@ public abstract class AbstractJdbcSeeder {
   /**
    * Retrieve the missing foreign keys from the database.
    *
+   * DB Table            ===> Foreign Keys              Open
+   * ------------------- ---- ------------- ----------- ----
+   * CITY                ===> COUNTRY_STATE
+   * COMPANY             ===> CITY
+   * COUNTRY_STATE       ===> COUNTRY
+   *                          TIMEZONE
+   *
    * @param tableName the database table name
    */
-  protected abstract void retrieveFkList(final String tableName);
+  protected final void retrieveFkList(final String tableName) {
+    switch (tableName) {
+    case TABLE_NAME_CITY:
+      if (pkListCountryState.size() == 0) {
+        recreatePkList(TABLE_NAME_COUNTRY_STATE);
+      }
+
+      break;
+    case TABLE_NAME_COMPANY:
+      if (pkListCity.size() == 0) {
+        recreatePkList(TABLE_NAME_CITY);
+      }
+
+      break;
+    case TABLE_NAME_COUNTRY_STATE:
+      if (pkListCountry.size() == 0) {
+        recreatePkList(TABLE_NAME_COUNTRY);
+      }
+
+      if (pkListTimezone.size() == 0) {
+        recreatePkList(TABLE_NAME_TIMEZONE);
+      }
+
+      break;
+    }
+  }
 
   /**
    * Save the database table specific primary key list.
    *
    * @param tableName the table name
-   * @param pkList    current primary key list
+   * @param pkList current primary key list
    */
-  protected abstract void savePkList(final String tableName, final ArrayList<Object> pkList);
+  protected final void savePkList(final String tableName, final ArrayList<Object> pkList) {
+    switch (tableName) {
+    case TABLE_NAME_CITY:
+      pkListCity = pkList;
+      break;
+    case TABLE_NAME_COMPANY:
+      pkListCompany = pkList;
+      break;
+    case TABLE_NAME_COUNTRY:
+      pkListCountry = pkList;
+      break;
+    case TABLE_NAME_COUNTRY_STATE:
+      pkListCountryState = pkList;
+      break;
+    case TABLE_NAME_TIMEZONE:
+      pkListTimezone = pkList;
+      break;
+    default:
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+    }
+  }
 }

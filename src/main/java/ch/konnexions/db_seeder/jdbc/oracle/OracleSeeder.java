@@ -19,6 +19,7 @@ import javax.sql.rowset.serial.SerialClob;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.Config;
+import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -33,71 +34,32 @@ public class OracleSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
-   * The main method.
-   *
-   * @param args the arguments
-   */
-  public static void main(String[] args) {
-    OracleSeeder oracleSeeder = new OracleSeeder();
-
-    String       methodName   = new Object() {
-                              }.getClass().getEnclosingMethod().getName();
-    logger.info(String.format(oracleSeeder.FORMAT_METHOD_NAME, methodName) + " - Start =======================================================");
-
-    oracleSeeder.createData();
-
-    logger.info(String.format(oracleSeeder.FORMAT_METHOD_NAME, methodName) + " - End   =======================================================");
-  }
-
-  /**
    * 
    */
-  protected OracleSeeder() {
-    config = new Config();
-  }
-
-  /**
-   * Add optional foreign keys related to current database table.
-   *
-   * Foreign Keys              ===> DB Table            
-   * ------------- ----------- ---- ------------------- 
-   * COUNTRY_STATE             ===> CITY
-   *
-   * @param tableName the table name
-   * @param fKList the foreign key list
-   */
-  protected final void addOptionalFk(final String tableName, final ArrayList<Object> fKList) {
-    switch (tableName) {
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCity == null) {
-        recreatePkList(TABLE_NAME_CITY);
-      }
-
-      addOptionalFk(TABLE_NAME_CITY, "PK_CITY_ID", pkListCity, "FK_COUNTRY_STATE_ID", fKList);
-      break;
-    }
+  public OracleSeeder() {
+    super();
   }
 
   /**
    * Create a database connection.
    */
+  @Override
   protected final void connect() {
     String methodName = null;
 
     methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + " - Start");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
 
-    final String jdbcConnectionHost    = config.getJdbcConnectionHost();
-    final String jdbcConnectionService = config.getJdbcConnectionService();
-    final int    jdbcConnectionPort    = config.getJdbcConnectionPort();
-    final String jdbcOraclePassword    = config.getJdbcOraclePassword();
-    final String jdbcOracleUser        = config.getJdbcOracleUser();
+    final String jdbcConnectionHost      = config.getJdbcConnectionHost();
+    final String oracleConnectionService = config.getOracleConnectionService();
+    final int    jdbcConnectionPort      = config.getJdbcConnectionPort();
+    final String oraclePassword          = config.getOraclePassword();
+    final String oracleUser              = config.getOracleUser();
 
     try {
-      connection = DriverManager.getConnection("jdbc:oracle:thin:@//" + jdbcConnectionHost + ":" + jdbcConnectionPort + "/" + jdbcConnectionService,
-                                               jdbcOracleUser,
-                                               jdbcOraclePassword);
+      connection = DriverManager
+          .getConnection("jdbc:oracle:thin:@//" + jdbcConnectionHost + ":" + jdbcConnectionPort + "/" + oracleConnectionService, oracleUser, oraclePassword);
 
       connection.setAutoCommit(false);
     } catch (SQLException ec) {
@@ -105,48 +67,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + " - End");
-  }
-
-  /**
-   * Create the test data for all database tables.
-   *
-   * The following database tables are currently supported:
-   * <br>
-   * <br>
-   * <ul>
-   * <li>CITY</li>
-   * <li>COMPANY</li>
-   * <li>COUNTRY</li>
-   * <li>COUNTRY_STATE</li>
-   * <li>TIMEZONE</li>
-   * </ul>
-   */
-  public final void createData() {
-    String methodName = null;
-
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    dropCreateSchemaUser();
-
-    // Level 1 -------------------------------------------------------------
-    createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-    createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
-
-    // Level 2 -------------------------------------------------------------
-    createData(TABLE_NAME_COUNTRY_STATE, config.getMaxRowCountryState());
-
-    // Level 3 -------------------------------------------------------------
-    createData(TABLE_NAME_CITY, config.getMaxRowCity());
-
-    // Level 4 -------------------------------------------------------------
-    createData(TABLE_NAME_COMPANY, config.getMaxRowCompany());
-
-    disconnect();
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 
   /**
@@ -245,114 +166,33 @@ CREATE TABLE timezone
 )
 TABLESPACE users""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
     }
   }
 
   /**
-   * Create the DML statement: INSERT.
-   *
-   * @param tableName the database table name
-   *
-   * @return the insert statement
+   * Drop the schema / user if existing and create it new.
    */
   @Override
-  protected final String createDmlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
-    case TABLE_NAME_COMPANY:
-      return "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
-    case TABLE_NAME_COUNTRY:
-      return "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?";
-    case TABLE_NAME_COUNTRY_STATE:
-      return "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?";
-    case TABLE_NAME_TIMEZONE:
-      return "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
-  }
-
-  /**
-   * Create the not yet existing mandatory foreign keys.
-   *
-   * DB Table            ===> Foreign Keys
-   * ------------------- ---- -------------
-   * COMPANY             ===> CITY
-   * COUNTRY_STATE       ===> COUNTRY
-   *                          TIMEZONE
-   *
-   * @param tableName the database table name
-   */
-  protected final void createFkList(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_COMPANY:
-      if (pkListCity.size() == 0) {
-        createData(TABLE_NAME_CITY, config.getMaxRowCity());
-      }
-
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCountry.size() == 0) {
-        createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-      }
-
-      if (pkListTimezone.size() == 0) {
-        createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
-      }
-
-      break;
-    }
-
-    if (TABLE_NAME_COMPANY.equals(tableName)) {
-      if (pkListCity.size() == 0) {
-        if (countData(TABLE_NAME_CITY) == 0) {
-          createData(TABLE_NAME_CITY, config.getMaxRowCity());
-        } else {
-          recreatePkList(TABLE_NAME_CITY);
-        }
-      }
-    }
-
-    if (TABLE_NAME_COUNTRY_STATE.equals(tableName)) {
-      if (pkListCountry.size() == 0) {
-        if (countData(TABLE_NAME_COUNTRY) == 0) {
-          createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-        } else {
-          recreatePkList(TABLE_NAME_COUNTRY);
-        }
-      }
-
-      if (pkListTimezone.size() == 0) {
-        if (countData(TABLE_NAME_TIMEZONE) == 0) {
-          createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
-        } else {
-          recreatePkList(TABLE_NAME_TIMEZONE);
-        }
-      }
-    }
-  }
-
   protected void dropCreateSchemaUser() {
-    int               count                 = 0;
+    int               count                   = 0;
 
-    PreparedStatement preparedStatement     = null;
+    PreparedStatement preparedStatement       = null;
 
     // -----------------------------------------------------------------------
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      jdbcConnectionHost    = config.getJdbcConnectionHost();
-    final String      jdbcConnectionService = config.getJdbcConnectionService();
-    final int         jdbcConnectionPort    = config.getJdbcConnectionPort();
-    final String      jdbcOraclePassword    = config.getJdbcOraclePasswordSys();
-    final String      jdbcOracleUser        = config.getJdbcOracleUserSys();
+    final String      jdbcConnectionHost      = config.getJdbcConnectionHost();
+    final int         jdbcConnectionPort      = config.getJdbcConnectionPort();
+    final String      oracleConnectionService = config.getOracleConnectionService();
+    final String      oraclePassword          = config.getOraclePasswordSys();
+    final String      oracleUser              = config.getOracleUserSys();
 
     try {
-      connection = DriverManager.getConnection("jdbc:oracle:thin:@//" + jdbcConnectionHost + ":" + jdbcConnectionPort + "/" + jdbcConnectionService,
-                                               jdbcOracleUser + " AS SYSDBA",
-                                               jdbcOraclePassword);
+      connection = DriverManager.getConnection("jdbc:oracle:thin:@//" + jdbcConnectionHost + ":" + jdbcConnectionPort + "/" + oracleConnectionService,
+                                               oracleUser + " AS SYSDBA",
+                                               oraclePassword);
 
       connection.setAutoCommit(false);
     } catch (SQLException ec) {
@@ -366,7 +206,7 @@ TABLESPACE users""";
 
     try {
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = ?");
-      preparedStatement.setString(1, config.getJdbcOracleUser());
+      preparedStatement.setString(1, config.getOracleUser());
       preparedStatement.executeUpdate();
 
       ResultSet resultSet = preparedStatement.getResultSet();
@@ -378,7 +218,7 @@ TABLESPACE users""";
       resultSet.close();
 
       if (count > 0) {
-        preparedStatement = connection.prepareStatement("DROP USER " + config.getJdbcOracleUser() + " CASCADE");
+        preparedStatement = connection.prepareStatement("DROP USER " + config.getOracleUser() + " CASCADE");
         preparedStatement.executeUpdate();
       }
     } catch (SQLException e) {
@@ -391,23 +231,22 @@ TABLESPACE users""";
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection
-          .prepareStatement("CREATE USER " + config.getJdbcOracleUser() + " IDENTIFIED BY \"" + config.getJdbcOraclePassword() + "\"");
+      preparedStatement = connection.prepareStatement("CREATE USER " + config.getOracleUser() + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("ALTER USER " + config.getJdbcOracleUser() + " QUOTA UNLIMITED ON users");
+      preparedStatement = connection.prepareStatement("ALTER USER " + config.getOracleUser() + " QUOTA UNLIMITED ON users");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SEQUENCE TO " + config.getJdbcOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT CREATE SEQUENCE TO " + config.getOracleUser());
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SESSION TO " + config.getJdbcOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT CREATE SESSION TO " + config.getOracleUser());
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE TABLE TO " + config.getJdbcOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT CREATE TABLE TO " + config.getOracleUser());
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT UNLIMITED TABLESPACE TO " + config.getJdbcOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT UNLIMITED TABLESPACE TO " + config.getOracleUser());
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
@@ -425,67 +264,6 @@ TABLESPACE users""";
   }
 
   /**
-   * Get the default number of required database rows.
-   *
-   * @param tableName the database table name
-   *
-   * @return the default number of required database rows
-   */
-  protected final int getDefaultRowSize(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return 1200;
-    case TABLE_NAME_COMPANY:
-      return 6000;
-    case TABLE_NAME_COUNTRY:
-      return 100;
-    case TABLE_NAME_COUNTRY_STATE:
-      return 400;
-    case TABLE_NAME_TIMEZONE:
-      return 11;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
-  }
-
-  /**
-   * Prepare the variable part of the INSERT statement.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName the database table name
-   * @param rowCount the total row count
-   * @param rowNo the current row number
-   * @param pkList current primary key list
-   */
-  protected final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
-                                          final String tableName,
-                                          final int rowCount,
-                                          final int rowNo,
-                                          final ArrayList<Object> pkList) {
-    String identifier04 = String.format(FORMAT_IDENTIFIER, rowNo);
-
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      prepDmlStmntInsertCity(preparedStatement, rowCount, identifier04);
-      break;
-    case TABLE_NAME_COMPANY:
-      prepDmlStmntInsertCompany(preparedStatement, rowCount, identifier04);
-      break;
-    case TABLE_NAME_COUNTRY:
-      prepDmlStmntInsertCountry(preparedStatement, rowCount, identifier04);
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      prepDmlStmntInsertCountryState(preparedStatement, rowCount, identifier04);
-      break;
-    case TABLE_NAME_TIMEZONE:
-      prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier04);
-      break;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
-  }
-
-  /**
    * Prepare the variable part of the INSERT statement - CITY.
    *
    * PK_CITY_ID NUMBER   NUMBER     PK
@@ -499,6 +277,7 @@ TABLESPACE users""";
    * @param rowCount number of rows to be created
    * @param identifier04 number of the current row (4 figures)
    */
+  @Override
   protected final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
       if (getRandomIntIncluded(rowCount) % 4 == 0) {
@@ -559,6 +338,7 @@ TABLESPACE users""";
    * @param rowCount number of rows to be created
    * @param identifier04 number of the current row (4 figures)
    */
+  @Override
   protected final void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
       preparedStatement.setObject(1, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
@@ -705,6 +485,7 @@ TABLESPACE users""";
    * @param rowCount number of rows to be created
    * @param identifier04 number of the current row (4 figures)
    */
+  @Override
   protected final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
       preparedStatement.setObject(1, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
@@ -763,6 +544,7 @@ TABLESPACE users""";
    * @param rowCount number of rows to be created
    * @param identifier04 number of the current row (4 figures)
    */
+  @Override
   protected final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
       preparedStatement.setString(1, "ABBREVIATION_" + identifier04);
@@ -782,70 +564,4 @@ TABLESPACE users""";
     }
   }
 
-  /**
-   * Retrieve the missing foreign keys from the database.
-   *
-   * DB Table            ===> Foreign Keys              Open
-   * ------------------- ---- ------------- ----------- ----
-   * CITY                ===> COUNTRY_STATE
-   * COMPANY             ===> CITY
-   * COUNTRY_STATE       ===> COUNTRY
-   *                          TIMEZONE
-   *
-   * @param tableName the database table name
-   */
-  protected final void retrieveFkList(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      if (pkListCountryState.size() == 0) {
-        recreatePkList(TABLE_NAME_COUNTRY_STATE);
-      }
-
-      break;
-    case TABLE_NAME_COMPANY:
-      if (pkListCity.size() == 0) {
-        recreatePkList(TABLE_NAME_CITY);
-      }
-
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCountry.size() == 0) {
-        recreatePkList(TABLE_NAME_COUNTRY);
-      }
-
-      if (pkListTimezone.size() == 0) {
-        recreatePkList(TABLE_NAME_TIMEZONE);
-      }
-
-      break;
-    }
-  }
-
-  /**
-   * Save the database table specific primary key list.
-   *
-   * @param tableName the table name
-   * @param pkList current primary key list
-   */
-  protected final void savePkList(final String tableName, final ArrayList<Object> pkList) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      pkListCity = pkList;
-      break;
-    case TABLE_NAME_COMPANY:
-      pkListCompany = pkList;
-      break;
-    case TABLE_NAME_COUNTRY:
-      pkListCountry = pkList;
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      pkListCountryState = pkList;
-      break;
-    case TABLE_NAME_TIMEZONE:
-      pkListTimezone = pkList;
-      break;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
-  }
 }
