@@ -276,37 +276,15 @@ TABLESPACE users""";
    * @param preparedStatement preparedStatement object
    * @param rowCount number of rows to be created
    * @param identifier04 number of the current row (4 figures)
+   * @throws IOException 
    */
   @Override
   protected final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(1, java.sql.Types.INTEGER);
-      } else {
-        prepStmntInsertColFKOpt(1, pkListCountryState, preparedStatement, rowCount);
-      }
-
-      //      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-      //        preparedStatement.setNull(2, java.sql.Types.BLOB);
-      //      } else {
-      //        try {
-      //          preparedStatement.setBinaryStream(2, new FileInputStream(IMAGE_FILE));
-      //        } catch (FileNotFoundException e) {
-      //          e.printStackTrace();
-      //          System.exit(1);
-      //        }
-      //      }
-
-      preparedStatement.setNull(2, java.sql.Types.BLOB);
-
+      prepStmntInsertColFKOpt(1, pkListCountryState, preparedStatement, rowCount);
+      prepStmntInsertColBlobOpt(2, preparedStatement, rowCount);
       preparedStatement.setTimestamp(3, getRandomTimestamp());
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(4, java.sql.Types.DATE);
-      } else {
-        preparedStatement.setTimestamp(4, getRandomTimestamp());
-      }
-
+      preparedStatement.setTimestamp(4, getRandomTimestamp());
       preparedStatement.setString(5, "NAME_" + identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -343,78 +321,19 @@ TABLESPACE users""";
     try {
       preparedStatement.setObject(1, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
       prepStmntInsertColFlagNY(2, preparedStatement, rowCount);
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(3, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(3, "ADDRESS1_" + identifier04);
-      }
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(4, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(4, "ADDRESS2_" + identifier04);
-      }
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(5, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(5, "ADDRESS3_" + identifier04);
-      }
-
+      prepStmntInsertColStringOpt(3, "ADDRESS1_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(4, "ADDRESS2_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(5, "ADDRESS3_", preparedStatement, rowCount, identifier04);
       preparedStatement.setTimestamp(6, getRandomTimestamp());
-
-      //      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-      //        preparedStatement.setNull(7, java.sql.Types.CLOB);
-      //      } else {
-      //        preparedStatement.setClob(7, new SerialClob(("DIRECTIONS_" + identifier04).toCharArray()));
-      //      }
-
-      preparedStatement.setNull(7, java.sql.Types.CLOB);
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(8, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(8, "EMAIL_" + identifier04);
-      }
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(9, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(9, "FAX_" + identifier04);
-      }
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(10, java.sql.Types.DATE);
-      } else {
-        preparedStatement.setTimestamp(10, getRandomTimestamp());
-      }
-
+      prepStmntInsertColClobOpt(7, preparedStatement, rowCount);
+      prepStmntInsertColStringOpt(8, "EMAIL_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(9, "FAX_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColDatetimeOpt(10, preparedStatement, rowCount);
       preparedStatement.setString(11, "NAME_" + identifier04);
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(12, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(12, "PHONE_" + identifier04);
-      }
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(13, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(13, "POSTAL_CODE_" + identifier04);
-      }
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(14, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(14, "URL_" + identifier04);
-      }
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(15, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(15, "VAT_ID_NUMBER__" + identifier04);
-      }
+      prepStmntInsertColStringOpt(12, "PHONE_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(13, "POSTAL_CODE_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(14, "URL_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(15, "VAT_ID_NUMBER__", preparedStatement, rowCount, identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -437,33 +356,10 @@ TABLESPACE users""";
    */
   protected final void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
-      //      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-      //        System.out.println("null - start");
-      //        preparedStatement.setNull(1, java.sql.Types.BLOB);
-      //        System.out.println("null - end");
-      //      } else {
-      //        try {
-      //          System.out.println("not null - start");
-      //          System.out.println("not null - length="+IMAGE_FILE.length());
-      //          preparedStatement.setBlob(1, new FileInputStream(IMAGE_FILE), IMAGE_FILE.length());
-      //          System.out.println("not null - end");
-      //        } catch (FileNotFoundException e) {
-      //          e.printStackTrace();
-      //          System.exit(1);
-      //        }
-      //      }
-
-      preparedStatement.setNull(1, java.sql.Types.BLOB);
-
+      prepStmntInsertColBlobOpt(1, preparedStatement, rowCount);
       preparedStatement.setTimestamp(2, getRandomTimestamp());
       prepStmntInsertColStringOpt(3, "", preparedStatement, rowCount, identifier04.substring(2));
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(4, java.sql.Types.DATE);
-      } else {
-        preparedStatement.setTimestamp(4, getRandomTimestamp());
-      }
-
+      prepStmntInsertColDatetimeOpt(4, preparedStatement, rowCount);
       preparedStatement.setString(5, "NAME_" + identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -490,40 +386,11 @@ TABLESPACE users""";
     try {
       preparedStatement.setObject(1, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
       preparedStatement.setObject(2, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
-
-      //    if (getRandomIntIncluded(rowCount) % 4 == 0) {
-      //    System.out.println("null - start");
-      //    preparedStatement.setNull(1, java.sql.Types.BLOB);
-      //    System.out.println("null - end");
-      //  } else {
-      //    try {
-      //      System.out.println("not null - start");
-      //      System.out.println("not null - length="+IMAGE_FILE.length());
-      //      preparedStatement.setBlob(1, new FileInputStream(IMAGE_FILE), IMAGE_FILE.length());
-      //      System.out.println("not null - end");
-      //    } catch (FileNotFoundException e) {
-      //      e.printStackTrace();
-      //      System.exit(1);
-      //    }
-      //  }
-
-      preparedStatement.setNull(3, java.sql.Types.BLOB);
-
+      prepStmntInsertColBlobOpt(3, preparedStatement, rowCount);
       preparedStatement.setTimestamp(4, getRandomTimestamp());
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(5, java.sql.Types.DATE);
-      } else {
-        preparedStatement.setTimestamp(5, getRandomTimestamp());
-      }
-
+      prepStmntInsertColDatetimeOpt(5, preparedStatement, rowCount);
       preparedStatement.setString(6, "NAME_" + identifier04);
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(7, java.sql.Types.VARCHAR);
-      } else {
-        prepStmntInsertColStringOpt(7, "SYMBOL_", preparedStatement, rowCount, identifier04.substring(1));
-      }
+      prepStmntInsertColStringOpt(7, "SYMBOL_", preparedStatement, rowCount, identifier04.substring(1));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -549,13 +416,7 @@ TABLESPACE users""";
     try {
       preparedStatement.setString(1, "ABBREVIATION_" + identifier04);
       preparedStatement.setTimestamp(2, getRandomTimestamp());
-
-      if (getRandomIntIncluded(rowCount) % 4 == 0) {
-        preparedStatement.setNull(3, java.sql.Types.DATE);
-      } else {
-        preparedStatement.setTimestamp(3, getRandomTimestamp());
-      }
-
+      preparedStatement.setTimestamp(3, getRandomTimestamp());
       preparedStatement.setString(4, "NAME_" + identifier04);
       prepStmntInsertColStringOpt(5, "V_TIME_ZONE_", preparedStatement, rowCount, identifier04);
     } catch (SQLException e) {
