@@ -35,13 +35,13 @@ The system requirements are described in the respective release notes.
 
 ## 4. Operating Instructions 
 
-Using the connection development docker image saves the effort of installing the latest Java version. 
+Using the Konnexions development docker image from DockerHub (see: https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev) saves the effort of installing the latest Java version. 
 To run `db_seeder`, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
 All parameters used in `db_seeder` can be adjusted in the batch script to suit your needs.
 
 ### 4.1 Control Parameters - Basics
 
-The flow control parameters for 'db_seeder' are stored in the properties file 'rc/main/resources/db_seeder.properties' and can all be overridden by the environment variables defined in the batch script.
+The flow control parameters for `db_seeder` are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the batch script.
 The following control parameters are currently supported:
 
 ```
