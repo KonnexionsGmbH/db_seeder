@@ -14,7 +14,7 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 - NN    - not null
 - PK    - primary key
 
-![](.README_images/Data Model.png)
+![](.README_images/Data_Model.png)
 
 ## 3. Operating Instructions
 
