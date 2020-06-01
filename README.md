@@ -9,11 +9,10 @@ The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, and TIMEZONE form a
 
 The abbreviations in the following illustration (created with Toad Data Modeler) mean:
 
-- FK - foreign key
-- NN - not null
-- PK - primary key
-
-The abbreviation AK1 means alternative key - but has no meaning for the `db_seeder`.  
+- (AK1) - alternate key (unique key)
+- FK    - foreign key
+- NN    - not null
+- PK    - primary key
 
 ![](.README_images/Data Model.png)
 
