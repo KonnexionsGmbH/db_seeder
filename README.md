@@ -30,12 +30,12 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 ## 3. Installation
 
 The easiest way is to download a current release of `db_seeder`.
-You can find the necessary link here: https://github.com/KonnexionsGmbH/db_seeder.
+You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 The system requirements are described in the respective release notes. 
 
 ## 4. Operating Instructions 
 
-Using the Konnexions development docker image from DockerHub (see: https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev) saves the effort of installing the latest Java version. 
+Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
 To run `db_seeder`, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
 All parameters used in `db_seeder` can be adjusted in the batch script to suit your needs.
 
