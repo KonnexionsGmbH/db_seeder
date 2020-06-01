@@ -97,12 +97,12 @@ db_seeder.oracle.user.sys=sys
 | oracle.user.sys=root | ORACLE_USER_SYS | Oracle | name of the privileged user |
 |     |     |     |     |
 
-## 4. Database Brand Specifics
+## 4. Database Brand Specifica
 
 ### 4.1 MySQL Database
 
 - the MySQL Database differentiates between database (schema) and user
-- Data types:
+- the used data types:
 
 | Data Type | MySQL Type |
 | --- | --- |
@@ -115,9 +115,9 @@ db_seeder.oracle.user.sys=sys
 ### 4.2 Oracle Database
 
 - the Oracle database only knows the database user that is identical with the schema
-- Data types:
+- the used data types:
 
-| Data Type | MySQL Type |
+| Data Type | Oracle Type |
 | --- | --- |
 | big integer | NUMBER |
 | binary large object | BLOB |
@@ -129,8 +129,8 @@ db_seeder.oracle.user.sys=sys
 
 In case of software changes we strongly recommend you to respect the license terms.
 
-1 Fork it
-1 Create your feature branch (git checkout -b my-new-feature)
-1 Commit your changes (git commit -am 'Add some feature')
-1 Push to the branch (git push origin my-new-feature)
-1 Create a new Pull Request
+1. Fork it
+1. Create your feature branch (git checkout -b my-new-feature)
+1. Commit your changes (git commit -am 'Add some feature')
+1. Push to the branch (git push origin my-new-feature)
+1. Create a new Pull Request
