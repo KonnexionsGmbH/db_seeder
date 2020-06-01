@@ -3,6 +3,7 @@
  */
 package ch.konnexions.db_seeder;
 
+import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import org.apache.log4j.Logger;
 
@@ -45,6 +46,12 @@ public class DatabaseSeeder {
 
     if (null == args0) {
       logger.error("Command line argument missing");
+      System.exit(1);
+    } else if (args0.equals("mysql")) {
+      logger.info("Start MySQL Database");
+      MysqlSeeder mysqlSeeder = new MysqlSeeder();
+      mysqlSeeder.createData();
+      logger.info("End   MySQL Database");
     } else if (args0.equals("oracle")) {
       logger.info("Start Oracle Database");
       OracleSeeder oracleSeeder = new OracleSeeder();
@@ -52,6 +59,7 @@ public class DatabaseSeeder {
       logger.info("End   Oracle Database");
     } else if (args0.contentEquals("")) {
       logger.error("Command line argument missing");
+      System.exit(1);
     } else {
       logger.error("Unknown command line argument");
     }

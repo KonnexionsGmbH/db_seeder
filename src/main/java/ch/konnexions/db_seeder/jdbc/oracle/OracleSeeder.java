@@ -51,15 +51,9 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     }.getClass().getEnclosingMethod().getName();
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
 
-    final String jdbcConnectionHost      = config.getJdbcConnectionHost();
-    final String oracleConnectionService = config.getOracleConnectionService();
-    final int    jdbcConnectionPort      = config.getJdbcConnectionPort();
-    final String oraclePassword          = config.getOraclePassword();
-    final String oracleUser              = config.getOracleUser();
-
     try {
-      connection = DriverManager
-          .getConnection("jdbc:oracle:thin:@//" + jdbcConnectionHost + ":" + jdbcConnectionPort + "/" + oracleConnectionService, oracleUser, oraclePassword);
+      connection = DriverManager.getConnection(config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort()
+          + "/" + config.getOracleConnectionService(), config.getOracleUser(), config.getOraclePassword());
 
       connection.setAutoCommit(false);
     } catch (SQLException ec) {
@@ -90,8 +84,8 @@ CREATE TABLE city
     created             TIMESTAMP      NOT NULL,
     modified            TIMESTAMP,
     name                VARCHAR2 (100) NOT NULL,
-    CONSTRAINT pk_city PRIMARY KEY (pk_city_id),
-    CONSTRAINT fk_city_country_state FOREIGN KEY (fk_country_state_id) REFERENCES country_state (pk_country_state_id)
+    CONSTRAINT pk_city                 PRIMARY KEY (pk_city_id),
+    CONSTRAINT fk_city_country_state   FOREIGN KEY (fk_country_state_id) REFERENCES country_state (pk_country_state_id)
 )
 TABLESPACE users""";
     case TABLE_NAME_COMPANY:
@@ -114,9 +108,9 @@ CREATE TABLE company
     postal_code         VARCHAR2 (20),
     url                 VARCHAR2 (250),
     vat_id_number       VARCHAR2 (50),
-    CONSTRAINT pk_company            PRIMARY KEY (pk_company_id),
-    CONSTRAINT fk_company_city       FOREIGN KEY (fk_city_id)          REFERENCES city (pk_city_id),
-    CONSTRAINT uq_company_name       UNIQUE (name)
+    CONSTRAINT pk_company              PRIMARY KEY (pk_company_id),
+    CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES city (pk_city_id),
+    CONSTRAINT uq_company_name         UNIQUE (name)
 )
 TABLESPACE users""";
     case TABLE_NAME_COUNTRY:
@@ -129,8 +123,8 @@ CREATE TABLE country
     iso3166       VARCHAR2 (2),
     modified      TIMESTAMP,
     name          VARCHAR2 (100) NOT NULL,
-    CONSTRAINT pk_country      PRIMARY KEY (pk_country_id),
-    CONSTRAINT uq_country_name UNIQUE (name)
+    CONSTRAINT pk_country        PRIMARY KEY (pk_country_id),
+    CONSTRAINT uq_country_name   UNIQUE (name)
 )
 TABLESPACE users""";
     case TABLE_NAME_COUNTRY_STATE:
@@ -146,7 +140,7 @@ CREATE TABLE country_state
     name                VARCHAR2 (100) NOT NULL,
     symbol              VARCHAR2 (10),
     CONSTRAINT pk_country_state          PRIMARY KEY (pk_country_state_id),
-    CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id) REFERENCES country (pk_country_id),
+    CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES country  (pk_country_id),
     CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES timezone (pk_timezone_id),
     CONSTRAINT uq_country_state          UNIQUE (fk_country_id, name)
 )
@@ -161,8 +155,8 @@ CREATE TABLE timezone
     modified       TIMESTAMP,
     name           VARCHAR2 (100)  NOT NULL,
     v_time_zone    VARCHAR2 (4000),
-    CONSTRAINT pk_timezone PRIMARY KEY (pk_timezone_id),
-    CONSTRAINT uq_timezone UNIQUE (name)
+    CONSTRAINT pk_timezone         PRIMARY KEY (pk_timezone_id),
+    CONSTRAINT uq_timezone         UNIQUE (name)
 )
 TABLESPACE users""";
     default:
@@ -175,24 +169,19 @@ TABLESPACE users""";
    */
   @Override
   protected void dropCreateSchemaUser() {
-    int               count                   = 0;
+    int               count             = 0;
 
-    PreparedStatement preparedStatement       = null;
+    PreparedStatement preparedStatement = null;
 
     // -----------------------------------------------------------------------
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      jdbcConnectionHost      = config.getJdbcConnectionHost();
-    final int         jdbcConnectionPort      = config.getJdbcConnectionPort();
-    final String      oracleConnectionService = config.getOracleConnectionService();
-    final String      oraclePassword          = config.getOraclePasswordSys();
-    final String      oracleUser              = config.getOracleUserSys();
+    final String      jdbcUser          = config.getOracleUser();
 
     try {
-      connection = DriverManager.getConnection("jdbc:oracle:thin:@//" + jdbcConnectionHost + ":" + jdbcConnectionPort + "/" + oracleConnectionService,
-                                               oracleUser + " AS SYSDBA",
-                                               oraclePassword);
+      connection = DriverManager.getConnection(config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort()
+          + "/" + config.getOracleConnectionService(), config.getOracleUserSys() + " AS SYSDBA", config.getOraclePasswordSys());
 
       connection.setAutoCommit(false);
     } catch (SQLException ec) {
@@ -205,8 +194,8 @@ TABLESPACE users""";
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = ?");
-      preparedStatement.setString(1, config.getOracleUser());
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = UPPER(?)");
+      preparedStatement.setString(1, jdbcUser);
       preparedStatement.executeUpdate();
 
       ResultSet resultSet = preparedStatement.getResultSet();
@@ -218,8 +207,13 @@ TABLESPACE users""";
       resultSet.close();
 
       if (count > 0) {
-        preparedStatement = connection.prepareStatement("DROP USER " + config.getOracleUser() + " CASCADE");
+        preparedStatement = connection.prepareStatement("DROP USER " + jdbcUser + " CASCADE");
         preparedStatement.executeUpdate();
+        String methodName = null;
+
+        methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - database user " + jdbcUser + " successfully deleted");
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -231,22 +225,22 @@ TABLESPACE users""";
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection.prepareStatement("CREATE USER " + config.getOracleUser() + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
+      preparedStatement = connection.prepareStatement("CREATE USER " + jdbcUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("ALTER USER " + config.getOracleUser() + " QUOTA UNLIMITED ON users");
+      preparedStatement = connection.prepareStatement("ALTER USER " + jdbcUser + " QUOTA UNLIMITED ON users");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SEQUENCE TO " + config.getOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT CREATE SEQUENCE TO " + jdbcUser);
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SESSION TO " + config.getOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT CREATE SESSION TO " + jdbcUser);
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE TABLE TO " + config.getOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT CREATE TABLE TO " + jdbcUser);
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT UNLIMITED TABLESPACE TO " + config.getOracleUser());
+      preparedStatement = connection.prepareStatement("GRANT UNLIMITED TABLESPACE TO " + jdbcUser);
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
@@ -284,7 +278,7 @@ TABLESPACE users""";
       prepStmntInsertColFKOpt(1, pkListCountryState, preparedStatement, rowCount);
       prepStmntInsertColBlobOpt(2, preparedStatement, rowCount);
       preparedStatement.setTimestamp(3, getRandomTimestamp());
-      preparedStatement.setTimestamp(4, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(4, preparedStatement, rowCount);
       preparedStatement.setString(5, "NAME_" + identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -416,7 +410,7 @@ TABLESPACE users""";
     try {
       preparedStatement.setString(1, "ABBREVIATION_" + identifier04);
       preparedStatement.setTimestamp(2, getRandomTimestamp());
-      preparedStatement.setTimestamp(3, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(3, preparedStatement, rowCount);
       preparedStatement.setString(4, "NAME_" + identifier04);
       prepStmntInsertColStringOpt(5, "V_TIME_ZONE_", preparedStatement, rowCount, identifier04);
     } catch (SQLException e) {
