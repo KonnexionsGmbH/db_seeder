@@ -69,7 +69,7 @@ echo "MAX_ROW_COUNTRY          : $DB_SEEDER_MAX_ROW_COUNTRY"
 echo "MAX_ROW_COUNTRY_STATE    : $DB_SEEDER_MAX_ROW_COUNTRY_STATE"
 echo "MAX_ROW_TIMEZONE         : $DB_SEEDER_MAX_ROW_TIMEZONE"
 echo "--------------------------------------------------------------------------------"
-if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
+if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
     echo "CONNECTION_DATABASE      : $DB_SEEDER_MYSQL_CONNECTION_DATABASE"
     echo "CONNECTION_PORT          : $DB_SEEDER_MYSQL_CONNECTION_PORT"
     echo "CONNECTION_PREFIX        : $DB_SEEDER_MYSQL_CONNECTION_PREFIX"
