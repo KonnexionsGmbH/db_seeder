@@ -73,39 +73,64 @@ db_seeder.oracle.user.sys=sys
 
 ### 4.2 Control Parameters - Detailled
 
-| Property incl. Default Value | Environment Variable | Used By | Description |
+| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| db.seeder.jdbc.connection.host=localhost | DB_SEEDER_JDBC_CONNECTION_HOST | Relational DB | name or ip address of the database server |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | Relational DB | name or ip address of the database server |
 |     |     |     |     |
-| db.seeder.max.row.t...t=9...9 | DB_SEEDER_MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
+| max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
-| db_seeder.mysql.connection.database=kxn_db | DB_SEEDER_MYSQL_CONNECTION_DATABASE | MySQL | schema name |
-| db_seeder.mysql.connection.port=3306 | DB_SEEDER_MYSQL_CONNECTION_PORT | MySQL | port number of the database server |
-| db_seeder.mysql.connection.prefix=jdbc:mysql:// | DB_SEEDER_MYSQL_CONNECTION_PREFIX | MySQL | prefix of the database connection string |
-| db_seeder.mysql.connection.suffix=?serverTimezone=UTC | DB_SEEDER_MYSQL_CONNECTION_SUFFIX | MySQL | suffix of the database connection string |
-| db_seeder.mysql.password.sys=mysql | DB_SEEDER_MYSQL_PASSWORD | MySQL | password of the normal user |
-| db_seeder.mysql.password=mysql | DB_SEEDER_MYSQL_PASSWORD_SYS | MySQL | password of the privileged user |
-| db_seeder.mysql.user=kxn_user | DB_SEEDER_MYSQL_USER | MySQL | name of the normal user |
-| db_seeder.mysql.user.sys=root | DB_SEEDER_MYSQL_USER_SYS | MySQL | name of the privileged user |
+| mysql.connection.database=kxn_db | MYSQL_CONNECTION_DATABASE | MySQL | schema name |
+| mysql.connection.port=3306 | MYSQL_CONNECTION_PORT | MySQL | port number of the database server |
+| mysql.connection.prefix=jdbc:mysql:// | MYSQL_CONNECTION_PREFIX | MySQL | prefix of the database connection string |
+| mysql.connection.suffix=?serverTimezone=UTC | MYSQL_CONNECTION_SUFFIX | MySQL | suffix of the database connection string |
+| mysql.password.sys=mysql | MYSQL_PASSWORD | MySQL | password of the normal user |
+| mysql.password=mysql | MYSQL_PASSWORD_SYS | MySQL | password of the privileged user |
+| mysql.user=kxn_user | MYSQL_USER | MySQL | name of the normal user |
+| mysql.user.sys=root | MYSQL_USER_SYS | MySQL | name of the privileged user |
 |     |     |     |     |
-| db_seeder.oracle.connection.port=3306 | DB_SEEDER_ORACLE_CONNECTION_PORT | Oracle | port number of the database server |
-| db_seeder.oracle.connection.prefix=jdbc:oracle:// | DB_SEEDER_ORACLE_CONNECTION_PREFIX | Oracle | prefix of the database connection string |
-| db_seeder.oracle.connection.database=kxn_db | DB_SEEDER_ORACLE_CONNECTION_SERVICE | Oracle | database service name |
-| db_seeder.oracle.connection.suffix=?serverTimezone=UTC | DB_SEEDER_ORACLE_CONNECTION_SUFFIX | Oracle | suffix of the database connection string |
-| db_seeder.oracle.password.sys=oracle | DB_SEEDER_ORACLE_PASSWORD | Oracle | password of the normal user |
-| db_seeder.oracle.password=oracle | DB_SEEDER_ORACLE_PASSWORD_SYS | Oracle | password of the privileged user |
-| db_seeder.oracle.user=kxn_user | DB_SEEDER_ORACLE_USER | Oracle | name of the normal user |
-| db_seeder.oracle.user.sys=root | DB_SEEDER_ORACLE_USER_SYS | Oracle | name of the privileged user |
+| oracle.connection.port=1521 | ORACLE_CONNECTION_PORT | Oracle | port number of the database server |
+| oracle.connection.prefix=jdbc:oracle:thin:@// | ORACLE_CONNECTION_PREFIX | Oracle | prefix of the database connection string |
+| oracle.connection.service=orclpdb1 | ORACLE_CONNECTION_SERVICE | Oracle | database service name |
+| oracle.password.sys=oracle | ORACLE_PASSWORD | Oracle | password of the normal user |
+| oracle.password=oracle | ORACLE_PASSWORD_SYS | Oracle | password of the privileged user |
+| oracle.user=kxn_user | ORACLE_USER | Oracle | name of the normal user |
+| oracle.user.sys=root | ORACLE_USER_SYS | Oracle | name of the privileged user |
 |     |     |     |     |
 
 ## 4. Database Brand Specifics
 
 ### 4.1 MySQL Database
 
-TBD
+- the MySQL Database differentiates between database (schema) and user
+- Data types:
+
+| Data Type | MySQL Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | LONGBLOB |
+| characterr large object | LONGTEXT |
+| string | VARCHAR |
+| timestamp | DATETIME |
 
 ### 4.2 Oracle Database
 
-TBD
+- the Oracle database only knows the database user that is identical with the schema
+- Data types:
 
-## 5. Modification or Enhancement of the Software 
+| Data Type | MySQL Type |
+| --- | --- |
+| big integer | NUMBER |
+| binary large object | BLOB |
+| characterr large object | CLOB |
+| string | VARCHAR2 |
+| timestamp | TIMESTAMP |
+
+## 5. Contributing 
+
+In case of software changes we strongly recommend you to respect the license terms.
+
+1 Fork it
+1 Create your feature branch (git checkout -b my-new-feature)
+1 Commit your changes (git commit -am 'Add some feature')
+1 Push to the branch (git push origin my-new-feature)
+1 Create a new Pull Request
