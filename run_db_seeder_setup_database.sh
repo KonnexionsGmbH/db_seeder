@@ -69,7 +69,7 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
     echo "MySQL Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MySQL $DB_SEEDER_VERSION_MYSQL)"
-    docker create -e MYSQL_ROOT_PASSWORD=mysql --name db_seeder_db mysql:$DB_SEEDER_VERSION_MYSQL
+    docker create -e MYSQL_ROOT_PASSWORD=mysql --name db_seeder_db -p 3306:3306 mysql:$DB_SEEDER_VERSION_MYSQL
 
     echo "Docker start db_seeder_db (MySQL $DB_SEEDER_VERSION_MYSQL) ..."
     if ! docker start db_seeder_db; then

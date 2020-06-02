@@ -9,9 +9,7 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
-rem set DB_SEEDER_DATABASE_BRAND_DEFAULT=mysql
 set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
-set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 set DB_SEEDER_VERSION_MYSQL=8.0.20
 set DB_SEEDER_VERSION_ORACLE=db_19_3_ee
@@ -71,7 +69,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%" == "mysql"] (
     echo MySQL Database
     echo --------------------------------------------------------------------------------
     echo Docker create db_seeder_db (MySQL %DB_SEEDER_VERSION_MYSQL%)
-    docker create -e MYSQL_ROOT_PASSWORD=mysql --name db_seeder_db mysql:%DB_SEEDER_VERSION_MYSQL%
+    docker create -e MYSQL_ROOT_PASSWORD=mysql --name db_seeder_db -p 3306:3306 mysql:%DB_SEEDER_VERSION_MYSQL%
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
