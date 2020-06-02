@@ -1,3 +1,12 @@
+# Release Notes
+
+![Travis (.com)](https://img.shields.io/travis/KonnexionsGmbH/db_seeder.svg?branch=master)
+![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
+![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.0.0.svg)
+
+----------
+
 ## Version 1.0.0
 
 Release Date: 01.06.2020

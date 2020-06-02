@@ -40,6 +40,7 @@ test {
 }
 
 task copyJarToLib(type: Copy, dependsOn: 'jar') {
+    group = "Konnexions"
     description = 'Create the jar file and copy it to the lib directory'
 
     from "$buildDir/libs"
