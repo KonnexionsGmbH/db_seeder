@@ -1,0 +1,27 @@
+---
+dist: bionic
+
+sudo: true
+
+jdk:
+  - oraclejdk14
+
+env:
+  matrix:
+    - DB_SEEDER_DATABASE_BRAND=oracle
+
+script:
+  # Pull and Compile the Repository ----------------------------------------------
+  - travis_fold start "Pull_And_Compile_Repository"
+  - git pull
+  - sudo chmod +x *.sh
+  - gradle copyJarToLib
+  - travis_fold end   "Pull_And_Compile_Repository"
+  # Setup the Database -----------------------------------------------------------
+  - travis_fold start "Setup_Database"
+  - ./run_db_seeder_setup_database.sh $DB_SEEDER_DATABASE_BRAND
+  - travis_fold end   "Setup_Database"
+  # Generate Dummy Data ----------------------------------------------------------
+  - travis_fold start "Generate_Dummy_Data"
+  - ./run_db_seeder.sh $DB_SEEDER_DATABASE_BRAND
+  - travis_fold end   "Generate_Dummy_Data"

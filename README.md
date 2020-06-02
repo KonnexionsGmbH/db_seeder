@@ -1,5 +1,12 @@
 # db_seeder - Creation of Dummy Data in a Variety of Database Brands.
 
+![Travis (.org)](https://img.shields.io/travis/KonnexionsGmbH/db_seeder.svg?branch=master)
+![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
+![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.0.0.svg)
+
+----
+
 ## 1. Introduction
 
 `db_seeder` allows the generation of dummy data in different databases. 
@@ -101,8 +108,10 @@ db_seeder.oracle.user.sys=sys
 
 ### 4.1 MySQL Database
 
+- database driver version 8.0.20 (https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+- database image version 8.0.20 (https://hub.docker.com/_/mysql?tab=tags)
 - the MySQL Database differentiates between database (schema) and user
-- the used data types:
+- data types used:
 
 | Data Type | MySQL Type |
 | --- | --- |
@@ -114,8 +123,10 @@ db_seeder.oracle.user.sys=sys
 
 ### 4.2 Oracle Database
 
+- database driver version 19.3.0.0 / 19.6.0.0.0 (https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8 / https://www.oracle.com/database/technologies/instant-client/downloads.html)
+- database image version 19c
 - the Oracle database only knows the database user that is identical with the schema
-- the used data types:
+- data types used:
 
 | Data Type | Oracle Type |
 | --- | --- |
