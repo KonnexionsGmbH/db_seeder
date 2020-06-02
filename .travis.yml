@@ -13,7 +13,7 @@ env:
 script:
   # Prepare Installation Process -------------------------------------------------
   - travis_fold start "Prepare_Installation_Process"
-  - export VERSION_GRADLE=6.2
+  - export VERSION_GRADLE=6.4.1
   - sudo apt update -q
   - travis_fold end   "Prepare_Installation_Process"
 
@@ -26,6 +26,8 @@ script:
   - travis_fold end   "Install_Gradle"
 
   # Pull and Compile the Repository ----------------------------------------------
+  - gradle --version
+  - java -version
   - travis_fold start "Pull_And_Compile_Repository"
   - git pull
   - sudo chmod +x *.sh
