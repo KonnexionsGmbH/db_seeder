@@ -11,16 +11,32 @@ env:
     - DB_SEEDER_DATABASE_BRAND=oracle
 
 script:
+  # Prepare Installation Process -------------------------------------------------
+  - travis_fold start "Prepare_Installation_Process"
+  - export VERSION_GRADLE=6.2
+  - sudo apt update -q
+  - travis_fold end   "Prepare_Installation_Process"
+
+  # Install Gradle ---------------------------------------------------------------
+  - travis_fold start "Install_Gradle"
+  - wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip -P /tmp
+  - sudo unzip -d /opt/gradle /tmp/gradle-*.zip
+  - export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}
+  - export PATH=${GRADLE_HOME}/bin:${PATH}
+  - travis_fold end   "Install_Gradle"
+
   # Pull and Compile the Repository ----------------------------------------------
   - travis_fold start "Pull_And_Compile_Repository"
   - git pull
   - sudo chmod +x *.sh
   - gradle copyJarToLib
   - travis_fold end   "Pull_And_Compile_Repository"
+
   # Setup the Database -----------------------------------------------------------
   - travis_fold start "Setup_Database"
-  - ./run_db_seeder_setup_database.sh $DB_SEEDER_DATABASE_BRAND
+  - ./run_db_seeder_setup_database.sh $DB_SEEDER_DATABASE_BRAND no
   - travis_fold end   "Setup_Database"
+
   # Generate Dummy Data ----------------------------------------------------------
   - travis_fold start "Generate_Dummy_Data"
   - ./run_db_seeder.sh $DB_SEEDER_DATABASE_BRAND
