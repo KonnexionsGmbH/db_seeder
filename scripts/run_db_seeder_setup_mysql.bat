@@ -28,15 +28,9 @@ echo MySQL Database
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (MySQL %DB_SEEDER_VERSION_MYSQL%)
 docker create -e MYSQL_ROOT_PASSWORD=mysql --name db_seeder_db -p 3306:3306 mysql:%DB_SEEDER_VERSION_MYSQL%
-if %ERRORLEVEL% NEQ 0 (
-    exit %ERRORLEVEL%
-)
 
 echo Docker start db_seeder_db (MySQL %DB_SEEDER_VERSION_MYSQL%) ...
 docker start db_seeder_db
-if %ERRORLEVEL% NEQ 0 (
-    exit %ERRORLEVEL%
-)
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER MySQL Database was ready in %CONSUMED%

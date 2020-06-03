@@ -38,11 +38,11 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
+  private static Logger logger        = Logger.getLogger(AbstractJdbcSeeder.class);
+
   private final byte[]  BLOB_DATA     = readBlobFile();
 
   private final String  CLOB_DATA     = readClobFile();
-
-  private static Logger logger        = Logger.getLogger(AbstractJdbcSeeder.class);
 
   private final int     MAX_ROW_SIZE  = Integer.MAX_VALUE;
 
@@ -128,6 +128,52 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         System.exit(1);
       }
     }
+  }
+
+  /**
+   * Checks if the required number of rows is available in the database.
+   *
+   * @param tableName the table name
+   * @param expectedRows the expected number of rows
+   */
+  private final void checkData(String tableName, int expectedRows) {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    int       count     = 0;
+
+    Statement statement = null;
+
+    try {
+      statement = connection.createStatement();
+      ResultSet resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (expectedRows == count) {
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - database table "
+          + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + " - " + String.format(DatabaseSeeder.FORMAT_ROW_NO, count) + " rows created");
+    } else {
+      logger.fatal(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - database table "
+          + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + " is incomplete - expected" + String.format(DatabaseSeeder.FORMAT_ROW_NO, expectedRows)
+          + " rows - found " + String.format(DatabaseSeeder.FORMAT_ROW_NO, count) + " rows");
+      System.exit(1);
+    }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 
   /**
@@ -279,9 +325,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     addOptionalFk(tableName, pkList);
 
-    logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End   - database table "
-        + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + " - " + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + " rows created");
-
     try {
       preparedStatement.close();
     } catch (SQLException e) {
@@ -297,6 +340,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     savePkList(tableName, pkList);
+
+    checkData(tableName, rowCount);
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 
   /**
