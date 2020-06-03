@@ -8,7 +8,7 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_DATABASE_BRAND_DEFAULT=mysql
+set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 

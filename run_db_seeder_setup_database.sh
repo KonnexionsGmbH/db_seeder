@@ -9,7 +9,7 @@ set -e
 # ------------------------------------------------------------------------------
 
 export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
-export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
+export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 export DB_SEEDER_VERSION_MYSQL=8.0.20
 export DB_SEEDER_VERSION_ORACLE=db_19_3_ee

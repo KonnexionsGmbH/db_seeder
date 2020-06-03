@@ -145,3 +145,5 @@ In case of software changes we strongly recommend you to respect the license ter
 1. Commit your changes (git commit -am 'Add some feature')
 1. Push to the branch (git push origin my-new-feature)
 1. Create a new Pull Request
+1. Points to be considered when adding a new database:
+- TBD
