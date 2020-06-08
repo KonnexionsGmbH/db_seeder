@@ -85,6 +85,8 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
         exit 255
     fi
 
+    sleep 20
+
     end=$(date +%s)
     echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
 fi
@@ -104,6 +106,8 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
     if ! docker start db_seeder_db; then
         exit 255
     fi
+
+    sleep 20
 
     end=$(date +%s)
     echo "DOCKER MySQL Database was ready in $((end - start)) seconds"
@@ -132,10 +136,6 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
 
     end=$(date +%s)
     echo "DOCKER Oracle Database was ready in $((end - start)) seconds"
-fi
-
-if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
-    sleep 20
 fi
 
 docker ps

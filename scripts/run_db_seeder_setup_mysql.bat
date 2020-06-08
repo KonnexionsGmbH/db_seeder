@@ -30,6 +30,8 @@ docker create -e MYSQL_ROOT_PASSWORD=mysql --name db_seeder_db -p 3306:3306/tcp 
 echo Docker start db_seeder_db (MySQL %DB_SEEDER_VERSION_MYSQL%) ...
 docker start db_seeder_db
 
+ping -n 20 127.0.0.1>nul
+
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER MySQL Database was ready in %CONSUMED%
 

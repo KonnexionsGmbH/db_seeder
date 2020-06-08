@@ -62,10 +62,6 @@ lib\Gammadyne\timer.exe /q
 
 call scripts\run_db_seeder_setup_%DB_SEEDER_DATABASE_BRAND%.bat
 
-if ["%1"] EQU ["mysql"] (
-    PING -n 20 127.0.0.1>nul
-)
-
 docker ps
 
 echo --------------------------------------------------------------------------------
