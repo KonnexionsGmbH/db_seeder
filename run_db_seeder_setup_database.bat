@@ -11,11 +11,17 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
+set DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 set DB_SEEDER_VERSION_MYSQL=8.0.20
 set DB_SEEDER_VERSION_ORACLE=db_19_3_ee
 
 if ["%1"] EQU [""] (
-    set /P DB_SEEDER_DATABASE_BRAND="Enter the desired database brand (mysql/oracle) [default: %DB_SEEDER_DATABASE_BRAND_DEFAULT%] "
+    echo ====================================
+    echo mssqlserver - Microsoft SQL Server
+    echo mysql       - MySQL
+    echo oracle      - Oracle Database
+    echo ------------------------------------
+    set /P DB_SEEDER_DATABASE_BRAND="Enter the desired database brand [default: %DB_SEEDER_DATABASE_BRAND_DEFAULT%] "
 
     if ["!DB_SEEDER_DATABASE_BRAND!"] EQU [""] (
         set DB_SEEDER_DATABASE_BRAND=%DB_SEEDER_DATABASE_BRAND_DEFAULT%
@@ -42,13 +48,6 @@ echo ---------------------------------------------------------------------------
 echo DATABASE_BRAND            : %DB_SEEDER_DATABASE_BRAND%
 echo DELETE_EXISTING_CONTAINER : %DB_SEEDER_DELETE_EXISTING_CONTAINER%
 echo --------------------------------------------------------------------------------
-if ["%DB_SEEDER_DATABASE_BRAND%" == "mysql"] (
-    echo VERSION_MYSQL             : %DB_SEEDER_VERSION_MYSQL%
-)
-if ["%DB_SEEDER_DATABASE_BRAND%" == "oracle"] (
-    echo VERSION_ORACLE            : %DB_SEEDER_VERSION_ORACLE%
-)
-echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
@@ -62,6 +61,12 @@ lib\Gammadyne\timer.exe /reset
 lib\Gammadyne\timer.exe /q
 
 call scripts\run_db_seeder_setup_%DB_SEEDER_DATABASE_BRAND%.bat
+
+if ["%1"] EQU ["mysql"] (
+    PING -n 10 127.0.0.1>nul
+)
+
+docker ps
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

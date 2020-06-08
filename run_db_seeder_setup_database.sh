@@ -11,11 +11,17 @@ set -e
 export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
+export DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 export DB_SEEDER_VERSION_MYSQL=8.0.20
 export DB_SEEDER_VERSION_ORACLE=db_19_3_ee
 
 if [ -z "$1" ]; then
-    read -p "Enter the desired database brand (mysql/oracle) [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
+    echo "===================================="
+    echo "mssqlserver - Microsoft SQL Server"
+    echo "mysql       - MySQL"
+    echo "oracle      - Oracle Database"
+    echo "------------------------------------"
+    read -p "Enter the desired database brand [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
     export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND
 
     if [ -z "$DB_SEEDER_DATABASE_BRAND" ]; then
@@ -44,6 +50,9 @@ echo "--------------------------------------------------------------------------
 echo "DATABASE_BRAND            : $DB_SEEDER_DATABASE_BRAND"
 echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
 echo --------------------------------------------------------------------------------
+if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
+    echo "VERSION_MSSQLSERVER       : $DB_SEEDER_VERSION_MSSQLSERVER"
+fi
 if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
     echo "VERSION_MYSQL             : $DB_SEEDER_VERSION_MYSQL"
 fi
@@ -58,6 +67,26 @@ if [ "$DB_SEEDER_DELETE_EXISTING_CONTAINER" != "no" ]; then
     echo "Docker stop/rm db_seeder_db"
     docker stop db_seeder_db
     docker rm -f db_seeder_db
+fi
+
+# ------------------------------------------------------------------------------
+# Microsoft SQL Server Database  https://hub.docker.com/_/microsoft-mssql-server
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
+    start=$(date +%s)
+    echo "Microsoft SQL Server."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION_MSSQLSERVER)"
+    docker create -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=mssqlserver_2019" --name db_seeder_db -p 1433:1433 mcr.microsoft.com/mssql/server:$DB_SEEDER_VERSION_MSSQLSERVER
+
+    echo "Docker start db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION_MSSQLSERVER) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    end=$(date +%s)
+    echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
 fi
 
 # ------------------------------------------------------------------------------
@@ -104,6 +133,12 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
     end=$(date +%s)
     echo "DOCKER Oracle Database was ready in $((end - start)) seconds"
 fi
+
+if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
+    sleep 10
+fi
+
+docker ps
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

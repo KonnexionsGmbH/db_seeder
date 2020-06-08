@@ -3,12 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc;
 
-import org.apache.log4j.Logger;
-
-import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
-import ch.konnexions.db_seeder.Config;
-import ch.konnexions.db_seeder.DatabaseSeeder;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +11,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,11 +22,16 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.log4j.Logger;
+
+import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
+import ch.konnexions.db_seeder.Config;
+import ch.konnexions.db_seeder.DatabaseSeeder;
+
 /**
  * <h1> Test Data Generator for a Database. </h1>
  * <br>
  * @author  walter@konnexions.ch
- * @version 1.0.0
  * @since   2020-05-01
  */
 public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
@@ -565,46 +563,114 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Prepare the variable part of the INSERT statement - CITY.
    *
    * @param preparedStatement preparedStatement object
-   * @param rowCount          number of rows to be created
-   * @param identifier04      number of the current row (4 figures)
+   * @param rowCount number of rows to be created
+   * @param identifier04 number of the current row (4 figures)
+   * @throws IOException 
    */
-  protected abstract void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier04);
+  protected final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+    try {
+      prepStmntInsertColFKOpt(1, pkListCountryState, preparedStatement, rowCount);
+      prepStmntInsertColBlobOpt(2, preparedStatement, rowCount);
+      preparedStatement.setTimestamp(3, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(4, preparedStatement, rowCount);
+      preparedStatement.setString(5, "NAME_" + identifier04);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Prepare the variable part of the INSERT statement - COMPANY.
    *
    * @param preparedStatement preparedStatement object
-   * @param rowCount          number of rows to be created
-   * @param identifier04      number of the current row (4 figures)
+   * @param rowCount number of rows to be created
+   * @param identifier04 number of the current row (4 figures)
    */
-  protected abstract void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier04);
+  protected final void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+    try {
+      preparedStatement.setObject(1, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
+      prepStmntInsertColFlagNY(2, preparedStatement, rowCount);
+      prepStmntInsertColStringOpt(3, "ADDRESS1_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(4, "ADDRESS2_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(5, "ADDRESS3_", preparedStatement, rowCount, identifier04);
+      preparedStatement.setTimestamp(6, getRandomTimestamp());
+      prepStmntInsertColClobOpt(7, preparedStatement, rowCount);
+      prepStmntInsertColStringOpt(8, "EMAIL_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(9, "FAX_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColDatetimeOpt(10, preparedStatement, rowCount);
+      preparedStatement.setString(11, "NAME_" + identifier04);
+      prepStmntInsertColStringOpt(12, "PHONE_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(13, "POSTAL_CODE_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(14, "URL_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(15, "VAT_ID_NUMBER__", preparedStatement, rowCount, identifier04);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Prepare the variable part of the INSERT statement - COUNTRY.
    *
    * @param preparedStatement preparedStatement object
-   * @param rowCount          number of rows to be created
-   * @param identifier04      number of the current row (4 figures)
+   * @param rowCount number of rows to be created
+   * @param identifier04 number of the current row (4 figures)
    */
-  protected abstract void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier04);
+  protected final void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+    try {
+      prepStmntInsertColBlobOpt(1, preparedStatement, rowCount);
+      preparedStatement.setTimestamp(2, getRandomTimestamp());
+      prepStmntInsertColStringOpt(3, "", preparedStatement, rowCount, identifier04.substring(2));
+      prepStmntInsertColDatetimeOpt(4, preparedStatement, rowCount);
+      preparedStatement.setString(5, "NAME_" + identifier04);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Prepare the variable part of the INSERT statement - COUNTRY_STATE.
    *
    * @param preparedStatement preparedStatement object
-   * @param rowCount          number of rows to be created
-   * @param identifier04      number of the current row (4 figures)
+   * @param rowCount number of rows to be created
+   * @param identifier04 number of the current row (4 figures)
    */
-  protected abstract void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier04);
+  protected final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+    try {
+      preparedStatement.setObject(1, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
+      preparedStatement.setObject(2, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
+      prepStmntInsertColBlobOpt(3, preparedStatement, rowCount);
+      preparedStatement.setTimestamp(4, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(5, preparedStatement, rowCount);
+      preparedStatement.setString(6, "NAME_" + identifier04);
+      prepStmntInsertColStringOpt(7, "SYMBOL_", preparedStatement, rowCount, identifier04.substring(1));
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Prepare the variable part of the INSERT statement - TIMEZONE.
    *
    * @param preparedStatement preparedStatement object
-   * @param rowCount          number of rows to be created
-   * @param identifier04      number of the current row (4 figures)
+   * @param rowCount number of rows to be created
+   * @param identifier04 number of the current row (4 figures)
    */
-  protected abstract void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount, final String identifier04);
+  protected final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+    try {
+      preparedStatement.setString(1, "ABBREVIATION_" + identifier04);
+      preparedStatement.setTimestamp(2, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(3, preparedStatement, rowCount);
+      preparedStatement.setString(4, "NAME_" + identifier04);
+      prepStmntInsertColStringOpt(5, "V_TIME_ZONE_", preparedStatement, rowCount, identifier04);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Sets the designated optional parameter to a BLOB value.

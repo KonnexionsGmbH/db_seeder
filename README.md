@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.0.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.1.0.svg)
 
 ----
 
@@ -11,8 +11,9 @@
 
 `db_seeder` allows the generation of dummy data in different databases. 
 Currently the following databases are supported:
-- MySQL database (relational Database / tested: version 8.0.20) 
-- Oracle database (relational Database / tested: version 19c)
+- Microsoft SQL Server (relational Database / tested: version 2019) 
+- MySQL Database (relational Database / tested: version 8.0.20) 
+- Oracle Database (relational Database / tested: version 19c)
 
 
 The name of the database schema or the database user can be freely chosen. 
@@ -60,14 +61,21 @@ db_seeder.max.row.country=200
 db_seeder.max.row.country_state=600
 db_seeder.max.row.timezone=11
 
-db_seeder.mysql.connection.database=kxn_db
+db_seeder.mssqlserver.connection.port=1433
+db_seeder.mssqlserver.connection.prefix=jdbc:sqlserver://
+db_seeder.mssqlserver.database=kxn_db
+db_seeder.mssqlserver.password.sys=mssqlserver_2019
+db_seeder.mssqlserver.password=mssqlserver_2019
+db_seeder.mssqlserver.schema=kxn_schema
+db_seeder.mssqlserver.user=kxn_user
+
 db_seeder.mysql.connection.port=3306
 db_seeder.mysql.connection.prefix=jdbc:mysql://
 db_seeder.mysql.connection.suffix=?serverTimezone=UTC
 db_seeder.mysql.password.sys=mysql
 db_seeder.mysql.password=mysql
+db_seeder.mysql.schema=kxn_schema
 db_seeder.mysql.user=kxn_user
-db_seeder.mysql.user.sys=root
 
 db_seeder.oracle.connection.port=1521
 db_seeder.oracle.connection.prefix=jdbc:oracle:thin:@//
@@ -75,7 +83,6 @@ db_seeder.oracle.connection.service=orclpdb1
 db_seeder.oracle.password.sys=oracle
 db_seeder.oracle.password=oracle
 db_seeder.oracle.user=kxn_user
-db_seeder.oracle.user.sys=sys
 ```
 
 ### 4.2 Control Parameters - Detailled
@@ -86,31 +93,57 @@ db_seeder.oracle.user.sys=sys
 |     |     |     |     |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
-| mysql.connection.database=kxn_db | MYSQL_CONNECTION_DATABASE | MySQL | schema name |
+| mssqlserver.connection.port=1433 | MSSQLSERVER_CONNECTION_PORT | Microsoft SQL Server | port number of the database server |
+| mssqlserver.connection.prefix=jdbc:sqlserver:// | MSSQLSERVER_CONNECTION_PREFIX | Microsoft SQL Server | prefix of the database connection string |
+| mssqlserver.connection.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
+| mssqlserver.password.sys=mssqlserver | MSSQLSERVER_PASSWORD_SYS | Microsoft SQL Server | password of the privileged user |
+| mssqlserver.password=mssqlserver | MSSQLSERVER_PASSWORD | Microsoft SQL Server | password of the normal user |
+| mssqlserver.schema=kxn_schema | MSSQLSERVER_SCHEMA | Microsoft SQL Server | schema name |
+| mssqlserver.user=kxn_user | MSSQLSERVER_USER | Microsoft SQL Server | name of the normal user |
+|     |     |     |     |
 | mysql.connection.port=3306 | MYSQL_CONNECTION_PORT | MySQL | port number of the database server |
 | mysql.connection.prefix=jdbc:mysql:// | MYSQL_CONNECTION_PREFIX | MySQL | prefix of the database connection string |
 | mysql.connection.suffix=?serverTimezone=UTC | MYSQL_CONNECTION_SUFFIX | MySQL | suffix of the database connection string |
-| mysql.password.sys=mysql | MYSQL_PASSWORD | MySQL | password of the normal user |
-| mysql.password=mysql | MYSQL_PASSWORD_SYS | MySQL | password of the privileged user |
+| mysql.password.sys=mysql | MYSQL_PASSWORD_SYS | MySQL | password of the privileged user |
+| mysql.password=mysql | MYSQL_PASSWORD | MySQL | password of the normal user |
+| mysql.schema=kxn_schema | MYSQL_SCHEMA | MySQL | schema name |
 | mysql.user=kxn_user | MYSQL_USER | MySQL | name of the normal user |
-| mysql.user.sys=root | MYSQL_USER_SYS | MySQL | name of the privileged user |
 |     |     |     |     |
 | oracle.connection.port=1521 | ORACLE_CONNECTION_PORT | Oracle | port number of the database server |
 | oracle.connection.prefix=jdbc:oracle:thin:@// | ORACLE_CONNECTION_PREFIX | Oracle | prefix of the database connection string |
 | oracle.connection.service=orclpdb1 | ORACLE_CONNECTION_SERVICE | Oracle | database service name |
-| oracle.password.sys=oracle | ORACLE_PASSWORD | Oracle | password of the normal user |
-| oracle.password=oracle | ORACLE_PASSWORD_SYS | Oracle | password of the privileged user |
+| oracle.password.sys=oracle | ORACLE_PASSWORD_SYS | Oracle | password of the privileged user |
+| oracle.password=oracle | ORACLE_PASSWORD | Oracle | password of the normal user |
 | oracle.user=kxn_user | ORACLE_USER | Oracle | name of the normal user |
-| oracle.user.sys=root | ORACLE_USER_SYS | Oracle | name of the privileged user |
 |     |     |     |     |
 
 ## 4. Database Brand Specifica
 
-### 4.1 MySQL Database
+### 4.1 Microsoft SQL Server
 
-- database driver version 8.0.20 (https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+- database driver version 8.31 
+  - Maven Repository: https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
+  - Software: https://github.com/microsoft/mssql-jdbc-driver-for-sql-server?view=sql-server-ver15
+- database image version 2019 (https://hub.docker.com/_/microsoft-mssql-server)
+- the Microsoft SQL Server differentiates between database (schema) and user
+- data types used:
+
+| Data Type | MySQL Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | VARBINARY (MAX) |
+| characterr large object | VARCHAR (MAX) |
+| string | VARCHAR |
+| timestamp | DATETIME2 |
+
+### 4.2 MySQL Database
+
+- database driver version 8.0.20 
+  - Maven repository: https://mvnrepository.com/artifact/mysql/mysql-connector-java
+  - Software: https://dev.mysql.com/downloads/connector/j/
 - database image version 8.0.20 (https://hub.docker.com/_/mysql)
 - the MySQL Database differentiates between database (schema) and user
+- the MySQL database only knows the schema which is identical with the database and the user
 - data types used:
 
 | Data Type | MySQL Type |
@@ -121,11 +154,13 @@ db_seeder.oracle.user.sys=sys
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-### 4.2 Oracle Database
+### 4.3 Oracle Database
 
-- database driver version 19.3.0.0 / 19.6.0.0.0 (https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8 / https://www.oracle.com/database/technologies/instant-client/downloads.html)
+- database driver version 
+  - Maven repository 19.3.0.0: https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8
+  - Software 19.6.0.0.0: https://www.oracle.com/database/technologies/instant-client/downloads.html
 - database image version 19c
-- the Oracle database only knows the database user that is identical with the schema
+- the Oracle database only knows the database and the user which is identical with the schema
 - data types used:
 
 | Data Type | Oracle Type |
@@ -146,4 +181,4 @@ In case of software changes we strongly recommend you to respect the license ter
 1. Push to the branch (git push origin my-new-feature)
 1. Create a new Pull Request
 1. Points to be considered when adding a new database:
-- TBD
+- TODO

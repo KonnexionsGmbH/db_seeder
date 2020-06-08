@@ -3,15 +3,16 @@
  */
 package ch.konnexions.db_seeder;
 
+import org.apache.log4j.Logger;
+
+import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
-import org.apache.log4j.Logger;
 
 /**
  * <h1> Test Data Generator for a Database. </h1>
  * <br>
  * @author  walter@konnexions.ch
- * @version 1.0.0
  * @since   2020-05-01
  */
 public class DatabaseSeeder {
@@ -47,6 +48,11 @@ public class DatabaseSeeder {
     if (null == args0) {
       logger.error("Command line argument missing");
       System.exit(1);
+    } else if (args0.equals("mssqlserver")) {
+      logger.info("Start Microsoft SQL Server");
+      MssqlserverSeeder mssqlserverSeeder = new MssqlserverSeeder();
+      mssqlserverSeeder.createData();
+      logger.info("End   Microsoft SQL Server");
     } else if (args0.equals("mysql")) {
       logger.info("Start MySQL Database");
       MysqlSeeder mysqlSeeder = new MysqlSeeder();
