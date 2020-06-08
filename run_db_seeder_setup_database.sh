@@ -135,7 +135,7 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
 fi
 
 if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
-    sleep 10
+    sleep 20
 fi
 
 docker ps
