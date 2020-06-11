@@ -139,6 +139,8 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
         exit 255
     fi
 
+    sleep 20
+
     end=$(date +%s)
     echo "DOCKER Oracle Database was ready in $((end - start)) seconds"
 fi
