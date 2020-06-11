@@ -14,12 +14,14 @@ export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 export DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 export DB_SEEDER_VERSION_MYSQL=8.0.20
 export DB_SEEDER_VERSION_ORACLE=db_19_3_ee
+export DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if [ -z "$1" ]; then
     echo "===================================="
     echo "mssqlserver - Microsoft SQL Server"
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
+    echo "postgresql  - PostgreSQL Database"
     echo "------------------------------------"
     read -p "Enter the desired database brand [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
     export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND
@@ -58,6 +60,9 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
 fi
 if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
     echo "VERSION_ORACLE            : $DB_SEEDER_VERSION_ORACLE"
+fi
+if [ "$DB_SEEDER_DATABASE_BRAND" = "postgresql" ]; then
+    echo "VERSION_POSTGRESQL        : $DB_SEEDER_VERSION_POSTGRESQL"
 fi
 echo --------------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
@@ -136,6 +141,26 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
 
     end=$(date +%s)
     echo "DOCKER Oracle Database was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
+# PostgreSQL Database                          https://hub.docker.com/_/postgres
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DATABASE_BRAND" = "postgresql" ]; then
+    start=$(date +%s)
+    echo "PostgreSQL Database."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (PostgreSQL $DB_SEEDER_VERSION_POSTGRESQL)"
+    docker create -e POSTGRES_DB=kxn_db_sys -e POSTGRES_PASSWORD=postgresql -e POSTGRES_USER=kxn_user_sys --name db_seeder_db -p 5432:5432 postgres:$DB_SEEDER_VERSION_POSTGRESQL
+
+    echo "Docker start db_seeder_db (PostgreSQL $DB_SEEDER_VERSION_POSTGRESQL) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    end=$(date +%s)
+    echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"
 fi
 
 docker ps

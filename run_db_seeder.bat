@@ -15,6 +15,7 @@ if ["%1"] EQU [""] (
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
     echo oracle      - Oracle Database
+    echo postgresql  - PostgreSQL Database
     echo ------------------------------------
     set /P DB_SEEDER_DATABASE_BRAND="Enter the desired database brand [default: %DB_SEEDER_DATABASE_BRAND_DEFAULT%] "
 
@@ -63,6 +64,15 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["oracle"] (
     set DB_SEEDER_ORACLE_PASSWORD_SYS=
     set DB_SEEDER_ORACLE_USER=
 )
+if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
+    set DB_SEEDER_POSTGRESQL_CONNECTION_PORT=
+    set DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX=
+    set DB_SEEDER_POSTGRESQL_DATABASE=
+    set DB_SEEDER_POSTGRESQL_PASSWORD=
+    set DB_SEEDER_POSTGRESQL_PASSWORD_SYS=
+    set DB_SEEDER_POSTGRESQL_SCHEMA=
+    set DB_SEEDER_POSTGRESQL_USER=
+)
 
 echo ================================================================================
 echo Start %0
@@ -107,6 +117,15 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["oracle"] (
     echo ORACLE_PASSWORD_SYS             : %DB_SEEDER_ORACLE_PASSWORD_SYS%
     echo ORACLE_USER                     : %DB_SEEDER_ORACLE_USER%
     echo ORACLE_PASSWORD                 : %DB_SEEDER_ORACLE_PASSWORD%
+)
+if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
+    echo POSTGRESQL_CONNECTION_PORT      : %DB_SEEDER_POSTGRESQL_CONNECTION_PORT%
+    echo POSTGRESQL_CONNECTION_PREFIX    : %DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX%
+    echo POSTGRESQL_USER_PASSWORD_SYS    : %DB_SEEDER_POSTGRESQL_PASSWORD_SYS%
+    echo POSTGRESQL_DATABASE             : %DB_SEEDER_POSTGRESQL_DATABASE%
+    echo POSTGRESQL_SCHEMA               : %DB_SEEDER_POSTGRESQL_SCHEMA%
+    echo POSTGRESQL_USER                 : %DB_SEEDER_POSTGRESQL_USER%
+    echo POSTGRESQL_USER_PASSWORD        : %DB_SEEDER_POSTGRESQL_PASSWORD%
 )
 echo --------------------------------------------------------------------------------
 echo:| TIME

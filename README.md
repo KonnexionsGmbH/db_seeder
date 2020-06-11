@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.1.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.2.0.svg)
 
 ----
 
@@ -14,6 +14,7 @@ Currently the following databases are supported:
 - Microsoft SQL Server (relational Database / tested: version 2019) 
 - MySQL Database (relational Database / tested: version 8.0.20) 
 - Oracle Database (relational Database / tested: version 19c)
+- PostgreSQL (relational Database / tested: version 12.3)
 
 
 The name of the database schema or the database user can be freely chosen. 
@@ -83,6 +84,14 @@ db_seeder.oracle.connection.service=orclpdb1
 db_seeder.oracle.password.sys=oracle
 db_seeder.oracle.password=oracle
 db_seeder.oracle.user=kxn_user
+
+db_seeder.postgresql.connection.port=5432
+db_seeder.postgresql.connection.prefix=jdbc:postgresql://
+db_seeder.postgresql.database=kxn_db
+db_seeder.postgresql.password.sys=postgresql
+db_seeder.postgresql.password=postgresql
+db_seeder.postgresql.schema=kxn_schema
+db_seeder.postgresql.user=kxn_user
 ```
 
 ### 4.2 Control Parameters - Detailled
@@ -116,19 +125,26 @@ db_seeder.oracle.user=kxn_user
 | oracle.password=oracle | ORACLE_PASSWORD | Oracle | password of the normal user |
 | oracle.user=kxn_user | ORACLE_USER | Oracle | name of the normal user |
 |     |     |     |     |
+| mssqlserver.connection.port=1433 | MSSQLSERVER_CONNECTION_PORT | Microsoft SQL Server | port number of the database server |
+| mssqlserver.connection.prefix=jdbc:sqlserver:// | MSSQLSERVER_CONNECTION_PREFIX | Microsoft SQL Server | prefix of the database connection string |
+| mssqlserver.connection.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
+| mssqlserver.password.sys=mssqlserver | MSSQLSERVER_PASSWORD_SYS | Microsoft SQL Server | password of the privileged user |
+| mssqlserver.password=mssqlserver | MSSQLSERVER_PASSWORD | Microsoft SQL Server | password of the normal user |
+| mssqlserver.schema=kxn_schema | MSSQLSERVER_SCHEMA | Microsoft SQL Server | schema name |
+| mssqlserver.user=kxn_user | MSSQLSERVER_USER | Microsoft SQL Server | name of the normal user |
+|     |     |     |     |
 
 ## 4. Database Brand Specifica
 
 ### 4.1 Microsoft SQL Server
 
 - database driver version 8.31 
-  - Maven Repository: https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
-  - Software: https://github.com/microsoft/mssql-jdbc-driver-for-sql-server?view=sql-server-ver15
-- database image version 2019 (https://hub.docker.com/_/microsoft-mssql-server)
-- the Microsoft SQL Server differentiates between database (schema) and user
+  - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
+- database image version 2019: [here](https://hub.docker.com/_/microsoft-mssql-server)
+- data definition hierarchy: database, schema and user
 - data types used:
 
-| Data Type | MySQL Type |
+| Data Type | Microsoft SQL Server Type |
 | --- | --- |
 | big integer | BIGINT |
 | binary large object | VARBINARY (MAX) |
@@ -139,11 +155,9 @@ db_seeder.oracle.user=kxn_user
 ### 4.2 MySQL Database
 
 - database driver version 8.0.20 
-  - Maven repository: https://mvnrepository.com/artifact/mysql/mysql-connector-java
-  - Software: https://dev.mysql.com/downloads/connector/j/
-- database image version 8.0.20 (https://hub.docker.com/_/mysql)
-- the MySQL Database differentiates between database (schema) and user
-- the MySQL database only knows the schema which is identical with the database and the user
+  - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+- database image version 8.0.20: [here](https://hub.docker.com/_/mysql)
+- data definition hierarchy: database and user
 - data types used:
 
 | Data Type | MySQL Type |
@@ -157,10 +171,10 @@ db_seeder.oracle.user=kxn_user
 ### 4.3 Oracle Database
 
 - database driver version 
-  - Maven repository 19.3.0.0: https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8
-  - Software 19.6.0.0.0: https://www.oracle.com/database/technologies/instant-client/downloads.html
+  - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
+  - Software 19.6.0.0.0: [here](https://www.oracle.com/database/technologies/instant-client/downloads.html)
 - database image version 19c
-- the Oracle database only knows the database and the user which is identical with the schema
+- data definition hierarchy: user
 - data types used:
 
 | Data Type | Oracle Type |
@@ -169,6 +183,22 @@ db_seeder.oracle.user=kxn_user
 | binary large object | BLOB |
 | characterr large object | CLOB |
 | string | VARCHAR2 |
+| timestamp | TIMESTAMP |
+
+### 4.4 PostgreSQL Database
+
+- database driver version 42.2.13
+  - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)
+- database image version 12.3: [here](https://hub.docker.com/_/postgres)
+- data definition hierarchy: database, schema and user
+- data types used:
+
+| Data Type | PostgreSQL Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | BYTEA |
+| characterr large object | TEXT |
+| string | VARCHAR |
 | timestamp | TIMESTAMP |
 
 ## 5. Contributing 
@@ -181,4 +211,17 @@ In case of software changes we strongly recommend you to respect the license ter
 1. Push to the branch (git push origin my-new-feature)
 1. Create a new Pull Request
 1. Points to be considered when adding a new database:
-- TODO
+    1. lib/<database_driver>.jar
+    1. scripts/run_db_seeder_setup_<database>.bat
+    1. src/main/java/ch/konnexions/db_seeder/Config.java
+    1. src/main/java/ch/konnexions/db_seeder/DatabaseSeeder.java
+    1. src/main/java/ch/konnexions/db_seeder/jdbc/<database>/<Database>Seeder.java
+    1. src/main/resources/db_seeder.properties
+    1. .travis.yml
+    1. build.gradle
+    1. README.md
+    1. Release-Notes.md
+    1. run_db_seeder.bat
+    1. run_db_seeder.sh
+    1. run_db_seeder_setup_database.bat
+    1. run_db_seeder_setup_database.sh

@@ -3,8 +3,6 @@
  */
 package ch.konnexions.db_seeder;
 
-// import org.apache.log4j.Logger;
-
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -19,7 +17,7 @@ public abstract class AbstractDatabaseSeeder {
   protected Config            config;
   protected Connection        connection;
 
-  // private static Logger       logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
+  // private static Logger logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
   protected ArrayList<Object> pkListCity               = new ArrayList<Object>();
   protected ArrayList<Object> pkListCompany            = new ArrayList<Object>();
@@ -32,5 +30,12 @@ public abstract class AbstractDatabaseSeeder {
   protected final String      TABLE_NAME_COUNTRY       = "COUNTRY";
   protected final String      TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
   protected final String      TABLE_NAME_TIMEZONE      = "TIMEZONE";
+
+  /**
+   *
+   */
+  public AbstractDatabaseSeeder() {
+    super();
+  }
 
 }

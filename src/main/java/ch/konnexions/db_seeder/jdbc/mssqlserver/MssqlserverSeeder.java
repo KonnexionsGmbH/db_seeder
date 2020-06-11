@@ -5,7 +5,9 @@ package ch.konnexions.db_seeder.jdbc.mssqlserver;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +15,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a Database. </h1>
+ * <h1> Test Data Generator for a Microsoft SQL Server. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -29,9 +31,6 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     super();
   }
 
-  /**
-   * Create a database connection.
-   */
   @Override
   protected final void connect() {
     String methodName = null;
@@ -54,13 +53,35 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 
-  /**
-   * Create the DDL statement: CREATE TABLE.
-   *
-   * @param tableName the database table name
-   *
-   * @return the insert statement
-   */
+  @Override
+  protected void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt, new String[] { "PK_" + tableName + "_ID" });
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        preparedStatement.executeUpdate();
+
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+        while (resultSet.next()) {
+          pkList.add((int) resultSet.getLong(1));
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+  }
+
   @SuppressWarnings("preview")
   @Override
   protected final String createDdlStmnt(final String tableName) {
@@ -145,9 +166,6 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  /**
-   * Drop the schema / user if existing and create it new.
-   */
   @Override
   protected void dropCreateSchemaUser() {
     PreparedStatement preparedStatement   = null;
@@ -164,7 +182,7 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
       connection = DriverManager.getConnection(config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":"
           + config.getMssqlserverConnectionPort() + ";databaseName=master;user=sa;password=" + config.getMssqlserverPasswordSys());
 
-      connection.setAutoCommit(false);
+      connection.setAutoCommit(true);
     } catch (SQLException ec) {
       ec.printStackTrace();
       System.exit(1);
@@ -175,9 +193,6 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection.prepareStatement("SET IMPLICIT_TRANSACTIONS ON");
-      preparedStatement.executeUpdate();
-
       preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS " + mssqlserverDatabase);
       preparedStatement.executeUpdate();
 
@@ -192,9 +207,6 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
       // -----------------------------------------------------------------------
 
       preparedStatement = connection.prepareStatement("sp_configure 'contained database authentication', 1");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("COMMIT TRANSACTION");
       preparedStatement.executeUpdate();
 
       preparedStatement = connection.prepareStatement("RECONFIGURE");
@@ -225,9 +237,6 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
       preparedStatement = connection.prepareStatement("sp_addrolemember 'db_owner', '" + mssqlserverUser + "'");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("COMMIT TRANSACTION");
-      preparedStatement.executeUpdate();
-
       preparedStatement.close();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -241,4 +250,15 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     disconnect();
     connect();
   }
+
+  @Override
+  protected void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+    try {
+      preparedStatement.setBytes(columnPos, BLOB_DATA);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
 }

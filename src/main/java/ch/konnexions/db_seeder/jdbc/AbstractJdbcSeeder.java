@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -36,21 +37,24 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
  */
 public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
-  private static Logger logger        = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static Logger  logger        = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  private final byte[]  BLOB_DATA     = readBlobFile();
+  protected final byte[] BLOB_DATA     = readBlobFile();
+  protected String       BLOB_FILE;
 
-  private final String  CLOB_DATA     = readClobFile();
+  private final String   CLOB_DATA     = readClobFile();
 
-  private final int     MAX_ROW_SIZE  = Integer.MAX_VALUE;
+  private final int      MAX_ROW_SIZE  = Integer.MAX_VALUE;
 
-  private final int     RANDOM_NUMBER = 4;
-  private Random        randomInt     = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private final int      RANDOM_NUMBER = 4;
+  private Random         randomInt     = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
   /**
    *
    */
   public AbstractJdbcSeeder() {
+    super();
+
     config = new Config();
   }
 
@@ -295,31 +299,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     retrieveFkList(tableName);
     createFkList(tableName);
 
-    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
-
-    try {
-      preparedStatement = connection.prepareStatement(sqlStmnt, new String[] { "PK_" + tableName + "_ID" });
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
-      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
-
-      try {
-        preparedStatement.executeUpdate();
-
-        ResultSet resultSet = preparedStatement.getGeneratedKeys();
-
-        while (resultSet.next()) {
-          pkList.add((int) resultSet.getLong(1));
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
+    createDataInsert(preparedStatement, tableName, rowCount, pkList);
 
     addOptionalFk(tableName, pkList);
 
@@ -345,6 +325,16 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   /**
+   * Creates the data insert.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName the table name
+   * @param rowCount the total row count
+   * @param pkList current primary key list
+   */
+  protected abstract void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList);
+
+  /**
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
@@ -360,7 +350,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @return the insert statement
    */
-  private final String createDmlStmnt(final String tableName) {
+  protected final String createDmlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
@@ -531,11 +521,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param rowNo the current row number
    * @param pkList current primary key list
    */
-  private final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
-                                        final String tableName,
-                                        final int rowCount,
-                                        final int rowNo,
-                                        final ArrayList<Object> pkList) {
+  protected final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
+                                          final String tableName,
+                                          final int rowCount,
+                                          final int rowNo,
+                                          final ArrayList<Object> pkList) {
     String identifier04 = String.format(DatabaseSeeder.FORMAT_IDENTIFIER, rowNo);
 
     switch (tableName) {
@@ -679,14 +669,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param preparedStatement the prepared statement
    * @param rowCount          the row count
    */
-  protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
-    try {
-      preparedStatement.setBytes(columnPos, BLOB_DATA);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
+  protected abstract void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount);
 
   /**
    * Sets the designated optional parameter randomly to a BLOB value.
@@ -698,7 +681,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void prepStmntInsertColBlobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.BLOB);
+        preparedStatement.setNull(columnPos, Types.NULL);
       } else {
         prepStmntInsertColBlob(columnPos, preparedStatement, rowCount);
       }
@@ -896,9 +879,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   private final byte[] readBlobFile() {
-    String BLOB_FILE = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+    BLOB_FILE = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
 
-    byte[] blob      = null;
+    byte[] blob = null;
 
     try {
       blob = Files.readAllBytes(new File(BLOB_FILE).toPath());

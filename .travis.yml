@@ -11,6 +11,7 @@ env:
     - DB_SEEDER_DATABASE_BRAND=mssqlserver
     - DB_SEEDER_DATABASE_BRAND=mysql
     - DB_SEEDER_DATABASE_BRAND=oracle
+    - DB_SEEDER_DATABASE_BRAND=postgresql
 
 script:
   # Prepare Installation Process -------------------------------------------------
