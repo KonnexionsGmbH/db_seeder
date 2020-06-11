@@ -15,6 +15,7 @@ if [ -z "$1" ]; then
     echo "mssqlserver - Microsoft SQL Server"
     echo "mysql         - MySQL"
     echo "oracle        - Oracle Database"
+    echo "postgresql    - PostgreSQL Database"
     echo "------------------------------------"
     read -p "Enter the desired database brand [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
     export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND
@@ -64,6 +65,15 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_ORACLE_PASSWORD_SYS=
 #    export DB_SEEDER_ORACLE_USER=
 #fi
+#if [ "$DB_SEEDER_DATABASE_BRAND" = "postgresql" ]; then
+#    export DB_SEEDER_POSTGRESQL_CONNECTION_PORT=
+#    export DB_SEEDER_POSTGRESQL_CONNETION_PREFIX=
+#    export DB_SEEDER_POSTGRESQL_DATABASE=
+#    export DB_SEEDER_POSTGRESQL_PASSWORD=
+#    export DB_SEEDER_POSTGRESQL_PASSWORD_SYS=
+#    export DB_SEEDER_POSTGRESQL_SCHEMA=
+#    export DB_SEEDER_POSTGRESQL_USER=
+#fi
 
 echo "================================================================================"
 echo "Start $0"
@@ -107,6 +117,15 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
     echo "ORACLE_USER_PASSWORD_SYS          : $DB_SEEDER_ORACLE_PASSWORD_SYS"
     echo "ORACLE_USER                       : $DB_SEEDER_ORACLE_USER"
     echo "ORACLE_USER_PASSWORD              : $DB_SEEDER_ORACLE_PASSWORD"
+fi
+if [ "$DB_SEEDER_DATABASE_BRAND" = "postgresql" ]; then
+    echo "POSTGRESQL_CONNECTION_PORT        : $DB_SEEDER_POSTGRESQL_CONNECTION_PORT"
+    echo "POSTGRESQL_CONNECTION_PREFIX      : $DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX"
+    echo "POSTGRESQL_USER_PASSWORD_SYS      : $DB_SEEDER_POSTGRESQL_PASSWORD_SYS"
+    echo "POSTGRESQL_DATABASE               : $DB_SEEDER_POSTGRESQL_DATABASE"
+    echo "POSTGRESQL_SCHEMA                 : $DB_SEEDER_POSTGRESQL_SCHEMA"
+    echo "POSTGRESQL_USER                   : $DB_SEEDER_POSTGRESQL_USER"
+    echo "POSTGRESQL_USER_PASSWORD          : $DB_SEEDER_POSTGRESQL_PASSWORD"
 fi
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
+import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 
 /**
  * <h1> Test Data Generator for a Database. </h1>
@@ -43,7 +44,7 @@ public class DatabaseSeeder {
       args0 = args[0];
     }
 
-    logger.info("args[0]=" + args0);
+    logger.info("args[0]='" + args0 + "'");
 
     if (null == args0) {
       logger.error("Command line argument missing");
@@ -63,6 +64,11 @@ public class DatabaseSeeder {
       OracleSeeder oracleSeeder = new OracleSeeder();
       oracleSeeder.createData();
       logger.info("End   Oracle Database");
+    } else if (args0.equals("postgresql")) {
+      logger.info("Start PostgreSQL Database");
+      PostgresqlSeeder postgresqlSeeder = new PostgresqlSeeder();
+      postgresqlSeeder.createData();
+      logger.info("End   PostgreSQL Database");
     } else if (args0.contentEquals("")) {
       logger.error("Command line argument missing");
       System.exit(1);
