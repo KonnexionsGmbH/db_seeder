@@ -12,10 +12,11 @@ export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 
 if [ -z "$1" ]; then
     echo "===================================="
+    echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
-    echo "mysql         - MySQL"
-    echo "oracle        - Oracle Database"
-    echo "postgresql    - PostgreSQL Database"
+    echo "mysql       - MySQL"
+    echo "oracle      - Oracle Database"
+    echo "postgresql  - PostgreSQL Database"
     echo "------------------------------------"
     read -p "Enter the desired database brand [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
     export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND
@@ -39,6 +40,15 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 # export DB_SEEDER_MAX_ROW_COUNTRY_STATE=
 # export DB_SEEDER_MAX_ROW_TIMEZONE=
 
+#if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
+#    export DB_SEEDER_MARIADB_CONNECTION_PORT=
+#    export DB_SEEDER_MARIADB_CONNETION_PREFIX=
+#    export DB_SEEDER_MARIADB_CONNETION_SUFFIX=
+#    export DB_SEEDER_MARIADB_PASSWORD=
+#    export DB_SEEDER_MARIADB_PASSWORD_SYS=
+#    export DB_SEEDER_MARIADB_SCHEMA=
+#    export DB_SEEDER_MARIADB_USER=
+#fi
 #if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
 #    export DB_SEEDER_MSSQLSERVER_CONNECTION_PORT=
 #    export DB_SEEDER_MSSQLSERVER_CONNETION_PREFIX=
@@ -93,6 +103,15 @@ echo "MAX_ROW_COUNTRY                   : $DB_SEEDER_MAX_ROW_COUNTRY"
 echo "MAX_ROW_COUNTRY_STATE             : $DB_SEEDER_MAX_ROW_COUNTRY_STATE"
 echo "MAX_ROW_TIMEZONE                  : $DB_SEEDER_MAX_ROW_TIMEZONE"
 echo "--------------------------------------------------------------------------------"
+if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
+    echo "MARIADB_CONNECTION_PORT         : $DB_SEEDER_MARIADB_CONNECTION_PORT"
+    echo "MARIADB_CONNECTION_PREFIX       : $DB_SEEDER_MARIADB_CONNECTION_PREFIX"
+    echo "MARIADB_CONNECTION_SUFFIX       : $DB_SEEDER_MARIADB_CONNECTION_SUFFIX"
+    echo "MARIADB_USER_PASSWORD_SYS       : $DB_SEEDER_MARIADB_PASSWORD_SYS"
+    echo "MARIADB_SCHEMA                  : $DB_SEEDER_MARIADB_SCHEMA"
+    echo "MARIADB_USER                    : $DB_SEEDER_MARIADB_USER"
+    echo "MARIADB_USER_PASSWORD           : $DB_SEEDER_MARIADB_PASSWORD"
+fi
 if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
     echo "MSSQLSERVER_CONNECTION_PORT     : $DB_SEEDER_MSSQLSERVER_CONNECTION_PORT"
     echo "MSSQLSERVER_CONNECTION_PREFIX   : $DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX"

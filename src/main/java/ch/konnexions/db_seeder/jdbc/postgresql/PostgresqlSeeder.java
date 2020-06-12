@@ -19,7 +19,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a PostgreSQL database. </h1>
+ * <h1> Test Data Generator for a PostgreSQL Database. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01

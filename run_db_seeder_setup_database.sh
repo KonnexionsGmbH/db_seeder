@@ -11,6 +11,7 @@ set -e
 export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
+export DB_SEEDER_VERSION_MARIADB=10.4.13
 export DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 export DB_SEEDER_VERSION_MYSQL=8.0.20
 export DB_SEEDER_VERSION_ORACLE=db_19_3_ee
@@ -18,6 +19,7 @@ export DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if [ -z "$1" ]; then
     echo "===================================="
+    echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
@@ -52,6 +54,9 @@ echo "--------------------------------------------------------------------------
 echo "DATABASE_BRAND            : $DB_SEEDER_DATABASE_BRAND"
 echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
 echo --------------------------------------------------------------------------------
+if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
+    echo "VERSION_MARIADB           : $DB_SEEDER_VERSION_MARIADB"
+fi
 if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
     echo "VERSION_MSSQLSERVER       : $DB_SEEDER_VERSION_MSSQLSERVER"
 fi
@@ -72,6 +77,28 @@ if [ "$DB_SEEDER_DELETE_EXISTING_CONTAINER" != "no" ]; then
     echo "Docker stop/rm db_seeder_db"
     docker stop db_seeder_db
     docker rm -f db_seeder_db
+fi
+
+# ------------------------------------------------------------------------------
+# MariaDB Server                                https://hub.docker.com/_/mariadb
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
+    start=$(date +%s)
+    echo "MariaDB Server."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (MariaDB $DB_SEEDER_VERSION_MARIADB)"
+    docker create -e MARIADB_ROOT_PASSWORD=mariadb --name db_seeder_db -p 3306:3306/tcp mariadb:$DB_SEEDER_VERSION_MARIADB
+
+    echo "Docker start db_seeder_db (MariaDB $DB_SEEDER_VERSION_MARIADB) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 20
+
+    end=$(date +%s)
+    echo "DOCKER MariaDB Server was ready in $((end - start)) seconds"
 fi
 
 # ------------------------------------------------------------------------------

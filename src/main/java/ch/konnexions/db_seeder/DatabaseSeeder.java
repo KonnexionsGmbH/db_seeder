@@ -5,6 +5,7 @@ package ch.konnexions.db_seeder;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
@@ -49,6 +50,11 @@ public class DatabaseSeeder {
     if (null == args0) {
       logger.error("Command line argument missing");
       System.exit(1);
+    } else if (args0.equals("mariadb")) {
+      logger.info("Start MariaDB Server");
+      MariadbSeeder mariadbSeeder = new MariadbSeeder();
+      mariadbSeeder.createData();
+      logger.info("End   MariaDB Server");
     } else if (args0.equals("mssqlserver")) {
       logger.info("Start Microsoft SQL Server");
       MssqlserverSeeder mssqlserverSeeder = new MssqlserverSeeder();

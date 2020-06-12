@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_oracle.bat: Setup a Oracle database Docker container.
+rem run_db_seeder_setup_oracle.bat: Setup a Oracle Database Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a database Docker container.
+echo DB Seeder - setup a Oracle Database Docker container.
 echo --------------------------------------------------------------------------------
 echo VERSION_ORACLE            : %DB_SEEDER_VERSION_ORACLE%
 echo --------------------------------------------------------------------------------

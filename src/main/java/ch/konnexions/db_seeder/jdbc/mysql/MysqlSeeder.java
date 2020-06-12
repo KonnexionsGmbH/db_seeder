@@ -15,7 +15,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a MySQL database. </h1>
+ * <h1> Test Data Generator for a MySQL Database. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -41,7 +41,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     try {
       connection = DriverManager.getConnection(config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/"
-          + config.getMysqlSchema() + config.getMysqlConnectionSuffix(), config.getMysqlUser(), config.getMysqlPassword());
+          + config.getMysqlDatabase() + config.getMysqlConnectionSuffix(), config.getMysqlUser(), config.getMysqlPassword());
 
       connection.setAutoCommit(false);
     } catch (SQLException ec) {
@@ -174,7 +174,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     final String      jdbcUser          = config.getMysqlUser();
-    final String      mysqlSchema       = config.getMysqlSchema();
+    final String      mysqlDatabase     = config.getMysqlDatabase();
 
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
@@ -198,7 +198,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS `" + mysqlSchema + "`");
+      preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS `" + mysqlDatabase + "`");
       preparedStatement.executeUpdate();
 
       preparedStatement = connection.prepareStatement("DROP USER IF EXISTS `" + jdbcUser + "`");
@@ -208,16 +208,16 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
       // Create the schema / user and grant the necessary rights.
       // -----------------------------------------------------------------------
 
-      preparedStatement = connection.prepareStatement("CREATE DATABASE `" + mysqlSchema + "`");
+      preparedStatement = connection.prepareStatement("CREATE DATABASE `" + mysqlDatabase + "`");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("USE `" + mysqlSchema + "`");
+      preparedStatement = connection.prepareStatement("USE `" + mysqlDatabase + "`");
       preparedStatement.executeUpdate();
 
       preparedStatement = connection.prepareStatement("CREATE USER `" + jdbcUser + "` IDENTIFIED BY '" + config.getMysqlPassword() + "'");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT ALL ON " + mysqlSchema + ".* TO `" + jdbcUser + "`");
+      preparedStatement = connection.prepareStatement("GRANT ALL ON " + mysqlDatabase + ".* TO `" + jdbcUser + "`");
       preparedStatement.executeUpdate();
 
       preparedStatement.close();

@@ -39,6 +39,13 @@ public class Config {
 
   private ArrayList<String>                                            keysSorted = new ArrayList<>();
 
+  private int                                                          mariadbConnectionPort;
+  private String                                                       mariadbConnectionPrefix;
+  private String                                                       mariadbDatabase;
+  private String                                                       mariadbPassword;
+  private String                                                       mariadbPasswordSys;
+  private String                                                       mariadbUser;
+
   private int                                                          maxRowCity;
   private int                                                          maxRowCompany;
   private int                                                          maxRowCountry;
@@ -56,9 +63,9 @@ public class Config {
   private int                                                          mysqlConnectionPort;
   private String                                                       mysqlConnectionPrefix;
   private String                                                       mysqlConnectionSuffix;
+  private String                                                       mysqlDatabase;
   private String                                                       mysqlPassword;
   private String                                                       mysqlPasswordSys;
-  private String                                                       mysqlSchema;
   private String                                                       mysqlUser;
 
   private int                                                          oracleConnectionPort;
@@ -116,6 +123,48 @@ public class Config {
     Collections.sort(keysSorted);
 
     return keysSorted;
+  }
+
+  /**
+   * @return the MariaDB port number where the database server is listening for requests
+   */
+  public final int getMariadbConnectionPort() {
+    return mariadbConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the MariaDB connection string
+   */
+  public final String getMariadbConnectionPrefix() {
+    return mariadbConnectionPrefix;
+  }
+
+  /**
+   * @return the MariaDB database name
+   */
+  public final String getMariadbDatabase() {
+    return mariadbDatabase;
+  }
+
+  /**
+   * @return the MariaDB password to connect as normal user to the database
+   */
+  public final String getMariadbPassword() {
+    return mariadbPassword;
+  }
+
+  /**
+   * @return the MariaDB password to connect as privileged user to the database
+   */
+  public final String getMariadbPasswordSys() {
+    return mariadbPasswordSys;
+  }
+
+  /**
+   * @return the MariaDB user name to connect as normal user to the database
+   */
+  public final String getMariadbUser() {
+    return mariadbUser;
   }
 
   /**
@@ -224,6 +273,13 @@ public class Config {
   }
 
   /**
+   * @return the MySQL database name
+   */
+  public final String getMysqlDatabase() {
+    return mysqlDatabase;
+  }
+
+  /**
    * @return the MySQL password to connect as normal user to the database
    */
   public final String getMysqlPassword() {
@@ -238,13 +294,6 @@ public class Config {
   }
 
   /**
-   * @return the MySQL schema name
-   */
-  public final String getMysqlSchema() {
-    return mysqlSchema;
-  }
-
-  /**
    * @return the MySQL user name to connect as normal user to the database
    */
   public final String getMysqlUser() {
@@ -256,6 +305,7 @@ public class Config {
 
     List<String> list = new ArrayList<>();
 
+    list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
     list.add("db_seeder.max.row.company");
     list.add("db_seeder.max.row.country");
@@ -361,6 +411,13 @@ public class Config {
 
     jdbcConnectionHost          = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
 
+    mariadbConnectionPort       = propertiesConfiguration.getInt("db_seeder.mariadb.connection.port");
+    mariadbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.mariadb.connection.prefix");
+    mariadbDatabase             = propertiesConfiguration.getString("db_seeder.mariadb.database");
+    mariadbPassword             = propertiesConfiguration.getString("db_seeder.mariadb.password");
+    mariadbPasswordSys          = propertiesConfiguration.getString("db_seeder.mariadb.password.sys");
+    mariadbUser                 = propertiesConfiguration.getString("db_seeder.mariadb.user");
+
     maxRowCity                  = propertiesConfiguration.getInt("db_seeder.max.row.city");
     maxRowCompany               = propertiesConfiguration.getInt("db_seeder.max.row.company");
     maxRowCountry               = propertiesConfiguration.getInt("db_seeder.max.row.country");
@@ -378,9 +435,9 @@ public class Config {
     mysqlConnectionPort         = propertiesConfiguration.getInt("db_seeder.mysql.connection.port");
     mysqlConnectionPrefix       = propertiesConfiguration.getString("db_seeder.mysql.connection.prefix");
     mysqlConnectionSuffix       = propertiesConfiguration.getString("db_seeder.mysql.connection.suffix");
+    mysqlDatabase               = propertiesConfiguration.getString("db_seeder.mysql.database");
     mysqlPassword               = propertiesConfiguration.getString("db_seeder.mysql.password");
     mysqlPasswordSys            = propertiesConfiguration.getString("db_seeder.mysql.password.sys");
-    mysqlSchema                 = propertiesConfiguration.getString("db_seeder.mysql.schema");
     mysqlUser                   = propertiesConfiguration.getString("db_seeder.mysql.user");
 
     oracleConnectionPort        = propertiesConfiguration.getInt("db_seeder.oracle.connection.port");
@@ -412,6 +469,38 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_JDBC_CONNECTION_HOST")) {
       jdbcConnectionHost = environmentVariables.get("DB_SEEDER_JDBC_CONNECTION_HOST");
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.host", jdbcConnectionHost);
+    }
+
+    // MariaDB Server ----------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_CONNECTION_PORT")) {
+      mariadbConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MARIADB_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", mariadbConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_CONNECTION_PREFIX")) {
+      mariadbConnectionPrefix = environmentVariables.get("DB_SEEDER_MARIADB_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", mariadbConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_DATABASE")) {
+      mariadbDatabase = environmentVariables.get("DB_SEEDER_MARIADB_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.database", mariadbDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_PASSWORD")) {
+      mariadbPassword = environmentVariables.get("DB_SEEDER_MARIADB_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.password", mariadbPassword);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_PASSWORD_SYS")) {
+      mariadbPasswordSys = environmentVariables.get("DB_SEEDER_MARIADB_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.password.sys", mariadbPasswordSys);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_USER")) {
+      mariadbUser = environmentVariables.get("DB_SEEDER_MARIADB_USER");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.user", mariadbUser);
     }
 
     // MAX (rows) --------------------------------------------------------------
@@ -480,11 +569,6 @@ public class Config {
 
     // MySQL Database ----------------------------------------------------------
 
-    if (environmentVariables.containsKey("DB_SEEDER_MYSQL_SCHEMA")) {
-      mysqlSchema = environmentVariables.get("DB_SEEDER_MYSQL_SCHEMA");
-      propertiesConfiguration.setProperty("db_seeder.mysql.schema", mysqlSchema);
-    }
-
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_CONNECTION_PORT")) {
       mysqlConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MYSQL_CONNECTION_PORT"));
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", mysqlConnectionPort);
@@ -498,6 +582,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_CONNECTION_SUFFIX")) {
       mysqlConnectionSuffix = environmentVariables.get("DB_SEEDER_MYSQL_CONNECTION_SUFFIX");
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", mysqlConnectionSuffix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MYSQL_DATABASE")) {
+      mysqlDatabase = environmentVariables.get("DB_SEEDER_MYSQL_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.mysql.database", mysqlDatabase);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_PASSWORD")) {
