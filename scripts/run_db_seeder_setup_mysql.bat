@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a MySQL database Docker container.
+echo DB Seeder - setup a MySQL Database Docker container.
 echo --------------------------------------------------------------------------------
 echo VERSION_MYSQL             : %DB_SEEDER_VERSION_MYSQL%
 echo --------------------------------------------------------------------------------

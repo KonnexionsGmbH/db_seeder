@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a PostgreSQL database Docker container.
+echo DB Seeder - setup a PostgreSQL Database Docker container.
 echo --------------------------------------------------------------------------------
 echo VERSION_POSTGRESQL        : %DB_SEEDER_VERSION_POSTGRESQL%
 echo --------------------------------------------------------------------------------

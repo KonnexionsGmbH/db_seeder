@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.2.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.3.0.svg)
 
 ----
 
@@ -11,6 +11,7 @@
 
 `db_seeder` allows the generation of dummy data in different databases. 
 Currently the following databases are supported:
+- MariaDB Server (relational Database / tested: version 10.4.13) 
 - Microsoft SQL Server (relational Database / tested: version 2019) 
 - MySQL Database (relational Database / tested: version 8.0.20) 
 - Oracle Database (relational Database / tested: version 19c)
@@ -56,6 +57,14 @@ The following control parameters are currently supported:
 ```
 db_seeder.jdbc.connection.host=localhost
 
+db_seeder.mariadb.connection.port=3306
+db_seeder.mariadb.connection.prefix=jdbc:mariadb://
+db_seeder.mariadb.connection.suffix=?serverTimezone=UTC
+db_seeder.mariadb.password.sys=mariadb
+db_seeder.mariadb.password=mariadb
+db_seeder.mariadb.schema=kxn_schema
+db_seeder.mariadb.user=kxn_user
+
 db_seeder.max.row.city=1800
 db_seeder.max.row.company=5400
 db_seeder.max.row.country=200
@@ -100,6 +109,14 @@ db_seeder.postgresql.user=kxn_user
 | --- | --- | --- | --- |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | Relational DB | name or ip address of the database server |
 |     |     |     |     |
+| mariadb.connection.port=3306 | MARIADB_CONNECTION_PORT | MariaDB | port number of the database server |
+| mariadb.connection.prefix=jdbc:mariadb:// | MARIADB_CONNECTION_PREFIX | MariaDB | prefix of the database connection string |
+| mariadb.connection.suffix=?serverTimezone=UTC | MARIADB_CONNECTION_SUFFIX | MariaDB | suffix of the database connection string |
+| mariadb.password.sys=mariadb | MARIADB_PASSWORD_SYS | MariaDB | password of the privileged user |
+| mariadb.password=mariadb | MARIADB_PASSWORD | MariaDB | password of the normal user |
+| mariadb.schema=kxn_schema | MARIADB_SCHEMA | MariaDB | schema name |
+| mariadb.user=kxn_user | MARIADB_USER | MariaDB | name of the normal user |
+|     |     |     |     |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 | mssqlserver.connection.port=1433 | MSSQLSERVER_CONNECTION_PORT | Microsoft SQL Server | port number of the database server |
@@ -136,7 +153,23 @@ db_seeder.postgresql.user=kxn_user
 
 ## 4. Database Brand Specifica
 
-### 4.1 Microsoft SQL Server
+### 4.1 MariaDB Server
+
+- database driver version 2.6.0 
+  - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
+- database image version 10.4.13: [here](https://hub.docker.com/_/mariadb)
+- data definition hierarchy: database and user
+- data types used:
+
+| Data Type | MariaDB Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | LONGBLOB |
+| characterr large object | LONGTEXT |
+| string | VARCHAR |
+| timestamp | DATETIME |
+
+### 4.2 Microsoft SQL Server
 
 - database driver version 8.31 
   - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
@@ -152,7 +185,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR |
 | timestamp | DATETIME2 |
 
-### 4.2 MySQL Database
+### 4.3 MySQL Database
 
 - database driver version 8.0.20 
   - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -168,7 +201,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-### 4.3 Oracle Database
+### 4.4 Oracle Database
 
 - database driver version 
   - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
@@ -185,7 +218,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR2 |
 | timestamp | TIMESTAMP |
 
-### 4.4 PostgreSQL Database
+### 4.5 PostgreSQL Database
 
 - database driver version 42.2.13
   - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)

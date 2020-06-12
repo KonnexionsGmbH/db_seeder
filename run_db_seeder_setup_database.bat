@@ -11,6 +11,7 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
+set DB_SEEDER_VERSION_MARIADB=10.4.13
 set DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 set DB_SEEDER_VERSION_MYSQL=8.0.20
 set DB_SEEDER_VERSION_ORACLE=db_19_3_ee
@@ -18,6 +19,7 @@ set DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if ["%1"] EQU [""] (
     echo ====================================
+    echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
     echo oracle      - Oracle Database

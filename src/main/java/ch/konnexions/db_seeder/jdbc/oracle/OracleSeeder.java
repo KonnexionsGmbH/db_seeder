@@ -185,7 +185,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      jdbcUser          = config.getOracleUser();
+    final String      oracleUser        = config.getOracleUser();
 
     try {
       connection = DriverManager.getConnection(config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort()
@@ -203,7 +203,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     try {
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = UPPER(?)");
-      preparedStatement.setString(1, jdbcUser);
+      preparedStatement.setString(1, oracleUser);
       preparedStatement.executeUpdate();
 
       ResultSet resultSet = preparedStatement.getResultSet();
@@ -215,7 +215,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       resultSet.close();
 
       if (count > 0) {
-        preparedStatement = connection.prepareStatement("DROP USER " + jdbcUser + " CASCADE");
+        preparedStatement = connection.prepareStatement("DROP USER " + oracleUser + " CASCADE");
         preparedStatement.executeUpdate();
       }
     } catch (SQLException e) {
@@ -228,22 +228,22 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection.prepareStatement("CREATE USER " + jdbcUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
+      preparedStatement = connection.prepareStatement("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("ALTER USER " + jdbcUser + " QUOTA UNLIMITED ON users");
+      preparedStatement = connection.prepareStatement("ALTER USER " + oracleUser + " QUOTA UNLIMITED ON users");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SEQUENCE TO " + jdbcUser);
+      preparedStatement = connection.prepareStatement("GRANT CREATE SEQUENCE TO " + oracleUser);
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SESSION TO " + jdbcUser);
+      preparedStatement = connection.prepareStatement("GRANT CREATE SESSION TO " + oracleUser);
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE TABLE TO " + jdbcUser);
+      preparedStatement = connection.prepareStatement("GRANT CREATE TABLE TO " + oracleUser);
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT UNLIMITED TABLESPACE TO " + jdbcUser);
+      preparedStatement = connection.prepareStatement("GRANT UNLIMITED TABLESPACE TO " + oracleUser);
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
