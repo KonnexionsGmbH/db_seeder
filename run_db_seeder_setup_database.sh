@@ -88,7 +88,7 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
     echo "MariaDB Server."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MariaDB $DB_SEEDER_VERSION_MARIADB)"
-    docker create -e MARIADB_ROOT_PASSWORD=mariadb --name db_seeder_db -p 3306:3306/tcp mariadb:$DB_SEEDER_VERSION_MARIADB
+    docker create -e MYSQL_ROOT_PASSWORD=mariadb --name db_seeder_db -p 3306:3306/tcp mariadb:$DB_SEEDER_VERSION_MARIADB
 
     echo "Docker start db_seeder_db (MariaDB $DB_SEEDER_VERSION_MARIADB) ..."
     if ! docker start db_seeder_db; then

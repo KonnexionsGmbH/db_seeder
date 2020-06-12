@@ -173,8 +173,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      jdbcUser          = config.getMysqlUser();
     final String      mysqlDatabase     = config.getMysqlDatabase();
+    final String      mysqlUser         = config.getMysqlUser();
 
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
@@ -201,7 +201,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
       preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS `" + mysqlDatabase + "`");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS `" + jdbcUser + "`");
+      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS `" + mysqlUser + "`");
       preparedStatement.executeUpdate();
 
       // -----------------------------------------------------------------------
@@ -214,10 +214,10 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
       preparedStatement = connection.prepareStatement("USE `" + mysqlDatabase + "`");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("CREATE USER `" + jdbcUser + "` IDENTIFIED BY '" + config.getMysqlPassword() + "'");
+      preparedStatement = connection.prepareStatement("CREATE USER `" + mysqlUser + "` IDENTIFIED BY '" + config.getMysqlPassword() + "'");
       preparedStatement.executeUpdate();
 
-      preparedStatement = connection.prepareStatement("GRANT ALL ON " + mysqlDatabase + ".* TO `" + jdbcUser + "`");
+      preparedStatement = connection.prepareStatement("GRANT ALL ON " + mysqlDatabase + ".* TO `" + mysqlUser + "`");
       preparedStatement.executeUpdate();
 
       preparedStatement.close();
