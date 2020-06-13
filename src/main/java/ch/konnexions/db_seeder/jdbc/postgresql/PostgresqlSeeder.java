@@ -3,15 +3,9 @@
  */
 package ch.konnexions.db_seeder.jdbc.postgresql;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.nio.file.Paths;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -33,6 +27,8 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
    */
   public PostgresqlSeeder() {
     super();
+
+    databaseBrand = DatabaseBrand.POSTGRESQL;
   }
 
   @Override
@@ -55,33 +51,6 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     }
 
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
-  }
-
-  @Override
-  protected void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
-    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
-
-    try {
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
-      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
-
-      try {
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          pkList.add((int) resultSet.getLong(1));
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
   }
 
   @SuppressWarnings("preview")
@@ -215,23 +184,4 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     connect();
   }
 
-  @Override
-  protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
-    FileInputStream BLOB_DATA = null;
-    String          BLOB_FILE = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-
-    try {
-      BLOB_DATA = new FileInputStream(new File(BLOB_FILE));
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    try {
-      preparedStatement.setBinaryStream(columnPos, BLOB_DATA);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
 }

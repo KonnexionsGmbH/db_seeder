@@ -5,6 +5,7 @@ package ch.konnexions.db_seeder.jdbc;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -332,7 +333,64 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param rowCount the total row count
    * @param pkList current primary key list
    */
-  protected abstract void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList);
+  protected final void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    if (databaseBrand == DatabaseBrand.POSTGRESQL) {
+      createDataInsertPostgresql(preparedStatement, tableName, rowCount, pkList);
+      return;
+    }
+
+    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt, new String[] { "PK_" + tableName + "_ID" });
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        preparedStatement.executeUpdate();
+
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+        while (resultSet.next()) {
+          pkList.add((int) resultSet.getLong(1));
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+  }
+
+  protected final void createDataInsertPostgresql(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          pkList.add((int) resultSet.getLong(1));
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+  }
 
   /**
    * Create the DDL statement: CREATE TABLE.
@@ -669,7 +727,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param preparedStatement the prepared statement
    * @param rowCount          the row count
    */
-  protected abstract void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount);
+  protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+
+    if (databaseBrand == DatabaseBrand.ORACLE) {
+      prepStmntInsertColBlobOracle(columnPos, preparedStatement, rowCount);
+      return;
+    }
+
+    try {
+      preparedStatement.setBytes(columnPos, BLOB_DATA);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Sets the designated optional parameter randomly to a BLOB value.
@@ -685,6 +756,33 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       } else {
         prepStmntInsertColBlob(columnPos, preparedStatement, rowCount);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  /**
+   * Sets the designated optional parameter to a BLOB value - Oracle version.
+   *
+   * @param columnPos         the column position
+   * @param preparedStatement the prepared statement
+   * @param rowCount          the row count
+   */
+  protected final void prepStmntInsertColBlobOracle(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+
+    FileInputStream BLOB_DATA = null;
+    String          BLOB_FILE = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+
+    try {
+      BLOB_DATA = new FileInputStream(new File(BLOB_FILE));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      preparedStatement.setBinaryStream(columnPos, BLOB_DATA);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
