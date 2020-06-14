@@ -59,10 +59,8 @@ The following control parameters are currently supported:
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
 db_seeder.ibmdb2.database=kxn_db
-db_seeder.ibmdb2.password.sys=ibmdb2
 db_seeder.ibmdb2.password=ibmdb2
 db_seeder.ibmdb2.schema=kxn_schema
-db_seeder.ibmdb2.user=kxn_user
 
 db_seeder.jdbc.connection.host=localhost
 
@@ -118,10 +116,8 @@ db_seeder.postgresql.user=kxn_user
 | ibmdb2.connection.port=50000 | IBMDB2_CONNECTION_PORT | IBM DB2 | port number of the database server |
 | ibmdb2.connection.prefix=jdbc:db2:// | IBMDB2_CONNECTION_PREFIX | IBM DB2 | prefix of the database connection string |
 | ibmdb2.database=kxn_db | IBMDB2_DATABASE | IBM DB2 | database name |
-| ibmdb2.password.sys=ibmdb2 | IBMDB2_PASSWORD_SYS | IBM DB2 | password of the privileged user |
-| ibmdb2.password=ibmdb2 | IBMDB2_PASSWORD | IBM DB2 | password of the normal user |
+| ibmdb2.password=ibmdb2 | IBMDB2_PASSWORD | IBM DB2 | password of the user |
 | ibmdb2.schema=kxn_db | IBMDB2_SCHEMA | IBM DB2 | schema name |
-| ibmdb2.user=kxn_user | IBMDB2_USER | IBM DB2 | name of the normal user |
 |     |     |     |     |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | Relational DB | name or ip address of the database server |
 |     |     |     |     |
