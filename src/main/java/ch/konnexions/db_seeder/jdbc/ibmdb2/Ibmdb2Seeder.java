@@ -175,7 +175,10 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
   private final void disconnectInt(Connection connectionInt) {
     if (connectionInt != null) {
       try {
-        connectionInt.commit();
+        if (!(connectionInt.getAutoCommit())) {
+          connectionInt.commit();
+        }
+
         connectionInt.close();
 
         connectionInt = null;
@@ -232,7 +235,6 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
         statement2.executeUpdate(resultSet.getString(1));
       }
 
-      // wwe connectionInt.commit();
       statement2.close();
 
       disconnectInt(connectionInt);

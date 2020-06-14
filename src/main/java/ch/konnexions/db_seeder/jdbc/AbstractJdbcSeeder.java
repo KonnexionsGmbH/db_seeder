@@ -491,7 +491,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void disconnect() {
     if (connection != null) {
       try {
-        connection.commit();
+        if (!(connection.getAutoCommit())) {
+          connection.commit();
+        }
+
         connection.close();
 
         connection = null;
@@ -769,7 +772,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos, Types.BLOB);
-// wwe     preparedStatement.setNull(columnPos, Types.NULL);
+        // wwe     preparedStatement.setNull(columnPos, Types.NULL);
       } else {
         prepStmntInsertColBlob(columnPos, preparedStatement, rowCount);
       }
@@ -1026,6 +1029,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       while ((nextLine = bufferedReader.readLine()) != null) {
         clobData.append(nextLine);
       }
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      bufferedReader.close();
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
