@@ -5,9 +5,7 @@ package ch.konnexions.db_seeder.jdbc.mysql;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -29,6 +27,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
    */
   public MysqlSeeder() {
     super();
+
+    databaseBrand = DatabaseBrand.MYSQL;
   }
 
   @Override
@@ -50,35 +50,6 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     }
 
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
-  }
-
-  @Override
-  protected void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
-    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
-
-    try {
-      preparedStatement = connection.prepareStatement(sqlStmnt, new String[] { "PK_" + tableName + "_ID" });
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
-      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
-
-      try {
-        preparedStatement.executeUpdate();
-
-        ResultSet resultSet = preparedStatement.getGeneratedKeys();
-
-        while (resultSet.next()) {
-          pkList.add((int) resultSet.getLong(1));
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
   }
 
   @SuppressWarnings("preview")
@@ -233,15 +204,4 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     disconnect();
     connect();
   }
-
-  @Override
-  protected void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
-    try {
-      preparedStatement.setBytes(columnPos, BLOB_DATA);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
 }

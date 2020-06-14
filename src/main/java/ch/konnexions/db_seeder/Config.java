@@ -35,6 +35,13 @@ public class Config {
 
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
+
+  private int                                                          ibmdb2ConnectionPort;
+  private String                                                       ibmdb2ConnectionPrefix;
+  private String                                                       ibmdb2Database;
+  private String                                                       ibmdb2Password;
+  private String                                                       ibmdb2Schema;
+
   private String                                                       jdbcConnectionHost;
 
   private ArrayList<String>                                            keysSorted = new ArrayList<>();
@@ -52,9 +59,9 @@ public class Config {
   private int                                                          maxRowCountryState;
   private int                                                          maxRowTimezone;
 
-  private String                                                       mssqlserverDatabase;
   private int                                                          mssqlserverConnectionPort;
   private String                                                       mssqlserverConnectionPrefix;
+  private String                                                       mssqlserverDatabase;
   private String                                                       mssqlserverPassword;
   private String                                                       mssqlserverPasswordSys;
   private String                                                       mssqlserverSchema;
@@ -75,9 +82,9 @@ public class Config {
   private String                                                       oraclePasswordSys;
   private String                                                       oracleUser;
 
-  private String                                                       postgresqlDatabase;
   private int                                                          postgresqlConnectionPort;
   private String                                                       postgresqlConnectionPrefix;
+  private String                                                       postgresqlDatabase;
   private String                                                       postgresqlPassword;
   private String                                                       postgresqlPasswordSys;
   private String                                                       postgresqlUser;
@@ -107,6 +114,43 @@ public class Config {
     validateProperties();
   }
 
+  // IBM DB2 Database --------------------------------------------------------
+
+  /**
+   * @return the IBM DB2 port number where the database server is listening for requests
+   */
+  public final int getIbmdb2ConnectionPort() {
+    return ibmdb2ConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the IBM DB2 connection string
+   */
+  public final String getIbmdb2ConnectionPrefix() {
+    return ibmdb2ConnectionPrefix;
+  }
+
+  /**
+   * @return the IBM DB2 database name
+   */
+  public final String getIbmdb2Database() {
+    return ibmdb2Database;
+  }
+
+  /**
+   * @return the IBM DB2 password to connect to the database
+   */
+  public final String getIbmdb2Password() {
+    return ibmdb2Password;
+  }
+
+  /**
+   * @return the IBM DB2 schema name
+   */
+  public final String getIbmdb2Schema() {
+    return ibmdb2Schema;
+  }
+
   /**
    * @return the host name or the IP address of the database
    */
@@ -124,6 +168,8 @@ public class Config {
 
     return keysSorted;
   }
+
+  // MariaDB Server ----------------------------------------------------------
 
   /**
    * @return the MariaDB port number where the database server is listening for requests
@@ -167,6 +213,8 @@ public class Config {
     return mariadbUser;
   }
 
+  // MAX (rows) --------------------------------------------------------------
+
   /**
    * @return the maximum number of rows to be generated for database table CITY
    */
@@ -201,6 +249,8 @@ public class Config {
   public final int getMaxRowTimezone() {
     return maxRowTimezone;
   }
+
+  // Microsoft SQL Server ----------------------------------------------------
 
   /**
    * @return the Microsoft SQL Server port number where the database server is listening for requests
@@ -250,6 +300,8 @@ public class Config {
   public final String getMssqlserverUser() {
     return mssqlserverUser;
   }
+
+  // MySQL Database ----------------------------------------------------------
 
   /**
    * @return the MySQL port number where the database server is listening for requests
@@ -305,6 +357,7 @@ public class Config {
 
     List<String> list = new ArrayList<>();
 
+    list.add("db_seeder.ibmdb2.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
     list.add("db_seeder.max.row.company");
@@ -318,6 +371,8 @@ public class Config {
 
     return list;
   }
+
+  // Oracle Database ---------------------------------------------------------
 
   /**
    * @return the Oracle port number where the database server is listening for requests
@@ -360,6 +415,8 @@ public class Config {
   public final String getOracleUser() {
     return oracleUser.toUpperCase();
   }
+
+  // PostgreSQL Database -----------------------------------------------------
 
   /**
    * @return the PostgreSQL Database port number where the database server is listening for requests
@@ -408,6 +465,12 @@ public class Config {
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
+
+    ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
+    ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
+    ibmdb2Database              = propertiesConfiguration.getString("db_seeder.ibmdb2.database");
+    ibmdb2Password              = propertiesConfiguration.getString("db_seeder.ibmdb2.password");
+    ibmdb2Schema                = propertiesConfiguration.getString("db_seeder.ibmdb2.schema");
 
     jdbcConnectionHost          = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
 
@@ -462,6 +525,33 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_FILE_CONFIGURATION_NAME")) {
       fileConfigurationName = environmentVariables.get("DB_SEEDER_FILE_CONFIGURATION_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.configuration.name", fileConfigurationName);
+    }
+
+    // IBM DB2 Database ----------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_PORT")) {
+      ibmdb2ConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_IBMDB2_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", ibmdb2ConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_PREFIX")) {
+      ibmdb2ConnectionPrefix = environmentVariables.get("DB_SEEDER_IBMDB2_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", ibmdb2ConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_DATABASE")) {
+      ibmdb2Database = environmentVariables.get("DB_SEEDER_IBMDB2_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.database", ibmdb2Database);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_PASSWORD")) {
+      ibmdb2Password = environmentVariables.get("DB_SEEDER_IBMDB2_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.password", ibmdb2Password);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_SCHEMA")) {
+      ibmdb2Schema = environmentVariables.get("DB_SEEDER_IBMDB2_SCHEMA");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.database", ibmdb2Schema);
     }
 
     // JDBC Connection ---------------------------------------------------------
@@ -530,7 +620,7 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.max.row.timezone", maxRowTimezone);
     }
 
-    // Microsoft SQL Server Database ----------------------------------------------------------
+    // Microsoft SQL Server ----------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_CONNECTION_PORT")) {
       mssqlserverConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MSSQLSERVER_CONNECTION_PORT"));
@@ -636,7 +726,7 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.oracle.user", oracleUser);
     }
 
-    // PostgreSQL Database Database ----------------------------------------------------------
+    // PostgreSQL Database -----------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_PORT")) {
       postgresqlConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_POSTGRESQL_CONNECTION_PORT"));
