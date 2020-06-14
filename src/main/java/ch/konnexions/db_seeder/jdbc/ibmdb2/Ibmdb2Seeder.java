@@ -44,7 +44,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     try {
       connection = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
-          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2PasswordSys());
+          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2Password());
 
       PreparedStatement preparedStatement = connection.prepareStatement("SET CURRENT SCHEMA = " + config.getIbmdb2Schema());
       preparedStatement.executeUpdate();
@@ -69,10 +69,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     try {
       connectionInt = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
-          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2PasswordSys());
-
-      //      connection = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
-      //          + "/" + config.getIbmdb2Database() + ":USER=" + config.getIbmdb2User() + ";PASSWORD=" + config.getIbmdb2Password());
+          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2Password());
 
       PreparedStatement preparedStatement = connectionInt.prepareStatement("SET CURRENT SCHEMA = " + config.getIbmdb2Schema());
       preparedStatement.executeUpdate();
@@ -208,7 +205,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     try {
       connection = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
-          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2PasswordSys());
+          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2Password());
 
       connection.setAutoCommit(true);
     } catch (SQLException ec) {

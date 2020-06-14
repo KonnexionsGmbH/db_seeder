@@ -40,9 +40,7 @@ public class Config {
   private String                                                       ibmdb2ConnectionPrefix;
   private String                                                       ibmdb2Database;
   private String                                                       ibmdb2Password;
-  private String                                                       ibmdb2PasswordSys;
   private String                                                       ibmdb2Schema;
-  private String                                                       ibmdb2User;
 
   private String                                                       jdbcConnectionHost;
 
@@ -140,17 +138,10 @@ public class Config {
   }
 
   /**
-   * @return the IBM DB2 password to connect as normal user to the database
+   * @return the IBM DB2 password to connect to the database
    */
   public final String getIbmdb2Password() {
     return ibmdb2Password;
-  }
-
-  /**
-   * @return the IBM DB2 password to connect as privileged user to the database
-   */
-  public final String getIbmdb2PasswordSys() {
-    return ibmdb2PasswordSys;
   }
 
   /**
@@ -158,13 +149,6 @@ public class Config {
    */
   public final String getIbmdb2Schema() {
     return ibmdb2Schema;
-  }
-
-  /**
-   * @return the IBM DB2 user name to connect as normal user to the database
-   */
-  public final String getIbmdb2User() {
-    return ibmdb2User;
   }
 
   /**
@@ -486,9 +470,7 @@ public class Config {
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
     ibmdb2Database              = propertiesConfiguration.getString("db_seeder.ibmdb2.database");
     ibmdb2Password              = propertiesConfiguration.getString("db_seeder.ibmdb2.password");
-    ibmdb2PasswordSys           = propertiesConfiguration.getString("db_seeder.ibmdb2.password.sys");
     ibmdb2Schema                = propertiesConfiguration.getString("db_seeder.ibmdb2.schema");
-    ibmdb2User                  = propertiesConfiguration.getString("db_seeder.ibmdb2.user");
 
     jdbcConnectionHost          = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
 
@@ -567,19 +549,9 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.ibmdb2.password", ibmdb2Password);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_PASSWORD_SYS")) {
-      ibmdb2PasswordSys = environmentVariables.get("DB_SEEDER_IBMDB2_PASSWORD_SYS");
-      propertiesConfiguration.setProperty("db_seeder.ibmdb2.password.sys", ibmdb2PasswordSys);
-    }
-
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_SCHEMA")) {
       ibmdb2Schema = environmentVariables.get("DB_SEEDER_IBMDB2_SCHEMA");
       propertiesConfiguration.setProperty("db_seeder.ibmdb2.database", ibmdb2Schema);
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_USER")) {
-      ibmdb2User = environmentVariables.get("DB_SEEDER_IBMDB2_USER");
-      propertiesConfiguration.setProperty("db_seeder.ibmdb2.user", ibmdb2User);
     }
 
     // JDBC Connection ---------------------------------------------------------

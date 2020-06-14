@@ -748,8 +748,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
 
-    if (databaseBrand == DatabaseBrand.ORACLE) {
-      prepStmntInsertColBlobOracle(columnPos, preparedStatement, rowCount);
+    if (databaseBrand == DatabaseBrand.POSTGRESQL) {
+      prepStmntInsertColBlobPostgresql(columnPos, preparedStatement, rowCount);
       return;
     }
 
@@ -771,8 +771,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void prepStmntInsertColBlobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, Types.BLOB);
-        // wwe     preparedStatement.setNull(columnPos, Types.NULL);
+        if (databaseBrand == DatabaseBrand.POSTGRESQL) {
+          preparedStatement.setNull(columnPos, Types.NULL);
+        } else {
+          preparedStatement.setNull(columnPos, Types.BLOB);
+        }
       } else {
         prepStmntInsertColBlob(columnPos, preparedStatement, rowCount);
       }
@@ -783,27 +786,32 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   /**
-   * Sets the designated optional parameter to a BLOB value - Oracle version.
+   * Sets the designated optional parameter to a BLOB value - PostgreSQL version.
    *
    * @param columnPos         the column position
    * @param preparedStatement the prepared statement
    * @param rowCount          the row count
    */
-  protected final void prepStmntInsertColBlobOracle(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
-
-    FileInputStream BLOB_DATA = null;
-    String          BLOB_FILE = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  protected final void prepStmntInsertColBlobPostgresql(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+    FileInputStream blobData = null;
 
     try {
-      BLOB_DATA = new FileInputStream(new File(BLOB_FILE));
+      blobData = new FileInputStream(new File(Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png"));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     try {
-      preparedStatement.setBinaryStream(columnPos, BLOB_DATA);
+      preparedStatement.setBinaryStream(columnPos, blobData);
     } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      blobData.close();
+    } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
     }
