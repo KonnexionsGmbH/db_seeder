@@ -5,6 +5,7 @@ package ch.konnexions.db_seeder;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
@@ -50,6 +51,11 @@ public class DatabaseSeeder {
     if (null == args0) {
       logger.error("Command line argument missing");
       System.exit(1);
+    } else if (args0.equals("ibmdb2")) {
+      logger.info("Start IBM DB2 Database");
+      Ibmdb2Seeder ibmdb2Seeder = new Ibmdb2Seeder();
+      ibmdb2Seeder.createData();
+      logger.info("End   IBM DB2 Database");
     } else if (args0.equals("mariadb")) {
       logger.info("Start MariaDB Server");
       MariadbSeeder mariadbSeeder = new MariadbSeeder();

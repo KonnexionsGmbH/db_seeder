@@ -5,6 +5,7 @@ package ch.konnexions.db_seeder.jdbc;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -332,7 +333,64 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param rowCount the total row count
    * @param pkList current primary key list
    */
-  protected abstract void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList);
+  protected final void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    if (databaseBrand == DatabaseBrand.POSTGRESQL) {
+      createDataInsertPostgresql(preparedStatement, tableName, rowCount, pkList);
+      return;
+    }
+
+    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt, new String[] { "PK_" + tableName + "_ID" });
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        preparedStatement.executeUpdate();
+
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+        while (resultSet.next()) {
+          pkList.add((int) resultSet.getLong(1));
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+  }
+
+  protected final void createDataInsertPostgresql(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          pkList.add((int) resultSet.getLong(1));
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+  }
 
   /**
    * Create the DDL statement: CREATE TABLE.
@@ -433,6 +491,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void disconnect() {
     if (connection != null) {
       try {
+        if (!(connection.getAutoCommit())) {
+          connection.commit();
+        }
+
         connection.close();
 
         connection = null;
@@ -447,6 +509,21 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Drop the schema / user if existing and create it new.
    */
   protected abstract void dropCreateSchemaUser();
+
+  /**
+   * Execute update with tolerance of non-existence.
+   *
+   * @param preparedStatement the prepared statement
+   */
+  protected void executeUpdateExistence(PreparedStatement preparedStatement) {
+    try {
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      if (!(e.getErrorCode() == -204 && "42704".equals(e.getSQLState()))) {
+        e.printStackTrace();
+      }
+    }
+  }
 
   /**
    * Get the default number of required database rows.
@@ -669,7 +746,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param preparedStatement the prepared statement
    * @param rowCount          the row count
    */
-  protected abstract void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount);
+  protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+
+    if (databaseBrand == DatabaseBrand.POSTGRESQL) {
+      prepStmntInsertColBlobPostgresql(columnPos, preparedStatement, rowCount);
+      return;
+    }
+
+    try {
+      preparedStatement.setBytes(columnPos, BLOB_DATA);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Sets the designated optional parameter randomly to a BLOB value.
@@ -681,11 +771,47 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void prepStmntInsertColBlobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, Types.NULL);
+        if (databaseBrand == DatabaseBrand.POSTGRESQL) {
+          preparedStatement.setNull(columnPos, Types.NULL);
+        } else {
+          preparedStatement.setNull(columnPos, Types.BLOB);
+        }
       } else {
         prepStmntInsertColBlob(columnPos, preparedStatement, rowCount);
       }
     } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  /**
+   * Sets the designated optional parameter to a BLOB value - PostgreSQL version.
+   *
+   * @param columnPos         the column position
+   * @param preparedStatement the prepared statement
+   * @param rowCount          the row count
+   */
+  protected final void prepStmntInsertColBlobPostgresql(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+    FileInputStream blobData = null;
+
+    try {
+      blobData = new FileInputStream(new File(Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png"));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      preparedStatement.setBinaryStream(columnPos, blobData);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      blobData.close();
+    } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
     }
@@ -911,6 +1037,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       while ((nextLine = bufferedReader.readLine()) != null) {
         clobData.append(nextLine);
       }
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      bufferedReader.close();
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);

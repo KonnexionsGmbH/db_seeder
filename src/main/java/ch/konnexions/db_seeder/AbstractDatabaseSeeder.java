@@ -14,8 +14,15 @@ import java.util.ArrayList;
  */
 public abstract class AbstractDatabaseSeeder {
 
+  protected enum DatabaseBrand {
+    IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL
+  }
+
   protected Config            config;
+
   protected Connection        connection;
+
+  protected DatabaseBrand     databaseBrand;
 
   // private static Logger logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 

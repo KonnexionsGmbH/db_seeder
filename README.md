@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.3.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.4.0.svg)
 
 ----
 
@@ -11,6 +11,7 @@
 
 `db_seeder` allows the generation of dummy data in different databases. 
 Currently the following databases are supported:
+- IBM DB2 Database (relational Database / tested: version 11.5.1.0) 
 - MariaDB Server (relational Database / tested: version 10.4.13) 
 - Microsoft SQL Server (relational Database / tested: version 2019) 
 - MySQL Database (relational Database / tested: version 8.0.20) 
@@ -55,14 +56,19 @@ The flow control parameters for `db_seeder` are stored in the properties file `s
 The following control parameters are currently supported:
 
 ```
+db_seeder.ibmdb2.connection.port=50000
+db_seeder.ibmdb2.connection.prefix=jdbc:db2://
+db_seeder.ibmdb2.database=kxn_db
+db_seeder.ibmdb2.password=ibmdb2
+db_seeder.ibmdb2.schema=kxn_schema
+
 db_seeder.jdbc.connection.host=localhost
 
 db_seeder.mariadb.connection.port=3306
 db_seeder.mariadb.connection.prefix=jdbc:mariadb://
-db_seeder.mariadb.connection.suffix=?serverTimezone=UTC
+db_seeder.mariadb.database=kxn_db
 db_seeder.mariadb.password.sys=mariadb
 db_seeder.mariadb.password=mariadb
-db_seeder.mariadb.schema=kxn_schema
 db_seeder.mariadb.user=kxn_user
 
 db_seeder.max.row.city=1800
@@ -82,9 +88,9 @@ db_seeder.mssqlserver.user=kxn_user
 db_seeder.mysql.connection.port=3306
 db_seeder.mysql.connection.prefix=jdbc:mysql://
 db_seeder.mysql.connection.suffix=?serverTimezone=UTC
+db_seeder.mysql.database=kxn_db
 db_seeder.mysql.password.sys=mysql
 db_seeder.mysql.password=mysql
-db_seeder.mysql.schema=kxn_schema
 db_seeder.mysql.user=kxn_user
 
 db_seeder.oracle.connection.port=1521
@@ -99,29 +105,34 @@ db_seeder.postgresql.connection.prefix=jdbc:postgresql://
 db_seeder.postgresql.database=kxn_db
 db_seeder.postgresql.password.sys=postgresql
 db_seeder.postgresql.password=postgresql
-db_seeder.postgresql.schema=kxn_schema
 db_seeder.postgresql.user=kxn_user
+
 ```
 
 ### 4.2 Control Parameters - Detailled
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
+| ibmdb2.connection.port=50000 | IBMDB2_CONNECTION_PORT | IBM DB2 | port number of the database server |
+| ibmdb2.connection.prefix=jdbc:db2:// | IBMDB2_CONNECTION_PREFIX | IBM DB2 | prefix of the database connection string |
+| ibmdb2.database=kxn_db | IBMDB2_DATABASE | IBM DB2 | database name |
+| ibmdb2.password=ibmdb2 | IBMDB2_PASSWORD | IBM DB2 | password of the user |
+| ibmdb2.schema=kxn_db | IBMDB2_SCHEMA | IBM DB2 | schema name |
+|     |     |     |     |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | Relational DB | name or ip address of the database server |
 |     |     |     |     |
 | mariadb.connection.port=3306 | MARIADB_CONNECTION_PORT | MariaDB | port number of the database server |
 | mariadb.connection.prefix=jdbc:mariadb:// | MARIADB_CONNECTION_PREFIX | MariaDB | prefix of the database connection string |
-| mariadb.connection.suffix=?serverTimezone=UTC | MARIADB_CONNECTION_SUFFIX | MariaDB | suffix of the database connection string |
+| mariadb.database=kxn_db | MARIADB_DATABASE | MariaDB | database name |
 | mariadb.password.sys=mariadb | MARIADB_PASSWORD_SYS | MariaDB | password of the privileged user |
 | mariadb.password=mariadb | MARIADB_PASSWORD | MariaDB | password of the normal user |
-| mariadb.schema=kxn_schema | MARIADB_SCHEMA | MariaDB | schema name |
 | mariadb.user=kxn_user | MARIADB_USER | MariaDB | name of the normal user |
 |     |     |     |     |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 | mssqlserver.connection.port=1433 | MSSQLSERVER_CONNECTION_PORT | Microsoft SQL Server | port number of the database server |
 | mssqlserver.connection.prefix=jdbc:sqlserver:// | MSSQLSERVER_CONNECTION_PREFIX | Microsoft SQL Server | prefix of the database connection string |
-| mssqlserver.connection.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
+| mssqlserver.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
 | mssqlserver.password.sys=mssqlserver | MSSQLSERVER_PASSWORD_SYS | Microsoft SQL Server | password of the privileged user |
 | mssqlserver.password=mssqlserver | MSSQLSERVER_PASSWORD | Microsoft SQL Server | password of the normal user |
 | mssqlserver.schema=kxn_schema | MSSQLSERVER_SCHEMA | Microsoft SQL Server | schema name |
@@ -130,9 +141,9 @@ db_seeder.postgresql.user=kxn_user
 | mysql.connection.port=3306 | MYSQL_CONNECTION_PORT | MySQL | port number of the database server |
 | mysql.connection.prefix=jdbc:mysql:// | MYSQL_CONNECTION_PREFIX | MySQL | prefix of the database connection string |
 | mysql.connection.suffix=?serverTimezone=UTC | MYSQL_CONNECTION_SUFFIX | MySQL | suffix of the database connection string |
+| mysql.database=kxn_db | MYSQL_DATABASE | MySQL | database name |
 | mysql.password.sys=mysql | MYSQL_PASSWORD_SYS | MySQL | password of the privileged user |
 | mysql.password=mysql | MYSQL_PASSWORD | MySQL | password of the normal user |
-| mysql.schema=kxn_schema | MYSQL_SCHEMA | MySQL | schema name |
 | mysql.user=kxn_user | MYSQL_USER | MySQL | name of the normal user |
 |     |     |     |     |
 | oracle.connection.port=1521 | ORACLE_CONNECTION_PORT | Oracle | port number of the database server |
@@ -144,93 +155,116 @@ db_seeder.postgresql.user=kxn_user
 |     |     |     |     |
 | mssqlserver.connection.port=1433 | MSSQLSERVER_CONNECTION_PORT | Microsoft SQL Server | port number of the database server |
 | mssqlserver.connection.prefix=jdbc:sqlserver:// | MSSQLSERVER_CONNECTION_PREFIX | Microsoft SQL Server | prefix of the database connection string |
-| mssqlserver.connection.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
+| mssqlserver.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
 | mssqlserver.password.sys=mssqlserver | MSSQLSERVER_PASSWORD_SYS | Microsoft SQL Server | password of the privileged user |
 | mssqlserver.password=mssqlserver | MSSQLSERVER_PASSWORD | Microsoft SQL Server | password of the normal user |
-| mssqlserver.schema=kxn_schema | MSSQLSERVER_SCHEMA | Microsoft SQL Server | schema name |
 | mssqlserver.user=kxn_user | MSSQLSERVER_USER | Microsoft SQL Server | name of the normal user |
 |     |     |     |     |
 
 ## 4. Database Brand Specifica
 
-### 4.1 MariaDB Server
+### 4.1 IBM DB2 Database
+
+- database driver version 11.5.0.0 
+  - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
+- database image version 11.5.0.0a: [here](https://hub.docker.com/r/ibmcom/db2)
+- data definition hierarchy: only schema
+- privileged database / user: n/a / db2inst1
+- restrictions:
+  - the IBM DB2 database only accepts operating system accounts as database users 
+- data types used:
+
+| Data Type | IBM DB2 Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | BLOB |
+| character large object | CLOB |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+### 4.2 MariaDB Server
 
 - database driver version 2.6.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
 - database image version 10.4.13: [here](https://hub.docker.com/_/mariadb)
 - data definition hierarchy: database and user
+- privileged database / user: mysql / root
 - data types used:
 
 | Data Type | MariaDB Type |
 | --- | --- |
 | big integer | BIGINT |
 | binary large object | LONGBLOB |
-| characterr large object | LONGTEXT |
+| character large object | LONGTEXT |
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-### 4.2 Microsoft SQL Server
+### 4.3 Microsoft SQL Server
 
 - database driver version 8.31 
   - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
 - database image version 2019: [here](https://hub.docker.com/_/microsoft-mssql-server)
 - data definition hierarchy: database, schema and user
+- privileged database / user: master / sa
 - data types used:
 
 | Data Type | Microsoft SQL Server Type |
 | --- | --- |
 | big integer | BIGINT |
 | binary large object | VARBINARY (MAX) |
-| characterr large object | VARCHAR (MAX) |
+| character large object | VARCHAR (MAX) |
 | string | VARCHAR |
 | timestamp | DATETIME2 |
 
-### 4.3 MySQL Database
+### 4.4 MySQL Database
 
 - database driver version 8.0.20 
   - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 - database image version 8.0.20: [here](https://hub.docker.com/_/mysql)
 - data definition hierarchy: database and user
+- privileged database / user: sys / root
 - data types used:
 
 | Data Type | MySQL Type |
 | --- | --- |
 | big integer | BIGINT |
 | binary large object | LONGBLOB |
-| characterr large object | LONGTEXT |
+| character large object | LONGTEXT |
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-### 4.4 Oracle Database
+### 4.5 Oracle Database
 
 - database driver version 
   - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
   - Software 19.6.0.0.0: [here](https://www.oracle.com/database/technologies/instant-client/downloads.html)
 - database image version 19c
 - data definition hierarchy: user
+- privileged database / user: orclpdb1 / sys AS SYSDBA
 - data types used:
 
 | Data Type | Oracle Type |
 | --- | --- |
 | big integer | NUMBER |
 | binary large object | BLOB |
-| characterr large object | CLOB |
+| character large object | CLOB |
 | string | VARCHAR2 |
 | timestamp | TIMESTAMP |
 
-### 4.5 PostgreSQL Database
+### 4.6 PostgreSQL Database
 
 - database driver version 42.2.13
   - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 - database image version 12.3: [here](https://hub.docker.com/_/postgres)
 - data definition hierarchy: database, schema and user
+- privileged database / user: kxn_db_sys / kxn_user_sys
 - data types used:
 
 | Data Type | PostgreSQL Type |
 | --- | --- |
 | big integer | BIGINT |
 | binary large object | BYTEA |
-| characterr large object | TEXT |
+| character large object | TEXT |
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
