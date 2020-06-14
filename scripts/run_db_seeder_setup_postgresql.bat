@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_postgresql.bat: Setup a PostgreSQL Docker container.
+rem run_db_seeder_setup_postgresql.bat: Setup a PostgreSQL Database Docker container.
 rem
 rem ------------------------------------------------------------------------------
 

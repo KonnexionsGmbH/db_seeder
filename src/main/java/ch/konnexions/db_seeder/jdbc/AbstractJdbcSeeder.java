@@ -491,6 +491,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void disconnect() {
     if (connection != null) {
       try {
+        connection.commit();
         connection.close();
 
         connection = null;
@@ -505,6 +506,21 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Drop the schema / user if existing and create it new.
    */
   protected abstract void dropCreateSchemaUser();
+
+  /**
+   * Execute update with tolerance of non-existence.
+   *
+   * @param preparedStatement the prepared statement
+   */
+  protected void executeUpdateExistence(PreparedStatement preparedStatement) {
+    try {
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      if (!(e.getErrorCode() == -204 && "42704".equals(e.getSQLState()))) {
+        e.printStackTrace();
+      }
+    }
+  }
 
   /**
    * Get the default number of required database rows.
@@ -752,7 +768,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void prepStmntInsertColBlobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, Types.NULL);
+        preparedStatement.setNull(columnPos, Types.BLOB);
+// wwe     preparedStatement.setNull(columnPos, Types.NULL);
       } else {
         prepStmntInsertColBlob(columnPos, preparedStatement, rowCount);
       }

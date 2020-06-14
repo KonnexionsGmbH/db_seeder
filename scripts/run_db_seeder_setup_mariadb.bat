@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_mariadb.bat: Setup a MariaDB Docker container.
+rem run_db_seeder_setup_mariadb.bat: Setup a MariaDB Server Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo MariaDB Server
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (MariaDB %DB_SEEDER_VERSION_MARIADB%)
+echo Docker create db_seeder_db (MariaDB Server %DB_SEEDER_VERSION_MARIADB%)
 docker create -e MYSQL_ROOT_PASSWORD=mariadb --name db_seeder_db -p 3306:3306/tcp mariadb:%DB_SEEDER_VERSION_MARIADB%
 
-echo Docker start db_seeder_db (MariaDB %DB_SEEDER_VERSION_MARIADB%) ...
+echo Docker start db_seeder_db (MariaDB Server %DB_SEEDER_VERSION_MARIADB%) ...
 docker start db_seeder_db
 
 ping -n 20 127.0.0.1>nul

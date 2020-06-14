@@ -8,6 +8,7 @@ jdk:
 
 env:
   matrix:
+    - DB_SEEDER_DATABASE_BRAND=ibmdb2
     - DB_SEEDER_DATABASE_BRAND=mariadb
     - DB_SEEDER_DATABASE_BRAND=mssqlserver
     - DB_SEEDER_DATABASE_BRAND=mysql

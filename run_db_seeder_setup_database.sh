@@ -11,6 +11,7 @@ set -e
 export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
+export DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
 export DB_SEEDER_VERSION_MARIADB=10.4.13
 export DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 export DB_SEEDER_VERSION_MYSQL=8.0.20
@@ -19,6 +20,7 @@ export DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if [ -z "$1" ]; then
     echo "===================================="
+    echo "ibmdb2      - IBM DB2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
     echo "mysql       - MySQL"
@@ -54,6 +56,11 @@ echo "--------------------------------------------------------------------------
 echo "DATABASE_BRAND            : $DB_SEEDER_DATABASE_BRAND"
 echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
 echo --------------------------------------------------------------------------------
+if [ "$DB_SEEDER_DATABASE_BRAND" = "ibmdb2" ]; then
+    echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
+    export DB_SEEDER_IBMDB2_DATABASE=kxn_db
+    echo "IBMDB2_DATABASE           : $DB_SEEDER_IBMDB2_DATABASE"
+fi
 if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
     echo "VERSION_MARIADB           : $DB_SEEDER_VERSION_MARIADB"
 fi
@@ -77,6 +84,23 @@ if [ "$DB_SEEDER_DELETE_EXISTING_CONTAINER" != "no" ]; then
     echo "Docker stop/rm db_seeder_db"
     docker stop db_seeder_db
     docker rm -f db_seeder_db
+fi
+
+# ------------------------------------------------------------------------------
+# IBM DB2 Database                           https://hub.docker.com/r/ibmcom/db2
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DATABASE_BRAND" = "ibmdb2" ]; then
+    start=$(date +%s)
+    echo "IBM DB2 Database."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (IBM DB2 $DB_SEEDER_VERSION_IBMDB2)"
+    docker run -itd --name db_seeder_db --restart unless-stopped -e DBNAME=$DB_SEEDER_IBMDB2_DATABASE -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p 50000:50000 --privileged=true ibmcom/db2:$DB_SEEDER_VERSION_IBMDB2
+
+    sleep 120
+
+    end=$(date +%s)
+    echo "DOCKER IBM DB2 Database was ready in $((end - start)) seconds"
 fi
 
 # ------------------------------------------------------------------------------

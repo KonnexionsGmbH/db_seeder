@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_mysql.bat: Setup a MySQL Docker container.
+rem run_db_seeder_setup_mysql.bat: Setup a MySQL Database Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo MySQL Database
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (MySQL %DB_SEEDER_VERSION_MYSQL%)
+echo Docker create db_seeder_db (MySQL Database %DB_SEEDER_VERSION_MYSQL%)
 docker create -e MYSQL_ROOT_PASSWORD=mysql --name db_seeder_db -p 3306:3306/tcp mysql:%DB_SEEDER_VERSION_MYSQL%
 
-echo Docker start db_seeder_db (MySQL %DB_SEEDER_VERSION_MYSQL%) ...
+echo Docker start db_seeder_db (MySQL Database %DB_SEEDER_VERSION_MYSQL%) ...
 docker start db_seeder_db
 
 ping -n 20 127.0.0.1>nul

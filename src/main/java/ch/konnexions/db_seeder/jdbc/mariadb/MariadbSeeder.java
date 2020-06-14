@@ -43,8 +43,6 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
       connection = DriverManager.getConnection(config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort()
           + "/" + config.getMariadbDatabase(), config.getMariadbUser(), config.getMariadbPassword());
 
-      logger.info("ok");
-
       connection.setAutoCommit(false);
     } catch (SQLException ec) {
       ec.printStackTrace();
