@@ -173,13 +173,13 @@ db_seeder.postgresql.user=kxn_user
 
 ## 4. Database Brand Specifica
 
-### 4.1 CrateDB TODO
+### 4.1 CrateDB
 
 - database driver version 2.6.0
   - JFrog Bintray repository: [here](https://bintray.com/crate/crate/crate-jdbc/2.6.0)
 - database image version 4.1.6: [here](https://hub.docker.com/_/crate)
-- data definition hierarchy: only schema
-- privileged database / user: n/a / db2inst1
+- data definition hierarchy: only user
+- privileged database / user: n/a / crate
 - restrictions:
   - no constraints (e.g. foreign keys or unique keys)
   - no transaction concept

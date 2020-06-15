@@ -42,8 +42,8 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     try {
       connection = DriverManager.getConnection(config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
           + "/?strict=true&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword());
-    } catch (SQLException ec) {
-      ec.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
       System.exit(1);
     }
 
@@ -131,14 +131,6 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     final String      cratedbUser       = config.getCratedbUser();
 
-//    wwe
-//    try {
-//      Class.forName("org.cratedb.jdbc.Driver");
-//    } catch (ClassNotFoundException e) {
-//      e.printStackTrace();
-//      System.exit(1);
-//    }
-
     try {
       connection = DriverManager.getConnection(config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
           + "/?strict=true&user=crate");
@@ -156,6 +148,11 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     try {
       preparedStatement = connection.prepareStatement("DROP USER IF EXISTS " + cratedbUser);
       preparedStatement.executeUpdate();
+
+      for (String tableName : TABLE_NAMES) {
+        preparedStatement = connection.prepareStatement("DROP TABLE IF EXISTS " + tableName);
+        preparedStatement.executeUpdate();
+      }
 
       // -----------------------------------------------------------------------
       // Create the schema / user and grant the necessary rights.
