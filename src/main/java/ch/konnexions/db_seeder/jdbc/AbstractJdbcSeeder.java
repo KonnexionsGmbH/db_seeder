@@ -300,6 +300,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     retrieveFkList(tableName);
     createFkList(tableName);
 
+    if (databaseBrand == DatabaseBrand.CRATEDB) {
+      autoIncrement = 0;
+    }
+
     createDataInsert(preparedStatement, tableName, rowCount, pkList);
 
     addOptionalFk(tableName, pkList);
@@ -311,11 +315,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       System.exit(1);
     }
 
-    try {
-      connection.commit();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
+    if (!(databaseBrand == DatabaseBrand.CRATEDB)) {
+      try {
+        connection.commit();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
     }
 
     savePkList(tableName, pkList);
@@ -334,6 +340,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param pkList current primary key list
    */
   protected final void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    if (databaseBrand == DatabaseBrand.CRATEDB) {
+      createDataInsertCratedb(preparedStatement, tableName, rowCount, pkList);
+      return;
+    }
+
     if (databaseBrand == DatabaseBrand.POSTGRESQL) {
       createDataInsertPostgresql(preparedStatement, tableName, rowCount, pkList);
       return;
@@ -366,7 +377,42 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  protected final void createDataInsertPostgresql(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+  private final void createDataInsertCratedb(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        preparedStatement.executeUpdate();
+
+        pkList.add(autoIncrement);
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    Statement statement = null;
+
+    try {
+      statement = connection.createStatement();
+      statement.execute("REFRESH TABLE " + tableName);
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  private final void createDataInsertPostgresql(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
     final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
 
     try {
@@ -409,20 +455,21 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the insert statement
    */
   protected final String createDmlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
-    case TABLE_NAME_COMPANY:
-      return "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
-    case TABLE_NAME_COUNTRY:
-      return "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?";
-    case TABLE_NAME_COUNTRY_STATE:
-      return "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?";
-    case TABLE_NAME_TIMEZONE:
-      return "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+    @SuppressWarnings("preview")
+    String statement = switch (tableName) {
+    case TABLE_NAME_CITY -> "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
+    case TABLE_NAME_COMPANY -> "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+    case TABLE_NAME_COUNTRY -> "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?";
+    case TABLE_NAME_COUNTRY_STATE -> "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?";
+    case TABLE_NAME_TIMEZONE -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
+    default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+    };
+
+    if (databaseBrand == DatabaseBrand.CRATEDB) {
+      return "pk_" + tableName.toLowerCase() + "_id," + statement.replace("(?", "(?,?");
     }
+
+    return statement;
   }
 
   /**
@@ -636,11 +683,17 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
-      prepStmntInsertColFKOpt(1, pkListCountryState, preparedStatement, rowCount);
-      prepStmntInsertColBlobOpt(2, preparedStatement, rowCount);
-      preparedStatement.setTimestamp(3, getRandomTimestamp());
-      prepStmntInsertColDatetimeOpt(4, preparedStatement, rowCount);
-      preparedStatement.setString(5, "NAME_" + identifier04);
+      int i = 1;
+
+      if (databaseBrand == DatabaseBrand.CRATEDB) {
+        preparedStatement.setInt(i++, autoIncrement++);
+      }
+
+      prepStmntInsertColFKOpt(i++, pkListCountryState, preparedStatement, rowCount);
+      prepStmntInsertColBlobOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setString(i, "NAME_" + identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -656,21 +709,27 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
-      preparedStatement.setObject(1, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
-      prepStmntInsertColFlagNY(2, preparedStatement, rowCount);
-      prepStmntInsertColStringOpt(3, "ADDRESS1_", preparedStatement, rowCount, identifier04);
-      prepStmntInsertColStringOpt(4, "ADDRESS2_", preparedStatement, rowCount, identifier04);
-      prepStmntInsertColStringOpt(5, "ADDRESS3_", preparedStatement, rowCount, identifier04);
-      preparedStatement.setTimestamp(6, getRandomTimestamp());
-      prepStmntInsertColClobOpt(7, preparedStatement, rowCount);
-      prepStmntInsertColStringOpt(8, "EMAIL_", preparedStatement, rowCount, identifier04);
-      prepStmntInsertColStringOpt(9, "FAX_", preparedStatement, rowCount, identifier04);
-      prepStmntInsertColDatetimeOpt(10, preparedStatement, rowCount);
-      preparedStatement.setString(11, "NAME_" + identifier04);
-      prepStmntInsertColStringOpt(12, "PHONE_", preparedStatement, rowCount, identifier04);
-      prepStmntInsertColStringOpt(13, "POSTAL_CODE_", preparedStatement, rowCount, identifier04);
-      prepStmntInsertColStringOpt(14, "URL_", preparedStatement, rowCount, identifier04);
-      prepStmntInsertColStringOpt(15, "VAT_ID_NUMBER__", preparedStatement, rowCount, identifier04);
+      int i = 1;
+
+      if (databaseBrand == DatabaseBrand.CRATEDB) {
+        preparedStatement.setInt(i++, autoIncrement++);
+      }
+
+      preparedStatement.setObject(i++, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
+      prepStmntInsertColFlagNY(i++, preparedStatement, rowCount);
+      prepStmntInsertColStringOpt(i++, "ADDRESS1_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(i++, "ADDRESS2_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(i++, "ADDRESS3_", preparedStatement, rowCount, identifier04);
+      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColClobOpt(i++, preparedStatement, rowCount);
+      prepStmntInsertColStringOpt(i++, "EMAIL_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(i++, "FAX_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColDatetimeOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setString(i++, "NAME_" + identifier04);
+      prepStmntInsertColStringOpt(i++, "PHONE_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(i++, "POSTAL_CODE_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(i++, "URL_", preparedStatement, rowCount, identifier04);
+      prepStmntInsertColStringOpt(i, "VAT_ID_NUMBER__", preparedStatement, rowCount, identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -686,11 +745,17 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
-      prepStmntInsertColBlobOpt(1, preparedStatement, rowCount);
-      preparedStatement.setTimestamp(2, getRandomTimestamp());
-      prepStmntInsertColStringOpt(3, "", preparedStatement, rowCount, identifier04.substring(2));
-      prepStmntInsertColDatetimeOpt(4, preparedStatement, rowCount);
-      preparedStatement.setString(5, "NAME_" + identifier04);
+      int i = 1;
+
+      if (databaseBrand == DatabaseBrand.CRATEDB) {
+        preparedStatement.setInt(i++, autoIncrement++);
+      }
+
+      prepStmntInsertColBlobOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColStringOpt(i++, "", preparedStatement, rowCount, identifier04.substring(2));
+      prepStmntInsertColDatetimeOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setString(i, "NAME_" + identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -706,13 +771,19 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
-      preparedStatement.setObject(1, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
-      preparedStatement.setObject(2, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
-      prepStmntInsertColBlobOpt(3, preparedStatement, rowCount);
-      preparedStatement.setTimestamp(4, getRandomTimestamp());
-      prepStmntInsertColDatetimeOpt(5, preparedStatement, rowCount);
-      preparedStatement.setString(6, "NAME_" + identifier04);
-      prepStmntInsertColStringOpt(7, "SYMBOL_", preparedStatement, rowCount, identifier04.substring(1));
+      int i = 1;
+
+      if (databaseBrand == DatabaseBrand.CRATEDB) {
+        preparedStatement.setInt(i++, autoIncrement++);
+      }
+
+      preparedStatement.setObject(i++, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
+      preparedStatement.setObject(i++, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
+      prepStmntInsertColBlobOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setString(i++, "NAME_" + identifier04);
+      prepStmntInsertColStringOpt(i, "SYMBOL_", preparedStatement, rowCount, identifier04.substring(1));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -728,11 +799,17 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
     try {
-      preparedStatement.setString(1, "ABBREVIATION_" + identifier04);
-      preparedStatement.setTimestamp(2, getRandomTimestamp());
-      prepStmntInsertColDatetimeOpt(3, preparedStatement, rowCount);
-      preparedStatement.setString(4, "NAME_" + identifier04);
-      prepStmntInsertColStringOpt(5, "V_TIME_ZONE_", preparedStatement, rowCount, identifier04);
+      int i = 1;
+
+      if (databaseBrand == DatabaseBrand.CRATEDB) {
+        preparedStatement.setInt(i++, autoIncrement++);
+      }
+
+      preparedStatement.setString(i++, "ABBREVIATION_" + identifier04);
+      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetimeOpt(i++, preparedStatement, rowCount);
+      preparedStatement.setString(i++, "NAME_" + identifier04);
+      prepStmntInsertColStringOpt(i, "V_TIME_ZONE_", preparedStatement, rowCount, identifier04);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -770,7 +847,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepStmntInsertColBlobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
+      if (databaseBrand == DatabaseBrand.CRATEDB) {
+        preparedStatement.setNull(columnPos, Types.NULL);
+      } else if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         if (databaseBrand == DatabaseBrand.POSTGRESQL) {
           preparedStatement.setNull(columnPos, Types.NULL);
         } else {
@@ -785,14 +864,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Sets the designated optional parameter to a BLOB value - PostgreSQL version.
-   *
-   * @param columnPos         the column position
-   * @param preparedStatement the prepared statement
-   * @param rowCount          the row count
-   */
-  protected final void prepStmntInsertColBlobPostgresql(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+  private final void prepStmntInsertColBlobPostgresql(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     FileInputStream blobData = null;
 
     try {
@@ -843,7 +915,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void prepStmntInsertColClobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.CLOB);
+        if (databaseBrand == DatabaseBrand.CRATEDB) {
+          preparedStatement.setNull(columnPos, Types.VARCHAR);
+        } else {
+          preparedStatement.setNull(columnPos, java.sql.Types.CLOB);
+        }
       } else {
         prepStmntInsertColClob(columnPos, preparedStatement, rowCount);
       }
@@ -863,9 +939,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void prepStmntInsertColDatetimeOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.DATE);
+        preparedStatement.setNull(columnPos, java.sql.Types.TIMESTAMP);
       } else {
-        preparedStatement.setTimestamp(columnPos, getRandomTimestamp());
+        Timestamp randomTimestamp = getRandomTimestamp();
+        preparedStatement.setTimestamp(columnPos, randomTimestamp);
       }
     } catch (SQLException e) {
       e.printStackTrace();

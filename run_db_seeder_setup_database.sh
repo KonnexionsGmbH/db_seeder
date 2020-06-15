@@ -11,6 +11,7 @@ set -e
 export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
+export DB_SEEDER_VERSION_CRATEDB=4.1.6
 export DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
 export DB_SEEDER_VERSION_MARIADB=10.4.13
 export DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
@@ -20,6 +21,7 @@ export DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if [ -z "$1" ]; then
     echo "===================================="
+    echo "cratedb     - CrateDB"
     echo "ibmdb2      - IBM DB2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -56,6 +58,9 @@ echo "--------------------------------------------------------------------------
 echo "DATABASE_BRAND            : $DB_SEEDER_DATABASE_BRAND"
 echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
 echo --------------------------------------------------------------------------------
+if [ "$DB_SEEDER_DATABASE_BRAND" = "cratedb" ]; then
+    echo "VERSION_CRATEDB           : $DB_SEEDER_VERSION_CRATEDB"
+fi
 if [ "$DB_SEEDER_DATABASE_BRAND" = "ibmdb2" ]; then
     echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
     export DB_SEEDER_IBMDB2_DATABASE=kxn_db
@@ -86,6 +91,27 @@ if [ "$DB_SEEDER_DELETE_EXISTING_CONTAINER" != "no" ]; then
     docker rm -f db_seeder_db
 fi
 
+# ------------------------------------------------------------------------------
+# CrateDB                                         https://hub.docker.com/_/crate
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DATABASE_BRAND" = "cratedb" ]; then
+    start=$(date +%s)
+    echo "CrateDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (CrateDB $DB_SEEDER_VERSION_CRATEDB)"
+    docker create --name db_seeder_db -p 5432:5432/tcp --env CRATE_HEAP_SIZE=2g crate:$DB_SEEDER_VERSION_CRATEDB crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
+
+    echo "Docker start db_seeder_db (CrateDB $DB_SEEDER_VERSION_CRATEDB) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 10
+
+    end=$(date +%s)
+    echo "DOCKER CrateDB was ready in $((end - start)) seconds"
+fi
 # ------------------------------------------------------------------------------
 # IBM DB2 Database                           https://hub.docker.com/r/ibmcom/db2
 # ------------------------------------------------------------------------------

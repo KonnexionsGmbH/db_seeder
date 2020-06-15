@@ -12,6 +12,7 @@ set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 
 if ["%1"] EQU [""] (
     echo ====================================
+    echo cratedb     - CrateDB
     echo ibmdb2      - IBM DB2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
@@ -40,6 +41,12 @@ set DB_SEEDER_MAX_ROW_COUNTRY=
 set DB_SEEDER_MAX_ROW_COUNTRY_STATE=
 set DB_SEEDER_MAX_ROW_TIMEZONE=
 
+if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["cratedb"] (
+    set DB_SEEDER_CRATEDB_CONNECTION_PORT=
+    set DB_SEEDER_CRATEDB_CONNECTION_PREFIX=
+    set DB_SEEDER_CRATEDB_PASSWORD=
+    set DB_SEEDER_CRATEDB_USER=
+)
 if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_CONNECTION_PORT=
     set DB_SEEDER_IBMDB2_CONNECTION_PREFIX=
@@ -108,6 +115,12 @@ echo MAX_ROW_COUNTRY                 : %DB_SEEDER_MAX_ROW_COUNTRY%
 echo MAX_ROW_COUNTRY_STATE           : %DB_SEEDER_MAX_ROW_COUNTRY_STATE%
 echo MAX_ROW_TIMEZONE                : %DB_SEEDER_MAX_ROW_TIMEZONE%
 echo --------------------------------------------------------------------------------
+if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["cratedb"] (
+    echo CRATEDB_CONNECTION_PORT         : %DB_SEEDER_CRATEDB_CONNECTION_PORT%
+    echo CRATEDB_CONNECTION_PREFIX       : %DB_SEEDER_CRATEDB_CONNECTION_PREFIX%
+    echo CRATEDB_PASSWORD                : %DB_SEEDER_CRATEDB_PASSWORD%
+    echo CRATEDB_USER                    : %DB_SEEDER_CRATEDB_USER%
+)
 if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["ibmdb2"] (
     echo IBMDB2_CONNECTION_PORT          : %DB_SEEDER_IBMDB2_CONNECTION_PORT%
     echo IBMDB2_CONNECTION_PREFIX        : %DB_SEEDER_IBMDB2_CONNECTION_PREFIX%

@@ -11,6 +11,7 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
 set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
+set DB_SEEDER_VERSION_CRATEDB=4.1.6
 set DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
 set DB_SEEDER_VERSION_MARIADB=10.4.13
 set DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
@@ -20,6 +21,7 @@ set DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if ["%1"] EQU [""] (
     echo ====================================
+    echo cratedb     - CrateDB
     echo ibmdb2      - IBM DB2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server

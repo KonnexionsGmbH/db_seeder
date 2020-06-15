@@ -5,6 +5,7 @@ package ch.konnexions.db_seeder;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
@@ -51,6 +52,11 @@ public class DatabaseSeeder {
     if (null == args0) {
       logger.error("Command line argument missing");
       System.exit(1);
+    } else if (args0.equals("cratedb")) {
+      logger.info("Start CrateDB");
+      CratedbSeeder cratedbSeeder = new CratedbSeeder();
+      cratedbSeeder.createData();
+      logger.info("End   CrateDB");
     } else if (args0.equals("ibmdb2")) {
       logger.info("Start IBM DB2 Database");
       Ibmdb2Seeder ibmdb2Seeder = new Ibmdb2Seeder();
