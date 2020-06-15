@@ -100,14 +100,14 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "cratedb" ]; then
     echo "CrateDB."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (CrateDB $DB_SEEDER_VERSION_CRATEDB)"
-    docker create --name db_seeder_db -p 5432:5432/tcp --env CRATE_HEAP_SIZE=2g crate:%DB_SEEDER_VERSION_CRATEDB% crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
+    docker create --name db_seeder_db -p 5432:5432/tcp --env CRATE_HEAP_SIZE=2g crate:$DB_SEEDER_VERSION_CRATEDB crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
 
     echo "Docker start db_seeder_db (CrateDB $DB_SEEDER_VERSION_CRATEDB) ..."
     if ! docker start db_seeder_db; then
         exit 255
     fi
 
-    sleep 20
+    sleep 10
 
     end=$(date +%s)
     echo "DOCKER CrateDB was ready in $((end - start)) seconds"

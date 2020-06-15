@@ -30,7 +30,7 @@ docker create --name db_seeder_db -p 5432:5432/tcp --env CRATE_HEAP_SIZE=2g crat
 echo Docker start db_seeder_db (CrateDB %DB_SEEDER_VERSION_CRATEDB%) ...
 docker start db_seeder_db
 
-ping -n 20 127.0.0.1>nul
+ping -n 10 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER CrateDB was ready in %CONSUMED%
