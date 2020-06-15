@@ -107,7 +107,7 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "cratedb" ]; then
         exit 255
     fi
 
-#   sleep 20
+    sleep 10
 
     end=$(date +%s)
     echo "DOCKER CrateDB was ready in $((end - start)) seconds"
