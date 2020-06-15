@@ -309,7 +309,7 @@ In case of software changes we strongly recommend you to respect the license ter
 1. Commit your changes (git commit -am 'Add some feature')
 1. Push to the branch (git push origin my-new-feature)
 1. Create a new Pull Request
-1. Points to be considered when adding a new database:
+1. Action points to be considered when adding a new database:
     1. lib/<database_driver>.jar
     1. scripts/run_db_seeder_setup_<database>.bat
     1. src/main/java/ch/konnexions/db_seeder/Config.java
