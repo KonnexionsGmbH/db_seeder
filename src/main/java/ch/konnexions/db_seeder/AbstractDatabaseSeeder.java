@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public abstract class AbstractDatabaseSeeder {
 
   protected enum DatabaseBrand {
-    IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL
+    CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL
   }
 
   protected Config            config;

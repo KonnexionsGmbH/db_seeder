@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.4.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.5.0.svg)
 
 ----
 
@@ -11,17 +11,17 @@
 
 `db_seeder` allows the generation of dummy data in different databases. 
 Currently the following databases are supported:
-- IBM DB2 Database (relational Database / tested: version 11.5.1.0) 
-- MariaDB Server (relational Database / tested: version 10.4.13) 
-- Microsoft SQL Server (relational Database / tested: version 2019) 
-- MySQL Database (relational Database / tested: version 8.0.20) 
-- Oracle Database (relational Database / tested: version 19c)
-- PostgreSQL (relational Database / tested: version 12.3)
+- [CrateDB](https://crate.io/) (relational Database / tested: version 4.1.6) 
+- [IBM DB2 Database](https://www.ibm.com/products/db2-database) (relational Database / tested: version 11.5.1.0) 
+- [MariaDB Server](https://mariadb.com/) (relational Database / tested: version 10.4.13) 
+- [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) (relational Database / tested: version 2019) 
+- [MySQL Database](https://www.mysql.com/) (relational Database / tested: version 8.0.20) 
+- [Oracle Database](https://www.oracle.com/database/) (relational Database / tested: version 19c)
+- [PostgreSQL Database](https://www.postgresql.org/) (relational Database / tested: version 12.3)
 
-
-The name of the database schema or the database user can be freely chosen. 
-If the selected schema or user already exists in the database, it is deleted with all existing data. 
-`db_seeder` then creates the selected schema or user and generates the desired dummy data.
+The names of the database, the schema and the user can be freely chosen, unless the respective database software contains restrictions. 
+If the selected database, schema or user already exists, it is deleted with all including data. 
+`db_seeder` then creates the selected database, schema or user and generates the desired dummy data.
 A maximum of 2 147 483 647 rows can be generated per database table.
 
 ## 2. Data Model
@@ -56,6 +56,11 @@ The flow control parameters for `db_seeder` are stored in the properties file `s
 The following control parameters are currently supported:
 
 ```
+db_seeder.cratedb.connection.port=5432
+db_seeder.cratedb.connection.prefix=crate://
+db_seeder.cratedb.password=cratedb
+db_seeder.cratedb.user=kxn_user
+
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
 db_seeder.ibmdb2.database=kxn_db
@@ -113,6 +118,11 @@ db_seeder.postgresql.user=kxn_user
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
+| cratedb.connection.port=5432 | CRATEDB_CONNECTION_PORT | CrateDB | port number of the database server |
+| cratedb.connection.prefix=crate:// | CRATEDB_CONNECTION_PREFIX | CrateDB | prefix of the database connection string |
+| cratedb.password=cratedb | CRATEDB_PASSWORD | CrateDB | password of the normal user |
+| cratedb.user=kxn_user | CRATEDB_USER | CrateDB | name of the normal user |
+|     |     |     |     |
 | ibmdb2.connection.port=50000 | IBMDB2_CONNECTION_PORT | IBM DB2 | port number of the database server |
 | ibmdb2.connection.prefix=jdbc:db2:// | IBMDB2_CONNECTION_PREFIX | IBM DB2 | prefix of the database connection string |
 | ibmdb2.database=kxn_db | IBMDB2_DATABASE | IBM DB2 | database name |
@@ -163,7 +173,29 @@ db_seeder.postgresql.user=kxn_user
 
 ## 4. Database Brand Specifica
 
-### 4.1 IBM DB2 Database
+### 4.1 CrateDB TODO
+
+- database driver version 2.6.0
+  - JFrog Bintray repository: [here](https://bintray.com/crate/crate/crate-jdbc/2.6.0)
+- database image version 4.1.6: [here](https://hub.docker.com/_/crate)
+- data definition hierarchy: only schema
+- privileged database / user: n/a / db2inst1
+- restrictions:
+  - no constraints (e.g. foreign keys or unique keys)
+  - no transaction concept
+  - no triggers 
+  - only a very proprietary BLOB implementation
+- data types used:
+
+| Data Type | CrateDB Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | n/a |
+| character large object | TEXT |
+| string | TEXT |
+| timestamp | TIMESTAMP |
+
+### 4.2 IBM DB2 Database
 
 - database driver version 11.5.0.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
@@ -182,7 +214,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-### 4.2 MariaDB Server
+### 4.3 MariaDB Server
 
 - database driver version 2.6.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
@@ -199,7 +231,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-### 4.3 Microsoft SQL Server
+### 4.4 Microsoft SQL Server
 
 - database driver version 8.31 
   - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
@@ -216,7 +248,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR |
 | timestamp | DATETIME2 |
 
-### 4.4 MySQL Database
+### 4.5 MySQL Database
 
 - database driver version 8.0.20 
   - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -233,7 +265,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-### 4.5 Oracle Database
+### 4.6 Oracle Database
 
 - database driver version 
   - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
@@ -251,7 +283,7 @@ db_seeder.postgresql.user=kxn_user
 | string | VARCHAR2 |
 | timestamp | TIMESTAMP |
 
-### 4.6 PostgreSQL Database
+### 4.7 PostgreSQL Database
 
 - database driver version 42.2.13
   - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)

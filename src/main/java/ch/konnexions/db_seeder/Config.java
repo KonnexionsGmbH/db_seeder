@@ -30,16 +30,21 @@ public class Config {
 
   @SuppressWarnings("unused")
   private static Logger                                                logger     = Logger.getLogger(Config.class);
+  private int                                                          cratedbConnectionPort;
+  private String                                                       cratedbConnectionPrefix;
+  private String                                                       cratedbPassword;
+
+  private String                                                       cratedbUser;
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
   private String                                                       fileConfigurationName;
 
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
-
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
   private String                                                       ibmdb2Database;
   private String                                                       ibmdb2Password;
+
   private String                                                       ibmdb2Schema;
 
   private String                                                       jdbcConnectionHost;
@@ -112,6 +117,36 @@ public class Config {
 
     storeConfiguration();
     validateProperties();
+  }
+
+  // CrateDB ----------------------------------------------------------
+
+  /**
+   * @return the CrateDB port number where the database server is listening for requests
+   */
+  public final int getCratedbConnectionPort() {
+    return cratedbConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the CrateDB connection string
+   */
+  public final String getCratedbConnectionPrefix() {
+    return cratedbConnectionPrefix;
+  }
+
+  /**
+   * @return the CrateDB password to connect as normal user to the database
+   */
+  public final String getCratedbPassword() {
+    return cratedbPassword;
+  }
+
+  /**
+   * @return the CrateDB user name to connect as normal user to the database
+   */
+  public final String getCratedbUser() {
+    return cratedbUser;
   }
 
   // IBM DB2 Database --------------------------------------------------------
@@ -357,6 +392,7 @@ public class Config {
 
     List<String> list = new ArrayList<>();
 
+    list.add("db_seeder.cratedb.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
@@ -464,6 +500,11 @@ public class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
+    cratedbConnectionPort       = propertiesConfiguration.getInt("db_seeder.cratedb.connection.port");
+    cratedbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.cratedb.connection.prefix");
+    cratedbPassword             = propertiesConfiguration.getString("db_seeder.cratedb.password");
+    cratedbUser                 = propertiesConfiguration.getString("db_seeder.cratedb.user");
+
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
 
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
@@ -521,6 +562,28 @@ public class Config {
   private void updatePropertiesFromOs() {
 
     Map<String, String> environmentVariables = System.getenv();
+
+    // CrateDB ----------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_CONNECTION_PORT")) {
+      cratedbConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_CRATEDB_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", cratedbConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_CONNECTION_PREFIX")) {
+      cratedbConnectionPrefix = environmentVariables.get("DB_SEEDER_CRATEDB_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", cratedbConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_PASSWORD")) {
+      cratedbPassword = environmentVariables.get("DB_SEEDER_CRATEDB_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.cratedb.password", cratedbPassword);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_USER")) {
+      cratedbUser = environmentVariables.get("DB_SEEDER_CRATEDB_USER");
+      propertiesConfiguration.setProperty("db_seeder.cratedb.user", cratedbUser);
+    }
 
     if (environmentVariables.containsKey("DB_SEEDER_FILE_CONFIGURATION_NAME")) {
       fileConfigurationName = environmentVariables.get("DB_SEEDER_FILE_CONFIGURATION_NAME");
