@@ -134,60 +134,16 @@ db_seeder.sqlite.database=kxn_db
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| cratedb.connection.port=5432 | CRATEDB_CONNECTION_PORT | CrateDB | port number of the database server |
-| cratedb.connection.prefix=crate:// | CRATEDB_CONNECTION_PREFIX | CrateDB | prefix of the database connection string |
-| cratedb.password=cratedb | CRATEDB_PASSWORD | CrateDB | password of the normal user |
-| cratedb.user=kxn_user | CRATEDB_USER | CrateDB | name of the normal user |
-|     |     |     |     |
-| ibmdb2.connection.port=50000 | IBMDB2_CONNECTION_PORT | IBM DB2 | port number of the database server |
-| ibmdb2.connection.prefix=jdbc:db2:// | IBMDB2_CONNECTION_PREFIX | IBM DB2 | prefix of the database connection string |
-| ibmdb2.database=kxn_db | IBMDB2_DATABASE | IBM DB2 | database name |
-| ibmdb2.password=ibmdb2 | IBMDB2_PASSWORD | IBM DB2 | password of the user |
-| ibmdb2.schema=kxn_db | IBMDB2_SCHEMA | IBM DB2 | schema name |
-|     |     |     |     |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | Relational DB | name or ip address of the database server |
-|     |     |     |     |
-| mariadb.connection.port=3306 | MARIADB_CONNECTION_PORT | MariaDB | port number of the database server |
-| mariadb.connection.prefix=jdbc:mariadb:// | MARIADB_CONNECTION_PREFIX | MariaDB | prefix of the database connection string |
-| mariadb.database=kxn_db | MARIADB_DATABASE | MariaDB | database name |
-| mariadb.password.sys=mariadb | MARIADB_PASSWORD_SYS | MariaDB | password of the privileged user |
-| mariadb.password=mariadb | MARIADB_PASSWORD | MariaDB | password of the normal user |
-| mariadb.user=kxn_user | MARIADB_USER | MariaDB | name of the normal user |
-|     |     |     |     |
+| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | port number of the database server |
+| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE | prefix of the database connection string |
+| <db_ticker>.connection.suffix=<url_suffix> | <DB_TICKER>_CONNECTION_SUFFIX | MYSQL | suffix of the database connection string |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.password.sys=<db_ticker> | <DB_TICKER>_PASSWORD_SYS | MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
+| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
+| <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | IBMDB2, MSSQLSERVER | schema name |
+| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
-|     |     |     |     |
-| mssqlserver.connection.port=1433 | MSSQLSERVER_CONNECTION_PORT | Microsoft SQL Server | port number of the database server |
-| mssqlserver.connection.prefix=jdbc:sqlserver:// | MSSQLSERVER_CONNECTION_PREFIX | Microsoft SQL Server | prefix of the database connection string |
-| mssqlserver.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
-| mssqlserver.password.sys=mssqlserver | MSSQLSERVER_PASSWORD_SYS | Microsoft SQL Server | password of the privileged user |
-| mssqlserver.password=mssqlserver | MSSQLSERVER_PASSWORD | Microsoft SQL Server | password of the normal user |
-| mssqlserver.schema=kxn_schema | MSSQLSERVER_SCHEMA | Microsoft SQL Server | schema name |
-| mssqlserver.user=kxn_user | MSSQLSERVER_USER | Microsoft SQL Server | name of the normal user |
-|     |     |     |     |
-| mysql.connection.port=3306 | MYSQL_CONNECTION_PORT | MySQL | port number of the database server |
-| mysql.connection.prefix=jdbc:mysql:// | MYSQL_CONNECTION_PREFIX | MySQL | prefix of the database connection string |
-| mysql.connection.suffix=?serverTimezone=UTC | MYSQL_CONNECTION_SUFFIX | MySQL | suffix of the database connection string |
-| mysql.database=kxn_db | MYSQL_DATABASE | MySQL | database name |
-| mysql.password.sys=mysql | MYSQL_PASSWORD_SYS | MySQL | password of the privileged user |
-| mysql.password=mysql | MYSQL_PASSWORD | MySQL | password of the normal user |
-| mysql.user=kxn_user | MYSQL_USER | MySQL | name of the normal user |
-|     |     |     |     |
-| oracle.connection.port=1521 | ORACLE_CONNECTION_PORT | Oracle | port number of the database server |
-| oracle.connection.prefix=jdbc:oracle:thin:@// | ORACLE_CONNECTION_PREFIX | Oracle | prefix of the database connection string |
-| oracle.connection.service=orclpdb1 | ORACLE_CONNECTION_SERVICE | Oracle | database service name |
-| oracle.password.sys=oracle | ORACLE_PASSWORD_SYS | Oracle | password of the privileged user |
-| oracle.password=oracle | ORACLE_PASSWORD | Oracle | password of the normal user |
-| oracle.user=kxn_user | ORACLE_USER | Oracle | name of the normal user |
-|     |     |     |     |
-| mssqlserver.connection.port=1433 | MSSQLSERVER_CONNECTION_PORT | Microsoft SQL Server | port number of the database server |
-| mssqlserver.connection.prefix=jdbc:sqlserver:// | MSSQLSERVER_CONNECTION_PREFIX | Microsoft SQL Server | prefix of the database connection string |
-| mssqlserver.database=kxn_db | MSSQLSERVER_DATABASE | Microsoft SQL Server | database name |
-| mssqlserver.password.sys=mssqlserver | MSSQLSERVER_PASSWORD_SYS | Microsoft SQL Server | password of the privileged user |
-| mssqlserver.password=mssqlserver | MSSQLSERVER_PASSWORD | Microsoft SQL Server | password of the normal user |
-| mssqlserver.user=kxn_user | MSSQLSERVER_USER | Microsoft SQL Server | name of the normal user |
-|     |     |     |     |
-| sqlite.connection.prefix=jdbc:sqlite: | SQLITE_CONNECTION_PREFIX | SQLite | prefix of the database connection string |
-| sqlite.database=kxn_db | SQLITE_DATABASE | SQLite | name of the database |
 |     |     |     |     |
 
 ## 4. Database Brand Specifica
