@@ -215,6 +215,10 @@ db_seeder.sqlite.database=kxn_db
 | string | TEXT |
 | timestamp | TIMESTAMP |
 
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_CRATEDB.png)
+
 ### 4.2 IBM DB2 Database
 
 - database driver version 11.5.0.0 
@@ -235,6 +239,10 @@ db_seeder.sqlite.database=kxn_db
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_IBMDB2.png)
+
 ### 4.3 MariaDB Server
 
 - database driver version 2.6.0 
@@ -252,6 +260,10 @@ db_seeder.sqlite.database=kxn_db
 | character large object | LONGTEXT |
 | string | VARCHAR |
 | timestamp | DATETIME |
+
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_MARIADB.png)
 
 ### 4.4 Microsoft SQL Server
 
@@ -271,6 +283,10 @@ db_seeder.sqlite.database=kxn_db
 | string | VARCHAR |
 | timestamp | DATETIME2 |
 
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_MSSQLSERVER.png)
+
 ### 4.5 MySQL Database
 
 - database driver version 8.0.20 
@@ -288,6 +304,10 @@ db_seeder.sqlite.database=kxn_db
 | character large object | LONGTEXT |
 | string | VARCHAR |
 | timestamp | DATETIME |
+
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_MYSQL.png)
 
 ### 4.6 Oracle Database
 
@@ -308,6 +328,10 @@ db_seeder.sqlite.database=kxn_db
 | string | VARCHAR2 |
 | timestamp | TIMESTAMP |
 
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_ORACLE.png)
+
 ### 4.7 PostgreSQL Database
 
 - database driver version 42.2.13
@@ -325,6 +349,10 @@ db_seeder.sqlite.database=kxn_db
 | character large object | TEXT |
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
+
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_POSTGRESQL.png)
 
 ### 4.8 SQLite
 
@@ -346,6 +374,10 @@ db_seeder.sqlite.database=kxn_db
 | character large object | TEXT |
 | string | TEXT |
 | timestamp | INTEGER / REAL / TEXT |
+
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_SQLITE.png)
 
 ## 5. Contributing 
 
