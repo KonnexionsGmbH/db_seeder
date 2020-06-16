@@ -206,7 +206,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       Statement  statement     = connection.createStatement();
 
       ResultSet  resultSet     = statement
-          .executeQuery("SELECT 'DROP TABLE \"' || TRIM(TABSCHEMA) || '\".\"' || TRIM(TABNAME) || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = '"
+          .executeQuery("SELECT TRIM(TABNAME), 'DROP TABLE \"' || TRIM(TABSCHEMA) || '\".\"' || TRIM(TABNAME) || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = '"
               + ibmdb2Schema + "'");
 
       Connection connectionInt = connectInt();
@@ -214,7 +214,11 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       Statement  statement2    = connectionInt.createStatement();
 
       while (resultSet.next()) {
-        statement2.executeUpdate(resultSet.getString(1));
+        String tableName = resultSet.getString(1);
+
+        if (TABLE_NAMES.contains(tableName)) {
+          statement2.executeUpdate(resultSet.getString(2));
+        }
       }
 
       statement2.close();
