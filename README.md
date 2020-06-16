@@ -148,6 +148,9 @@ db_seeder.sqlite.database=kxn_db
 
 ## 4. Database Brand Specifica
 
+[DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
+Below are also the DBeaver based connection parameter examples for each database. 
+
 ### 4.1 CrateDB
 
 - database driver version 2.6.0
