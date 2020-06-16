@@ -3,6 +3,11 @@
  */
 package ch.konnexions.db_seeder.jdbc.postgresql;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -182,6 +187,32 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
     disconnect();
     connect();
+  }
+
+  @Override
+  protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+    FileInputStream blobData = null;
+
+    try {
+      blobData = new FileInputStream(new File(Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png"));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      preparedStatement.setBinaryStream(columnPos, blobData);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      blobData.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
   }
 
 }
