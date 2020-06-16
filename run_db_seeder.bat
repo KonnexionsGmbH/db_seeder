@@ -8,7 +8,7 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
+set DB_SEEDER_DATABASE_BRAND_DEFAULT=sqlite
 
 if ["%1"] EQU [""] (
     echo ====================================
@@ -19,6 +19,7 @@ if ["%1"] EQU [""] (
     echo mysql       - MySQL
     echo oracle      - Oracle Database
     echo postgresql  - PostgreSQL Database
+    echo sqlite      - SQLite
     echo ------------------------------------
     set /P DB_SEEDER_DATABASE_BRAND="Enter the desired database brand [default: %DB_SEEDER_DATABASE_BRAND_DEFAULT%] "
 
@@ -96,6 +97,10 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
     set DB_SEEDER_POSTGRESQL_PASSWORD_SYS=
     set DB_SEEDER_POSTGRESQL_USER=
 )
+if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["sqlite"] (
+    set DB_SEEDER_SQLITE_CONNECTION_PREFIX=
+    set DB_SEEDER_SQLITE_DATABASE=
+)
 
 echo ================================================================================
 echo Start %0
@@ -170,6 +175,11 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
     echo POSTGRESQL_PASSWORD_SYS         : %DB_SEEDER_POSTGRESQL_PASSWORD_SYS%
     echo POSTGRESQL_USER                 : %DB_SEEDER_POSTGRESQL_USER%
 )
+if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["sqlite"] (
+    echo SQLITE_CONNECTION_PREFIX        : %DB_SEEDER_SQLITE_CONNECTION_PREFIX%
+    echo SQLITE_DATABASE                 : %DB_SEEDER_SQLITE_DATABASE%
+)
+
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================

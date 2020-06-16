@@ -8,7 +8,7 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
+set DB_SEEDER_DATABASE_BRAND_DEFAULT=sqlite
 set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 set DB_SEEDER_VERSION_CRATEDB=4.1.6
@@ -28,6 +28,7 @@ if ["%1"] EQU [""] (
     echo mysql       - MySQL
     echo oracle      - Oracle Database
     echo postgresql  - PostgreSQL Database
+    echo sqlite      - SQLite [no Docker image necessary, hence not available]
     echo ------------------------------------
     set /P DB_SEEDER_DATABASE_BRAND="Enter the desired database brand [default: %DB_SEEDER_DATABASE_BRAND_DEFAULT%] "
 
@@ -64,18 +65,20 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] == ["ibmdb2"] (
 echo:| TIME
 echo ================================================================================
 
-if NOT ["%DB_SEEDER_DELETE_EXISTING_CONTAINER%"] == ["no"] (
-    echo Docker stop/rm db_seeder_db
-    docker stop db_seeder_db
-    docker rm -f db_seeder_db
+if ["%DB_SEEDER_DATABASE_BRAND%"] NEQ ["sqlite"] (
+    if NOT ["%DB_SEEDER_DELETE_EXISTING_CONTAINER%"] == ["no"] (
+        echo Docker stop/rm db_seeder_db
+        docker stop db_seeder_db
+        docker rm -f db_seeder_db
+    )
+    
+    lib\Gammadyne\timer.exe /reset
+    lib\Gammadyne\timer.exe /q
+    
+    call scripts\run_db_seeder_setup_%DB_SEEDER_DATABASE_BRAND%.bat
+    
+    docker ps
 )
-
-lib\Gammadyne\timer.exe /reset
-lib\Gammadyne\timer.exe /q
-
-call scripts\run_db_seeder_setup_%DB_SEEDER_DATABASE_BRAND%.bat
-
-docker ps
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

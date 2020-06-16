@@ -12,6 +12,7 @@ import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
+import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
 
 /**
  * <h1> Test Data Generator for a Database. </h1>
@@ -87,6 +88,11 @@ public class DatabaseSeeder {
       PostgresqlSeeder postgresqlSeeder = new PostgresqlSeeder();
       postgresqlSeeder.createData();
       logger.info("End   PostgreSQL Database");
+    } else if (args0.equals("sqlite")) {
+      logger.info("Start SQLite");
+      SqliteSeeder sqliteSeeder = new SqliteSeeder();
+      sqliteSeeder.createData();
+      logger.info("End   SQLite");
     } else if (args0.contentEquals("")) {
       logger.error("Command line argument missing");
       System.exit(1);

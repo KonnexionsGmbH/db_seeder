@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class AbstractDatabaseSeeder {
 
   protected enum DatabaseBrand {
-    CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL
+    CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE
   }
 
   protected int                autoIncrement;

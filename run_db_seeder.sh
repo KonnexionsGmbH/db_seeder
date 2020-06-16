@@ -8,7 +8,7 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
+export DB_SEEDER_DATABASE_BRAND_DEFAULT=sqlite
 
 if [ -z "$1" ]; then
     echo "===================================="
@@ -19,6 +19,7 @@ if [ -z "$1" ]; then
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
     echo "postgresql  - PostgreSQL Database"
+    echo "sqlite      - SQLite"
     echo "------------------------------------"
     read -p "Enter the desired database brand [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
     export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND
@@ -97,6 +98,10 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_POSTGRESQL_PASSWORD_SYS=
 #    export DB_SEEDER_POSTGRESQL_USER=
 #fi
+#if [ "$DB_SEEDER_DATABASE_BRAND" = "sqlite" ]; then
+#    export DB_SEEDER_SQLITE_CONNETION_PREFIX=
+#    export DB_SEEDER_SQLITE_DATABASE=
+#fi
 
 echo "================================================================================"
 echo "Start $0"
@@ -171,6 +176,11 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "postgresql" ]; then
     echo "POSTGRESQL_PASSWORD_SYS           : $DB_SEEDER_POSTGRESQL_PASSWORD_SYS"
     echo "POSTGRESQL_USER                   : $DB_SEEDER_POSTGRESQL_USER"
 fi
+if [ "$DB_SEEDER_DATABASE_BRAND" = "sqlite" ]; then
+    echo "SQLITE_CONNECTION_PREFIX          : $DB_SEEDER_SQLITE_CONNECTION_PREFIX"
+    echo "SQLITE_DATABASE                   : $DB_SEEDER_SQLITE_DATABASE"
+fi
+
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
