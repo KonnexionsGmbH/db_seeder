@@ -8,7 +8,7 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-export DB_SEEDER_DATABASE_BRAND_DEFAULT=oracle
+export DB_SEEDER_DATABASE_BRAND_DEFAULT=sqlite
 export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 export DB_SEEDER_VERSION_CRATEDB=4.1.6
@@ -28,6 +28,7 @@ if [ -z "$1" ]; then
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
     echo "postgresql  - PostgreSQL Database"
+    echo "sqlite      - SQLite [(]no Docker image necessary, hence not available]"
     echo "------------------------------------"
     read -p "Enter the desired database brand [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
     export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND

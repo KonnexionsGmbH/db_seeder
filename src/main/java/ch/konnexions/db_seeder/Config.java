@@ -96,6 +96,9 @@ public class Config {
 
   private PropertiesConfiguration                                      propertiesConfiguration;
 
+  private String                                                       sqliteConnectionPrefix;
+  private String                                                       sqliteDatabase;
+
   /**
    * Constructs a Configuration object.
    */
@@ -496,6 +499,22 @@ public class Config {
     return postgresqlUser;
   }
 
+  // SQLite ---------------------------------------------------------
+
+  /**
+   * @return the prefix of the SQLite connection string
+   */
+  public final String getSQLiteConnectionPrefix() {
+    return sqliteConnectionPrefix;
+  }
+
+  /**
+   * @return the SQLite database name
+   */
+  public final String getSQLiteDatabase() {
+    return sqliteDatabase;
+  }
+
   private void storeConfiguration() {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
@@ -557,6 +576,9 @@ public class Config {
     postgresqlPassword          = propertiesConfiguration.getString("db_seeder.postgresql.password");
     postgresqlPasswordSys       = propertiesConfiguration.getString("db_seeder.postgresql.password.sys");
     postgresqlUser              = propertiesConfiguration.getString("db_seeder.postgresql.user");
+
+    sqliteConnectionPrefix      = propertiesConfiguration.getString("db_seeder.sqlite.connection.prefix");
+    sqliteDatabase              = propertiesConfiguration.getString("db_seeder.sqlite.database");
   }
 
   private void updatePropertiesFromOs() {
@@ -819,6 +841,18 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_USER")) {
       postgresqlUser = environmentVariables.get("DB_SEEDER_POSTGRESQL_USER");
       propertiesConfiguration.setProperty("db_seeder.postgresql.user", postgresqlUser);
+    }
+
+    // SQLite ---------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_SQLITE_CONNECTION_PREFIX")) {
+      sqliteConnectionPrefix = environmentVariables.get("DB_SEEDER_SQLITE_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", sqliteConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_SQLITE_DATABASE")) {
+      sqliteDatabase = environmentVariables.get("DB_SEEDER_SQLITE_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.sqlite.database", sqliteDatabase);
     }
   }
 

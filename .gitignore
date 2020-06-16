@@ -4,7 +4,9 @@
 .idea
 .project
 .settings
+/.gradle/
 bin
 build
-/.gradle/
+kxn_db
 tmp
+timer.txt
