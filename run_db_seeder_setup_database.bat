@@ -8,7 +8,7 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_DATABASE_BRAND_DEFAULT=sqlite
+set DB_SEEDER_DATABASE_DBMS_DEFAULT=sqlite
 set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 set DB_SEEDER_VERSION_CRATEDB=4.1.6
@@ -22,7 +22,7 @@ set DB_SEEDER_VERSION_POSTGRESQL=12.3
 if ["%1"] EQU [""] (
     echo ====================================
     echo cratedb     - CrateDB
-    echo ibmdb2      - IBM DB2 Database
+    echo ibmdb2      - IBM Db2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
@@ -30,13 +30,13 @@ if ["%1"] EQU [""] (
     echo postgresql  - PostgreSQL Database
     echo sqlite      - SQLite [no Docker image necessary, hence not available]
     echo ------------------------------------
-    set /P DB_SEEDER_DATABASE_BRAND="Enter the desired database brand [default: %DB_SEEDER_DATABASE_BRAND_DEFAULT%] "
+    set /P DB_SEEDER_DATABASE_DBMS="Enter the desired database management system [default: %DB_SEEDER_DATABASE_DBMS_DEFAULT%] "
 
-    if ["!DB_SEEDER_DATABASE_BRAND!"] EQU [""] (
-        set DB_SEEDER_DATABASE_BRAND=%DB_SEEDER_DATABASE_BRAND_DEFAULT%
+    if ["!DB_SEEDER_DATABASE_DBMS!"] EQU [""] (
+        set DB_SEEDER_DATABASE_DBMS=%DB_SEEDER_DATABASE_DBMS_DEFAULT%
     )
 ) else (
-    set DB_SEEDER_DATABASE_BRAND=%1
+    set DB_SEEDER_DATABASE_DBMS=%1
 )
 
 if ["%2"] EQU [""] (
@@ -54,10 +54,10 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a database Docker container.
 echo --------------------------------------------------------------------------------
-echo DATABASE_BRAND            : %DB_SEEDER_DATABASE_BRAND%
+echo DATABASE_DBMS             : %DB_SEEDER_DATABASE_DBMS%
 echo DELETE_EXISTING_CONTAINER : %DB_SEEDER_DELETE_EXISTING_CONTAINER%
 echo --------------------------------------------------------------------------------
-if ["%DB_SEEDER_DATABASE_BRAND%"] == ["ibmdb2"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] == ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_DATABASE=kxn_db
     echo IBMDB2_DATABASE           : %DB_SEEDER_IBMDB2_DATABASE%
     echo --------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] == ["ibmdb2"] (
 echo:| TIME
 echo ================================================================================
 
-if ["%DB_SEEDER_DATABASE_BRAND%"] NEQ ["sqlite"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] NEQ ["sqlite"] (
     if NOT ["%DB_SEEDER_DELETE_EXISTING_CONTAINER%"] == ["no"] (
         echo Docker stop/rm db_seeder_db
         docker stop db_seeder_db
@@ -75,7 +75,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] NEQ ["sqlite"] (
     lib\Gammadyne\timer.exe /reset
     lib\Gammadyne\timer.exe /q
     
-    call scripts\run_db_seeder_setup_%DB_SEEDER_DATABASE_BRAND%.bat
+    call scripts\run_db_seeder_setup_%DB_SEEDER_DATABASE_DBMS%.bat
     
     docker ps
 )

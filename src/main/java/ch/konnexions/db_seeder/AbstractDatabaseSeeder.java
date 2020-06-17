@@ -16,7 +16,7 @@ import java.util.List;
  */
 public abstract class AbstractDatabaseSeeder {
 
-  protected enum DatabaseBrand {
+  protected enum DatabaseDbms {
     CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE
   }
 
@@ -25,7 +25,7 @@ public abstract class AbstractDatabaseSeeder {
   protected Config             config;
   protected Connection         connection;
 
-  protected DatabaseBrand      databaseBrand;
+  protected DatabaseDbms      databaseDbms;
 
   // private static Logger logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 

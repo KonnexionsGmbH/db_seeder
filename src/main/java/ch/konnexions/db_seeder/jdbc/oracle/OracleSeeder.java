@@ -29,7 +29,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
   public OracleSeeder() {
     super();
 
-    databaseBrand = DatabaseBrand.ORACLE;
+    databaseDbms = DatabaseDbms.ORACLE;
   }
 
   @Override

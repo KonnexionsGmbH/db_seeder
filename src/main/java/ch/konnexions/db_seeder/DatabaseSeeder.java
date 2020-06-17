@@ -59,10 +59,10 @@ public class DatabaseSeeder {
       cratedbSeeder.createData();
       logger.info("End   CrateDB");
     } else if (args0.equals("ibmdb2")) {
-      logger.info("Start IBM DB2 Database");
+      logger.info("Start IBM Db2 Database");
       Ibmdb2Seeder ibmdb2Seeder = new Ibmdb2Seeder();
       ibmdb2Seeder.createData();
-      logger.info("End   IBM DB2 Database");
+      logger.info("End   IBM Db2 Database");
     } else if (args0.equals("mariadb")) {
       logger.info("Start MariaDB Server");
       MariadbSeeder mariadbSeeder = new MariadbSeeder();

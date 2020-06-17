@@ -28,7 +28,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
   public CratedbSeeder() {
     super();
 
-    databaseBrand = DatabaseBrand.CRATEDB;
+    databaseDbms = DatabaseDbms.CRATEDB;
   }
 
   @Override

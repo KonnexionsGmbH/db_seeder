@@ -56,7 +56,7 @@ Release Date: 14.06.2020
 
 #### New Features
 
-- New batabase: IBM DB2 Database
+- New batabase: IBM Db2 Database
 
 ----------
 

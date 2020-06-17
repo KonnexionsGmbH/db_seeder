@@ -1,4 +1,4 @@
-# db_seeder - Creation of Dummy Data in a Variety of Database Brands.
+# db_seeder - Creation of Dummy Data in a Variety of Database Management Systems.
 
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
@@ -9,10 +9,17 @@
 
 ## 1. Introduction
 
-`db_seeder` allows the generation of dummy data in different database systems. 
-Currently the following database systems are supported:
+`db_seeder` allows the generation of dummy data in different database management systems. 
+Currently the following management database systems are supported:
 - [CrateDB](https://crate.io/)
-- [IBM DB2 Database](https://www.ibm.com/products/db2-database) 
+  - open source
+  - automatic data replication
+  - fast text search and analytics
+  - integrates a fully searchable document-oriented data store
+  - self-healing clusters for high availability
+- [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
+  - initially supported the relational model
+  - extended to support object-relational features and non-relational structures like JSON and XML
 - [MariaDB Server](https://mariadb.com/) 
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
 - [MySQL Database](https://www.mysql.com/) 
@@ -20,17 +27,17 @@ Currently the following database systems are supported:
 - [PostgreSQL Database](https://www.postgresql.org/)
 - [SQLite](https://www.sqlite.org/)
 
-The names of the database, the schema and the user can be freely chosen, unless the respective database system contains restrictions. 
+The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
 If the selected database, schema or user already exists, it is deleted with all including data. 
 `db_seeder` then creates the selected database, schema or user and generates the desired dummy data.
 A maximum of 2 147 483 647 rows can be generated per database table.
 
-### 1.1 Relational Database Systems
+### 1.1 Relational Database Management Systems
 
-| Database System | DB Ticker Symbol | Tested Versions |
+| DBMS | DB Ticker Symbol | Tested Versions |
 |---|---|---|
 | CrateDB | CRATEDB | 4.1.6 | 
-| IBM DB2 Database | IBMDB2 | 11.5.1.0 | 
+| IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
 | MariaDB Server | MARIADB | 10.4.13 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
 | MySQL Database | MYSQL | 8.0.20 | 
@@ -146,10 +153,10 @@ db_seeder.sqlite.database=kxn_db
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
-## 4. Database Brand Specifica
+## 4. Database Management System Specifica
 
 [DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
-Below are also the DBeaver based connection parameter examples for each database. 
+Below are also DBeaver based connection parameter examples for each database management system. 
 
 ### 4.1 CrateDB
 
@@ -178,7 +185,7 @@ Below are also the DBeaver based connection parameter examples for each database
 
 ![](.README_images/DBeaver_CRATEDB.png)
 
-### 4.2 IBM DB2 Database
+### 4.2 IBM Db2 Database
 
 - database driver version 11.5.0.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
@@ -186,11 +193,11 @@ Below are also the DBeaver based connection parameter examples for each database
 - data definition hierarchy: only schema
 - privileged database / user: n/a / db2inst1
 - restrictions:
-  - the IBM DB2 database only accepts operating system accounts as database users 
+  - the IBM Db2 Database only accepts operating system accounts as database users 
 
 - data types used:
 
-| Data Type | IBM DB2 Database Type |
+| Data Type | IBM Db2 Database Type |
 | --- | --- |
 | big integer | BIGINT |
 | binary large object | BLOB |

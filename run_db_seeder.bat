@@ -8,12 +8,12 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_DATABASE_BRAND_DEFAULT=sqlite
+set DB_SEEDER_DATABASE_DBMS_DEFAULT=sqlite
 
 if ["%1"] EQU [""] (
     echo ====================================
     echo cratedb     - CrateDB
-    echo ibmdb2      - IBM DB2 Database
+    echo ibmdb2      - IBM Db2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
@@ -21,13 +21,13 @@ if ["%1"] EQU [""] (
     echo postgresql  - PostgreSQL Database
     echo sqlite      - SQLite
     echo ------------------------------------
-    set /P DB_SEEDER_DATABASE_BRAND="Enter the desired database brand [default: %DB_SEEDER_DATABASE_BRAND_DEFAULT%] "
+    set /P DB_SEEDER_DATABASE_DBMS="Enter the desired database management system [default: %DB_SEEDER_DATABASE_DBMS_DEFAULT%] "
 
-    if ["!DB_SEEDER_DATABASE_BRAND!"] EQU [""] (
-        set DB_SEEDER_DATABASE_BRAND=%DB_SEEDER_DATABASE_BRAND_DEFAULT%
+    if ["!DB_SEEDER_DATABASE_DBMS!"] EQU [""] (
+        set DB_SEEDER_DATABASE_DBMS=%DB_SEEDER_DATABASE_DBMS_DEFAULT%
     )
 ) else (
-    set DB_SEEDER_DATABASE_BRAND=%1
+    set DB_SEEDER_DATABASE_DBMS=%1
 )
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
@@ -42,20 +42,20 @@ set DB_SEEDER_MAX_ROW_COUNTRY=
 set DB_SEEDER_MAX_ROW_COUNTRY_STATE=
 set DB_SEEDER_MAX_ROW_TIMEZONE=
 
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["cratedb"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_CRATEDB_CONNECTION_PORT=
     set DB_SEEDER_CRATEDB_CONNECTION_PREFIX=
     set DB_SEEDER_CRATEDB_PASSWORD=
     set DB_SEEDER_CRATEDB_USER=
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["ibmdb2"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_CONNECTION_PORT=
     set DB_SEEDER_IBMDB2_CONNECTION_PREFIX=
     set DB_SEEDER_IBMDB2_DATABASE=
     set DB_SEEDER_IBMDB2_PASSWORD=
     set DB_SEEDER_IBMDB2_SCHEMA=
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mariadb"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_MARIADB_CONNECTION_PORT=
     set DB_SEEDER_MARIADB_CONNECTION_PREFIX=
     set DB_SEEDER_MARIADB_DATABASE=
@@ -63,7 +63,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mariadb"] (
     set DB_SEEDER_MARIADB_PASSWORD_SYS=
     set DB_SEEDER_MARIADB_USER=
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mssqlserver"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["mssqlserver"] (
     set DB_SEEDER_MSSQLSERVER_CONNECTION_PORT=
     set DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX=
     set DB_SEEDER_MSSQLSERVER_DATABASE=
@@ -72,7 +72,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mssqlserver"] (
     set DB_SEEDER_MSSQLSERVER_SCHEMA=
     set DB_SEEDER_MSSQLSERVER_USER=
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mysql"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_MYSQL_CONNECTION_PORT=
     set DB_SEEDER_MYSQL_CONNECTION_PREFIX=
     set DB_SEEDER_MYSQL_CONNECTION_SUFFIX=
@@ -81,7 +81,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mysql"] (
     set DB_SEEDER_MYSQL_PASSWORD_SYS=
     set DB_SEEDER_MYSQL_USER=
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["oracle"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_ORACLE_CONNECTION_PORT=
     set DB_SEEDER_ORACLE_CONNECTION_PREFIX=
     set DB_SEEDER_ORACLE_CONNECTION_SERVICE=
@@ -89,7 +89,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["oracle"] (
     set DB_SEEDER_ORACLE_PASSWORD_SYS=
     set DB_SEEDER_ORACLE_USER=
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_POSTGRESQL_CONNECTION_PORT=
     set DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX=
     set DB_SEEDER_POSTGRESQL_DATABASE=
@@ -97,7 +97,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
     set DB_SEEDER_POSTGRESQL_PASSWORD_SYS=
     set DB_SEEDER_POSTGRESQL_USER=
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["sqlite"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["sqlite"] (
     set DB_SEEDER_SQLITE_CONNECTION_PREFIX=
     set DB_SEEDER_SQLITE_DATABASE=
 )
@@ -107,7 +107,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - Creation of dummy data in an empty database schema / user.
 echo --------------------------------------------------------------------------------
-echo DATABASE_BRAND                  : %DB_SEEDER_DATABASE_BRAND%
+echo DATABASE_DBMS                   : %DB_SEEDER_DATABASE_DBMS%
 echo --------------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
@@ -120,20 +120,20 @@ echo MAX_ROW_COUNTRY                 : %DB_SEEDER_MAX_ROW_COUNTRY%
 echo MAX_ROW_COUNTRY_STATE           : %DB_SEEDER_MAX_ROW_COUNTRY_STATE%
 echo MAX_ROW_TIMEZONE                : %DB_SEEDER_MAX_ROW_TIMEZONE%
 echo --------------------------------------------------------------------------------
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["cratedb"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["cratedb"] (
     echo CRATEDB_CONNECTION_PORT         : %DB_SEEDER_CRATEDB_CONNECTION_PORT%
     echo CRATEDB_CONNECTION_PREFIX       : %DB_SEEDER_CRATEDB_CONNECTION_PREFIX%
     echo CRATEDB_PASSWORD                : %DB_SEEDER_CRATEDB_PASSWORD%
     echo CRATEDB_USER                    : %DB_SEEDER_CRATEDB_USER%
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["ibmdb2"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["ibmdb2"] (
     echo IBMDB2_CONNECTION_PORT          : %DB_SEEDER_IBMDB2_CONNECTION_PORT%
     echo IBMDB2_CONNECTION_PREFIX        : %DB_SEEDER_IBMDB2_CONNECTION_PREFIX%
     echo IBMDB2_DATABASE                 : %DB_SEEDER_IBMDB2_DATABASE%
     echo IBMDB2_PASSWORD                 : %DB_SEEDER_IBMDB2_PASSWORD%
     echo IBMDB2_SCHEMA                   : %DB_SEEDER_IBMDB2_SCHEMA%
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mariadb"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["mariadb"] (
     echo MARIADB_CONNECTION_PORT         : %DB_SEEDER_MARIADB_CONNECTION_PORT%
     echo MARIADB_CONNECTION_PREFIX       : %DB_SEEDER_MARIADB_CONNECTION_PREFIX%
     echo MARIADB_DATABASE                : %DB_SEEDER_MARIADB_DATABASE%
@@ -141,7 +141,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mariadb"] (
     echo MARIADB_PASSWORD_SYS            : %DB_SEEDER_MARIADB_PASSWORD_SYS%
     echo MARIADB_USER                    : %DB_SEEDER_MARIADB_USER%
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mssqlserver"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["mssqlserver"] (
     echo MSSQLSERVER_CONNECTION_PORT     : %DB_SEEDER_MSSQLSERVER_CONNECTION_PORT%
     echo MSSQLSERVER_CONNECTION_PREFIX   : %DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX%
     echo MSSQLSERVER_DATABASE            : %DB_SEEDER_MSSQLSERVER_DATABASE%
@@ -150,7 +150,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mssqlserver"] (
     echo MSSQLSERVER_SCHEMA              : %DB_SEEDER_MSSQLSERVER_SCHEMA%
     echo MSSQLSERVER_USER                : %DB_SEEDER_MSSQLSERVER_USER%
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mysql"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["mysql"] (
     echo MYSQL_CONNECTION_PORT           : %DB_SEEDER_MYSQL_CONNECTION_PORT%
     echo MYSQL_CONNECTION_PREFIX         : %DB_SEEDER_MYSQL_CONNECTION_PREFIX%
     echo MYSQL_CONNECTION_SUFFIX         : %DB_SEEDER_MYSQL_CONNECTION_SUFFIX%
@@ -159,7 +159,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["mysql"] (
     echo MYSQL_PASSWORD_SYS              : %DB_SEEDER_MYSQL_PASSWORD_SYS%
     echo MYSQL_USER                      : %DB_SEEDER_MYSQL_USER%
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["oracle"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["oracle"] (
     echo ORACLE_CONNECTION_PORT          : %DB_SEEDER_ORACLE_CONNECTION_PORT%
     echo ORACLE_CONNECTION_PREFIX        : %DB_SEEDER_ORACLE_CONNECTION_PREFIX%
     echo ORACLE_CONNECTION_SERVICE       : %DB_SEEDER_ORACLE_CONNECTION_SERVICE%
@@ -167,7 +167,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["oracle"] (
     echo ORACLE_PASSWORD_SYS             : %DB_SEEDER_ORACLE_PASSWORD_SYS%
     echo ORACLE_USER                     : %DB_SEEDER_ORACLE_USER%
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["postgresql"] (
     echo POSTGRESQL_CONNECTION_PORT      : %DB_SEEDER_POSTGRESQL_CONNECTION_PORT%
     echo POSTGRESQL_CONNECTION_PREFIX    : %DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX%
     echo POSTGRESQL_DATABASE             : %DB_SEEDER_POSTGRESQL_DATABASE%
@@ -175,7 +175,7 @@ if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["postgresql"] (
     echo POSTGRESQL_PASSWORD_SYS         : %DB_SEEDER_POSTGRESQL_PASSWORD_SYS%
     echo POSTGRESQL_USER                 : %DB_SEEDER_POSTGRESQL_USER%
 )
-if ["%DB_SEEDER_DATABASE_BRAND%"] EQU ["sqlite"] (
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["sqlite"] (
     echo SQLITE_CONNECTION_PREFIX        : %DB_SEEDER_SQLITE_CONNECTION_PREFIX%
     echo SQLITE_DATABASE                 : %DB_SEEDER_SQLITE_DATABASE%
 )
@@ -184,7 +184,7 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
-java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.DatabaseSeeder %DB_SEEDER_DATABASE_BRAND%
+java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.DatabaseSeeder %DB_SEEDER_DATABASE_DBMS%
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

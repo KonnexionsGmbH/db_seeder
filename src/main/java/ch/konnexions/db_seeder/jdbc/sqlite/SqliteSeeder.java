@@ -28,7 +28,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
   public SqliteSeeder() {
     super();
 
-    databaseBrand = DatabaseBrand.SQLITE;
+    databaseDbms = DatabaseDbms.SQLITE;
   }
 
   @Override

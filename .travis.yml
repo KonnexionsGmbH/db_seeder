@@ -8,14 +8,14 @@ jdk:
 
 env:
   matrix:
-    - DB_SEEDER_DATABASE_BRAND=cratedb
-    - DB_SEEDER_DATABASE_BRAND=ibmdb2
-    - DB_SEEDER_DATABASE_BRAND=mariadb
-    - DB_SEEDER_DATABASE_BRAND=mssqlserver
-    - DB_SEEDER_DATABASE_BRAND=mysql
-    - DB_SEEDER_DATABASE_BRAND=oracle
-    - DB_SEEDER_DATABASE_BRAND=postgresql
-    - DB_SEEDER_DATABASE_BRAND=sqlite
+    - DB_SEEDER_DATABASE_DBMS=cratedb
+    - DB_SEEDER_DATABASE_DBMS=ibmdb2
+    - DB_SEEDER_DATABASE_DBMS=mariadb
+    - DB_SEEDER_DATABASE_DBMS=mssqlserver
+    - DB_SEEDER_DATABASE_DBMS=mysql
+    - DB_SEEDER_DATABASE_DBMS=oracle
+    - DB_SEEDER_DATABASE_DBMS=postgresql
+    - DB_SEEDER_DATABASE_DBMS=sqlite
 
 script:
   # Prepare Installation Process -------------------------------------------------
@@ -43,10 +43,10 @@ script:
 
   # Setup the Database -----------------------------------------------------------
   - travis_fold start "Setup_Database"
-  - ./run_db_seeder_setup_database.sh ${DB_SEEDER_DATABASE_BRAND} no
+  - ./run_db_seeder_setup_database.sh ${DB_SEEDER_DATABASE_DBMS} no
   - travis_fold end   "Setup_Database"
 
   # Generate Dummy Data ----------------------------------------------------------
   - travis_fold start "Generate_Dummy_Data"
-  - ./run_db_seeder.sh ${DB_SEEDER_DATABASE_BRAND}
+  - ./run_db_seeder.sh ${DB_SEEDER_DATABASE_DBMS}
   - travis_fold end   "Generate_Dummy_Data"

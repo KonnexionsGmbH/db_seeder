@@ -8,7 +8,7 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-export DB_SEEDER_DATABASE_BRAND_DEFAULT=sqlite
+export DB_SEEDER_DATABASE_DBMS_DEFAULT=sqlite
 export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 export DB_SEEDER_VERSION_CRATEDB=4.1.6
@@ -22,22 +22,22 @@ export DB_SEEDER_VERSION_POSTGRESQL=12.3
 if [ -z "$1" ]; then
     echo "===================================="
     echo "cratedb     - CrateDB"
-    echo "ibmdb2      - IBM DB2 Database"
+    echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
     echo "postgresql  - PostgreSQL Database"
-    echo "sqlite      - SQLite [(]no Docker image necessary, hence not available]"
+    echo "sqlite      - SQLite [no Docker image necessary, hence not available]"
     echo "------------------------------------"
-    read -p "Enter the desired database brand [default: $DB_SEEDER_DATABASE_BRAND_DEFAULT] " DB_SEEDER_DATABASE_BRAND
-    export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND
+    read -p "Enter the desired database management system [default: $DB_SEEDER_DATABASE_DBMS_DEFAULT] " DB_SEEDER_DATABASE_DBMS
+    export DB_SEEDER_DATABASE_DBMS=$DB_SEEDER_DATABASE_DBMS
 
-    if [ -z "$DB_SEEDER_DATABASE_BRAND" ]; then
-        export DB_SEEDER_DATABASE_BRAND=$DB_SEEDER_DATABASE_BRAND_DEFAULT
+    if [ -z "$DB_SEEDER_DATABASE_DBMS" ]; then
+        export DB_SEEDER_DATABASE_DBMS=$DB_SEEDER_DATABASE_DBMS_DEFAULT
     fi
 else
-    export DB_SEEDER_DATABASE_BRAND=$1
+    export DB_SEEDER_DATABASE_DBMS=$1
 fi
 
 if [ -z "$2" ]; then
@@ -56,30 +56,30 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - setup a database Docker container."
 echo "--------------------------------------------------------------------------------"
-echo "DATABASE_BRAND            : $DB_SEEDER_DATABASE_BRAND"
+echo "DATABASE_DBMS             : $DB_SEEDER_DATABASE_DBMS"
 echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
 echo --------------------------------------------------------------------------------
-if [ "$DB_SEEDER_DATABASE_BRAND" = "cratedb" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "cratedb" ]; then
     echo "VERSION_CRATEDB           : $DB_SEEDER_VERSION_CRATEDB"
 fi
-if [ "$DB_SEEDER_DATABASE_BRAND" = "ibmdb2" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "ibmdb2" ]; then
     echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
     export DB_SEEDER_IBMDB2_DATABASE=kxn_db
     echo "IBMDB2_DATABASE           : $DB_SEEDER_IBMDB2_DATABASE"
 fi
-if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "mariadb" ]; then
     echo "VERSION_MARIADB           : $DB_SEEDER_VERSION_MARIADB"
 fi
-if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "mssqlserver" ]; then
     echo "VERSION_MSSQLSERVER       : $DB_SEEDER_VERSION_MSSQLSERVER"
 fi
-if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "mysql" ]; then
     echo "VERSION_MYSQL             : $DB_SEEDER_VERSION_MYSQL"
 fi
-if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "oracle" ]; then
     echo "VERSION_ORACLE            : $DB_SEEDER_VERSION_ORACLE"
 fi
-if [ "$DB_SEEDER_DATABASE_BRAND" = "postgresql" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "postgresql" ]; then
     echo "VERSION_POSTGRESQL        : $DB_SEEDER_VERSION_POSTGRESQL"
 fi
 echo --------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ fi
 # CrateDB                                         https://hub.docker.com/_/crate
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DATABASE_BRAND" = "cratedb" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "cratedb" ]; then
     start=$(date +%s)
     echo "CrateDB."
     echo "--------------------------------------------------------------------------------"
@@ -114,12 +114,12 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "cratedb" ]; then
     echo "DOCKER CrateDB was ready in $((end - start)) seconds"
 fi
 # ------------------------------------------------------------------------------
-# IBM DB2 Database                           https://hub.docker.com/r/ibmcom/db2
+# IBM Db2 Database                           https://hub.docker.com/r/ibmcom/db2
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DATABASE_BRAND" = "ibmdb2" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "ibmdb2" ]; then
     start=$(date +%s)
-    echo "IBM DB2 Database."
+    echo "IBM Db2 Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM DB2 $DB_SEEDER_VERSION_IBMDB2)"
     docker run -itd --name db_seeder_db --restart unless-stopped -e DBNAME=$DB_SEEDER_IBMDB2_DATABASE -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p 50000:50000 --privileged=true ibmcom/db2:$DB_SEEDER_VERSION_IBMDB2
@@ -127,14 +127,14 @@ if [ "$DB_SEEDER_DATABASE_BRAND" = "ibmdb2" ]; then
     sleep 120
 
     end=$(date +%s)
-    echo "DOCKER IBM DB2 Database was ready in $((end - start)) seconds"
+    echo "DOCKER IBM Db2 Database was ready in $((end - start)) seconds"
 fi
 
 # ------------------------------------------------------------------------------
 # MariaDB Server                                https://hub.docker.com/_/mariadb
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DATABASE_BRAND" = "mariadb" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "mariadb" ]; then
     start=$(date +%s)
     echo "MariaDB Server."
     echo "--------------------------------------------------------------------------------"
@@ -156,7 +156,7 @@ fi
 # Microsoft SQL Server Database  https://hub.docker.com/_/microsoft-mssql-server
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DATABASE_BRAND" = "mssqlserver" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "mssqlserver" ]; then
     start=$(date +%s)
     echo "Microsoft SQL Server."
     echo "--------------------------------------------------------------------------------"
@@ -178,7 +178,7 @@ fi
 # MySQL Database                                  https://hub.docker.com/_/mysql
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DATABASE_BRAND" = "mysql" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "mysql" ]; then
     start=$(date +%s)
     echo "MySQL Database."
     echo "--------------------------------------------------------------------------------"
@@ -200,7 +200,7 @@ fi
 # Oracle Database.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DATABASE_BRAND" = "oracle" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "oracle" ]; then
     echo "Oracle Database"
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
@@ -225,7 +225,7 @@ fi
 # PostgreSQL Database                          https://hub.docker.com/_/postgres
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DATABASE_BRAND" = "postgresql" ]; then
+if [ "$DB_SEEDER_DATABASE_DBMS" = "postgresql" ]; then
     start=$(date +%s)
     echo "PostgreSQL Database."
     echo "--------------------------------------------------------------------------------"

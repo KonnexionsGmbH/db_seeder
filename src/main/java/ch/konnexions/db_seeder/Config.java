@@ -19,8 +19,8 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.log4j.Logger;
 
 /**
- * The configuration parameters for the supported database brands. The 
- * configuration parameters are made available to the configuration object
+ * The configuration parameters for the supported database management systems. 
+ * The configuration parameters are made available to the configuration object
  * in a text file.
  * 
  * The parameter name and parameter value must be separated by an equal sign
@@ -152,7 +152,7 @@ public class Config {
     return cratedbUser;
   }
 
-  // IBM DB2 Database --------------------------------------------------------
+  // IBM Db2 Database --------------------------------------------------------
 
   /**
    * @return the IBM DB2 port number where the database server is listening for requests
@@ -169,7 +169,7 @@ public class Config {
   }
 
   /**
-   * @return the IBM DB2 database name
+   * @return the IBM Db2 Database name
    */
   public final String getIbmdb2Database() {
     return ibmdb2Database;
@@ -612,7 +612,7 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.file.configuration.name", fileConfigurationName);
     }
 
-    // IBM DB2 Database ----------------------------------------------------------
+    // IBM Db2 Database ----------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_PORT")) {
       ibmdb2ConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_IBMDB2_CONNECTION_PORT"));
