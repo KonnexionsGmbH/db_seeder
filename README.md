@@ -13,19 +13,36 @@
 Currently the following management database systems are supported:
 - [CrateDB](https://crate.io/)
   - open source
+  - relational database management system (RDBMS) 
   - automatic data replication
   - fast text search and analytics
   - integrates a fully searchable document-oriented data store
   - self-healing clusters for high availability
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
-  - initially supported the relational model
-  - extended to support object-relational features and non-relational structures like JSON and XML
+  - relational database management system (RDBMS) 
+  - supporting object-relational features and non-relational structures like JSON and XML
 - [MariaDB Server](https://mariadb.com/) 
+  - open source, but owned by Oracle
+  - relational database management system (RDBMS) 
+  - fork of the MySQL RDBMS
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
+  - relational database management system (RDBMS) 
 - [MySQL Database](https://www.mysql.com/) 
+  - open source, but owned by Oracle
+  - relational database management system (RDBMS) 
+  - component of the LAMP web application software stack
 - [Oracle Database](https://www.oracle.com/database/)
+  - relational database management system (RDBMS) 
+  - running online transaction processing (OLTP), data warehousing (DW) and mixed (OLTP & DW) database workloads
 - [PostgreSQL Database](https://www.postgresql.org/)
+  - open source
+  - relational database management system (RDBMS) 
+  - emphasizing extensibility and SQL compliance
 - [SQLite](https://www.sqlite.org/)
+  - open source
+  - relational database management system (RDBMS) 
+  - not a client–server database engine, it is embedded into the end program
+  - weakly typed SQL syntax that does not guarantee the domain integrity
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
 If the selected database, schema or user already exists, it is deleted with all including data. 
