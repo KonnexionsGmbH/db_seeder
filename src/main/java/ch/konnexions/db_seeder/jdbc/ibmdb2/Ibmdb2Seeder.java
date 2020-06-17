@@ -16,7 +16,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a IBM Db2 Database. </h1>
+ * <h1> Test Data Generator for an IBM Db2 DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -180,13 +180,11 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
   @Override
   protected void dropCreateSchemaUser() {
-    PreparedStatement preparedStatement = null;
-
     // -----------------------------------------------------------------------
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      ibmdb2Schema      = config.getIbmdb2Schema().toUpperCase();
+    final String ibmdb2Schema = config.getIbmdb2Schema().toUpperCase();
 
     try {
       connection = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
@@ -201,6 +199,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
     // Drop the user and schema.
     // -----------------------------------------------------------------------
+
+    PreparedStatement preparedStatement = null;
 
     try {
       Statement  statement     = connection.createStatement();

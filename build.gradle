@@ -3,11 +3,14 @@ plugins {
 }
 
 group 'ch.konnexions'
-version '1.6.0'
+version '1.7.0'
 
 repositories {
     jcenter()
     mavenCentral()
+    maven {
+        url "http://maven.cubrid.org/"
+    }
 }
 
 dependencies {
@@ -15,6 +18,7 @@ dependencies {
     implementation 'com.microsoft.sqlserver:mssql-jdbc:8.3.1.jre14-preview'
     implementation 'com.oracle.ojdbc:ojdbc8:19.3.0.0'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    implementation 'cubrid:cubrid-jdbc:10.2.0.8797'
     implementation 'io.crate:crate-jdbc:2.6.0'
     implementation 'mysql:mysql-connector-java:8.0.20'
     implementation 'org.apache.commons:commons-configuration2:2.7'

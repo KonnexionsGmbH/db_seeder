@@ -18,7 +18,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a PostgreSQL Database. </h1>
+ * <h1> Test Data Generator for a PostgreSQL DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -136,14 +136,12 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void dropCreateSchemaUser() {
-    PreparedStatement preparedStatement  = null;
-
     // -----------------------------------------------------------------------
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      postgresqlDatabase = config.getPostgresqlDatabase();
-    final String      postgresqlUser     = config.getPostgresqlUser();
+    final String postgresqlDatabase = config.getPostgresqlDatabase();
+    final String postgresqlUser     = config.getPostgresqlUser();
 
     try {
       connection = DriverManager.getConnection(config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":"
@@ -158,6 +156,8 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
     // Drop the database, the schema and the user if already existing
     // -----------------------------------------------------------------------
+
+    PreparedStatement preparedStatement = null;
 
     try {
       preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS " + postgresqlDatabase);

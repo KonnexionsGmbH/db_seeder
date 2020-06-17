@@ -352,7 +352,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
 
     try {
-      preparedStatement = connection.prepareStatement(sqlStmnt, new String[] { "PK_" + tableName + "_ID" });
+      preparedStatement = connection.prepareStatement(sqlStmnt,
+                                                      new String[] {
+                                                          "PK_" + tableName + "_ID" });
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);

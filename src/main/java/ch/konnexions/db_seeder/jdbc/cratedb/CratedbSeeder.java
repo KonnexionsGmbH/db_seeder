@@ -13,7 +13,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a CrateDB. </h1>
+ * <h1> Test Data Generator for a CrateDB DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -123,13 +123,11 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void dropCreateSchemaUser() {
-    PreparedStatement preparedStatement = null;
-
     // -----------------------------------------------------------------------
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      cratedbUser       = config.getCratedbUser();
+    final String cratedbUser = config.getCratedbUser();
 
     try {
       connection = DriverManager.getConnection(config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
@@ -144,6 +142,8 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
     // Drop the database and user if already existing
     // -----------------------------------------------------------------------
+
+    PreparedStatement preparedStatement = null;
 
     try {
       preparedStatement = connection.prepareStatement("DROP USER IF EXISTS " + cratedbUser);

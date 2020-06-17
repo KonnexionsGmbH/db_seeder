@@ -12,6 +12,7 @@ set DB_SEEDER_DATABASE_DBMS_DEFAULT=sqlite
 set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 set DB_SEEDER_VERSION_CRATEDB=4.1.6
+set DB_SEEDER_VERSION_CUBRID=10.1
 set DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
 set DB_SEEDER_VERSION_MARIADB=10.4.13
 set DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
@@ -22,6 +23,7 @@ set DB_SEEDER_VERSION_POSTGRESQL=12.3
 if ["%1"] EQU [""] (
     echo ====================================
     echo cratedb     - CrateDB
+    echo cubrid      - CUBRID
     echo ibmdb2      - IBM Db2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
@@ -57,9 +59,14 @@ echo ---------------------------------------------------------------------------
 echo DATABASE_DBMS             : %DB_SEEDER_DATABASE_DBMS%
 echo DELETE_EXISTING_CONTAINER : %DB_SEEDER_DELETE_EXISTING_CONTAINER%
 echo --------------------------------------------------------------------------------
+if ["%DB_SEEDER_DATABASE_DBMS%"] == ["cubrid"] (
+    set DB_SEEDER_CUBRID_DATABASE=kxn_db
+    echo CUBRID_DATABASE           : !DB_SEEDER_CUBRID_DATABASE!
+    echo --------------------------------------------------------------------------------
+)    
 if ["%DB_SEEDER_DATABASE_DBMS%"] == ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_DATABASE=kxn_db
-    echo IBMDB2_DATABASE           : %DB_SEEDER_IBMDB2_DATABASE%
+    echo IBMDB2_DATABASE           : !DB_SEEDER_IBMDB2_DATABASE!
     echo --------------------------------------------------------------------------------
 )
 echo:| TIME

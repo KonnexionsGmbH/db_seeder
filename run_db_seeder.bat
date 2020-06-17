@@ -13,6 +13,7 @@ set DB_SEEDER_DATABASE_DBMS_DEFAULT=sqlite
 if ["%1"] EQU [""] (
     echo ====================================
     echo cratedb     - CrateDB
+    echo cubrid      - CUBRID
     echo ibmdb2      - IBM Db2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
@@ -47,6 +48,13 @@ if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_CRATEDB_CONNECTION_PREFIX=
     set DB_SEEDER_CRATEDB_PASSWORD=
     set DB_SEEDER_CRATEDB_USER=
+)
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["cubrid"] (
+    set DB_SEEDER_CUBRID_CONNECTION_PORT=
+    set DB_SEEDER_CUBRID_CONNECTION_PREFIX=
+    set DB_SEEDER_CUBRID_DATABASE=
+    set DB_SEEDER_CUBRID_PASSWORD=
+    set DB_SEEDER_CUBRID_USER=
 )
 if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_CONNECTION_PORT=
@@ -125,6 +133,13 @@ if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["cratedb"] (
     echo CRATEDB_CONNECTION_PREFIX       : %DB_SEEDER_CRATEDB_CONNECTION_PREFIX%
     echo CRATEDB_PASSWORD                : %DB_SEEDER_CRATEDB_PASSWORD%
     echo CRATEDB_USER                    : %DB_SEEDER_CRATEDB_USER%
+)
+if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["cubrid"] (
+    echo CUBRID_CONNECTION_PORT          : %DB_SEEDER_CUBRID_CONNECTION_PORT%
+    echo CUBRID_CONNECTION_PREFIX        : %DB_SEEDER_CUBRID_CONNECTION_PREFIX%
+    echo CUBRID_DATABASE                 : %DB_SEEDER_CUBRID_DATABASE%
+    echo CUBRID_PASSWORD                 : %DB_SEEDER_CUBRID_PASSWORD%
+    echo CUBRID_USER                     : %DB_SEEDER_CUBRID_USER%
 )
 if ["%DB_SEEDER_DATABASE_DBMS%"] EQU ["ibmdb2"] (
     echo IBMDB2_CONNECTION_PORT          : %DB_SEEDER_IBMDB2_CONNECTION_PORT%

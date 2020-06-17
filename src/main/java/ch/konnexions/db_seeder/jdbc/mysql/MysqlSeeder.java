@@ -13,7 +13,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a MySQL Database. </h1>
+ * <h1> Test Data Generator for a MySQL DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -130,21 +130,19 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void dropCreateSchemaUser() {
-    PreparedStatement preparedStatement = null;
-
-    // -----------------------------------------------------------------------
-    // Connect as privileged user
-    // -----------------------------------------------------------------------
-
-    final String      mysqlDatabase     = config.getMysqlDatabase();
-    final String      mysqlUser         = config.getMysqlUser();
-
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
     }
+
+    // -----------------------------------------------------------------------
+    // Connect as privileged user
+    // -----------------------------------------------------------------------
+
+    final String mysqlDatabase = config.getMysqlDatabase();
+    final String mysqlUser     = config.getMysqlUser();
 
     try {
       connection = DriverManager.getConnection(config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort()
@@ -159,6 +157,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
     // Drop the database and user if already existing
     // -----------------------------------------------------------------------
+
+    PreparedStatement preparedStatement = null;
 
     try {
       preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS `" + mysqlDatabase + "`");

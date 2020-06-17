@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.6.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.7.0.svg)
 
 ----
 
@@ -18,6 +18,12 @@ Currently the following management database systems are supported:
   - fast text search and analytics
   - integrates a fully searchable document-oriented data store
   - self-healing clusters for high availability
+- [CUBRID](https://www.cubrid.org) 
+  - open source
+  - relational database management system (RDBMS) 
+  - 3-tier client-server architecture (database server, connection broker and application layer)
+  - high Availability provides load-balanced, fault-tolerant and continuous service availability through its shared-nothing clustering, automated fail-over and manual fail-back mechanisms
+  - object extensions developed by CUBRID Corp. for OLTP
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
   - relational database management system (RDBMS) 
   - supporting object-relational features and non-relational structures like JSON and XML
@@ -54,6 +60,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | DBMS | DB Ticker Symbol | Tested Versions |
 |---|---|---|
 | CrateDB | CRATEDB | 4.1.6 | 
+| CUBRID | CUBRID | 10.1 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
 | MariaDB Server | MARIADB | 10.4.13 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
@@ -98,6 +105,12 @@ db_seeder.cratedb.connection.port=5432
 db_seeder.cratedb.connection.prefix=crate://
 db_seeder.cratedb.password=cratedb
 db_seeder.cratedb.user=kxn_user
+
+db_seeder.cubrid.connection.port=33000
+db_seeder.cubrid.connection.prefix=jdbc:CUBRID:
+db_seeder.cubrid.database=kxn_db
+db_seeder.cubrid.password=cubrid
+db_seeder.cubrid.user=kxn_user
 
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
@@ -158,15 +171,15 @@ db_seeder.sqlite.database=kxn_db
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | port number of the database server |
-| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE | prefix of the database connection string |
+| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | port number of the database server |
+| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE | prefix of the database connection string |
 | <db_ticker>.connection.suffix=<url_suffix> | <DB_TICKER>_CONNECTION_SUFFIX | MYSQL | suffix of the database connection string |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
 | <db_ticker>.password.sys=<db_ticker> | <DB_TICKER>_PASSWORD_SYS | MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
-| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
+| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | IBMDB2, MSSQLSERVER | schema name |
-| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
+| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
@@ -202,7 +215,29 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_CRATEDB.png)
 
-### 4.2 IBM Db2 Database
+### 4.2 CUBRID
+
+- database driver version 10.2.0.8797
+  - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
+- database Docker image version 10.1: [here](https://hub.docker.com/r/cubrid/cubrid)
+- data definition hierarchy: database and user
+- privileged database / user: n/a / dba
+
+- data types used:
+
+| Data Type | CrateDB Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | BLOB |
+| character large object | CLOB |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_CUBRID.png)
+
+### 4.3 IBM Db2 Database
 
 - database driver version 11.5.0.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
@@ -226,7 +261,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_IBMDB2.png)
 
-### 4.3 MariaDB Server
+### 4.4 MariaDB Server
 
 - database driver version 2.6.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
@@ -248,7 +283,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MARIADB.png)
 
-### 4.4 Microsoft SQL Server
+### 4.5 Microsoft SQL Server
 
 - database driver version 8.31 
   - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
@@ -270,7 +305,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MSSQLSERVER.png)
 
-### 4.5 MySQL Database
+### 4.6 MySQL Database
 
 - database driver version 8.0.20 
   - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -292,7 +327,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MYSQL.png)
 
-### 4.6 Oracle Database
+### 4.7 Oracle Database
 
 - database driver version 
   - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
@@ -315,7 +350,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_ORACLE.png)
 
-### 4.7 PostgreSQL Database
+### 4.8 PostgreSQL Database
 
 - database driver version 42.2.13
   - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)
@@ -337,7 +372,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_POSTGRESQL.png)
 
-### 4.8 SQLite
+### 4.9 SQLite
 
 - database driver version 3.31.1
   - Maven repository: [here](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)

@@ -13,7 +13,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a MariaDB Server. </h1>
+ * <h1> Test Data Generator for a MariaDB DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -130,14 +130,12 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void dropCreateSchemaUser() {
-    PreparedStatement preparedStatement = null;
-
     // -----------------------------------------------------------------------
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      mariadbDatabase   = config.getMariadbDatabase();
-    final String      mariadbUser       = config.getMariadbUser();
+    final String mariadbDatabase = config.getMariadbDatabase();
+    final String mariadbUser     = config.getMariadbUser();
 
     try {
       connection = DriverManager.getConnection(config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort()
@@ -152,6 +150,8 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
     // Drop the database and user if already existing
     // -----------------------------------------------------------------------
+
+    PreparedStatement preparedStatement = null;
 
     try {
       preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS `" + mariadbDatabase + "`");

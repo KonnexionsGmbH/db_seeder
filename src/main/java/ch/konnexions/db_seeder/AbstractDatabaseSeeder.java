@@ -17,7 +17,15 @@ import java.util.List;
 public abstract class AbstractDatabaseSeeder {
 
   protected enum DatabaseDbms {
-    CRATEDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE
+    CRATEDB,
+    CUBRID,
+    IBMDB2,
+    MARIADB,
+    MSSQLSERVER,
+    MYSQL,
+    ORACLE,
+    POSTGRESQL,
+    SQLITE
   }
 
   protected int                autoIncrement;
@@ -25,7 +33,7 @@ public abstract class AbstractDatabaseSeeder {
   protected Config             config;
   protected Connection         connection;
 
-  protected DatabaseDbms      databaseDbms;
+  protected DatabaseDbms       databaseDbms;
 
   // private static Logger logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 

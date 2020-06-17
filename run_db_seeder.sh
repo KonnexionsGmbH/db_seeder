@@ -13,6 +13,7 @@ export DB_SEEDER_DATABASE_DBMS_DEFAULT=sqlite
 if [ -z "$1" ]; then
     echo "===================================="
     echo "cratedb     - CrateDB"
+    echo "cubrid      - CUBRID"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -48,6 +49,13 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_CRATEDB_CONNETION_PREFIX=
 #    export DB_SEEDER_CRATEDB_PASSWORD=
 #    export DB_SEEDER_CRATEDB_USER=
+#fi
+#if [ "$DB_SEEDER_DATABASE_DBMS" = "cubrid" ]; then
+#    export DB_SEEDER_CUBRID_CONNECTION_PORT=
+#    export DB_SEEDER_CUBRID_CONNETION_PREFIX=
+#    export DB_SEEDER_CUBRID_DATABASE=
+#    export DB_SEEDER_CUBRID_PASSWORD=
+#    export DB_SEEDER_CUBRID_USER=
 #fi
 #if [ "$DB_SEEDER_DATABASE_DBMS" = "ibmdb2" ]; then
 #    export DB_SEEDER_IBMDB2_CONNECTION_PORT=
@@ -126,6 +134,14 @@ if [ "$DB_SEEDER_DATABASE_DBMS" = "cratedb" ]; then
     echo "CRATEDB_CONNECTION_PREFIX         : $DB_SEEDER_CRATEDB_CONNECTION_PREFIX"
     echo "CRATEDB_PASSWORD                  : $DB_SEEDER_CRATEDB_PASSWORD"
     echo "CRATEDB_USER                      : $DB_SEEDER_CRATEDB_USER"
+fi
+if [ "$DB_SEEDER_DATABASE_DBMS" = "cubrid" ]; then
+    echo "CUBRID_CONNECTION_PORT            : $DB_SEEDER_CUBRID_CONNECTION_PORT"
+    echo "CUBRID_CONNECTION_PREFIX          : $DB_SEEDER_CUBRID_CONNECTION_PREFIX"
+    echo "CUBRID_DATABASE                   : $DB_SEEDER_CUBRID_DATABASE"
+    echo "CUBRID_PASSWORD                   : $DB_SEEDER_CUBRID_PASSWORD"
+    echo "CUBRID_PASSWORD_SYS               : $DB_SEEDER_CUBRID_PASSWORD_SYS"
+    echo "CUBRID_USER                       : $DB_SEEDER_CUBRID_USER"
 fi
 if [ "$DB_SEEDER_DATABASE_DBMS" = "ibmdb2" ]; then
     echo "IBMDB2_CONNECTION_PORT            : $DB_SEEDER_IBMDB2_CONNECTION_PORT"

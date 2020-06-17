@@ -22,6 +22,7 @@ export DB_SEEDER_VERSION_POSTGRESQL=12.3
 if [ -z "$1" ]; then
     echo "===================================="
     echo "cratedb     - CrateDB"
+    echo "cubrid      - CUBRID"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -61,6 +62,11 @@ echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
 echo --------------------------------------------------------------------------------
 if [ "$DB_SEEDER_DATABASE_DBMS" = "cratedb" ]; then
     echo "VERSION_CRATEDB           : $DB_SEEDER_VERSION_CRATEDB"
+fi
+if [ "$DB_SEEDER_DATABASE_DBMS" = "cubrid" ]; then
+    echo "VERSION_CUBRID            : $DB_SEEDER_VERSION_CUBRID"
+    export DB_SEEDER_CUBRID_DATABASE=kxn_db
+    echo "CUBRID_DATABASE           : $DB_SEEDER_CUBRID_DATABASE"
 fi
 if [ "$DB_SEEDER_DATABASE_DBMS" = "ibmdb2" ]; then
     echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
@@ -113,6 +119,29 @@ if [ "$DB_SEEDER_DATABASE_DBMS" = "cratedb" ]; then
     end=$(date +%s)
     echo "DOCKER CrateDB was ready in $((end - start)) seconds"
 fi
+
+# ------------------------------------------------------------------------------
+# CUBRID                                  https://hub.docker.com/r/cubrid/cubrid
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DATABASE_DBMS" = "cratedb" ]; then
+    start=$(date +%s)
+    echo "CUBRID."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (CUBRID $DB_SEEDER_VERSION_CRATEDB)"
+    docker create --name db_seeder_db -p 33000:33000/tcp -e CUBRID_DB=$DB_SEEDER_CUBRID_DATABASE cubrid/cubrid:$DB_SEEDER_VERSION_CUBRID
+
+    echo "Docker start db_seeder_db (CUBRID $DB_SEEDER_VERSION_CRATEDB) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+# wwe    sleep 10
+
+    end=$(date +%s)
+    echo "DOCKER CUBRID was ready in $((end - start)) seconds"
+fi
+
 # ------------------------------------------------------------------------------
 # IBM Db2 Database                           https://hub.docker.com/r/ibmcom/db2
 # ------------------------------------------------------------------------------

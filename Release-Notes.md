@@ -3,7 +3,31 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.6.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.7.0.svg)
+
+----------
+
+## Version 1.7.0
+
+Release Date: 17.06.2020
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+
+#### New Features
+
+- New batabase: CUBRID
+
+#### Modified Features
+
+n/a
+
+#### Deleted Features
+
+n/a
+
 
 ----------
 
@@ -19,14 +43,6 @@ Release Date: 16.06.2020
 #### New Features
 
 - New batabase: SQLite
-
-#### Modified Features
-
-n/a
-
-#### Deleted Features
-
-n/a
 
 ----------
 

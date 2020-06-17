@@ -14,7 +14,7 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for am Oracle database. </h1>
+ * <h1> Test Data Generator for an Oracle DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -141,15 +141,11 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void dropCreateSchemaUser() {
-    int               count             = 0;
-
-    PreparedStatement preparedStatement = null;
-
     // -----------------------------------------------------------------------
     // Connect as privileged user
     // -----------------------------------------------------------------------
 
-    final String      oracleUser        = config.getOracleUser();
+    final String oracleUser = config.getOracleUser();
 
     try {
       connection = DriverManager.getConnection(config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort()
@@ -165,10 +161,14 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     // Drop the schema / user if already existing
     // -----------------------------------------------------------------------
 
+    PreparedStatement preparedStatement = null;
+
     try {
+      int count = 0;
+
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = UPPER(?)");
       preparedStatement.setString(1, oracleUser);
-      preparedStatement.executeUpdate();
+      preparedStatement.executeQuery();
 
       ResultSet resultSet = preparedStatement.getResultSet();
 

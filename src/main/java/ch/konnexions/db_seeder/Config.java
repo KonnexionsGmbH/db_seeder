@@ -30,21 +30,27 @@ public class Config {
 
   @SuppressWarnings("unused")
   private static Logger                                                logger     = Logger.getLogger(Config.class);
+
   private int                                                          cratedbConnectionPort;
   private String                                                       cratedbConnectionPrefix;
   private String                                                       cratedbPassword;
-
   private String                                                       cratedbUser;
+
+  private int                                                          cubridConnectionPort;
+  private String                                                       cubridConnectionPrefix;
+  private String                                                       cubridDatabase;
+  private String                                                       cubridPassword;
+  private String                                                       cubridUser;
+
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
   private String                                                       fileConfigurationName;
-
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
+
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
   private String                                                       ibmdb2Database;
   private String                                                       ibmdb2Password;
-
   private String                                                       ibmdb2Schema;
 
   private String                                                       jdbcConnectionHost;
@@ -150,6 +156,43 @@ public class Config {
    */
   public final String getCratedbUser() {
     return cratedbUser;
+  }
+
+  // CUBRID ------------------------------------------------------------------
+
+  /**
+   * @return the CUBRID port number where the database server is listening for requests
+   */
+  public final int getCubridConnectionPort() {
+    return cubridConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the CUBRID connection string
+   */
+  public final String getCubridConnectionPrefix() {
+    return cubridConnectionPrefix;
+  }
+
+  /**
+   * @return the CUBRID name
+   */
+  public final String getCubridDatabase() {
+    return cubridDatabase;
+  }
+
+  /**
+   * @return the CUBRID password to connect to the database
+   */
+  public final String getCubridPassword() {
+    return cubridPassword;
+  }
+
+  /**
+   * @return the CUBRID schema name
+   */
+  public final String getCubridUser() {
+    return cubridUser;
   }
 
   // IBM Db2 Database --------------------------------------------------------
@@ -396,6 +439,7 @@ public class Config {
     List<String> list = new ArrayList<>();
 
     list.add("db_seeder.cratedb.connection.port");
+    list.add("db_seeder.cubrid.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
@@ -524,6 +568,12 @@ public class Config {
     cratedbPassword             = propertiesConfiguration.getString("db_seeder.cratedb.password");
     cratedbUser                 = propertiesConfiguration.getString("db_seeder.cratedb.user");
 
+    cubridConnectionPort        = propertiesConfiguration.getInt("db_seeder.cubrid.connection.port");
+    cubridConnectionPrefix      = propertiesConfiguration.getString("db_seeder.cubrid.connection.prefix");
+    cubridDatabase              = propertiesConfiguration.getString("db_seeder.cubrid.database");
+    cubridPassword              = propertiesConfiguration.getString("db_seeder.cubrid.password");
+    cubridUser                  = propertiesConfiguration.getString("db_seeder.cubrid.user");
+
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
 
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
@@ -612,6 +662,33 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.file.configuration.name", fileConfigurationName);
     }
 
+    // CUBRID ------------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_PORT")) {
+      cubridConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", cubridConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_PREFIX")) {
+      cubridConnectionPrefix = environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", cubridConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_DATABASE")) {
+      cubridDatabase = environmentVariables.get("DB_SEEDER_CUBRID_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.cubrid.database", cubridDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_PASSWORD")) {
+      cubridPassword = environmentVariables.get("DB_SEEDER_CUBRID_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.cubrid.password", cubridPassword);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER")) {
+      cubridUser = environmentVariables.get("DB_SEEDER_CUBRID_USER");
+      propertiesConfiguration.setProperty("db_seeder.cubrid.user", cubridUser);
+    }
+
     // IBM Db2 Database ----------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_PORT")) {
@@ -636,7 +713,7 @@ public class Config {
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_SCHEMA")) {
       ibmdb2Schema = environmentVariables.get("DB_SEEDER_IBMDB2_SCHEMA");
-      propertiesConfiguration.setProperty("db_seeder.ibmdb2.database", ibmdb2Schema);
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.schema", ibmdb2Schema);
     }
 
     // JDBC Connection ---------------------------------------------------------
