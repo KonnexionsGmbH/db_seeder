@@ -22,7 +22,7 @@ Release Date: 17.06.2020
 
 #### Modified Features
 
-n/a
+- MariaDB Server Version 10.5.3
 
 #### Deleted Features
 

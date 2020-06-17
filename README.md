@@ -62,7 +62,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | CrateDB | CRATEDB | 4.1.6 | 
 | CUBRID | CUBRID | 10.1 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
-| MariaDB Server | MARIADB | 10.4.13 | 
+| MariaDB Server | MARIADB | 10.4.13 - 10.5.3 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
 | MySQL Database | MYSQL | 8.0.20 | 
 | Oracle Database | ORACLE | 19c |
@@ -265,7 +265,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - database driver version 2.6.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
-- database Docker image version 10.4.13: [here](https://hub.docker.com/_/mariadb)
+- database Docker image version 10.5.3: [here](https://hub.docker.com/_/mariadb)
 - data definition hierarchy: database and user
 - privileged database / user: mysql / root
 

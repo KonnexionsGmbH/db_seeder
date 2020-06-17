@@ -9,6 +9,7 @@ jdk:
 env:
   matrix:
     - DB_SEEDER_DATABASE_DBMS=cratedb
+    - DB_SEEDER_DATABASE_DBMS=cubrid
     - DB_SEEDER_DATABASE_DBMS=ibmdb2
     - DB_SEEDER_DATABASE_DBMS=mariadb
     - DB_SEEDER_DATABASE_DBMS=mssqlserver
