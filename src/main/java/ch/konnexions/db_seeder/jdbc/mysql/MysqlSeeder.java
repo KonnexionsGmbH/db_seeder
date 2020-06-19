@@ -28,7 +28,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
   public MysqlSeeder() {
     super();
 
-    databaseDbms = DatabaseDbms.MYSQL;
+    dbms = Dbms.MYSQL;
   }
 
   @Override

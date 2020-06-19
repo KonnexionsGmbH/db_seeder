@@ -16,7 +16,8 @@ import java.util.List;
  */
 public abstract class AbstractDatabaseSeeder {
 
-  protected enum DatabaseDbms {
+  protected enum Dbms {
+    DERBY,
     CRATEDB,
     CUBRID,
     IBMDB2,
@@ -33,7 +34,7 @@ public abstract class AbstractDatabaseSeeder {
   protected Config             config;
   protected Connection         connection;
 
-  protected DatabaseDbms       databaseDbms;
+  protected Dbms               dbms;
 
   // private static Logger logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
@@ -49,7 +50,7 @@ public abstract class AbstractDatabaseSeeder {
   protected final String       TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
   protected final String       TABLE_NAME_TIMEZONE      = "TIMEZONE";
   protected final List<String> TABLE_NAMES              = Arrays
-      .asList(TABLE_NAME_CITY, TABLE_NAME_COMPANY, TABLE_NAME_COUNTRY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_TIMEZONE);
+      .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
 
   /**
    *

@@ -33,7 +33,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   public PostgresqlSeeder() {
     super();
 
-    databaseDbms = DatabaseDbms.POSTGRESQL;
+    dbms = Dbms.POSTGRESQL;
   }
 
   @Override

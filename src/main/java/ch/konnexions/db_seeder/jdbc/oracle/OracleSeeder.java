@@ -29,7 +29,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
   public OracleSeeder() {
     super();
 
-    databaseDbms = DatabaseDbms.ORACLE;
+    dbms = Dbms.ORACLE;
   }
 
   @Override

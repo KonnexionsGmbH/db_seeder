@@ -28,7 +28,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
   public MariadbSeeder() {
     super();
 
-    databaseDbms = DatabaseDbms.MARIADB;
+    dbms = Dbms.MARIADB;
   }
 
   @Override

@@ -299,7 +299,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     retrieveFkList(tableName);
     createFkList(tableName);
 
-    if (databaseDbms == DatabaseDbms.CRATEDB) {
+    if (dbms == Dbms.CRATEDB) {
       autoIncrement = 0;
     }
 
@@ -314,7 +314,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       System.exit(1);
     }
 
-    if (!(databaseDbms == DatabaseDbms.CRATEDB)) {
+    if (!(dbms == Dbms.CRATEDB)) {
       try {
         connection.commit();
       } catch (SQLException e) {
@@ -339,12 +339,12 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param pkList current primary key list
    */
   protected final void createDataInsert(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
-    if (databaseDbms == DatabaseDbms.CRATEDB) {
+    if (dbms == Dbms.CRATEDB) {
       createDataInsertCratedb(preparedStatement, tableName, rowCount, pkList);
       return;
     }
 
-    if (databaseDbms == DatabaseDbms.POSTGRESQL) {
+    if (dbms == Dbms.POSTGRESQL) {
       createDataInsertPostgresql(preparedStatement, tableName, rowCount, pkList);
       return;
     }
@@ -466,7 +466,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
     };
 
-    if (databaseDbms == DatabaseDbms.CRATEDB) {
+    if (dbms == Dbms.CRATEDB) {
       return "pk_" + tableName.toLowerCase() + "_id," + statement.replace("(?", "(?,?");
     }
 
@@ -686,7 +686,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (databaseDbms == DatabaseDbms.CRATEDB) {
+      if (dbms == Dbms.CRATEDB) {
         preparedStatement.setInt(i++, autoIncrement++);
       }
 
@@ -712,7 +712,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (databaseDbms == DatabaseDbms.CRATEDB) {
+      if (dbms == Dbms.CRATEDB) {
         preparedStatement.setInt(i++, autoIncrement++);
       }
 
@@ -748,7 +748,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (databaseDbms == DatabaseDbms.CRATEDB) {
+      if (dbms == Dbms.CRATEDB) {
         preparedStatement.setInt(i++, autoIncrement++);
       }
 
@@ -774,7 +774,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (databaseDbms == DatabaseDbms.CRATEDB) {
+      if (dbms == Dbms.CRATEDB) {
         preparedStatement.setInt(i++, autoIncrement++);
       }
 
@@ -802,7 +802,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (databaseDbms == DatabaseDbms.CRATEDB) {
+      if (dbms == Dbms.CRATEDB) {
         preparedStatement.setInt(i++, autoIncrement++);
       }
 
@@ -842,10 +842,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepStmntInsertColBlobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
-      if (databaseDbms == DatabaseDbms.CRATEDB) {
+      if (dbms == Dbms.CRATEDB) {
         preparedStatement.setNull(columnPos, Types.NULL);
       } else if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        if (databaseDbms == DatabaseDbms.POSTGRESQL) {
+        if (dbms == Dbms.POSTGRESQL) {
           preparedStatement.setNull(columnPos, Types.NULL);
         } else {
           preparedStatement.setNull(columnPos, Types.BLOB);
@@ -885,7 +885,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   protected final void prepStmntInsertColClobOpt(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        if (databaseDbms == DatabaseDbms.CRATEDB) {
+        if (dbms == Dbms.CRATEDB) {
           preparedStatement.setNull(columnPos, Types.VARCHAR);
         } else {
           preparedStatement.setNull(columnPos, java.sql.Types.CLOB);

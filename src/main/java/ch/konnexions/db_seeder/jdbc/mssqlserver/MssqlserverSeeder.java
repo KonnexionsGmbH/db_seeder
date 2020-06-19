@@ -28,7 +28,7 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
   public MssqlserverSeeder() {
     super();
 
-    databaseDbms = DatabaseDbms.MSSQLSERVER;
+    dbms = Dbms.MSSQLSERVER;
   }
 
   @Override

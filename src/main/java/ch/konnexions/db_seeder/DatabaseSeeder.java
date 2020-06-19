@@ -5,6 +5,7 @@ package ch.konnexions.db_seeder;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.jdbc.apache.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
@@ -57,6 +58,12 @@ public class DatabaseSeeder {
     }
 
     switch (args0) {
+    case "derby":
+      logger.info("Start Apache Derby");
+      DerbySeeder derbySeeder = new DerbySeeder();
+      derbySeeder.createData();
+      logger.info("End   Apache Derby");
+      break;
     case "cratedb":
       logger.info("Start CrateDB");
       CratedbSeeder cratedbSeeder = new CratedbSeeder();

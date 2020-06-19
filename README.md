@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.7.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.8.3.svg)
 
 ----
 
@@ -11,6 +11,13 @@
 
 `db_seeder` allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
+- [Apache Derby](https://db.apache.org/derby/)
+  - open source
+  - relational database management system (RDBMS) 
+  - automatic data replication
+  - embedded database engine
+  - emdedded network server
+  - very small footprint (ca. 3.5 MB)
 - [CrateDB](https://crate.io/)
   - open source
   - relational database management system (RDBMS) 
@@ -59,13 +66,14 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 
 | DBMS | DB Ticker Symbol | Tested Versions |
 |---|---|---|
+| Apache Derby | DERBY | 10.15.2.0 | 
 | CrateDB | CRATEDB | 4.1.6 | 
-| CUBRID | CUBRID | 10.1 | 
+| CUBRID | CUBRID | 10.2 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
 | MariaDB Server | MARIADB | 10.4.13 - 10.5.3 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
 | MySQL Database | MYSQL | 8.0.20 | 
-| Oracle Database | ORACLE | 19c |
+| Oracle Database | ORACLE | 12c, 18c, 19c |
 | PostgreSQL Database | POSTGRESQL | 12.3 |
 | SQLite | SQLITE | 3.32.2 |
 
@@ -111,6 +119,10 @@ db_seeder.cubrid.connection.prefix=jdbc:CUBRID:
 db_seeder.cubrid.database=kxn_db
 db_seeder.cubrid.password=cubrid
 db_seeder.cubrid.user=kxn_user
+
+db_seeder.derby.connection.port=1527
+db_seeder.derby.connection.prefix=jdbc:derby://
+db_seeder.derby.database=kxn_db
 
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
@@ -171,10 +183,10 @@ db_seeder.sqlite.database=kxn_db
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | port number of the database server |
-| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE | prefix of the database connection string |
+| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | DERBY, CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | port number of the database server |
+| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | DERBY, CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE | prefix of the database connection string |
 | <db_ticker>.connection.suffix=<url_suffix> | <DB_TICKER>_CONNECTION_SUFFIX | MYSQL | suffix of the database connection string |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
 | <db_ticker>.password.sys=<db_ticker> | <DB_TICKER>_PASSWORD_SYS | MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
 | <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | IBMDB2, MSSQLSERVER | schema name |
@@ -188,7 +200,29 @@ db_seeder.sqlite.database=kxn_db
 [DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
-### 4.1 CrateDB
+### 4.1 Apache Derby
+
+- database driver version 10.15.2.0
+  - Maven repository: [here](https://mvnrepository.com/artifact/org.apache.derby/derby)
+- database Docker image version 10.15.2.0: [here](https://hub.docker.com/_/crate) TODO
+- data definition hierarchy: only database and schema (schema not relevant for db_seeder)
+- privileged database / user: n/a / n/a
+
+- data types used:
+
+| Data Type | CrateDB Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | BLOB |
+| character large object | CLOB |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_DERBY.png)
+
+### 4.2 CrateDB
 
 - database driver version 2.6.0
   - JFrog Bintray repository: [here](https://bintray.com/crate/crate/crate-jdbc/2.6.0)
@@ -215,11 +249,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_CRATEDB.png)
 
-### 4.2 CUBRID
+### 4.3 CUBRID
 
 - database driver version 10.2.0.8797
   - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
-- database Docker image version 10.1: [here](https://hub.docker.com/r/cubrid/cubrid)
+- database Docker image version 10.2: [here](https://hub.docker.com/r/cubrid/cubrid)
 - data definition hierarchy: database and user
 - privileged database / user: n/a / dba
 
@@ -237,7 +271,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_CUBRID.png)
 
-### 4.3 IBM Db2 Database
+### 4.4 IBM Db2 Database
 
 - database driver version 11.5.0.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
@@ -245,7 +279,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - data definition hierarchy: only schema
 - privileged database / user: n/a / db2inst1
 - restrictions:
-  - the IBM Db2 Database only accepts operating system accounts as database users 
+  - the IBM Db2 DBMS only accepts operating system accounts as database users 
 
 - data types used:
 
@@ -261,7 +295,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_IBMDB2.png)
 
-### 4.4 MariaDB Server
+### 4.5 MariaDB Server
 
 - database driver version 2.6.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
@@ -283,7 +317,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MARIADB.png)
 
-### 4.5 Microsoft SQL Server
+### 4.6 Microsoft SQL Server
 
 - database driver version 8.31 
   - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
@@ -305,7 +339,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MSSQLSERVER.png)
 
-### 4.6 MySQL Database
+### 4.7 MySQL Database
 
 - database driver version 8.0.20 
   - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -327,7 +361,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MYSQL.png)
 
-### 4.7 Oracle Database
+### 4.8 Oracle Database
 
 - database driver version 
   - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
@@ -350,7 +384,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_ORACLE.png)
 
-### 4.8 PostgreSQL Database
+### 4.9 PostgreSQL Database
 
 - database driver version 42.2.13
   - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)
@@ -372,7 +406,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_POSTGRESQL.png)
 
-### 4.9 SQLite
+### 4.10 SQLite
 
 - database driver version 3.31.1
   - Maven repository: [here](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
@@ -420,5 +454,5 @@ In case of software changes we strongly recommend you to respect the license ter
     1. Release-Notes.md
     1. run_db_seeder.bat
     1. run_db_seeder.sh
-    1. run_db_seeder_setup_database.bat
-    1. run_db_seeder_setup_database.sh
+    1. run_db_seeder_setup_dbms.bat
+    1. run_db_seeder_setup_dbms.sh

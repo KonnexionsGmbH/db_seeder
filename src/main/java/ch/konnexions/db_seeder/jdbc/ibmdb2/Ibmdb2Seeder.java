@@ -31,7 +31,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
   public Ibmdb2Seeder() {
     super();
 
-    databaseDbms = DatabaseDbms.IBMDB2;
+    dbms = Dbms.IBMDB2;
   }
 
   @Override
@@ -197,7 +197,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
 
     // -----------------------------------------------------------------------
-    // Drop the user and schema.
+    // Drop the database tables and schema.
     // -----------------------------------------------------------------------
 
     PreparedStatement preparedStatement = null;

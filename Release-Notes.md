@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.7.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.8.3.svg)
 
 ----------
 
-## Version 1.7.0
+## Version 1.8.3
 
-Release Date: 17.06.2020
+Release Date: 21.06.2020
 
 #### System Requirements
 
@@ -18,16 +18,18 @@ Release Date: 17.06.2020
 
 #### New Features
 
-- New batabase: CUBRID
+- New DBMS: Apache Derby
+- New DBMS: CUBRID
 
 #### Modified Features
 
-- MariaDB Server Version 10.5.3
+- Tested DBMS version: MariaDB Server 10.5.3
+- Tested DBMS version: Oracle database 12c
+- Tested DBMS version: Oracle database 18c
 
 #### Deleted Features
 
 n/a
-
 
 ----------
 
@@ -42,7 +44,7 @@ Release Date: 16.06.2020
 
 #### New Features
 
-- New batabase: SQLite
+- New DBMS: SQLite
 
 ----------
 
@@ -57,7 +59,7 @@ Release Date: 15.06.2020
 
 #### New Features
 
-- New batabase: CrateDB
+- New DBMS: CrateDB
 
 ----------
 
@@ -72,7 +74,7 @@ Release Date: 14.06.2020
 
 #### New Features
 
-- New batabase: IBM Db2 Database
+- New DBMS: IBM Db2 Database
 
 ----------
 
@@ -87,7 +89,7 @@ Release Date: 12.06.2020
 
 #### New Features
 
-- New batabase: MariaDB Server
+- New DBMS: MariaDB Server
 
 ----------
 
@@ -102,7 +104,7 @@ Release Date: 10.06.2020
 
 #### New Features
 
-- New batabase: PostgreSQL Database
+- New DBMS: PostgreSQL Database
 
 ----------
 
@@ -118,7 +120,7 @@ Release Date: 06.06.2020
 #### New Features
 
 - Documentation
-- New batabase: Microsoft SQL Server
+- New DBMS: Microsoft SQL Server
 - Travis CI Integration
 - Verification of the data storage 
 
@@ -139,8 +141,8 @@ Release Date: 01.06.2020
 
 #### New Features
 
-- New batabase: MySQL Database
-- New batabase: Oracle Database
+- New DBMS: MySQL Database
+- New DBMS: Oracle Database
 
 ----------
 

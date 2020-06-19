@@ -31,6 +31,10 @@ public class Config {
   @SuppressWarnings("unused")
   private static Logger                                                logger     = Logger.getLogger(Config.class);
 
+  private int                                                          derbyConnectionPort;
+  private String                                                       derbyConnectionPrefix;
+  private String                                                       derbyDatabase;
+
   private int                                                          cratedbConnectionPort;
   private String                                                       cratedbConnectionPrefix;
   private String                                                       cratedbPassword;
@@ -128,6 +132,29 @@ public class Config {
     validateProperties();
   }
 
+  // Apache Derby ------------------------------------------------------------
+
+  /**
+   * @return the Apache Derby port number where the database server is listening for requests
+   */
+  public final int getApachederbyConnectionPort() {
+    return derbyConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the Apache Derby connection string
+   */
+  public final String getApachederbyConnectionPrefix() {
+    return derbyConnectionPrefix;
+  }
+
+  /**
+   * @return the IBM Db2 Database name
+   */
+  public final String getApachederbyDatabase() {
+    return derbyDatabase;
+  }
+
   // CrateDB ----------------------------------------------------------
 
   /**
@@ -198,14 +225,14 @@ public class Config {
   // IBM Db2 Database --------------------------------------------------------
 
   /**
-   * @return the IBM DB2 port number where the database server is listening for requests
+   * @return the IBM Db2 port number where the database server is listening for requests
    */
   public final int getIbmdb2ConnectionPort() {
     return ibmdb2ConnectionPort;
   }
 
   /**
-   * @return the prefix of the IBM DB2 connection string
+   * @return the prefix of the IBM Db2 connection string
    */
   public final String getIbmdb2ConnectionPrefix() {
     return ibmdb2ConnectionPrefix;
@@ -219,18 +246,20 @@ public class Config {
   }
 
   /**
-   * @return the IBM DB2 password to connect to the database
+   * @return the IBM Db2 password to connect to the database
    */
   public final String getIbmdb2Password() {
     return ibmdb2Password;
   }
 
   /**
-   * @return the IBM DB2 schema name
+   * @return the IBM Db2 schema name
    */
   public final String getIbmdb2Schema() {
     return ibmdb2Schema;
   }
+
+  // JDBC Connection ---------------------------------------------------------
 
   /**
    * @return the host name or the IP address of the database
@@ -438,6 +467,7 @@ public class Config {
 
     List<String> list = new ArrayList<>();
 
+    list.add("db_seeder.derby.connection.port");
     list.add("db_seeder.cratedb.connection.port");
     list.add("db_seeder.cubrid.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
@@ -563,6 +593,10 @@ public class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
+    derbyConnectionPort         = propertiesConfiguration.getInt("db_seeder.derby.connection.port");
+    derbyConnectionPrefix       = propertiesConfiguration.getString("db_seeder.derby.connection.prefix");
+    derbyDatabase               = propertiesConfiguration.getString("db_seeder.derby.database");
+
     cratedbConnectionPort       = propertiesConfiguration.getInt("db_seeder.cratedb.connection.port");
     cratedbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.cratedb.connection.prefix");
     cratedbPassword             = propertiesConfiguration.getString("db_seeder.cratedb.password");
@@ -634,6 +668,23 @@ public class Config {
   private void updatePropertiesFromOs() {
 
     Map<String, String> environmentVariables = System.getenv();
+
+    // Apache Derby ------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_DERBY_CONNECTION_PORT")) {
+      derbyConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_DERBY_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", derbyConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_DERBY_CONNECTION_PREFIX")) {
+      derbyConnectionPrefix = environmentVariables.get("DB_SEEDER_DERBY_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", derbyConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_DERBY_DATABASE")) {
+      derbyDatabase = environmentVariables.get("DB_SEEDER_DERBY_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.derby.database", derbyDatabase);
+    }
 
     // CrateDB ----------------------------------------------------------
 

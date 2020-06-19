@@ -29,7 +29,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
   public CubridSeeder() {
     super();
 
-    databaseDbms = DatabaseDbms.CUBRID;
+    dbms = Dbms.CUBRID;
   }
 
   @Override
@@ -151,7 +151,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     try {
       String url = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
-          + config.getCubridDatabase() + ":::";
+          + config.getCubridDatabase() + ":dba::";
 
       logger.info("url='" + url + "'");
 
