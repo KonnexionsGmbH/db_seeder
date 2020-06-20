@@ -48,7 +48,12 @@ script:
   - ./run_db_seeder_setup_dbms.sh ${DB_SEEDER_DBMS} no
   - travis_fold end   "Setup_DBMS"
 
-  # Generate Dummy Data ----------------------------------------------------------
+  # Generate Dummy Data 1st Run --------------------------------------------------
+  - travis_fold start "Generate_Dummy_Data"
+  - ./run_db_seeder.sh ${DB_SEEDER_DBMS}
+  - travis_fold end   "Generate_Dummy_Data"
+
+  # Generate Dummy Data 2nd Run --------------------------------------------------
   - travis_fold start "Generate_Dummy_Data"
   - ./run_db_seeder.sh ${DB_SEEDER_DBMS}
   - travis_fold end   "Generate_Dummy_Data"

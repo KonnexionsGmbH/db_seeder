@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -33,29 +32,12 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   public PostgresqlSeeder() {
     super();
 
-    dbms = Dbms.POSTGRESQL;
-  }
+    dbms     = Dbms.POSTGRESQL;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    urlBase  = config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    try {
-      connection = DriverManager
-          .getConnection(config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/"
-              + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword());
-
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    url      = urlBase + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword();
+    urlSetup = urlBase + "kxn_db_sys?user=kxn_user_sys&password=" + config.getPostgresqlPasswordSys();
   }
 
   @SuppressWarnings("preview")
@@ -135,61 +117,6 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
-    // -----------------------------------------------------------------------
-    // Connect as privileged user
-    // -----------------------------------------------------------------------
-
-    final String postgresqlDatabase = config.getPostgresqlDatabase();
-    final String postgresqlUser     = config.getPostgresqlUser();
-
-    try {
-      connection = DriverManager.getConnection(config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":"
-          + config.getPostgresqlConnectionPort() + "/kxn_db_sys?user=kxn_user_sys&password=" + config.getPostgresqlPasswordSys());
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the database, the schema and the user if already existing
-    // -----------------------------------------------------------------------
-
-    PreparedStatement preparedStatement = null;
-
-    try {
-      preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS " + postgresqlDatabase);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS " + postgresqlUser);
-      preparedStatement.executeUpdate();
-
-      // -----------------------------------------------------------------------
-      // Create the database, schema and user and grant the necessary rights.
-      // -----------------------------------------------------------------------
-
-      preparedStatement = connection.prepareStatement("CREATE DATABASE " + postgresqlDatabase);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("CREATE USER " + postgresqlUser + " WITH ENCRYPTED PASSWORD '" + config.getPostgresqlPassword() + "'");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("GRANT ALL PRIVILEGES ON DATABASE " + postgresqlDatabase + " TO " + postgresqlUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    disconnect();
-    connect();
-  }
-
-  @Override
   protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
     FileInputStream blobData = null;
 
@@ -213,6 +140,75 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  @Override
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(urlSetup);
+
+    try {
+      connection.setAutoCommit(true);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Drop the database and the database user.
+    // -----------------------------------------------------------------------
+
+    String postgresqlDatabase = config.getPostgresqlDatabase();
+    String postgresqlUser     = config.getPostgresqlUser();
+
+    try {
+      statement = connection.createStatement();
+
+      statement.execute("DROP DATABASE IF EXISTS " + postgresqlDatabase);
+
+      statement.execute("DROP USER IF EXISTS " + postgresqlUser);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Create the database, the database user and grant the necessary rights.
+    // -----------------------------------------------------------------------
+
+    try {
+      statement.execute("CREATE DATABASE " + postgresqlDatabase);
+
+      statement.execute("CREATE USER " + postgresqlUser + " WITH ENCRYPTED PASSWORD '" + config.getPostgresqlPassword() + "'");
+
+      statement.execute("GRANT ALL PRIVILEGES ON DATABASE " + postgresqlDatabase + " TO " + postgresqlUser);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 
 }

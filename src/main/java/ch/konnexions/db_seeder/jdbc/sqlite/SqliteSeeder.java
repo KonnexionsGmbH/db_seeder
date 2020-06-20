@@ -3,8 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.sqlite;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -29,26 +27,8 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     super();
 
     dbms = Dbms.SQLITE;
-  }
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
-
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    try {
-      connection = DriverManager.getConnection(config.getSQLiteConnectionPrefix() + config.getSQLiteDatabase());
-
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    url  = config.getSQLiteConnectionPrefix() + config.getSQLiteDatabase();
   }
 
   @SuppressWarnings("preview")
@@ -133,26 +113,42 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
 
-    PreparedStatement preparedStatement = null;
-
-    connect();
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
 
     // -----------------------------------------------------------------------
-    // Drop the database tables if already existing
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(url);
+
+    // -----------------------------------------------------------------------
+    // Drop the database tables if already existing.
     // -----------------------------------------------------------------------
 
     try {
+      statement = connection.createStatement();
+
       for (String tableName : TABLE_NAMES) {
-        preparedStatement = connection.prepareStatement("DROP TABLE IF EXISTS " + tableName);
-        preparedStatement.executeUpdate();
+        statement.execute("DROP TABLE IF EXISTS " + tableName);
       }
 
-      preparedStatement.close();
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 }

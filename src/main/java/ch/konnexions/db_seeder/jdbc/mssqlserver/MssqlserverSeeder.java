@@ -3,8 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.mssqlserver;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -28,29 +26,12 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
   public MssqlserverSeeder() {
     super();
 
-    dbms = Dbms.MSSQLSERVER;
-  }
+    dbms     = Dbms.MSSQLSERVER;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    urlBase  = config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMssqlserverConnectionPort() + ";databaseName=";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    try {
-      connection = DriverManager
-          .getConnection(config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMssqlserverConnectionPort()
-              + ";databaseName=" + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword());
-
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    url      = urlBase + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword();
+    urlSetup = urlBase + "master;user=sa;password=" + config.getMssqlserverPasswordSys();
   }
 
   @SuppressWarnings("preview")
@@ -130,9 +111,30 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
     // -----------------------------------------------------------------------
-    // Connect as privileged user
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(urlSetup);
+
+    try {
+      connection.setAutoCommit(true);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Drop the database if already existing.
     // -----------------------------------------------------------------------
 
     final String mssqlserverDatabase = config.getMssqlserverDatabase();
@@ -140,71 +142,53 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     final String mssqlserverUser     = config.getMssqlserverUser();
 
     try {
-      connection = DriverManager.getConnection(config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":"
-          + config.getMssqlserverConnectionPort() + ";databaseName=master;user=sa;password=" + config.getMssqlserverPasswordSys());
+      statement = connection.createStatement();
 
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the database, the schema and the user if already existing
-    // -----------------------------------------------------------------------
-
-    PreparedStatement preparedStatement = null;
-
-    try {
-      preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS " + mssqlserverDatabase);
-      preparedStatement.executeUpdate();
-
-      // -----------------------------------------------------------------------
-      // Create the database, schema and user and grant the necessary rights.
-      // -----------------------------------------------------------------------
-
-      preparedStatement = connection.prepareStatement("sp_configure 'contained database authentication', 1");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("RECONFIGURE");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("USE master");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("CREATE DATABASE " + mssqlserverDatabase);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("USE master");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("ALTER DATABASE " + mssqlserverDatabase + " SET CONTAINMENT = PARTIAL");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("USE " + mssqlserverDatabase);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("CREATE SCHEMA " + mssqlserverSchema);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("CREATE USER " + mssqlserverUser + " WITH PASSWORD = '" + config.getMssqlserverPassword()
-          + "', DEFAULT_SCHEMA=" + mssqlserverSchema);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("sp_addrolemember 'db_owner', '" + mssqlserverUser + "'");
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
+      statement.execute("DROP DATABASE IF EXISTS " + mssqlserverDatabase);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Create the database, schema and database user.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
+    try {
+      statement.execute("sp_configure 'contained database authentication', 1");
+
+      statement.execute("RECONFIGURE");
+
+      statement.execute("USE master");
+
+      statement.execute("CREATE DATABASE " + mssqlserverDatabase);
+
+      statement.execute("USE master");
+
+      statement.execute("ALTER DATABASE " + mssqlserverDatabase + " SET CONTAINMENT = PARTIAL");
+
+      statement.execute("USE " + mssqlserverDatabase);
+
+      statement.execute("CREATE SCHEMA " + mssqlserverSchema);
+
+      statement.execute("CREATE USER " + mssqlserverUser + " WITH PASSWORD = '" + config.getMssqlserverPassword() + "', DEFAULT_SCHEMA=" + mssqlserverSchema);
+
+      statement.execute("sp_addrolemember 'db_owner', '" + mssqlserverUser + "'");
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 }

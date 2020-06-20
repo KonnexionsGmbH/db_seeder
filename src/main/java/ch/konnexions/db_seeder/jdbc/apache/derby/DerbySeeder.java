@@ -3,14 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.apache.derby;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import org.apache.log4j.Logger;
-
 import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
@@ -22,7 +14,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public class DerbySeeder extends AbstractJdbcSeeder {
 
-  private static Logger logger = Logger.getLogger(DerbySeeder.class);
+  // private static Logger logger = Logger.getLogger(DerbySeeder.class);
 
   /**
    *
@@ -30,52 +22,17 @@ public class DerbySeeder extends AbstractJdbcSeeder {
   public DerbySeeder() {
     super();
 
-    dbms = Dbms.DERBY;
-  }
+    dbms           = Dbms.DERBY;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    driver         = "org.apache.derby.jdbc.ClientDriver";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    urlBase        = config.getApachederbyConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getApachederbyConnectionPort() + "/"
+        + config.getApachederbyDatabase() + ";create=";
 
-    try {
-      connection = DriverManager.getConnection(config.getApachederbyConnectionPrefix() + config.getJdbcConnectionHost() + ":"
-          + config.getApachederbyConnectionPort() + "/" + config.getApachederbyDatabase() + ";create=false");
+    url            = urlBase + "false";
+    urlSetup       = urlBase + "true";
 
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
-  }
-
-  private final Connection connectInt() {
-    String methodName = null;
-
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    Connection connectionInt = null;
-
-    try {
-      connectionInt = DriverManager.getConnection(config.getApachederbyConnectionPrefix() + config.getJdbcConnectionHost() + ":"
-          + config.getApachederbyConnectionPort() + "/" + config.getApachederbyDatabase() + ";create=false");
-
-      connectionInt.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
-
-    return connectionInt;
+    dropTableStmnt = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
   }
 
   @SuppressWarnings("preview")
@@ -152,84 +109,5 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
     }
-  }
-
-  private final void disconnectInt(Connection connectionInt) {
-    if (connectionInt != null) {
-      try {
-        if (!(connectionInt.getAutoCommit())) {
-          connectionInt.commit();
-        }
-
-        connectionInt.close();
-
-        connectionInt = null;
-      } catch (SQLException ec) {
-        ec.printStackTrace();
-        System.exit(1);
-      }
-    }
-  }
-
-  @Override
-  protected void dropCreateSchemaUser() {
-    try {
-      Class.forName("org.apache.derby.jdbc.ClientDriver");
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Create database
-    // -----------------------------------------------------------------------
-
-    try {
-      connection = DriverManager.getConnection(config.getApachederbyConnectionPrefix() + config.getJdbcConnectionHost() + ":"
-          + config.getApachederbyConnectionPort() + "/" + config.getApachederbyDatabase() + ";create=true");
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the database tables if already existing
-    // -----------------------------------------------------------------------
-
-    try {
-      Connection connectionInt = connectInt();
-
-      Statement  statement     = connection.createStatement();
-      Statement  statement2    = connectionInt.createStatement();
-      ResultSet  resultSet     = null;
-
-      for (String tableName : TABLE_NAMES) {
-
-        resultSet = statement
-            .executeQuery("SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '"
-                + tableName + "' AND S.SCHEMANAME = 'APP'");
-
-        while (resultSet.next()) {
-          statement2.executeUpdate(resultSet.getString(2));
-        }
-      }
-
-      statement2.close();
-
-      disconnectInt(connectionInt);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Disconnect.
-    // -----------------------------------------------------------------------
-
-    disconnect();
-    connect();
   }
 }

@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,17 +39,32 @@ import ch.konnexions.db_seeder.DatabaseSeeder;
  */
 public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
-  private static Logger  logger        = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static Logger       logger               = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  protected final byte[] BLOB_DATA     = readBlobFile();
-  protected String       BLOB_FILE;
+  protected final byte[]      BLOB_DATA            = readBlobFile();
+  protected String            BLOB_FILE;
 
-  private final String   CLOB_DATA     = readClobFile();
+  private final String        CLOB_DATA            = readClobFile();
+  protected Connection        connection           = null;
+  protected Connection        connectionAlt        = null;
 
-  private final int      MAX_ROW_SIZE  = Integer.MAX_VALUE;
+  protected String            driver               = "";
+  protected String            dropTableStmnt       = "";
 
-  private final int      RANDOM_NUMBER = 4;
-  private Random         randomInt     = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private final int           MAX_ROW_SIZE         = Integer.MAX_VALUE;
+
+  protected PreparedStatement preparedStatement    = null;
+  protected PreparedStatement preparedStatementAlt = null;
+
+  private final int           RANDOM_NUMBER        = 4;
+  private Random              randomInt            = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  protected ResultSet         resultSet            = null;
+
+  protected Statement         statement            = null;
+
+  protected String            url                  = "";
+  protected String            urlBase              = "";
+  protected String            urlSetup             = "";
 
   /**
    *
@@ -106,8 +123,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     pkListSize++;
 
-    PreparedStatement preparedStatement = null;
-
     try {
       preparedStatement = connection.prepareStatement("UPDATE " + tableName + " SET " + fkColumnName + " = ? WHERE " + pkcolumnName + " = ?");
     } catch (SQLException e) {
@@ -130,6 +145,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         System.exit(1);
       }
     }
+
+    try {
+      preparedStatement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
   }
 
   /**
@@ -147,9 +169,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
         + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
 
-    int       count     = 0;
-
-    Statement statement = null;
+    int count = 0;
 
     try {
       statement = connection.createStatement();
@@ -181,7 +201,53 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   /**
    * Create a database connection.
    */
-  protected abstract void connect();
+  protected final Connection connect(String url) {
+    return connect(url, null);
+  }
+
+  /**
+   * Create a database connection.
+   */
+  protected final Connection connect(String url, String driver) {
+    return connect(url, driver, null, null);
+  }
+
+  /**
+   * Create a database connection.
+   */
+  protected final Connection connect(String url, String driver, String user, String password) {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+
+    if (driver != null) {
+      try {
+        Class.forName(driver);
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    try {
+      if (user == null && password == null) {
+        connection = DriverManager.getConnection(url);
+      } else {
+        connection = DriverManager.getConnection(url, user, password);
+      }
+
+      connection.setAutoCommit(false);
+    } catch (SQLException ec) {
+      ec.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+
+    return connection;
+  }
 
   /**
    * Count the test data from a single database table.
@@ -190,9 +256,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the number of existing rows
    */
   private final int countData(final String tableName) {
-    int       count     = 0;
-
-    Statement statement = null;
+    int count = 0;
 
     try {
       statement = connection.createStatement();
@@ -232,7 +296,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }.getClass().getEnclosingMethod().getName();
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
 
-    dropCreateSchemaUser();
+    resetAndCreateDatabase();
 
     // Level 1 -------------------------------------------------------------
     createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
@@ -275,11 +339,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       rowCount = MAX_ROW_SIZE;
     }
 
-    PreparedStatement preparedStatement = null;
-
     try {
-      preparedStatement = connection.prepareStatement(createDdlStmnt(tableName));
-      preparedStatement.executeUpdate();
+      statement = connection.createStatement();
+      statement.execute(createDdlStmnt(tableName));
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -306,13 +370,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     createDataInsert(preparedStatement, tableName, rowCount, pkList);
 
     addOptionalFk(tableName, pkList);
-
-    try {
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
 
     if (!(dbms == Dbms.CRATEDB)) {
       try {
@@ -401,8 +458,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
     }
 
-    Statement statement = null;
-
     try {
       statement = connection.createStatement();
       statement.execute("REFRESH TABLE " + tableName);
@@ -456,7 +511,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the insert statement
    */
   protected final String createDmlStmnt(final String tableName) {
-    @SuppressWarnings("preview")
     String statement = switch (tableName) {
     case TABLE_NAME_CITY -> "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
     case TABLE_NAME_COMPANY -> "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
@@ -537,6 +591,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Close the database connection.
    */
   protected final void disconnect() {
+    disconnect(connection);
+  }
+
+  /**
+   * Close the database connection.
+   */
+  protected final void disconnect(Connection connection) {
     if (connection != null) {
       try {
         if (!(connection.getAutoCommit())) {
@@ -544,8 +605,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         }
 
         connection.close();
-
-        connection = null;
       } catch (SQLException ec) {
         ec.printStackTrace();
         System.exit(1);
@@ -553,10 +612,43 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Drop the schema / user if existing and create it new.
-   */
-  protected abstract void dropCreateSchemaUser();
+  protected void dropAllTables(String url, String sqlStmnt) {
+    dropAllTables(url, sqlStmnt, null);
+  }
+
+  protected void dropAllTables(String url, String sqlStmnt, String schema) {
+    try {
+      connectionAlt     = connect(url);
+
+      preparedStatement = connection.prepareStatement(sqlStmnt);
+
+      statement         = connectionAlt.createStatement();
+
+      for (String tableName : TABLE_NAMES) {
+        preparedStatement.setString(1, tableName);
+
+        if (schema != null) {
+          preparedStatement.setString(2, schema);
+        }
+
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          statement.executeUpdate(resultSet.getString(2));
+        }
+      }
+
+      statement.close();
+
+      preparedStatement.close();
+
+      disconnect(connectionAlt);
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Execute update with tolerance of non-existence.
@@ -1124,6 +1216,47 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     savePkList(tableName, pkList);
+  }
+
+  /**
+   * Reset the database.
+   * 
+   * Drop & create database - optional
+   * Drop & create user - optional
+   * Drop & create schema - optional
+   * Drop tables
+   */
+
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(urlSetup, driver);
+
+    // -----------------------------------------------------------------------
+    // Drop the database tables if already existing
+    // -----------------------------------------------------------------------
+
+    dropAllTables(url, dropTableStmnt);
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 
   /**

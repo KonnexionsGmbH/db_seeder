@@ -3,12 +3,7 @@
  */
 package ch.konnexions.db_seeder.jdbc.ibmdb2;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
@@ -31,58 +26,12 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
   public Ibmdb2Seeder() {
     super();
 
-    dbms = Dbms.IBMDB2;
-  }
+    dbms           = Dbms.IBMDB2;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    url            = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
+        + config.getIbmdb2Database() + ":user=db2inst1;password=" + config.getIbmdb2Password() + ";";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    try {
-      connection = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
-          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2Password());
-
-      PreparedStatement preparedStatement = connection.prepareStatement("SET CURRENT SCHEMA = " + config.getIbmdb2Schema());
-      preparedStatement.executeUpdate();
-
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
-  }
-
-  private final Connection connectInt() {
-    String methodName = null;
-
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    Connection connectionInt = null;
-
-    try {
-      connectionInt = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
-          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2Password());
-
-      PreparedStatement preparedStatement = connectionInt.prepareStatement("SET CURRENT SCHEMA = " + config.getIbmdb2Schema());
-      preparedStatement.executeUpdate();
-
-      connectionInt.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
-
-    return connectionInt;
+    dropTableStmnt = "SELECT TABNAME, 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
   }
 
   @SuppressWarnings("preview")
@@ -161,85 +110,51 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void disconnectInt(Connection connectionInt) {
-    if (connectionInt != null) {
-      try {
-        if (!(connectionInt.getAutoCommit())) {
-          connectionInt.commit();
-        }
-
-        connectionInt.close();
-
-        connectionInt = null;
-      } catch (SQLException ec) {
-        ec.printStackTrace();
-        System.exit(1);
-      }
-    }
-  }
-
   @Override
-  protected void dropCreateSchemaUser() {
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
     // -----------------------------------------------------------------------
-    // Connect as privileged user
+    // Connect.
     // -----------------------------------------------------------------------
 
-    final String ibmdb2Schema = config.getIbmdb2Schema().toUpperCase();
+    connection = connect(url);
+
+    // -----------------------------------------------------------------------
+    // Drop the database user and tables if already existing.
+    // -----------------------------------------------------------------------
+
+    String ibmdb2Schema = config.getIbmdb2Schema();
+
+    dropAllTables(url, dropTableStmnt, config.getIbmdb2Schema());
 
     try {
-      connection = DriverManager.getConnection(config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort()
-          + "/" + config.getIbmdb2Database(), "db2inst1", config.getIbmdb2Password());
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the database tables and schema.
-    // -----------------------------------------------------------------------
-
-    PreparedStatement preparedStatement = null;
-
-    try {
-      Statement  statement     = connection.createStatement();
-
-      ResultSet  resultSet     = statement
-          .executeQuery("SELECT TRIM(TABNAME), 'DROP TABLE \"' || TRIM(TABSCHEMA) || '\".\"' || TRIM(TABNAME) || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = '"
-              + ibmdb2Schema + "'");
-
-      Connection connectionInt = connectInt();
-
-      Statement  statement2    = connectionInt.createStatement();
-
-      while (resultSet.next()) {
-        String tableName = resultSet.getString(1);
-
-        if (TABLE_NAMES.contains(tableName)) {
-          statement2.executeUpdate(resultSet.getString(2));
-        }
-      }
-
-      statement2.close();
-
-      disconnectInt(connectionInt);
-
-      preparedStatement = connection.prepareStatement("DROP SCHEMA " + ibmdb2Schema + " RESTRICT");
-      executeUpdateExistence(preparedStatement);
-
-      preparedStatement.close();
+      statement = connection.createStatement();
+      statement.execute("DROP SCHEMA " + ibmdb2Schema + " RESTRICT");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Create the database user and grant the necessary rights.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
-  }
+    try {
+      statement.execute("CREATE SCHEMA " + ibmdb2Schema);
 
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+  }
 }

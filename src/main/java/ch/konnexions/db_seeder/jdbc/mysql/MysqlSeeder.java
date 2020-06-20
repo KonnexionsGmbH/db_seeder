@@ -3,8 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.mysql;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -28,28 +26,14 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
   public MysqlSeeder() {
     super();
 
-    dbms = Dbms.MYSQL;
-  }
+    dbms     = Dbms.MYSQL;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    driver   = "com.mysql.cj.jdbc.Driver";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    urlBase  = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
 
-    try {
-      connection = DriverManager.getConnection(config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/"
-          + config.getMysqlDatabase() + config.getMysqlConnectionSuffix(), config.getMysqlUser(), config.getMysqlPassword());
-
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    url      = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
+    urlSetup = urlBase + "sys" + config.getMysqlConnectionSuffix();
   }
 
   @SuppressWarnings("preview")
@@ -129,71 +113,68 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
-    try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
 
     // -----------------------------------------------------------------------
-    // Connect as privileged user
+    // Connect.
     // -----------------------------------------------------------------------
 
-    final String mysqlDatabase = config.getMysqlDatabase();
-    final String mysqlUser     = config.getMysqlUser();
-
-    try {
-      connection = DriverManager.getConnection(config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort()
-          + "/sys" + config.getMysqlConnectionSuffix(), "root", config.getMysqlPasswordSys());
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
+    connection = connect(urlSetup, driver, "root", config.getMysqlPasswordSys());
 
     // -----------------------------------------------------------------------
-    // Drop the database and user if already existing
+    // Drop the database and the database user if already existing.
     // -----------------------------------------------------------------------
 
-    PreparedStatement preparedStatement = null;
+    String mysqlDatabase = config.getMysqlDatabase();
+    String mysqlUser     = config.getMysqlUser();
 
     try {
-      preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS `" + mysqlDatabase + "`");
-      preparedStatement.executeUpdate();
+      statement = connection.createStatement();
 
-      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS `" + mysqlUser + "`");
-      preparedStatement.executeUpdate();
+      statement.execute("DROP DATABASE IF EXISTS `" + mysqlDatabase + "`");
 
-      // -----------------------------------------------------------------------
-      // Create the schema / user and grant the necessary rights.
-      // -----------------------------------------------------------------------
-
-      preparedStatement = connection.prepareStatement("CREATE DATABASE `" + mysqlDatabase + "`");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("USE `" + mysqlDatabase + "`");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("CREATE USER `" + mysqlUser + "` IDENTIFIED BY '" + config.getMysqlPassword() + "'");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("GRANT ALL ON " + mysqlDatabase + ".* TO `" + mysqlUser + "`");
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
+      statement.execute("DROP USER IF EXISTS `" + mysqlUser + "`");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Create the user and grant the necessary rights.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
+    try {
+      statement.execute("CREATE DATABASE `" + mysqlDatabase + "`");
+
+      statement.execute("USE `" + mysqlDatabase + "`");
+
+      statement.execute("USE `" + mysqlDatabase + "`");
+
+      statement.execute("CREATE USER `" + mysqlUser + "` IDENTIFIED BY '" + config.getMysqlPassword() + "'");
+
+      statement.execute("GRANT ALL ON " + mysqlDatabase + ".* TO `" + mysqlUser + "`");
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url, null, config.getMysqlUser(), config.getMysqlPassword());
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 }

@@ -3,8 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.mariadb;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -28,28 +26,12 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
   public MariadbSeeder() {
     super();
 
-    dbms = Dbms.MARIADB;
-  }
+    dbms     = Dbms.MARIADB;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    urlBase  = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
-
-    try {
-      connection = DriverManager.getConnection(config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort()
-          + "/" + config.getMariadbDatabase(), config.getMariadbUser(), config.getMariadbPassword());
-
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    url      = urlBase + config.getMariadbDatabase();
+    urlSetup = urlBase + "mysql";
   }
 
   @SuppressWarnings("preview")
@@ -129,67 +111,68 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
     // -----------------------------------------------------------------------
-    // Connect as privileged user
+    // Connect.
     // -----------------------------------------------------------------------
 
-    final String mariadbDatabase = config.getMariadbDatabase();
-    final String mariadbUser     = config.getMariadbUser();
+    connection = connect(urlSetup, null, "root", config.getMariadbPassword());
+
+    // -----------------------------------------------------------------------
+    // Drop the database and the database user.
+    // -----------------------------------------------------------------------
+
+    String mariadbDatabase = config.getMariadbDatabase();
+    String mariadbUser     = config.getMariadbUser();
 
     try {
-      connection = DriverManager.getConnection(config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort()
-          + "/mysql", "root", config.getMariadbPasswordSys());
+      statement = connection.createStatement();
 
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
+      statement.execute("DROP DATABASE IF EXISTS `" + mariadbDatabase + "`");
 
-    // -----------------------------------------------------------------------
-    // Drop the database and user if already existing
-    // -----------------------------------------------------------------------
-
-    PreparedStatement preparedStatement = null;
-
-    try {
-      preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS `" + mariadbDatabase + "`");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS '" + mariadbUser + "'");
-      preparedStatement.executeUpdate();
-
-      // -----------------------------------------------------------------------
-      // Create the schema / user and grant the necessary rights.
-      // -----------------------------------------------------------------------
-
-      preparedStatement = connection.prepareStatement("CREATE DATABASE `" + mariadbDatabase + "`");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("USE `" + mariadbDatabase + "`");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("CREATE USER '" + mariadbUser + "'@'%' IDENTIFIED BY '" + config.getMariadbPassword() + "'");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("GRANT ALL PRIVILEGES ON *.* TO '" + mariadbUser + "'@'%'");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("FLUSH PRIVILEGES");
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
+      statement.execute("DROP USER IF EXISTS '" + mariadbUser + "'");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Create the database, the database user and grant the necessary rights.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
+    try {
+      statement.execute("CREATE DATABASE `" + mariadbDatabase + "`");
+
+      statement.execute("USE `" + mariadbDatabase + "`");
+
+      statement.execute("CREATE USER '" + mariadbUser + "'@'%' IDENTIFIED BY '" + config.getMariadbPassword() + "'");
+
+      statement.execute("GRANT ALL PRIVILEGES ON *.* TO '" + mariadbUser + "'@'%'");
+
+      statement.execute("FLUSH PRIVILEGES");
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url, null, config.getMariadbUser(), config.getMariadbPassword());
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 }

@@ -66,6 +66,12 @@ if ["%DB_SEEDER_DBMS%"] NEQ ["sqlite"] (
     )
 )
 
+if NOT ["%DB_SEEDER_DELETE_EXISTING_CONTAINER%"] == ["no"] (
+    echo Docker stop/rm db_seeder_db
+    docker stop db_seeder_db
+    docker rm -f db_seeder_db
+)
+
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
@@ -98,12 +104,6 @@ echo:| TIME
 echo ================================================================================
 
 if ["%DB_SEEDER_DBMS%"] NEQ ["sqlite"] (
-    if NOT ["%DB_SEEDER_DELETE_EXISTING_CONTAINER%"] == ["no"] (
-        echo Docker stop/rm db_seeder_db
-        docker stop db_seeder_db
-        docker rm -f db_seeder_db
-    )
-    
     lib\Gammadyne\timer.exe /reset
     lib\Gammadyne\timer.exe /q
     

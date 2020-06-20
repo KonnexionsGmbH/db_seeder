@@ -67,6 +67,12 @@ if [ "$DB_SEEDER_DBMS" != "sqlite" ]; then
     fi
 fi
 
+if [ "$DB_SEEDER_DELETE_EXISTING_CONTAINER" != "no" ]; then
+    echo "Docker stop/rm db_seeder_db"
+    docker stop db_seeder_db
+    docker rm -f db_seeder_db
+fi
+
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
@@ -108,14 +114,6 @@ fi
 echo --------------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
-
-if [ "$DB_SEEDER_DBMS" != "sqlite" ]; then
-    if [ "$DB_SEEDER_DELETE_EXISTING_CONTAINER" != "no" ]; then
-        echo "Docker stop/rm db_seeder_db"
-        docker stop db_seeder_db
-        docker rm -f db_seeder_db
-    fi
-fi
 
 # ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate

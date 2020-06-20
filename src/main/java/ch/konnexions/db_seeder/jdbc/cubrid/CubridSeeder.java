@@ -3,8 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.cubrid;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -29,28 +27,14 @@ public class CubridSeeder extends AbstractJdbcSeeder {
   public CubridSeeder() {
     super();
 
-    dbms = Dbms.CUBRID;
-  }
+    dbms     = Dbms.CUBRID;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    driver   = "cubrid.jdbc.driver.CUBRIDDriver";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    urlBase  = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":" + config.getCubridDatabase();
 
-    try {
-      connection = DriverManager.getConnection(config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort()
-          + ":" + config.getCubridDatabase() + ":dba::", config.getCubridUser(), config.getCubridPassword());
-
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    url      = urlBase + ":" + config.getCubridUser() + ":" + config.getCubridPassword();
+    urlSetup = urlBase + ":dba::";
   }
 
   @SuppressWarnings("preview")
@@ -135,44 +119,31 @@ public class CubridSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
-    try {
-      Class.forName("cubrid.jdbc.driver.CUBRIDDriver");
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
 
     // -----------------------------------------------------------------------
-    // Connect as privileged user
+    // Connect.
     // -----------------------------------------------------------------------
 
-    final String cubridUser = config.getCubridUser();
-
-    try {
-      String url = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
-          + config.getCubridDatabase() + ":dba::";
-
-      logger.info("url='" + url + "'");
-
-      connection = DriverManager.getConnection(url);
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
+    connection = connect(urlSetup, driver);
 
     // -----------------------------------------------------------------------
-    // Drop the schema / user if already existing
+    // Drop the database user if already existing.
     // -----------------------------------------------------------------------
 
-    PreparedStatement preparedStatement = null;
+    String cubridUser = config.getCubridUser();
 
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM DB_USER WHERE name = UPPER(?)");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM db_user WHERE name = UPPER(?)");
       preparedStatement.setString(1, cubridUser);
       preparedStatement.executeQuery();
 
@@ -184,9 +155,10 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
       resultSet.close();
 
+      statement = connection.createStatement();
+
       if (count > 0) {
-        preparedStatement = connection.prepareStatement("DROP USER " + cubridUser);
-        preparedStatement.executeUpdate();
+        statement.execute("DROP USER " + cubridUser);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -194,12 +166,13 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     }
 
     // -----------------------------------------------------------------------
-    // Create the schema / user and grant the necessary rights.
+    // Create the database user.
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection.prepareStatement("CREATE USER " + cubridUser + " PASSWORD \"" + config.getCubridPassword() + "\" GROUPS dba");
-      preparedStatement.executeUpdate();
+      statement.execute("CREATE USER " + cubridUser + " PASSWORD \"" + config.getCubridPassword() + "\" GROUPS dba");
+
+      statement.close();
 
       preparedStatement.close();
     } catch (SQLException e) {
@@ -208,10 +181,13 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 }

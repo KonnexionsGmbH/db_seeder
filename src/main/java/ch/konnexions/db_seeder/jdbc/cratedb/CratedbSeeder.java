@@ -3,8 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.cratedb;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -28,26 +26,14 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
   public CratedbSeeder() {
     super();
 
-    dbms = Dbms.CRATEDB;
-  }
+    dbms           = Dbms.CRATEDB;
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    urlBase        = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true";
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    url            = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
+    urlSetup       = urlBase + "&user=crate";
 
-    try {
-      connection = DriverManager.getConnection(config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
-          + "/?strict=true&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword());
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    dropTableStmnt = "SELECT UPPER(table_name), 'DROP TABLE \"' || LOWER(table_name) || '\"' FROM information_schema.tables WHERE table_name = LOWER(?) AND table_schema = 'doc'";
   }
 
   @SuppressWarnings("preview")
@@ -122,59 +108,65 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
+  protected void resetAndCreateDatabase() {
+    String methodName = null;
+
+    methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
     // -----------------------------------------------------------------------
-    // Connect as privileged user
+    // Connect.
     // -----------------------------------------------------------------------
 
-    final String cratedbUser = config.getCratedbUser();
+    connection = connect(urlSetup);
+
+    // -----------------------------------------------------------------------
+    // Drop the database user and tables if already existing.
+    // -----------------------------------------------------------------------
+    // java.sql.ParameterMetaData as returned by e.g. java.sql.PreparedStatement
+    // DataSource is not implemented
+    // -----------------------------------------------------------------------
+
+    String cratedbUser = config.getCratedbUser();
 
     try {
-      connection = DriverManager.getConnection(config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
-          + "/?strict=true&user=crate");
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the database and user if already existing
-    // -----------------------------------------------------------------------
-
-    PreparedStatement preparedStatement = null;
-
-    try {
-      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS " + cratedbUser);
-      preparedStatement.executeUpdate();
+      statement = connection.createStatement();
+      statement.execute("DROP USER IF EXISTS " + cratedbUser);
 
       for (String tableName : TABLE_NAMES) {
-        preparedStatement = connection.prepareStatement("DROP TABLE IF EXISTS " + tableName);
-        preparedStatement.executeUpdate();
+        statement.execute("DROP TABLE IF EXISTS " + tableName);
       }
-
-      // -----------------------------------------------------------------------
-      // Create the schema / user and grant the necessary rights.
-      // -----------------------------------------------------------------------
-
-      preparedStatement = connection.prepareStatement("CREATE USER " + cratedbUser + " WITH (PASSWORD = '" + config.getCratedbPassword() + "')");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("GRANT ALL PRIVILEGES TO " + cratedbUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Create the database user and grant the necessary rights.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
+    try {
+      statement.execute("CREATE USER " + cratedbUser + " WITH (PASSWORD = '" + config.getCratedbPassword() + "')");
+
+      statement.execute("GRANT ALL PRIVILEGES TO " + cratedbUser);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
   }
 }
