@@ -115,6 +115,11 @@ public class Config {
   public Config() {
     super();
 
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
     fileBasedConfigurationBuilder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class);
 
     File configFile = new File(System.getenv("DB_SEEDER_FILE_CONFIGURATION_NAME"));
@@ -130,6 +135,8 @@ public class Config {
 
     storeConfiguration();
     validateProperties();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   // Apache Derby ------------------------------------------------------------
@@ -986,10 +993,16 @@ public class Config {
 
   private void validateProperties() {
 
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+
     boolean isChanged = false;
 
     //    if (benchmarkBatchSize < 0) {
-    //      logger.error("Attention: The value of the configuration parameter 'benchmark.batch.size' ["
+    //      logger.error(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) 
+    //          + "Attention: The value of the configuration parameter 'benchmark.batch.size' ["
     //          + benchmarkBatchSize + "] must not be less than 0, the specified value is replaced by 0.");
     //      benchmarkBatchSize = 0;
     //      propertiesConfiguration.setProperty("benchmark.batch.size", benchmarkBatchSize);
@@ -1003,7 +1016,7 @@ public class Config {
       } catch (ConfigurationException e) {
         e.printStackTrace();
       }
-
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
     }
   }
 }

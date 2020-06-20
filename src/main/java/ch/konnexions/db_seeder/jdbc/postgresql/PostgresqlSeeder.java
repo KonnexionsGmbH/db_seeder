@@ -32,12 +32,19 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   public PostgresqlSeeder() {
     super();
 
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
     dbms     = Dbms.POSTGRESQL;
 
     urlBase  = config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/";
 
     url      = urlBase + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword();
     urlSetup = urlBase + "kxn_db_sys?user=kxn_user_sys&password=" + config.getPostgresqlPasswordSys();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -144,13 +151,10 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void resetAndCreateDatabase() {
-    String methodName = null;
-
-    methodName = new Object() {
+    String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
-        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -208,7 +212,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url);
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
 }

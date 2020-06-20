@@ -3,6 +3,8 @@
  */
 package ch.konnexions.db_seeder.jdbc.apache.derby;
 
+import org.apache.log4j.Logger;
+
 import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
@@ -14,13 +16,18 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public class DerbySeeder extends AbstractJdbcSeeder {
 
-  // private static Logger logger = Logger.getLogger(DerbySeeder.class);
+  private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
 
   /**
    *
    */
   public DerbySeeder() {
     super();
+
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms           = Dbms.DERBY;
 
@@ -33,6 +40,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     urlSetup       = urlBase + "true";
 
     dropTableStmnt = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")

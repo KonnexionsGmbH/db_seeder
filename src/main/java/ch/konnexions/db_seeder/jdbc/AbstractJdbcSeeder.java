@@ -72,7 +72,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   public AbstractJdbcSeeder() {
     super();
 
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
     config = new Config();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   /**
@@ -165,9 +172,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
-        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     int count = 0;
 
@@ -186,16 +192,16 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     if (expectedRows == count) {
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - database table "
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- database table "
           + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + " - " + String.format(DatabaseSeeder.FORMAT_ROW_NO, count) + " rows created");
     } else {
-      logger.fatal(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - database table "
+      logger.fatal(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- database table "
           + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + " is incomplete - expected" + String.format(DatabaseSeeder.FORMAT_ROW_NO, expectedRows)
           + " rows - found " + String.format(DatabaseSeeder.FORMAT_ROW_NO, count) + " rows");
       System.exit(1);
     }
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   /**
@@ -220,7 +226,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     if (driver != null) {
       try {
@@ -238,13 +244,17 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         connection = DriverManager.getConnection(url, user, password);
       }
 
-      connection.setAutoCommit(false);
+      if (dbms == Dbms.CRATEDB) {
+        connection.setAutoCommit(true);
+      } else {
+        connection.setAutoCommit(false);
+      }
     } catch (SQLException ec) {
       ec.printStackTrace();
       System.exit(1);
     }
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
 
     return connection;
   }
@@ -256,6 +266,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the number of existing rows
    */
   private final int countData(final String tableName) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+
     int count = 0;
 
     try {
@@ -271,6 +286,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
 
     return count;
   }
@@ -294,7 +311,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     resetAndCreateDatabase();
 
@@ -313,7 +330,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     disconnect();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   /**
@@ -323,12 +340,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param rowCount  number of rows to be created
    */
   private final void createData(String tableName, int rowCount) {
-    String methodName = null;
-
-    methodName = new Object() {
+    String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
+
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
-        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "- Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
         + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
 
     tableName = tableName.toUpperCase();
@@ -384,7 +400,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     checkData(tableName, rowCount);
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   /**
@@ -436,6 +452,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   private final void createDataInsertCratedb(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + "- Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
     final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
 
     try {
@@ -466,9 +489,18 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   private final void createDataInsertPostgresql(PreparedStatement preparedStatement, String tableName, int rowCount, ArrayList<Object> pkList) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
+        + "- Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
     final String sqlStmnt = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
 
     try {
@@ -492,6 +524,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         System.exit(1);
       }
     }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   /**
@@ -511,6 +545,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the insert statement
    */
   protected final String createDmlStmnt(final String tableName) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+
     String statement = switch (tableName) {
     case TABLE_NAME_CITY -> "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
     case TABLE_NAME_COMPANY -> "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
@@ -523,6 +562,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     if (dbms == Dbms.CRATEDB) {
       return "pk_" + tableName.toLowerCase() + "_id," + statement.replace("(?", "(?,?");
     }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
 
     return statement;
   }
@@ -598,18 +639,29 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Close the database connection.
    */
   protected final void disconnect(Connection connection) {
-    if (connection != null) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    
+    if (connection == null) {
+      return;
+    }
+
       try {
         if (!(connection.getAutoCommit())) {
           connection.commit();
         }
 
         connection.close();
+
+        connection = null;
       } catch (SQLException ec) {
         ec.printStackTrace();
         System.exit(1);
       }
-    }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   protected void dropAllTables(String url, String sqlStmnt) {
@@ -617,6 +669,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   protected void dropAllTables(String url, String sqlStmnt, String schema) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+
     try {
       connectionAlt     = connect(url);
 
@@ -648,6 +705,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   /**
@@ -1228,19 +1287,25 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
 
   protected void resetAndCreateDatabase() {
-    String methodName = null;
-
-    methodName = new Object() {
+    String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
-        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
     connection = connect(urlSetup, driver);
+
+    if (dbms == Dbms.DERBY) {
+      try {
+        connection.setAutoCommit(true);
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
 
     // -----------------------------------------------------------------------
     // Drop the database tables if already existing
@@ -1256,7 +1321,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     connection = connect(url);
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   /**

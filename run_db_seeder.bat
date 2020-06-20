@@ -212,6 +212,8 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
+if exist db_seeder.log del /f /q db_seeder.log
+
 java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.DatabaseSeeder %DB_SEEDER_DBMS%
 
 echo --------------------------------------------------------------------------------

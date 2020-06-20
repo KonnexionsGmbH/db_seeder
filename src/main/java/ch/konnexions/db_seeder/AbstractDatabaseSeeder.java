@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * <h1> Test Data Generator for a Database. </h1>
  * <br>
@@ -17,6 +19,7 @@ import java.util.List;
 public abstract class AbstractDatabaseSeeder {
 
   protected enum Dbms {
+
     DERBY,
     CRATEDB,
     CUBRID,
@@ -29,14 +32,14 @@ public abstract class AbstractDatabaseSeeder {
     SQLITE
   }
 
-  protected int                autoIncrement;
+  private static Logger        logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
+  protected int                autoIncrement;
   protected Config             config;
+
   protected Connection         connection;
 
   protected Dbms               dbms;
-
-  // private static Logger logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
   protected ArrayList<Object>  pkListCity               = new ArrayList<Object>();
   protected ArrayList<Object>  pkListCompany            = new ArrayList<Object>();
@@ -53,10 +56,16 @@ public abstract class AbstractDatabaseSeeder {
       .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
 
   /**
-   *
+   * Instantiates a new abstract database seeder.
    */
   public AbstractDatabaseSeeder() {
     super();
-  }
 
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+  }
 }

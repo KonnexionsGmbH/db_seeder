@@ -26,12 +26,19 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
   public MariadbSeeder() {
     super();
 
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
     dbms     = Dbms.MARIADB;
 
     urlBase  = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
 
     url      = urlBase + config.getMariadbDatabase();
     urlSetup = urlBase + "mysql";
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -112,13 +119,10 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void resetAndCreateDatabase() {
-    String methodName = null;
-
-    methodName = new Object() {
+    String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName)
-        + " - Start - database table \" + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(DatabaseSeeder.FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -173,6 +177,6 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getMariadbUser(), config.getMariadbPassword());
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }
