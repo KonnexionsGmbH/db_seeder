@@ -3,11 +3,13 @@
  */
 package ch.konnexions.db_seeder.jdbc.ibmdb2;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -29,16 +31,16 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms           = Dbms.IBMDB2;
 
     url            = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
-        + config.getIbmdb2Database() + ":user=db2inst1;password=" + config.getIbmdb2Password() + ";";
+        + config.getIbmdb2Database();
 
-    dropTableStmnt = "SELECT TABNAME, 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = UPPER(?)";
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -113,22 +115,102 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void resetAndCreateDatabase() {
+  private final void dropAllTables(String ibmdb2Schema) {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    Connection connectionLocal = connect(url, null, "db2inst1", config.getIbmdb2Password());
+
+    try {
+      connectionLocal.setAutoCommit(true);
+
+      Statement statementLocal = connectionLocal.createStatement();
+
+      preparedStatement = connection.prepareStatement(dropTableStmnt);
+      preparedStatement.setString(2, ibmdb2Schema);
+
+      for (String tableName : TABLE_NAMES) {
+        preparedStatement.setString(1, tableName);
+
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          String sqlStmntLocal = resultSet.getString(1);
+          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
+          statementLocal.execute(sqlStmntLocal);
+        }
+      }
+
+      statementLocal.close();
+
+      preparedStatement.close();
+
+      disconnect(connectionLocal);
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
+  private final void dropSchema(String ibmdb2Schema) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    try {
+      statement = connection.createStatement();
+
+      int count = 0;
+
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSCAT.SCHEMATA WHERE schemaname = UPPER(?)");
+      preparedStatement.setString(1, ibmdb2Schema);
+      preparedStatement.executeQuery();
+
+      ResultSet resultSet = preparedStatement.getResultSet();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      resultSet.close();
+
+      if (count > 0) {
+        dropAllTables(ibmdb2Schema);
+
+        statement = connection.createStatement();
+
+        statement.execute("DROP SCHEMA " + ibmdb2Schema + " RESTRICT");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url);
+    connection = connect(url, null, "db2inst1", config.getIbmdb2Password());
 
     // -----------------------------------------------------------------------
     // Drop the database user and tables if already existing.
@@ -136,15 +218,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     String ibmdb2Schema = config.getIbmdb2Schema();
 
-    dropAllTables(url, dropTableStmnt, config.getIbmdb2Schema());
-
-    try {
-      statement = connection.createStatement();
-      statement.execute("DROP SCHEMA " + ibmdb2Schema + " RESTRICT");
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    dropSchema(ibmdb2Schema);
 
     // -----------------------------------------------------------------------
     // Create the database user and grant the necessary rights.
@@ -153,12 +227,14 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     try {
       statement.execute("CREATE SCHEMA " + ibmdb2Schema);
 
+      statement.execute("SET CURRENT SCHEMA " + ibmdb2Schema + ";");
+
       statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

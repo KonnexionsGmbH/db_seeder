@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -30,7 +29,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms     = Dbms.CUBRID;
 
@@ -41,7 +40,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     url      = urlBase + ":" + config.getCubridUser() + ":" + config.getCubridPassword();
     urlSetup = urlBase + ":dba::";
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -121,33 +120,20 @@ public class CubridSeeder extends AbstractJdbcSeeder {
                  v_time_zone    VARCHAR (4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void resetAndCreateDatabase() {
+  private final void dropUser(String cubridUser) {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
-
-    // -----------------------------------------------------------------------
-    // Connect.
-    // -----------------------------------------------------------------------
-
-    connection = connect(urlSetup, driver);
-
-    // -----------------------------------------------------------------------
-    // Drop the database user if already existing.
-    // -----------------------------------------------------------------------
-
-    String cubridUser = config.getCubridUser();
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM db_user WHERE name = UPPER(?)");
+      preparedStatement = connectionSetup.prepareStatement("SELECT count(*) FROM db_user WHERE name = UPPER(?)");
       preparedStatement.setString(1, cubridUser);
       preparedStatement.executeQuery();
 
@@ -159,15 +145,41 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
       resultSet.close();
 
-      statement = connection.createStatement();
+      statement = connectionSetup.createStatement();
 
       if (count > 0) {
-        statement.execute("DROP USER " + cubridUser);
+        String sqlStmntLocal = "DROP USER " + cubridUser;
+        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
+        statement.execute(sqlStmntLocal);
       }
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connectionSetup = connect(urlSetup, driver);
+
+    // -----------------------------------------------------------------------
+    // Drop the database user if already existing.
+    // -----------------------------------------------------------------------
+
+    String cubridUser = config.getCubridUser();
+
+    dropUser(cubridUser);
 
     // -----------------------------------------------------------------------
     // Create the database user.
@@ -188,10 +200,10 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnect(connectionSetup);
 
     connection = connect(url);
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

@@ -3,12 +3,12 @@
  */
 package ch.konnexions.db_seeder.jdbc.apache.derby;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
-
-import java.sql.SQLException;
 
 /**
  * <h1> Test Data Generator for a Microsoft SQL Server DBMS. </h1>
@@ -29,7 +29,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms           = Dbms.DERBY;
 
@@ -43,7 +43,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
     dropTableStmnt = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -118,25 +118,64 @@ public class DerbySeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void resetAndCreateDatabase() {
+  protected final void dropAllTables(String sqlStmnt) {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    try {
+      Connection connectionLocal = connect(urlSetup, driver);
+
+      preparedStatement = connectionSetup.prepareStatement(sqlStmnt);
+
+      statement         = connectionLocal.createStatement();
+
+      for (String tableName : TABLE_NAMES) {
+        preparedStatement.setString(1, tableName);
+
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          String sqlStmntLocal = resultSet.getString(2);
+          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
+          statement.executeUpdate(sqlStmntLocal);
+        }
+      }
+
+      statement.close();
+
+      preparedStatement.close();
+
+      disconnect(connectionLocal);
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver);
+    connectionSetup = connect(urlSetup, driver);
 
     try {
-      connection.setAutoCommit(true);
+      connectionSetup.setAutoCommit(true);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -146,16 +185,16 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     // Drop the database tables if already existing
     // -----------------------------------------------------------------------
 
-    dropAllTables(url, dropTableStmnt);
+    dropAllTables(dropTableStmnt);
 
     // -----------------------------------------------------------------------
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnect(connectionSetup);
 
     connection = connect(url);
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

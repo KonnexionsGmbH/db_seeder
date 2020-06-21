@@ -4,6 +4,7 @@
 package ch.konnexions.db_seeder;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * <h1> Test Data Generator for a Database. </h1>
+ * <h1> Test Data Generator for a Database - Abstract Database Seeder. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -32,31 +33,37 @@ public abstract class AbstractDatabaseSeeder {
     SQLITE
   }
 
-  private static Logger        logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
+  private static Logger                logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
-  protected int                autoIncrement;
-  protected Config             config;
+  public final static SimpleDateFormat FORMAT_TIMESTAMP_YYYY_SS = new SimpleDateFormat("yyyyMMddHHmmss");
+  public final static String           FORMAT_IDENTIFIER        = "%04d";
 
-  protected Connection         connection;
+  public final static String           FORMAT_METHOD_NAME       = "%-20s";
 
-  protected Dbms               dbms;
+  public final static String           FORMAT_ROW_NO            = "%1$5d";
 
-  protected ArrayList<Object>  pkListCity               = new ArrayList<Object>();
-  protected ArrayList<Object>  pkListCompany            = new ArrayList<Object>();
-  protected ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
-  protected ArrayList<Object>  pkListCountryState       = new ArrayList<Object>();
-  protected ArrayList<Object>  pkListTimezone           = new ArrayList<Object>();
+  public final static String           FORMAT_TABLE_NAME        = "%-17s";
+  protected int                        autoIncrement;
+  protected Config                     config;
+  protected Connection                 connection;
+  protected Dbms                       dbms;
 
-  protected final String       TABLE_NAME_CITY          = "CITY";
-  protected final String       TABLE_NAME_COMPANY       = "COMPANY";
-  protected final String       TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected final String       TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected final String       TABLE_NAME_TIMEZONE      = "TIMEZONE";
-  protected final List<String> TABLE_NAMES              = Arrays
+  protected ArrayList<Object>          pkListCity               = new ArrayList<Object>();
+  protected ArrayList<Object>          pkListCompany            = new ArrayList<Object>();
+  protected ArrayList<Object>          pkListCountry            = new ArrayList<Object>();
+  protected ArrayList<Object>          pkListCountryState       = new ArrayList<Object>();
+  protected ArrayList<Object>          pkListTimezone           = new ArrayList<Object>();
+
+  protected final String               TABLE_NAME_CITY          = "CITY";
+  protected final String               TABLE_NAME_COMPANY       = "COMPANY";
+  protected final String               TABLE_NAME_COUNTRY       = "COUNTRY";
+  protected final String               TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
+  protected final String               TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  protected final List<String>         TABLE_NAMES              = Arrays
       .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
 
   /**
-   * Instantiates a new abstract database seeder.
+   * Initialises a new abstract database seeder object.
    */
   public AbstractDatabaseSeeder() {
     super();
@@ -64,8 +71,8 @@ public abstract class AbstractDatabaseSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 }

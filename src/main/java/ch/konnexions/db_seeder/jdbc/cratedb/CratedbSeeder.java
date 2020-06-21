@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -29,7 +28,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms           = Dbms.CRATEDB;
 
@@ -40,7 +39,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     dropTableStmnt = "SELECT UPPER(table_name), 'DROP TABLE \"' || LOWER(table_name) || '\"' FROM information_schema.tables WHERE table_name = LOWER(?) AND table_schema = 'doc'";
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -110,22 +109,37 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    TEXT
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void resetAndCreateDatabase() {
+  private final void dropAllTables() throws SQLException {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    for (String tableName : TABLE_NAMES) {
+      String sqlStmntLocal = "DROP TABLE IF EXISTS " + tableName;
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
+      statement.execute(sqlStmntLocal);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup);
+    connectionSetup = connect(urlSetup);
 
     // -----------------------------------------------------------------------
     // Drop the database user and tables if already existing.
@@ -137,12 +151,10 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     String cratedbUser = config.getCratedbUser();
 
     try {
-      statement = connection.createStatement();
+      statement = connectionSetup.createStatement();
       statement.execute("DROP USER IF EXISTS " + cratedbUser);
 
-      for (String tableName : TABLE_NAMES) {
-        statement.execute("DROP TABLE IF EXISTS " + tableName);
-      }
+      dropAllTables();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -167,10 +179,10 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnect(connectionSetup);
 
     connection = connect(url);
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

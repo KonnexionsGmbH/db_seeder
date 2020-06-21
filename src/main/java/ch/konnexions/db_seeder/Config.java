@@ -20,11 +20,11 @@ import org.apache.log4j.Logger;
 
 /**
  * The configuration parameters for the supported database management systems. 
+ * 
  * The configuration parameters are made available to the configuration object
  * in a text file.
  * 
- * The parameter name and parameter value must be separated by an equal sign
- * (=).
+ * The parameter name and parameter value must be separated by an equal sign (=).
  */
 public class Config {
 
@@ -110,7 +110,7 @@ public class Config {
   private String                                                       sqliteDatabase;
 
   /**
-   * Constructs a Configuration object.
+   * Initialises a new configuration object.
    */
   public Config() {
     super();
@@ -118,7 +118,7 @@ public class Config {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     fileBasedConfigurationBuilder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class);
 
@@ -136,7 +136,7 @@ public class Config {
     storeConfiguration();
     validateProperties();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   // Apache Derby ------------------------------------------------------------
@@ -275,7 +275,7 @@ public class Config {
     return jdbcConnectionHost;
   }
 
-  private ArrayList<String> getKeysSorted() {
+  private final ArrayList<String> getKeysSorted() {
 
     for (final Iterator<String> iterator = propertiesConfiguration.getKeys(); iterator.hasNext();) {
       keysSorted.add(iterator.next());
@@ -470,7 +470,7 @@ public class Config {
   }
 
   @SuppressWarnings("unused")
-  private List<String> getNumericProperties() {
+  private final List<String> getNumericProperties() {
 
     List<String> list = new ArrayList<>();
 
@@ -596,7 +596,7 @@ public class Config {
     return sqliteDatabase;
   }
 
-  private void storeConfiguration() {
+  private final void storeConfiguration() {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
@@ -672,7 +672,7 @@ public class Config {
     sqliteDatabase              = propertiesConfiguration.getString("db_seeder.sqlite.database");
   }
 
-  private void updatePropertiesFromOs() {
+  private final void updatePropertiesFromOs() {
 
     Map<String, String> environmentVariables = System.getenv();
 
@@ -991,17 +991,17 @@ public class Config {
     }
   }
 
-  private void validateProperties() {
+  private final void validateProperties() {
 
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     boolean isChanged = false;
 
     //    if (benchmarkBatchSize < 0) {
-    //      logger.error(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) 
+    //      logger.error(String.format(FORMAT_METHOD_NAME, methodName) 
     //          + "Attention: The value of the configuration parameter 'benchmark.batch.size' ["
     //          + benchmarkBatchSize + "] must not be less than 0, the specified value is replaced by 0.");
     //      benchmarkBatchSize = 0;
@@ -1016,7 +1016,7 @@ public class Config {
       } catch (ConfigurationException e) {
         e.printStackTrace();
       }
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
     }
   }
 }

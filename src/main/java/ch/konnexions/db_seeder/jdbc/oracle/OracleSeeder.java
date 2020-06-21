@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -30,14 +29,14 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms = Dbms.ORACLE;
 
     url  = config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
         + config.getOracleConnectionService();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -122,29 +121,11 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  CONSTRAINT pk_timezone         PRIMARY KEY (pk_timezone_id)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void resetAndCreateDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
-
-    // -----------------------------------------------------------------------
-    // Connect.
-    // -----------------------------------------------------------------------
-
-    connection = connect(url, null, "sys AS SYSDBA", config.getOraclePasswordSys());
-
-    // -----------------------------------------------------------------------
-    // Drop the database user if already existing.
-    // -----------------------------------------------------------------------
-
-    String oracleUser = config.getOracleUser();
-
+  private final void dropUser(String oracleUser) {
     try {
       int count = 0;
 
@@ -169,6 +150,28 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(url, null, "sys AS SYSDBA", config.getOraclePasswordSys());
+
+    // -----------------------------------------------------------------------
+    // Drop the database user if already existing.
+    // -----------------------------------------------------------------------
+
+    String oracleUser = config.getOracleUser();
+
+    dropUser(oracleUser);
 
     // -----------------------------------------------------------------------
     // Create the database user and grant the necessary rights.
@@ -201,6 +204,6 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getOracleUser(), config.getOraclePassword());
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

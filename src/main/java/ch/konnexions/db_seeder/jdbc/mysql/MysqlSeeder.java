@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -29,7 +28,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms     = Dbms.MYSQL;
 
@@ -40,7 +39,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     url      = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
     urlSetup = urlBase + "sys" + config.getMysqlConnectionSuffix();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -115,16 +114,16 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
                 `V_TIME_ZONE`    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
   @Override
-  protected void resetAndCreateDatabase() {
+  protected final void setupDatabase() {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -179,6 +178,6 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getMysqlUser(), config.getMysqlPassword());
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

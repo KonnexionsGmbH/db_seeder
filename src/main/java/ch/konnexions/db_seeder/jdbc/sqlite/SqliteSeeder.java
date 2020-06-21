@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -29,13 +28,13 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms = Dbms.SQLITE;
 
     url  = config.getSQLiteConnectionPrefix() + config.getSQLiteDatabase();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -115,27 +114,11 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
                  v_time_zone    VARCHAR2 (4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void resetAndCreateDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
-
-    // -----------------------------------------------------------------------
-    // Connect.
-    // -----------------------------------------------------------------------
-
-    connection = connect(url);
-
-    // -----------------------------------------------------------------------
-    // Drop the database tables if already existing.
-    // -----------------------------------------------------------------------
-
+  private final void dropAllTables() {
     try {
       statement = connection.createStatement();
 
@@ -148,11 +131,31 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  @Override
+  protected void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(url);
+
+    // -----------------------------------------------------------------------
+    // Drop the database tables if already existing.
+    // -----------------------------------------------------------------------
+
+    dropAllTables();
 
     // -----------------------------------------------------------------------
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

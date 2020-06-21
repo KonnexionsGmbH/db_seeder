@@ -13,7 +13,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -35,7 +34,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     String methodName = new Object() {
     }.getClass().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
     dbms     = Dbms.POSTGRESQL;
 
@@ -44,7 +43,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     url      = urlBase + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword();
     urlSetup = urlBase + "kxn_db_sys?user=kxn_user_sys&password=" + config.getPostgresqlPasswordSys();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -119,7 +118,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
@@ -150,11 +149,11 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected void resetAndCreateDatabase() {
+  protected final void setupDatabase() {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -212,7 +211,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url);
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
 }
