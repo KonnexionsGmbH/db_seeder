@@ -9,7 +9,6 @@ set -e
 # ------------------------------------------------------------------------------
 
 export DB_SEEDER_DBMS_DEFAULT=sqlite
-export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 export DB_SEEDER_CUBRID_DATABASE=kxn_db
 export DB_SEEDER_IBMDB2_DATABASE=kxn_db
@@ -54,14 +53,14 @@ else
     export DB_SEEDER_DBMS=$1
 fi
 
-if [ "$DB_SEEDER_DBMS" == "sqlite" ]; then
-    set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
+if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
+    export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
 else
-    set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
+    export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 fi
 
 if [ -z "$2" ]; then
-    read -p "Delete the existing Docker container DB_SEEDER_DB (yes/no) [default: $DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT] " DB_SEEDER_DELETE_EXISTING_CONTAINER
+    read -p "Delete the existing Docker container $DB_SEEDER_DBMS (yes/no) [default: $DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT] " DB_SEEDER_DELETE_EXISTING_CONTAINER
     export DB_SEEDER_DELETE_EXISTING_CONTAINER=$DB_SEEDER_DELETE_EXISTING_CONTAINER
 
     if [ -z "$DB_SEEDER_DELETE_EXISTING_CONTAINER" ]; then

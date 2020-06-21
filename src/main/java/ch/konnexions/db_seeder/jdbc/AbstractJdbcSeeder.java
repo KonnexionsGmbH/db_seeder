@@ -237,6 +237,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
     }
 
+    Connection connection = null;
+
     try {
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);
@@ -254,7 +256,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       System.exit(1);
     }
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   [" + connection.toString() + "]");
 
     return connection;
   }
@@ -632,6 +634,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Close the database connection.
    */
   protected final void disconnect() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start [" + connection.toString() + "]");
+
     disconnect(connection);
   }
 
@@ -642,11 +649,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
-
-    if (connection == null) {
-      return;
-    }
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start [" + connection.toString() + "]");
 
     try {
       if (!(connection.getAutoCommit())) {
