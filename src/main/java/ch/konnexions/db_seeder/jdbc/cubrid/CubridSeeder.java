@@ -21,7 +21,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(CubridSeeder.class);
 
   /**
-   *
+   * Instantiates a new CUBRID seeder.
    */
   public CubridSeeder() {
     super();

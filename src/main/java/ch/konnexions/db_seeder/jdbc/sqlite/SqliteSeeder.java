@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for am SQLite. </h1>
+ * <h1> Test Data Generator for am SQLite DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -20,7 +20,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(SqliteSeeder.class);
 
   /**
-   * 
+   * Instantiates a new SQLite seeder.
    */
   public SqliteSeeder() {
     super();

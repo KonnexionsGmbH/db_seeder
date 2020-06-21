@@ -20,7 +20,7 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(MssqlserverSeeder.class);
 
   /**
-   * 
+   * Instantiates a new Microsoft SQL Server seeder.
    */
   public MssqlserverSeeder() {
     super();

@@ -21,7 +21,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
-   * 
+   * Instantiates a new Oracle Database seeder.
    */
   public OracleSeeder() {
     super();

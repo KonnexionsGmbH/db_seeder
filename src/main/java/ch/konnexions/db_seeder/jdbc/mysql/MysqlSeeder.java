@@ -20,7 +20,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(MysqlSeeder.class);
 
   /**
-   * 
+   * Instantiates a new MySQL seeder.
    */
   public MysqlSeeder() {
     super();

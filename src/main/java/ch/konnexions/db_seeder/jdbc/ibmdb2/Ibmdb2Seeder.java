@@ -23,7 +23,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
 
   /**
-   * 
+   * Instantiates a new IBM Db2 Database seeder.
    */
   public Ibmdb2Seeder() {
     super();

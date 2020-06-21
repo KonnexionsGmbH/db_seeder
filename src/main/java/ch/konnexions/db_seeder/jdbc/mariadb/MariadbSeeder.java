@@ -20,7 +20,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(MariadbSeeder.class);
 
   /**
-   * 
+   * Instantiates a new MariaDB Server seeder.
    */
   public MariadbSeeder() {
     super();

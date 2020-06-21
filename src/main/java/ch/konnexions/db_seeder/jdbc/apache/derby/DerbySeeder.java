@@ -21,7 +21,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
 
   /**
-   *
+   * Instantiates a new Apache Derby seeder.
    */
   public DerbySeeder() {
     super();

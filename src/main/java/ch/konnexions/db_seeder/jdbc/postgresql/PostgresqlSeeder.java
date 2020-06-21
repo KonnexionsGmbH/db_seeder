@@ -26,7 +26,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 
   /**
-   * 
+   * Instantiates a new PostgreSQL Database seeder.
    */
   public PostgresqlSeeder() {
     super();
@@ -123,7 +123,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   }
 
   @Override
-  protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     FileInputStream blobData = null;
 
     try {

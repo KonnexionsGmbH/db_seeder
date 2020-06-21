@@ -20,7 +20,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
-   *
+   * Instantiates a new CrateDB seeder.
    */
   public CratedbSeeder() {
     super();

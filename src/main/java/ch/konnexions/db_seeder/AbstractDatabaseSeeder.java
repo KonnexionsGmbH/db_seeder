@@ -4,7 +4,6 @@
 package ch.konnexions.db_seeder;
 
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,33 +32,32 @@ public abstract class AbstractDatabaseSeeder {
     SQLITE
   }
 
-  private static Logger                logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
+  private static Logger        logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
-  public final static SimpleDateFormat FORMAT_TIMESTAMP_YYYY_SS = new SimpleDateFormat("yyyyMMddHHmmss");
-  public final static String           FORMAT_IDENTIFIER        = "%04d";
+  public final static String   FORMAT_IDENTIFIER        = "%04d";
+  public final static String   FORMAT_METHOD_NAME       = "%-20s";
+  public final static String   FORMAT_ROW_NO            = "%1$5d";
+  public final static String   FORMAT_TABLE_NAME        = "%-17s";
 
-  public final static String           FORMAT_METHOD_NAME       = "%-20s";
+  protected int                autoIncrement;
 
-  public final static String           FORMAT_ROW_NO            = "%1$5d";
+  protected Config             config;
+  protected Connection         connection;
 
-  public final static String           FORMAT_TABLE_NAME        = "%-17s";
-  protected int                        autoIncrement;
-  protected Config                     config;
-  protected Connection                 connection;
-  protected Dbms                       dbms;
+  protected Dbms               dbms;
 
-  protected ArrayList<Object>          pkListCity               = new ArrayList<Object>();
-  protected ArrayList<Object>          pkListCompany            = new ArrayList<Object>();
-  protected ArrayList<Object>          pkListCountry            = new ArrayList<Object>();
-  protected ArrayList<Object>          pkListCountryState       = new ArrayList<Object>();
-  protected ArrayList<Object>          pkListTimezone           = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListCity               = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListCompany            = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListCountryState       = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListTimezone           = new ArrayList<Object>();
 
-  protected final String               TABLE_NAME_CITY          = "CITY";
-  protected final String               TABLE_NAME_COMPANY       = "COMPANY";
-  protected final String               TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected final String               TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected final String               TABLE_NAME_TIMEZONE      = "TIMEZONE";
-  protected final List<String>         TABLE_NAMES              = Arrays
+  protected final String       TABLE_NAME_CITY          = "CITY";
+  protected final String       TABLE_NAME_COMPANY       = "COMPANY";
+  protected final String       TABLE_NAME_COUNTRY       = "COUNTRY";
+  protected final String       TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
+  protected final String       TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  protected final List<String> TABLE_NAMES              = Arrays
       .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
 
   /**
