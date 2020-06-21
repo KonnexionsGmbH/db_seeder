@@ -59,65 +59,64 @@ public class DatabaseSeeder {
 
     switch (args0) {
     case "derby":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start Apache Derby");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby");
       DerbySeeder derbySeeder = new DerbySeeder();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start Apache Derby 01");
       derbySeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   Apache Derby");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby");
       break;
     case "cratedb":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start CrateDB");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start CrateDB");
       CratedbSeeder cratedbSeeder = new CratedbSeeder();
       cratedbSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   CrateDB");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   CrateDB");
       break;
     case "cubrid":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start CUBRID");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start CUBRID");
       CubridSeeder cubridSeeder = new CubridSeeder();
       cubridSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   CUBRID");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   CUBRID");
       break;
     case "ibmdb2":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start IBM Db2 Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start IBM Db2 Database");
       Ibmdb2Seeder ibmdb2Seeder = new Ibmdb2Seeder();
       ibmdb2Seeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   IBM Db2 Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   IBM Db2 Database");
       break;
     case "mariadb":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start MariaDB Server");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start MariaDB Server");
       MariadbSeeder mariadbSeeder = new MariadbSeeder();
       mariadbSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   MariaDB Server");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   MariaDB Server");
       break;
     case "mssqlserver":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start Microsoft SQL Server");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Microsoft SQL Server");
       MssqlserverSeeder mssqlserverSeeder = new MssqlserverSeeder();
       mssqlserverSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   Microsoft SQL Server");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Microsoft SQL Server");
       break;
     case "mysql":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start MySQL Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start MySQL Database");
       MysqlSeeder mysqlSeeder = new MysqlSeeder();
       mysqlSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   MySQL Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   MySQL Database");
       break;
     case "oracle":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start Oracle Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Oracle Database");
       OracleSeeder oracleSeeder = new OracleSeeder();
       oracleSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   Oracle Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Oracle Database");
       break;
     case "postgresql":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start PostgreSQL Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start PostgreSQL Database");
       PostgresqlSeeder postgresqlSeeder = new PostgresqlSeeder();
       postgresqlSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   PostgreSQL Database");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   PostgreSQL Database");
       break;
     case "sqlite":
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Start SQLite");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start SQLite");
       SqliteSeeder sqliteSeeder = new SqliteSeeder();
       sqliteSeeder.createData();
-      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "End   SQLite");
+      logger.info(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   SQLite");
       break;
     case "":
       logger.error(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Command line argument missing");

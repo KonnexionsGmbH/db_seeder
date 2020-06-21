@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
+import java.sql.SQLException;
+
 /**
  * <h1> Test Data Generator for a Microsoft SQL Server DBMS. </h1>
  * <br>
@@ -118,5 +120,42 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
     }
+  }
+
+  @Override
+  protected void resetAndCreateDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(urlSetup, driver);
+
+    try {
+      connection.setAutoCommit(true);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Drop the database tables if already existing
+    // -----------------------------------------------------------------------
+
+    dropAllTables(url, dropTableStmnt);
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

@@ -9,7 +9,6 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 set DB_SEEDER_DBMS_DEFAULT=sqlite
-set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 set DB_SEEDER_CUBRID_DATABASE=kxn_db
 set DB_SEEDER_IBMDB2_DATABASE=kxn_db
@@ -54,16 +53,20 @@ if ["%1"] EQU [""] (
     set DB_SEEDER_DBMS=%1
 )
 
-if ["%DB_SEEDER_DBMS%"] NEQ ["sqlite"] (
-    if ["%2"] EQU [""] (
-        set /P DB_SEEDER_DELETE_EXISTING_CONTAINER="Delete the existing Docker container DB_SEEDER_DB (yes/no) [default: %DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT%] "
-    
-        if ["!DB_SEEDER_DELETE_EXISTING_CONTAINER!"] EQU [""] (
-            set DB_SEEDER_DELETE_EXISTING_CONTAINER=%DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT%
-        )
-    ) else (
-        set DB_SEEDER_DELETE_EXISTING_CONTAINER=%2
+if ["%DB_SEEDER_DBMS%"] == ["sqlite"] (
+    set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
+) else (
+    set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
+)
+
+if ["%2"] EQU [""] (
+    set /P DB_SEEDER_DELETE_EXISTING_CONTAINER="Delete the existing Docker container DB_SEEDER_DB (yes/no) [default: %DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT%] "
+
+    if ["!DB_SEEDER_DELETE_EXISTING_CONTAINER!"] EQU [""] (
+        set DB_SEEDER_DELETE_EXISTING_CONTAINER=%DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT%
     )
+) else (
+    set DB_SEEDER_DELETE_EXISTING_CONTAINER=%2
 )
 
 if NOT ["%DB_SEEDER_DELETE_EXISTING_CONTAINER%"] == ["no"] (

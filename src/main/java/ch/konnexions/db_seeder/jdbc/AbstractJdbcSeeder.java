@@ -643,23 +643,23 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }.getClass().getEnclosingMethod().getName();
 
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
-    
+
     if (connection == null) {
       return;
     }
 
-      try {
-        if (!(connection.getAutoCommit())) {
-          connection.commit();
-        }
-
-        connection.close();
-
-        connection = null;
-      } catch (SQLException ec) {
-        ec.printStackTrace();
-        System.exit(1);
+    try {
+      if (!(connection.getAutoCommit())) {
+        connection.commit();
       }
+
+      connection.close();
+
+      connection = null;
+    } catch (SQLException ec) {
+      ec.printStackTrace();
+      System.exit(1);
+    }
 
     logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
   }
@@ -1286,43 +1286,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Drop tables
    */
 
-  protected void resetAndCreateDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
-
-    // -----------------------------------------------------------------------
-    // Connect.
-    // -----------------------------------------------------------------------
-
-    connection = connect(urlSetup, driver);
-
-    if (dbms == Dbms.DERBY) {
-      try {
-        connection.setAutoCommit(true);
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the database tables if already existing
-    // -----------------------------------------------------------------------
-
-    dropAllTables(url, dropTableStmnt);
-
-    // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
-    // -----------------------------------------------------------------------
-
-    disconnect(connection);
-
-    connection = connect(url);
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
-  }
+  protected abstract void resetAndCreateDatabase();
 
   /**
    * Retrieve the missing foreign keys from the database.
