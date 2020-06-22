@@ -7,7 +7,17 @@
 
 ----
 
-## 1. Introduction
+### Table of Contents
+
+**[1. Introduction](#introduction)**<br>
+**[2. Data](#data)**<br>
+**[3. Installation](#installation)**<br>
+**[4. Operating Instructions](#operating_instructions)**<br>
+**[5. Contributing](#contributing)**<br>
+
+----
+
+## <a name="introduction"></a> 1. Introduction
 
 `db_seeder` allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
@@ -78,7 +88,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | PostgreSQL Database | POSTGRESQL | 12.3 |
 | SQLite | SQLITE | 3.32.2 |
 
-## 2. Data 
+## <a name="data"></a> 2. Data 
 
 The underlying data model is quite simple and is shown here in the relational version.
 The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
@@ -162,13 +172,13 @@ Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
 
 ![](.README_images/Example_SAM_TIMEZONE.png)
 
-## 3. Installation
+## <a name="installation"></a> 3. Installation
 
 The easiest way is to download a current release of `db_seeder`.
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 The system requirements are described in the respective release notes. 
 
-## 4. Operating Instructions 
+## <a name="operating_instructions"></a> 4. Operating Instructions 
 
 Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
 To run `db_seeder`, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
@@ -510,7 +520,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_SQLITE.png)
 
-## 5. Contributing 
+## <a name="contributing"></a> 5. Contributing 
 
 In case of software changes we strongly recommend you to respect the license terms.
 
