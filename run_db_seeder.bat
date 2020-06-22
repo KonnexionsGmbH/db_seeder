@@ -9,10 +9,12 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 set DB_SEEDER_DBMS_DEFAULT=sqlite
+set DB_SEEDER_DBMS_EMBEDDED=no
 
 if ["%1"] EQU [""] (
     echo ====================================
-    echo derby       - Apache Derby
+    echo derby       - Apache Derby [client]
+    echo derby_emb   - Apache Derby [embedded]
     echo cratedb     - CrateDB
     echo cubrid      - CUBRID
     echo ibmdb2      - IBM Db2 Database
@@ -21,7 +23,7 @@ if ["%1"] EQU [""] (
     echo mysql       - MySQL
     echo oracle      - Oracle Database
     echo postgresql  - PostgreSQL Database
-    echo sqlite      - SQLite
+    echo sqlite      - SQLite [embedded]
     echo ------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 
@@ -44,12 +46,6 @@ set DB_SEEDER_MAX_ROW_COUNTRY=
 set DB_SEEDER_MAX_ROW_COUNTRY_STATE=
 set DB_SEEDER_MAX_ROW_TIMEZONE=
 
-if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
-    set DB_SEEDER_DERBY_CONNECTION_PORT=
-    set DB_SEEDER_DERBY_CONNECTION_PREFIX=
-    set DB_SEEDER_DERBY_DATABASE=
-    set DB_SEEDER_DERBY_SCHEMA=
-)
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_CRATEDB_CONNECTION_PORT=
     set DB_SEEDER_CRATEDB_CONNECTION_PREFIX=
@@ -62,6 +58,18 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_CUBRID_DATABASE=
     set DB_SEEDER_CUBRID_PASSWORD=
     set DB_SEEDER_CUBRID_USER=
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
+    set DB_SEEDER_DERBY_CONNECTION_PORT=
+    set DB_SEEDER_DERBY_CONNECTION_PREFIX=
+    set DB_SEEDER_DERBY_DATABASE=
+    set DB_SEEDER_DERBY_SCHEMA=
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
+    set DB_SEEDER_DBMS_EMBEDDED=yes
+    set DB_SEEDER_DERBY_CONNECTION_PREFIX=
+    set DB_SEEDER_DERBY_DATABASE=
+    set DB_SEEDER_DERBY_SCHEMA=
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_CONNECTION_PORT=
@@ -113,6 +121,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_POSTGRESQL_USER=
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
+    set DB_SEEDER_DBMS_EMBEDDED=yes
     set DB_SEEDER_SQLITE_CONNECTION_PREFIX=
     set DB_SEEDER_SQLITE_DATABASE=
 )
@@ -123,6 +132,7 @@ echo ---------------------------------------------------------------------------
 echo DB Seeder - Creation of dummy data in an empty database schema / user.
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
+echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo --------------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
@@ -149,6 +159,12 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     echo CUBRID_USER                     : %DB_SEEDER_CUBRID_USER%
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
+    echo DERBY_CONNECTION_PORT           : %DB_SEEDER_DERBY_CONNECTION_PORT%
+    echo DERBY_CONNECTION_PREFIX         : %DB_SEEDER_DERBY_CONNECTION_PREFIX%
+    echo DERBY_DATABASE                  : %DB_SEEDER_DERBY_DATABASE%
+    echo DERBY_SCHEMA                    : %DB_SEEDER_DERBY_SCHEMA%
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     echo DERBY_CONNECTION_PORT           : %DB_SEEDER_DERBY_CONNECTION_PORT%
     echo DERBY_CONNECTION_PREFIX         : %DB_SEEDER_DERBY_CONNECTION_PREFIX%
     echo DERBY_DATABASE                  : %DB_SEEDER_DERBY_DATABASE%

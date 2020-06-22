@@ -31,17 +31,25 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms           = Dbms.DERBY;
+    init();
 
-    driver         = "org.apache.derby.jdbc.ClientDriver";
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+  }
 
-    urlBase        = config.getApachederbyConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getApachederbyConnectionPort() + "/"
-        + config.getApachederbyDatabase() + ";create=";
+  /**
+   * Instantiates a new Apache Derby seeder.
+   *
+   * @param isClient client database version
+   */
+  public DerbySeeder(boolean isClient) {
+    super(isClient);
 
-    url            = urlBase + "false";
-    urlSetup       = urlBase + "true";
+    String methodName = new Object() {
+    }.getClass().getName();
 
-    dropTableStmnt = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    init();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -131,7 +139,9 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     try {
       Connection connectionLocal = connect(urlSetup, driver);
 
-      preparedStatement = connectionSetup.prepareStatement(sqlStmnt);
+      connectionLocal.setAutoCommit(true);
+
+      preparedStatement = connection.prepareStatement(sqlStmnt);
 
       statement         = connectionLocal.createStatement();
 
@@ -141,10 +151,10 @@ public class DerbySeeder extends AbstractJdbcSeeder {
         resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-          String sqlStmntLocal = resultSet.getString(2);
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
-          statement.executeUpdate(sqlStmntLocal);
+          statement.execute(resultSet.getString(2));
         }
+
+        resultSet.close();
       }
 
       statement.close();
@@ -161,6 +171,34 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
+  private final void init() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
+
+    dbms = Dbms.DERBY;
+
+    if (isClient) {
+      driver  = "org.apache.derby.jdbc.ClientDriver";
+      urlBase = config.getApachederbyConnectionPrefix() + "//" + config.getJdbcConnectionHost() + ":" + config.getApachederbyConnectionPort() + "/"
+          + config.getApachederbyDatabase() + ";create=";
+    } else {
+      driver  = "org.apache.derby.jdbc.EmbeddedDriver";
+      urlBase = config.getApachederbyConnectionPrefix() + ";databaseName=" + config.getApachederbyDatabase() + ";create=";
+    }
+
+    url            = urlBase + "false";
+    urlSetup       = urlBase + "true";
+
+    dropTableStmnt = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
   @Override
   protected final void setupDatabase() {
     String methodName = new Object() {
@@ -172,10 +210,10 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connectionSetup = connect(urlSetup, driver);
+    connection = connect(urlSetup, driver);
 
     try {
-      connectionSetup.setAutoCommit(true);
+      connection.setAutoCommit(true);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -191,7 +229,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect(connectionSetup);
+    disconnect(connection);
 
     connection = connect(url);
 

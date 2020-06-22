@@ -3,7 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.oracle;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -133,7 +132,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       preparedStatement.setString(1, oracleUser);
       preparedStatement.executeQuery();
 
-      ResultSet resultSet = preparedStatement.getResultSet();
+      resultSet = preparedStatement.getResultSet();
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -141,10 +140,14 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
       resultSet.close();
 
-      statement = connection.createStatement();
+      preparedStatement.close();
 
       if (count > 0) {
+        statement = connection.createStatement();
+
         statement.execute("DROP USER " + oracleUser + " CASCADE");
+
+        statement.close();
       }
     } catch (SQLException e) {
       e.printStackTrace();

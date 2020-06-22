@@ -50,12 +50,6 @@ public class DatabaseSeeder {
     }
 
     switch (args0) {
-    case "derby":
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby");
-      DerbySeeder derbySeeder = new DerbySeeder();
-      derbySeeder.createData();
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby");
-      break;
     case "cratedb":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start CrateDB");
       CratedbSeeder cratedbSeeder = new CratedbSeeder();
@@ -67,6 +61,18 @@ public class DatabaseSeeder {
       CubridSeeder cubridSeeder = new CubridSeeder();
       cubridSeeder.createData();
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   CUBRID");
+      break;
+    case "derby":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby");
+      DerbySeeder derbySeeder = new DerbySeeder();
+      derbySeeder.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby");
+      break;
+    case "derby_emb":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby");
+      DerbySeeder derbySeederEmbedded = new DerbySeeder(false);
+      derbySeederEmbedded.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby");
       break;
     case "ibmdb2":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start IBM Db2 Database");

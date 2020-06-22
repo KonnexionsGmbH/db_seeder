@@ -46,6 +46,9 @@ public abstract class AbstractDatabaseSeeder {
 
   protected Dbms               dbms;
 
+  protected boolean            isClient                 = true;
+  protected boolean            isEmbedded               = !(isClient);
+
   protected ArrayList<Object>  pkListCity               = new ArrayList<Object>();
   protected ArrayList<Object>  pkListCompany            = new ArrayList<Object>();
   protected ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
@@ -70,6 +73,34 @@ public abstract class AbstractDatabaseSeeder {
     }.getClass().getName();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    isClient   = true;
+    isEmbedded = !(this.isClient);
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+  }
+
+  /**
+   * Initialises a new abstract database seeder object.
+   *
+   * @param isClient client database version
+   */
+  public AbstractDatabaseSeeder(boolean isClient) {
+    super();
+
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    this.isClient = isClient;
+    isEmbedded    = !(this.isClient);
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

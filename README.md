@@ -12,6 +12,7 @@
 `db_seeder` allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
 - [Apache Derby](https://db.apache.org/derby/)
+  - client and embedded version
   - open source
   - relational database management system (RDBMS) 
   - automatic data replication
@@ -52,6 +53,7 @@ Currently the following management database systems are supported:
   - relational database management system (RDBMS) 
   - emphasizing extensibility and SQL compliance
 - [SQLite](https://www.sqlite.org/)
+  - embedded version
   - open source
   - relational database management system (RDBMS) 
   - not a client–server database engine, it is embedded into the end program
@@ -64,9 +66,9 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 
 ### 1.1 Relational Database Management Systems
 
-| DBMS | DB Ticker Symbol | Tested Versions |
+| DBMS | DB Ticker Symbol(s) | Tested Versions |
 |---|---|---|
-| Apache Derby | DERBY | 10.15.2.0 | 
+| Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 
 | CrateDB | CRATEDB | 4.1.6 | 
 | CUBRID | CUBRID | 10.2 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
@@ -121,7 +123,7 @@ db_seeder.cubrid.password=cubrid
 db_seeder.cubrid.user=kxn_user
 
 db_seeder.derby.connection.port=1527
-db_seeder.derby.connection.prefix=jdbc:derby://
+db_seeder.derby.connection.prefix=jdbc:derby:
 db_seeder.derby.database=kxn_db
 
 db_seeder.ibmdb2.connection.port=50000
@@ -203,8 +205,10 @@ Below are also DBeaver based connection parameter examples for each database man
 ### 4.1 Apache Derby
 
 - database driver version 10.15.2.0
-  - Maven repository: [here](https://mvnrepository.com/artifact/org.apache.derby/derby)
-- database Docker image version 10.15.2.0: [here](https://hub.docker.com/_/crate) TODO
+  - Maven repository: 
+    - client version [here](https://mvnrepository.com/artifact/org.apache.derby/derbyclient/10.15.2.0)
+    - embedded version [here](https://mvnrepository.com/artifact/org.apache.derby/derby)
+- database Docker image version 10.15.2.0: [here](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
 - data definition hierarchy: only database and schema (schema not relevant for db_seeder)
 - privileged database / user: n/a / n/a
 
@@ -218,9 +222,13 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DBeaver database connection settings:
+- DBeaver database connection settings - client version:
 
 ![](.README_images/DBeaver_DERBY.png)
+
+- DBeaver database connection settings - embedded version:
+
+![](.README_images/DBeaver_DERBY_EMB.png)
 
 ### 4.2 CrateDB
 

@@ -18,7 +18,7 @@ Release Date: 21.06.2020
 
 #### New Features
 
-- New DBMS: Apache Derby
+- New DBMS: Apache Derby (both client and embedded version)
 - New DBMS: CUBRID
 
 #### Modified Features

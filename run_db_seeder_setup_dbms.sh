@@ -9,9 +9,13 @@ set -e
 # ------------------------------------------------------------------------------
 
 export DB_SEEDER_DBMS_DEFAULT=sqlite
+export DB_SEEDER_DBMS_EMBEDDED=no
+export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 export DB_SEEDER_CUBRID_DATABASE=kxn_db
+export DB_SEEDER_DERBY_DATABASE=kxn_db
 export DB_SEEDER_IBMDB2_DATABASE=kxn_db
+export DB_SEEDER_SQLITE_DATABASE=kxn_db
 
 export DB_SEEDER_VERSION_CRATEDB=4.1.6
 export DB_SEEDER_VERSION_CUBRID=10.2
@@ -32,8 +36,8 @@ export DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if [ -z "$1" ]; then
     echo "===================================="
-    echo "derby       - Apache Derby"
-    echo "cratedb     - CrateDB"
+    echo "derby       - Apache Derby [client]"
+    echo "derby_emb   - Apache Derby [embedded]"
     echo "cubrid      - CUBRID"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
@@ -41,7 +45,7 @@ if [ -z "$1" ]; then
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
     echo "postgresql  - PostgreSQL Database"
-    echo "sqlite      - SQLite [no Docker image necessary, hence not available]"
+    echo "sqlite      - SQLite [embedded]"
     echo "------------------------------------"
     read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
@@ -51,6 +55,17 @@ if [ -z "$1" ]; then
     fi
 else
     export DB_SEEDER_DBMS=$1
+fi
+
+if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
+    export DB_SEEDER_DBMS_EMBEDDED=yes
+fi
+if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
+    export DB_SEEDER_DBMS_EMBEDDED=yes
+fi
+
+if [ "$DB_SEEDER_DBMS_EMBEDDED" = "yes" ]; then
+    export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
 fi
 
 if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
@@ -82,7 +97,8 @@ echo "--------------------------------------------------------------------------
 echo "DB Seeder - setup a database Docker container."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                      : $DB_SEEDER_DBMS"
-if [ "$DB_SEEDER_DBMS" != "sqlite" ]; then
+echo "DBMS_EMBEDDED             : $DB_SEEDER_DBMS_EMBEDDED"
+if [ "$DB_SEEDER_DBMS_EMBEDDED" != "no" ]; then
     echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
 fi    
 echo --------------------------------------------------------------------------------
@@ -93,6 +109,12 @@ if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
     echo "VERSION_CUBRID            : $DB_SEEDER_VERSION_CUBRID"
     echo "CUBRID_DATABASE           : $DB_SEEDER_CUBRID_DATABASE"
     rm -f $DB_SEEDER_CUBRID_DATABASE
+fi
+if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
+    echo "VERSION_DERBY             : $DB_SEEDER_VERSION_IBMDB2"
+    echo "DERBY_DATABASE            : $DB_SEEDER_DERBY_DATABASE"
+    rm -f $DB_SEEDER_DERBY_DATABASE
+    mkdir $DB_SEEDER_DERBY_DATABASE
 fi
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
@@ -113,6 +135,11 @@ if [ "$DB_SEEDER_DBMS" = "oracle" ]; then
 fi
 if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
     echo "VERSION_POSTGRESQL        : $DB_SEEDER_VERSION_POSTGRESQL"
+fi
+if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
+    echo "VERSION_SQLITE            : $DB_SEEDER_VERSION_SQLITE"
+    echo "SQLITE_DATABASE           : $DB_SEEDER_SQLITE_DATABASE"
+    rm -f $DB_SEEDER_SQLITE_DATABASE
 fi
 echo --------------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
@@ -316,7 +343,7 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
     echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"
 fi
 
-if [ "$DB_SEEDER_DBMS" != "sqlite" ]; then
+if [ "$DB_SEEDER_DBMS_EMBEDDED" == "no" ]; then
     docker ps
 fi    
 

@@ -4,7 +4,6 @@
 package ch.konnexions.db_seeder.jdbc.ibmdb2;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -147,6 +146,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
         }
       }
 
+      resultSet.close();
+
       statementLocal.close();
 
       preparedStatement.close();
@@ -168,15 +169,13 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     try {
-      statement = connection.createStatement();
-
       int count = 0;
 
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSCAT.SCHEMATA WHERE schemaname = UPPER(?)");
       preparedStatement.setString(1, ibmdb2Schema);
       preparedStatement.executeQuery();
 
-      ResultSet resultSet = preparedStatement.getResultSet();
+      resultSet = preparedStatement.getResultSet();
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -184,12 +183,16 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
       resultSet.close();
 
+      preparedStatement.close();
+
       if (count > 0) {
         dropAllTables(ibmdb2Schema);
 
         statement = connection.createStatement();
 
         statement.execute("DROP SCHEMA " + ibmdb2Schema + " RESTRICT");
+
+        statement.close();
       }
     } catch (SQLException e) {
       e.printStackTrace();

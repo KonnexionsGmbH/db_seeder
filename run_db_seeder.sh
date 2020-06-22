@@ -9,10 +9,12 @@ set -e
 # ------------------------------------------------------------------------------
 
 export DB_SEEDER_DBMS_DEFAULT=sqlite
+export DB_SEEDER_DBMS_EMBEDDED=no
 
 if [ -z "$1" ]; then
     echo "===================================="
-    echo "derby       - Apache Derby"
+    echo "derby       - Apache Derby [client]"
+    echo "derby_emb   - Apache Derby [embedded]"
     echo "cratedb     - CrateDB"
     echo "cubrid      - CUBRID"
     echo "ibmdb2      - IBM Db2 Database"
@@ -21,7 +23,7 @@ if [ -z "$1" ]; then
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
     echo "postgresql  - PostgreSQL Database"
-    echo "sqlite      - SQLite"
+    echo "sqlite      - SQLite [embedded]"
     echo "------------------------------------"
     read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
@@ -59,6 +61,13 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_CUBRID_USER=
 #fi
 #if [ "$DB_SEEDER_DBMS" = "derby" ]; then
+#    export DB_SEEDER_DERBY_CONNECTION_PORT=
+#    export DB_SEEDER_DERBY_CONNETION_PREFIX=
+#    export DB_SEEDER_DERBY_DATABASE=
+#    export DB_SEEDER_DERBY_PASSWORD=
+#    export DB_SEEDER_DERBY_SCHEMA=
+#fi
+#if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
 #    export DB_SEEDER_DERBY_CONNECTION_PORT=
 #    export DB_SEEDER_DERBY_CONNETION_PREFIX=
 #    export DB_SEEDER_DERBY_DATABASE=
@@ -125,6 +134,7 @@ echo "--------------------------------------------------------------------------
 echo "DB Seeder - Creation of dummy data in an empty database schema / user."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                              : $DB_SEEDER_DBMS"
+echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
 echo --------------------------------------------------------------------------------
 echo "FILE_CONFIGURATION_NAME           : $DB_SEEDER_FILE_CONFIGURATION_NAME"
 echo "JAVA_CLASSPATH                    : $DB_SEEDER_JAVA_CLASSPATH"
@@ -152,6 +162,13 @@ if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
     echo "CUBRID_USER                       : $DB_SEEDER_CUBRID_USER"
 fi
 if [ "$DB_SEEDER_DBMS" = "derby" ]; then
+    echo "DERBY_CONNECTION_PORT             : $DB_SEEDER_DERBY_CONNECTION_PORT"
+    echo "DERBY_CONNECTION_PREFIX           : $DB_SEEDER_DERBY_CONNECTION_PREFIX"
+    echo "DERBY_DATABASE                    : $DB_SEEDER_DERBY_DATABASE"
+    echo "DERBY_PASSWORD                    : $DB_SEEDER_DERBY_PASSWORD"
+    echo "DERBY_SCHEMA                      : $DB_SEEDER_DERBY_SCHEMA"
+fi
+if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
     echo "DERBY_CONNECTION_PORT             : $DB_SEEDER_DERBY_CONNECTION_PORT"
     echo "DERBY_CONNECTION_PREFIX           : $DB_SEEDER_DERBY_CONNECTION_PREFIX"
     echo "DERBY_DATABASE                    : $DB_SEEDER_DERBY_DATABASE"

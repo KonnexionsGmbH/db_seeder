@@ -139,7 +139,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connectionSetup = connect(urlSetup);
+    connection = connect(urlSetup);
 
     // -----------------------------------------------------------------------
     // Drop the database user and tables if already existing.
@@ -151,7 +151,8 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     String cratedbUser = config.getCratedbUser();
 
     try {
-      statement = connectionSetup.createStatement();
+      statement = connection.createStatement();
+
       statement.execute("DROP USER IF EXISTS " + cratedbUser);
 
       dropAllTables();
@@ -179,7 +180,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect(connectionSetup);
+    disconnect(connection);
 
     connection = connect(url);
 

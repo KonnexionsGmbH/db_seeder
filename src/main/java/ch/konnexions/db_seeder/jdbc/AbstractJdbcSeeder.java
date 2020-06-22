@@ -45,7 +45,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private final String        CLOB_DATA         = readClobFile();
   protected Connection        connection        = null;
-  protected Connection        connectionSetup   = null;
 
   protected String            driver            = "";
   protected String            dropTableStmnt    = "";
@@ -69,6 +68,24 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   public AbstractJdbcSeeder() {
     super();
+
+    String methodName = new Object() {
+    }.getClass().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    config = new Config();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+  }
+
+  /**
+   * Instantiates a new abstract JDBC seeder.
+   *
+   * @param isClient client database version
+   */
+  public AbstractJdbcSeeder(boolean isClient) {
+    super(isClient);
 
     String methodName = new Object() {
     }.getClass().getName();
@@ -152,11 +169,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       statement = connection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
+
+      resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
       }
+
+      resultSet.close();
 
       statement.close();
     } catch (SQLException e) {
@@ -264,11 +284,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       statement = connection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
+
+      resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
       }
+
+      resultSet.close();
 
       statement.close();
     } catch (SQLException e) {
@@ -339,6 +362,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       statement = connection.createStatement();
+
       statement.execute(createDdlStmnt(tableName));
 
       statement.close();
@@ -421,15 +445,24 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       try {
         preparedStatement.executeUpdate();
 
-        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+        resultSet = preparedStatement.getGeneratedKeys();
 
         while (resultSet.next()) {
           pkList.add((int) resultSet.getLong(1));
         }
+
+        resultSet.close();
       } catch (SQLException e) {
         e.printStackTrace();
         System.exit(1);
       }
+    }
+
+    try {
+      preparedStatement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
     }
   }
 
@@ -463,8 +496,17 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     try {
+      preparedStatement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
       statement = connection.createStatement();
+
       statement.execute("REFRESH TABLE " + tableName);
+
       statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -494,15 +536,24 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
 
       try {
-        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
           pkList.add((int) resultSet.getLong(1));
         }
+
+        resultSet.close();
       } catch (SQLException e) {
         e.printStackTrace();
         System.exit(1);
       }
+    }
+
+    try {
+      preparedStatement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
     }
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
@@ -1165,11 +1216,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       statement = connection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT PK_" + tableName + "_ID FROM " + tableName);
+
+      resultSet = statement.executeQuery("SELECT PK_" + tableName + "_ID FROM " + tableName);
 
       while (resultSet.next()) {
         pkList.add(resultSet.getInt(1));
       }
+
+      resultSet.close();
 
       statement.close();
     } catch (SQLException e) {

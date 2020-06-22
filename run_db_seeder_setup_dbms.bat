@@ -9,8 +9,11 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 set DB_SEEDER_DBMS_DEFAULT=sqlite
+set DB_SEEDER_DBMS_EMBEDDED=no
+set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 set DB_SEEDER_CUBRID_DATABASE=kxn_db
+set DB_SEEDER_DERBY_DATABASE=kxn_db
 set DB_SEEDER_IBMDB2_DATABASE=kxn_db
 set DB_SEEDER_SQLITE_DATABASE=kxn_db
 
@@ -33,7 +36,8 @@ set DB_SEEDER_VERSION_POSTGRESQL=12.3
 
 if ["%1"] EQU [""] (
     echo ====================================
-    echo derby       - Apache Derby
+    echo derby       - Apache Derby [client]
+    echo derby_emb   - Apache Derby [embedded]
     echo cratedb     - CrateDB
     echo cubrid      - CUBRID
     echo ibmdb2      - IBM Db2 Database
@@ -42,7 +46,7 @@ if ["%1"] EQU [""] (
     echo mysql       - MySQL
     echo oracle      - Oracle Database
     echo postgresql  - PostgreSQL Database
-    echo sqlite      - SQLite [no Docker image necessary, hence not available]
+    echo sqlite      - SQLite [embedded]
     echo ------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 
@@ -53,10 +57,15 @@ if ["%1"] EQU [""] (
     set DB_SEEDER_DBMS=%1
 )
 
+if ["%DB_SEEDER_DBMS%"] == ["derby_emb"] (
+    set DB_SEEDER_DBMS_EMBEDDED=yes
+)
 if ["%DB_SEEDER_DBMS%"] == ["sqlite"] (
+    set DB_SEEDER_DBMS_EMBEDDED=yes
+)
+
+if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["yes"] (
     set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
-) else (
-    set DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 )
 
 if ["%2"] EQU [""] (
@@ -81,24 +90,54 @@ echo ---------------------------------------------------------------------------
 echo DB Seeder - setup a database Docker container.
 echo --------------------------------------------------------------------------------
 echo DBMS                      : %DB_SEEDER_DBMS%
-if ["%DB_SEEDER_DBMS%"] NEQ ["sqlite"] (
+echo DBMS_EMBEDDED             : %DB_SEEDER_DBMS_EMBEDDED%
+if ["%DB_SEEDER_DBMS_EMBEDDED%"] EQU ["no"] (
     echo DELETE_EXISTING_CONTAINER : %DB_SEEDER_DELETE_EXISTING_CONTAINER%
 )    
 echo --------------------------------------------------------------------------------
 if ["%DB_SEEDER_DBMS%"] == ["cubrid"] (
     echo CUBRID_DATABASE           : !DB_SEEDER_CUBRID_DATABASE!
+    if exist !DB_SEEDER_SQLITE_DATABASE! (
+        echo.
+        echo ............................................................ before:
+        dir !DB_SEEDER_SQLITE_DATABASE!
+    )    
+    if exist !DB_SEEDER_SQLITE_DATABASE! dir !DB_SEEDER_SQLITE_DATABASE!
     rd /q /s !DB_SEEDER_CUBRID_DATABASE! 2>nul
     if exist !DB_SEEDER_CUBRID_DATABASE! del /f /q !DB_SEEDER_CUBRID_DATABASE!
     echo --------------------------------------------------------------------------------
 )    
+if ["%DB_SEEDER_DBMS%"] == ["derby_emb"] (
+    echo DERBY_DATABASE            : !DB_SEEDER_DERBY_DATABASE!
+    if exist !DB_SEEDER_SQLITE_DATABASE! (
+        echo.
+        echo ............................................................ before:
+        dir !DB_SEEDER_SQLITE_DATABASE!
+    )    
+    rd /q /s !DB_SEEDER_DERBY_DATABASE! 2>nul
+    if exist !DB_SEEDER_DERBY_DATABASE! del /f /q !DB_SEEDER_DERBY_DATABASE!
+    echo --------------------------------------------------------------------------------
+)
 if ["%DB_SEEDER_DBMS%"] == ["ibmdb2"] (
     echo IBMDB2_DATABASE           : !DB_SEEDER_IBMDB2_DATABASE!
+    if exist !DB_SEEDER_SQLITE_DATABASE! (
+        echo.
+        echo ............................................................ before:
+        dir !DB_SEEDER_SQLITE_DATABASE!
+    )    
+    if exist !DB_SEEDER_SQLITE_DATABASE! dir !DB_SEEDER_SQLITE_DATABASE!
     rd /q /s !DB_SEEDER_IBMDB2_DATABASE! 2>nul
     if exist !DB_SEEDER_IBMDB2_DATABASE! del /f /q !DB_SEEDER_IBMDB2_DATABASE!
     echo --------------------------------------------------------------------------------
 )
 if ["%DB_SEEDER_DBMS%"] == ["sqlite"] (
     echo SQLITE_DATABASE           : !DB_SEEDER_SQLITE_DATABASE!
+    if exist !DB_SEEDER_SQLITE_DATABASE! (
+        echo.
+        echo ............................................................ before:
+        dir !DB_SEEDER_SQLITE_DATABASE!
+    )    
+    if exist !DB_SEEDER_SQLITE_DATABASE! dir !DB_SEEDER_SQLITE_DATABASE!
     rd /q /s !DB_SEEDER_SQLITE_DATABASE! 2>nul
     if exist !DB_SEEDER_SQLITE_DATABASE! del /f /q !DB_SEEDER_SQLITE_DATABASE!
     echo --------------------------------------------------------------------------------
@@ -106,7 +145,7 @@ if ["%DB_SEEDER_DBMS%"] == ["sqlite"] (
 echo:| TIME
 echo ================================================================================
 
-if ["%DB_SEEDER_DBMS%"] NEQ ["sqlite"] (
+if ["%DB_SEEDER_DBMS_EMBEDDED%"] EQU ["no"] (
     lib\Gammadyne\timer.exe /reset
     lib\Gammadyne\timer.exe /q
     

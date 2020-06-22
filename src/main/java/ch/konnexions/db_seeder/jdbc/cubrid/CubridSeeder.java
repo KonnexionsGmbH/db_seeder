@@ -3,7 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.cubrid;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -133,11 +132,11 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     try {
       int count = 0;
 
-      preparedStatement = connectionSetup.prepareStatement("SELECT count(*) FROM db_user WHERE name = UPPER(?)");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM db_user WHERE name = UPPER(?)");
       preparedStatement.setString(1, cubridUser);
       preparedStatement.executeQuery();
 
-      ResultSet resultSet = preparedStatement.getResultSet();
+      resultSet = preparedStatement.getResultSet();
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -145,12 +144,14 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
       resultSet.close();
 
-      statement = connectionSetup.createStatement();
+      preparedStatement.close();
 
       if (count > 0) {
-        String sqlStmntLocal = "DROP USER " + cubridUser;
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
-        statement.execute(sqlStmntLocal);
+        statement = connection.createStatement();
+
+        statement.execute("DROP USER " + cubridUser);
+
+        statement.close();
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -171,7 +172,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connectionSetup = connect(urlSetup, driver);
+    connection = connect(urlSetup, driver);
 
     // -----------------------------------------------------------------------
     // Drop the database user if already existing.
@@ -200,7 +201,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect(connectionSetup);
+    disconnect(connection);
 
     connection = connect(url);
 
