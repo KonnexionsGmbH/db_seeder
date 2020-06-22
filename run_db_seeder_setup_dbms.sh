@@ -108,18 +108,32 @@ fi
 if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
     echo "VERSION_CUBRID            : $DB_SEEDER_VERSION_CUBRID"
     echo "CUBRID_DATABASE           : $DB_SEEDER_CUBRID_DATABASE"
-    rm -f $DB_SEEDER_CUBRID_DATABASE
+    if [[ -f $DB_SEEDER_CUBRID_DATABASE ]] || [[ -d $DB_SEEDER_CUBRID_DATABASE ]]; then 
+        echo ""
+        echo "............................................................ before:"
+        ls -ll $DB_SEEDER_CUBRID_DATABASE
+        rm -f $DB_SEEDER_CUBRID_DATABASE
+    fi    
 fi
 if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
     echo "VERSION_DERBY             : $DB_SEEDER_VERSION_IBMDB2"
     echo "DERBY_DATABASE            : $DB_SEEDER_DERBY_DATABASE"
-    rm -f $DB_SEEDER_DERBY_DATABASE
-    mkdir $DB_SEEDER_DERBY_DATABASE
+    if [[ -f $DB_SEEDER_DERBY_DATABASE ]] || [[ -d $DB_SEEDER_DERBY_DATABASE ]]; then 
+        echo ""
+        echo "............................................................ before:"
+        ls -ll $DB_SEEDER_DERBY_DATABASE
+        rm -f $DB_SEEDER_DERBY_DATABASE
+    fi    
 fi
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
     echo "IBMDB2_DATABASE           : $DB_SEEDER_IBMDB2_DATABASE"
-    rm -f $DB_SEEDER_IBMDB2_DATABASE
+    if [[ -f $DB_SEEDER_IBMDB2_DATABASE ]] || [[ -d $DB_SEEDER_IBMDB2_DATABASE ]]; then 
+        echo ""
+        echo "............................................................ before:"
+        ls -ll $DB_SEEDER_IBMDB2_DATABASE
+        rm -f $DB_SEEDER_IBMDB2_DATABASE
+    fi    
 fi
 if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     echo "VERSION_MARIADB           : $DB_SEEDER_VERSION_MARIADB"
@@ -139,7 +153,12 @@ fi
 if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
     echo "VERSION_SQLITE            : $DB_SEEDER_VERSION_SQLITE"
     echo "SQLITE_DATABASE           : $DB_SEEDER_SQLITE_DATABASE"
-    rm -f $DB_SEEDER_SQLITE_DATABASE
+    if [[ -f $DB_SEEDER_SQLITE_DATABASE ]] || [[ -d $DB_SEEDER_SQLITE_DATABASE ]]; then 
+        echo ""
+        echo "............................................................ before:"
+        ls -ll $DB_SEEDER_SQLITE_DATABASE
+        rm -f $DB_SEEDER_SQLITE_DATABASE
+    fi    
 fi
 echo --------------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

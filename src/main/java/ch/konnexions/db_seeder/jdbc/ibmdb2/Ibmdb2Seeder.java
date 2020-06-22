@@ -228,6 +228,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
+      statement = connection.createStatement();
+
       statement.execute("CREATE SCHEMA " + ibmdb2Schema);
 
       statement.execute("SET CURRENT SCHEMA " + ibmdb2Schema + ";");

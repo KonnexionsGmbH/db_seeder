@@ -181,6 +181,8 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
+      statement = connection.createStatement();
+
       statement.execute("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
 
       statement.execute("ALTER USER " + oracleUser + " QUOTA UNLIMITED ON users");
