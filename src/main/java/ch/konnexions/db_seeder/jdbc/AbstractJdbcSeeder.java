@@ -762,23 +762,24 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
                                           final int rowCount,
                                           final int rowNo,
                                           final ArrayList<Object> pkList) {
-    String identifier04 = String.format(FORMAT_IDENTIFIER, rowNo);
+    String identifier10      = String.format(FORMAT_IDENTIFIER, rowNo);
+    String identifier10Right = String.format(FORMAT_IDENTIFIER_RIGHT, rowNo);
 
     switch (tableName) {
     case TABLE_NAME_CITY:
-      prepDmlStmntInsertCity(preparedStatement, rowCount, identifier04);
+      prepDmlStmntInsertCity(preparedStatement, rowCount, identifier10);
       break;
     case TABLE_NAME_COMPANY:
-      prepDmlStmntInsertCompany(preparedStatement, rowCount, identifier04);
+      prepDmlStmntInsertCompany(preparedStatement, rowCount, identifier10, identifier10Right);
       break;
     case TABLE_NAME_COUNTRY:
-      prepDmlStmntInsertCountry(preparedStatement, rowCount, identifier04);
+      prepDmlStmntInsertCountry(preparedStatement, rowCount, identifier10, identifier10Right);
       break;
     case TABLE_NAME_COUNTRY_STATE:
-      prepDmlStmntInsertCountryState(preparedStatement, rowCount, identifier04);
+      prepDmlStmntInsertCountryState(preparedStatement, rowCount, identifier10, identifier10Right);
       break;
     case TABLE_NAME_TIMEZONE:
-      prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier04);
+      prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier10, identifier10Right);
       break;
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
@@ -790,9 +791,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param preparedStatement the prepared statement
    * @param rowCount number of rows to be created
-   * @param identifier04 number of the current row (4 figures)
+   * @param identifier10 number of the current row 10 figures)
    */
-  protected final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+  protected final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier10) {
     try {
       int i = 1;
 
@@ -804,7 +805,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
       preparedStatement.setTimestamp(i++, getRandomTimestamp());
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i, "NAME_" + identifier04);
+      preparedStatement.setString(i, "NAME_" + identifier10);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -816,9 +817,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param preparedStatement the prepared statement
    * @param rowCount number of rows to be created
-   * @param identifier04 number of the current row (4 figures)
+   * @param identifier10 number of the current row (10 figures)
+   * @param identifier10 number of the current row (10 figures) right aligned
    */
-  protected final void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+  protected final void
+            prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
     try {
       int i = 1;
 
@@ -828,19 +831,19 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
       preparedStatement.setObject(i++, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
       prepStmntInsertColFlagNY(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS1_", rowCount, identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS2_", rowCount, identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS3_", rowCount, identifier04);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS1_", rowCount, identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS2_", rowCount, identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS3_", rowCount, identifier10);
       preparedStatement.setTimestamp(i++, getRandomTimestamp());
       prepStmntInsertColClobOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "EMAIL_", rowCount, identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "FAX_", rowCount, identifier04);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "EMAIL_", rowCount, identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "FAX_", rowCount, identifier10);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i++, "NAME_" + identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "PHONE_", rowCount, identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "POSTAL_CODE_", rowCount, identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "URL_", rowCount, identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i, "VAT_ID_NUMBER__", rowCount, identifier04);
+      preparedStatement.setString(i++, "NAME_" + identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "PHONE_", rowCount, identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "POSTAL_CODE_", rowCount, identifier10Right.substring(2));
+      prepStmntInsertColStringOpt(preparedStatement, i++, "URL_", rowCount, identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i, "VAT_ID_NUMBER__", rowCount, identifier10);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -852,9 +855,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param preparedStatement the prepared statement
    * @param rowCount number of rows to be created
-   * @param identifier04 number of the current row (4 figures)
+   * @param identifier10 number of the current row (10 figures)
+   * @param identifier10 number of the current row (10 figures) right aligned
    */
-  protected final void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+  protected final void
+            prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
     try {
       int i = 1;
 
@@ -864,9 +869,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
       preparedStatement.setTimestamp(i++, getRandomTimestamp());
-      prepStmntInsertColStringOpt(preparedStatement, i++, "", rowCount, identifier04.substring(2));
+      prepStmntInsertColStringOpt(preparedStatement, i++, "", rowCount, identifier10Right.substring(8));
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i, "NAME_" + identifier04);
+      preparedStatement.setString(i, "NAME_" + identifier10);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -878,9 +883,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param preparedStatement the prepared statement
    * @param rowCount number of rows to be created
-   * @param identifier04 number of the current row (4 figures)
+   * @param identifier10 number of the current row (10 figures)
+   * @param identifier10 number of the current row (10 figures) right aligned
    */
-  protected final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+  protected final void
+            prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
     try {
       int i = 1;
 
@@ -893,8 +900,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
       preparedStatement.setTimestamp(i++, getRandomTimestamp());
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i++, "NAME_" + identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i, "SYMBOL_", rowCount, identifier04.substring(1));
+      preparedStatement.setString(i++, "NAME_" + identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i, "SYMBOL_", rowCount, identifier10Right.substring(7));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -906,9 +913,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param preparedStatement the prepared statement
    * @param rowCount number of rows to be created
-   * @param identifier04 number of the current row (4 figures)
+   * @param identifier10 number of the current row (10 figures)
+   * @param identifier10 number of the current row (10 figures) right aligned
    */
-  protected final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount, final String identifier04) {
+  protected final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement,
+                                                  final int rowCount,
+                                                  final String identifier10,
+                                                  final String identifier10Right) {
     try {
       int i = 1;
 
@@ -916,11 +927,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         preparedStatement.setInt(i++, autoIncrement++);
       }
 
-      preparedStatement.setString(i++, "ABBREVIATION_" + identifier04);
+      preparedStatement.setString(i++, "ABBREVIATION_" + identifier10Right.substring(3));
       preparedStatement.setTimestamp(i++, getRandomTimestamp());
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i++, "NAME_" + identifier04);
-      prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, identifier04);
+      preparedStatement.setString(i++, "NAME_" + identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, identifier10);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -1083,7 +1094,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
     try {
-      if (getRandomIntIncluded(rowCount) % 10 == 0) {
+      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setString(columnPos, "N");
       } else {
         preparedStatement.setString(columnPos, "Y");
@@ -1192,7 +1203,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       while ((nextLine = bufferedReader.readLine()) != null) {
-        clobData.append(nextLine);
+        clobData.append(nextLine).append(System.lineSeparator());
       }
     } catch (IOException e) {
       e.printStackTrace();

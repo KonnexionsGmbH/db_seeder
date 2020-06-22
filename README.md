@@ -12,12 +12,11 @@
 `db_seeder` allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
 - [Apache Derby](https://db.apache.org/derby/)
-  - client and embedded version
+  - client and embedded versions
   - open source
   - relational database management system (RDBMS) 
   - automatic data replication
-  - embedded database engine
-  - emdedded network server
+  - includes an embedded database engine and an emdedded network server
   - very small footprint (ca. 3.5 MB)
 - [CrateDB](https://crate.io/)
   - open source
@@ -79,10 +78,12 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | PostgreSQL Database | POSTGRESQL | 12.3 |
 | SQLite | SQLITE | 3.32.2 |
 
-## 2. Data Model
+## 2. Data 
 
 The underlying data model is quite simple and is shown here in the relational version.
 The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
+
+### 2.1 Logical Schema
 
 The abbreviations in the following illustration (created with Toad Data Modeler) mean:
 
@@ -92,6 +93,74 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 - PK    - primary key
 
 ![](.README_images/Data_Model.png)
+
+### 2.2 Construction of the Dummy Data Content
+
+#### 2.2.1 Simple ASCII Model (DATA_SOURCE = SAM)
+
+25% of columns that can contain the value `NULL` are randomly assigned the value `NULL`.
+
+#### 2.2.1.1 Binary Large Objects
+
+Examples: BLOB, BYTEA, LONGBLOB, VARBINARY (MAX)
+
+The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.
+This file contains the company logo of Konnexions GmBH.
+
+#### 2.2.1.2 Character Large Objects
+
+Examples: CLOB, LONGTEXT, TEXT, VARCHAR (MAX)
+
+The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns.
+This file contains the text of the Konnexions Public License (KX-PL).
+
+#### 2.2.1.3 Decimal Numbers
+
+Examples: NUMBER
+
+- All deciomal number columns are filled with random numbers.
+
+#### 2.2.1.4 Integers
+
+Examples: BIGINT, INTEGER, NUMBER
+
+- If possible, primary key columns are filled by the autoincrement functionality of the respective DBMS.
+- All other integer columns are filled with random numbers.
+
+#### 2.2.1.5 String Data
+
+Examples: TEXT, VARCHAR, VARCHAR2
+
+- 25% of the `Y` / `N` flag column (`COMPANY.ACTIVE`) is randomly assigned the value `N`.
+- Provided the length of the column is sufficient, the content of the column is constructed as follows:
+  - column name in capital letters
+  - underscore
+  - content of the primary key left-justified
+- Special cases:
+  - `COMPANY.POSTAL_CODE` - `POSTAL_CODE_` and the right 8 digits of the primary key with leading zeros
+  - `COUNTRY.ISO3166` - the right 2 digits of the primary key with leading zeros
+  - `COUNTRY_STATE.SYMBOL` - `SYMBOL_` and the right 3 digits of the primary key with leading zeros
+  - `TIMEZONE.ABBREVIATION` - `ABBREVIATION_` and the right 7 digits of the primary key with leading zeros
+
+#### 2.2.1.6 Temporal Data
+
+Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
+
+A randomly generated timestamp is assigned to all columns that can contain temporal data.
+
+#### 2.2.1.7 Examples
+
+##### 1. Table CITY
+
+![](.README_images/Example_SAM_CITY.png)
+
+##### 2. Table COUNTRY
+
+![](.README_images/Example_SAM_COUNTRY.png)
+
+##### 3. Table TIMEZONE
+
+![](.README_images/Example_SAM_TIMEZONE.png)
 
 ## 3. Installation
 
