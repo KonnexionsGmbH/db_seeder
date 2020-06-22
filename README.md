@@ -104,21 +104,21 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 
 Examples: BLOB, BYTEA, LONGBLOB, VARBINARY (MAX)
 
-The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.
+- The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.
 This file contains the company logo of Konnexions GmBH.
 
 #### 2.2.1.2 Character Large Objects
 
 Examples: CLOB, LONGTEXT, TEXT, VARCHAR (MAX)
 
-The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns.
+- The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns.
 This file contains the text of the Konnexions Public License (KX-PL).
 
 #### 2.2.1.3 Decimal Numbers
 
 Examples: NUMBER
 
-- All deciomal number columns are filled with random numbers.
+- All decimal number columns are filled with random numbers.
 
 #### 2.2.1.4 Integers
 
@@ -146,7 +146,7 @@ Examples: TEXT, VARCHAR, VARCHAR2
 
 Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
 
-A randomly generated timestamp is assigned to all columns that can contain temporal data.
+- A randomly generated timestamp is assigned to all columns that can contain temporal data.
 
 #### 2.2.1.7 Examples
 
