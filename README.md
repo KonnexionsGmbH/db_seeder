@@ -124,7 +124,7 @@ Examples: NUMBER
 
 Examples: BIGINT, INTEGER, NUMBER
 
-- If possible, primary key columns are filled by the autoincrement functionality of the respective DBMS.
+- If possible, primary key columns are filled by the autoincrement functionality of the respective DBMS - otherwise `autoincrement` is simulated..
 - All other integer columns are filled with random numbers.
 
 #### 2.2.1.5 String Data
@@ -134,13 +134,13 @@ Examples: TEXT, VARCHAR, VARCHAR2
 - 25% of the `Y` / `N` flag column (`COMPANY.ACTIVE`) is randomly assigned the value `N`.
 - Provided the length of the column is sufficient, the content of the column is constructed as follows:
   - column name in capital letters
-  - underscore
+  - underscore `_`
   - content of the primary key left-justified
 - Special cases:
-  - `COMPANY.POSTAL_CODE` - `POSTAL_CODE_` and the right 8 digits of the primary key with leading zeros
+  - `COMPANY.POSTAL_CODE` - constant `POSTAL_CODE_` and the right 8 digits of the primary key with leading zeros
   - `COUNTRY.ISO3166` - the right 2 digits of the primary key with leading zeros
-  - `COUNTRY_STATE.SYMBOL` - `SYMBOL_` and the right 3 digits of the primary key with leading zeros
-  - `TIMEZONE.ABBREVIATION` - `ABBREVIATION_` and the right 7 digits of the primary key with leading zeros
+  - `COUNTRY_STATE.SYMBOL` - constant `SYMBOL_` and the right 3 digits of the primary key with leading zeros
+  - `TIMEZONE.ABBREVIATION` - constant `ABBREVIATION_` and the right 7 digits of the primary key with leading zeros
 
 #### 2.2.1.6 Temporal Data
 
@@ -173,6 +173,8 @@ The system requirements are described in the respective release notes.
 Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
 To run `db_seeder`, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
 All parameters used in `db_seeder` can be adjusted in the batch script to suit your needs.
+
+The `run_db_seeder_setup_dbms` batch script can be used to create a suitable DBMS environment based on Docker images for test purposes.
 
 ### 4.1 Control Parameters - Basics
 
