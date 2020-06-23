@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.8.3.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.9.0.svg)
 
 ----
 
@@ -13,7 +13,8 @@
 **[2. Data](#data)**<br>
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
-**[5. Contributing](#contributing)**<br>
+**[5. DBMS Specifica](#dbms_specifica)**<br>
+**[6. Contributing](#contributing)**<br>
 
 ----
 
@@ -180,13 +181,34 @@ The system requirements are described in the respective release notes.
 
 ## <a name="operating_instructions"></a> 4. Operating Instructions 
 
+### 4.1 Scripts
+
 Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
 To run `db_seeder`, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
 All parameters used in `db_seeder` can be adjusted in the batch script to suit your needs.
 
-The `run_db_seeder_setup_dbms` batch script can be used to create a suitable DBMS environment based on Docker images for test purposes.
+#### 4.1.1 Batch Script `run_db_seeder`
 
-### 4.1 Control Parameters - Basics
+The `run_db_seeder` batch script generates dummy data for a selected DBMS.
+Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
+The following script parameter is required: 
+
+- DB_SEEDER_DBMS_DEFAULT: the ticker symbol of the desired database management system
+
+
+#### 4.1.2 Batch Script `run_db_seeder_setup_dbms`
+
+The `run_db_seeder_setup_dbms` batch script creates an empty database for a selected DBMS.
+With all client DBMS this database is based on a corresponding Docker image.
+Therefore, the prerequisite is that Docker is started and a suitable connection to the Internet exists.
+The following script parameters are required: 
+
+- DB_SEEDER_DBMS_DEFAULT: the ticker symbol of the desired database management system
+- DB_SEEDER_DELETE_EXISTING_CONTAINER: delete the existing Docker container (yes/no)
+ 
+### 4.2 Control Parameters
+ 
+#### 4.2.1 Supported Parameters
 
 The flow control parameters for `db_seeder` are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the batch script.
 The following control parameters are currently supported:
@@ -262,7 +284,7 @@ db_seeder.sqlite.connection.prefix=jdbc:sqlite:
 db_seeder.sqlite.database=kxn_db
 ```
 
-### 4.2 Control Parameters - Detailled
+#### 4.2.2 Explanation and Cross-reference
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
@@ -278,12 +300,12 @@ db_seeder.sqlite.database=kxn_db
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
-## 4. Database Management System Specifica
+## <a name="dbms_specifica"></a> 5. DBMS Specifica
 
 [DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
-### 4.1 Apache Derby
+### 5.1 Apache Derby
 
 - database driver version 10.15.2.0
   - Maven repository: 
@@ -311,7 +333,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_DERBY_EMB.png)
 
-### 4.2 CrateDB
+### 5.2 CrateDB
 
 - database driver version 2.6.0
   - JFrog Bintray repository: [here](https://bintray.com/crate/crate/crate-jdbc/2.6.0)
@@ -338,7 +360,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_CRATEDB.png)
 
-### 4.3 CUBRID
+### 5.3 CUBRID
 
 - database driver version 10.2.0.8797
   - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
@@ -360,7 +382,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_CUBRID.png)
 
-### 4.4 IBM Db2 Database
+### 5.4 IBM Db2 Database
 
 - database driver version 11.5.0.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
@@ -384,7 +406,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_IBMDB2.png)
 
-### 4.5 MariaDB Server
+### 5.5 MariaDB Server
 
 - database driver version 2.6.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
@@ -406,7 +428,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MARIADB.png)
 
-### 4.6 Microsoft SQL Server
+### 5.6 Microsoft SQL Server
 
 - database driver version 8.31 
   - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
@@ -428,7 +450,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MSSQLSERVER.png)
 
-### 4.7 MySQL Database
+### 5.7 MySQL Database
 
 - database driver version 8.0.20 
   - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -450,7 +472,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MYSQL.png)
 
-### 4.8 Oracle Database
+### 5.8 Oracle Database
 
 - database driver version 
   - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
@@ -473,7 +495,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_ORACLE.png)
 
-### 4.9 PostgreSQL Database
+### 5.9 PostgreSQL Database
 
 - database driver version 42.2.13
   - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)
@@ -495,7 +517,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_POSTGRESQL.png)
 
-### 4.10 SQLite
+### 5.10 SQLite
 
 - database driver version 3.31.1
   - Maven repository: [here](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
@@ -520,7 +542,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_SQLITE.png)
 
-## <a name="contributing"></a> 5. Contributing 
+## <a name="contributing"></a> 6. Contributing 
 
 In case of software changes we strongly recommend you to respect the license terms.
 
