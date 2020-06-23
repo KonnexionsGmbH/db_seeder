@@ -409,14 +409,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
-  private final void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
+  protected void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
     if (dbms == Dbms.CRATEDB) {
       createDataInsertCratedb(tableName, rowCount, pkList);
-      return;
-    }
-
-    if (dbms == Dbms.POSTGRESQL) {
-      createDataInsertPostgresql(tableName, rowCount, pkList);
       return;
     }
 
@@ -512,51 +507,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
-  private final void createDataInsertPostgresql(String tableName, int rowCount, ArrayList<Object> pkList) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table \" + String.format(FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(FORMAT_ROW_NO, rowCount) + \" rows to be created");
-
-    final String      sqlStmnt          = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
-
-    PreparedStatement preparedStatement = null;
-
-    try {
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
-      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
-
-      try {
-        resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          pkList.add((int) resultSet.getLong(1));
-        }
-
-        resultSet.close();
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
-
-    try {
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-  }
-
   /**
    * Create the DDL statement: CREATE TABLE.
    *
@@ -566,7 +516,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected abstract String createDdlStmnt(String tableName);
 
-  private final String createDmlStmnt(final String tableName) {
+  /**
+   * Create the DML statement: INSERT.
+   *
+   * @param tableName the database table name
+   *
+   * @return the variable part of the 'INSERt' statement
+   */
+  protected final String createDmlStmnt(final String tableName) {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
@@ -700,11 +657,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     return new Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
-  private final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
-                                        final String tableName,
-                                        final int rowCount,
-                                        final int rowNo,
-                                        final ArrayList<Object> pkList) {
+  /**
+   * Prepare the variable part of the INSERT statement.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName the database table name
+   * @param rowCount the total row count
+   * @param rowNo the current row number
+   * @param pkList current primary key list
+   */
+  protected final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
+                                          final String tableName,
+                                          final int rowCount,
+                                          final int rowNo,
+                                          final ArrayList<Object> pkList) {
     String identifier10      = String.format(FORMAT_IDENTIFIER, rowNo);
     String identifier10Right = String.format(FORMAT_IDENTIFIER_RIGHT, rowNo);
 

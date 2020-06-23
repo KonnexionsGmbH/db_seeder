@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -44,6 +45,52 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     urlSetup = urlBase + "kxn_db_sys?user=kxn_user_sys&password=" + config.getPostgresqlPasswordSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+  }
+
+  @Override
+  protected final void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table \" + String.format(FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    final String      sqlStmnt          = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
+
+    PreparedStatement preparedStatement = null;
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          pkList.add((int) resultSet.getLong(1));
+        }
+
+        resultSet.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    try {
+      preparedStatement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   @SuppressWarnings("preview")
