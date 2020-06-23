@@ -3,7 +3,6 @@
  */
 package ch.konnexions.db_seeder;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +42,6 @@ public abstract class AbstractDatabaseSeeder {
   protected int                autoIncrement;
 
   protected Config             config;
-  protected Connection         connection;
 
   protected Dbms               dbms;
 
@@ -51,7 +49,6 @@ public abstract class AbstractDatabaseSeeder {
   protected boolean            isEmbedded               = !(isClient);
 
   protected ArrayList<Object>  pkListCity               = new ArrayList<Object>();
-  protected ArrayList<Object>  pkListCompany            = new ArrayList<Object>();
   protected ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
   protected ArrayList<Object>  pkListCountryState       = new ArrayList<Object>();
   protected ArrayList<Object>  pkListTimezone           = new ArrayList<Object>();

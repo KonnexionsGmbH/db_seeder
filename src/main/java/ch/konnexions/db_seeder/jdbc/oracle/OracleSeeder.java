@@ -130,9 +130,8 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = UPPER(?)");
       preparedStatement.setString(1, oracleUser);
-      preparedStatement.executeQuery();
 
-      resultSet = preparedStatement.getResultSet();
+      resultSet = preparedStatement.executeQuery();
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
