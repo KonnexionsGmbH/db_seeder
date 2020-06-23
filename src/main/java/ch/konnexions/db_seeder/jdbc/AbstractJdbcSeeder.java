@@ -40,8 +40,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private static Logger       logger            = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  protected final byte[]      BLOB_DATA         = readBlobFile();
-  protected String            BLOB_FILE;
+  private final byte[]        BLOB_DATA         = readBlobFile();
+  private String              BLOB_FILE;
 
   private final String        CLOB_DATA         = readClobFile();
   protected Connection        connection        = null;
@@ -409,13 +409,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
-  /**
-   * Creates the data insert.
-   * @param tableName the table name
-   * @param rowCount the total row count
-   * @param pkList current primary key list
-   */
-  protected final void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
+  private final void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
     if (dbms == Dbms.CRATEDB) {
       createDataInsertCratedb(tableName, rowCount, pkList);
       return;
@@ -572,14 +566,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected abstract String createDdlStmnt(String tableName);
 
-  /**
-   * Create the DML statement: INSERT.
-   *
-   * @param tableName the database table name
-   *
-   * @return the 'INSERT' statement
-   */
-  protected final String createDmlStmnt(final String tableName) {
+  private final String createDmlStmnt(final String tableName) {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
@@ -696,64 +683,28 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  //  /**
-  //   * Get a random double of the interval lowerLimit..upperLimit.
-  //   *
-  //   * @param lowerLimit the lower limit of the random number
-  //   * @param upperLimit the upper limit of the random number
-  //   * 
-  //   * @return the random double value
-  //   */
-  //  protected final double getRandomDouble(final double lowerLimit, final double upperLimit) {
+  //  private final double getRandomDouble(final double lowerLimit, final double upperLimit) {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
 
-  /**
-   * Get a random integer of the interval 0..upperLimit-1.
-   *
-   * @param upperLimit the upper limit of the random integer
-   * 
-   * @return the random integer value
-   */
-  protected final int getRandomIntExcluded(final int upperLimit) {
+  private final int getRandomIntExcluded(final int upperLimit) {
     return randomInt.nextInt(upperLimit);
   }
 
-  /**
-   * Get a random integer of the interval 1..upperLimit.
-   *
-   * @param upperLimit the upper limit of the random integer
-   * 
-   * @return the random integer value
-   */
-  protected final int getRandomIntIncluded(final int upperLimit) {
+  private final int getRandomIntIncluded(final int upperLimit) {
     return randomInt.nextInt(upperLimit) + 1;
   }
 
-  /**
-   * Get a random time stamp.
-   *
-   * @return the random time stamp
-   */
-  protected final Timestamp getRandomTimestamp() {
+  private final Timestamp getRandomTimestamp() {
 
     return new Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
-  /**
-   * Prepare the variable part of the INSERT statement.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName the database table name
-   * @param rowCount the total row count
-   * @param rowNo the current row number
-   * @param pkList current primary key list
-   */
-  protected final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
-                                          final String tableName,
-                                          final int rowCount,
-                                          final int rowNo,
-                                          final ArrayList<Object> pkList) {
+  private final void prepDmlStmntInsert(final PreparedStatement preparedStatement,
+                                        final String tableName,
+                                        final int rowCount,
+                                        final int rowNo,
+                                        final ArrayList<Object> pkList) {
     String identifier10      = String.format(FORMAT_IDENTIFIER, rowNo);
     String identifier10Right = String.format(FORMAT_IDENTIFIER_RIGHT, rowNo);
 
@@ -778,14 +729,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Prepare the variable part of the INSERT statement - CITY.
-   *
-   * @param preparedStatement the prepared statement
-   * @param rowCount number of rows to be created
-   * @param identifier10 number of the current row 10 figures)
-   */
-  protected final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier10) {
+  private final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier10) {
     try {
       int i = 1;
 
@@ -804,16 +748,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Prepare the variable part of the INSERT statement - COMPANY.
-   *
-   * @param preparedStatement the prepared statement
-   * @param rowCount number of rows to be created
-   * @param identifier10 number of the current row (10 figures)
-   * @param identifier10 number of the current row (10 figures) right aligned
-   */
-  protected final void
-            prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
+  private final void
+          prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
     try {
       int i = 1;
 
@@ -842,16 +778,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Prepare the variable part of the INSERT statement - COUNTRY.
-   *
-   * @param preparedStatement the prepared statement
-   * @param rowCount number of rows to be created
-   * @param identifier10 number of the current row (10 figures)
-   * @param identifier10 number of the current row (10 figures) right aligned
-   */
-  protected final void
-            prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
+  private final void
+          prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
     try {
       int i = 1;
 
@@ -878,8 +806,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param identifier10 number of the current row (10 figures)
    * @param identifier10 number of the current row (10 figures) right aligned
    */
-  protected final void
-            prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
+  private final void
+          prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
     try {
       int i = 1;
 
@@ -900,18 +828,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Prepare the variable part of the INSERT statement - TIMEZONE.
-   *
-   * @param preparedStatement the prepared statement
-   * @param rowCount number of rows to be created
-   * @param identifier10 number of the current row (10 figures)
-   * @param identifier10 number of the current row (10 figures) right aligned
-   */
-  protected final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement,
-                                                  final int rowCount,
-                                                  final String identifier10,
-                                                  final String identifier10Right) {
+  private final void
+          prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, final String identifier10Right) {
     try {
       int i = 1;
 
@@ -946,14 +864,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Sets the designated optional parameter randomly to a BLOB value.
-   * 
-   * @param preparedStatement the prepared statement
-   * @param columnPos         the column position
-   * @param rowCount          the row count
-   */
-  protected final void prepStmntInsertColBlobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  private final void prepStmntInsertColBlobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
       if (dbms == Dbms.CRATEDB) {
         preparedStatement.setNull(columnPos, Types.NULL);
@@ -972,14 +883,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Sets the designated optional parameter to a CLOB value.
-   * 
-   * @param preparedStatement the prepared statement
-   * @param columnPos         the column position
-   * @param rowCount          the row count
-   */
-  protected final void prepStmntInsertColClob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  private final void prepStmntInsertColClob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
       preparedStatement.setString(columnPos, CLOB_DATA);
     } catch (SQLException e) {
@@ -988,14 +892,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Sets the designated optional parameter randomly to a CLOB value.
-   * 
-   * @param preparedStatement the prepared statement
-   * @param columnPos         the column position
-   * @param rowCount          the row count
-   */
-  protected final void prepStmntInsertColClobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  private final void prepStmntInsertColClobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         if (dbms == Dbms.CRATEDB) {
@@ -1012,14 +909,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Sets the designated optional parameter to a random date time value.
-   * 
-   * @param preparedStatement the prepared statement
-   * @param columnPos         the column position
-   * @param rowCount          the row count
-   */
-  protected final void prepStmntInsertColDatetimeOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  private final void prepStmntInsertColDatetimeOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos, java.sql.Types.TIMESTAMP);
@@ -1033,16 +923,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  //  /**
-  //   * Sets the designated optional parameter to a random double value.
-  //   * 
-  //   * @param preparedStatement the prepared statement
-  //   * @param columnPos         the column position
-  //   * @param rowCount          the row count
-  //   * @param lowerLimit        the lower limit
-  //   * @param upperLimit        the upper limit
-  //   */
-  //  protected final void
+  //  private final void
   //            prepStmntInsertColDoubleOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount, double lowerLimit, double upperLimit) {
   //    try {
   //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
@@ -1056,15 +937,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   //    }
   //  }
 
-  /**
-   * Sets the designated optional parameter to one of the given foreign keys.
-   *
-   * @param columnPos         the column position
-   * @param preparedStatement the prepared statement
-   * @param fkList            the foreign key list
-   * @param rowCount          the row count
-   */
-  protected final void prepStmntInsertColFKOpt(final int columnPos, PreparedStatement preparedStatement, final ArrayList<Object> fkList, final int rowCount) {
+  private final void prepStmntInsertColFKOpt(final int columnPos, PreparedStatement preparedStatement, final ArrayList<Object> fkList, final int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos, java.sql.Types.INTEGER);
@@ -1077,14 +950,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  /**
-   * Sets the designated parameter to one of the flags 'N' or 'Y'.
-   * 
-   * @param preparedStatement the prepared statement
-   * @param columnPos         the column position
-   * @param rowCount          the row count
-   */
-  protected final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
+  private final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setString(columnPos, "N");
@@ -1097,14 +963,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  //  /**
-  //   * Sets the designated optional parameter to one of the flags 'N' or 'Y'.
-  //   * 
-  //   * @param preparedStatement the prepared statement
-  //   * @param columnPos         the column position
-  //   * @param rowCount          the row count
-  //   */
-  //  protected final void prepStmntInsertColFlagNYOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
+  //  private final void prepStmntInsertColFlagNYOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
   //    try {
   //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
   //        preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
@@ -1117,15 +976,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   //    }
   //  }
 
-  //  /**
-  //   * Sets the designated optional parameter to a random integer value.
-  //   * 
-  //   * @param preparedStatement the prepared statement
-  //   * @param columnPos         the column position
-  //   * @param rowCount          the row count
-  //   * @param upperLimit        the upper limit
-  //   */
-  //  protected final void prepStmntInsertColIntOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount, final int upperLimit) {
+  //  private final void prepStmntInsertColIntOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount, final int upperLimit) {
   //    try {
   //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
   //        preparedStatement.setNull(columnPos, java.sql.Types.INTEGER);
@@ -1138,20 +989,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   //    }
   //  }
 
-  /**
-   * Sets the designated optional parameter to the given Java String value.
-   * 
-   * @param preparedStatement the prepared statement
-   * @param columnPos         the column position
-   * @param columnName        the column name
-   * @param rowCount          the row count
-   * @param identifier        the identifier
-   */
-  protected final void prepStmntInsertColStringOpt(final PreparedStatement preparedStatement,
-                                                   final int columnPos,
-                                                   final String columnName,
-                                                   final int rowCount,
-                                                   final String identifier) {
+  private final void prepStmntInsertColStringOpt(final PreparedStatement preparedStatement,
+                                                 final int columnPos,
+                                                 final String columnName,
+                                                 final int rowCount,
+                                                 final String identifier) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
