@@ -3,17 +3,14 @@
  */
 package ch.konnexions.db_seeder.jdbc.sqlite;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for am SQLite. </h1>
+ * <h1> Test Data Generator for am SQLite DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -23,32 +20,21 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(SqliteSeeder.class);
 
   /**
-   * 
+   * Instantiates a new SQLite seeder.
    */
   public SqliteSeeder() {
     super();
 
-    databaseBrand = DatabaseBrand.SQLITE;
-  }
+    String methodName = new Object() {
+    }.getClass().getName();
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    dbms = Dbms.SQLITE;
 
-    try {
-      connection = DriverManager.getConnection(config.getSQLiteConnectionPrefix() + config.getSQLiteDatabase());
+    url  = config.getSQLiteConnectionPrefix() + config.getSQLiteDatabase();
 
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -128,31 +114,48 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
                  v_time_zone    VARCHAR2 (4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void dropCreateSchemaUser() {
-
-    PreparedStatement preparedStatement = null;
-
-    connect();
-
-    // -----------------------------------------------------------------------
-    // Drop the database tables if already existing
-    // -----------------------------------------------------------------------
-
+  private final void dropAllTables() {
     try {
+      statement = connection.createStatement();
+
       for (String tableName : TABLE_NAMES) {
-        preparedStatement = connection.prepareStatement("DROP TABLE IF EXISTS " + tableName);
-        preparedStatement.executeUpdate();
+        statement.execute("DROP TABLE IF EXISTS " + tableName);
       }
 
-      preparedStatement.close();
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  @Override
+  protected void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(url);
+
+    // -----------------------------------------------------------------------
+    // Drop the database tables if already existing.
+    // -----------------------------------------------------------------------
+
+    dropAllTables();
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

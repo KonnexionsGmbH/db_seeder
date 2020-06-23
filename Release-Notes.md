@@ -3,7 +3,43 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.6.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.8.3.svg)
+
+----------
+
+## Version 1.8.3
+
+Release Date: 21.06.2020
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+
+#### Current Issues
+
+- Apache Derby
+
+  - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
+
+- CUBRID
+
+  - It is not possible to construct a valid URL for JDB (see [here](http://jira.cubrid.org/browse/CBRD-23695)).
+
+#### New Features
+
+- New DBMS: Apache Derby (both client and embedded version)
+- New DBMS: CUBRID
+
+#### Modified Features
+
+- Tested DBMS version: MariaDB Server 10.5.3
+- Tested DBMS version: Oracle database 12c
+- Tested DBMS version: Oracle database 18c
+
+#### Deleted Features
+
+n/a
 
 ----------
 
@@ -18,15 +54,7 @@ Release Date: 16.06.2020
 
 #### New Features
 
-- New batabase: SQLite
-
-#### Modified Features
-
-n/a
-
-#### Deleted Features
-
-n/a
+- New DBMS: SQLite
 
 ----------
 
@@ -41,7 +69,7 @@ Release Date: 15.06.2020
 
 #### New Features
 
-- New batabase: CrateDB
+- New DBMS: CrateDB
 
 ----------
 
@@ -56,7 +84,7 @@ Release Date: 14.06.2020
 
 #### New Features
 
-- New batabase: IBM DB2 Database
+- New DBMS: IBM Db2 Database
 
 ----------
 
@@ -71,7 +99,7 @@ Release Date: 12.06.2020
 
 #### New Features
 
-- New batabase: MariaDB Server
+- New DBMS: MariaDB Server
 
 ----------
 
@@ -86,7 +114,7 @@ Release Date: 10.06.2020
 
 #### New Features
 
-- New batabase: PostgreSQL Database
+- New DBMS: PostgreSQL Database
 
 ----------
 
@@ -102,7 +130,7 @@ Release Date: 06.06.2020
 #### New Features
 
 - Documentation
-- New batabase: Microsoft SQL Server
+- New DBMS: Microsoft SQL Server
 - Travis CI Integration
 - Verification of the data storage 
 
@@ -123,8 +151,8 @@ Release Date: 01.06.2020
 
 #### New Features
 
-- New batabase: MySQL Database
-- New batabase: Oracle Database
+- New DBMS: MySQL Database
+- New DBMS: Oracle Database
 
 ----------
 

@@ -8,17 +8,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a PostgreSQL Database. </h1>
+ * <h1> Test Data Generator for a PostgreSQL DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -28,34 +26,24 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 
   /**
-   * 
+   * Instantiates a new PostgreSQL Database seeder.
    */
   public PostgresqlSeeder() {
     super();
 
-    databaseBrand = DatabaseBrand.POSTGRESQL;
-  }
+    String methodName = new Object() {
+    }.getClass().getName();
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    dbms     = Dbms.POSTGRESQL;
 
-    try {
-      connection = DriverManager
-          .getConnection(config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/"
-              + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword());
+    urlBase  = config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/";
 
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
+    url      = urlBase + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword();
+    urlSetup = urlBase + "kxn_db_sys?user=kxn_user_sys&password=" + config.getPostgresqlPasswordSys();
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -66,10 +54,10 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE CITY (
                  PK_CITY_ID          BIGSERIAL      NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT         NULL,
-                 CITY_MAP            BYTEA          NULL,
+                 FK_COUNTRY_STATE_ID BIGINT,
+                 CITY_MAP            BYTEA,
                  CREATED             TIMESTAMP      NOT NULL,
-                 MODIFIED            TIMESTAMP      NULL,
+                 MODIFIED            TIMESTAMP,
                  NAME                VARCHAR(100)   NOT NULL,
                  FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
               )""";
@@ -79,29 +67,29 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                  PK_COMPANY_ID BIGSERIAL    NOT NULL PRIMARY KEY,
                  FK_CITY_ID    BIGINT       NOT NULL,
                  ACTIVE        VARCHAR(1)   NOT NULL,
-                 ADDRESS1      VARCHAR(50)  NULL,
-                 ADDRESS2      VARCHAR(50)  NULL,
-                 ADDRESS3      VARCHAR(50)  NULL,
+                 ADDRESS1      VARCHAR(50),
+                 ADDRESS2      VARCHAR(50),
+                 ADDRESS3      VARCHAR(50),
                  CREATED       TIMESTAMP    NOT NULL,
-                 DIRECTIONS    TEXT         NULL,
-                 EMAIL         VARCHAR(100) NULL,
-                 FAX           VARCHAR(20)  NULL,
-                 MODIFIED      TIMESTAMP    NULL,
+                 DIRECTIONS    TEXT,
+                 EMAIL         VARCHAR(100),
+                 FAX           VARCHAR(20),
+                 MODIFIED      TIMESTAMP,
                  NAME          VARCHAR(250) NOT NULL UNIQUE,
-                 PHONE         VARCHAR(50)  NULL,
-                 POSTAL_CODE   VARCHAR(20)  NULL,
-                 URL           VARCHAR(250) NULL,
-                 VAT_ID_NUMBER VARCHAR(50)  NULL,
+                 PHONE         VARCHAR(50),
+                 POSTAL_CODE   VARCHAR(20),
+                 URL           VARCHAR(250),
+                 VAT_ID_NUMBER VARCHAR(50),
                  FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
              CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGSERIAL               PRIMARY KEY,
-                COUNTRY_MAP   BYTEA          NULL,
+                PK_COUNTRY_ID BIGSERIAL      NOT NULL PRIMARY KEY,
+                COUNTRY_MAP   BYTEA,
                 CREATED       TIMESTAMP      NOT NULL,
-                ISO3166       VARCHAR(2)     NULL,
-                MODIFIED      TIMESTAMP      NULL,
+                ISO3166       VARCHAR(2),
+                MODIFIED      TIMESTAMP,
                 NAME          VARCHAR(100)   NOT NULL UNIQUE
              )""";
     case TABLE_NAME_COUNTRY_STATE:
@@ -110,11 +98,11 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                 PK_COUNTRY_STATE_ID BIGSERIAL      NOT NULL PRIMARY KEY,
                 FK_COUNTRY_ID       BIGINT         NOT NULL,
                 FK_TIMEZONE_ID      BIGINT         NOT NULL,
-                COUNTRY_STATE_MAP   BYTEA          NULL,
+                COUNTRY_STATE_MAP   BYTEA,
                 CREATED             TIMESTAMP      NOT NULL,
-                MODIFIED            TIMESTAMP      NULL,
+                MODIFIED            TIMESTAMP,
                 NAME                VARCHAR(100)   NOT NULL,
-                SYMBOL              VARCHAR(10)    NULL,
+                SYMBOL              VARCHAR(10),
                 FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
                 FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
                 UNIQUE      (FK_COUNTRY_ID,NAME)
@@ -125,72 +113,17 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                 PK_TIMEZONE_ID BIGSERIAL     NOT NULL PRIMARY KEY,
                 ABBREVIATION   VARCHAR(20)   NOT NULL,
                 CREATED        TIMESTAMP     NOT NULL,
-                MODIFIED       TIMESTAMP     NULL,
+                MODIFIED       TIMESTAMP,
                 NAME           VARCHAR(100)  NOT NULL UNIQUE,
-                V_TIME_ZONE    VARCHAR(4000) NULL
+                V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
   @Override
-  protected void dropCreateSchemaUser() {
-    PreparedStatement preparedStatement  = null;
-
-    // -----------------------------------------------------------------------
-    // Connect as privileged user
-    // -----------------------------------------------------------------------
-
-    final String      postgresqlDatabase = config.getPostgresqlDatabase();
-    final String      postgresqlUser     = config.getPostgresqlUser();
-
-    try {
-      connection = DriverManager.getConnection(config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":"
-          + config.getPostgresqlConnectionPort() + "/kxn_db_sys?user=kxn_user_sys&password=" + config.getPostgresqlPasswordSys());
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the database, the schema and the user if already existing
-    // -----------------------------------------------------------------------
-
-    try {
-      preparedStatement = connection.prepareStatement("DROP DATABASE IF EXISTS " + postgresqlDatabase);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS " + postgresqlUser);
-      preparedStatement.executeUpdate();
-
-      // -----------------------------------------------------------------------
-      // Create the database, schema and user and grant the necessary rights.
-      // -----------------------------------------------------------------------
-
-      preparedStatement = connection.prepareStatement("CREATE DATABASE " + postgresqlDatabase);
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("CREATE USER " + postgresqlUser + " WITH ENCRYPTED PASSWORD '" + config.getPostgresqlPassword() + "'");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("GRANT ALL PRIVILEGES ON DATABASE " + postgresqlDatabase + " TO " + postgresqlUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    disconnect();
-    connect();
-  }
-
-  @Override
-  protected final void prepStmntInsertColBlob(final int columnPos, PreparedStatement preparedStatement, int rowCount) {
+  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     FileInputStream blobData = null;
 
     try {
@@ -213,6 +146,72 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(urlSetup);
+
+    try {
+      connection.setAutoCommit(true);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Drop the database and the database user.
+    // -----------------------------------------------------------------------
+
+    String postgresqlDatabase = config.getPostgresqlDatabase();
+    String postgresqlUser     = config.getPostgresqlUser();
+
+    try {
+      statement = connection.createStatement();
+
+      statement.execute("DROP DATABASE IF EXISTS " + postgresqlDatabase);
+
+      statement.execute("DROP USER IF EXISTS " + postgresqlUser);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Create the database, the database user and grant the necessary rights.
+    // -----------------------------------------------------------------------
+
+    try {
+      statement.execute("CREATE DATABASE " + postgresqlDatabase);
+
+      statement.execute("CREATE USER " + postgresqlUser + " WITH ENCRYPTED PASSWORD '" + config.getPostgresqlPassword() + "'");
+
+      statement.execute("GRANT ALL PRIVILEGES ON DATABASE " + postgresqlDatabase + " TO " + postgresqlUser);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
 }

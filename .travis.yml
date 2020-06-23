@@ -8,14 +8,17 @@ jdk:
 
 env:
   matrix:
-    - DB_SEEDER_DATABASE_BRAND=cratedb
-    - DB_SEEDER_DATABASE_BRAND=ibmdb2
-    - DB_SEEDER_DATABASE_BRAND=mariadb
-    - DB_SEEDER_DATABASE_BRAND=mssqlserver
-    - DB_SEEDER_DATABASE_BRAND=mysql
-    - DB_SEEDER_DATABASE_BRAND=oracle
-    - DB_SEEDER_DATABASE_BRAND=postgresql
-    - DB_SEEDER_DATABASE_BRAND=sqlite
+    - DB_SEEDER_DBMS=cratedb
+    - DB_SEEDER_DBMS=cubrid
+    - DB_SEEDER_DBMS=derby
+    - DB_SEEDER_DBMS=derby_emb
+    - DB_SEEDER_DBMS=ibmdb2
+    - DB_SEEDER_DBMS=mariadb
+    - DB_SEEDER_DBMS=mssqlserver
+    - DB_SEEDER_DBMS=mysql
+    - DB_SEEDER_DBMS=oracle
+    - DB_SEEDER_DBMS=postgresql
+    - DB_SEEDER_DBMS=sqlite
 
 script:
   # Prepare Installation Process -------------------------------------------------
@@ -41,12 +44,17 @@ script:
   - gradle copyJarToLib
   - travis_fold end   "Pull_And_Compile_Repository"
 
-  # Setup the Database -----------------------------------------------------------
-  - travis_fold start "Setup_Database"
-  - ./run_db_seeder_setup_database.sh ${DB_SEEDER_DATABASE_BRAND} no
-  - travis_fold end   "Setup_Database"
+  # Setup the DBMS ---------------------------------------------------------------
+  - travis_fold start "Setup_DBMS"
+  - ./run_db_seeder_setup_dbms.sh ${DB_SEEDER_DBMS} no
+  - travis_fold end   "Setup_DBMS"
 
-  # Generate Dummy Data ----------------------------------------------------------
+  # Generate Dummy Data 1st Run --------------------------------------------------
   - travis_fold start "Generate_Dummy_Data"
-  - ./run_db_seeder.sh ${DB_SEEDER_DATABASE_BRAND}
+  - ./run_db_seeder.sh ${DB_SEEDER_DBMS}
+  - travis_fold end   "Generate_Dummy_Data"
+
+  # Generate Dummy Data 2nd Run --------------------------------------------------
+  - travis_fold start "Generate_Dummy_Data"
+  - ./run_db_seeder.sh ${DB_SEEDER_DBMS}
   - travis_fold end   "Generate_Dummy_Data"

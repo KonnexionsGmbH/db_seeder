@@ -3,17 +3,14 @@
  */
 package ch.konnexions.db_seeder.jdbc.cratedb;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a CrateDB. </h1>
+ * <h1> Test Data Generator for a CrateDB DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -23,31 +20,26 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
-   *
+   * Instantiates a new CrateDB seeder.
    */
   public CratedbSeeder() {
     super();
 
-    databaseBrand = DatabaseBrand.CRATEDB;
-  }
+    String methodName = new Object() {
+    }.getClass().getName();
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    dbms           = Dbms.CRATEDB;
 
-    try {
-      connection = DriverManager.getConnection(config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
-          + "/?strict=true&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword());
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    urlBase        = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true";
 
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    url            = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
+    urlSetup       = urlBase + "&user=crate";
+
+    dropTableStmnt = "SELECT UPPER(table_name), 'DROP TABLE \"' || LOWER(table_name) || '\"' FROM information_schema.tables WHERE table_name = LOWER(?) AND table_schema = 'doc'";
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -117,64 +109,81 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    TEXT
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void dropCreateSchemaUser() {
-    PreparedStatement preparedStatement = null;
+  private final void dropAllTables() throws SQLException {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
 
-    // -----------------------------------------------------------------------
-    // Connect as privileged user
-    // -----------------------------------------------------------------------
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
-    final String      cratedbUser       = config.getCratedbUser();
-
-    try {
-      connection = DriverManager.getConnection(config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
-          + "/?strict=true&user=crate");
-
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
+    for (String tableName : TABLE_NAMES) {
+      String sqlStmntLocal = "DROP TABLE IF EXISTS " + tableName;
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
+      statement.execute(sqlStmntLocal);
     }
 
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
     // -----------------------------------------------------------------------
-    // Drop the database and user if already existing
+    // Connect.
     // -----------------------------------------------------------------------
+
+    connection = connect(urlSetup);
+
+    // -----------------------------------------------------------------------
+    // Drop the database user and tables if already existing.
+    // -----------------------------------------------------------------------
+    // java.sql.ParameterMetaData as returned by e.g. java.sql.PreparedStatement
+    // DataSource is not implemented
+    // -----------------------------------------------------------------------
+
+    String cratedbUser = config.getCratedbUser();
 
     try {
-      preparedStatement = connection.prepareStatement("DROP USER IF EXISTS " + cratedbUser);
-      preparedStatement.executeUpdate();
+      statement = connection.createStatement();
 
-      for (String tableName : TABLE_NAMES) {
-        preparedStatement = connection.prepareStatement("DROP TABLE IF EXISTS " + tableName);
-        preparedStatement.executeUpdate();
-      }
+      statement.execute("DROP USER IF EXISTS " + cratedbUser);
 
-      // -----------------------------------------------------------------------
-      // Create the schema / user and grant the necessary rights.
-      // -----------------------------------------------------------------------
-
-      preparedStatement = connection.prepareStatement("CREATE USER " + cratedbUser + " WITH (PASSWORD = '" + config.getCratedbPassword() + "')");
-      preparedStatement.executeUpdate();
-
-      preparedStatement = connection.prepareStatement("GRANT ALL PRIVILEGES TO " + cratedbUser);
-      preparedStatement.executeUpdate();
-
-      preparedStatement.close();
+      dropAllTables();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Create the database user and grant the necessary rights.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
+    try {
+      statement.execute("CREATE USER " + cratedbUser + " WITH (PASSWORD = '" + config.getCratedbPassword() + "')");
+
+      statement.execute("GRANT ALL PRIVILEGES TO " + cratedbUser);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(url);
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }

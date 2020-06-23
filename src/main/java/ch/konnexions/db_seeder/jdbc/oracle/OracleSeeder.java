@@ -3,18 +3,14 @@
  */
 package ch.konnexions.db_seeder.jdbc.oracle;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.DatabaseSeeder;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for am Oracle database. </h1>
+ * <h1> Test Data Generator for an Oracle DBMS. </h1>
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -24,33 +20,22 @@ public class OracleSeeder extends AbstractJdbcSeeder {
   private static Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
-   * 
+   * Instantiates a new Oracle Database seeder.
    */
   public OracleSeeder() {
     super();
 
-    databaseBrand = DatabaseBrand.ORACLE;
-  }
+    String methodName = new Object() {
+    }.getClass().getName();
 
-  @Override
-  protected final void connect() {
-    String methodName = null;
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - Start");
+    dbms = Dbms.ORACLE;
 
-    try {
-      connection = DriverManager.getConnection(config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort()
-          + "/" + config.getOracleConnectionService(), config.getOracleUser(), config.getOraclePassword());
+    url  = config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
+        + config.getOracleConnectionService();
 
-      connection.setAutoCommit(false);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(DatabaseSeeder.FORMAT_METHOD_NAME, methodName) + " - End");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
   @SuppressWarnings("preview")
@@ -135,42 +120,19 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  CONSTRAINT pk_timezone         PRIMARY KEY (pk_timezone_id)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(DatabaseSeeder.FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  @Override
-  protected void dropCreateSchemaUser() {
-    int               count             = 0;
-
-    PreparedStatement preparedStatement = null;
-
-    // -----------------------------------------------------------------------
-    // Connect as privileged user
-    // -----------------------------------------------------------------------
-
-    final String      oracleUser        = config.getOracleUser();
-
+  private final void dropUser(String oracleUser) {
     try {
-      connection = DriverManager.getConnection(config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort()
-          + "/" + config.getOracleConnectionService(), "sys AS SYSDBA", config.getOraclePasswordSys());
+      int count = 0;
 
-      connection.setAutoCommit(true);
-    } catch (SQLException ec) {
-      ec.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Drop the schema / user if already existing
-    // -----------------------------------------------------------------------
-
-    try {
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = UPPER(?)");
       preparedStatement.setString(1, oracleUser);
-      preparedStatement.executeUpdate();
+      preparedStatement.executeQuery();
 
-      ResultSet resultSet = preparedStatement.getResultSet();
+      resultSet = preparedStatement.getResultSet();
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -178,49 +140,75 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
       resultSet.close();
 
+      preparedStatement.close();
+
       if (count > 0) {
-        preparedStatement = connection.prepareStatement("DROP USER " + oracleUser + " CASCADE");
-        preparedStatement.executeUpdate();
+        statement = connection.createStatement();
+
+        statement.execute("DROP USER " + oracleUser + " CASCADE");
+
+        statement.close();
       }
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  @Override
+  protected final void setupDatabase() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     // -----------------------------------------------------------------------
-    // Create the schema / user and grant the necessary rights.
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(url, null, "sys AS SYSDBA", config.getOraclePasswordSys());
+
+    // -----------------------------------------------------------------------
+    // Drop the database user if already existing.
+    // -----------------------------------------------------------------------
+
+    String oracleUser = config.getOracleUser();
+
+    dropUser(oracleUser);
+
+    // -----------------------------------------------------------------------
+    // Create the database user and grant the necessary rights.
     // -----------------------------------------------------------------------
 
     try {
-      preparedStatement = connection.prepareStatement("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
-      preparedStatement.executeUpdate();
+      statement = connection.createStatement();
 
-      preparedStatement = connection.prepareStatement("ALTER USER " + oracleUser + " QUOTA UNLIMITED ON users");
-      preparedStatement.executeUpdate();
+      statement.execute("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SEQUENCE TO " + oracleUser);
-      preparedStatement.executeUpdate();
+      statement.execute("ALTER USER " + oracleUser + " QUOTA UNLIMITED ON users");
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE SESSION TO " + oracleUser);
-      preparedStatement.executeUpdate();
+      statement.execute("GRANT CREATE SEQUENCE TO " + oracleUser);
 
-      preparedStatement = connection.prepareStatement("GRANT CREATE TABLE TO " + oracleUser);
-      preparedStatement.executeUpdate();
+      statement.execute("GRANT CREATE SESSION TO " + oracleUser);
 
-      preparedStatement = connection.prepareStatement("GRANT UNLIMITED TABLESPACE TO " + oracleUser);
-      preparedStatement.executeUpdate();
+      statement.execute("GRANT CREATE TABLE TO " + oracleUser);
 
-      preparedStatement.close();
+      statement.execute("GRANT UNLIMITED TABLESPACE TO " + oracleUser);
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect.
+    // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    disconnect();
-    connect();
+    disconnect(connection);
+
+    connection = connect(url, null, config.getOracleUser(), config.getOraclePassword());
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }
