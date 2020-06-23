@@ -85,7 +85,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     case TABLE_NAME_COUNTRY:
       return """
              CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGSERIAL               PRIMARY KEY,
+                PK_COUNTRY_ID BIGSERIAL      NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   BYTEA,
                 CREATED       TIMESTAMP      NOT NULL,
                 ISO3166       VARCHAR(2),
