@@ -3,6 +3,7 @@
  */
 package ch.konnexions.db_seeder.jdbc.firebird;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -30,12 +31,14 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms   = Dbms.FIREBIRD;
+    dbms           = Dbms.FIREBIRD;
 
-    driver = "org.firebirdsql.jdbc.FBDriver";
+    driver         = "org.firebirdsql.jdbc.FBDriver";
 
-    url    = config.getFirebirdConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
+    url            = config.getFirebirdConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
         + config.getFirebirdDatabase() + "?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true";
+
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = UPPER(?)";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -46,39 +49,39 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             RECREATE TABLE "CITY" (
+             CREATE TABLE "CITY" (
                  PK_CITY_ID          INTEGER      NOT NULL PRIMARY KEY,
                  FK_COUNTRY_STATE_ID INTEGER,
                  CITY_MAP            BLOB,
                  CREATED             TIMESTAMP    NOT NULL,
                  MODIFIED            TIMESTAMP,
                  NAME                VARCHAR(100) NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY FK_CITY_COUNTRY_STATE (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
+                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
               )""";
     case TABLE_NAME_COMPANY:
       return """
-             RECREATE TABLE "COMPANY" (
-                 PK_COMPANY_ID INTEGER      NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    INTEGER      NOT NULL,
-                 ACTIVE        VARCHAR(1)   NOT NULL,
+             CREATE TABLE "COMPANY" (
+                 PK_COMPANY_ID INTEGER        NOT NULL PRIMARY KEY,
+                 FK_CITY_ID    INTEGER        NOT NULL,
+                 ACTIVE        VARCHAR(1)     NOT NULL,
                  ADDRESS1      VARCHAR(50),
                  ADDRESS2      VARCHAR(50),
                  ADDRESS3      VARCHAR(50),
-                 CREATED       TIMESTAMP    NOT NULL,
-                 DIRECTIONS    TEXT,
+                 CREATED       TIMESTAMP       NOT NULL,
+                 DIRECTIONS    BLOB SUB_TYPE 1,
                  EMAIL         VARCHAR(100),
                  FAX           VARCHAR(20),
                  MODIFIED      TIMESTAMP,
-                 NAME          VARCHAR(250) NOT NULL UNIQUE,
+                 NAME          VARCHAR(250)    NOT NULL UNIQUE,
                  PHONE         VARCHAR(50),
                  POSTAL_CODE   VARCHAR(20),
                  URL           VARCHAR(250),
                  VAT_ID_NUMBER VARCHAR(50),
-                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY FK_COMPANY_CITY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
+                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             RECREATE TABLE "COUNTRY" (
+             CREATE TABLE "COUNTRY" (
                 PK_COUNTRY_ID INTEGER      NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   BLOB,
                 CREATED       TIMESTAMP    NOT NULL,
@@ -88,7 +91,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             RECREATE TABLE "COUNTRY_STATE" (
+             CREATE TABLE "COUNTRY_STATE" (
                 PK_COUNTRY_STATE_ID INTEGER      NOT NULL PRIMARY KEY,
                 FK_COUNTRY_ID       INTEGER      NOT NULL,
                 FK_TIMEZONE_ID      INTEGER      NOT NULL,
@@ -97,13 +100,13 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
                 MODIFIED            TIMESTAMP,
                 NAME                VARCHAR(100) NOT NULL,
                 SYMBOL              VARCHAR(10),
-                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY FK_COUNTRY_STATE_COUNTRY  (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
-                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY FK_COUNTRY_STATE_TIMEZONE (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
+                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
+                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
                 CONSTRAINT UQ_COUNTRY_STATE          UNIQUE (FK_COUNTRY_ID,NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             RECREATE TABLE "TIMEZONE" (
+             CREATE TABLE "TIMEZONE" (
                 PK_TIMEZONE_ID INTEGER       NOT NULL PRIMARY KEY,
                 ABBREVIATION   VARCHAR(20)   NOT NULL,
                 CREATED        TIMESTAMP     NOT NULL,
@@ -114,6 +117,48 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
+  }
+
+  protected final void dropAllTables(String sqlStmnt) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    try {
+      Connection connectionLocal = connect(url, driver, "sysdba", config.getFirebirdPasswordSys());
+
+      connectionLocal.setAutoCommit(true);
+
+      preparedStatement = connection.prepareStatement(sqlStmnt);
+      preparedStatement.setString(2, config.getFirebirdUser());
+
+      statement = connectionLocal.createStatement();
+
+      for (String tableName : TABLE_NAMES) {
+        preparedStatement.setString(1, tableName);
+
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+          statement.execute(resultSet.getString(1));
+        }
+
+        resultSet.close();
+      }
+
+      statement.close();
+
+      preparedStatement.close();
+
+      disconnect(connectionLocal);
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   private final void dropUser(String userName) {
@@ -164,6 +209,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     String firebirdUser = config.getFirebirdUser();
+
+    dropAllTables(dropTableStmnt);
 
     dropUser(firebirdUser);
 

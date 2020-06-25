@@ -386,15 +386,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     retrieveFkList(tableName);
     createFkList(tableName);
 
-    if (dbms == Dbms.CRATEDB) {
-      autoIncrement = 0;
-    }
+    autoIncrement = 0;
 
     createDataInsert(tableName, rowCount, pkList);
 
     addOptionalFk(tableName, pkList);
 
-    if (!(dbms == Dbms.CRATEDB)) {
+    if (!(dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD)) {
       try {
         connection.commit();
       } catch (SQLException e) {
@@ -484,27 +482,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the variable part of the 'INSERt' statement
    */
   protected final String createDmlStmnt(final String tableName) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-
-    String statement = switch (tableName) {
-    case TABLE_NAME_CITY -> "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?";
-    case TABLE_NAME_COMPANY -> "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
-    case TABLE_NAME_COUNTRY -> "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?";
-    case TABLE_NAME_COUNTRY_STATE -> "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?";
-    case TABLE_NAME_TIMEZONE -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
+    return "pk_" + tableName.toLowerCase() + "_id," + switch (tableName) {
+    case TABLE_NAME_CITY -> "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?,?";
+    case TABLE_NAME_COMPANY -> "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+    case TABLE_NAME_COUNTRY -> "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?,?";
+    case TABLE_NAME_COUNTRY_STATE -> "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?,?";
+    case TABLE_NAME_TIMEZONE -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?,?";
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     };
-
-    if (dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD) {
-      return "pk_" + tableName.toLowerCase() + "_id," + statement.replace("(?", "(?,?");
-    }
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-
-    return statement;
   }
 
   private final void createFkList(final String tableName) {
@@ -659,9 +644,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (dbms == Dbms.CRATEDB) {
-        preparedStatement.setInt(i++, autoIncrement++);
-      }
+      preparedStatement.setInt(i++, autoIncrement++);
 
       prepStmntInsertColFKOpt(i++, preparedStatement, pkListCountryState, rowCount);
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
@@ -679,9 +662,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (dbms == Dbms.CRATEDB) {
-        preparedStatement.setInt(i++, autoIncrement++);
-      }
+      preparedStatement.setInt(i++, autoIncrement++);
 
       preparedStatement.setObject(i++, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
       prepStmntInsertColFlagNY(preparedStatement, i++, rowCount);
@@ -709,9 +690,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (dbms == Dbms.CRATEDB) {
-        preparedStatement.setInt(i++, autoIncrement++);
-      }
+      preparedStatement.setInt(i++, autoIncrement++);
 
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
@@ -737,9 +716,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (dbms == Dbms.CRATEDB) {
-        preparedStatement.setInt(i++, autoIncrement++);
-      }
+      preparedStatement.setInt(i++, autoIncrement++);
 
       preparedStatement.setObject(i++, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
       preparedStatement.setObject(i++, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
@@ -759,9 +736,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int i = 1;
 
-      if (dbms == Dbms.CRATEDB) {
-        preparedStatement.setInt(i++, autoIncrement++);
-      }
+      preparedStatement.setInt(i++, autoIncrement++);
 
       preparedStatement.setString(i++, "ABBREVIATION_" + identifier10Right.substring(3));
       prepStmntInsertColDatetime(preparedStatement, i++, rowCount);

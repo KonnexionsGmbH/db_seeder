@@ -45,7 +45,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "CITY"
              (
-                 pk_city_id          INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_city_id          INTEGER        NOT NULL PRIMARY KEY,
                  fk_country_state_id BIGINT,
                  city_map            BLOB,
                  created             DATETIME       NOT NULL,
@@ -57,7 +57,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COMPANY"
              (
-                 pk_company_id       INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_company_id       INTEGER        NOT NULL PRIMARY KEY,
                  fk_city_id          BIGINT         NOT NULL,
                  active              VARCHAR2 (1)   NOT NULL,
                  address1            VARCHAR2 (50),
@@ -79,7 +79,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COUNTRY"
              (
-                 pk_country_id INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_country_id INTEGER        NOT NULL PRIMARY KEY,
                  country_map   BLOB,
                  created       DATETIME       NOT NULL,
                  iso3166       VARCHAR2 (2),
@@ -90,7 +90,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COUNTRY_STATE"
              (
-                 pk_country_state_id INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_country_state_id INTEGER        NOT NULL PRIMARY KEY,
                  fk_country_id       BIGINT         NOT NULL,
                  fk_timezone_id      BIGINT         NOT NULL,
                  country_state_map   BLOB,
@@ -106,7 +106,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "TIMEZONE"
              (
-                 pk_timezone_id INTEGER         NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_timezone_id INTEGER         NOT NULL PRIMARY KEY,
                  abbreviation   VARCHAR2 (20)   NOT NULL,
                  created        DATETIME        NOT NULL,
                  modified       DATETIME,

@@ -32,16 +32,16 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms           = Dbms.CRATEDB;
+    dbms               = Dbms.CRATEDB;
 
     tableNameDelimiter = "";
 
-    urlBase        = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true";
+    urlBase            = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true";
 
-    url            = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
-    urlSetup       = urlBase + "&user=crate";
+    url                = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
+    urlSetup           = urlBase + "&user=crate";
 
-    dropTableStmnt = "SELECT UPPER(table_name), 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
+    dropTableStmnt     = "SELECT UPPER(table_name), 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

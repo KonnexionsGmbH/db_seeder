@@ -30,7 +30,7 @@ docker create --name db_seeder_db -p 33000:33000/tcp -e CUBRID_DB=%DB_SEEDER_CUB
 echo Docker start db_seeder_db (CUBRID %DB_SEEDER_VERSION_CUBRID%) ...
 docker start db_seeder_db
 
-rem ping -n 10 127.0.0.1>nul
+ping -n 30 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER CUBRID was ready in %CONSUMED%

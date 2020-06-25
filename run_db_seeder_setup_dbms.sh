@@ -215,7 +215,7 @@ if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
         exit 255
     fi
 
-# wwe    sleep 10
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER CUBRID was ready in $((end - start)) seconds"

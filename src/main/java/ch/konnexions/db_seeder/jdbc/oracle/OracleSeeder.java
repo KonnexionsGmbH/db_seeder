@@ -46,7 +46,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "CITY"
              (
-                 pk_city_id          NUMBER         GENERATED ALWAYS AS IDENTITY,
+                 pk_city_id          NUMBER         NOT NULL PRIMARY KEY,
                  fk_country_state_id NUMBER,
                  city_map            BLOB,
                  created             TIMESTAMP      NOT NULL,
@@ -59,7 +59,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COMPANY"
              (
-                 pk_company_id       NUMBER         GENERATED ALWAYS AS IDENTITY,
+                 pk_company_id       NUMBER         NOT NULL PRIMARY KEY,
                  fk_city_id          NUMBER         NOT NULL,
                  active              VARCHAR2 (1)   NOT NULL,
                  address1            VARCHAR2 (50),
@@ -82,7 +82,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COUNTRY"
              (
-                 pk_country_id NUMBER         GENERATED ALWAYS AS IDENTITY,
+                 pk_country_id NUMBER         NOT NULL PRIMARY KEY,
                  country_map   BLOB,
                  created       TIMESTAMP      NOT NULL,
                  iso3166       VARCHAR2 (2),
@@ -94,7 +94,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COUNTRY_STATE"
              (
-                 pk_country_state_id NUMBER         GENERATED ALWAYS AS IDENTITY,
+                 pk_country_state_id NUMBER         NOT NULL PRIMARY KEY,
                  fk_country_id       NUMBER         NOT NULL,
                  fk_timezone_id      NUMBER         NOT NULL,
                  country_state_map   BLOB,
@@ -111,7 +111,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "TIMEZONE"
              (
-                 pk_timezone_id NUMBER          GENERATED ALWAYS AS IDENTITY,
+                 pk_timezone_id NUMBER          NOT NULL PRIMARY KEY,
                  abbreviation   VARCHAR2 (20)   NOT NULL,
                  created        TIMESTAMP       NOT NULL,
                  modified       TIMESTAMP,

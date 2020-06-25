@@ -50,7 +50,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "CITY"
              (
-                 pk_city_id          INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 pk_city_id          INT            NOT NULL PRIMARY KEY,
                  fk_country_state_id INT,
                  city_map            BLOB,
                  created             TIMESTAMP      NOT NULL,
@@ -62,7 +62,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COMPANY"
              (
-                 pk_company_id       INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 pk_company_id       INT            NOT NULL PRIMARY KEY,
                  fk_city_id          INT            NOT NULL,
                  active              VARCHAR (1)    NOT NULL,
                  address1            VARCHAR (50),
@@ -84,7 +84,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COUNTRY"
              (
-                 pk_country_id INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 pk_country_id INT            NOT NULL PRIMARY KEY,
                  country_map   BLOB,
                  created       TIMESTAMP      NOT NULL,
                  iso3166       VARCHAR (2),
@@ -95,7 +95,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "COUNTRY_STATE"
              (
-                 pk_country_state_id INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 pk_country_state_id INT            NOT NULL PRIMARY KEY,
                  fk_country_id       INT            NOT NULL,
                  fk_timezone_id      INT            NOT NULL,
                  country_state_map   BLOB,
@@ -111,7 +111,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "TIMEZONE"
              (
-                 pk_timezone_id INT             NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 pk_timezone_id INT             NOT NULL PRIMARY KEY,
                  abbreviation   VARCHAR (20)    NOT NULL,
                  created        TIMESTAMP       NOT NULL,
                  modified       TIMESTAMP,
