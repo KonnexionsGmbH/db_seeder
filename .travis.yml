@@ -12,6 +12,7 @@ env:
     - DB_SEEDER_DBMS=cubrid
     - DB_SEEDER_DBMS=derby
     - DB_SEEDER_DBMS=derby_emb
+    - DB_SEEDER_DBMS=firebird
     - DB_SEEDER_DBMS=ibmdb2
     - DB_SEEDER_DBMS=mariadb
     - DB_SEEDER_DBMS=mssqlserver

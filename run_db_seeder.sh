@@ -17,6 +17,7 @@ if [ -z "$1" ]; then
     echo "derby_emb   - Apache Derby [embedded]"
     echo "cratedb     - CrateDB"
     echo "cubrid      - CUBRID"
+    echo "firebird    - Firebird"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -73,6 +74,14 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_DERBY_DATABASE=
 #    export DB_SEEDER_DERBY_PASSWORD=
 #    export DB_SEEDER_DERBY_SCHEMA=
+#fi
+#if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
+#    export DB_SEEDER_FIREBIRD_CONNECTION_PORT=
+#    export DB_SEEDER_FIREBIRD_CONNETION_PREFIX=
+#    export DB_SEEDER_FIREBIRD_DATABASE=
+#    export DB_SEEDER_FIREBIRD_PASSWORD=
+#    export DB_SEEDER_FIREBIRD_PASSWORD_SYS=
+#    export DB_SEEDER_FIREBIRD_USER=
 #fi
 #if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
 #    export DB_SEEDER_IBMDB2_CONNECTION_PORT=
@@ -174,6 +183,14 @@ if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
     echo "DERBY_DATABASE                    : $DB_SEEDER_DERBY_DATABASE"
     echo "DERBY_PASSWORD                    : $DB_SEEDER_DERBY_PASSWORD"
     echo "DERBY_SCHEMA                      : $DB_SEEDER_DERBY_SCHEMA"
+fi
+if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
+    echo "FIREBIRD_CONNECTION_PORT          : $DB_SEEDER_FIREBIRD_CONNECTION_PORT"
+    echo "FIREBIRD_CONNECTION_PREFIX        : $DB_SEEDER_FIREBIRD_CONNECTION_PREFIX"
+    echo "FIREBIRD_DATABASE                 : $DB_SEEDER_FIREBIRD_DATABASE"
+    echo "FIREBIRD_PASSWORD                 : $DB_SEEDER_FIREBIRD_PASSWORD"
+    echo "FIREBIRD_PASSWORD_SYS             : $DB_SEEDER_FIREBIRD_PASSWORD_SYS"
+    echo "FIREBIRD_USER                     : $DB_SEEDER_FIREBIRD_USER"
 fi
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "IBMDB2_CONNECTION_PORT            : $DB_SEEDER_IBMDB2_CONNECTION_PORT"

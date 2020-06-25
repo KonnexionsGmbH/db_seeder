@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a PostgreSQL DBMS. </h1>
+ * Test Data Generator for a PostgreSQL DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01

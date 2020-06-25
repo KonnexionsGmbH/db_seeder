@@ -5,11 +5,10 @@ package ch.konnexions.db_seeder.jdbc;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-// import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,7 +30,7 @@ import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
 import ch.konnexions.db_seeder.Config;
 
 /**
- * <h1> Test Data Generator for a Database. </h1>
+ * Test Data Generator for a Database.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -40,9 +39,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private static Logger       logger            = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  private final byte[]        BLOB_DATA         = readBlobFile();
-  private String              BLOB_FILE;
+  protected final String      BLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  protected final byte[]      BLOB_DATA_BYTES   = readBlobFile2Bytes();
 
+  protected final String      CLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "clob.md";
   private final String        CLOB_DATA         = readClobFile();
   protected Connection        connection        = null;
 
@@ -158,9 +158,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   private final void checkData(String tableName, int expectedRows) {
-    String methodName = null;
-
-    methodName = new Object() {
+    String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
@@ -229,9 +227,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the database connection
    */
   protected final Connection connect(String url, String driver, String user, String password) {
-    String methodName = null;
-
-    methodName = new Object() {
+    String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
@@ -248,16 +244,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     Connection connection = null;
 
     try {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- url   ='" + url + "'");
       if (user == null && password == null) {
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- url   ='" + url + "'");
         connection = DriverManager.getConnection(url);
       } else {
         logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- user  ='" + user + "' password='" + password + "'");
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- url   ='" + url + "'");
         connection = DriverManager.getConnection(url, user, password);
       }
 
-      if (dbms == Dbms.CRATEDB) {
+      if (dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD) {
         connection.setAutoCommit(true);
       } else {
         connection.setAutoCommit(false);
@@ -285,7 +280,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
+      String sqlStmnt = "SELECT count(*) FROM " + tableName;
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
+
+      resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -319,9 +318,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * </ul>
    */
   public final void createData() {
-    String methodName = null;
-
-    methodName = new Object() {
+    String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
@@ -329,7 +326,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     // Level 1 -------------------------------------------------------------
     createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-    createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+    createData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
 
     // Level 2 -------------------------------------------------------------
     createData(TABLE_NAME_COUNTRY_STATE, config.getMaxRowCountryState());
@@ -349,8 +346,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table \" + String.format(FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(FORMAT_ROW_NO, rowCount) + \" rows to be created");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table " + String.format(FORMAT_TABLE_NAME, tableName) + " - "
+        + String.format(FORMAT_ROW_NO, rowCount) + " rows to be created");
 
     tableName = tableName.toUpperCase();
 
@@ -363,7 +360,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute(createDdlStmnt(tableName));
+      String sqlStmnt = createDdlStmnt(tableName);
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
+
+      statement.execute(sqlStmnt);
 
       statement.close();
     } catch (SQLException e) {
@@ -417,7 +418,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param pkList current primary key list
    */
   protected void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
     final String      sqlStmnt          = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
 
     PreparedStatement preparedStatement = null;
 
@@ -455,6 +463,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       e.printStackTrace();
       System.exit(1);
     }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   /**
@@ -485,10 +495,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     case TABLE_NAME_COUNTRY -> "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?";
     case TABLE_NAME_COUNTRY_STATE -> "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?";
     case TABLE_NAME_TIMEZONE -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
+    case TABLE_NAME_TIMEZONE_CUBRID -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     };
 
-    if (dbms == Dbms.CRATEDB) {
+    if (dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD) {
       return "pk_" + tableName.toLowerCase() + "_id," + statement.replace("(?", "(?,?");
     }
 
@@ -511,7 +522,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       if (pkListTimezone.size() == 0) {
-        createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+        createData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
       }
 
       break;
@@ -537,10 +548,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       if (pkListTimezone.size() == 0) {
-        if (countData(TABLE_NAME_TIMEZONE) == 0) {
-          createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+        if (countData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE) == 0) {
+          createData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
         } else {
-          recreatePkList(TABLE_NAME_TIMEZONE);
+          recreatePkList(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE);
         }
       }
     }
@@ -585,18 +596,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       return 400;
     case TABLE_NAME_TIMEZONE:
       return 11;
+    case TABLE_NAME_TIMEZONE_CUBRID:
+      return 11;
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  //  private final double getRandomDouble(final double lowerLimit, final double upperLimit) {
-  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
-  //  }
-
   private final int getRandomIntExcluded(final int upperLimit) {
     return randomInt.nextInt(upperLimit);
   }
+
+  //  private final double getRandomDouble(final double lowerLimit, final double upperLimit) {
+  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
+  //  }
 
   private final int getRandomIntIncluded(final int upperLimit) {
     return randomInt.nextInt(upperLimit) + 1;
@@ -604,7 +617,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private final Timestamp getRandomTimestamp() {
 
-    return new Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
+    return new java.sql.Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
   /**
@@ -640,6 +653,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     case TABLE_NAME_TIMEZONE:
       prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier10, identifier10Right);
       break;
+    case TABLE_NAME_TIMEZONE_CUBRID:
+      prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier10, identifier10Right);
+      break;
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
@@ -655,7 +671,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
       prepStmntInsertColFKOpt(i++, preparedStatement, pkListCountryState, rowCount);
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
       preparedStatement.setString(i, "NAME_" + identifier10);
     } catch (SQLException e) {
@@ -678,7 +694,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS1_", rowCount, identifier10);
       prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS2_", rowCount, identifier10);
       prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS3_", rowCount, identifier10);
-      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColClobOpt(preparedStatement, i++, rowCount);
       prepStmntInsertColStringOpt(preparedStatement, i++, "EMAIL_", rowCount, identifier10);
       prepStmntInsertColStringOpt(preparedStatement, i++, "FAX_", rowCount, identifier10);
@@ -704,7 +720,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColStringOpt(preparedStatement, i++, "", rowCount, identifier10Right.substring(8));
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
       preparedStatement.setString(i, "NAME_" + identifier10);
@@ -734,7 +750,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       preparedStatement.setObject(i++, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
       preparedStatement.setObject(i++, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
       preparedStatement.setString(i++, "NAME_" + identifier10);
       prepStmntInsertColStringOpt(preparedStatement, i, "SYMBOL_", rowCount, identifier10Right.substring(7));
@@ -754,7 +770,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       preparedStatement.setString(i++, "ABBREVIATION_" + identifier10Right.substring(3));
-      preparedStatement.setTimestamp(i++, getRandomTimestamp());
+      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
       preparedStatement.setString(i++, "NAME_" + identifier10);
       prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, identifier10);
@@ -773,7 +789,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
-      preparedStatement.setBytes(columnPos, BLOB_DATA);
+      preparedStatement.setBytes(columnPos, BLOB_DATA_BYTES);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -825,13 +841,34 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
+  private final void prepStmntInsertColDatetime(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+    try {
+      preparedStatement.setTimestamp(columnPos, getRandomTimestamp());
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
   private final void prepStmntInsertColDatetimeOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos, java.sql.Types.TIMESTAMP);
       } else {
-        Timestamp randomTimestamp = getRandomTimestamp();
-        preparedStatement.setTimestamp(columnPos, randomTimestamp);
+        prepStmntInsertColDatetime(preparedStatement, columnPos, rowCount);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  private final void prepStmntInsertColFKOpt(final int columnPos, PreparedStatement preparedStatement, final ArrayList<Object> fkList, final int rowCount) {
+    try {
+      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
+        preparedStatement.setNull(columnPos, java.sql.Types.INTEGER);
+      } else {
+        preparedStatement.setObject(columnPos, fkList.get(getRandomIntExcluded(fkList.size())));
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -853,12 +890,12 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   //    }
   //  }
 
-  private final void prepStmntInsertColFKOpt(final int columnPos, PreparedStatement preparedStatement, final ArrayList<Object> fkList, final int rowCount) {
+  private final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.INTEGER);
+        preparedStatement.setString(columnPos, "N");
       } else {
-        preparedStatement.setObject(columnPos, fkList.get(getRandomIntExcluded(fkList.size())));
+        preparedStatement.setString(columnPos, "Y");
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -866,12 +903,16 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  private final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
+  private final void prepStmntInsertColStringOpt(final PreparedStatement preparedStatement,
+                                                 final int columnPos,
+                                                 final String columnName,
+                                                 final int rowCount,
+                                                 final String identifier) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setString(columnPos, "N");
+        preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
       } else {
-        preparedStatement.setString(columnPos, "Y");
+        preparedStatement.setString(columnPos, columnName + identifier);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -905,41 +946,46 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   //    }
   //  }
 
-  private final void prepStmntInsertColStringOpt(final PreparedStatement preparedStatement,
-                                                 final int columnPos,
-                                                 final String columnName,
-                                                 final int rowCount,
-                                                 final String identifier) {
+  private byte[] readBlobFile2Bytes() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- BLOB_FILE ='" + BLOB_FILE + "'");
+
+    File      file       = new File(BLOB_FILE);
+
+    final int fileLength = (int) file.length();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- fileLength=" + fileLength);
+
+    byte[]          blobDataBytesArray = new byte[(int) file.length()];
+
+    FileInputStream fileInputStream    = null;
+
     try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
-      } else {
-        preparedStatement.setString(columnPos, columnName + identifier);
-      }
-    } catch (SQLException e) {
+      fileInputStream = new FileInputStream(file);
+    } catch (FileNotFoundException e) {
       e.printStackTrace();
-      System.exit(1);
     }
-  }
-
-  private final byte[] readBlobFile() {
-    BLOB_FILE = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-
-    byte[] blob = null;
 
     try {
-      blob = Files.readAllBytes(new File(BLOB_FILE).toPath());
+      fileInputStream.read(blobDataBytesArray);
+
+      fileInputStream.close();
     } catch (IOException e) {
       e.printStackTrace();
-      System.exit(1);
     }
 
-    return blob;
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- byteLength=" + blobDataBytesArray.length);
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+
+    return blobDataBytesArray;
   }
 
   private final String readClobFile() {
-    String         CLOB_FILE      = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-
     BufferedReader bufferedReader = null;
     try {
       bufferedReader = new BufferedReader(new FileReader(CLOB_FILE));
@@ -1015,7 +1061,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       if (pkListTimezone.size() == 0) {
-        recreatePkList(TABLE_NAME_TIMEZONE);
+        recreatePkList(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE);
       }
 
       break;
@@ -1036,6 +1082,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       pkListCountryState = pkList;
       break;
     case TABLE_NAME_TIMEZONE:
+      pkListTimezone = pkList;
+      break;
+    case TABLE_NAME_TIMEZONE_CUBRID:
       pkListTimezone = pkList;
       break;
     default:

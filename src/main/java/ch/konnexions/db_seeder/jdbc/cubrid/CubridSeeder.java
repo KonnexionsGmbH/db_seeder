@@ -4,20 +4,25 @@
 package ch.konnexions.db_seeder.jdbc.cubrid;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a CUBRID DBMS. </h1>
+ * Test Data Generator for a CUBRID DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
 public class CubridSeeder extends AbstractJdbcSeeder {
 
-  private static Logger logger = Logger.getLogger(CubridSeeder.class);
+  private static Logger        logger      = Logger.getLogger(CubridSeeder.class);
+
+  protected final List<String> TABLE_NAMES = Arrays
+      .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE_CUBRID);
 
   /**
    * Instantiates a new CUBRID seeder.
@@ -36,7 +41,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     urlBase  = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":" + config.getCubridDatabase();
 
-    url      = urlBase + ":" + config.getCubridUser() + ":" + config.getCubridPassword();
+    url      = urlBase + ":::";
     urlSetup = urlBase + ":dba::";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -51,7 +56,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
              CREATE TABLE city
              (
                  pk_city_id          INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                 fk_country_state_id BIGINT,
+                 fk_country_state_id INT,
                  city_map            BLOB,
                  created             TIMESTAMP      NOT NULL,
                  modified            TIMESTAMP,
@@ -95,31 +100,46 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE country_state
              (
-                 pk_country_state_id INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                 fk_country_id       INT            NOT NULL,
-                 fk_timezone_id      INT            NOT NULL,
-                 country_state_map   BLOB,
-                 created             TIMESTAMP      NOT NULL,
-                 modified            TIMESTAMP,
-                 name                VARCHAR (100)  NOT NULL,
-                 symbol              VARCHAR (10),
+                 pk_country_state_id   INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 fk_country_id         INT            NOT NULL,
+                 fk_timezone_id        INT            NOT NULL,
+                 country_state_map     BLOB,
+                 created               TIMESTAMP      NOT NULL,
+                 modified              TIMESTAMP,
+                 name                  VARCHAR (100)  NOT NULL,
+                 symbol                VARCHAR (10),
                  CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES country  (pk_country_id),
-                 CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES timezone (pk_timezone_id),
+                 CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES timezone_cubrid (pk_timezone_cubrid_id),
                  CONSTRAINT uq_country_state          UNIQUE (fk_country_id, name)
              )""";
-    case TABLE_NAME_TIMEZONE:
+    case TABLE_NAME_TIMEZONE_CUBRID:
       return """
-             CREATE TABLE timezone
+             CREATE TABLE timezone_cubrid
              (
-                 pk_timezone_id INT             NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                 abbreviation   VARCHAR (20)    NOT NULL,
-                 created        TIMESTAMP       NOT NULL,
-                 modified       TIMESTAMP,
-                 name           VARCHAR (100)   NOT NULL UNIQUE,
-                 v_time_zone    VARCHAR (4000)
+                 pk_timezone_cubrid_id INT             NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 abbreviation          VARCHAR (20)    NOT NULL,
+                 created               TIMESTAMP       NOT NULL,
+                 modified              TIMESTAMP,
+                 name                  VARCHAR (100)   NOT NULL UNIQUE,
+                 v_time_zone           VARCHAR (4000)
              )""";
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+    }
+  }
+
+  private final void dropAllTables() {
+    try {
+      statement = connection.createStatement();
+
+      for (String tableName : TABLE_NAMES) {
+        statement.execute("DROP TABLE IF EXISTS " + tableName);
+      }
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
     }
   }
 
@@ -179,6 +199,8 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     String cubridUser = config.getCubridUser();
 
+    dropAllTables();
+
     dropUser(cubridUser);
 
     // -----------------------------------------------------------------------
@@ -186,7 +208,9 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE USER " + cubridUser + " PASSWORD \"" + config.getCubridPassword() + "\" GROUPS dba");
+      statement = connection.createStatement();
+
+      statement.execute("CREATE USER " + cubridUser + " PASSWORD '" + config.getCubridPassword() + "' GROUPS dba");
 
       statement.close();
 
@@ -202,7 +226,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url);
+    connection = connect(url, driver, config.getCubridUser(), config.getCubridPassword());
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }

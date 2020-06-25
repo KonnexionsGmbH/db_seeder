@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.9.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.11.0.svg)
 
 ----
 
@@ -193,7 +193,7 @@ The `run_db_seeder` batch script generates dummy data for a selected DBMS.
 Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
 The following script parameter is required: 
 
-- DB_SEEDER_DBMS_DEFAULT: the ticker symbol of the desired database management system
+- `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
 
 
 #### 4.1.2 Batch Script `run_db_seeder_setup_dbms`
@@ -203,8 +203,8 @@ With all client DBMS this database is based on a corresponding Docker image.
 Therefore, the prerequisite is that Docker is started and a suitable connection to the Internet exists.
 The following script parameters are required: 
 
-- DB_SEEDER_DBMS_DEFAULT: the ticker symbol of the desired database management system
-- DB_SEEDER_DELETE_EXISTING_CONTAINER: delete the existing Docker container (yes/no)
+- `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
+- `DB_SEEDER_DELETE_EXISTING_CONTAINER`: delete the existing Docker container (`yes`/`no`)
  
 ### 4.2 Control Parameters
  
@@ -228,6 +228,13 @@ db_seeder.cubrid.user=kxn_user
 db_seeder.derby.connection.port=1527
 db_seeder.derby.connection.prefix=jdbc:derby:
 db_seeder.derby.database=kxn_db
+
+db_seeder.firebird.connection.port=3050
+db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
+db_seeder.firebird.database=kxn_db
+db_seeder.firebird.password.sys=firebird
+db_seeder.firebird.password=firebird
+db_seeder.firebird.user=kxn_user
 
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
@@ -288,15 +295,15 @@ db_seeder.sqlite.database=kxn_db
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | DERBY, CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | port number of the database server |
-| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | DERBY, CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE | prefix of the database connection string |
+| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | DERBY, CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | port number of the database server |
+| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | DERBY, CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL, SQLITE | prefix of the database connection string |
 | <db_ticker>.connection.suffix=<url_suffix> | <DB_TICKER>_CONNECTION_SUFFIX | MYSQL | suffix of the database connection string |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
-| <db_ticker>.password.sys=<db_ticker> | <DB_TICKER>_PASSWORD_SYS | MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
-| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.password.sys=<db_ticker> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
+| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | IBMDB2, MSSQLSERVER | schema name |
-| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
+| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
