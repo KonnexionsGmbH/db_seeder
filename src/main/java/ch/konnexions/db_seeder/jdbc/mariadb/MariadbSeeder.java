@@ -30,12 +30,14 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms     = Dbms.MARIADB;
+    dbms               = Dbms.MARIADB;
 
-    urlBase  = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
+    tableNameDelimiter = "`";
 
-    url      = urlBase + config.getMariadbDatabase();
-    urlSetup = urlBase + "mysql";
+    urlBase            = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
+
+    url                = urlBase + config.getMariadbDatabase();
+    urlSetup           = urlBase + "mysql";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

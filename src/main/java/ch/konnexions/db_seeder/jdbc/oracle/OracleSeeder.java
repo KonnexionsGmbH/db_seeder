@@ -44,7 +44,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             CREATE TABLE city
+             CREATE TABLE "CITY"
              (
                  pk_city_id          NUMBER         GENERATED ALWAYS AS IDENTITY,
                  fk_country_state_id NUMBER,
@@ -53,11 +53,11 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  modified            TIMESTAMP,
                  name                VARCHAR2 (100) NOT NULL,
                  CONSTRAINT pk_city                 PRIMARY KEY (pk_city_id),
-                 CONSTRAINT fk_city_country_state   FOREIGN KEY (fk_country_state_id) REFERENCES country_state (pk_country_state_id)
+                 CONSTRAINT fk_city_country_state   FOREIGN KEY (fk_country_state_id) REFERENCES "COUNTRY_STATE" (pk_country_state_id)
              )""";
     case TABLE_NAME_COMPANY:
       return """
-             CREATE TABLE company
+             CREATE TABLE "COMPANY"
              (
                  pk_company_id       NUMBER         GENERATED ALWAYS AS IDENTITY,
                  fk_city_id          NUMBER         NOT NULL,
@@ -76,11 +76,11 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  url                 VARCHAR2 (250),
                  vat_id_number       VARCHAR2 (50),
                  CONSTRAINT pk_company              PRIMARY KEY (pk_company_id),
-                 CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES city (pk_city_id)
+                 CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             CREATE TABLE country
+             CREATE TABLE "COUNTRY"
              (
                  pk_country_id NUMBER         GENERATED ALWAYS AS IDENTITY,
                  country_map   BLOB,
@@ -92,7 +92,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             CREATE TABLE country_state
+             CREATE TABLE "COUNTRY_STATE"
              (
                  pk_country_state_id NUMBER         GENERATED ALWAYS AS IDENTITY,
                  fk_country_id       NUMBER         NOT NULL,
@@ -103,13 +103,13 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  name                VARCHAR2 (100) NOT NULL,
                  symbol              VARCHAR2 (10),
                  CONSTRAINT pk_country_state          PRIMARY KEY (pk_country_state_id),
-                 CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES country  (pk_country_id),
-                 CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES timezone (pk_timezone_id),
+                 CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES "COUNTRY"  (pk_country_id),
+                 CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES "TIMEZONE" (pk_timezone_id),
                  CONSTRAINT uq_country_state          UNIQUE (fk_country_id, name)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             CREATE TABLE timezone
+             CREATE TABLE "TIMEZONE"
              (
                  pk_timezone_id NUMBER          GENERATED ALWAYS AS IDENTITY,
                  abbreviation   VARCHAR2 (20)   NOT NULL,

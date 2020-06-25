@@ -7,29 +7,6 @@ import java.sql.Statement;
 
 public class DemoTimestamp {
 
-  @SuppressWarnings("preview")
-  public static void main(String[] args) {
-
-    Connection connection = connect();
-    
-    try {
-      Statement statement = connection.createStatement();
-      
-      statement.execute("""
-             RECREATE TABLE CITY (
-                 COL_ID        INTEGER      NOT NULL PRIMARY KEY,
-                 COL_BLOB      BLOB,
-                 COL_TIMESTAMP TIMESTAMP    NOT NULL
-              )""");
-      
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    disconnect(connection);
-  }
-
   private static Connection connect() {
     try {
       Class.forName("org.firebirdsql.jdbc.FBDriver");
@@ -57,5 +34,28 @@ public class DemoTimestamp {
       ec.printStackTrace();
       System.exit(1);
     }
+  }
+
+  @SuppressWarnings("preview")
+  public static void main(String[] args) {
+
+    Connection connection = connect();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      statement.execute("""
+                        RECREATE TABLE CITY (
+                            COL_ID        INTEGER      NOT NULL PRIMARY KEY,
+                            COL_BLOB      BLOB,
+                            COL_TIMESTAMP TIMESTAMP    NOT NULL
+                         )""");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    disconnect(connection);
   }
 }

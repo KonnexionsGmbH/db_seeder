@@ -4,8 +4,6 @@
 package ch.konnexions.db_seeder.jdbc.cubrid;
 
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -19,10 +17,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public class CubridSeeder extends AbstractJdbcSeeder {
 
-  private static Logger        logger      = Logger.getLogger(CubridSeeder.class);
-
-  protected final List<String> TABLE_NAMES = Arrays
-      .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE_CUBRID);
+  private static Logger logger = Logger.getLogger(CubridSeeder.class);
 
   /**
    * Instantiates a new CUBRID seeder.
@@ -53,7 +48,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             CREATE TABLE city
+             CREATE TABLE "CITY"
              (
                  pk_city_id          INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
                  fk_country_state_id INT,
@@ -61,11 +56,11 @@ public class CubridSeeder extends AbstractJdbcSeeder {
                  created             TIMESTAMP      NOT NULL,
                  modified            TIMESTAMP,
                  name                VARCHAR (100)  NOT NULL,
-                 CONSTRAINT fk_city_country_state   FOREIGN KEY (fk_country_state_id) REFERENCES country_state (pk_country_state_id)
+                 CONSTRAINT fk_city_country_state   FOREIGN KEY (fk_country_state_id) REFERENCES "COUNTRY_STATE" (pk_country_state_id)
              )""";
     case TABLE_NAME_COMPANY:
       return """
-             CREATE TABLE company
+             CREATE TABLE "COMPANY"
              (
                  pk_company_id       INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
                  fk_city_id          INT            NOT NULL,
@@ -83,11 +78,11 @@ public class CubridSeeder extends AbstractJdbcSeeder {
                  postal_code         VARCHAR (20),
                  url                 VARCHAR (250),
                  vat_id_number       VARCHAR (50),
-                 CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES city (pk_city_id)
+                 CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             CREATE TABLE country
+             CREATE TABLE "COUNTRY"
              (
                  pk_country_id INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
                  country_map   BLOB,
@@ -98,30 +93,30 @@ public class CubridSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             CREATE TABLE country_state
+             CREATE TABLE "COUNTRY_STATE"
              (
-                 pk_country_state_id   INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                 fk_country_id         INT            NOT NULL,
-                 fk_timezone_id        INT            NOT NULL,
-                 country_state_map     BLOB,
-                 created               TIMESTAMP      NOT NULL,
-                 modified              TIMESTAMP,
-                 name                  VARCHAR (100)  NOT NULL,
-                 symbol                VARCHAR (10),
-                 CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES country  (pk_country_id),
-                 CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES timezone_cubrid (pk_timezone_cubrid_id),
+                 pk_country_state_id INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 fk_country_id       INT            NOT NULL,
+                 fk_timezone_id      INT            NOT NULL,
+                 country_state_map   BLOB,
+                 created             TIMESTAMP      NOT NULL,
+                 modified            TIMESTAMP,
+                 name                VARCHAR (100)  NOT NULL,
+                 symbol              VARCHAR (10),
+                 CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES "COUNTRY"  (pk_country_id),
+                 CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES "TIMEZONE" (pk_timezone_id),
                  CONSTRAINT uq_country_state          UNIQUE (fk_country_id, name)
              )""";
-    case TABLE_NAME_TIMEZONE_CUBRID:
+    case TABLE_NAME_TIMEZONE:
       return """
-             CREATE TABLE timezone_cubrid
+             CREATE TABLE "TIMEZONE"
              (
-                 pk_timezone_cubrid_id INT             NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                 abbreviation          VARCHAR (20)    NOT NULL,
-                 created               TIMESTAMP       NOT NULL,
-                 modified              TIMESTAMP,
-                 name                  VARCHAR (100)   NOT NULL UNIQUE,
-                 v_time_zone           VARCHAR (4000)
+                 pk_timezone_id INT             NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 abbreviation   VARCHAR (20)    NOT NULL,
+                 created        TIMESTAMP       NOT NULL,
+                 modified       TIMESTAMP,
+                 name           VARCHAR (100)   NOT NULL UNIQUE,
+                 v_time_zone    VARCHAR (4000)
              )""";
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
@@ -133,7 +128,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       statement = connection.createStatement();
 
       for (String tableName : TABLE_NAMES) {
-        statement.execute("DROP TABLE IF EXISTS " + tableName);
+        statement.execute("DROP TABLE IF EXISTS \"" + tableName + "\"");
       }
 
       statement.close();

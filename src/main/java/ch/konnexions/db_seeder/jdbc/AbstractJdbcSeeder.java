@@ -39,10 +39,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private static Logger       logger            = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  protected final String      BLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  protected final byte[]      BLOB_DATA_BYTES   = readBlobFile2Bytes();
+  private final String        BLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]        BLOB_DATA_BYTES   = readBlobFile2Bytes();
 
-  protected final String      CLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String        CLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "clob.md";
   private final String        CLOB_DATA         = readClobFile();
   protected Connection        connection        = null;
 
@@ -168,7 +168,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
+      resultSet = statement.executeQuery("SELECT count(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -280,7 +280,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      String sqlStmnt = "SELECT count(*) FROM " + tableName;
+      String sqlStmnt = "SELECT count(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter;
 
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
 
@@ -326,7 +326,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     // Level 1 -------------------------------------------------------------
     createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-    createData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+    createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
 
     // Level 2 -------------------------------------------------------------
     createData(TABLE_NAME_COUNTRY_STATE, config.getMaxRowCountryState());
@@ -423,7 +423,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
-    final String      sqlStmnt          = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
+    final String sqlStmnt = "INSERT INTO " + tableNameDelimiter + tableName + tableNameDelimiter + " (" + createDmlStmnt(tableName) + ")";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
 
@@ -495,7 +495,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     case TABLE_NAME_COUNTRY -> "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?";
     case TABLE_NAME_COUNTRY_STATE -> "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?";
     case TABLE_NAME_TIMEZONE -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
-    case TABLE_NAME_TIMEZONE_CUBRID -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?";
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     };
 
@@ -522,7 +521,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       if (pkListTimezone.size() == 0) {
-        createData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+        createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
       }
 
       break;
@@ -548,10 +547,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       if (pkListTimezone.size() == 0) {
-        if (countData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE) == 0) {
-          createData(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
+        if (countData(TABLE_NAME_TIMEZONE) == 0) {
+          createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
         } else {
-          recreatePkList(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE);
+          recreatePkList(TABLE_NAME_TIMEZONE);
         }
       }
     }
@@ -595,8 +594,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     case TABLE_NAME_COUNTRY_STATE:
       return 400;
     case TABLE_NAME_TIMEZONE:
-      return 11;
-    case TABLE_NAME_TIMEZONE_CUBRID:
       return 11;
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
@@ -651,9 +648,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       prepDmlStmntInsertCountryState(preparedStatement, rowCount, identifier10, identifier10Right);
       break;
     case TABLE_NAME_TIMEZONE:
-      prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier10, identifier10Right);
-      break;
-    case TABLE_NAME_TIMEZONE_CUBRID:
       prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier10, identifier10Right);
       break;
     default:
@@ -1024,7 +1018,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT PK_" + tableName + "_ID FROM " + tableName);
+      resultSet = statement.executeQuery("SELECT PK_" + tableName + "_ID FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
 
       while (resultSet.next()) {
         pkList.add(resultSet.getInt(1));
@@ -1061,7 +1055,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
 
       if (pkListTimezone.size() == 0) {
-        recreatePkList(dbms == Dbms.CUBRID ? TABLE_NAME_TIMEZONE_CUBRID : TABLE_NAME_TIMEZONE);
+        recreatePkList(TABLE_NAME_TIMEZONE);
       }
 
       break;
@@ -1082,9 +1076,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       pkListCountryState = pkList;
       break;
     case TABLE_NAME_TIMEZONE:
-      pkListTimezone = pkList;
-      break;
-    case TABLE_NAME_TIMEZONE_CUBRID:
       pkListTimezone = pkList;
       break;
     default:

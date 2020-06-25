@@ -32,36 +32,37 @@ public abstract class AbstractDatabaseSeeder {
     SQLITE
   }
 
-  private static Logger       logger                     = Logger.getLogger(AbstractDatabaseSeeder.class);
+  private static Logger        logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
-  public final static String  FORMAT_IDENTIFIER          = "%-10d";
-  public final static String  FORMAT_IDENTIFIER_RIGHT    = "%010d";
-  public final static String  FORMAT_METHOD_NAME         = "%-20s";
-  public final static String  FORMAT_ROW_NO              = "%1$10d";
-  public final static String  FORMAT_TABLE_NAME          = "%-17s";
+  public final static String   FORMAT_IDENTIFIER        = "%-10d";
+  public final static String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
+  public final static String   FORMAT_METHOD_NAME       = "%-20s";
+  public final static String   FORMAT_ROW_NO            = "%1$10d";
+  public final static String   FORMAT_TABLE_NAME        = "%-17s";
 
-  protected int               autoIncrement;
+  protected int                autoIncrement;
 
-  protected Config            config;
+  protected Config             config;
 
-  protected Dbms              dbms;
+  protected Dbms               dbms;
 
-  protected boolean           isClient                   = true;
-  protected boolean           isEmbedded                 = !(isClient);
+  protected boolean            isClient                 = true;
+  protected boolean            isEmbedded               = !(isClient);
 
-  protected ArrayList<Object> pkListCity                 = new ArrayList<Object>();
-  protected ArrayList<Object> pkListCountry              = new ArrayList<Object>();
-  protected ArrayList<Object> pkListCountryState         = new ArrayList<Object>();
-  protected ArrayList<Object> pkListTimezone             = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListCity               = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListCountryState       = new ArrayList<Object>();
+  protected ArrayList<Object>  pkListTimezone           = new ArrayList<Object>();
 
-  protected final String      TABLE_NAME_CITY            = "CITY";
-  protected final String      TABLE_NAME_COMPANY         = "COMPANY";
-  protected final String      TABLE_NAME_COUNTRY         = "COUNTRY";
-  protected final String      TABLE_NAME_COUNTRY_STATE   = "COUNTRY_STATE";
-  protected final String      TABLE_NAME_TIMEZONE        = "TIMEZONE";
-  protected final String      TABLE_NAME_TIMEZONE_CUBRID = "TIMEZONE_CUBRID";
-  protected List<String>      TABLE_NAMES                = Arrays
+  protected final String       TABLE_NAME_CITY          = "CITY";
+  protected final String       TABLE_NAME_COMPANY       = "COMPANY";
+  protected final String       TABLE_NAME_COUNTRY       = "COUNTRY";
+  protected final String       TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
+  protected final String       TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  protected final List<String> TABLE_NAMES              = Arrays
       .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
+
+  protected String             tableNameDelimiter       = "\"";
 
   /**
    * Initialises a new abstract database seeder object.

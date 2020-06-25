@@ -55,7 +55,8 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table \" + String.format(FORMAT_TABLE_NAME, tableName) + \" - \"\n"
         + "        + String.format(FORMAT_ROW_NO, rowCount) + \" rows to be created");
 
-    final String      sqlStmnt          = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ") RETURNING PK_" + tableName + "_ID";
+    final String      sqlStmnt          = "INSERT INTO " + tableNameDelimiter + tableName + tableNameDelimiter + " (" + createDmlStmnt(tableName)
+        + ") RETURNING PK_" + tableName + "_ID";
 
     PreparedStatement preparedStatement = null;
 
@@ -99,18 +100,18 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             CREATE TABLE CITY (
+             CREATE TABLE "CITY" (
                  PK_CITY_ID          BIGSERIAL      NOT NULL PRIMARY KEY,
                  FK_COUNTRY_STATE_ID BIGINT,
                  CITY_MAP            BYTEA,
                  CREATED             TIMESTAMP      NOT NULL,
                  MODIFIED            TIMESTAMP,
                  NAME                VARCHAR(100)   NOT NULL,
-                 FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
+                 FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
               )""";
     case TABLE_NAME_COMPANY:
       return """
-             CREATE TABLE COMPANY (
+             CREATE TABLE "COMPANY" (
                  PK_COMPANY_ID BIGSERIAL    NOT NULL PRIMARY KEY,
                  FK_CITY_ID    BIGINT       NOT NULL,
                  ACTIVE        VARCHAR(1)   NOT NULL,
@@ -127,11 +128,11 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                  POSTAL_CODE   VARCHAR(20),
                  URL           VARCHAR(250),
                  VAT_ID_NUMBER VARCHAR(50),
-                 FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
+                 FOREIGN KEY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             CREATE TABLE COUNTRY (
+             CREATE TABLE "COUNTRY" (
                 PK_COUNTRY_ID BIGSERIAL      NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   BYTEA,
                 CREATED       TIMESTAMP      NOT NULL,
@@ -141,7 +142,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             CREATE TABLE COUNTRY_STATE (
+             CREATE TABLE "COUNTRY_STATE" (
                 PK_COUNTRY_STATE_ID BIGSERIAL      NOT NULL PRIMARY KEY,
                 FK_COUNTRY_ID       BIGINT         NOT NULL,
                 FK_TIMEZONE_ID      BIGINT         NOT NULL,
@@ -150,13 +151,13 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                 MODIFIED            TIMESTAMP,
                 NAME                VARCHAR(100)   NOT NULL,
                 SYMBOL              VARCHAR(10),
-                FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
+                FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
+                FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
                 UNIQUE      (FK_COUNTRY_ID,NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             CREATE TABLE TIMEZONE (
+             CREATE TABLE "TIMEZONE" (
                 PK_TIMEZONE_ID BIGSERIAL     NOT NULL PRIMARY KEY,
                 ABBREVIATION   VARCHAR(20)   NOT NULL,
                 CREATED        TIMESTAMP     NOT NULL,

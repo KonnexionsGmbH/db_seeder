@@ -46,18 +46,18 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             RECREATE TABLE CITY (
+             RECREATE TABLE "CITY" (
                  PK_CITY_ID          INTEGER      NOT NULL PRIMARY KEY,
                  FK_COUNTRY_STATE_ID INTEGER,
                  CITY_MAP            BLOB,
                  CREATED             TIMESTAMP    NOT NULL,
                  MODIFIED            TIMESTAMP,
                  NAME                VARCHAR(100) NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY FK_CITY_COUNTRY_STATE (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
+                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY FK_CITY_COUNTRY_STATE (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
               )""";
     case TABLE_NAME_COMPANY:
       return """
-             RECREATE TABLE COMPANY (
+             RECREATE TABLE "COMPANY" (
                  PK_COMPANY_ID INTEGER      NOT NULL PRIMARY KEY,
                  FK_CITY_ID    INTEGER      NOT NULL,
                  ACTIVE        VARCHAR(1)   NOT NULL,
@@ -74,11 +74,11 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
                  POSTAL_CODE   VARCHAR(20),
                  URL           VARCHAR(250),
                  VAT_ID_NUMBER VARCHAR(50),
-                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY FK_COMPANY_CITY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
+                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY FK_COMPANY_CITY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             RECREATE TABLE COUNTRY (
+             RECREATE TABLE "COUNTRY" (
                 PK_COUNTRY_ID INTEGER      NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   BLOB,
                 CREATED       TIMESTAMP    NOT NULL,
@@ -88,7 +88,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             RECREATE TABLE COUNTRY_STATE (
+             RECREATE TABLE "COUNTRY_STATE" (
                 PK_COUNTRY_STATE_ID INTEGER      NOT NULL PRIMARY KEY,
                 FK_COUNTRY_ID       INTEGER      NOT NULL,
                 FK_TIMEZONE_ID      INTEGER      NOT NULL,
@@ -97,13 +97,13 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
                 MODIFIED            TIMESTAMP,
                 NAME                VARCHAR(100) NOT NULL,
                 SYMBOL              VARCHAR(10),
-                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY FK_COUNTRY_STATE_COUNTRY  (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY FK_COUNTRY_STATE_TIMEZONE (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
+                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY FK_COUNTRY_STATE_COUNTRY  (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
+                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY FK_COUNTRY_STATE_TIMEZONE (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
                 CONSTRAINT UQ_COUNTRY_STATE          UNIQUE (FK_COUNTRY_ID,NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             RECREATE TABLE TIMEZONE (
+             RECREATE TABLE "TIMEZONE" (
                 PK_TIMEZONE_ID INTEGER       NOT NULL PRIMARY KEY,
                 ABBREVIATION   VARCHAR(20)   NOT NULL,
                 CREATED        TIMESTAMP     NOT NULL,
@@ -175,8 +175,6 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
       statement = connection.createStatement();
 
       statement.execute("CREATE USER " + firebirdUser + " PASSWORD '" + config.getFirebirdPassword() + "' GRANT ADMIN ROLE");
-
-      // wwe statement.execute("GRANT RDB$ADMIN TO " + firebirdUser);
 
       statement.execute("GRANT CREATE TABLE TO " + firebirdUser);
 

@@ -30,14 +30,16 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms     = Dbms.MYSQL;
+    dbms               = Dbms.MYSQL;
 
-    driver   = "com.mysql.cj.jdbc.Driver";
+    driver             = "com.mysql.cj.jdbc.Driver";
 
-    urlBase  = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
+    tableNameDelimiter = "`";
 
-    url      = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
-    urlSetup = urlBase + "sys" + config.getMysqlConnectionSuffix();
+    urlBase            = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
+
+    url                = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
+    urlSetup           = urlBase + "sys" + config.getMysqlConnectionSuffix();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
