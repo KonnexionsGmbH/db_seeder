@@ -11,8 +11,12 @@
 
 **[1. Introduction](#introduction)**<br>
 **[2. Data](#data)**<br>
+**[2.1 Logical Schema](#data_logical)**<br>
+**[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
+**[4.1 Scripts](#operating_instructions_scripts)**<br>
+**[4.2 Control Parameters](#operating_instructions_control)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
 **[6. Contributing](#contributing)**<br>
 
@@ -87,6 +91,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 
 | CrateDB | CRATEDB | 4.1.6 | 
 | CUBRID | CUBRID | 10.2 | 
+| Firebird | FIREBIRD | 3.0.5 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
 | MariaDB Server | MARIADB | 10.4.13 - 10.5.3 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
@@ -100,7 +105,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 The underlying data model is quite simple and is shown here in the relational version.
 The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
 
-### 2.1 Logical Schema
+### <a name="data_logical"></a> 2.1 Logical Schema
 
 The abbreviations in the following illustration (created with Toad Data Modeler) mean:
 
@@ -111,7 +116,7 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 
 ![](.README_images/Data_Model.png)
 
-### 2.2 Construction of the Dummy Data Content
+### <a name="data_construction"></a> 2.2 Construction of the Dummy Data Content
 
 #### 2.2.1 Simple ASCII Model (DATA_SOURCE = SAM)
 
@@ -187,7 +192,7 @@ The system requirements are described in the respective release notes.
 
 ## <a name="operating_instructions"></a> 4. Operating Instructions 
 
-### 4.1 Scripts
+### <a name="operating_instructions_scripts"></a> 4.1 Scripts
 
 Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
 To run `db_seeder`, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
@@ -212,7 +217,7 @@ The following script parameters are required:
 - `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
 - `DB_SEEDER_DELETE_EXISTING_CONTAINER`: delete the existing Docker container (`yes`/`no`)
  
-### 4.2 Control Parameters
+### <a name="operating_instructions_control"></a> 4.2 Control Parameters
  
 #### 4.2.1 Supported Parameters
 
@@ -234,6 +239,9 @@ db_seeder.cubrid.user=kxn_user
 db_seeder.derby.connection.port=1527
 db_seeder.derby.connection.prefix=jdbc:derby:
 db_seeder.derby.database=kxn_db
+
+db_seeder.encoding.iso_8859_1=true
+db_seeder.encoding.utf_8=true
 
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
@@ -309,6 +317,8 @@ db_seeder.sqlite.database=kxn_db
 | <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | IBMDB2, MSSQLSERVER | schema name |
 | <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| encoding.iso_8859_1=false/true | FIREBIRD | generate column content with Western Latin characters included |
+| encoding.utf_8=false/true | FIREBIRD | generate column content with tradtional chinese characters included |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
