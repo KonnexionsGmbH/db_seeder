@@ -14,12 +14,14 @@ export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 export DB_SEEDER_CUBRID_DATABASE=kxn_db
 export DB_SEEDER_DERBY_DATABASE=kxn_db
+export DB_SEEDER_FIREBIRD_DATABASE=kxn_db
 export DB_SEEDER_IBMDB2_DATABASE=kxn_db
 export DB_SEEDER_SQLITE_DATABASE=kxn_db
 
 export DB_SEEDER_VERSION_CRATEDB=4.1.6
 export DB_SEEDER_VERSION_CUBRID=10.2
 export DB_SEEDER_VERSION_DERBY=10.15.2.0
+export DB_SEEDER_VERSION_FIREBIRD=3.0.5
 export DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
 
 export DB_SEEDER_VERSION_MARIADB=10.4.13
@@ -39,6 +41,7 @@ if [ -z "$1" ]; then
     echo "derby       - Apache Derby [client]"
     echo "derby_emb   - Apache Derby [embedded]"
     echo "cubrid      - CUBRID"
+    echo "firebird    - Firebird"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -125,6 +128,16 @@ if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
         rm -f $DB_SEEDER_DERBY_DATABASE
     fi    
 fi
+if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
+    echo "VERSION_FIREBIRD          : $DB_SEEDER_VERSION_FIREBIRD"
+    echo "FIREBIRD_DATABASE         : $DB_SEEDER_FIREBIRD_DATABASE"
+    if [[ -f $DB_SEEDER_FIREBIRD_DATABASE ]] || [[ -d $DB_SEEDER_FIREBIRD_DATABASE ]]; then 
+        echo ""
+        echo "............................................................ before:"
+        ls -ll $DB_SEEDER_FIREBIRD_DATABASE
+        rm -f $DB_SEEDER_FIREBIRD_DATABASE
+    fi    
+fi
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
     echo "IBMDB2_DATABASE           : $DB_SEEDER_IBMDB2_DATABASE"
@@ -194,15 +207,15 @@ if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
     start=$(date +%s)
     echo "CUBRID."
     echo "--------------------------------------------------------------------------------"
-    echo "Docker create db_seeder_db (CUBRID $DB_SEEDER_VERSION_CRATEDB)"
+    echo "Docker create db_seeder_db (CUBRID $DB_SEEDER_VERSION_CUBRID)"
     docker create --name db_seeder_db -p 33000:33000/tcp -e CUBRID_DB=$DB_SEEDER_CUBRID_DATABASE cubrid/cubrid:$DB_SEEDER_VERSION_CUBRID
 
-    echo "Docker start db_seeder_db (CUBRID $DB_SEEDER_VERSION_CRATEDB) ..."
+    echo "Docker start db_seeder_db (CUBRID $DB_SEEDER_VERSION_CUBRID) ..."
     if ! docker start db_seeder_db; then
         exit 255
     fi
 
-# wwe    sleep 10
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER CUBRID was ready in $((end - start)) seconds"
@@ -235,6 +248,31 @@ if [ "$DB_SEEDER_DBMS" = "derby" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# Firebird                        https://hub.docker.com/r/jacobalberty/firebird
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
+    start=$(date +%s)
+    echo "Firebird."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (Firebird $DB_SEEDER_VERSION_FIREBIRD)"
+    docker create --name db_seeder_db -p 3050:3050/tcp -e FIREBIRD_DATABASE=$DB_SEEDER_FIREBIRD_DATABASE -e ISC_PASSWORD=firebird jacobalberty/firebird:$DB_SEEDER_VERSION_FIREBIRD
+
+    echo "Docker start db_seeder_db (Firebird $DB_SEEDER_VERSION_FIREBIRD) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    if [ $? -ne 0 ]; then
+        exit 255
+    fi
+
+    end=$(date +%s)
+    echo "DOCKER Firebird was ready in $((end - start)) seconds"
+fi
+
+## ------------------------------------------------------------------------------
 # IBM Db2 Database                           https://hub.docker.com/r/ibmcom/db2
 # ------------------------------------------------------------------------------
 

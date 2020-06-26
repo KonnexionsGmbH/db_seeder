@@ -48,6 +48,14 @@ public class Config {
 
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
   private String                                                       fileConfigurationName;
+
+  private int                                                          firebirdConnectionPort;
+  private String                                                       firebirdConnectionPrefix;
+  private String                                                       firebirdDatabase;
+  private String                                                       firebirdPassword;
+  private String                                                       firebirdPasswordSys;
+  private String                                                       firebirdUser;
+
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
@@ -227,6 +235,50 @@ public class Config {
    */
   public final String getCubridUser() {
     return cubridUser;
+  }
+
+  // Firebird ----------------------------------------------------------------
+
+  /**
+   * @return the MariaDB port number where the database server is listening for requests
+   */
+  public final int getFirebirdConnectionPort() {
+    return firebirdConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the MariaDB connection string
+   */
+  public final String getFirebirdConnectionPrefix() {
+    return firebirdConnectionPrefix;
+  }
+
+  /**
+   * @return the MariaDB database name
+   */
+  public final String getFirebirdDatabase() {
+    return firebirdDatabase;
+  }
+
+  /**
+   * @return the MariaDB password to connect as normal user to the database
+   */
+  public final String getFirebirdPassword() {
+    return firebirdPassword;
+  }
+
+  /**
+   * @return the MariaDB password to connect as privileged user to the database
+   */
+  public final String getFirebirdPasswordSys() {
+    return firebirdPasswordSys;
+  }
+
+  /**
+   * @return the MariaDB user name to connect as normal user to the database
+   */
+  public final String getFirebirdUser() {
+    return firebirdUser;
   }
 
   // IBM Db2 Database --------------------------------------------------------
@@ -477,6 +529,7 @@ public class Config {
     list.add("db_seeder.derby.connection.port");
     list.add("db_seeder.cratedb.connection.port");
     list.add("db_seeder.cubrid.connection.port");
+    list.add("db_seeder.firebird.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
@@ -617,6 +670,13 @@ public class Config {
 
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
 
+    firebirdConnectionPort      = propertiesConfiguration.getInt("db_seeder.firebird.connection.port");
+    firebirdConnectionPrefix    = propertiesConfiguration.getString("db_seeder.firebird.connection.prefix");
+    firebirdDatabase            = propertiesConfiguration.getString("db_seeder.firebird.database");
+    firebirdPassword            = propertiesConfiguration.getString("db_seeder.firebird.password");
+    firebirdPasswordSys         = propertiesConfiguration.getString("db_seeder.firebird.password.sys");
+    firebirdUser                = propertiesConfiguration.getString("db_seeder.firebird.user");
+
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
     ibmdb2Database              = propertiesConfiguration.getString("db_seeder.ibmdb2.database");
@@ -745,6 +805,38 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER")) {
       cubridUser = environmentVariables.get("DB_SEEDER_CUBRID_USER");
       propertiesConfiguration.setProperty("db_seeder.cubrid.user", cubridUser);
+    }
+
+    // Firebird ------------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_PORT")) {
+      firebirdConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", firebirdConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_PREFIX")) {
+      firebirdConnectionPrefix = environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", firebirdConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_DATABASE")) {
+      firebirdDatabase = environmentVariables.get("DB_SEEDER_FIREBIRD_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.firebird.database", firebirdDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_PASSWORD")) {
+      firebirdPassword = environmentVariables.get("DB_SEEDER_FIREBIRD_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.firebird.password", firebirdPassword);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_PASSWORD_SYS")) {
+      firebirdPasswordSys = environmentVariables.get("DB_SEEDER_FIREBIRD_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.firebird.password.sys", firebirdPasswordSys);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_USER")) {
+      firebirdUser = environmentVariables.get("DB_SEEDER_FIREBIRD_USER");
+      propertiesConfiguration.setProperty("db_seeder.firebird.user", firebirdUser);
     }
 
     // IBM Db2 Database ----------------------------------------------------------

@@ -3,14 +3,16 @@
  */
 package ch.konnexions.db_seeder.jdbc.cratedb;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a CrateDB DBMS. </h1>
+ * Test Data Generator for a CrateDB DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -30,16 +32,71 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms           = Dbms.CRATEDB;
+    dbms               = Dbms.CRATEDB;
 
-    urlBase        = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true";
+    tableNameDelimiter = "";
 
-    url            = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
-    urlSetup       = urlBase + "&user=crate";
+    urlBase            = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true";
 
-    dropTableStmnt = "SELECT UPPER(table_name), 'DROP TABLE \"' || LOWER(table_name) || '\"' FROM information_schema.tables WHERE table_name = LOWER(?) AND table_schema = 'doc'";
+    url                = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
+    urlSetup           = urlBase + "&user=crate";
+
+    dropTableStmnt     = "SELECT UPPER(table_name), 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+  }
+
+  @Override
+  protected final void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table \" + String.format(FORMAT_TABLE_NAME, tableName) + \" - \"\n"
+        + "        + String.format(FORMAT_ROW_NO, rowCount) + \" rows to be created");
+
+    final String      sqlStmnt          = "INSERT INTO " + tableName + " (" + createDmlStmnt(tableName) + ")";
+
+    PreparedStatement preparedStatement = null;
+
+    try {
+      preparedStatement = connection.prepareStatement(sqlStmnt);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
+
+      try {
+        preparedStatement.executeUpdate();
+
+        pkList.add(autoIncrement);
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    try {
+      preparedStatement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      statement = connection.createStatement();
+
+      statement.execute("REFRESH TABLE " + tableName);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   @SuppressWarnings("preview")

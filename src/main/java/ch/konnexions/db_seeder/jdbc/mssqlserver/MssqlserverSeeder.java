@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a Microsoft SQL Server DBMS. </h1>
+ * Test Data Generator for a Microsoft SQL Server DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -46,19 +46,19 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT         NOT NULL PRIMARY KEY IDENTITY (1,1),
+             CREATE TABLE "CITY" (
+                 PK_CITY_ID          BIGINT         NOT NULL PRIMARY KEY,
                  FK_COUNTRY_STATE_ID BIGINT,
                  CITY_MAP            VARBINARY(MAX),
                  CREATED             DATETIME2      NOT NULL,
                  MODIFIED            DATETIME2,
                  NAME                VARCHAR(100)   NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
+                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
               )""";
     case TABLE_NAME_COMPANY:
       return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT       NOT NULL PRIMARY KEY IDENTITY (1,1),
+             CREATE TABLE "COMPANY" (
+                 PK_COMPANY_ID BIGINT       NOT NULL PRIMARY KEY,
                  FK_CITY_ID    BIGINT       NOT NULL,
                  ACTIVE        VARCHAR(1)   NOT NULL,
                  ADDRESS1      VARCHAR(50),
@@ -74,12 +74,12 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
                  POSTAL_CODE   VARCHAR(20),
                  URL           VARCHAR(250),
                  VAT_ID_NUMBER VARCHAR(50),
-                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
+                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY IDENTITY (1,1),
+             CREATE TABLE "COUNTRY" (
+                PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   VARBINARY(MAX),
                 CREATED       DATETIME2      NOT NULL,
                 ISO3166       VARCHAR(2),
@@ -88,8 +88,8 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY IDENTITY (1,1),
+             CREATE TABLE "COUNTRY_STATE" (
+                PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
                 FK_COUNTRY_ID       BIGINT         NOT NULL,
                 FK_TIMEZONE_ID      BIGINT         NOT NULL,
                 COUNTRY_STATE_MAP   VARBINARY(MAX),
@@ -97,14 +97,14 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
                 MODIFIED            DATETIME2,
                 NAME                VARCHAR(100)   NOT NULL,
                 SYMBOL              VARCHAR(10),
-                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
+                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
+                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
                 CONSTRAINT UQ_COUNTRY_STATE          UNIQUE      (FK_COUNTRY_ID,NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY IDENTITY (1,1),
+             CREATE TABLE "TIMEZONE" (
+                PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
                 ABBREVIATION   VARCHAR(20)   NOT NULL,
                 CREATED        DATETIME2     NOT NULL,
                 MODIFIED       DATETIME2,

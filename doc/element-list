@@ -1,0 +1,12 @@
+ch.konnexions.db_seeder
+ch.konnexions.db_seeder.jdbc
+ch.konnexions.db_seeder.jdbc.apache.derby
+ch.konnexions.db_seeder.jdbc.cratedb
+ch.konnexions.db_seeder.jdbc.cubrid
+ch.konnexions.db_seeder.jdbc.ibmdb2
+ch.konnexions.db_seeder.jdbc.mariadb
+ch.konnexions.db_seeder.jdbc.mssqlserver
+ch.konnexions.db_seeder.jdbc.mysql
+ch.konnexions.db_seeder.jdbc.oracle
+ch.konnexions.db_seeder.jdbc.postgresql
+ch.konnexions.db_seeder.jdbc.sqlite

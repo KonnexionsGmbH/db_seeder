@@ -17,6 +17,7 @@ if ["%1"] EQU [""] (
     echo derby_emb   - Apache Derby [embedded]
     echo cratedb     - CrateDB
     echo cubrid      - CUBRID
+    echo firebird    - Firebird
     echo ibmdb2      - IBM Db2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
@@ -70,6 +71,14 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     set DB_SEEDER_DERBY_CONNECTION_PREFIX=
     set DB_SEEDER_DERBY_DATABASE=
     set DB_SEEDER_DERBY_SCHEMA=
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
+    set DB_SEEDER_FIREBIRD_CONNECTION_PORT=
+    set DB_SEEDER_FIREBIRD_CONNECTION_PREFIX=
+    set DB_SEEDER_FIREBIRD_DATABASE=
+    set DB_SEEDER_FIREBIRD_PASSWORD=
+    set DB_SEEDER_FIREBIRD_PASSWORD_SYS=
+    set DB_SEEDER_FIREBIRD_USER=
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_CONNECTION_PORT=
@@ -169,6 +178,14 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     echo DERBY_CONNECTION_PREFIX         : %DB_SEEDER_DERBY_CONNECTION_PREFIX%
     echo DERBY_DATABASE                  : %DB_SEEDER_DERBY_DATABASE%
     echo DERBY_SCHEMA                    : %DB_SEEDER_DERBY_SCHEMA%
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
+    echo FIREBIRD_CONNECTION_PORT        : %DB_SEEDER_FIREBIRD_CONNECTION_PORT%
+    echo FIREBIRD_CONNECTION_PREFIX      : %DB_SEEDER_FIREBIRD_CONNECTION_PREFIX%
+    echo FIREBIRD_DATABASE               : %DB_SEEDER_FIREBIRD_DATABASE%
+    echo FIREBIRD_PASSWORD               : %DB_SEEDER_FIREBIRD_PASSWORD%
+    echo FIREBIRD_PASSWORD_SYS           : %DB_SEEDER_FIREBIRD_PASSWORD_SYS%
+    echo FIREBIRD_USER                   : %DB_SEEDER_FIREBIRD_USER%
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     echo IBMDB2_CONNECTION_PORT          : %DB_SEEDER_IBMDB2_CONNECTION_PORT%

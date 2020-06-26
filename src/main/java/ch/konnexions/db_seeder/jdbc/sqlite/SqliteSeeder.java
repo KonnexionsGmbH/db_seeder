@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for am SQLite DBMS. </h1>
+ * Test Data Generator for am SQLite DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -43,21 +43,21 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             CREATE TABLE city
+             CREATE TABLE "CITY"
              (
-                 pk_city_id          INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_city_id          INTEGER        NOT NULL PRIMARY KEY,
                  fk_country_state_id BIGINT,
                  city_map            BLOB,
                  created             DATETIME       NOT NULL,
                  modified            DATETIME,
                  name                VARCHAR2 (100) NOT NULL,
-                 FOREIGN KEY (fk_country_state_id) REFERENCES country_state (pk_country_state_id)
+                 FOREIGN KEY (fk_country_state_id) REFERENCES "COUNTRY_STATE" (pk_country_state_id)
              )""";
     case TABLE_NAME_COMPANY:
       return """
-             CREATE TABLE company
+             CREATE TABLE "COMPANY"
              (
-                 pk_company_id       INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_company_id       INTEGER        NOT NULL PRIMARY KEY,
                  fk_city_id          BIGINT         NOT NULL,
                  active              VARCHAR2 (1)   NOT NULL,
                  address1            VARCHAR2 (50),
@@ -73,13 +73,13 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
                  postal_code         VARCHAR2 (20),
                  url                 VARCHAR2 (250),
                  vat_id_number       VARCHAR2 (50),
-                 FOREIGN KEY (fk_city_id)          REFERENCES city (pk_city_id)
+                 FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             CREATE TABLE country
+             CREATE TABLE "COUNTRY"
              (
-                 pk_country_id INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_country_id INTEGER        NOT NULL PRIMARY KEY,
                  country_map   BLOB,
                  created       DATETIME       NOT NULL,
                  iso3166       VARCHAR2 (2),
@@ -88,9 +88,9 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             CREATE TABLE country_state
+             CREATE TABLE "COUNTRY_STATE"
              (
-                 pk_country_state_id INTEGER        NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_country_state_id INTEGER        NOT NULL PRIMARY KEY,
                  fk_country_id       BIGINT         NOT NULL,
                  fk_timezone_id      BIGINT         NOT NULL,
                  country_state_map   BLOB,
@@ -98,15 +98,15 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
                  modified            DATETIME,
                  name                VARCHAR2 (100) NOT NULL,
                  symbol              VARCHAR2 (10),
-                 FOREIGN KEY (fk_country_id)  REFERENCES country  (pk_country_id),
-                 FOREIGN KEY (fk_timezone_id) REFERENCES timezone (pk_timezone_id),
+                 FOREIGN KEY (fk_country_id)  REFERENCES "COUNTRY"  (pk_country_id),
+                 FOREIGN KEY (fk_timezone_id) REFERENCES "TIMEZONE" (pk_timezone_id),
                  UNIQUE (fk_country_id, name)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             CREATE TABLE timezone
+             CREATE TABLE "TIMEZONE"
              (
-                 pk_timezone_id INTEGER         NOT NULL PRIMARY KEY AUTOINCREMENT,
+                 pk_timezone_id INTEGER         NOT NULL PRIMARY KEY,
                  abbreviation   VARCHAR2 (20)   NOT NULL,
                  created        DATETIME        NOT NULL,
                  modified       DATETIME,
@@ -123,7 +123,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       statement = connection.createStatement();
 
       for (String tableName : TABLE_NAMES) {
-        statement.execute("DROP TABLE IF EXISTS " + tableName);
+        statement.execute("DROP TABLE IF EXISTS \"" + tableName + "\"");
       }
 
       statement.close();

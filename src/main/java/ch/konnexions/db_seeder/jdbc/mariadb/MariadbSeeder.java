@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * <h1> Test Data Generator for a MariaDB DBMS. </h1>
+ * Test Data Generator for a MariaDB DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -30,12 +30,14 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms     = Dbms.MARIADB;
+    dbms               = Dbms.MARIADB;
 
-    urlBase  = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
+    tableNameDelimiter = "`";
 
-    url      = urlBase + config.getMariadbDatabase();
-    urlSetup = urlBase + "mysql";
+    urlBase            = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
+
+    url                = urlBase + config.getMariadbDatabase();
+    urlSetup           = urlBase + "mysql";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -47,7 +49,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     case TABLE_NAME_CITY:
       return """
              CREATE TABLE `CITY` (
-                 `PK_CITY_ID`          BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 `PK_CITY_ID`          BIGINT       NOT NULL PRIMARY KEY,
                  `FK_COUNTRY_STATE_ID` BIGINT,
                  `CITY_MAP`            LONGBLOB,
                  `CREATED`             DATETIME     NOT NULL,
@@ -58,7 +60,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     case TABLE_NAME_COMPANY:
       return """
              CREATE TABLE `COMPANY` (
-                 `PK_COMPANY_ID` BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                 `PK_COMPANY_ID` BIGINT       NOT NULL PRIMARY KEY,
                  `FK_CITY_ID`    BIGINT       NOT NULL,
                  `ACTIVE`        VARCHAR(1)   NOT NULL,
                  `ADDRESS1`      VARCHAR(50),
@@ -79,7 +81,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     case TABLE_NAME_COUNTRY:
       return """
              CREATE TABLE `COUNTRY` (
-                `PK_COUNTRY_ID` BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                `PK_COUNTRY_ID` BIGINT       NOT NULL PRIMARY KEY,
                 `COUNTRY_MAP`   LONGBLOB,
                 `CREATED`       DATETIME     NOT NULL,
                 `ISO3166`       VARCHAR(2),
@@ -89,7 +91,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     case TABLE_NAME_COUNTRY_STATE:
       return """
              CREATE TABLE `COUNTRY_STATE` (
-                `PK_COUNTRY_STATE_ID` BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                `PK_COUNTRY_STATE_ID` BIGINT       NOT NULL PRIMARY KEY,
                 `FK_COUNTRY_ID`       BIGINT       NOT NULL,
                 `FK_TIMEZONE_ID`      BIGINT       NOT NULL,
                 `COUNTRY_STATE_MAP`   LONGBLOB,
@@ -104,7 +106,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     case TABLE_NAME_TIMEZONE:
       return """
              CREATE TABLE `TIMEZONE` (
-                `PK_TIMEZONE_ID` BIGINT        NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                `PK_TIMEZONE_ID` BIGINT        NOT NULL PRIMARY KEY,
                 `ABBREVIATION`   VARCHAR(20)   NOT NULL,
                 `CREATED`        DATETIME      NOT NULL,
                 `MODIFIED`       DATETIME,

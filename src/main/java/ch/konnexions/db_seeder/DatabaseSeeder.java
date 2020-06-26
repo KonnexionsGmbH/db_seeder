@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.apache.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
+import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
@@ -17,7 +18,7 @@ import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
 
 /**
- * <h1> Test Data Generator for a Database - Application. </h1>
+ * Test Data Generator for a Database - Application.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -73,6 +74,12 @@ public class DatabaseSeeder {
       DerbySeeder derbySeederEmbedded = new DerbySeeder(false);
       derbySeederEmbedded.createData();
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby");
+      break;
+    case "firebird":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Firebird");
+      FirebirdSeeder firebirdSeeder = new FirebirdSeeder();
+      firebirdSeeder.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Firebird");
       break;
     case "ibmdb2":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start IBM Db2 Database");
