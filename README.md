@@ -13,7 +13,7 @@
 **[2. Data](#data)**<br>
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
-**[5. DBMS Specifica](#dbms_specifica)**<br>
+**[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
 **[6. Contributing](#contributing)**<br>
 
 ----
@@ -23,55 +23,57 @@
 `db_seeder` allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
 - [Apache Derby](https://db.apache.org/derby/)
-  - client and embedded versions
+  - relational database management system (RDBMS)
   - open source
-  - relational database management system (RDBMS) 
-  - automatic data replication
-  - includes an embedded database engine and an emdedded network server
-  - very small footprint (ca. 3.5 MB)
+  - client and embedded (not supported here) version
+  - **[see technical details here](#details_derby)**
 - [CrateDB](https://crate.io/)
+  - relational database management system (RDBMS)
   - open source
-  - relational database management system (RDBMS) 
-  - automatic data replication
-  - fast text search and analytics
-  - integrates a fully searchable document-oriented data store
-  - self-healing clusters for high availability
+  - client only version
+  - **[see technical details here](#details_cratedb)**
 - [CUBRID](https://www.cubrid.org) 
+  - relational database management system (RDBMS)
   - open source
-  - relational database management system (RDBMS) 
-  - 3-tier client-server architecture (database server, connection broker and application layer)
-  - high Availability provides load-balanced, fault-tolerant and continuous service availability through its shared-nothing clustering, automated fail-over and manual fail-back mechanisms
-  - object extensions developed by CUBRID Corp. for OLTP
+  - client only version
+  - **[see technical details here](#details_cubrid)**
 - [Firebird](https://firebirdsql.org) 
-  - relational database management system (RDBMS) 
+  - relational database management system (RDBMS)
   - open source
-  - **[see details here](#details_firebird)**
+  - client and embedded (not supported here) version
+  - **[see technical details here](#details_firebird)**
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
-  - relational database management system (RDBMS) 
-  - supporting object-relational features and non-relational structures like JSON and XML
+  - relational database management system (RDBMS)
+  - client only version
+  - **[see technical details here](#details_ibmdb2)**
 - [MariaDB Server](https://mariadb.com/) 
-  - open source, but owned by Oracle
-  - relational database management system (RDBMS) 
-  - fork of the MySQL RDBMS
+  - relational database management system (RDBMS)
+  - open source
+  - client only version
+  - **[see technical details here](#details_mariadb)**
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
-  - relational database management system (RDBMS) 
+  - relational database management system (RDBMS)
+  - client only version
+  - **[see technical details here](#details_mssqlserver)**
 - [MySQL Database](https://www.mysql.com/) 
-  - open source, but owned by Oracle
-  - relational database management system (RDBMS) 
-  - component of the LAMP web application software stack
+  - relational database management system (RDBMS)
+  - open source
+  - client only version
+  - **[see technical details here](#details_mysql)**
 - [Oracle Database](https://www.oracle.com/database/)
-  - relational database management system (RDBMS) 
-  - running online transaction processing (OLTP), data warehousing (DW) and mixed (OLTP & DW) database workloads
+  - relational database management system (RDBMS)
+  - client only version
+  - **[see technical details here](#details_oracle)**
 - [PostgreSQL Database](https://www.postgresql.org/)
+  - relational database management system (RDBMS)
   - open source
-  - relational database management system (RDBMS) 
-  - emphasizing extensibility and SQL compliance
+  - client only version
+  - **[see technical details here](#details_postgresql)**
 - [SQLite](https://www.sqlite.org/)
-  - embedded version
+  - relational database management system (RDBMS)
   - open source
-  - relational database management system (RDBMS) 
-  - not a client–server database engine, it is embedded into the end program
-  - weakly typed SQL syntax that does not guarantee the domain integrity
+  - embedded only version
+  - **[see technical details here](#details_sqlite)**
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
 If the selected database, schema or user already exists, it is deleted with all including data. 
@@ -311,12 +313,12 @@ db_seeder.sqlite.database=kxn_db
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
-## <a name="dbms_specifica"></a> 5. DBMS Specifica
+## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 
 [DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
-### 5.1 Apache Derby
+### <a name="details_derby"></a> 5.1 Apache Derby
 
 - database driver version 10.15.2.0
   - Maven repository: 
@@ -344,7 +346,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_DERBY_EMB.png)
 
-### 5.2 CrateDB
+### <a name="details_cratedb"></a> 5.2 CrateDB
 
 - database driver version 2.6.0
   - JFrog Bintray repository: [here](https://bintray.com/crate/crate/crate-jdbc/2.6.0)
@@ -371,7 +373,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_CRATEDB.png)
 
-### 5.3 CUBRID
+### <a name="details_cubrid"></a> 5.3 CUBRID
 
 - database driver version 10.2.0.8797
   - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
@@ -393,29 +395,35 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_CUBRID.png)
 
-### <a name="details_firebird"></a>  5.3 Firebird
+### <a name="details_firebird"></a> 5.4 Firebird
 
-- database driver version 10.2.0.8797
-  - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
-- database Docker image version 10.2: [here](https://hub.docker.com/r/cubrid/cubrid)
-- data definition hierarchy: database and user
-- privileged database / user: n/a / dba
-
-- data types used:
-
-| Data Type | CrateDB Type |
+- data types:
+| JDBC Data Type | Firebird Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | BLOB |
-| character large object | CLOB |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
+- DDL syntax
+  - [CREATE DATABASE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl) 
+  - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
+- Docker image
+  - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
+  - pull command: `docker pull jacobalberty/firebird:3.0.5`
+- JDBC driver 
+  - version 4.0.0.java11
+  - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
+- privileged database access
+  - user: SYSDBA
 
 - DBeaver database connection settings:
 
-![](.README_images/DBeaver_CUBRID.png)
+![](.README_images/DBeaver_FIREBIRD.png)
 
-### 5.4 IBM Db2 Database
+### <a name="details_ibmdb2"></a> 5.5 IBM Db2 Database
 
 - database driver version 11.5.0.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
@@ -439,7 +447,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_IBMDB2.png)
 
-### 5.5 MariaDB Server
+### <a name="details_mariadb"></a> 5.6 MariaDB Server
 
 - database driver version 2.6.0 
   - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
@@ -461,7 +469,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MARIADB.png)
 
-### 5.6 Microsoft SQL Server
+###  <a name="details_mssqlserver"></a> 5.7 Microsoft SQL Server
 
 - database driver version 8.31 
   - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
@@ -483,7 +491,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MSSQLSERVER.png)
 
-### 5.7 MySQL Database
+### <a name="details_mysql"></a> 5.8 MySQL Database
 
 - database driver version 8.0.20 
   - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -505,7 +513,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MYSQL.png)
 
-### 5.8 Oracle Database
+### <a name="details_oracle"></a> 5.9 Oracle Database
 
 - database driver version 
   - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
@@ -528,7 +536,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_ORACLE.png)
 
-### 5.9 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.10 PostgreSQL Database
 
 - database driver version 42.2.13
   - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)
@@ -550,7 +558,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_POSTGRESQL.png)
 
-### 5.10 SQLite
+### <a name="details_sqlite"></a> 5.11 SQLite
 
 - database driver version 3.31.1
   - Maven repository: [here](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
