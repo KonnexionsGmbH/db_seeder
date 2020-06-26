@@ -42,6 +42,10 @@ Currently the following management database systems are supported:
   - 3-tier client-server architecture (database server, connection broker and application layer)
   - high Availability provides load-balanced, fault-tolerant and continuous service availability through its shared-nothing clustering, automated fail-over and manual fail-back mechanisms
   - object extensions developed by CUBRID Corp. for OLTP
+- [Firebird](https://firebirdsql.org) 
+  - relational database management system (RDBMS) 
+  - open source
+  - **[see details here](#details_firebird)**
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
   - relational database management system (RDBMS) 
   - supporting object-relational features and non-relational structures like JSON and XML
@@ -368,6 +372,28 @@ Below are also DBeaver based connection parameter examples for each database man
 ![](.README_images/DBeaver_CRATEDB.png)
 
 ### 5.3 CUBRID
+
+- database driver version 10.2.0.8797
+  - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
+- database Docker image version 10.2: [here](https://hub.docker.com/r/cubrid/cubrid)
+- data definition hierarchy: database and user
+- privileged database / user: n/a / dba
+
+- data types used:
+
+| Data Type | CrateDB Type |
+| --- | --- |
+| big integer | BIGINT |
+| binary large object | BLOB |
+| character large object | CLOB |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+- DBeaver database connection settings:
+
+![](.README_images/DBeaver_CUBRID.png)
+
+### <a name="details_firebird"></a>  5.3 Firebird
 
 - database driver version 10.2.0.8797
   - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
