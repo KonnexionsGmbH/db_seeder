@@ -397,7 +397,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_firebird"></a> 5.4 Firebird
 
-- data types
+- data types:
 
 | JDBC Data Type | Firebird Type |
 | --- | --- |
@@ -407,21 +407,21 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DDL syntax
+- DDL syntax:
   - [CREATE DATABASE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create) 
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl) 
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
-- Docker image
+- Docker image:
   - pull command: `docker pull jacobalberty/firebird:3.0.5`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
-- JDBC driver 
+- JDBC driver:
   - version 4.0.0.java11
   - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
 
-- privileged database access
+- privileged database access:
   - user: SYSDBA
 
 - DBeaver database connection settings:
