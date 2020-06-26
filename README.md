@@ -118,38 +118,36 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 
 ### <a name="data_construction"></a> 2.2 Construction of the Dummy Data Content
 
-#### 2.2.1 Simple ASCII Model (DATA_SOURCE = SAM)
-
 25% of columns that can contain the value `NULL` are randomly assigned the value `NULL`.
 
-#### 2.2.1.1 Binary Large Objects
+#### 2.2.1 Binary Large Objects
 
 Examples: BLOB, BYTEA, LONGBLOB, VARBINARY (MAX)
 
 - The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.
 This file contains the company logo of Konnexions GmBH.
 
-#### 2.2.1.2 Character Large Objects
+#### 2.2.2 Character Large Objects
 
 Examples: CLOB, LONGTEXT, TEXT, VARCHAR (MAX)
 
 - The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns.
 This file contains the text of the Konnexions Public License (KX-PL).
 
-#### 2.2.1.3 Decimal Numbers
+#### 2.2.3 Decimal Numbers
 
 Examples: NUMBER
 
 - All decimal number columns are filled with random numbers.
 
-#### 2.2.1.4 Integers
+#### 2.2.4 Integers
 
 Examples: BIGINT, INTEGER, NUMBER
 
 - If possible, primary key columns are filled by the autoincrement functionality of the respective DBMS - otherwise `autoincrement` is simulated..
 - All other integer columns are filled with random numbers.
 
-#### 2.2.1.5 String Data
+#### 2.2.5 String Data
 
 Examples: TEXT, VARCHAR, VARCHAR2
 
@@ -164,25 +162,25 @@ Examples: TEXT, VARCHAR, VARCHAR2
   - `COUNTRY_STATE.SYMBOL` - constant `SYMBOL_` and the right 3 digits of the primary key with leading zeros
   - `TIMEZONE.ABBREVIATION` - constant `ABBREVIATION_` and the right 7 digits of the primary key with leading zeros
 
-#### 2.2.1.6 Temporal Data
+#### 2.2.6 Temporal Data
 
 Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
 
 - A randomly generated timestamp is assigned to all columns that can contain temporal data.
 
-#### 2.2.1.7 Examples
+#### 2.2.7 Examples
 
 ##### 1. Table CITY
 
-![](.README_images/Example_SAM_CITY.png)
+![](.README_images/Example_Data_CITY.png)
 
 ##### 2. Table COUNTRY
 
-![](.README_images/Example_SAM_COUNTRY.png)
+![](.README_images/ExampleData_COUNTRY.png)
 
 ##### 3. Table TIMEZONE
 
-![](.README_images/Example_SAM_TIMEZONE.png)
+![](.README_images/Example_Data_TIMEZONE.png)
 
 ## <a name="installation"></a> 3. Installation
 
@@ -317,8 +315,8 @@ db_seeder.sqlite.database=kxn_db
 | <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | IBMDB2, MSSQLSERVER | schema name |
 | <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
-| encoding.iso_8859_1=false/true | FIREBIRD | generate column content with Western Latin characters included |
-| encoding.utf_8=false/true | FIREBIRD | generate column content with tradtional chinese characters included |
+| encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | FIREBIRD | generate column content with Western Latin characters included |
+| encoding.utf_8=false/true | ENCODING_UTF_8 | FIREBIRD | generate column content with tradtional chinese characters included |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |

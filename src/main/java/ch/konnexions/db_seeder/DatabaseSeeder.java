@@ -43,7 +43,7 @@ public class DatabaseSeeder {
       args0 = args[0];
     }
 
-    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "args[0]='" + args0 + "'");
+    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  args[0]='" + args0 + "'");
 
     if (null == args0) {
       logger.error(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Command line argument missing (null)");

@@ -46,6 +46,9 @@ public class Config {
   private String                                                       cubridPassword;
   private String                                                       cubridUser;
 
+  private boolean                                                      encodingIso_8859_1;
+  private boolean                                                      encodingUtf_8;
+
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
   private String                                                       fileConfigurationName;
 
@@ -235,6 +238,22 @@ public class Config {
    */
   public final String getCubridUser() {
     return cubridUser;
+  }
+
+  // Encoding ----------------------------------------------------------------
+
+  /**
+   * @return the encoding option for ISO-8859-1
+   */
+  public final boolean getEncodingIso_8859_1() {
+    return encodingIso_8859_1;
+  }
+
+  /**
+   * @return the encoding option for UTF-8
+   */
+  public final boolean getEncodingUtf_8() {
+    return encodingUtf_8;
   }
 
   // Firebird ----------------------------------------------------------------
@@ -522,6 +541,17 @@ public class Config {
   }
 
   @SuppressWarnings("unused")
+  private final List<String> getBooleanProperties() {
+
+    List<String> list = new ArrayList<>();
+
+    list.add("db_seeder.encoding.iso_8859_1");
+    list.add("db_seeder.encoding.utf_8");
+
+    return list;
+  }
+
+  @SuppressWarnings("unused")
   private final List<String> getNumericProperties() {
 
     List<String> list = new ArrayList<>();
@@ -668,6 +698,9 @@ public class Config {
     cubridPassword              = propertiesConfiguration.getString("db_seeder.cubrid.password");
     cubridUser                  = propertiesConfiguration.getString("db_seeder.cubrid.user");
 
+    encodingIso_8859_1          = propertiesConfiguration.getBoolean("db_seeder.encoding.iso_8859_1");
+    encodingUtf_8               = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
+
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
 
     firebirdConnectionPort      = propertiesConfiguration.getInt("db_seeder.firebird.connection.port");
@@ -805,6 +838,18 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER")) {
       cubridUser = environmentVariables.get("DB_SEEDER_CUBRID_USER");
       propertiesConfiguration.setProperty("db_seeder.cubrid.user", cubridUser);
+    }
+
+    // Encoding ----------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_ENCODING_ISO_8859_1")) {
+      String encodingIso_8859_1Helper = environmentVariables.get("DB_SEEDER_ENCODING_ISO_8859_1");
+      propertiesConfiguration.setProperty("db_seeder.encoding.is_8859_1", "true".equals(encodingIso_8859_1Helper.toLowerCase()) ? true : false);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_ENCODING_UTF_8")) {
+      String encodingUtf_8Helper = environmentVariables.get("DB_SEEDER_ENCODING_UTF_8");
+      propertiesConfiguration.setProperty("db_seeder.encoding.utf_8", "true".equals(encodingUtf_8Helper.toLowerCase()) ? true : false);
     }
 
     // Firebird ------------------------------------------------------------------
@@ -1088,7 +1133,7 @@ public class Config {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     boolean isChanged = false;
 
@@ -1108,7 +1153,7 @@ public class Config {
       } catch (ConfigurationException e) {
         e.printStackTrace();
       }
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
     }
   }
 }

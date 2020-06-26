@@ -35,7 +35,7 @@ public abstract class AbstractDatabaseSeeder {
   private static Logger        logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
 
   public final static String   FORMAT_IDENTIFIER        = "%-10d";
-  public final static String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
+  // public final static String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
   public final static String   FORMAT_METHOD_NAME       = "%-20s";
   public final static String   FORMAT_ROW_NO            = "%1$10d";
   public final static String   FORMAT_TABLE_NAME        = "%-17s";

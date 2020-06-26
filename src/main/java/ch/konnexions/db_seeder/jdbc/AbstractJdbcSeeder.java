@@ -21,6 +21,7 @@ import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Random;
 //import java.util.concurrent.ThreadLocalRandom;
 
@@ -37,6 +38,8 @@ import ch.konnexions.db_seeder.Config;
  */
 public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
+  private static final int    ENCODING_MAX      = 3;
+
   private static Logger       logger            = Logger.getLogger(AbstractJdbcSeeder.class);
 
   private final String        BLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
@@ -44,6 +47,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private final String        CLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "clob.md";
   private final String        CLOB_DATA         = readClobFile();
+  private final Properties    COLUMN_NAME;
   protected Connection        connection        = null;
 
   protected String            driver            = "";
@@ -74,7 +78,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    config = new Config();
+    config      = new Config();
+
+    COLUMN_NAME = createColumnNames();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -92,7 +98,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    config = new Config();
+    config      = new Config();
+
+    COLUMN_NAME = createColumnNames();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -301,6 +309,64 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
 
     return count;
+  }
+
+  private final Properties createColumnNames() {
+    Properties columnName = new Properties();
+
+    // Encoding ASCII
+    columnName.setProperty("ABBREVIATION_0", "ABBREVIATION_");
+    columnName.setProperty("ADDRESS1_0", "ADDRESS1_");
+    columnName.setProperty("ADDRESS2_0", "ADDRESS2_");
+    columnName.setProperty("ADDRESS3_0", "ADDRESS3_");
+    columnName.setProperty("EMAIL_0", "EMAIL_");
+    columnName.setProperty("FAX_0", "FAX_");
+    columnName.setProperty("ISO3166_0", "ISO3166_");
+    columnName.setProperty("NAME_0", "NAME_");
+    columnName.setProperty("PHONE_0", "PHONE_");
+    columnName.setProperty("POSTAL CODE_0", "POSTAL_CODE_");
+    columnName.setProperty("SYMBOL_0", "SYMBOL_");
+    columnName.setProperty("URL_0", "URL_");
+    columnName.setProperty("VAT_ID_NUMBER_0", "VAT_ID_NUMBER_");
+    columnName.setProperty("V_TIME_ZONE_0", "V_TIME_ZONE_");
+
+    // Encoding ISO_8859_1
+    boolean isIso_8859_1 = config.getEncodingIso_8859_1();
+
+    columnName.setProperty("ABBREVIATION_1", isIso_8859_1 ? "ABRÉVIATION_" : "NO_ISO_8859_1_");
+    columnName.setProperty("ADDRESS1_1", isIso_8859_1 ? "DIRECCIÓN1_" : "NO_ISO_8859_1_");
+    columnName.setProperty("ADDRESS1_2", isIso_8859_1 ? "DIRECCIÓN2_" : "NO_ISO_8859_1_");
+    columnName.setProperty("ADDRESS1_3", isIso_8859_1 ? "DIRECCIÓN3_" : "NO_ISO_8859_1_");
+    columnName.setProperty("EMAIL_1", isIso_8859_1 ? "CORREO_ELECTRÓNICO_" : "NO_ISO_8859_1_");
+    columnName.setProperty("FAX_1", isIso_8859_1 ? "TÉLÉCOPIE_" : "NO_ISO_8859_1_");
+    columnName.setProperty("ISO3166_1", isIso_8859_1 ? "CÓDIGO 3166_" : "NO_ISO_8859_1_");
+    columnName.setProperty("NAME_1", isIso_8859_1 ? "COMPAÑÍA_" : "NO_ISO_8859_1_");
+    columnName.setProperty("PHONE_1", isIso_8859_1 ? "TÉLÉPHONE_" : "NO_ISO_8859_1_");
+    columnName.setProperty("POSTAL CODE_1", isIso_8859_1 ? "CÓDIGO_POSTAL_" : "NO_ISO_8859_1_");
+    columnName.setProperty("SYMBOL_1", isIso_8859_1 ? "SÍMBOLO_" : "NO_ISO_8859_1_");
+    columnName.setProperty("URL_1", isIso_8859_1 ? "ENDEREÇO_" : "NO_ISO_8859_1_");
+    columnName.setProperty("VAT_ID_NUMBER_1", isIso_8859_1 ? "NUMÉRO_D'IDENTIFICATION_DE_LA_TVA_" : "NO_ISO_8859_1_");
+    columnName.setProperty("V_TIME_ZONE_1", isIso_8859_1 ? "FUSO_HORÁRIO_" : "NO_ISO_8859_1_");
+
+    // Encoding UTF_8
+    boolean isUtf_8 = config.getEncodingUtf_8();
+
+    columnName.setProperty("ABBREVIATION_2", isUtf_8 ? "缩略语_" : "NO_UTF_8_");
+    columnName.setProperty("ADDRESS1_2", isUtf_8 ? "地址1_" : "NO_UTF_8_");
+    columnName.setProperty("ADDRESS2_2", isUtf_8 ? "地址2_" : "NO_UTF_8_");
+    columnName.setProperty("ADDRESS3_2", isUtf_8 ? "地址3_" : "NO_UTF_8_");
+    columnName.setProperty("EMAIL_2", isUtf_8 ? "电子邮件_" : "NO_UTF_8_");
+    columnName.setProperty("FAX_2", isUtf_8 ? "传真_" : "NO_UTF_8_");
+    columnName.setProperty("ISO3166_2", isUtf_8 ? "ISO 3166标准_" : "NO_UTF_8_");
+    columnName.setProperty("NAME_2", isUtf_8 ? "名称_" : "NO_UTF_8_");
+    columnName.setProperty("PHONE_2", isUtf_8 ? "电话_" : "NO_UTF_8_");
+    columnName.setProperty("POSTAL CODE_2", isUtf_8 ? "邮政编码_" : "NO_UTF_8_");
+    columnName.setProperty("SYMBOL_2", isUtf_8 ? "符号_" : "NO_UTF_8_");
+    columnName.setProperty("URL_2", isUtf_8 ? "网址_" : "NO_UTF_8_");
+    columnName.setProperty("VAT_ID_NUMBER_2", isUtf_8 ? "增值税号_" : "NO_UTF_8_");
+    columnName.setProperty("V_TIME_ZONE_2", isUtf_8 ? "时区_" : "NO_UTF_8_");
+
+    return columnName;
   }
 
   /**
@@ -568,6 +634,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
+  private final String getColumnContent(String columnName, int rowNo) {
+    return columnName + COLUMN_NAME.getProperty(columnName + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER, rowNo);
+  }
+
   private final int getDefaultRowSize(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
@@ -585,13 +655,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
-  private final int getRandomIntExcluded(final int upperLimit) {
-    return randomInt.nextInt(upperLimit);
-  }
-
   //  private final double getRandomDouble(final double lowerLimit, final double upperLimit) {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
+
+  private final int getRandomIntExcluded(final int upperLimit) {
+    return randomInt.nextInt(upperLimit);
+  }
 
   private final int getRandomIntIncluded(final int upperLimit) {
     return randomInt.nextInt(upperLimit) + 1;
@@ -616,87 +686,88 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
                                           final int rowCount,
                                           final int rowNo,
                                           final ArrayList<Object> pkList) {
-    String identifier10      = String.format(FORMAT_IDENTIFIER, rowNo);
-    String identifier10Right = String.format(FORMAT_IDENTIFIER_RIGHT, rowNo);
-
     switch (tableName) {
     case TABLE_NAME_CITY:
-      prepDmlStmntInsertCity(preparedStatement, rowCount, identifier10);
+      prepDmlStmntInsertCity(preparedStatement, rowCount);
       break;
     case TABLE_NAME_COMPANY:
-      prepDmlStmntInsertCompany(preparedStatement, rowCount, identifier10, identifier10Right);
+      prepDmlStmntInsertCompany(preparedStatement, rowCount);
       break;
     case TABLE_NAME_COUNTRY:
-      prepDmlStmntInsertCountry(preparedStatement, rowCount, identifier10, identifier10Right);
+      prepDmlStmntInsertCountry(preparedStatement, rowCount);
       break;
     case TABLE_NAME_COUNTRY_STATE:
-      prepDmlStmntInsertCountryState(preparedStatement, rowCount, identifier10, identifier10Right);
+      prepDmlStmntInsertCountryState(preparedStatement, rowCount);
       break;
     case TABLE_NAME_TIMEZONE:
-      prepDmlStmntInsertTimezone(preparedStatement, rowCount, identifier10, identifier10Right);
+      prepDmlStmntInsertTimezone(preparedStatement, rowCount);
       break;
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }
   }
 
-  private final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount, final String identifier10) {
+  private final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount) {
     try {
       int i = 1;
 
-      preparedStatement.setInt(i++, autoIncrement++);
+      preparedStatement.setInt(i++, autoIncrement);
 
       prepStmntInsertColFKOpt(i++, preparedStatement, pkListCountryState, rowCount);
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i, "NAME_" + identifier10);
+      prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
+      
+      autoIncrement++;
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void
-          prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
+  private final void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount) {
     try {
       int i = 1;
 
-      preparedStatement.setInt(i++, autoIncrement++);
+      preparedStatement.setInt(i++, autoIncrement);
 
       preparedStatement.setObject(i++, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
       prepStmntInsertColFlagNY(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS1_", rowCount, identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS2_", rowCount, identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS3_", rowCount, identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS1_", rowCount, autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS2_", rowCount, autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS3_", rowCount, autoIncrement);
       prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColClobOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "EMAIL_", rowCount, identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "FAX_", rowCount, identifier10);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "EMAIL_", rowCount, autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "FAX_", rowCount, autoIncrement);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i++, "NAME_" + identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "PHONE_", rowCount, identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "POSTAL_CODE_", rowCount, identifier10Right.substring(2));
-      prepStmntInsertColStringOpt(preparedStatement, i++, "URL_", rowCount, identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i, "VAT_ID_NUMBER__", rowCount, identifier10);
+      prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "PHONE_", rowCount, autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "POSTAL_CODE_", rowCount, autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i++, "URL_", rowCount, autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i, "VAT_ID_NUMBER_", rowCount, autoIncrement);
+      
+      autoIncrement++;
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void
-          prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
+  private final void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount) {
     try {
       int i = 1;
 
-      preparedStatement.setInt(i++, autoIncrement++);
+      preparedStatement.setInt(i++, autoIncrement);
 
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "", rowCount, identifier10Right.substring(8));
+      prepStmntInsertColStringOpt(preparedStatement, i++, "ISO3166_", rowCount, autoIncrement);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i, "NAME_" + identifier10);
+      prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
+      
+      autoIncrement++;
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -711,38 +782,40 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param identifier10 number of the current row (10 figures)
    * @param identifier10 number of the current row (10 figures) right aligned
    */
-  private final void
-          prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, String identifier10Right) {
+  private final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount) {
     try {
       int i = 1;
 
-      preparedStatement.setInt(i++, autoIncrement++);
+      preparedStatement.setInt(i++, autoIncrement);
 
       preparedStatement.setObject(i++, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
       preparedStatement.setObject(i++, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
       prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i++, "NAME_" + identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i, "SYMBOL_", rowCount, identifier10Right.substring(7));
+      prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i, "SYMBOL_", rowCount, autoIncrement);
+      
+      autoIncrement++;
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void
-          prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount, final String identifier10, final String identifier10Right) {
+  private final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount) {
     try {
       int i = 1;
 
-      preparedStatement.setInt(i++, autoIncrement++);
+      preparedStatement.setInt(i++, autoIncrement);
 
-      preparedStatement.setString(i++, "ABBREVIATION_" + identifier10Right.substring(3));
+      prepStmntInsertColString(preparedStatement, i++, "ABBREVIATION_", autoIncrement);
       prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      preparedStatement.setString(i++, "NAME_" + identifier10);
-      prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, identifier10);
+      prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
+      prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, autoIncrement);
+      
+      autoIncrement++;
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -872,16 +945,25 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
   }
 
+  private final void prepStmntInsertColString(final PreparedStatement preparedStatement, final int columnPos, final String columnName, final int rowNo) {
+    try {
+      preparedStatement.setString(columnPos, getColumnContent(columnName, rowNo));
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
   private final void prepStmntInsertColStringOpt(final PreparedStatement preparedStatement,
                                                  final int columnPos,
                                                  final String columnName,
                                                  final int rowCount,
-                                                 final String identifier) {
+                                                 final int rowNo) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
       } else {
-        preparedStatement.setString(columnPos, columnName + identifier);
+        prepStmntInsertColString(preparedStatement, columnPos, columnName, rowNo);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -915,7 +997,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   //    }
   //  }
 
-  private byte[] readBlobFile2Bytes() {
+  private final byte[] readBlobFile2Bytes() {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 

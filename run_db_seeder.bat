@@ -35,6 +35,9 @@ if ["%1"] EQU [""] (
     set DB_SEEDER_DBMS=%1
 )
 
+set DB_SEEDER_ENCODING_ISO_8859_1=
+set DB_SEEDER_ENCODING_UTF_8=
+
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*

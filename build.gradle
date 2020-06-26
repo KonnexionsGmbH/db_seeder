@@ -2,6 +2,7 @@ plugins {
     id 'java'
 }
 
+compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
 version '1.11.0'
 
@@ -66,4 +67,5 @@ task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
 
 tasks.withType(JavaCompile).each {
     it.options.compilerArgs.add('--enable-preview')
+    it.options.encoding = 'UTF-8'
 }

@@ -67,11 +67,11 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  created             TIMESTAMP      NOT NULL,
                  directions          CLOB,
                  email               VARCHAR2 (100),
-                 fax                 VARCHAR2 (20),
+                 fax                 VARCHAR2 (50),
                  modified            TIMESTAMP,
                  name                VARCHAR2 (250) NOT NULL UNIQUE,
                  phone               VARCHAR2 (50),
-                 postal_code         VARCHAR2 (20),
+                 postal_code         VARCHAR2 (50),
                  url                 VARCHAR2 (250),
                  vat_id_number       VARCHAR2 (50),
                  CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
@@ -83,7 +83,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  pk_country_id NUMBER         NOT NULL PRIMARY KEY,
                  country_map   BLOB,
                  created       TIMESTAMP      NOT NULL,
-                 iso3166       VARCHAR2 (2),
+                 iso3166       VARCHAR2 (50),
                  modified      TIMESTAMP,
                  name          VARCHAR2 (100) NOT NULL UNIQUE
              )""";
@@ -98,7 +98,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  created             TIMESTAMP      NOT NULL,
                  modified            TIMESTAMP,
                  name                VARCHAR2 (100) NOT NULL,
-                 symbol              VARCHAR2 (10),
+                 symbol              VARCHAR2 (50),
                  CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES "COUNTRY"  (pk_country_id),
                  CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES "TIMEZONE" (pk_timezone_id),
                  CONSTRAINT uq_country_state          UNIQUE (fk_country_id, name)
@@ -108,7 +108,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
              CREATE TABLE "TIMEZONE"
              (
                  pk_timezone_id NUMBER          NOT NULL PRIMARY KEY,
-                 abbreviation   VARCHAR2 (20)   NOT NULL,
+                 abbreviation   VARCHAR2 (50)   NOT NULL,
                  created        TIMESTAMP       NOT NULL,
                  modified       TIMESTAMP,
                  name           VARCHAR2 (100)  NOT NULL UNIQUE,

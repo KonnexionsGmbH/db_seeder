@@ -36,6 +36,9 @@ else
     export DB_SEEDER_DBMS=$1
 fi
 
+# export DB_SEEDER_ENCODING_ISO_8859_1=
+# export DB_SEEDER_ENCODING_UTF_8=
+
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
