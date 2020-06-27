@@ -175,6 +175,17 @@ public class Config {
 
   // CrateDB ----------------------------------------------------------
 
+  @SuppressWarnings("unused")
+  private final List<String> getBooleanProperties() {
+
+    List<String> list = new ArrayList<>();
+
+    list.add("db_seeder.encoding.iso_8859_1");
+    list.add("db_seeder.encoding.utf_8");
+
+    return list;
+  }
+
   /**
    * @return the CrateDB port number where the database server is listening for requests
    */
@@ -196,14 +207,14 @@ public class Config {
     return cratedbPassword;
   }
 
+  // CUBRID ------------------------------------------------------------------
+
   /**
    * @return the CrateDB user name to connect as normal user to the database
    */
   public final String getCratedbUser() {
     return cratedbUser;
   }
-
-  // CUBRID ------------------------------------------------------------------
 
   /**
    * @return the CUBRID port number where the database server is listening for requests
@@ -233,14 +244,14 @@ public class Config {
     return cubridPassword;
   }
 
+  // Encoding ----------------------------------------------------------------
+
   /**
    * @return the CUBRID schema name
    */
   public final String getCubridUser() {
     return cubridUser;
   }
-
-  // Encoding ----------------------------------------------------------------
 
   /**
    * @return the encoding option for ISO-8859-1
@@ -249,14 +260,14 @@ public class Config {
     return encodingIso_8859_1;
   }
 
+  // Firebird ----------------------------------------------------------------
+
   /**
    * @return the encoding option for UTF-8
    */
   public final boolean getEncodingUtf_8() {
     return encodingUtf_8;
   }
-
-  // Firebird ----------------------------------------------------------------
 
   /**
    * @return the MariaDB port number where the database server is listening for requests
@@ -293,14 +304,14 @@ public class Config {
     return firebirdPasswordSys;
   }
 
+  // IBM Db2 Database --------------------------------------------------------
+
   /**
    * @return the MariaDB user name to connect as normal user to the database
    */
   public final String getFirebirdUser() {
     return firebirdUser;
   }
-
-  // IBM Db2 Database --------------------------------------------------------
 
   /**
    * @return the IBM Db2 port number where the database server is listening for requests
@@ -330,6 +341,8 @@ public class Config {
     return ibmdb2Password;
   }
 
+  // JDBC Connection ---------------------------------------------------------
+
   /**
    * @return the IBM Db2 schema name
    */
@@ -337,14 +350,14 @@ public class Config {
     return ibmdb2Schema;
   }
 
-  // JDBC Connection ---------------------------------------------------------
-
   /**
    * @return the host name or the IP address of the database
    */
   public final String getJdbcConnectionHost() {
     return jdbcConnectionHost;
   }
+
+  // MariaDB Server ----------------------------------------------------------
 
   private final ArrayList<String> getKeysSorted() {
 
@@ -356,8 +369,6 @@ public class Config {
 
     return keysSorted;
   }
-
-  // MariaDB Server ----------------------------------------------------------
 
   /**
    * @return the MariaDB port number where the database server is listening for requests
@@ -394,14 +405,14 @@ public class Config {
     return mariadbPasswordSys;
   }
 
+  // MAX (rows) --------------------------------------------------------------
+
   /**
    * @return the MariaDB user name to connect as normal user to the database
    */
   public final String getMariadbUser() {
     return mariadbUser;
   }
-
-  // MAX (rows) --------------------------------------------------------------
 
   /**
    * @return the maximum number of rows to be generated for database table CITY
@@ -431,14 +442,14 @@ public class Config {
     return maxRowCountryState;
   }
 
+  // Microsoft SQL Server ----------------------------------------------------
+
   /**
    * @return the maximum number of rows to be generated for database table COUNTRY
    */
   public final int getMaxRowTimezone() {
     return maxRowTimezone;
   }
-
-  // Microsoft SQL Server ----------------------------------------------------
 
   /**
    * @return the Microsoft SQL Server port number where the database server is listening for requests
@@ -482,14 +493,14 @@ public class Config {
     return mssqlserverSchema;
   }
 
+  // MySQL Database ----------------------------------------------------------
+
   /**
    * @return the Microsoft SQL Server user name to connect as normal user to the database
    */
   public final String getMssqlserverUser() {
     return mssqlserverUser;
   }
-
-  // MySQL Database ----------------------------------------------------------
 
   /**
    * @return the MySQL port number where the database server is listening for requests
@@ -538,17 +549,6 @@ public class Config {
    */
   public final String getMysqlUser() {
     return mysqlUser;
-  }
-
-  @SuppressWarnings("unused")
-  private final List<String> getBooleanProperties() {
-
-    List<String> list = new ArrayList<>();
-
-    list.add("db_seeder.encoding.iso_8859_1");
-    list.add("db_seeder.encoding.utf_8");
-
-    return list;
   }
 
   @SuppressWarnings("unused")

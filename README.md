@@ -84,6 +84,8 @@ If the selected database, schema or user already exists, it is deleted with all 
 `db_seeder` then creates the selected database, schema or user and generates the desired dummy data.
 A maximum of 2 147 483 647 rows can be generated per database table.
 
+[//]: # (===========================================================================================)
+
 ### 1.1 Relational Database Management Systems
 
 | DBMS | DB Ticker Symbol(s) | Tested Versions |
@@ -93,12 +95,14 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | CUBRID | CUBRID | 10.2 | 
 | Firebird | FIREBIRD | 3.0.5 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
-| MariaDB Server | MARIADB | 10.4.13 - 10.5.3 | 
+| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
 | MySQL Database | MYSQL | 8.0.20 | 
 | Oracle Database | ORACLE | 12c, 18c, 19c |
 | PostgreSQL Database | POSTGRESQL | 12.3 |
 | SQLite | SQLITE | 3.32.2 |
+
+[//]: # (===========================================================================================)
 
 ## <a name="data"></a> 2. Data 
 
@@ -115,6 +119,8 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 - PK    - primary key
 
 ![](.README_images/Data_Model.png)
+
+[//]: # (===========================================================================================)
 
 ### <a name="data_construction"></a> 2.2 Construction of the Dummy Data Content
 
@@ -178,6 +184,8 @@ Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
 
 ![](.README_images/ExampleData_COUNTRY.png)
 
+[//]: # (===========================================================================================)
+
 ##### 3. Table TIMEZONE
 
 ![](.README_images/Example_Data_TIMEZONE.png)
@@ -215,6 +223,8 @@ The following script parameters are required:
 - `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
 - `DB_SEEDER_DELETE_EXISTING_CONTAINER`: delete the existing Docker container (`yes`/`no`)
  
+[//]: # (===========================================================================================)
+
 ### <a name="operating_instructions_control"></a> 4.2 Control Parameters
  
 #### 4.2.1 Supported Parameters
@@ -326,82 +336,138 @@ db_seeder.sqlite.database=kxn_db
 [DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
+[//]: # (===========================================================================================)
+
 ### <a name="details_derby"></a> 5.1 Apache Derby
 
-- database driver version 10.15.2.0
-  - Maven repository: 
-    - client version [here](https://mvnrepository.com/artifact/org.apache.derby/derbyclient/10.15.2.0)
-    - embedded version [here](https://mvnrepository.com/artifact/org.apache.derby/derby)
-- database Docker image version 10.15.2.0: [here](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
-- data definition hierarchy: only database and schema (schema not relevant for db_seeder)
-- privileged database / user: n/a / n/a
+- data types:
 
-- data types used:
-
-| Data Type | CrateDB Type |
+| JDBC Data Type | Apache Derby Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | BLOB |
-| character large object | CLOB |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DBeaver database connection settings - client version:
+- DDL syntax:
+  - CREATE DATABASE - n/a 
+  - [CREATE SCHEMA](https://db.apache.org/derby/docs/10.15/ref/index.html)
+  - [CREATE TABLE](https://db.apache.org/derby/docs/10.15/ref/index.html) 
+  - CREATE USER - n/a 
 
+- Docker image (latest - only client version``):
+  - pull command: `docker pull konnexionsgmbh/apache_derby:10.15.2.0`
+  - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
+
+- JDBC driver (latest):
+  - version 10.15.2.
+  - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
+  - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
+
+- encoding:
+  - by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
+  
+- privileged database access:
+  - user: n/a
+
+- DBeaver database connection settings:
+
+  -- client version:
+  
 ![](.README_images/DBeaver_DERBY.png)
-
-- DBeaver database connection settings - embedded version:
-
+  
+  -- embedded version:
+  
 ![](.README_images/DBeaver_DERBY_EMB.png)
+
+[//]: # (===========================================================================================)
 
 ### <a name="details_cratedb"></a> 5.2 CrateDB
 
-- database driver version 2.6.0
-  - JFrog Bintray repository: [here](https://bintray.com/crate/crate/crate-jdbc/2.6.0)
-- database Docker image version 4.1.6: [here](https://hub.docker.com/_/crate)
-- data definition hierarchy: only user
-- privileged database / user: n/a / crate
+- data types:
+
+| JDBC Data Type | CrateDB Type |
+| --- | --- |
+| Blob / byte[] | n/a |
+| Clob | TEXT |
+| long | BIGINT |
+| string | TEXT |
+| timestamp | TIMESTAMP |
+
+- DDL syntax:
+  - CREATE DATABASE - n/a
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-table.html) 
+  - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
+
+- Docker image (latest):
+  - pull command: `docker pull crate:4.1.6`
+  - [DockerHub](https://hub.docker.com/_/crate)
+
+- JDBC driver (latest):
+  - version 2.6.0
+  - [JFrog Bintray repository](https://bintray.com/crate/crate/crate-jdbc)
+
+- encoding:
+  - by default `utf8` encoding
+  
+- privileged database access:
+  - user: `crate`
+
 - restrictions:
   - no constraints (e.g. foreign keys or unique keys)
   - no transaction concept
   - no triggers 
   - only a very proprietary BLOB implementation
 
-- data types used:
-
-| Data Type | CrateDB Type |
-| --- | --- |
-| big integer | BIGINT |
-| binary large object | n/a |
-| character large object | TEXT |
-| string | TEXT |
-| timestamp | TIMESTAMP |
-
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_CRATEDB.png)
 
+[//]: # (===========================================================================================)
+
 ### <a name="details_cubrid"></a> 5.3 CUBRID
 
-- database driver version 10.2.0.8797
-  - Maven repository: [here](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
-- database Docker image version 10.2: [here](https://hub.docker.com/r/cubrid/cubrid)
-- data definition hierarchy: database and user
-- privileged database / user: n/a / dba
+- data types:
 
-- data types used:
-
-| Data Type | CrateDB Type |
+| JDBC Data Type | CUIBRID Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | BLOB |
-| character large object | CLOB |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
+
+- DDL syntax:
+  - CREATE DATABASE - n/a   
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://www.cubrid.org/manual/en/10.2/sql/schema/table_stmt.html?highlight=create%20database#create-table) 
+  - [CREATE USER](https://www.cubrid.org/manual/en/10.2/sql/authorization.html) 
+
+- Docker image (latest):
+  - pull command: `docker pull cubrid/cubrid:10.2`
+  - [DockerHub](https://hub.docker.com/r/cubrid/cubrid/)
+
+- JDBC driver (latest):
+  - version 10.2.1.8849
+  - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
+
+- encoding:
+  - by specifying after the database name when database is created: `kxn_db de_DE.utf8`
+  
+- privileged database access:
+  - user: `DBA` and `PUBLIC`
+
+
+- restrictions:
+  - no full UTF-8 support
 
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_CUBRID.png)
+
+[//]: # (===========================================================================================)
 
 ### <a name="details_firebird"></a> 5.4 Firebird
 
@@ -421,66 +487,112 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE TABLE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl) 
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
-- Docker image:
+- Docker image (latest):
   - pull command: `docker pull jacobalberty/firebird:3.0.5`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
-- JDBC driver:
+- JDBC driver (latest):
   - version 4.0.0.java11
   - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
 
+- encoding:
+  - by using the following JDBC URL parameter: `encoding=UTF8`
+  
 - privileged database access:
-  - user: SYSDBA
+  - user: `SYSDBA`
 
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_FIREBIRD.png)
 
+[//]: # (===========================================================================================)
+
 ### <a name="details_ibmdb2"></a> 5.5 IBM Db2 Database
 
-- database driver version 11.5.0.0 
-  - Maven repository: [here](https://mvnrepository.com/artifact/com.ibm.db2/jcc/11.5.0.0)
-- database Docker image version 11.5.0.0a: [here](https://hub.docker.com/r/ibmcom/db2)
-- data definition hierarchy: only schema
-- privileged database / user: n/a / db2inst1
-- restrictions:
-  - the IBM Db2 DBMS only accepts operating system accounts as database users 
+- data types:
 
-- data types used:
-
-| Data Type | IBM Db2 Database Type |
+| JDBC Data Type | IBM DB2 Database Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | BLOB |
-| character large object | CLOB |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
+
+- DDL syntax:
+  - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001941.html) 
+  - [CREATE SCHEMA](https://www.ibm.com/support/knowledgecenter/SSFMBX/com.ibm.swg.im.dashdb.sql.ref.doc/doc/r0000925.html)
+  - [CREATE TABLE](https://https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0000927.html) 
+  - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
+
+- Docker image (latest):
+  - pull command: `docker pull ibmcom/db2:11.5.0.0a`
+  - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
+
+- JDBC driver (latest):
+  - version 11.5.0.0
+  - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
+
+- encoding:
+  - by using the CCSID clause in the CREATE statements for any of the following objects:
+    - Database
+    - Table space
+    - Table
+    - procedure or function
+  
+- privileged database access:
+  - user: `db2inst1`
+
+- restrictions:
+  - the IBM Db2 DBMS only accepts operating system accounts as database users 
 
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_IBMDB2.png)
 
+[//]: # (===========================================================================================)
+
 ### <a name="details_mariadb"></a> 5.6 MariaDB Server
 
-- database driver version 2.6.0 
-  - Maven repository: [here](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
-- database Docker image version 10.5.3: [here](https://hub.docker.com/_/mariadb)
-- data definition hierarchy: database and user
-- privileged database / user: mysql / root
+- data types:
 
-- data types used:
-
-| Data Type | MariaDB Server Type |
+| JDBC Data Type | MariaDB Server Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | LONGBLOB |
-| character large object | LONGTEXT |
+| Blob / byte[] | LONGBLOB |
+| Clob | LONGTEXT |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | DATETIME |
+
+- DDL syntax:
+  - [CREATE DATABASE](https://mariadb.com/kb/en/create-database/) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://mariadb.com/kb/en/create-table/) 
+  - [CREATE USER](https://mariadb.com/kb/en/create-user/) 
+
+- Docker image (latest):
+  - pull command: `docker pull mariadb:10.5.4`
+  - [DockerHub](https://hub.docker.com/_/mariadb)
+
+- JDBC driver (latest):
+  - version 2.6.1
+  - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
+
+- encoding:
+  - server level: `SET character_set_server = 'latin2';`
+  - database level: `CHARACTER SET = 'keybcs2'`
+  - table level: `CHARACTER SET 'utf8'`
+  - column level: `CHARACTER SET 'greek'`
+  
+- privileged database access:
+  - user: `mysql`
+  - password; `root`
 
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_MARIADB.png)
+
+[//]: # (===========================================================================================)
 
 ###  <a name="details_mssqlserver"></a> 5.7 Microsoft SQL Server
 
@@ -504,6 +616,8 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_MSSQLSERVER.png)
 
+[//]: # (===========================================================================================)
+
 ### <a name="details_mysql"></a> 5.8 MySQL Database
 
 - database driver version 8.0.20 
@@ -525,6 +639,8 @@ Below are also DBeaver based connection parameter examples for each database man
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_MYSQL.png)
+
+[//]: # (===========================================================================================)
 
 ### <a name="details_oracle"></a> 5.9 Oracle Database
 
@@ -549,6 +665,8 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_ORACLE.png)
 
+[//]: # (===========================================================================================)
+
 ### <a name="details_postgresql"></a> 5.10 PostgreSQL Database
 
 - database driver version 42.2.13
@@ -570,6 +688,8 @@ Below are also DBeaver based connection parameter examples for each database man
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_POSTGRESQL.png)
+
+[//]: # (===========================================================================================)
 
 ### <a name="details_sqlite"></a> 5.11 SQLite
 
@@ -595,6 +715,8 @@ Below are also DBeaver based connection parameter examples for each database man
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_SQLITE.png)
+
+[//]: # (===========================================================================================)
 
 ## <a name="contributing"></a> 6. Contributing 
 

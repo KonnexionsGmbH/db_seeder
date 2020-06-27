@@ -315,28 +315,28 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     Properties columnName = new Properties();
 
     // Encoding ASCII
-    columnName.setProperty("ABBREVIATION_0", "ABBREVIATION_");
-    columnName.setProperty("ADDRESS1_0", "ADDRESS1_");
-    columnName.setProperty("ADDRESS2_0", "ADDRESS2_");
-    columnName.setProperty("ADDRESS3_0", "ADDRESS3_");
-    columnName.setProperty("EMAIL_0", "EMAIL_");
-    columnName.setProperty("FAX_0", "FAX_");
-    columnName.setProperty("ISO3166_0", "ISO3166_");
-    columnName.setProperty("NAME_0", "NAME_");
-    columnName.setProperty("PHONE_0", "PHONE_");
-    columnName.setProperty("POSTAL CODE_0", "POSTAL_CODE_");
-    columnName.setProperty("SYMBOL_0", "SYMBOL_");
-    columnName.setProperty("URL_0", "URL_");
-    columnName.setProperty("VAT_ID_NUMBER_0", "VAT_ID_NUMBER_");
-    columnName.setProperty("V_TIME_ZONE_0", "V_TIME_ZONE_");
+    columnName.setProperty("ABBREVIATION_0", "");
+    columnName.setProperty("ADDRESS1_0", "");
+    columnName.setProperty("ADDRESS2_0", "");
+    columnName.setProperty("ADDRESS3_0", "");
+    columnName.setProperty("EMAIL_0", "");
+    columnName.setProperty("FAX_0", "");
+    columnName.setProperty("ISO3166_0", "");
+    columnName.setProperty("NAME_0", "");
+    columnName.setProperty("PHONE_0", "");
+    columnName.setProperty("POSTAL CODE_0", "");
+    columnName.setProperty("SYMBOL_0", "");
+    columnName.setProperty("URL_0", "");
+    columnName.setProperty("VAT_ID_NUMBER_0", "");
+    columnName.setProperty("V_TIME_ZONE_0", "");
 
     // Encoding ISO_8859_1
     boolean isIso_8859_1 = config.getEncodingIso_8859_1();
 
     columnName.setProperty("ABBREVIATION_1", isIso_8859_1 ? "ABRÉVIATION_" : "NO_ISO_8859_1_");
     columnName.setProperty("ADDRESS1_1", isIso_8859_1 ? "DIRECCIÓN1_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS1_2", isIso_8859_1 ? "DIRECCIÓN2_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS1_3", isIso_8859_1 ? "DIRECCIÓN3_" : "NO_ISO_8859_1_");
+    columnName.setProperty("ADDRESS2_1", isIso_8859_1 ? "DIRECCIÓN2_" : "NO_ISO_8859_1_");
+    columnName.setProperty("ADDRESS3_1", isIso_8859_1 ? "DIRECCIÓN3_" : "NO_ISO_8859_1_");
     columnName.setProperty("EMAIL_1", isIso_8859_1 ? "CORREO_ELECTRÓNICO_" : "NO_ISO_8859_1_");
     columnName.setProperty("FAX_1", isIso_8859_1 ? "TÉLÉCOPIE_" : "NO_ISO_8859_1_");
     columnName.setProperty("ISO3166_1", isIso_8859_1 ? "CÓDIGO 3166_" : "NO_ISO_8859_1_");
@@ -494,27 +494,28 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     PreparedStatement preparedStatement = null;
 
     try {
-      preparedStatement = connection.prepareStatement(sqlStmnt,
-                                                      new String[] {
-                                                          "PK_" + tableName + "_ID" });
+      preparedStatement = connection.prepareStatement(sqlStmnt);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
+      try {
+        preparedStatement.setInt(1, autoIncrement);
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+
       prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
 
       try {
         preparedStatement.executeUpdate();
 
-        resultSet = preparedStatement.getGeneratedKeys();
+        pkList.add(autoIncrement);
 
-        while (resultSet.next()) {
-          pkList.add((int) resultSet.getLong(1));
-        }
-
-        resultSet.close();
+        autoIncrement++;
       } catch (SQLException e) {
         e.printStackTrace();
         System.exit(1);
@@ -526,6 +527,19 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
+    }
+
+    if (dbms == Dbms.CRATEDB) {
+      try {
+        statement = connection.createStatement();
+
+        statement.execute("REFRESH TABLE " + tableName);
+
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
     }
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
@@ -708,29 +722,18 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   private final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount) {
-    try {
-      int i = 1;
+    int i = 2;
 
-      preparedStatement.setInt(i++, autoIncrement);
-
-      prepStmntInsertColFKOpt(i++, preparedStatement, pkListCountryState, rowCount);
-      prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-      prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
-      
-      autoIncrement++;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    prepStmntInsertColFKOpt(i++, preparedStatement, pkListCountryState, rowCount);
+    prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
+    prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
+    prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
+    prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
   }
 
   private final void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount) {
     try {
-      int i = 1;
-
-      preparedStatement.setInt(i++, autoIncrement);
+      int i = 2;
 
       preparedStatement.setObject(i++, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
       prepStmntInsertColFlagNY(preparedStatement, i++, rowCount);
@@ -747,8 +750,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       prepStmntInsertColStringOpt(preparedStatement, i++, "POSTAL_CODE_", rowCount, autoIncrement);
       prepStmntInsertColStringOpt(preparedStatement, i++, "URL_", rowCount, autoIncrement);
       prepStmntInsertColStringOpt(preparedStatement, i, "VAT_ID_NUMBER_", rowCount, autoIncrement);
-      
-      autoIncrement++;
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -756,22 +757,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   private final void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount) {
-    try {
-      int i = 1;
+    int i = 2;
 
-      preparedStatement.setInt(i++, autoIncrement);
-
-      prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ISO3166_", rowCount, autoIncrement);
-      prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
-      
-      autoIncrement++;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
+    prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
+    prepStmntInsertColStringOpt(preparedStatement, i++, "ISO3166_", rowCount, autoIncrement);
+    prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
+    prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
   }
 
   /**
@@ -784,9 +776,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   private final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount) {
     try {
-      int i = 1;
-
-      preparedStatement.setInt(i++, autoIncrement);
+      int i = 2;
 
       preparedStatement.setObject(i++, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
       preparedStatement.setObject(i++, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
@@ -795,8 +785,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
       prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
       prepStmntInsertColStringOpt(preparedStatement, i, "SYMBOL_", rowCount, autoIncrement);
-      
-      autoIncrement++;
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -804,22 +792,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   private final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount) {
-    try {
-      int i = 1;
+    int i = 2;
 
-      preparedStatement.setInt(i++, autoIncrement);
-
-      prepStmntInsertColString(preparedStatement, i++, "ABBREVIATION_", autoIncrement);
-      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-      prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, autoIncrement);
-      
-      autoIncrement++;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    prepStmntInsertColString(preparedStatement, i++, "ABBREVIATION_", autoIncrement);
+    prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
+    prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
+    prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, autoIncrement);
   }
 
   /**

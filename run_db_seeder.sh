@@ -57,13 +57,14 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_CRATEDB_PASSWORD=
 #    export DB_SEEDER_CRATEDB_USER=
 #fi
-#if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
+if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
+     export DB_SEEDER_ENCODING_UTF_8=false
 #    export DB_SEEDER_CUBRID_CONNECTION_PORT=
 #    export DB_SEEDER_CUBRID_CONNETION_PREFIX=
 #    export DB_SEEDER_CUBRID_DATABASE=
 #    export DB_SEEDER_CUBRID_PASSWORD=
 #    export DB_SEEDER_CUBRID_USER=
-#fi
+fi
 #if [ "$DB_SEEDER_DBMS" = "derby" ]; then
 #    export DB_SEEDER_DERBY_CONNECTION_PORT=
 #    export DB_SEEDER_DERBY_CONNETION_PREFIX=
