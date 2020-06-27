@@ -88,7 +88,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   /**
    * Instantiates a new abstract JDBC seeder.
    *
-   * @param isClient client database version
+   * @param isClient is a client database version ?
    */
   public AbstractJdbcSeeder(boolean isClient) {
     super(isClient);
@@ -229,7 +229,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param url the URL
    * @param driver the database driver
-   * @param user the user
+   * @param user the user name
    * @param password the password
    * 
    * @return the database connection
@@ -371,17 +371,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   /**
    * Create the test data for all database tables.
-   *
-   * The following database tables are currently supported:
-   * <br>
-   * <br>
-   * <ul>
-   * <li>CITY</li>
-   * <li>COMPANY</li>
-   * <li>COUNTRY</li>
-   * <li>COUNTRY_STATE</li>
-   * <li>TIMEZONE</li>
-   * </ul>
    */
   public final void createData() {
     String methodName = new Object() {
@@ -559,7 +548,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param tableName the database table name
    *
-   * @return the variable part of the 'INSERt' statement
+   * @return the variable part of the 'INSERT' statement
    */
   protected final String createDmlStmnt(final String tableName) {
     return "pk_" + tableName.toLowerCase() + "_id," + switch (tableName) {
@@ -766,14 +755,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
   }
 
-  /**
-   * Prepare the variable part of the INSERT statement - COUNTRY_STATE.
-   *
-   * @param preparedStatement the prepared statement
-   * @param rowCount number of rows to be created
-   * @param identifier10 number of the current row (10 figures)
-   * @param identifier10 number of the current row (10 figures) right aligned
-   */
   private final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount) {
     try {
       int i = 2;

@@ -118,7 +118,7 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 - NN    - not null
 - PK    - primary key
 
-![](.README_images/Data_Model.png)
+![](.README_images/RE Oracle 19c.png)
 
 [//]: # (===========================================================================================)
 
@@ -511,7 +511,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - data types:
 
-| JDBC Data Type | IBM DB2 Database Type |
+| JDBC Data Type | IBM Db2 Database Type |
 | --- | --- |
 | Blob / byte[] | BLOB |
 | Clob | CLOB |

@@ -73,7 +73,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  phone               VARCHAR2 (50),
                  postal_code         VARCHAR2 (50),
                  url                 VARCHAR2 (250),
-                 vat_id_number       VARCHAR2 (50),
+                 vat_id_number       VARCHAR2 (100),
                  CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
              )""";
     case TABLE_NAME_COUNTRY:

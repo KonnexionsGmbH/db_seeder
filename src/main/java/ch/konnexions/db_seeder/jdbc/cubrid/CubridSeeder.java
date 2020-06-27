@@ -71,13 +71,13 @@ public class CubridSeeder extends AbstractJdbcSeeder {
                  created             TIMESTAMP      NOT NULL,
                  directions          CLOB,
                  email               VARCHAR (100),
-                 fax                 VARCHAR (20),
+                 fax                 VARCHAR (50),
                  modified            TIMESTAMP,
                  name                VARCHAR (250)  NOT NULL UNIQUE,
                  phone               VARCHAR (50),
-                 postal_code         VARCHAR (20),
+                 postal_code         VARCHAR (50),
                  url                 VARCHAR (250),
-                 vat_id_number       VARCHAR (50),
+                 vat_id_number       VARCHAR (100),
                  CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
              )""";
     case TABLE_NAME_COUNTRY:
@@ -87,7 +87,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
                  pk_country_id INT            NOT NULL PRIMARY KEY,
                  country_map   BLOB,
                  created       TIMESTAMP      NOT NULL,
-                 iso3166       VARCHAR (2),
+                 iso3166       VARCHAR (50),
                  modified      TIMESTAMP,
                  name          VARCHAR (100)  NOT NULL UNIQUE
              )""";
@@ -102,7 +102,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
                  created             TIMESTAMP      NOT NULL,
                  modified            TIMESTAMP,
                  name                VARCHAR (100)  NOT NULL,
-                 symbol              VARCHAR (10),
+                 symbol              VARCHAR (50),
                  CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES "COUNTRY"  (pk_country_id),
                  CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES "TIMEZONE" (pk_timezone_id),
                  CONSTRAINT uq_country_state          UNIQUE (fk_country_id, name)
@@ -112,7 +112,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
              CREATE TABLE "TIMEZONE"
              (
                  pk_timezone_id INT             NOT NULL PRIMARY KEY,
-                 abbreviation   VARCHAR (20)    NOT NULL,
+                 abbreviation   VARCHAR (50)    NOT NULL,
                  created        TIMESTAMP       NOT NULL,
                  modified       TIMESTAMP,
                  name           VARCHAR (100)   NOT NULL UNIQUE,
