@@ -156,7 +156,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE `" + mysqlDatabase + "` COLLATE LATIN1_GENERAL_100_CI_AS_SC_UTF8");
+      statement.execute("CREATE DATABASE `" + mysqlDatabase + "`");
 
       statement.execute("USE `" + mysqlDatabase + "`");
 
