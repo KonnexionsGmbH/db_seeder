@@ -629,11 +629,14 @@ Below are also DBeaver based connection parameter examples for each database man
   - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
 
 - encoding:
-  - to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations(_UTF8)
+  - to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
   
 - privileged database access:
   - database: `master`
   - user: `sa`
+
+- restrictions:
+  - no full UTF-8 support in the given Docker images
 
 - DBeaver database connection settings:
 

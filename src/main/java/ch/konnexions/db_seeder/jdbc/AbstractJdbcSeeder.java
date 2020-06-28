@@ -844,7 +844,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private final void prepStmntInsertColString(final PreparedStatement preparedStatement, final int columnPos, final String columnName, final int rowNo) {
     try {
-      preparedStatement.setString(columnPos, getColumnContent(columnName, rowNo));
+      preparedStatement.setNString(columnPos, getColumnContent(columnName, rowNo));
+      // wwe preparedStatement.setString(columnPos, getColumnContent(columnName, rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);

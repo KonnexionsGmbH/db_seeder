@@ -102,7 +102,8 @@ fi
 #    export DB_SEEDER_MARIADB_PASSWORD_SYS=
 #    export DB_SEEDER_MARIADB_USER=
 #fi
-#if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
+if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
+     export DB_SEEDER_ENCODING_UTF_8=false
 #    export DB_SEEDER_MSSQLSERVER_CONNECTION_PORT=
 #    export DB_SEEDER_MSSQLSERVER_CONNETION_PREFIX=
 #    export DB_SEEDER_MSSQLSERVER_DATABASE=
@@ -110,7 +111,7 @@ fi
 #    export DB_SEEDER_MSSQLSERVER_PASSWORD_SYS=
 #    export DB_SEEDER_MSSQLSERVER_SCHEMA=
 #    export DB_SEEDER_MSSQLSERVER_USER=
-#fi
+fi
 #if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
 #    export DB_SEEDER_MYSQL_CONNECTION_PORT=
 #    export DB_SEEDER_MYSQL_CONNETION_PREFIX=
