@@ -26,6 +26,7 @@ export DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
 
 export DB_SEEDER_VERSION_MARIADB=10.4.13
 export DB_SEEDER_VERSION_MARIADB=10.5.3
+export DB_SEEDER_VERSION_MARIADB=10.5.4
 
 export DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 export DB_SEEDER_VERSION_MYSQL=8.0.20
@@ -34,7 +35,7 @@ export DB_SEEDER_VERSION_ORACLE=db_12_2_ee
 export DB_SEEDER_VERSION_ORACLE=db_18_3_ee
 export DB_SEEDER_VERSION_ORACLE=db_19_3_ee
 
-export DB_SEEDER_VERSION_POSTGRESQL=12.3
+export DB_SEEDER_VERSION_POSTGRESQL=12.3-alpine
 
 if [ -z "$1" ]; then
     echo "===================================="
@@ -298,7 +299,7 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     echo "MariaDB Server."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MariaDB $DB_SEEDER_VERSION_MARIADB)"
-    docker create -e MYSQL_ROOT_PASSWORD=mariadb --name db_seeder_db -p 3306:3306/tcp mariadb:$DB_SEEDER_VERSION_MARIADB
+    docker create -e MYSQL_ROOT_PASSWORD=mariadb --name db_seeder_db -p 3306:3306/tcp mariadb:$DB_SEEDER_VERSION_MARIADB --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
     echo "Docker start db_seeder_db (MariaDB $DB_SEEDER_VERSION_MARIADB) ..."
     if ! docker start db_seeder_db; then

@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -47,53 +46,6 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
 
-  @Override
-  protected final void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table \" + String.format(FORMAT_TABLE_NAME, tableName) + \" - \"\n"
-        + "        + String.format(FORMAT_ROW_NO, rowCount) + \" rows to be created");
-
-    final String      sqlStmnt          = "INSERT INTO " + tableNameDelimiter + tableName + tableNameDelimiter + " (" + createDmlStmnt(tableName)
-        + ") RETURNING PK_" + tableName + "_ID";
-
-    PreparedStatement preparedStatement = null;
-
-    try {
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
-      prepDmlStmntInsert(preparedStatement, tableName, rowCount, rowNo, pkList);
-
-      try {
-        resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          pkList.add((int) resultSet.getLong(1));
-        }
-
-        resultSet.close();
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
-
-    try {
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-  }
-
   @SuppressWarnings("preview")
   @Override
   protected final String createDdlStmnt(final String tableName) {
@@ -121,13 +73,13 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                  CREATED       TIMESTAMP    NOT NULL,
                  DIRECTIONS    TEXT,
                  EMAIL         VARCHAR(100),
-                 FAX           VARCHAR(20),
+                 FAX           VARCHAR(50),
                  MODIFIED      TIMESTAMP,
                  NAME          VARCHAR(250) NOT NULL UNIQUE,
                  PHONE         VARCHAR(50),
-                 POSTAL_CODE   VARCHAR(20),
+                 POSTAL_CODE   VARCHAR(50),
                  URL           VARCHAR(250),
-                 VAT_ID_NUMBER VARCHAR(50),
+                 VAT_ID_NUMBER VARCHAR(100),
                  FOREIGN KEY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
@@ -136,7 +88,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                 PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   BYTEA,
                 CREATED       TIMESTAMP      NOT NULL,
-                ISO3166       VARCHAR(2),
+                ISO3166       VARCHAR(50),
                 MODIFIED      TIMESTAMP,
                 NAME          VARCHAR(100)   NOT NULL UNIQUE
              )""";
@@ -150,7 +102,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                 CREATED             TIMESTAMP      NOT NULL,
                 MODIFIED            TIMESTAMP,
                 NAME                VARCHAR(100)   NOT NULL,
-                SYMBOL              VARCHAR(10),
+                SYMBOL              VARCHAR(50),
                 FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
                 FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
                 UNIQUE      (FK_COUNTRY_ID,NAME)
@@ -159,7 +111,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "TIMEZONE" (
                 PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
-                ABBREVIATION   VARCHAR(20)   NOT NULL,
+                ABBREVIATION   VARCHAR(50)   NOT NULL,
                 CREATED        TIMESTAMP     NOT NULL,
                 MODIFIED       TIMESTAMP,
                 NAME           VARCHAR(100)  NOT NULL UNIQUE,

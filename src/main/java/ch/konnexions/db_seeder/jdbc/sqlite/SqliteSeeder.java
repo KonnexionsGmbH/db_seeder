@@ -45,73 +45,73 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "CITY"
              (
-                 pk_city_id          INTEGER        NOT NULL PRIMARY KEY,
-                 fk_country_state_id BIGINT,
-                 city_map            BLOB,
-                 created             DATETIME       NOT NULL,
-                 modified            DATETIME,
-                 name                VARCHAR2 (100) NOT NULL,
-                 FOREIGN KEY (fk_country_state_id) REFERENCES "COUNTRY_STATE" (pk_country_state_id)
+                 PK_CITY_ID          INTEGER        NOT NULL PRIMARY KEY,
+                 FK_COUNTRY_STATE_ID BIGINT,
+                 CITY_MAP            BLOB,
+                 CREATED             DATETIME       NOT NULL,
+                 MODIFIED            DATETIME,
+                 NAME                VARCHAR2 (100) NOT NULL,
+                 FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
              )""";
     case TABLE_NAME_COMPANY:
       return """
              CREATE TABLE "COMPANY"
              (
-                 pk_company_id       INTEGER        NOT NULL PRIMARY KEY,
-                 fk_city_id          BIGINT         NOT NULL,
-                 active              VARCHAR2 (1)   NOT NULL,
-                 address1            VARCHAR2 (50),
-                 address2            VARCHAR2 (50),
-                 address3            VARCHAR2 (50),
-                 created             DATETIME       NOT NULL,
-                 directions          CLOB,
-                 email               VARCHAR2 (100),
-                 fax                 VARCHAR2 (20),
-                 modified            DATETIME,
-                 name                VARCHAR2 (250) NOT NULL UNIQUE,
-                 phone               VARCHAR2 (50),
-                 postal_code         VARCHAR2 (20),
-                 url                 VARCHAR2 (250),
-                 vat_id_number       VARCHAR2 (50),
-                 FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
+                 PK_COMPANY_ID       INTEGER        NOT NULL PRIMARY KEY,
+                 FK_CITY_ID          BIGINT         NOT NULL,
+                 ACTIVE              VARCHAR2 (1)   NOT NULL,
+                 ADDRESS1            VARCHAR2 (50),
+                 ADDRESS2            VARCHAR2 (50),
+                 ADDRESS3            VARCHAR2 (50),
+                 CREATED             DATETIME       NOT NULL,
+                 DIRECTIONS          CLOB,
+                 EMAIL               VARCHAR2 (100),
+                 FAX                 VARCHAR2 (20),
+                 MODIFIED            DATETIME,
+                 NAME                VARCHAR2 (250) NOT NULL UNIQUE,
+                 PHONE               VARCHAR2 (50),
+                 POSTAL_CODE         VARCHAR2 (20),
+                 URL                 VARCHAR2 (250),
+                 VAT_ID_NUMBER       VARCHAR2 (50),
+                 FOREIGN KEY (FK_CITY_ID)          REFERENCES "CITY" (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
              CREATE TABLE "COUNTRY"
              (
-                 pk_country_id INTEGER        NOT NULL PRIMARY KEY,
-                 country_map   BLOB,
-                 created       DATETIME       NOT NULL,
-                 iso3166       VARCHAR2 (2),
-                 modified      DATETIME,
-                 name          VARCHAR2 (100) NOT NULL UNIQUE
+                 PK_COUNTRY_ID INTEGER        NOT NULL PRIMARY KEY,
+                 COUNTRY_MAP   BLOB,
+                 CREATED       DATETIME       NOT NULL,
+                 ISO3166       VARCHAR2 (2),
+                 MODIFIED      DATETIME,
+                 NAME          VARCHAR2 (100) NOT NULL UNIQUE
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
              CREATE TABLE "COUNTRY_STATE"
              (
-                 pk_country_state_id INTEGER        NOT NULL PRIMARY KEY,
-                 fk_country_id       BIGINT         NOT NULL,
-                 fk_timezone_id      BIGINT         NOT NULL,
-                 country_state_map   BLOB,
-                 created             DATETIME       NOT NULL,
-                 modified            DATETIME,
-                 name                VARCHAR2 (100) NOT NULL,
-                 symbol              VARCHAR2 (10),
-                 FOREIGN KEY (fk_country_id)  REFERENCES "COUNTRY"  (pk_country_id),
-                 FOREIGN KEY (fk_timezone_id) REFERENCES "TIMEZONE" (pk_timezone_id),
-                 UNIQUE (fk_country_id, name)
+                 PK_COUNTRY_STATE_ID INTEGER        NOT NULL PRIMARY KEY,
+                 FK_COUNTRY_ID       BIGINT         NOT NULL,
+                 FK_TIMEZONE_ID      BIGINT         NOT NULL,
+                 COUNTRY_STATE_MAP   BLOB,
+                 CREATED             DATETIME       NOT NULL,
+                 MODIFIED            DATETIME,
+                 NAME                VARCHAR2 (100) NOT NULL,
+                 SYMBOL              VARCHAR2 (10),
+                 FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
+                 FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
+                 UNIQUE (FK_COUNTRY_ID, NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
              CREATE TABLE "TIMEZONE"
              (
-                 pk_timezone_id INTEGER         NOT NULL PRIMARY KEY,
-                 abbreviation   VARCHAR2 (20)   NOT NULL,
-                 created        DATETIME        NOT NULL,
-                 modified       DATETIME,
-                 name           VARCHAR2 (100)  NOT NULL UNIQUE,
-                 v_time_zone    VARCHAR2 (4000)
+                 PK_TIMEZONE_ID INTEGER         NOT NULL PRIMARY KEY,
+                 ABBREVIATION   VARCHAR2 (20)   NOT NULL,
+                 CREATED        DATETIME        NOT NULL,
+                 MODIFIED       DATETIME,
+                 NAME           VARCHAR2 (100)  NOT NULL UNIQUE,
+                 V_TIME_ZONE    VARCHAR2 (4000)
              )""";
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));

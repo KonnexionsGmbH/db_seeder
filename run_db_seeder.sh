@@ -36,6 +36,9 @@ else
     export DB_SEEDER_DBMS=$1
 fi
 
+# export DB_SEEDER_ENCODING_ISO_8859_1=
+# export DB_SEEDER_ENCODING_UTF_8=
+
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
@@ -54,13 +57,14 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_CRATEDB_PASSWORD=
 #    export DB_SEEDER_CRATEDB_USER=
 #fi
-#if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
+if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
+     export DB_SEEDER_ENCODING_UTF_8=false
 #    export DB_SEEDER_CUBRID_CONNECTION_PORT=
 #    export DB_SEEDER_CUBRID_CONNETION_PREFIX=
 #    export DB_SEEDER_CUBRID_DATABASE=
 #    export DB_SEEDER_CUBRID_PASSWORD=
 #    export DB_SEEDER_CUBRID_USER=
-#fi
+fi
 #if [ "$DB_SEEDER_DBMS" = "derby" ]; then
 #    export DB_SEEDER_DERBY_CONNECTION_PORT=
 #    export DB_SEEDER_DERBY_CONNETION_PREFIX=
@@ -98,7 +102,8 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_MARIADB_PASSWORD_SYS=
 #    export DB_SEEDER_MARIADB_USER=
 #fi
-#if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
+if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
+     export DB_SEEDER_ENCODING_UTF_8=false
 #    export DB_SEEDER_MSSQLSERVER_CONNECTION_PORT=
 #    export DB_SEEDER_MSSQLSERVER_CONNETION_PREFIX=
 #    export DB_SEEDER_MSSQLSERVER_DATABASE=
@@ -106,7 +111,7 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 #    export DB_SEEDER_MSSQLSERVER_PASSWORD_SYS=
 #    export DB_SEEDER_MSSQLSERVER_SCHEMA=
 #    export DB_SEEDER_MSSQLSERVER_USER=
-#fi
+fi
 #if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
 #    export DB_SEEDER_MYSQL_CONNECTION_PORT=
 #    export DB_SEEDER_MYSQL_CONNETION_PREFIX=

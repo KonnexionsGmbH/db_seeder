@@ -46,6 +46,9 @@ public class Config {
   private String                                                       cubridPassword;
   private String                                                       cubridUser;
 
+  private boolean                                                      encodingIso_8859_1;
+  private boolean                                                      encodingUtf_8;
+
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
   private String                                                       fileConfigurationName;
 
@@ -172,6 +175,17 @@ public class Config {
 
   // CrateDB ----------------------------------------------------------
 
+  @SuppressWarnings("unused")
+  private final List<String> getBooleanProperties() {
+
+    List<String> list = new ArrayList<>();
+
+    list.add("db_seeder.encoding.iso_8859_1");
+    list.add("db_seeder.encoding.utf_8");
+
+    return list;
+  }
+
   /**
    * @return the CrateDB port number where the database server is listening for requests
    */
@@ -193,14 +207,14 @@ public class Config {
     return cratedbPassword;
   }
 
+  // CUBRID ------------------------------------------------------------------
+
   /**
    * @return the CrateDB user name to connect as normal user to the database
    */
   public final String getCratedbUser() {
     return cratedbUser;
   }
-
-  // CUBRID ------------------------------------------------------------------
 
   /**
    * @return the CUBRID port number where the database server is listening for requests
@@ -230,6 +244,8 @@ public class Config {
     return cubridPassword;
   }
 
+  // Encoding ----------------------------------------------------------------
+
   /**
    * @return the CUBRID schema name
    */
@@ -237,7 +253,21 @@ public class Config {
     return cubridUser;
   }
 
+  /**
+   * @return the encoding option for ISO-8859-1
+   */
+  public final boolean getEncodingIso_8859_1() {
+    return encodingIso_8859_1;
+  }
+
   // Firebird ----------------------------------------------------------------
+
+  /**
+   * @return the encoding option for UTF-8
+   */
+  public final boolean getEncodingUtf_8() {
+    return encodingUtf_8;
+  }
 
   /**
    * @return the MariaDB port number where the database server is listening for requests
@@ -274,14 +304,14 @@ public class Config {
     return firebirdPasswordSys;
   }
 
+  // IBM Db2 Database --------------------------------------------------------
+
   /**
    * @return the MariaDB user name to connect as normal user to the database
    */
   public final String getFirebirdUser() {
     return firebirdUser;
   }
-
-  // IBM Db2 Database --------------------------------------------------------
 
   /**
    * @return the IBM Db2 port number where the database server is listening for requests
@@ -311,6 +341,8 @@ public class Config {
     return ibmdb2Password;
   }
 
+  // JDBC Connection ---------------------------------------------------------
+
   /**
    * @return the IBM Db2 schema name
    */
@@ -318,14 +350,14 @@ public class Config {
     return ibmdb2Schema;
   }
 
-  // JDBC Connection ---------------------------------------------------------
-
   /**
    * @return the host name or the IP address of the database
    */
   public final String getJdbcConnectionHost() {
     return jdbcConnectionHost;
   }
+
+  // MariaDB Server ----------------------------------------------------------
 
   private final ArrayList<String> getKeysSorted() {
 
@@ -337,8 +369,6 @@ public class Config {
 
     return keysSorted;
   }
-
-  // MariaDB Server ----------------------------------------------------------
 
   /**
    * @return the MariaDB port number where the database server is listening for requests
@@ -375,14 +405,14 @@ public class Config {
     return mariadbPasswordSys;
   }
 
+  // MAX (rows) --------------------------------------------------------------
+
   /**
    * @return the MariaDB user name to connect as normal user to the database
    */
   public final String getMariadbUser() {
     return mariadbUser;
   }
-
-  // MAX (rows) --------------------------------------------------------------
 
   /**
    * @return the maximum number of rows to be generated for database table CITY
@@ -412,14 +442,14 @@ public class Config {
     return maxRowCountryState;
   }
 
+  // Microsoft SQL Server ----------------------------------------------------
+
   /**
    * @return the maximum number of rows to be generated for database table COUNTRY
    */
   public final int getMaxRowTimezone() {
     return maxRowTimezone;
   }
-
-  // Microsoft SQL Server ----------------------------------------------------
 
   /**
    * @return the Microsoft SQL Server port number where the database server is listening for requests
@@ -463,14 +493,14 @@ public class Config {
     return mssqlserverSchema;
   }
 
+  // MySQL Database ----------------------------------------------------------
+
   /**
    * @return the Microsoft SQL Server user name to connect as normal user to the database
    */
   public final String getMssqlserverUser() {
     return mssqlserverUser;
   }
-
-  // MySQL Database ----------------------------------------------------------
 
   /**
    * @return the MySQL port number where the database server is listening for requests
@@ -668,6 +698,9 @@ public class Config {
     cubridPassword              = propertiesConfiguration.getString("db_seeder.cubrid.password");
     cubridUser                  = propertiesConfiguration.getString("db_seeder.cubrid.user");
 
+    encodingIso_8859_1          = propertiesConfiguration.getBoolean("db_seeder.encoding.iso_8859_1");
+    encodingUtf_8               = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
+
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
 
     firebirdConnectionPort      = propertiesConfiguration.getInt("db_seeder.firebird.connection.port");
@@ -805,6 +838,18 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER")) {
       cubridUser = environmentVariables.get("DB_SEEDER_CUBRID_USER");
       propertiesConfiguration.setProperty("db_seeder.cubrid.user", cubridUser);
+    }
+
+    // Encoding ----------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_ENCODING_ISO_8859_1")) {
+      String encodingIso_8859_1Helper = environmentVariables.get("DB_SEEDER_ENCODING_ISO_8859_1");
+      propertiesConfiguration.setProperty("db_seeder.encoding.is_8859_1", "true".equals(encodingIso_8859_1Helper.toLowerCase()) ? true : false);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_ENCODING_UTF_8")) {
+      String encodingUtf_8Helper = environmentVariables.get("DB_SEEDER_ENCODING_UTF_8");
+      propertiesConfiguration.setProperty("db_seeder.encoding.utf_8", "true".equals(encodingUtf_8Helper.toLowerCase()) ? true : false);
     }
 
     // Firebird ------------------------------------------------------------------
@@ -1088,7 +1133,7 @@ public class Config {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
-    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
 
     boolean isChanged = false;
 
@@ -1108,7 +1153,7 @@ public class Config {
       } catch (ConfigurationException e) {
         e.printStackTrace();
       }
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
     }
   }
 }

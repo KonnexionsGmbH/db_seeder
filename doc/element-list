@@ -3,6 +3,7 @@ ch.konnexions.db_seeder.jdbc
 ch.konnexions.db_seeder.jdbc.apache.derby
 ch.konnexions.db_seeder.jdbc.cratedb
 ch.konnexions.db_seeder.jdbc.cubrid
+ch.konnexions.db_seeder.jdbc.firebird
 ch.konnexions.db_seeder.jdbc.ibmdb2
 ch.konnexions.db_seeder.jdbc.mariadb
 ch.konnexions.db_seeder.jdbc.mssqlserver

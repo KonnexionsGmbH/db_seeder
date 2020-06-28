@@ -2,8 +2,9 @@ plugins {
     id 'java'
 }
 
+compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '1.11.0'
+version '1.11.2'
 
 repositories {
     jcenter()
@@ -16,17 +17,18 @@ repositories {
 dependencies {
     implementation 'com.ibm.db2:jcc:11.5.0.0'
     implementation 'com.microsoft.sqlserver:mssql-jdbc:8.3.1.jre14-preview'
-    implementation 'com.oracle.ojdbc:ojdbc8:19.3.0.0'
+    implementation 'com.oracle.ojdbc:ojdbc10:19.3.0.0'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
-    implementation 'cubrid:cubrid-jdbc:10.2.0.8797'
+    implementation 'cubrid:cubrid-jdbc:10.2.1.8849'
     implementation 'io.crate:crate-jdbc:2.6.0'
     implementation 'mysql:mysql-connector-java:8.0.20'
     implementation 'org.apache.commons:commons-configuration2:2.7'
+    implementation 'org.apache.commons:commons-lang3:3.10'
     implementation 'org.apache.derby:derby:10.15.2.0'
     implementation 'org.apache.derby:derbyclient:10.15.2.0'
     implementation 'org.firebirdsql.jdbc:jaybird:4.0.0.java11'
-    implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.0'
-    implementation 'org.postgresql:postgresql:42.2.13'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.1'
+    implementation 'org.postgresql:postgresql:42.2.14'
     implementation 'org.slf4j:slf4j-log4j12:1.7.25'
     implementation 'org.xerial:sqlite-jdbc:3.31.1'
 }
@@ -66,4 +68,5 @@ task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
 
 tasks.withType(JavaCompile).each {
     it.options.compilerArgs.add('--enable-preview')
+    it.options.encoding = 'UTF-8'
 }

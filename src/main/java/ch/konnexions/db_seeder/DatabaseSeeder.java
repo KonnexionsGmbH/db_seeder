@@ -3,6 +3,9 @@
  */
 package ch.konnexions.db_seeder;
 
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.jdbc.apache.derby.DerbySeeder;
@@ -43,12 +46,15 @@ public class DatabaseSeeder {
       args0 = args[0];
     }
 
-    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "args[0]='" + args0 + "'");
+    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  args[0]='" + args0 + "'");
 
     if (null == args0) {
       logger.error(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "Command line argument missing (null)");
       System.exit(1);
     }
+
+    StopWatch stopWatch = new StopWatch();
+    stopWatch.start();
 
     switch (args0) {
     case "cratedb":
@@ -64,22 +70,22 @@ public class DatabaseSeeder {
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   CUBRID");
       break;
     case "derby":
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby");
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby [client]");
       DerbySeeder derbySeeder = new DerbySeeder();
       derbySeeder.createData();
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby");
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby [client]");
       break;
     case "derby_emb":
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby");
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Apache Derby [embedded]");
       DerbySeeder derbySeederEmbedded = new DerbySeeder(false);
       derbySeederEmbedded.createData();
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby");
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Apache Derby [embedded]");
       break;
     case "firebird":
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Firebird");
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Firebird [client]");
       FirebirdSeeder firebirdSeeder = new FirebirdSeeder();
       firebirdSeeder.createData();
-      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Firebird");
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Firebird [client]");
       break;
     case "ibmdb2":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start IBM Db2 Database");
@@ -131,7 +137,10 @@ public class DatabaseSeeder {
       System.exit(1);
     }
 
-    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    stopWatch.stop();
+
+    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   [Time in seconds elapsed: "
+        + stopWatch.getTime(TimeUnit.SECONDS) + "]");
 
     System.exit(0);
   }

@@ -71,13 +71,13 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
                  `CREATED`       DATETIME     NOT NULL,
                  `DIRECTIONS`    LONGTEXT,
                  `EMAIL`         VARCHAR(100),
-                 `FAX`           VARCHAR(20),
+                 `FAX`           VARCHAR(50),
                  `MODIFIED`      DATETIME,
                  `NAME`          VARCHAR(250) NOT NULL UNIQUE,
                  `PHONE`         VARCHAR(50),
-                 `POSTAL_CODE`   VARCHAR(20),
+                 `POSTAL_CODE`   VARCHAR(50),
                  `URL`           VARCHAR(250),
-                 `VAT_ID_NUMBER` VARCHAR(50),
+                 `VAT_ID_NUMBER` VARCHAR(100),
                  CONSTRAINT `FK_COMPANY_CITY` FOREIGN KEY `FK_COMPANY_CITY` (`FK_CITY_ID`) REFERENCES `CITY` (`PK_CITY_ID`)
              )""";
     case TABLE_NAME_COUNTRY:
@@ -86,7 +86,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
                 `PK_COUNTRY_ID` BIGINT       NOT NULL PRIMARY KEY,
                 `COUNTRY_MAP`   LONGBLOB,
                 `CREATED`       DATETIME     NOT NULL,
-                `ISO3166`       VARCHAR(2),
+                `ISO3166`       VARCHAR(50),
                 `MODIFIED`      DATETIME,
                 `NAME`          VARCHAR(100) NOT NULL UNIQUE
              )""";
@@ -100,7 +100,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
                 `CREATED`             DATETIME     NOT NULL,
                 `MODIFIED`            DATETIME,
                 `NAME`                VARCHAR(100) NOT NULL,
-                `SYMBOL`              VARCHAR(10),
+                `SYMBOL`              VARCHAR(50),
                 CONSTRAINT `FK_COUNTRY_STATE_COUNTRY`  FOREIGN KEY `FK_COUNTRY_STATE_COUNTRY`  (`FK_COUNTRY_ID`)  REFERENCES `COUNTRY`  (`PK_COUNTRY_ID`),
                 CONSTRAINT `FK_COUNTRY_STATE_TIMEZONE` FOREIGN KEY `FK_COUNTRY_STATE_TIMEZONE` (`FK_TIMEZONE_ID`) REFERENCES `TIMEZONE` (`PK_TIMEZONE_ID`),
                 CONSTRAINT `UQ_COUNTRY_STATE`          UNIQUE (`FK_COUNTRY_ID`,`NAME`)
@@ -109,7 +109,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE `TIMEZONE` (
                 `PK_TIMEZONE_ID` BIGINT        NOT NULL PRIMARY KEY,
-                `ABBREVIATION`   VARCHAR(20)   NOT NULL,
+                `ABBREVIATION`   VARCHAR(50)   NOT NULL,
                 `CREATED`        DATETIME      NOT NULL,
                 `MODIFIED`       DATETIME,
                 `NAME`           VARCHAR(100)  NOT NULL UNIQUE,
