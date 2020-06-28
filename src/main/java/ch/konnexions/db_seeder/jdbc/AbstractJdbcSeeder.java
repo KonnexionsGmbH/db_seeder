@@ -844,8 +844,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
   private final void prepStmntInsertColString(final PreparedStatement preparedStatement, final int columnPos, final String columnName, final int rowNo) {
     try {
-      preparedStatement.setNString(columnPos, getColumnContent(columnName, rowNo));
-      // wwe preparedStatement.setString(columnPos, getColumnContent(columnName, rowNo));
+      if (dbms == Dbms.FIREBIRD || dbms == Dbms.MARIADB || dbms == Dbms.MSSQLSERVER || dbms == Dbms.ORACLE) {
+        preparedStatement.setNString(columnPos, getColumnContent(columnName, rowNo));
+      } else {
+        preparedStatement.setString(columnPos, getColumnContent(columnName, rowNo));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);

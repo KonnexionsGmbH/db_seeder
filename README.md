@@ -158,15 +158,25 @@ Examples: BIGINT, INTEGER, NUMBER
 Examples: TEXT, VARCHAR, VARCHAR2
 
 - 25% of the `Y` / `N` flag column (`COMPANY.ACTIVE`) is randomly assigned the value `N`.
-- Provided the length of the column is sufficient, the content of the column is constructed as follows:
-  - column name in capital letters
-  - underscore `_`
-  - content of the primary key left-justified
-- Special cases:
-  - `COMPANY.POSTAL_CODE` - constant `POSTAL_CODE_` and the right 8 digits of the primary key with leading zeros
-  - `COUNTRY.ISO3166` - the right 2 digits of the primary key with leading zeros
-  - `COUNTRY_STATE.SYMBOL` - constant `SYMBOL_` and the right 3 digits of the primary key with leading zeros
-  - `TIMEZONE.ABBREVIATION` - constant `ABBREVIATION_` and the right 7 digits of the primary key with leading zeros
+- the content of the column is constructed depending on the row number and the encoding flags as follows:
+  - ASCII (all rows where the index modulo 3 is 0):
+    - column name in capital letters
+    - underscore `_`
+    - content of the primary key left-justified
+  - ISO 8859 1 (all rows where the index modulo 3 is 1) :
+    - column name in capital letters
+    - underscore `_`
+    - the column name translated into a Western European word with accent (e.g. French, Portugues)e or Spanish)
+    - underscore `_`
+    - content of the primary key left-justified
+  - the ISO 8859 1 version can be prevented by choosing `db_seeder.encoding.iso_8859_1=false`  
+  - UTF-8 (all rows where the index modulo 3 is 2):
+    - column name in capital letters
+    - underscore `_`
+    - the column name translated into a simplified Chinese word
+    - underscore `_`
+    - content of the primary key left-justified
+  - the UTF-8 version can be prevented by choosing `db_seeder.encoding.utf_8=false`  
 
 #### 2.2.6 Temporal Data
 
