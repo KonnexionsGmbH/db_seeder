@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
