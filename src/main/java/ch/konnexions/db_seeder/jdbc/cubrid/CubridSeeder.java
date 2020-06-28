@@ -50,73 +50,73 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       return """
              CREATE TABLE "CITY"
              (
-                 pk_city_id          INT            NOT NULL PRIMARY KEY,
-                 fk_country_state_id INT,
-                 city_map            BLOB,
-                 created             TIMESTAMP      NOT NULL,
-                 modified            TIMESTAMP,
-                 name                VARCHAR (100)  NOT NULL,
-                 CONSTRAINT fk_city_country_state   FOREIGN KEY (fk_country_state_id) REFERENCES "COUNTRY_STATE" (pk_country_state_id)
+                 PK_CITY_ID          INT            NOT NULL PRIMARY KEY,
+                 FK_COUNTRY_STATE_ID INT,
+                 CITY_MAP            BLOB,
+                 CREATED             TIMESTAMP      NOT NULL,
+                 MODIFIED            TIMESTAMP,
+                 NAME                VARCHAR (100)  NOT NULL,
+                 CONSTRAINT FK_CITY_COUNTRY_STATE   FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
              )""";
     case TABLE_NAME_COMPANY:
       return """
              CREATE TABLE "COMPANY"
              (
-                 pk_company_id       INT            NOT NULL PRIMARY KEY,
-                 fk_city_id          INT            NOT NULL,
-                 active              VARCHAR (1)    NOT NULL,
-                 address1            VARCHAR (50),
-                 address2            VARCHAR (50),
-                 address3            VARCHAR (50),
-                 created             TIMESTAMP      NOT NULL,
-                 directions          CLOB,
-                 email               VARCHAR (100),
-                 fax                 VARCHAR (50),
-                 modified            TIMESTAMP,
-                 name                VARCHAR (250)  NOT NULL UNIQUE,
-                 phone               VARCHAR (50),
-                 postal_code         VARCHAR (50),
-                 url                 VARCHAR (250),
-                 vat_id_number       VARCHAR (100),
-                 CONSTRAINT fk_company_city         FOREIGN KEY (fk_city_id)          REFERENCES "CITY" (pk_city_id)
+                 PK_COMPANY_ID       INT            NOT NULL PRIMARY KEY,
+                 FK_CITY_ID          INT            NOT NULL,
+                 ACTIVE              VARCHAR (1)    NOT NULL,
+                 ADDRESS1            VARCHAR (50),
+                 ADDRESS2            VARCHAR (50),
+                 ADDRESS3            VARCHAR (50),
+                 CREATED             TIMESTAMP      NOT NULL,
+                 DIRECTIONS          CLOB,
+                 EMAIL               VARCHAR (100),
+                 FAX                 VARCHAR (50),
+                 MODIFIED            TIMESTAMP,
+                 NAME                VARCHAR (250)  NOT NULL UNIQUE,
+                 PHONE               VARCHAR (50),
+                 POSTAL_CODE         VARCHAR (50),
+                 URL                 VARCHAR (250),
+                 VAT_ID_NUMBER       VARCHAR (100),
+                 CONSTRAINT FK_COMPANY_CITY         FOREIGN KEY (FK_CITY_ID)          REFERENCES "CITY" (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
              CREATE TABLE "COUNTRY"
              (
-                 pk_country_id INT            NOT NULL PRIMARY KEY,
-                 country_map   BLOB,
-                 created       TIMESTAMP      NOT NULL,
-                 iso3166       VARCHAR (50),
-                 modified      TIMESTAMP,
-                 name          VARCHAR (100)  NOT NULL UNIQUE
+                 PK_COUNTRY_ID INT            NOT NULL PRIMARY KEY,
+                 COUNTRY_MAP   BLOB,
+                 CREATED       TIMESTAMP      NOT NULL,
+                 ISO3166       VARCHAR (50),
+                 MODIFIED      TIMESTAMP,
+                 NAME          VARCHAR (100)  NOT NULL UNIQUE
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
              CREATE TABLE "COUNTRY_STATE"
              (
-                 pk_country_state_id INT            NOT NULL PRIMARY KEY,
-                 fk_country_id       INT            NOT NULL,
-                 fk_timezone_id      INT            NOT NULL,
-                 country_state_map   BLOB,
-                 created             TIMESTAMP      NOT NULL,
-                 modified            TIMESTAMP,
-                 name                VARCHAR (100)  NOT NULL,
-                 symbol              VARCHAR (50),
-                 CONSTRAINT fk_country_state_country  FOREIGN KEY (fk_country_id)  REFERENCES "COUNTRY"  (pk_country_id),
-                 CONSTRAINT fk_country_state_timezone FOREIGN KEY (fk_timezone_id) REFERENCES "TIMEZONE" (pk_timezone_id),
-                 CONSTRAINT uq_country_state          UNIQUE (fk_country_id, name)
+                 PK_COUNTRY_STATE_ID INT            NOT NULL PRIMARY KEY,
+                 FK_COUNTRY_ID       INT            NOT NULL,
+                 FK_TIMEZONE_ID      INT            NOT NULL,
+                 COUNTRY_STATE_MAP   BLOB,
+                 CREATED             TIMESTAMP      NOT NULL,
+                 MODIFIED            TIMESTAMP,
+                 NAME                VARCHAR (100)  NOT NULL,
+                 SYMBOL              VARCHAR (50),
+                 CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
+                 CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
+                 CONSTRAINT UQ_COUNTRY_STATE          UNIQUE (FK_COUNTRY_ID, NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
              CREATE TABLE "TIMEZONE"
              (
-                 pk_timezone_id INT             NOT NULL PRIMARY KEY,
-                 abbreviation   VARCHAR (50)    NOT NULL,
-                 created        TIMESTAMP       NOT NULL,
-                 modified       TIMESTAMP,
-                 name           VARCHAR (100)   NOT NULL UNIQUE,
-                 v_time_zone    VARCHAR (4000)
+                 PK_TIMEZONE_ID INT             NOT NULL PRIMARY KEY,
+                 ABBREVIATION   VARCHAR (50)    NOT NULL,
+                 CREATED        TIMESTAMP       NOT NULL,
+                 MODIFIED       TIMESTAMP,
+                 NAME           VARCHAR (100)   NOT NULL UNIQUE,
+                 V_TIME_ZONE    VARCHAR (4000)
              )""";
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));

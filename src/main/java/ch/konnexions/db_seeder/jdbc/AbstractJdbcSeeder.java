@@ -251,7 +251,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      String sqlStmnt = "SELECT count(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter;
+      String sqlStmnt = "SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter;
 
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
 
@@ -1123,7 +1123,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     try {
-      preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM " + tableName + " WHERE " + columnName + " = ?");
+      preparedStatement = connection
+          .prepareStatement("SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter + " WHERE " + columnName + " = ?");
       preparedStatement.setString(1, getColumnContent(columnName + "_", rowNo));
 
       resultSet = preparedStatement.executeQuery();
@@ -1169,7 +1170,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT count(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
+      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
