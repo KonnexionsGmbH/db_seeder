@@ -35,7 +35,7 @@ set DB_SEEDER_VERSION_ORACLE=db_12_2_ee
 set DB_SEEDER_VERSION_ORACLE=db_18_3_ee
 set DB_SEEDER_VERSION_ORACLE=db_19_3_ee
 
-set DB_SEEDER_VERSION_POSTGRESQL=12.3
+set DB_SEEDER_VERSION_POSTGRESQL=12.3-alpine
 
 if ["%1"] EQU [""] (
     echo ====================================

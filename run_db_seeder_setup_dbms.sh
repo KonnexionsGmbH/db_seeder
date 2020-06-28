@@ -35,7 +35,7 @@ export DB_SEEDER_VERSION_ORACLE=db_12_2_ee
 export DB_SEEDER_VERSION_ORACLE=db_18_3_ee
 export DB_SEEDER_VERSION_ORACLE=db_19_3_ee
 
-export DB_SEEDER_VERSION_POSTGRESQL=12.3
+export DB_SEEDER_VERSION_POSTGRESQL=12.3-alpine
 
 if [ -z "$1" ]; then
     echo "===================================="

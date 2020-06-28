@@ -29,6 +29,7 @@ n/a
 #### Modified Features
 
 - introducing encoding support for ISO-8859-1 and UTF-8
+- Tested DBMS version: MariaDB Server 10.5.4
 
 #### Deleted Features
 

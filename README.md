@@ -336,6 +336,18 @@ db_seeder.sqlite.database=kxn_db
 [DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
+**[Apache Derby](#details_derby)** / 
+**[CrateDB](#details_cratedb)** / 
+**[CUBRID](#details_cubrid)** / 
+**[Firebird](#details_firebird)** /  
+**[IBM Db2 Database](#details_ibmdb2)** / 
+**[MariaDB Server](#details_mariadb)** / 
+**[Microsoft SQL Server](#details_mssqlserver)** / 
+**[MySQL Database](#details_mysql)** / 
+**[Oracle Database](#details_oracle)** / 
+**[PostgreSQL Database](#details_postgresql)** / 
+**[SQLite](#details_sqlite)**
+
 [//]: # (===========================================================================================)
 
 ### <a name="details_derby"></a> 5.1 Apache Derby
@@ -368,9 +380,6 @@ Below are also DBeaver based connection parameter examples for each database man
 - encoding:
   - by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
   
-- privileged database access:
-  - user: n/a
-
 - DBeaver database connection settings:
 
   -- client version:
@@ -458,7 +467,6 @@ Below are also DBeaver based connection parameter examples for each database man
   
 - privileged database access:
   - user: `DBA` and `PUBLIC`
-
 
 - restrictions:
   - no full UTF-8 support
@@ -596,21 +604,36 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ###  <a name="details_mssqlserver"></a> 5.7 Microsoft SQL Server
 
-- database driver version 8.31 
-  - Maven Repository: [here](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
-- database Docker image version 2019: [here](https://hub.docker.com/_/microsoft-mssql-server)
-- data definition hierarchy: database, schema and user
-- privileged database / user: master / sa
+- data types:
 
-- data types used:
-
-| Data Type | Microsoft SQL Server Type |
+| JDBC Data Type | Microsoft SQL Server Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | VARBINARY (MAX) |
-| character large object | VARCHAR (MAX) |
+| Blob / byte[] | VARBINARY (MAX) |
+| Clob | VARCHAR (MAX) |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | DATETIME2 |
+
+- DDL syntax:
+  - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15) 
+  - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
+  - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15) 
+  - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15) 
+
+- Docker image (latest):
+  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
+  - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
+
+- JDBC driver (latest):
+  - version 8.3.1.jre14-preview
+  - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
+
+- encoding:
+  - to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations(_UTF8)
+  
+- privileged database access:
+  - database: `master`
+  - user: `sa`
 
 - DBeaver database connection settings:
 
@@ -620,21 +643,36 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_mysql"></a> 5.8 MySQL Database
 
-- database driver version 8.0.20 
-  - Maven repository: [here](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
-- database Docker image version 8.0.20: [here](https://hub.docker.com/_/mysql)
-- data definition hierarchy: database and user
-- privileged database / user: sys / root
+- data types:
 
-- data types used:
-
-| Data Type | MySQL Database Type |
+| JDBC Data Type | Firebird Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | LONGBLOB |
-| character large object | LONGTEXT |
+| Blob / byte[] | LONGBLOB |
+| Clob | LONGTEXT |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | DATETIME |
+
+- DDL syntax:
+  - [CREATE DATABASE](https://dev.mysql.com/doc/refman/8.0/en/create-database.html) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://dev.mysql.com/doc/refman/8.0/en/create-table.html) 
+  - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
+
+- Docker image (latest):
+  - pull command: `docker pull mysql:8.0.20`
+  - [DockerHub](https://hub.docker.com/_/mysql)
+
+- JDBC driver (latest):
+  - version 8.0.20
+  - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+
+- encoding:
+  - for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
+  
+- privileged database access:
+  - database: `sys`
+  - user: `root`
 
 - DBeaver database connection settings:
 
@@ -644,22 +682,35 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_oracle"></a> 5.9 Oracle Database
 
-- database driver version 
-  - Maven repository 19.3.0.0: [here](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8)
-  - Software 19.6.0.0.0: [here](https://www.oracle.com/database/technologies/instant-client/downloads.html)
-- database Docker image version 19c
-- data definition hierarchy: user
-- privileged database / user: orclpdb1 / sys AS SYSDBA
+- data types:
 
-- data types used:
-
-| Data Type | Oracle Database Type |
+| JDBC Data Type | Oracle Database Type |
 | --- | --- |
-| big integer | NUMBER |
-| binary large object | BLOB |
-| character large object | CLOB |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | NUMBER |
 | string | VARCHAR2 |
 | timestamp | TIMESTAMP |
+
+- DDL syntax:
+  - CREATE DATABASE - n/a 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
+  - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
+
+- Docker image (latest):
+  - [DockerHub](https://github.com/oracle/docker-images/tree/master/OracleDatabase)
+
+- JDBC driver (latest):
+  - version 19.3.0.0
+  - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc10)
+
+- encoding:
+  - since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
+  
+- privileged database access:
+  - database: `orclpdb1`
+  - user: `SYS AS SYSDBA`
 
 - DBeaver database connection settings:
 
@@ -669,22 +720,33 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_postgresql"></a> 5.10 PostgreSQL Database
 
-- database driver version 42.2.13
-  - Maven repository: [here](https://mvnrepository.com/artifact/org.postgresql/postgresql)
-- database Docker image version 12.3: [here](https://hub.docker.com/_/postgres)
-- data definition hierarchy: database, schema and user
-- privileged database / user: kxn_db_sys / kxn_user_sys
+- data types:
 
-- data types used:
-
-| Data Type | PostgreSQL Database Type |
+| JDBC Data Type | PostgreSQL Database Type |
 | --- | --- |
-| big integer | BIGINT |
-| binary large object | BYTEA |
-| character large object | TEXT |
+| Blob / byte[] | BYTEA |
+| Clob | TEXT |
+| long | BIGINT |
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
+- DDL syntax:
+  - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
+  - [CREATE SCHEMA](https://www.postgresql.org/docs/12/sql-createschema.html)
+  - [CREATE TABLE](https://www.postgresql.org/docs/12/sql-createtable.html) 
+  - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
+
+- Docker image (latest):
+  - pull command: `docker pull postgres:12.3-alpine`
+  - [DockerHub](https://hub.docker.com/_/postgres)
+
+- JDBC driver (latest):
+  - version 4.2.14
+  - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
+
+- encoding:
+  - when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
+  
 - DBeaver database connection settings:
 
 ![](.README_images/DBeaver_POSTGRESQL.png)
@@ -693,24 +755,32 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_sqlite"></a> 5.11 SQLite
 
-- database driver version 3.31.1
-  - Maven repository: [here](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
-- no database Docker image necessary, hence not available
-- data definition hierarchy: database
-- privileged database / user: n/a / n/a
+- data types:
+
+| JDBC Data Type | SQLite Type |
+| --- | --- |
+| Blob / byte[] | BLOB |
+| Clob | TEXT |
+| long | INTEGER |
+| string | TEXT |
+| timestamp | INTEGER / REAL / TEXT |
+
+- DDL syntax:
+  - CREATE DATABASE - n/a
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://sqlite.org/lang_createtable.html) 
+  - CREATE USER - n/a     
+
+- JDBC driver (latest):
+  - version 3.32.3
+  - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
+
+- encoding:
+  - by using the following parameter: `PRAGMA encoding='UTF-8';`
+  
 - restrictions:
   - no Docker image necessary, hence not available
   - no user management 
-
-- data types used:
-
-| Data Type | SQLite Type |
-| --- | --- |
-| big integer | INTEGER |
-| binary large object | BLOB |
-| character large object | TEXT |
-| string | TEXT |
-| timestamp | INTEGER / REAL / TEXT |
 
 - DBeaver database connection settings:
 
