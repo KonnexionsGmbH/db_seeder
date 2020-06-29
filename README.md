@@ -24,7 +24,7 @@
 
 ## <a name="introduction"></a> 1. Introduction
 
-`db_seeder` allows the generation of dummy data in different database management systems. 
+**`db_seeder`** allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
 - [Apache Derby](https://db.apache.org/derby/)
   - relational database management system (RDBMS)
@@ -86,7 +86,7 @@ Currently the following management database systems are supported:
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
 If the selected database, schema or user already exists, it is deleted with all including data. 
-`db_seeder` then creates the selected database, schema or user and generates the desired dummy data.
+**`db_seeder`** then creates the selected database, schema or user and generates the desired dummy data.
 A maximum of 2 147 483 647 rows can be generated per database table.
 
 [//]: # (===========================================================================================)
@@ -124,7 +124,7 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 - NN    - not null
 - PK    - primary key
 
-![](.README_images/RE Oracle 19c.png)
+![](.README_images/RE_Oracle_19c.png)
 
 [//]: # (===========================================================================================)
 
@@ -208,7 +208,7 @@ Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
 
 ## <a name="installation"></a> 3. Installation
 
-The easiest way is to download a current release of `db_seeder`.
+The easiest way is to download a current release of **`db_seeder`**.
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 The system requirements are described in the respective release notes. 
 
@@ -217,8 +217,8 @@ The system requirements are described in the respective release notes.
 ### <a name="operating_instructions_scripts"></a> 4.1 Scripts
 
 Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
-To run `db_seeder`, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
-All parameters used in `db_seeder` can be adjusted in the batch script to suit your needs.
+To run **`db_seeder`**, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
+All parameters used in **`db_seeder`** can be adjusted in the batch script to suit your needs.
 
 #### 4.1.1 Batch Script `run_db_seeder`
 
@@ -245,7 +245,7 @@ The following script parameters are required:
  
 #### 4.2.1 Supported Parameters
 
-The flow control parameters for `db_seeder` are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the batch script.
+The flow control parameters for **`db_seeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the batch script.
 The following control parameters are currently supported:
 
 ```
