@@ -376,7 +376,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_derby"></a> 5.1 Apache Derby
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | Apache Derby Type |
 | --- | --- |
@@ -386,28 +386,28 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - CREATE DATABASE - n/a 
   - [CREATE SCHEMA](https://db.apache.org/derby/docs/10.15/ref/index.html)
   - [CREATE TABLE](https://db.apache.org/derby/docs/10.15/ref/index.html) 
   - CREATE USER - n/a 
 
-- Docker image (latest - only client version``):
+- **Docker image (latest - only client version``)**:
   - pull command: `docker pull konnexionsgmbh/apache_derby:10.15.2.0`
   - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
 
-- encoding:
-  - by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
+- **encoding**: by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
+
+- **issues**: [Jira](https://issues.apache.org/jira/secure/Dashboard.jspa)
   
-- JDBC driver (latest):
+- **JDBC driver (latest)**:
   - version 10.15.2.
   - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
   - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
-- source code:
-  - [GitHub](https://github.com/apache/derby)
+- **source code**: [GitHub](https://github.com/apache/derby)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
   -- client version:
   
@@ -421,7 +421,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_cratedb"></a> 5.2 CrateDB
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | CrateDB Type |
 | --- | --- |
@@ -431,36 +431,35 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | TEXT |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - CREATE DATABASE - n/a
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-table.html) 
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull crate:4.1.6`
   - [DockerHub](https://hub.docker.com/_/crate)
 
-- encoding:
-  - by default `utf8` encoding
+- **encoding**: by default `utf8` encoding
 
-- JDBC driver (latest):
+- **issues**: [GitHub](https://github.com/crate/crate)
+
+- **JDBC driver (latest)**:
   - version 2.6.0
   - [JFrog Bintray repository](https://bintray.com/crate/crate/crate-jdbc)
   
-- privileged database access:
-  - user: `crate`
+- **privileged database access**: user `crate`
 
-- restrictions:
+- **restrictions**:
   - no constraints (e.g. foreign keys or unique keys)
   - no transaction concept
   - no triggers 
   - only a very proprietary BLOB implementation
 
-- source code:
-  - [GitHub](https://github.com/crate/crate)
+- **source code**: [GitHub](https://github.com/crate/crate)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_CRATEDB.png)
 
@@ -468,7 +467,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_cubrid"></a> 5.3 CUBRID
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | CUIBRID Type |
 | --- | --- |
@@ -478,33 +477,33 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - CREATE DATABASE - n/a   
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://www.cubrid.org/manual/en/10.2/sql/schema/table_stmt.html?highlight=create%20database#create-table) 
   - [CREATE USER](https://www.cubrid.org/manual/en/10.2/sql/authorization.html) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull cubrid/cubrid:10.2`
   - [DockerHub](https://hub.docker.com/r/cubrid/cubrid/)
 
-- encoding:
-  - by specifying after the database name when database is created: `kxn_db de_DE.utf8`
+- **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
-- JDBC driver (latest):
+- **issues**: 
+  - [Jira](http://jira.cubrid.org/secure/Dashboard.jspa)
+  - [reddit](https://www.reddit.com/r/CUBRID/)
+
+- **JDBC driver (latest)**:
   - version 10.2.1.8849
   - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
   
-- privileged database access:
-  - user: `DBA` and `PUBLIC`
+- **privileged database access**: users `DBA` and `PUBLIC`
 
-- restrictions:
-  - no full UTF-8 support
+- **restrictions**:  no full UTF-8 support
 
-- source code:
-  - [GitHub](https://github.com/CUBRID/cubrid)
+- **source code**: [GitHub](https://github.com/CUBRID/cubrid)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_CUBRID.png)
 
@@ -512,7 +511,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_firebird"></a> 5.4 Firebird
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | Firebird Type |
 | --- | --- |
@@ -522,30 +521,29 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - [CREATE DATABASE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create) 
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl) 
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull jacobalberty/firebird:3.0.5`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
-- encoding:
-  - by using the following JDBC URL parameter: `encoding=UTF8`
+- **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
   
-- JDBC driver (latest):
+- **issues**: [Jira](https://www.atlassian.com/software/jira)
+
+- **JDBC driver (latest)**:
   - version 4.0.0.java11
   - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
 
-- privileged database access:
-  - user: `SYSDBA`
+- **privileged database access**: user `SYSDBA`
 
-- source code:
-  - [GitHub](https://github.com/FirebirdSQL/firebird)
+- **source code**: [GitHub](https://github.com/FirebirdSQL/firebird)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_FIREBIRD.png)
 
@@ -554,9 +552,9 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_h2"></a> 5.5 H2 Database Engine
 
-- data types:
+- **data types**:
 
-| JDBC Data Type | Firebird Type |
+| JDBC Data Type | H2 Database Engine Type |
 | --- | --- |
 | Blob / byte[] | BLOB |
 | Clob | CLOB |
@@ -564,30 +562,29 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - CREATE DATABASE - n/a  
   - [CREATE SCHEMA](http://www.h2database.com/html/commands.html#create_schema)
   - [CREATE TABLE](http://www.h2database.com/html/commands.html#create_table) 
   - [CREATE USER](http://www.h2database.com/html/commands.html#create_user) 
 
-- Docker image (latest): TODO wwe
+- **Docker image (latest)**: TODO wwe
   - pull command: `docker pull jacobalberty/firebird:3.0.5`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
-- encoding:
-  - H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.
+- **encoding**: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.
   
-- JDBC driver (latest):
+- **issues**: [GitHub](https://github.com/h2database/h2database)
+
+- **JDBC driver (latest)**:
   - version 1.4.200
   - [Maven repository](https://mvnrepository.com/artifact/com.h2database/h2)
 
-- privileged database access:
-  - user: `sa`
+- **privileged database access**: user `sa`
 
-- source code:
-  - [GitHub](https://github.com/h2database/h2database)
+- **source code**: [GitHub](https://github.com/h2database/h2database)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_H2.png)
 
@@ -595,7 +592,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_ibmdb2"></a> 5.6 IBM Db2 Database
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | IBM Db2 Database Type |
 | --- | --- |
@@ -605,34 +602,32 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001941.html) 
   - [CREATE SCHEMA](https://www.ibm.com/support/knowledgecenter/SSFMBX/com.ibm.swg.im.dashdb.sql.ref.doc/doc/r0000925.html)
   - [CREATE TABLE](https://https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0000927.html) 
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull ibmcom/db2:11.5.0.0a`
   - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
-- encoding:
+- **encoding**:
   - by using the CCSID clause in the CREATE statements for any of the following objects:
     - Database
     - Table space
     - Table
     - procedure or function
   
-- JDBC driver (latest):
+- **JDBC driver (latest)**:
   - version 11.5.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
-- privileged database access:
-  - user: `db2inst1`
+- **privileged database access**: user `db2inst1`
 
-- restrictions:
-  - the IBM Db2 DBMS only accepts operating system accounts as database users 
+- **restrictions**: the IBM Db2 DBMS only accepts operating system accounts as database users 
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_IBMDB2.png)
 
@@ -640,7 +635,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_mariadb"></a> 5.7 MariaDB Server
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | MariaDB Server Type |
 | --- | --- |
@@ -650,34 +645,35 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-- DDL syntax:
+- **DDL syntax**:
   - [CREATE DATABASE](https://mariadb.com/kb/en/create-database/) 
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://mariadb.com/kb/en/create-table/) 
   - [CREATE USER](https://mariadb.com/kb/en/create-user/) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull mariadb:10.5.4`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
-- encoding:
+- **encoding**:
   - server level: `SET character_set_server = 'latin2';`
   - database level: `CHARACTER SET = 'keybcs2'`
   - table level: `CHARACTER SET 'utf8'`
   - column level: `CHARACTER SET 'greek'`
   
-- JDBC driver (latest):
+- **issues**: [Jira](https://jira.mariadb.org/projects/MDEV/issues/MDEV-22621?filter=allopenissues)
+
+- **JDBC driver (latest)**:
   - version 2.6.1
   - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
 
-- privileged database access:
+- **privileged database access**:
   - user: `mysql`
   - password; `root`
 
-- source code:
-  - [GitHub](https://github.com/MariaDB/server)
+- **source code**: [GitHub](https://github.com/MariaDB/server)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_MARIADB.png)
 
@@ -685,7 +681,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ###  <a name="details_mssqlserver"></a> 5.8 Microsoft SQL Server
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | Microsoft SQL Server Type |
 | --- | --- |
@@ -695,31 +691,29 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | DATETIME2 |
 
-- DDL syntax:
+- **DDL syntax**:
   - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15) 
   - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
   - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15) 
   - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
   - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
 
-- encoding:
-  - to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
+- **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
   
-- JDBC driver (latest):
+- **JDBC driver (latest)**:
   - version 8.3.1.jre14-preview
   - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
 
-- privileged database access:
+- **privileged database access**:
   - database: `master`
   - user: `sa`
 
-- restrictions:
-  - no full UTF-8 support in the given Docker images
+- **restrictions**: no full UTF-8 support in the given Docker images
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_MSSQLSERVER.png)
 
@@ -727,7 +721,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_mysql"></a> 5.9 MySQL Database
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | Firebird Type |
 | --- | --- |
@@ -737,31 +731,31 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | DATETIME |
 
-- DDL syntax:
+- **DDL syntax**:
   - [CREATE DATABASE](https://dev.mysql.com/doc/refman/8.0/en/create-database.html) 
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://dev.mysql.com/doc/refman/8.0/en/create-table.html) 
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull mysql:8.0.20`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
-- encoding:
-  - for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
+- **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
-- JDBC driver (latest):
+- **issues**: [GitHub](https://github.com/mysqljs/mysql)
+
+- **JDBC driver (latest)**:
   - version 8.0.20
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
-- privileged database access:
+- **privileged database access**:
   - database: `sys`
   - user: `root`
 
-- source code:
-  - [GitHub](https://github.com/mysql/mysql-server)
+- **source code**: [GitHub](https://github.com/mysql/mysql-server)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_MYSQL.png)
 
@@ -769,7 +763,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_oracle"></a> 5.10 Oracle Database
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | Oracle Database Type |
 | --- | --- |
@@ -779,27 +773,25 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR2 |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - CREATE DATABASE - n/a 
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
   - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
 
-- Docker image (latest):
-  - [DockerHub](https://github.com/oracle/docker-images/tree/master/OracleDatabase)
+- **Docker image**: [DockerHub](https://github.com/oracle/docker-images/tree/master/OracleDatabase)
 
-- encoding:
-  - since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
+- **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
-- JDBC driver (latest):
+- **JDBC driver (latest)**:
   - version 19.3.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc10)
 
-- privileged database access:
+- **privileged database access**:
   - database: `orclpdb1`
   - user: `SYS AS SYSDBA`
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_ORACLE.png)
 
@@ -807,7 +799,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_postgresql"></a> 5.11 PostgreSQL Database
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | PostgreSQL Database Type |
 | --- | --- |
@@ -817,27 +809,25 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | VARCHAR |
 | timestamp | TIMESTAMP |
 
-- DDL syntax:
+- **DDL syntax**:
   - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
   - [CREATE SCHEMA](https://www.postgresql.org/docs/12/sql-createschema.html)
   - [CREATE TABLE](https://www.postgresql.org/docs/12/sql-createtable.html) 
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
-- Docker image (latest):
+- **Docker image (latest)**:
   - pull command: `docker pull postgres:12.3-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
-- encoding:
-  - when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
+- **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
   
-- JDBC driver (latest):
+- **JDBC driver (latest)**:
   - version 4.2.14
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
-- source code:
-  - [GitHub](https://github.com/postgres/postgres)
+- **source code**: [GitHub](https://github.com/postgres/postgres)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_POSTGRESQL.png)
 
@@ -845,7 +835,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ### <a name="details_sqlite"></a> 5.12 SQLite
 
-- data types:
+- **data types**:
 
 | JDBC Data Type | SQLite Type |
 | --- | --- |
@@ -855,27 +845,27 @@ Below are also DBeaver based connection parameter examples for each database man
 | string | TEXT |
 | timestamp | INTEGER / REAL / TEXT |
 
-- DDL syntax:
+- **DDL syntax**:
   - CREATE DATABASE - n/a
   - CREATE SCHEMA - n/a
   - [CREATE TABLE](https://sqlite.org/lang_createtable.html) 
   - CREATE USER - n/a     
 
-- encoding:
-  - by using the following parameter: `PRAGMA encoding='UTF-8';`
+- **encoding**: by using the following parameter: `PRAGMA encoding='UTF-8';`
   
-- JDBC driver (latest):
+- **issues**: [SQLite Forum](https://www.sqlite.org/forum/about)
+
+- **JDBC driver (latest)**:
   - version 3.32.3
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
 
-- restrictions:
+- **restrictions**:
   - no Docker image necessary, hence not available
   - no user management 
 
-- source code:
-  - [Fossil](https://sqlite.org/src/dir?ci=tip)
+- **source code**: [Fossil](https://sqlite.org/src/dir?ci=tip)
 
-- DBeaver database connection settings:
+- **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLITE.png)
 
