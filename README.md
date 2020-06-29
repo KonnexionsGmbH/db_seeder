@@ -208,7 +208,7 @@ Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
 
 ## <a name="installation"></a> 3. Installation
 
-The easiest way is to download a current release of **`db_seeder`**.
+The easiest way is to download a current release of **`db_seeder`** from the GitHub repository.
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 The system requirements are described in the respective release notes. 
 
