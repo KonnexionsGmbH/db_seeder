@@ -342,18 +342,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     setupDatabase();
 
-    // Level 1 -------------------------------------------------------------
-    createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-    createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
-
-    // Level 2 -------------------------------------------------------------
-    createData(TABLE_NAME_COUNTRY_STATE, config.getMaxRowCountryState());
-
-    // Level 3 -------------------------------------------------------------
-    createData(TABLE_NAME_CITY, config.getMaxRowCity());
-
-    // Level 4 -------------------------------------------------------------
-    createData(TABLE_NAME_COMPANY, config.getMaxRowCompany());
+    for (String tableName : TABLE_NAMES_CREATE) {
+      createData(tableName, getMaxRowSize(tableName));
+    }
 
     disconnect(connection);
 
@@ -611,6 +602,23 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       return 400;
     case TABLE_NAME_TIMEZONE:
       return 11;
+    default:
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+    }
+  }
+
+  private final int getMaxRowSize(final String tableName) {
+    switch (tableName) {
+    case TABLE_NAME_CITY:
+      return config.getMaxRowCity();
+    case TABLE_NAME_COMPANY:
+      return config.getMaxRowCompany();
+    case TABLE_NAME_COUNTRY:
+      return config.getMaxRowCountry();
+    case TABLE_NAME_COUNTRY_STATE:
+      return config.getMaxRowCountryState();
+    case TABLE_NAME_TIMEZONE:
+      return config.getMaxRowTimezone();
     default:
       throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
     }

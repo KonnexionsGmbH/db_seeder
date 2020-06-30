@@ -127,7 +127,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      for (String tableName : TABLE_NAMES) {
+      for (String tableName : TABLE_NAMES_DROP) {
         statement.execute("DROP TABLE IF EXISTS \"" + tableName + "\"");
       }
 

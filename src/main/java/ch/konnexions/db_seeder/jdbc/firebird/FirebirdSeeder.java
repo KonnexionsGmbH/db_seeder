@@ -135,7 +135,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
       statement = connectionLocal.createStatement();
 
-      for (String tableName : TABLE_NAMES) {
+      for (String tableName : TABLE_NAMES_DROP) {
         preparedStatement.setString(1, tableName);
 
         resultSet = preparedStatement.executeQuery();

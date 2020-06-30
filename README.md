@@ -274,7 +274,7 @@ db_seeder.firebird.password.sys=firebird
 db_seeder.firebird.password=firebird
 db_seeder.firebird.user=kxn_user
 
-db_seeder.h2.connection.port=8084
+db_seeder.h2.connection.port=9092
 db_seeder.h2.connection.prefix=jdbc:h2:
 db_seeder.h2.database=kxn_db
 db_seeder.h2.password=h2
@@ -398,7 +398,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
 
-- **issues**: [Jira](https://issues.apache.org/jira/secure/Dashboard.jspa)
+- **issue tracking**: [Jira](https://issues.apache.org/jira/secure/Dashboard.jspa)
   
 - **JDBC driver (latest)**:
   - version 10.15.2.
@@ -443,7 +443,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by default `utf8` encoding
 
-- **issues**: [GitHub](https://github.com/crate/crate)
+- **issue tracking**: [GitHub](https://github.com/crate/crate)
 
 - **JDBC driver (latest)**:
   - version 2.6.0
@@ -489,7 +489,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
-- **issues**: 
+- **issue tracking**: 
   - [Jira](http://jira.cubrid.org/secure/Dashboard.jspa)
   - [reddit](https://www.reddit.com/r/CUBRID/)
 
@@ -533,7 +533,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
   
-- **issues**: [Jira](https://www.atlassian.com/software/jira)
+- **issue tracking**: [Jira](https://www.atlassian.com/software/jira)
 
 - **JDBC driver (latest)**:
   - version 4.0.0.java11
@@ -568,13 +568,13 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE TABLE](http://www.h2database.com/html/commands.html#create_table) 
   - [CREATE USER](http://www.h2database.com/html/commands.html#create_user) 
 
-- **Docker image (latest)**: TODO wwe
-  - pull command: `docker pull jacobalberty/firebird:3.0.5`
-  - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
+- **Docker image (latest)**:
+  - pull command: `docker pull konnexionsgmbh/h2_database_engine:1.4.200`
+  - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine)
 
 - **encoding**: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.
   
-- **issues**: [GitHub](https://github.com/h2database/h2database)
+- **issue tracking**: [GitHub](https://github.com/h2database/h2database)
 
 - **JDBC driver (latest)**:
   - version 1.4.200
@@ -661,7 +661,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - table level: `CHARACTER SET 'utf8'`
   - column level: `CHARACTER SET 'greek'`
   
-- **issues**: [Jira](https://jira.mariadb.org/projects/MDEV/issues/MDEV-22621?filter=allopenissues)
+- **issue tracking**: [Jira](https://jira.mariadb.org/projects/MDEV/issues/MDEV-22621?filter=allopenissues)
 
 - **JDBC driver (latest)**:
   - version 2.6.1
@@ -743,7 +743,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
-- **issues**: [GitHub](https://github.com/mysqljs/mysql)
+- **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
 
 - **JDBC driver (latest)**:
   - version 8.0.20
@@ -853,7 +853,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following parameter: `PRAGMA encoding='UTF-8';`
   
-- **issues**: [SQLite Forum](https://www.sqlite.org/forum/about)
+- **issue tracking**: [SQLite Forum](https://www.sqlite.org/forum/about)
 
 - **JDBC driver (latest)**:
   - version 3.32.3

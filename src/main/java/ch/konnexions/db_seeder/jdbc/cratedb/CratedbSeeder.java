@@ -121,7 +121,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
-    for (String tableName : TABLE_NAMES) {
+    for (String tableName : TABLE_NAMES_DROP) {
       String sqlStmntLocal = "DROP TABLE IF EXISTS " + tableName;
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
       statement.execute(sqlStmntLocal);
