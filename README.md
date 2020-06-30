@@ -586,7 +586,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
+  -- client version:
+  
 ![](.README_images/DBeaver_H2.png)
+  
+  -- embedded version:
+  
+![](.README_images/DBeaver_H2_EMB.png)
 
 [//]: # (===========================================================================================)
 

@@ -5,7 +5,6 @@ package ch.konnexions.db_seeder.jdbc.h2;
 
 import java.sql.SQLException;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
@@ -159,8 +158,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     driver = "org.h2.Driver";
 
     if (isClient) {
-      url = config.getH2ConnectionPrefix() + "tcp://" + config.getJdbcConnectionHost() + (SystemUtils.IS_OS_WINDOWS ? "" : ":" + config.getH2ConnectionPort())
-          + "/" + config.getH2Database();
+      url = config.getH2ConnectionPrefix() + "tcp://" + config.getJdbcConnectionHost() + ":" + config.getH2ConnectionPort() + "/" + config.getH2Database();
     } else {
       url = config.getH2ConnectionPrefix() + "file:" + config.getH2Database();
     }
