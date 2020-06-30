@@ -5,6 +5,7 @@ package ch.konnexions.db_seeder.jdbc.h2;
 
 import java.sql.SQLException;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
@@ -17,9 +18,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public class H2Seeder extends AbstractJdbcSeeder {
 
-  private static Logger logger  = Logger.getLogger(AbstractJdbcSeeder.class);
-
-  private final String  URL_EMB = config.getH2ConnectionPrefix() + "file:" + config.getH2Database();
+  private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
 
   /**
    * Instantiates a new H2 Database Engine seeder.
@@ -131,6 +130,21 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
   }
 
+  private final void dropAllTables() {
+    try {
+      statement = connection.createStatement();
+
+      for (String tableName : TABLE_NAMES_DROP) {
+        statement.execute("DROP TABLE IF EXISTS \"" + tableName + "\"");
+      }
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
   private final void init() {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
@@ -145,9 +159,10 @@ public class H2Seeder extends AbstractJdbcSeeder {
     driver = "org.h2.Driver";
 
     if (isClient) {
-      url = config.getH2ConnectionPrefix() + "tcp//" + config.getJdbcConnectionHost() + ":" + config.getH2ConnectionPort() + "/" + config.getH2Database();
+      url = config.getH2ConnectionPrefix() + "tcp://" + config.getJdbcConnectionHost() + (SystemUtils.IS_OS_WINDOWS ? "" : ":" + config.getH2ConnectionPort())
+          + "/" + config.getH2Database();
     } else {
-      url = URL_EMB;
+      url = config.getH2ConnectionPrefix() + "file:" + config.getH2Database();
     }
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
@@ -164,17 +179,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(URL_EMB, driver, "sa", "");
-
-    if (isClient) {
-      try {
-        connection.close();
-        connection = connect(url, null, "sa", "");
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
+    connection = connect(url, driver, "sa", "");
 
     try {
       connection.setAutoCommit(true);
@@ -184,19 +189,18 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     String h2Password = config.getH2Password();
-    String h2Schema   = config.getH2Schema();
     String h2User     = config.getH2User();
 
     // -----------------------------------------------------------------------
-    // Drop the schema if already existing
+    // Drop the schema and the database tables if already existing
     // -----------------------------------------------------------------------
 
     try {
+      dropAllTables();
+
       statement = connection.createStatement();
 
       statement.execute("DROP USER IF EXISTS " + h2User);
-
-      statement.execute("DROP SCHEMA IF EXISTS " + h2Schema + "CASCADE");
     } catch (SQLException e) {
       e.printStackTrace();
       connection = connect(url, driver, "sa", "");
@@ -208,8 +212,6 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
     try {
       statement.execute("CREATE USER " + h2User + " PASSWORD '" + h2Password + "' ADMIN");
-
-      statement.execute("CREATE SCHEMA " + h2Schema);
 
       statement.close();
     } catch (SQLException e) {
