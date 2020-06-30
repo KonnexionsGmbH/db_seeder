@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * Test Data Generator for a Microsoft SQL Server DBMS.
+ * Test Data Generator for a Apache Derby DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
@@ -145,7 +145,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
       statement         = connectionLocal.createStatement();
 
-      for (String tableName : TABLE_NAMES) {
+      for (String tableName : TABLE_NAMES_DROP) {
         preparedStatement.setString(1, tableName);
 
         resultSet = preparedStatement.executeQuery();

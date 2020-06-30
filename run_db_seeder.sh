@@ -12,12 +12,14 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_DBMS_EMBEDDED=no
 
 if [ -z "$1" ]; then
-    echo "===================================="
+    echo "==========================================="
     echo "derby       - Apache Derby [client]"
     echo "derby_emb   - Apache Derby [embedded]"
     echo "cratedb     - CrateDB"
     echo "cubrid      - CUBRID"
     echo "firebird    - Firebird"
+    echo "h2          - H2 Database Engine [client]"
+    echo "h2_emb      - H2 Database Engine [embedded]"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -25,7 +27,7 @@ if [ -z "$1" ]; then
     echo "oracle      - Oracle Database"
     echo "postgresql  - PostgreSQL Database"
     echo "sqlite      - SQLite [embedded]"
-    echo "------------------------------------"
+    echo "-------------------------------------------"
     read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
 
@@ -69,16 +71,12 @@ fi
 #    export DB_SEEDER_DERBY_CONNECTION_PORT=
 #    export DB_SEEDER_DERBY_CONNETION_PREFIX=
 #    export DB_SEEDER_DERBY_DATABASE=
-#    export DB_SEEDER_DERBY_PASSWORD=
-#    export DB_SEEDER_DERBY_SCHEMA=
 #fi
-#if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
-#    export DB_SEEDER_DERBY_CONNECTION_PORT=
+if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
+    export DB_SEEDER_DBMS_EMBEDDED=yes
 #    export DB_SEEDER_DERBY_CONNETION_PREFIX=
 #    export DB_SEEDER_DERBY_DATABASE=
-#    export DB_SEEDER_DERBY_PASSWORD=
-#    export DB_SEEDER_DERBY_SCHEMA=
-#fi
+fi
 #if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
 #    export DB_SEEDER_FIREBIRD_CONNECTION_PORT=
 #    export DB_SEEDER_FIREBIRD_CONNETION_PREFIX=
@@ -87,6 +85,22 @@ fi
 #    export DB_SEEDER_FIREBIRD_PASSWORD_SYS=
 #    export DB_SEEDER_FIREBIRD_USER=
 #fi
+#if [ "$DB_SEEDER_DBMS" = "h2" ]; then
+#    export DB_SEEDER_H2_CONNECTION_PORT=
+#    export DB_SEEDER_H2_CONNETION_PREFIX=
+#    export DB_SEEDER_H2_DATABASE=
+#    export DB_SEEDER_H2_PASSWORD=
+#    export DB_SEEDER_H2_SCHEMA=
+#    export DB_SEEDER_H2_USER=
+#fi
+if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
+    export DB_SEEDER_DBMS_EMBEDDED=yes
+#    export DB_SEEDER_H2_CONNETION_PREFIX=
+#    export DB_SEEDER_H2_DATABASE=
+#    export DB_SEEDER_H2_PASSWORD=
+#    export DB_SEEDER_H2_SCHEMA=
+#    export DB_SEEDER_H2_USER=
+fi
 #if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
 #    export DB_SEEDER_IBMDB2_CONNECTION_PORT=
 #    export DB_SEEDER_IBMDB2_CONNETION_PREFIX=
@@ -179,15 +193,10 @@ if [ "$DB_SEEDER_DBMS" = "derby" ]; then
     echo "DERBY_CONNECTION_PORT             : $DB_SEEDER_DERBY_CONNECTION_PORT"
     echo "DERBY_CONNECTION_PREFIX           : $DB_SEEDER_DERBY_CONNECTION_PREFIX"
     echo "DERBY_DATABASE                    : $DB_SEEDER_DERBY_DATABASE"
-    echo "DERBY_PASSWORD                    : $DB_SEEDER_DERBY_PASSWORD"
-    echo "DERBY_SCHEMA                      : $DB_SEEDER_DERBY_SCHEMA"
 fi
 if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
-    echo "DERBY_CONNECTION_PORT             : $DB_SEEDER_DERBY_CONNECTION_PORT"
     echo "DERBY_CONNECTION_PREFIX           : $DB_SEEDER_DERBY_CONNECTION_PREFIX"
     echo "DERBY_DATABASE                    : $DB_SEEDER_DERBY_DATABASE"
-    echo "DERBY_PASSWORD                    : $DB_SEEDER_DERBY_PASSWORD"
-    echo "DERBY_SCHEMA                      : $DB_SEEDER_DERBY_SCHEMA"
 fi
 if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
     echo "FIREBIRD_CONNECTION_PORT          : $DB_SEEDER_FIREBIRD_CONNECTION_PORT"
@@ -196,6 +205,21 @@ if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
     echo "FIREBIRD_PASSWORD                 : $DB_SEEDER_FIREBIRD_PASSWORD"
     echo "FIREBIRD_PASSWORD_SYS             : $DB_SEEDER_FIREBIRD_PASSWORD_SYS"
     echo "FIREBIRD_USER                     : $DB_SEEDER_FIREBIRD_USER"
+fi
+if [ "$DB_SEEDER_DBMS" = "h2" ]; then
+    echo "H2_CONNECTION_PORT                : $DB_SEEDER_H2_CONNECTION_PORT"
+    echo "H2_CONNECTION_PREFIX              : $DB_SEEDER_H2_CONNECTION_PREFIX"
+    echo "H2_DATABASE                       : $DB_SEEDER_H2_DATABASE"
+    echo "H2_PASSWORD                       : $DB_SEEDER_H2_PASSWORD"
+    echo "H2_SCHEMA                         : $DB_SEEDER_H2_SCHEMA"
+    echo "H2_USER                           : $DB_SEEDER_H2_USER"
+fi
+if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
+    echo "H2_CONNECTION_PREFIX              : $DB_SEEDER_H2_CONNECTION_PREFIX"
+    echo "H2_DATABASE                       : $DB_SEEDER_H2_DATABASE"
+    echo "H2_PASSWORD                       : $DB_SEEDER_H2_PASSWORD"
+    echo "H2_SCHEMA                         : $DB_SEEDER_H2_SCHEMA"
+    echo "H2_USER                           : $DB_SEEDER_H2_USER"
 fi
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "IBMDB2_CONNECTION_PORT            : $DB_SEEDER_IBMDB2_CONNECTION_PORT"

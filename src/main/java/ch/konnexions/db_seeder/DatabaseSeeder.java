@@ -12,6 +12,7 @@ import ch.konnexions.db_seeder.jdbc.apache.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
 import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
+import ch.konnexions.db_seeder.jdbc.h2.H2Seeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
@@ -86,6 +87,18 @@ public class DatabaseSeeder {
       FirebirdSeeder firebirdSeeder = new FirebirdSeeder();
       firebirdSeeder.createData();
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Firebird [client]");
+      break;
+    case "h2":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start H2 Database Engine [client]");
+      H2Seeder h2Seeder = new H2Seeder();
+      h2Seeder.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   H2 Database Engine [client]");
+      break;
+    case "h2_emb":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start H2 Database Engine [embedded]");
+      H2Seeder h2SeederEmbedded = new H2Seeder(false);
+      h2SeederEmbedded.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   H2 Database Engine [embedded]");
       break;
     case "ibmdb2":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start IBM Db2 Database");

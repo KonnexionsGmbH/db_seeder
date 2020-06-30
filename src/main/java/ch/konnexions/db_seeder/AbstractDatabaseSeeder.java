@@ -23,6 +23,7 @@ public abstract class AbstractDatabaseSeeder {
     CRATEDB,
     CUBRID,
     FIREBIRD,
+    H2,
     IBMDB2,
     MARIADB,
     MSSQLSERVER,
@@ -59,7 +60,9 @@ public abstract class AbstractDatabaseSeeder {
   protected final String       TABLE_NAME_COUNTRY       = "COUNTRY";
   protected final String       TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
   protected final String       TABLE_NAME_TIMEZONE      = "TIMEZONE";
-  protected final List<String> TABLE_NAMES              = Arrays
+  protected final List<String> TABLE_NAMES_CREATE       = Arrays
+      .asList(TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_CITY, TABLE_NAME_COMPANY);
+  protected final List<String> TABLE_NAMES_DROP         = Arrays
       .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
 
   protected String             tableNameDelimiter       = "\"";

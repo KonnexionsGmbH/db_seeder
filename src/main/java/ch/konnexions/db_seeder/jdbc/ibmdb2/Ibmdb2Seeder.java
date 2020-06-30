@@ -134,7 +134,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       preparedStatement = connection.prepareStatement(dropTableStmnt);
       preparedStatement.setString(2, ibmdb2Schema);
 
-      for (String tableName : TABLE_NAMES) {
+      for (String tableName : TABLE_NAMES_DROP) {
         preparedStatement.setString(1, tableName);
 
         resultSet = preparedStatement.executeQuery();

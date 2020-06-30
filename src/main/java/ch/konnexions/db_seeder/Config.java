@@ -31,10 +31,6 @@ public class Config {
   @SuppressWarnings("unused")
   private static Logger                                                logger     = Logger.getLogger(Config.class);
 
-  private int                                                          derbyConnectionPort;
-  private String                                                       derbyConnectionPrefix;
-  private String                                                       derbyDatabase;
-
   private int                                                          cratedbConnectionPort;
   private String                                                       cratedbConnectionPrefix;
   private String                                                       cratedbPassword;
@@ -45,6 +41,10 @@ public class Config {
   private String                                                       cubridDatabase;
   private String                                                       cubridPassword;
   private String                                                       cubridUser;
+
+  private int                                                          derbyConnectionPort;
+  private String                                                       derbyConnectionPrefix;
+  private String                                                       derbyDatabase;
 
   private boolean                                                      encodingIso_8859_1;
   private boolean                                                      encodingUtf_8;
@@ -61,6 +61,13 @@ public class Config {
 
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
+
+  private int                                                          h2ConnectionPort;
+  private String                                                       h2ConnectionPrefix;
+  private String                                                       h2Database;
+  private String                                                       h2Password;
+  private String                                                       h2Schema;
+  private String                                                       h2User;
 
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
@@ -173,8 +180,6 @@ public class Config {
     return derbyDatabase;
   }
 
-  // CrateDB ----------------------------------------------------------
-
   @SuppressWarnings("unused")
   private final List<String> getBooleanProperties() {
 
@@ -185,6 +190,8 @@ public class Config {
 
     return list;
   }
+
+  // CrateDB ----------------------------------------------------------
 
   /**
    * @return the CrateDB port number where the database server is listening for requests
@@ -207,14 +214,14 @@ public class Config {
     return cratedbPassword;
   }
 
-  // CUBRID ------------------------------------------------------------------
-
   /**
    * @return the CrateDB user name to connect as normal user to the database
    */
   public final String getCratedbUser() {
     return cratedbUser;
   }
+
+  // CUBRID ------------------------------------------------------------------
 
   /**
    * @return the CUBRID port number where the database server is listening for requests
@@ -244,14 +251,14 @@ public class Config {
     return cubridPassword;
   }
 
-  // Encoding ----------------------------------------------------------------
-
   /**
    * @return the CUBRID schema name
    */
   public final String getCubridUser() {
     return cubridUser;
   }
+
+  // Encoding ----------------------------------------------------------------
 
   /**
    * @return the encoding option for ISO-8859-1
@@ -260,8 +267,6 @@ public class Config {
     return encodingIso_8859_1;
   }
 
-  // Firebird ----------------------------------------------------------------
-
   /**
    * @return the encoding option for UTF-8
    */
@@ -269,42 +274,42 @@ public class Config {
     return encodingUtf_8;
   }
 
+  // Firebird ----------------------------------------------------------------
+
   /**
-   * @return the MariaDB port number where the database server is listening for requests
+   * @return the Firebird port number where the database server is listening for requests
    */
   public final int getFirebirdConnectionPort() {
     return firebirdConnectionPort;
   }
 
   /**
-   * @return the prefix of the MariaDB connection string
+   * @return the prefix of the Firebird connection string
    */
   public final String getFirebirdConnectionPrefix() {
     return firebirdConnectionPrefix;
   }
 
   /**
-   * @return the MariaDB database name
+   * @return the Firebird database name
    */
   public final String getFirebirdDatabase() {
     return firebirdDatabase;
   }
 
   /**
-   * @return the MariaDB password to connect as normal user to the database
+   * @return the Firebird password to connect as normal user to the database
    */
   public final String getFirebirdPassword() {
     return firebirdPassword;
   }
 
   /**
-   * @return the MariaDB password to connect as privileged user to the database
+   * @return the Firebird password to connect as privileged user to the database
    */
   public final String getFirebirdPasswordSys() {
     return firebirdPasswordSys;
   }
-
-  // IBM Db2 Database --------------------------------------------------------
 
   /**
    * @return the MariaDB user name to connect as normal user to the database
@@ -312,6 +317,52 @@ public class Config {
   public final String getFirebirdUser() {
     return firebirdUser;
   }
+
+  // H2 Database Engine-------------------------------------------------------
+
+  /**
+   * @return the H2 Database Engine port number where the database server is listening for requests
+   */
+  public final int getH2ConnectionPort() {
+    return h2ConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the H2 Database Engine connection string
+   */
+  public final String getH2ConnectionPrefix() {
+    return h2ConnectionPrefix;
+  }
+
+  /**
+   * @return the H2 Database Engine database name
+   */
+  public final String getH2Database() {
+    return h2Database;
+  }
+
+  /**
+   * @return the H2 Database Engine password to connect as normal user to the database
+   */
+  public final String getH2Password() {
+    return h2Password;
+  }
+
+  /**
+   * @return the H2 Database Engine schema
+   */
+  public final String getH2Schema() {
+    return h2Schema;
+  }
+
+  /**
+   * @return the H2 Database Engine user name
+   */
+  public final String getH2User() {
+    return h2User;
+  }
+
+  // IBM Db2 Database --------------------------------------------------------
 
   /**
    * @return the IBM Db2 port number where the database server is listening for requests
@@ -341,8 +392,6 @@ public class Config {
     return ibmdb2Password;
   }
 
-  // JDBC Connection ---------------------------------------------------------
-
   /**
    * @return the IBM Db2 schema name
    */
@@ -350,14 +399,14 @@ public class Config {
     return ibmdb2Schema;
   }
 
+  // JDBC Connection ---------------------------------------------------------
+
   /**
    * @return the host name or the IP address of the database
    */
   public final String getJdbcConnectionHost() {
     return jdbcConnectionHost;
   }
-
-  // MariaDB Server ----------------------------------------------------------
 
   private final ArrayList<String> getKeysSorted() {
 
@@ -369,6 +418,8 @@ public class Config {
 
     return keysSorted;
   }
+
+  // MariaDB Server ----------------------------------------------------------
 
   /**
    * @return the MariaDB port number where the database server is listening for requests
@@ -405,14 +456,14 @@ public class Config {
     return mariadbPasswordSys;
   }
 
-  // MAX (rows) --------------------------------------------------------------
-
   /**
    * @return the MariaDB user name to connect as normal user to the database
    */
   public final String getMariadbUser() {
     return mariadbUser;
   }
+
+  // MAX (rows) --------------------------------------------------------------
 
   /**
    * @return the maximum number of rows to be generated for database table CITY
@@ -442,14 +493,14 @@ public class Config {
     return maxRowCountryState;
   }
 
-  // Microsoft SQL Server ----------------------------------------------------
-
   /**
    * @return the maximum number of rows to be generated for database table COUNTRY
    */
   public final int getMaxRowTimezone() {
     return maxRowTimezone;
   }
+
+  // Microsoft SQL Server ----------------------------------------------------
 
   /**
    * @return the Microsoft SQL Server port number where the database server is listening for requests
@@ -493,14 +544,14 @@ public class Config {
     return mssqlserverSchema;
   }
 
-  // MySQL Database ----------------------------------------------------------
-
   /**
    * @return the Microsoft SQL Server user name to connect as normal user to the database
    */
   public final String getMssqlserverUser() {
     return mssqlserverUser;
   }
+
+  // MySQL Database ----------------------------------------------------------
 
   /**
    * @return the MySQL port number where the database server is listening for requests
@@ -560,6 +611,7 @@ public class Config {
     list.add("db_seeder.cratedb.connection.port");
     list.add("db_seeder.cubrid.connection.port");
     list.add("db_seeder.firebird.connection.port");
+    list.add("db_seeder.h2.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
@@ -709,6 +761,13 @@ public class Config {
     firebirdPassword            = propertiesConfiguration.getString("db_seeder.firebird.password");
     firebirdPasswordSys         = propertiesConfiguration.getString("db_seeder.firebird.password.sys");
     firebirdUser                = propertiesConfiguration.getString("db_seeder.firebird.user");
+
+    h2ConnectionPort            = propertiesConfiguration.getInt("db_seeder.h2.connection.port");
+    h2ConnectionPrefix          = propertiesConfiguration.getString("db_seeder.h2.connection.prefix");
+    h2Database                  = propertiesConfiguration.getString("db_seeder.h2.database");
+    h2Password                  = propertiesConfiguration.getString("db_seeder.h2.password");
+    h2Schema                    = propertiesConfiguration.getString("db_seeder.h2.schema");
+    h2User                      = propertiesConfiguration.getString("db_seeder.h2.user");
 
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
@@ -882,6 +941,38 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_USER")) {
       firebirdUser = environmentVariables.get("DB_SEEDER_FIREBIRD_USER");
       propertiesConfiguration.setProperty("db_seeder.firebird.user", firebirdUser);
+    }
+
+    // H2 database Engine --------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_H2_CONNECTION_PORT")) {
+      h2ConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_H2_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", h2ConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_H2_CONNECTION_PREFIX")) {
+      h2ConnectionPrefix = environmentVariables.get("DB_SEEDER_H2_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", h2ConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_H2_DATABASE")) {
+      h2Database = environmentVariables.get("DB_SEEDER_H2_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.h2.database", h2Database);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_H2_PASSWORD")) {
+      h2Password = environmentVariables.get("DB_SEEDER_H2_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.h2.password", h2Password);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_H2_SCHEMA")) {
+      h2Schema = environmentVariables.get("DB_SEEDER_H2_SCHEMA");
+      propertiesConfiguration.setProperty("db_seeder.h2.password.sys", h2Schema);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_H2_USER")) {
+      h2User = environmentVariables.get("DB_SEEDER_H2_USER");
+      propertiesConfiguration.setProperty("db_seeder.h2.user", h2User);
     }
 
     // IBM Db2 Database ----------------------------------------------------------
