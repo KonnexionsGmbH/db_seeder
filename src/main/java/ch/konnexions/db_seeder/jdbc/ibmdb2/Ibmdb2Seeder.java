@@ -171,7 +171,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSCAT.SCHEMATA WHERE schemaname = ?");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSIBM.SYSSCHEMATA WHERE name = ?");
       preparedStatement.setString(1, ibmdb2Schema);
 
       resultSet = preparedStatement.executeQuery();
@@ -214,16 +214,16 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, "db2inst1", config.getIbmdb2Password());
 
-    // -----------------------------------------------------------------------
-    // Drop the database user and tables if already existing.
-    // -----------------------------------------------------------------------
-
     String ibmdb2Schema = config.getIbmdb2Schema();
+
+    // -----------------------------------------------------------------------
+    // Drop the schema if already existing
+    // -----------------------------------------------------------------------
 
     dropSchema(ibmdb2Schema);
 
     // -----------------------------------------------------------------------
-    // Create the database user and grant the necessary rights.
+    // Create the schema.
     // -----------------------------------------------------------------------
 
     try {
