@@ -359,14 +359,14 @@ public class Config {
    * @return the H2 Database Engine schema
    */
   public final String getH2Schema() {
-    return h2Schema;
+    return h2Schema.toUpperCase();
   }
 
   /**
    * @return the H2 Database Engine user name
    */
   public final String getH2User() {
-    return h2User;
+    return h2User.toUpperCase();
   }
 
   // HyperSQL Database--------------------------------------------------------

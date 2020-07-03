@@ -251,7 +251,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     String hsqldbUser     = config.getHSQLDBUser();
 
     // -----------------------------------------------------------------------
-    // Drop the schema and the database tables if already existing
+    // Drop the schema and the user if already existing
     // -----------------------------------------------------------------------
 
     dropSchema(hsqldbSchema);
@@ -259,7 +259,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     dropUser(hsqldbUser);
 
     // -----------------------------------------------------------------------
-    // Create the schema
+    // Create the user and the schema
     // -----------------------------------------------------------------------
 
     try {

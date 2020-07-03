@@ -8,5 +8,6 @@
 bin
 build
 kxn_db
+kxn_db.*
 timer.txt
 tmp
