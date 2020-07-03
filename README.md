@@ -962,3 +962,5 @@ In case of software changes we strongly recommend you to respect the license ter
     1. run_db_seeder.sh
     1. run_db_seeder_setup_dbms.bat
     1. run_db_seeder_setup_dbms.sh
+    1. run_db_seeder_setup_files.bat
+    1. run_db_seeder_setup_files.sh

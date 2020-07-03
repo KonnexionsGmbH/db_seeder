@@ -276,7 +276,6 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ]; then
     echo "Docker create db_seeder_db (HyperSQL Database $DB_SEEDER_VERSION_HSQLDB)"
     docker create --name db_seeder_db -p 9001:9001/tcp konnexionsgmbh/hypersql_database:$DB_SEEDER_VERSION_HSQLDB
 
-
     echo "Docker start db_seeder_db (HyperSQL Database $DB_SEEDER_VERSION_HSQLDB) ..."
     if ! docker start db_seeder_db; then
         exit 255
