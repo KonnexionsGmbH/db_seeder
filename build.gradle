@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '1.12.0'
+version '1.13.0'
 
 repositories {
     jcenter()
@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.apache.derby:derby:10.15.2.0'
     implementation 'org.apache.derby:derbyclient:10.15.2.0'
     implementation 'org.firebirdsql.jdbc:jaybird:4.0.0.java11'
+    implementation 'org.hsqldb:hsqldb:2.5.1'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.1'
     implementation 'org.postgresql:postgresql:42.2.14'
     implementation 'org.slf4j:slf4j-log4j12:1.7.25'

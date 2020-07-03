@@ -37,7 +37,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     url            = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
         + config.getIbmdb2Database();
 
-    dropTableStmnt = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = UPPER(?)";
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -171,7 +171,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSCAT.SCHEMATA WHERE schemaname = UPPER(?)");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSIBM.SYSSCHEMATA WHERE name = ?");
       preparedStatement.setString(1, ibmdb2Schema);
 
       resultSet = preparedStatement.executeQuery();
@@ -214,16 +214,16 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, "db2inst1", config.getIbmdb2Password());
 
-    // -----------------------------------------------------------------------
-    // Drop the database user and tables if already existing.
-    // -----------------------------------------------------------------------
-
     String ibmdb2Schema = config.getIbmdb2Schema();
+
+    // -----------------------------------------------------------------------
+    // Drop the schema if already existing
+    // -----------------------------------------------------------------------
 
     dropSchema(ibmdb2Schema);
 
     // -----------------------------------------------------------------------
-    // Create the database user and grant the necessary rights.
+    // Create the schema.
     // -----------------------------------------------------------------------
 
     try {

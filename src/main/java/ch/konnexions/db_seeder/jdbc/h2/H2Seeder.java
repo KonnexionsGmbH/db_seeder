@@ -129,19 +129,78 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void dropAllTables() {
-    try {
-      statement = connection.createStatement();
+  private final void dropSchema(String schemaName) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
 
-      for (String tableName : TABLE_NAMES_DROP) {
-        statement.execute("DROP TABLE IF EXISTS \"" + tableName + "\"");
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    try {
+      int count = 0;
+
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE schema_name = ?");
+      preparedStatement.setString(1, schemaName);
+
+      resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
       }
 
-      statement.close();
+      resultSet.close();
+
+      preparedStatement.close();
+
+      if (count > 0) {
+        statement = connection.createStatement();
+
+        statement.execute("DROP SCHEMA " + schemaName + " CASCADE");
+
+        statement.close();
+      }
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+  }
+
+  private final void dropUser(String userName) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+
+    try {
+      int count = 0;
+
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM INFORMATION_SCHEMA.USERS WHERE name = ?");
+      preparedStatement.setString(1, userName);
+
+      resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      resultSet.close();
+
+      preparedStatement.close();
+
+      if (count > 0) {
+        statement = connection.createStatement();
+
+        statement.execute("DROP USER " + userName);
+
+        statement.close();
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 
   private final void init() {
@@ -187,29 +246,27 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     String h2Password = config.getH2Password();
+    String h2Schema   = config.getH2Schema();
     String h2User     = config.getH2User();
 
     // -----------------------------------------------------------------------
-    // Drop the schema and the database tables if already existing
+    // Drop the schema and the user if already existing
+    // -----------------------------------------------------------------------
+
+    dropSchema(h2Schema);
+
+    dropUser(h2User);
+
+    // -----------------------------------------------------------------------
+    // Create the user and the schema
     // -----------------------------------------------------------------------
 
     try {
-      dropAllTables();
-
       statement = connection.createStatement();
 
-      statement.execute("DROP USER IF EXISTS " + h2User);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      connection = connect(url, driver, "sa", "");
-    }
-
-    // -----------------------------------------------------------------------
-    // Create the schema
-    // -----------------------------------------------------------------------
-
-    try {
       statement.execute("CREATE USER " + h2User + " PASSWORD '" + h2Password + "' ADMIN");
+
+      statement.execute("CREATE SCHEMA " + h2Schema + " AUTHORIZATION " + h2User);
 
       statement.close();
     } catch (SQLException e) {
@@ -224,6 +281,17 @@ public class H2Seeder extends AbstractJdbcSeeder {
     disconnect(connection);
 
     connection = connect(url, null, h2User, h2Password);
+
+    try {
+      statement = connection.createStatement();
+
+      statement.execute("SET SCHEMA " + h2Schema);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }

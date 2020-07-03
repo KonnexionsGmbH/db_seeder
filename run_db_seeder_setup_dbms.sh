@@ -16,6 +16,7 @@ export DB_SEEDER_CUBRID_DATABASE=kxn_db
 export DB_SEEDER_DERBY_DATABASE=kxn_db
 export DB_SEEDER_FIREBIRD_DATABASE=kxn_db
 export DB_SEEDER_H2_DATABASE=./tmp/kxn_db
+export DB_SEEDER_HSQLDB_DATABASE=kxn_db
 export DB_SEEDER_IBMDB2_DATABASE=kxn_db
 export DB_SEEDER_SQLITE_DATABASE=kxn_db
 
@@ -24,6 +25,7 @@ export DB_SEEDER_VERSION_CUBRID=10.2
 export DB_SEEDER_VERSION_DERBY=10.15.2.0
 export DB_SEEDER_VERSION_FIREBIRD=3.0.5
 export DB_SEEDER_VERSION_H2=1.4.200
+export DB_SEEDER_VERSION_HSQLDB=2.5.1
 export DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
 
 export DB_SEEDER_VERSION_MARIADB=10.4.13
@@ -48,6 +50,8 @@ if [ -z "$1" ]; then
     echo "firebird    - Firebird"
     echo "h2          - H2 Database Engine [client]"
     echo "h2_emb      - H2 Database Engine [embedded]"
+    echo "hsqldb      - HyperSQL Database [client]"
+    echo "hsqldb_emb  - HyperSQL Database [embedded]"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -70,6 +74,9 @@ if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
+    export DB_SEEDER_DBMS_EMBEDDED=yes
+fi
+if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
@@ -117,56 +124,6 @@ echo ---------------------------------------------------------------------------
 if [ "$DB_SEEDER_DBMS" = "cratedb" ]; then
     echo "VERSION_CRATEDB           : $DB_SEEDER_VERSION_CRATEDB"
 fi
-if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
-    echo "VERSION_CUBRID            : $DB_SEEDER_VERSION_CUBRID"
-    echo "CUBRID_DATABASE           : $DB_SEEDER_CUBRID_DATABASE"
-    if [[ -f $DB_SEEDER_CUBRID_DATABASE ]] || [[ -d $DB_SEEDER_CUBRID_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_CUBRID_DATABASE
-        rm -f $DB_SEEDER_CUBRID_DATABASE
-    fi    
-fi
-if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
-    echo "VERSION_DERBY             : $DB_SEEDER_VERSION_IBMDB2"
-    echo "DERBY_DATABASE            : $DB_SEEDER_DERBY_DATABASE"
-    if [[ -f $DB_SEEDER_DERBY_DATABASE ]] || [[ -d $DB_SEEDER_DERBY_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_DERBY_DATABASE
-        rm -f $DB_SEEDER_DERBY_DATABASE
-    fi    
-fi
-if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
-    echo "VERSION_FIREBIRD          : $DB_SEEDER_VERSION_FIREBIRD"
-    echo "FIREBIRD_DATABASE         : $DB_SEEDER_FIREBIRD_DATABASE"
-    if [[ -f $DB_SEEDER_FIREBIRD_DATABASE ]] || [[ -d $DB_SEEDER_FIREBIRD_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_FIREBIRD_DATABASE
-        rm -f $DB_SEEDER_FIREBIRD_DATABASE
-    fi    
-fi
-if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
-    echo "VERSION_H2                : $DB_SEEDER_VERSION_IBMDB2"
-    echo "H2_DATABASE               : $DB_SEEDER_H2_DATABASE"
-    if [[ -f ${DB_SEEDER_H2_DATABASE}.mv.db ]] || [[ -d ${DB_SEEDER_H2_DATABASE}.mv.db ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll ${DB_SEEDER_H2_DATABASE}.mv.db
-        rm -f ${DB_SEEDER_H2_DATABASE}.mv.db
-    fi    
-fi
-if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
-    echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
-    echo "IBMDB2_DATABASE           : $DB_SEEDER_IBMDB2_DATABASE"
-    if [[ -f $DB_SEEDER_IBMDB2_DATABASE ]] || [[ -d $DB_SEEDER_IBMDB2_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_IBMDB2_DATABASE
-        rm -f $DB_SEEDER_IBMDB2_DATABASE
-    fi    
-fi
 if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     echo "VERSION_MARIADB           : $DB_SEEDER_VERSION_MARIADB"
 fi
@@ -182,19 +139,8 @@ fi
 if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
     echo "VERSION_POSTGRESQL        : $DB_SEEDER_VERSION_POSTGRESQL"
 fi
-if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
-    echo "VERSION_SQLITE            : $DB_SEEDER_VERSION_SQLITE"
-    echo "SQLITE_DATABASE           : $DB_SEEDER_SQLITE_DATABASE"
-    if [[ -f $DB_SEEDER_SQLITE_DATABASE ]] || [[ -d $DB_SEEDER_SQLITE_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_SQLITE_DATABASE
-        rm -f $DB_SEEDER_SQLITE_DATABASE
-    fi    
-fi
-echo --------------------------------------------------------------------------------
-date +"DATE TIME : %d.%m.%Y %H:%M:%S"
-echo "================================================================================"
+
+( ./run_db_seeder_setup_files.sh %DB_SEEDER_DBMS% )
 
 # ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate
@@ -316,6 +262,32 @@ if [ "$DB_SEEDER_DBMS" = "h2" ]; then
 
     end=$(date +%s)
     echo "DOCKER H2 Database Engine was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
+# HyperSQL Database
+#      https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS" = "hsqldb" ]; then
+    echo "HyperSQL Database"
+    echo "--------------------------------------------------------------------------------"
+    start=$(date +%s)
+    echo "Docker create db_seeder_db (HyperSQL Database $DB_SEEDER_VERSION_HSQLDB)"
+    docker create --name db_seeder_db -p 9001:9001/tcp konnexionsgmbh/hypersql_database:$DB_SEEDER_VERSION_HSQLDB
+
+    echo "Docker start db_seeder_db (HyperSQL Database $DB_SEEDER_VERSION_HSQLDB) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    if [ $? -ne 0 ]; then
+        exit 255
+    fi
+
+    end=$(date +%s)
+    echo "DOCKER HyperSQL Database was ready in $((end - start)) seconds"
 fi
 
 ## ------------------------------------------------------------------------------

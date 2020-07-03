@@ -147,7 +147,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM db_user WHERE name = UPPER(?)");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM db_user WHERE name = ?");
       preparedStatement.setString(1, cubridUser);
 
       resultSet = preparedStatement.executeQuery();

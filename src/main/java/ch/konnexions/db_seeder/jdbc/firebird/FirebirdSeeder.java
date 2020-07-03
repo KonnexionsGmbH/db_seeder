@@ -38,7 +38,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     url            = config.getFirebirdConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
         + config.getFirebirdDatabase() + "?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true";
 
-    dropTableStmnt = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = UPPER(?)";
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -165,7 +165,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SEC$USERS WHERE sec$user_name = UPPER(?)");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SEC$USERS WHERE sec$user_name = ?");
       preparedStatement.setString(1, userName);
 
       resultSet = preparedStatement.executeQuery();

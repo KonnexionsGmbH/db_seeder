@@ -39,7 +39,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     url                = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
     urlSetup           = urlBase + "&user=crate";
 
-    dropTableStmnt     = "SELECT UPPER(table_name), 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
+    dropTableStmnt     = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

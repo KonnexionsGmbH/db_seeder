@@ -123,7 +123,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = UPPER(?)");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = ?");
       preparedStatement.setString(1, oracleUser);
 
       resultSet = preparedStatement.executeQuery();
