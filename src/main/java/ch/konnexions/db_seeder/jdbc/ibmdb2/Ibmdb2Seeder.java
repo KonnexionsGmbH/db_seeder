@@ -37,7 +37,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     url            = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
         + config.getIbmdb2Database();
 
-    dropTableStmnt = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = UPPER(?)";
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -171,7 +171,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     try {
       int count = 0;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSCAT.SCHEMATA WHERE schemaname = UPPER(?)");
+      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSCAT.SCHEMATA WHERE schemaname = ?");
       preparedStatement.setString(1, ibmdb2Schema);
 
       resultSet = preparedStatement.executeQuery();

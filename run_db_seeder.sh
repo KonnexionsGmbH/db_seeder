@@ -20,6 +20,8 @@ if [ -z "$1" ]; then
     echo "firebird    - Firebird"
     echo "h2          - H2 Database Engine [client]"
     echo "h2_emb      - H2 Database Engine [embedded]"
+    echo "hsqldb      - HyperSQL Database [client]"
+    echo "hsqldb_emb  - HyperSQL Database [embedded]"
     echo "ibmdb2      - IBM Db2 Database"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
@@ -100,6 +102,14 @@ if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
 #    export DB_SEEDER_H2_PASSWORD=
 #    export DB_SEEDER_H2_SCHEMA=
 #    export DB_SEEDER_H2_USER=
+fi
+if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
+    export DB_SEEDER_DBMS_EMBEDDED=yes
+#    export DB_SEEDER_HSQLDB_CONNETION_PREFIX=
+#    export DB_SEEDER_HSQLDB_DATABASE=
+#    export DB_SEEDER_HSQLDB_PASSWORD=
+#    export DB_SEEDER_HSQLDB_SCHEMA=
+#    export DB_SEEDER_HSQLDB_USER=
 fi
 #if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
 #    export DB_SEEDER_IBMDB2_CONNECTION_PORT=
@@ -220,6 +230,21 @@ if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
     echo "H2_PASSWORD                       : $DB_SEEDER_H2_PASSWORD"
     echo "H2_SCHEMA                         : $DB_SEEDER_H2_SCHEMA"
     echo "H2_USER                           : $DB_SEEDER_H2_USER"
+fi
+if [ "$DB_SEEDER_DBMS" = "hsqldb" ]; then
+    echo "HSQLDB_CONNECTION_PORT            : $DB_SEEDER_HSQLDB_CONNECTION_PORT"
+    echo "HSQLDB_CONNECTION_PREFIX          : $DB_SEEDER_HSQLDB_CONNECTION_PREFIX"
+    echo "HSQLDB_DATABASE                   : $DB_SEEDER_HSQLDB_DATABASE"
+    echo "HSQLDB_PASSWORD                   : $DB_SEEDER_HSQLDB_PASSWORD"
+    echo "HSQLDB_SCHEMA                     : $DB_SEEDER_HSQLDB_SCHEMA"
+    echo "HSQLDB_USER                       : $DB_SEEDER_HSQLDB_USER"
+fi
+if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
+    echo "HSQLDB_CONNECTION_PREFIX          : $DB_SEEDER_HSQLDB_CONNECTION_PREFIX"
+    echo "HSQLDB_DATABASE                   : $DB_SEEDER_HSQLDB_DATABASE"
+    echo "HSQLDB_PASSWORD                   : $DB_SEEDER_HSQLDB_PASSWORD"
+    echo "HSQLDB_SCHEMA                     : $DB_SEEDER_HSQLDB_SCHEMA"
+    echo "HSQLDB_USER                       : $DB_SEEDER_HSQLDB_USER"
 fi
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "IBMDB2_CONNECTION_PORT            : $DB_SEEDER_IBMDB2_CONNECTION_PORT"

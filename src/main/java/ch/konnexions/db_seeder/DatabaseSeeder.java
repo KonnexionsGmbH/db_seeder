@@ -13,6 +13,7 @@ import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
 import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
 import ch.konnexions.db_seeder.jdbc.h2.H2Seeder;
+import ch.konnexions.db_seeder.jdbc.hsqldb.HsqldbSeeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
@@ -99,6 +100,18 @@ public class DatabaseSeeder {
       H2Seeder h2SeederEmbedded = new H2Seeder(false);
       h2SeederEmbedded.createData();
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   H2 Database Engine [embedded]");
+      break;
+    case "hsqldb":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start HyperSQL Database [client]");
+      HsqldbSeeder hsqldbSeeder = new HsqldbSeeder();
+      hsqldbSeeder.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   HyperSQL Database [client]");
+      break;
+    case "hsqldb_emb":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start HyperSQL Database [embedded]");
+      HsqldbSeeder hsqldbSeederEmbedded = new HsqldbSeeder(false);
+      hsqldbSeederEmbedded.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   HyperSQL Database [embedded]");
       break;
     case "ibmdb2":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start IBM Db2 Database");

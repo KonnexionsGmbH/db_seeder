@@ -20,6 +20,8 @@ if ["%1"] EQU [""] (
     echo firebird    - Firebird
     echo h2          - H2 Database Engine [client]
     echo h2_emb      - H2 Database Engine [embedded]
+    echo hsqldb      - HyperSQL Database [client]
+    echo hsqldb_emb  - HyperSQL Database [embedded]
     echo ibmdb2      - IBM Db2 Database
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
@@ -92,13 +94,13 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_H2_SCHEMA=
     set DB_SEEDER_H2_USER=
 )
-if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
+if ["%DB_SEEDER_DBMS%"] EQU ["hsqld_emb"] (
     set DB_SEEDER_DBMS_EMBEDDED=yes
-    set DB_SEEDER_H2_CONNECTION_PREFIX=
-    set DB_SEEDER_H2_DATABASE=
-    set DB_SEEDER_H2_PASSWORD=
-    set DB_SEEDER_H2_SCHEMA=
-    set DB_SEEDER_H2_USER=
+    set DB_SEEDER_HSQLDB_CONNECTION_PREFIX=
+    set DB_SEEDER_HSQLDB_DATABASE=
+    set DB_SEEDER_HSQLDB_PASSWORD=
+    set DB_SEEDER_HSQLDB_SCHEMA=
+    set DB_SEEDER_HSQLDB_USER=
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_CONNECTION_PORT=
@@ -219,6 +221,21 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
     echo H2_PASSWORD                     : %DB_SEEDER_H2_PASSWORD%
     echo H2_SCHEMA                       : %DB_SEEDER_H2_SCHEMA%
     echo H2_USER                         : %DB_SEEDER_H2_USER%
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
+    echo HSQLDB_CONNECTION_PORT          : %DB_SEEDER_HSQLDB_CONNECTION_PORT%
+    echo HSQLDB_CONNECTION_PREFIX        : %DB_SEEDER_HSQLDB_CONNECTION_PREFIX%
+    echo HSQLDB_DATABASE                 : %DB_SEEDER_HSQLDB_DATABASE%
+    echo HSQLDB_PASSWORD                 : %DB_SEEDER_HSQLDB_PASSWORD%
+    echo HSQLDB_SCHEMA                   : %DB_SEEDER_HSQLDB_SCHEMA%
+    echo HSQLDB_USER                     : %DB_SEEDER_HSQLDB_USER%
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
+    echo HSQLDB_CONNECTION_PREFIX        : %DB_SEEDER_HSQLDB_CONNECTION_PREFIX%
+    echo HSQLDB_DATABASE                 : %DB_SEEDER_HSQLDB_DATABASE%
+    echo HSQLDB_PASSWORD                 : %DB_SEEDER_HSQLDB_PASSWORD%
+    echo HSQLDB_SCHEMA                   : %DB_SEEDER_HSQLDB_SCHEMA%
+    echo HSQLDB_USER                     : %DB_SEEDER_HSQLDB_USER%
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     echo IBMDB2_CONNECTION_PORT          : %DB_SEEDER_IBMDB2_CONNECTION_PORT%

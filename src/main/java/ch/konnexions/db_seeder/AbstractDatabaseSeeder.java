@@ -24,6 +24,7 @@ public abstract class AbstractDatabaseSeeder {
     CUBRID,
     FIREBIRD,
     H2,
+    HSQLDB,
     IBMDB2,
     MARIADB,
     MSSQLSERVER,

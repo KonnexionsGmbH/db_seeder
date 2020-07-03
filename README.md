@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.12.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.13.0.svg)
 
 ----
 
@@ -51,6 +51,11 @@ Currently the following management database systems are supported:
   - open source
   - client and embedded version
   - **[see technical details here](#details_h2)**
+- [HyperSQL Database](https://hsqldb.org/) 
+  - relational database management system (RDBMS)
+  - open source
+  - client and embedded version
+  - **[see technical details here](#details_hsqldb)**
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
   - relational database management system (RDBMS)
   - client only version
@@ -100,6 +105,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | CUBRID | CUBRID | 10.2 | 
 | Firebird | FIREBIRD | 3.0.5 | 
 | H2 Database Engine | H2 | 1.4.200 | 
+| HyperSQL Database | HSQLDB | 2.5.1 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
 | MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
@@ -281,6 +287,13 @@ db_seeder.h2.password=h2
 db_seeder.h2.schema=kxn_schema
 db_seeder.h2.user=kxn_user
 
+db_seeder.hsqldb.connection.port=9001
+db_seeder.hsqldb.connection.prefix=jdbc:hsqldb:
+db_seeder.hsqldb.database=kxn_db
+db_seeder.hsqldb.password=hsqldb
+db_seeder.hsqldb.schema=kxn_schema
+db_seeder.hsqldb.user=kxn_user
+
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
 db_seeder.ibmdb2.database=kxn_db
@@ -343,11 +356,11 @@ db_seeder.sqlite.database=kxn_db
 | <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
 | <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
 | <db_ticker>.connection.suffix=<url_suffix> | <DB_TICKER>_CONNECTION_SUFFIX | MYSQL | suffix of the database connection string |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
 | <db_ticker>.password.sys=<db_ticker> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
-| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
-| <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | H2, IBMDB2, MSSQLSERVER | schema name |
-| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
+| <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | H2, HSQLDB, IBMDB2, MSSQLSERVER | schema name |
+| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
 | encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
@@ -364,6 +377,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[CUBRID](#details_cubrid)** / 
 **[Firebird](#details_firebird)** /  
 **[H2 Database Engine](#details_h2)** /  
+**[HyperSQL Database](#details_hsqldb)** /  
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[MariaDB Server](#details_mariadb)** / 
 **[Microsoft SQL Server](#details_mssqlserver)** / 
@@ -490,7 +504,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
 - **issue tracking**: 
-  - [Jira](http://jira.cubrid.org/secure/Dashboard.jspa)
+  - [Jira](https://jira.cubrid.org/secure/Dashboard.jspa)
   - [reddit](https://www.reddit.com/r/CUBRID/)
 
 - **JDBC driver (latest)**:
@@ -564,9 +578,9 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a  
-  - [CREATE SCHEMA](http://www.h2database.com/html/commands.html#create_schema)
-  - [CREATE TABLE](http://www.h2database.com/html/commands.html#create_table) 
-  - [CREATE USER](http://www.h2database.com/html/commands.html#create_user) 
+  - [CREATE SCHEMA](https://www.h2database.com/html/commands.html#create_schema)
+  - [CREATE TABLE](https://www.h2database.com/html/commands.html#create_table) 
+  - [CREATE USER](https://www.h2database.com/html/commands.html#create_user) 
 
 - **Docker image (latest)**:
   - pull command: `docker pull konnexionsgmbh/h2_database_engine:1.4.200`
@@ -596,7 +610,53 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_ibmdb2"></a> 5.6 IBM Db2 Database
+### <a name="details_hsqldb"></a> 5.6 HyperSQL Database
+
+- **data types**:
+
+| JDBC Data Type | HyperSQL Database Type |
+| --- | --- |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a  
+  - [CREATE SCHEMA](http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_schema_creation)
+  - [CREATE TABLE](http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_tables) 
+  - [CREATE USER](http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull konnexionsgmbh/hypersql_database:2.5.1`
+  - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database)
+
+- **encoding**: by using the following system property `sqlfile.charset=UTF-8`.
+  
+- **issue tracking**: [SourceForge](https://sourceforge.net/p/hsqldb/_list/tickets)
+
+- **JDBC driver (latest)**:
+  - version 2.5.1
+  - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
+
+- **privileged database access**: user `SA`
+
+- **source code**: [SourceForge](https://sourceforge.net/projects/hsqldb/files/hsqldb/)
+
+- **DBeaver database connection settings**:
+
+  -- client version:
+  
+![](.README_images/DBeaver_HSQLDB.png)
+  
+  -- embedded version:
+  
+![](.README_images/DBeaver_HSQLDB_EMB.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_ibmdb2"></a> 5.7 IBM Db2 Database
 
 - **data types**:
 
@@ -639,7 +699,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mariadb"></a> 5.7 MariaDB Server
+### <a name="details_mariadb"></a> 5.8 MariaDB Server
 
 - **data types**:
 
@@ -685,7 +745,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_mssqlserver"></a> 5.8 Microsoft SQL Server
+###  <a name="details_mssqlserver"></a> 5.9 Microsoft SQL Server
 
 - **data types**:
 
@@ -725,7 +785,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.9 MySQL Database
+### <a name="details_mysql"></a> 5.10 MySQL Database
 
 - **data types**:
 
@@ -767,7 +827,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.10 Oracle Database
+### <a name="details_oracle"></a> 5.11 Oracle Database
 
 - **data types**:
 
@@ -803,7 +863,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.11 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.12 PostgreSQL Database
 
 - **data types**:
 
@@ -839,7 +899,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.12 SQLite
+### <a name="details_sqlite"></a> 5.13 SQLite
 
 - **data types**:
 

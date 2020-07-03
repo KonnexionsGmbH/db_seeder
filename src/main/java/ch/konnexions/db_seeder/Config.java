@@ -69,6 +69,13 @@ public class Config {
   private String                                                       h2Schema;
   private String                                                       h2User;
 
+  private int                                                          hsqldbConnectionPort;
+  private String                                                       hsqldbConnectionPrefix;
+  private String                                                       hsqldbDatabase;
+  private String                                                       hsqldbPassword;
+  private String                                                       hsqldbSchema;
+  private String                                                       hsqldbUser;
+
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
   private String                                                       ibmdb2Database;
@@ -255,7 +262,7 @@ public class Config {
    * @return the CUBRID schema name
    */
   public final String getCubridUser() {
-    return cubridUser;
+    return cubridUser.toUpperCase();
   }
 
   // Encoding ----------------------------------------------------------------
@@ -315,7 +322,7 @@ public class Config {
    * @return the MariaDB user name to connect as normal user to the database
    */
   public final String getFirebirdUser() {
-    return firebirdUser;
+    return firebirdUser.toUpperCase();
   }
 
   // H2 Database Engine-------------------------------------------------------
@@ -362,6 +369,50 @@ public class Config {
     return h2User;
   }
 
+  // HyperSQL Database--------------------------------------------------------
+
+  /**
+   * @return the HyperSQL Database port number where the database server is listening for requests
+   */
+  public final int getHSQLDBConnectionPort() {
+    return hsqldbConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the HyperSQL Database connection string
+   */
+  public final String getHSQLDBConnectionPrefix() {
+    return hsqldbConnectionPrefix;
+  }
+
+  /**
+   * @return the HyperSQL Database database name
+   */
+  public final String getHSQLDBDatabase() {
+    return hsqldbDatabase;
+  }
+
+  /**
+   * @return the HyperSQL Database password to connect as normal user to the database
+   */
+  public final String getHSQLDBPassword() {
+    return hsqldbPassword;
+  }
+
+  /**
+   * @return the HyperSQL Database schema
+   */
+  public final String getHSQLDBSchema() {
+    return hsqldbSchema.toUpperCase();
+  }
+
+  /**
+   * @return the HyperSQL Database user name
+   */
+  public final String getHSQLDBUser() {
+    return hsqldbUser.toUpperCase();
+  }
+
   // IBM Db2 Database --------------------------------------------------------
 
   /**
@@ -396,7 +447,7 @@ public class Config {
    * @return the IBM Db2 schema name
    */
   public final String getIbmdb2Schema() {
-    return ibmdb2Schema;
+    return ibmdb2Schema.toUpperCase();
   }
 
   // JDBC Connection ---------------------------------------------------------
@@ -612,6 +663,7 @@ public class Config {
     list.add("db_seeder.cubrid.connection.port");
     list.add("db_seeder.firebird.connection.port");
     list.add("db_seeder.h2.connection.port");
+    list.add("db_seeder.hsqldb.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
@@ -768,6 +820,13 @@ public class Config {
     h2Password                  = propertiesConfiguration.getString("db_seeder.h2.password");
     h2Schema                    = propertiesConfiguration.getString("db_seeder.h2.schema");
     h2User                      = propertiesConfiguration.getString("db_seeder.h2.user");
+
+    hsqldbConnectionPort        = propertiesConfiguration.getInt("db_seeder.hsqldb.connection.port");
+    hsqldbConnectionPrefix      = propertiesConfiguration.getString("db_seeder.hsqldb.connection.prefix");
+    hsqldbDatabase              = propertiesConfiguration.getString("db_seeder.hsqldb.database");
+    hsqldbPassword              = propertiesConfiguration.getString("db_seeder.hsqldb.password");
+    hsqldbSchema                = propertiesConfiguration.getString("db_seeder.hsqldb.schema");
+    hsqldbUser                  = propertiesConfiguration.getString("db_seeder.hsqldb.user");
 
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
@@ -973,6 +1032,38 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_H2_USER")) {
       h2User = environmentVariables.get("DB_SEEDER_H2_USER");
       propertiesConfiguration.setProperty("db_seeder.h2.user", h2User);
+    }
+
+    // HyperSQL Database --------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_PORT")) {
+      hsqldbConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", hsqldbConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_PREFIX")) {
+      hsqldbConnectionPrefix = environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", hsqldbConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_DATABASE")) {
+      hsqldbDatabase = environmentVariables.get("DB_SEEDER_HSQLDB_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.database", hsqldbDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_PASSWORD")) {
+      hsqldbPassword = environmentVariables.get("DB_SEEDER_HSQLDB_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.password", hsqldbPassword);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_SCHEMA")) {
+      hsqldbSchema = environmentVariables.get("DB_SEEDER_HSQLDB_SCHEMA");
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.password.sys", hsqldbSchema);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_USER")) {
+      hsqldbUser = environmentVariables.get("DB_SEEDER_HSQLDB_USER");
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.user", hsqldbUser);
     }
 
     // IBM Db2 Database ----------------------------------------------------------
