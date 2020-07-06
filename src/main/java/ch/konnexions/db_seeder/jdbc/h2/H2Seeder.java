@@ -212,9 +212,9 @@ public class H2Seeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
 
-    dbms   = Dbms.H2;
+    dbms               = Dbms.H2;
 
-    driver = "org.h2.Driver";
+    driver             = "org.h2.Driver";
 
     tableNameDelimiter = "";
 

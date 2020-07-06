@@ -191,10 +191,10 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter = "";
 
-    url            = urlBase + "false";
-    urlSetup       = urlBase + "true";
+    url                = urlBase + "false";
+    urlSetup           = urlBase + "true";
 
-    dropTableStmnt = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
+    dropTableStmnt     = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }

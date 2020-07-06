@@ -143,13 +143,16 @@ public class Config {
   private String                                                       oraclePassword;
   private String                                                       oraclePasswordSys;
   private String                                                       oracleUser;
+  private String                                                       oracleUserSys;
 
   private int                                                          postgresqlConnectionPort;
   private String                                                       postgresqlConnectionPrefix;
   private String                                                       postgresqlDatabase;
+  private String                                                       postgresqlDatabaseSys;
   private String                                                       postgresqlPassword;
   private String                                                       postgresqlPasswordSys;
   private String                                                       postgresqlUser;
+  private String                                                       postgresqlUserSys;
 
   private PropertiesConfiguration                                      propertiesConfiguration;
 
@@ -895,6 +898,13 @@ public class Config {
     return oracleUser.toUpperCase();
   }
 
+  /**
+   * @return the Oracle user name to connect as privileged user to the database
+   */
+  public final String getOracleUserSys() {
+    return oracleUserSys.toUpperCase();
+  }
+
   // PostgreSQL Database -----------------------------------------------------
 
   /**
@@ -919,6 +929,13 @@ public class Config {
   }
 
   /**
+   * @return the PostgreSQL Database name of the privileged database
+   */
+  public final String getPostgresqlDatabaseSys() {
+    return postgresqlDatabaseSys;
+  }
+
+  /**
    * @return the PostgreSQL Database password to connect as normal user to the database
    */
   public final String getPostgresqlPassword() {
@@ -937,6 +954,13 @@ public class Config {
    */
   public final String getPostgresqlUser() {
     return postgresqlUser;
+  }
+
+  /**
+   * @return the PostgreSQL Database user name to connect as privileged user to the database
+   */
+  public final String getPostgresqlUserSys() {
+    return postgresqlUserSys;
   }
 
   // SQLite ---------------------------------------------------------
@@ -1065,13 +1089,16 @@ public class Config {
     oraclePassword              = propertiesConfiguration.getString("db_seeder.oracle.password");
     oraclePasswordSys           = propertiesConfiguration.getString("db_seeder.oracle.password.sys");
     oracleUser                  = propertiesConfiguration.getString("db_seeder.oracle.user");
+    oracleUserSys               = propertiesConfiguration.getString("db_seeder.oracle.user.sys");
 
     postgresqlConnectionPort    = propertiesConfiguration.getInt("db_seeder.postgresql.connection.port");
     postgresqlConnectionPrefix  = propertiesConfiguration.getString("db_seeder.postgresql.connection.prefix");
     postgresqlDatabase          = propertiesConfiguration.getString("db_seeder.postgresql.database");
+    postgresqlDatabaseSys       = propertiesConfiguration.getString("db_seeder.postgresql.database.sys");
     postgresqlPassword          = propertiesConfiguration.getString("db_seeder.postgresql.password");
     postgresqlPasswordSys       = propertiesConfiguration.getString("db_seeder.postgresql.password.sys");
     postgresqlUser              = propertiesConfiguration.getString("db_seeder.postgresql.user");
+    postgresqlUserSys           = propertiesConfiguration.getString("db_seeder.postgresql.user.sys");
 
     sqliteConnectionPrefix      = propertiesConfiguration.getString("db_seeder.sqlite.connection.prefix");
     sqliteDatabase              = propertiesConfiguration.getString("db_seeder.sqlite.database");
@@ -1568,6 +1595,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.oracle.user", oracleUser);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_USER_SYS")) {
+      oracleUserSys = environmentVariables.get("DB_SEEDER_ORACLE_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.oracle.user.sys", oracleUserSys);
+    }
+
     // PostgreSQL Database -----------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_PORT")) {
@@ -1585,6 +1617,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.postgresql.database", postgresqlDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_DATABASE_SYS")) {
+      postgresqlDatabaseSys = environmentVariables.get("DB_SEEDER_POSTGRESQL_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.postgresql.database.sys", postgresqlDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_PASSWORD")) {
       postgresqlPassword = environmentVariables.get("DB_SEEDER_POSTGRESQL_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.postgresql.password", postgresqlPassword);
@@ -1598,6 +1635,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_USER")) {
       postgresqlUser = environmentVariables.get("DB_SEEDER_POSTGRESQL_USER");
       propertiesConfiguration.setProperty("db_seeder.postgresql.user", postgresqlUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_USER_SYS")) {
+      postgresqlUserSys = environmentVariables.get("DB_SEEDER_POSTGRESQL_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.postgresql.user.sys", postgresqlUserSys);
     }
 
     // SQLite ---------------------------------------------------------

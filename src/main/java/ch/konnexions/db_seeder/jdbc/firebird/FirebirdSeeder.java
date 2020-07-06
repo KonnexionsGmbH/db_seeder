@@ -31,16 +31,16 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms           = Dbms.FIREBIRD;
+    dbms               = Dbms.FIREBIRD;
 
-    driver         = "org.firebirdsql.jdbc.FBDriver";
+    driver             = "org.firebirdsql.jdbc.FBDriver";
 
     tableNameDelimiter = "";
 
-    url            = config.getFirebirdConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
+    url                = config.getFirebirdConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
         + config.getFirebirdDatabase() + config.getFirebirdConnectionSuffix();
 
-    dropTableStmnt = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
+    dropTableStmnt     = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -202,7 +202,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getFirebirdUserSys(), config.getFirebirdPasswordSys(),true);
+    connection = connect(url, driver, config.getFirebirdUserSys(), config.getFirebirdPasswordSys(), true);
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user.
@@ -237,7 +237,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getFirebirdUser(), config.getFirebirdPassword(),true);
+    connection = connect(url, null, config.getFirebirdUser(), config.getFirebirdPassword(), true);
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
