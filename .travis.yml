@@ -47,6 +47,7 @@ script:
   - travis_fold start "Pull_And_Compile_Repository"
   - git pull
   - sudo chmod +x *.sh
+  - sudo chmod +x scripts/*.sh
   - gradle copyJarToLib
   - travis_fold end   "Pull_And_Compile_Repository"
 
