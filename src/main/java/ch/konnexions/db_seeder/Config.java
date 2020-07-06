@@ -57,10 +57,12 @@ public class Config {
 
   private int                                                          firebirdConnectionPort;
   private String                                                       firebirdConnectionPrefix;
+  private String                                                       firebirdConnectionSuffix;
   private String                                                       firebirdDatabase;
   private String                                                       firebirdPassword;
   private String                                                       firebirdPasswordSys;
   private String                                                       firebirdUser;
+  private String                                                       firebirdUserSys;
 
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
@@ -330,6 +332,13 @@ public class Config {
   }
 
   /**
+   * @return the suffix of the Firebird connection string
+   */
+  public final String getFirebirdConnectionSuffix() {
+    return firebirdConnectionSuffix;
+  }
+
+  /**
    * @return the Firebird database name
    */
   public final String getFirebirdDatabase() {
@@ -355,6 +364,13 @@ public class Config {
    */
   public final String getFirebirdUser() {
     return firebirdUser.toUpperCase();
+  }
+
+  /**
+   * @return the MariaDB user name to connect as privileged user to the database
+   */
+  public final String getFirebirdUserSys() {
+    return firebirdUserSys.toUpperCase();
   }
 
   // H2 Database Engine-------------------------------------------------------
@@ -896,10 +912,12 @@ public class Config {
 
     firebirdConnectionPort      = propertiesConfiguration.getInt("db_seeder.firebird.connection.port");
     firebirdConnectionPrefix    = propertiesConfiguration.getString("db_seeder.firebird.connection.prefix");
+    firebirdConnectionSuffix    = propertiesConfiguration.getString("db_seeder.firebird.connection.suffix");
     firebirdDatabase            = propertiesConfiguration.getString("db_seeder.firebird.database");
     firebirdPassword            = propertiesConfiguration.getString("db_seeder.firebird.password");
     firebirdPasswordSys         = propertiesConfiguration.getString("db_seeder.firebird.password.sys");
     firebirdUser                = propertiesConfiguration.getString("db_seeder.firebird.user");
+    firebirdUserSys             = propertiesConfiguration.getString("db_seeder.firebird.user.sys");
 
     h2ConnectionPort            = propertiesConfiguration.getInt("db_seeder.h2.connection.port");
     h2ConnectionPrefix          = propertiesConfiguration.getString("db_seeder.h2.connection.prefix");
@@ -1094,6 +1112,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", firebirdConnectionPrefix);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_SUFFIX")) {
+      firebirdConnectionSuffix = environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", firebirdConnectionSuffix);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_DATABASE")) {
       firebirdDatabase = environmentVariables.get("DB_SEEDER_FIREBIRD_DATABASE");
       propertiesConfiguration.setProperty("db_seeder.firebird.database", firebirdDatabase);
@@ -1112,6 +1135,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_USER")) {
       firebirdUser = environmentVariables.get("DB_SEEDER_FIREBIRD_USER");
       propertiesConfiguration.setProperty("db_seeder.firebird.user", firebirdUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_USER_SYS")) {
+      firebirdUserSys = environmentVariables.get("DB_SEEDER_FIREBIRD_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.firebird.user.sys", firebirdUserSys);
     }
 
     // H2 database Engine --------------------------------------------------------

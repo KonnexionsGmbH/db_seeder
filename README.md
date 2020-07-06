@@ -282,9 +282,11 @@ db_seeder.encoding.utf_8=true
 
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
+db_seeder.firebird.connection.suffix=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
 db_seeder.firebird.database=kxn_db
 db_seeder.firebird.password.sys=firebird
 db_seeder.firebird.password=firebird
+db_seeder.firebird.user.sys=SYSDBA
 db_seeder.firebird.user=kxn_user
 
 db_seeder.h2.connection.port=9092
@@ -370,13 +372,13 @@ db_seeder.sqlite.database=kxn_db
 | --- | --- | --- | --- |
 | <db_ticker>.connection.port=<9...9> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
 | <db_ticker>.connection.prefix=<x...x> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
-| <db_ticker>.connection.suffix=<x...x> | <DB_TICKER>_CONNECTION_SUFFIX | CUBRID, INFORMIX, MYSQL | suffix of the database connection string |
+| <db_ticker>.connection.suffix=<x...x> | <DB_TICKER>_CONNECTION_SUFFIX | CUBRID, FIREBIRD, INFORMIX, MYSQL | suffix of the database connection string |
 | <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | INFORMIX | privileged database name |
 | <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
 | <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
 | <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | H2, HSQLDB, IBMDB2, MSSQLSERVER | schema name |
-| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, INFORMIX | name of the privileged user |
+| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, INFORMIX | name of the privileged user |
 | <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
 | encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |

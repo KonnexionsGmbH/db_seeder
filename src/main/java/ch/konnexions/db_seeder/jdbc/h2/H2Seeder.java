@@ -59,18 +59,18 @@ public class H2Seeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             CREATE TABLE "CITY" (
+             CREATE TABLE CITY (
                  PK_CITY_ID          BIGINT         NOT NULL PRIMARY KEY,
                  FK_COUNTRY_STATE_ID BIGINT,
                  CITY_MAP            BLOB,
                  CREATED             TIMESTAMP      NOT NULL,
                  MODIFIED            TIMESTAMP,
                  NAME                VARCHAR(100)   NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
+                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
               )""";
     case TABLE_NAME_COMPANY:
       return """
-             CREATE TABLE "COMPANY" (
+             CREATE TABLE COMPANY (
                  PK_COMPANY_ID BIGINT       NOT NULL PRIMARY KEY,
                  FK_CITY_ID    BIGINT       NOT NULL,
                  ACTIVE        VARCHAR(1)   NOT NULL,
@@ -87,11 +87,11 @@ public class H2Seeder extends AbstractJdbcSeeder {
                  POSTAL_CODE   VARCHAR(50),
                  URL           VARCHAR(250),
                  VAT_ID_NUMBER VARCHAR(100),
-                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
+                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             CREATE TABLE "COUNTRY" (
+             CREATE TABLE COUNTRY (
                 PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   BLOB,
                 CREATED       TIMESTAMP      NOT NULL,
@@ -101,7 +101,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             CREATE TABLE "COUNTRY_STATE" (
+             CREATE TABLE COUNTRY_STATE (
                 PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
                 FK_COUNTRY_ID       BIGINT         NOT NULL,
                 FK_TIMEZONE_ID      BIGINT         NOT NULL,
@@ -110,13 +110,13 @@ public class H2Seeder extends AbstractJdbcSeeder {
                 MODIFIED            TIMESTAMP,
                 NAME                VARCHAR(100)   NOT NULL,
                 SYMBOL              VARCHAR(50),
-                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
-                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
+                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
+                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
                 CONSTRAINT UQ_COUNTRY_STATE          UNIQUE      (FK_COUNTRY_ID,NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             CREATE TABLE "TIMEZONE" (
+             CREATE TABLE TIMEZONE (
                 PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
                 ABBREVIATION   VARCHAR(50)   NOT NULL,
                 CREATED        TIMESTAMP     NOT NULL,
@@ -215,6 +215,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
     dbms   = Dbms.H2;
 
     driver = "org.h2.Driver";
+
+    tableNameDelimiter = "";
 
     if (isClient) {
       url = config.getH2ConnectionPrefix() + "tcp://" + config.getJdbcConnectionHost() + ":" + config.getH2ConnectionPort() + "/" + config.getH2Database();
