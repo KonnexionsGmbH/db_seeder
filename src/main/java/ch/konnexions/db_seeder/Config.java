@@ -76,10 +76,12 @@ public class Config {
 
   private int                                                          hsqldbConnectionPort;
   private String                                                       hsqldbConnectionPrefix;
+  private String                                                       hsqldbConnectionSuffix;
   private String                                                       hsqldbDatabase;
   private String                                                       hsqldbPassword;
   private String                                                       hsqldbSchema;
   private String                                                       hsqldbUser;
+  private String                                                       hsqldbUserSys;
 
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
@@ -422,43 +424,57 @@ public class Config {
   /**
    * @return the HyperSQL Database port number where the database server is listening for requests
    */
-  public final int getHSQLDBConnectionPort() {
+  public final int getHsqldbConnectionPort() {
     return hsqldbConnectionPort;
   }
 
   /**
    * @return the prefix of the HyperSQL Database connection string
    */
-  public final String getHSQLDBConnectionPrefix() {
+  public final String getHsqldbConnectionPrefix() {
     return hsqldbConnectionPrefix;
+  }
+
+  /**
+   * @return the suffix of the HyperSQL Database connection string
+   */
+  public final String getHsqldbConnectionSuffix() {
+    return hsqldbConnectionSuffix;
   }
 
   /**
    * @return the HyperSQL Database database name
    */
-  public final String getHSQLDBDatabase() {
+  public final String getHsqldbDatabase() {
     return hsqldbDatabase;
   }
 
   /**
    * @return the HyperSQL Database password to connect as normal user to the database
    */
-  public final String getHSQLDBPassword() {
+  public final String getHsqldbPassword() {
     return hsqldbPassword;
   }
 
   /**
    * @return the HyperSQL Database schema
    */
-  public final String getHSQLDBSchema() {
+  public final String getHsqldbSchema() {
     return hsqldbSchema.toUpperCase();
   }
 
   /**
-   * @return the HyperSQL Database user name
+   * @return the HyperSQL Database user name to connect as normal user to the database
    */
-  public final String getHSQLDBUser() {
+  public final String getHsqldbUser() {
     return hsqldbUser.toUpperCase();
+  }
+
+  /**
+   * @return the HyperSQL Database user name to connect as privileged user to the database
+   */
+  public final String getHsqldbUserSys() {
+    return hsqldbUserSys.toUpperCase();
   }
 
   // IBM Db2 Database --------------------------------------------------------
@@ -928,10 +944,12 @@ public class Config {
 
     hsqldbConnectionPort        = propertiesConfiguration.getInt("db_seeder.hsqldb.connection.port");
     hsqldbConnectionPrefix      = propertiesConfiguration.getString("db_seeder.hsqldb.connection.prefix");
+    hsqldbConnectionSuffix      = propertiesConfiguration.getString("db_seeder.hsqldb.connection.suffix");
     hsqldbDatabase              = propertiesConfiguration.getString("db_seeder.hsqldb.database");
     hsqldbPassword              = propertiesConfiguration.getString("db_seeder.hsqldb.password");
     hsqldbSchema                = propertiesConfiguration.getString("db_seeder.hsqldb.schema");
     hsqldbUser                  = propertiesConfiguration.getString("db_seeder.hsqldb.user");
+    hsqldbUserSys               = propertiesConfiguration.getString("db_seeder.hsqldb.user.sys");
 
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
@@ -1186,6 +1204,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", hsqldbConnectionPrefix);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_SUFFIX")) {
+      hsqldbConnectionSuffix = environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", hsqldbConnectionSuffix);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_DATABASE")) {
       hsqldbDatabase = environmentVariables.get("DB_SEEDER_HSQLDB_DATABASE");
       propertiesConfiguration.setProperty("db_seeder.hsqldb.database", hsqldbDatabase);
@@ -1204,6 +1227,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_USER")) {
       hsqldbUser = environmentVariables.get("DB_SEEDER_HSQLDB_USER");
       propertiesConfiguration.setProperty("db_seeder.hsqldb.user", hsqldbUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_USER_SYS")) {
+      hsqldbUserSys = environmentVariables.get("DB_SEEDER_HSQLDB_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.user.sys", hsqldbUserSys);
     }
 
     // IBM Db2 Database ----------------------------------------------------------

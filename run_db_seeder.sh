@@ -110,6 +110,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
     unset -f DB_SEEDER_HSQLDB_CONNETION_PREFIX=
+    unset -f DB_SEEDER_HSQLDB_CONNETION_SUFFIX=
     unset -f DB_SEEDER_HSQLDB_DATABASE=
     unset -f DB_SEEDER_HSQLDB_PASSWORD=
     unset -f DB_SEEDER_HSQLDB_SCHEMA=
@@ -244,6 +245,7 @@ if [ "$DB_SEEDER_DBMS" = "h2" ]; then
 fi
 if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
     echo "H2_CONNECTION_PREFIX              : $DB_SEEDER_H2_CONNECTION_PREFIX"
+    echo "H2_CONNECTION_SUFFIX              : $DB_SEEDER_H2_CONNECTION_SUFFIX"
     echo "H2_DATABASE                       : $DB_SEEDER_H2_DATABASE"
     echo "H2_PASSWORD                       : $DB_SEEDER_H2_PASSWORD"
     echo "H2_SCHEMA                         : $DB_SEEDER_H2_SCHEMA"
@@ -252,16 +254,20 @@ fi
 if [ "$DB_SEEDER_DBMS" = "hsqldb" ]; then
     echo "HSQLDB_CONNECTION_PORT            : $DB_SEEDER_HSQLDB_CONNECTION_PORT"
     echo "HSQLDB_CONNECTION_PREFIX          : $DB_SEEDER_HSQLDB_CONNECTION_PREFIX"
+    echo "HSQLDB_CONNECTION_SUFFIX          : $DB_SEEDER_HSQLDB_CONNECTION_SUFFIX"
     echo "HSQLDB_DATABASE                   : $DB_SEEDER_HSQLDB_DATABASE"
     echo "HSQLDB_PASSWORD                   : $DB_SEEDER_HSQLDB_PASSWORD"
     echo "HSQLDB_SCHEMA                     : $DB_SEEDER_HSQLDB_SCHEMA"
     echo "HSQLDB_USER                       : $DB_SEEDER_HSQLDB_USER"
+    echo "HSQLDB_USER_SYS                   : $DB_SEEDER_HSQLDB_USER_SYS"
 fi
 if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
     echo "HSQLDB_CONNECTION_PREFIX          : $DB_SEEDER_HSQLDB_CONNECTION_PREFIX"
+    echo "HSQLDB_CONNECTION_SUFFIX          : $DB_SEEDER_HSQLDB_CONNECTION_SUFFIX"
     echo "HSQLDB_DATABASE                   : $DB_SEEDER_HSQLDB_DATABASE"
     echo "HSQLDB_PASSWORD                   : $DB_SEEDER_HSQLDB_PASSWORD"
     echo "HSQLDB_SCHEMA                     : $DB_SEEDER_HSQLDB_SCHEMA"
+    echo "HSQLDB_USER_SYS                   : $DB_SEEDER_HSQLDB_USER_SYS"
     echo "HSQLDB_USER                       : $DB_SEEDER_HSQLDB_USER"
 fi
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then

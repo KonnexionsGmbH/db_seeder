@@ -59,18 +59,18 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
-             CREATE TABLE "CITY" (
+             CREATE TABLE CITY (
                  PK_CITY_ID          BIGINT         NOT NULL PRIMARY KEY,
                  FK_COUNTRY_STATE_ID BIGINT,
                  CITY_MAP            BLOB,
                  CREATED             TIMESTAMP      NOT NULL,
                  MODIFIED            TIMESTAMP,
                  NAME                VARCHAR(100)   NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES "COUNTRY_STATE" (PK_COUNTRY_STATE_ID)
+                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
               )""";
     case TABLE_NAME_COMPANY:
       return """
-             CREATE TABLE "COMPANY" (
+             CREATE TABLE COMPANY (
                  PK_COMPANY_ID BIGINT       NOT NULL PRIMARY KEY,
                  FK_CITY_ID    BIGINT       NOT NULL,
                  ACTIVE        VARCHAR(1)   NOT NULL,
@@ -87,11 +87,11 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
                  POSTAL_CODE   VARCHAR(50),
                  URL           VARCHAR(250),
                  VAT_ID_NUMBER VARCHAR(100),
-                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES "CITY" (PK_CITY_ID)
+                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
              )""";
     case TABLE_NAME_COUNTRY:
       return """
-             CREATE TABLE "COUNTRY" (
+             CREATE TABLE COUNTRY (
                 PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
                 COUNTRY_MAP   BLOB,
                 CREATED       TIMESTAMP      NOT NULL,
@@ -101,7 +101,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
              )""";
     case TABLE_NAME_COUNTRY_STATE:
       return """
-             CREATE TABLE "COUNTRY_STATE" (
+             CREATE TABLE COUNTRY_STATE (
                 PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
                 FK_COUNTRY_ID       BIGINT         NOT NULL,
                 FK_TIMEZONE_ID      BIGINT         NOT NULL,
@@ -110,13 +110,13 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
                 MODIFIED            TIMESTAMP,
                 NAME                VARCHAR(100)   NOT NULL,
                 SYMBOL              VARCHAR(50),
-                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES "COUNTRY"  (PK_COUNTRY_ID),
-                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES "TIMEZONE" (PK_TIMEZONE_ID),
+                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
+                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
                 CONSTRAINT UQ_COUNTRY_STATE          UNIQUE      (FK_COUNTRY_ID,NAME)
              )""";
     case TABLE_NAME_TIMEZONE:
       return """
-             CREATE TABLE "TIMEZONE" (
+             CREATE TABLE TIMEZONE (
                 PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
                 ABBREVIATION   VARCHAR(50)   NOT NULL,
                 CREATED        TIMESTAMP     NOT NULL,
@@ -212,15 +212,17 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
 
-    dbms   = Dbms.HSQLDB;
+    dbms               = Dbms.HSQLDB;
 
-    driver = "org.hsqldb.jdbc.JDBCDriver";
+    driver             = "org.hsqldb.jdbc.JDBCDriver";
+
+    tableNameDelimiter = "";
 
     if (isClient) {
-      url = config.getHSQLDBConnectionPrefix() + "hsql://" + config.getJdbcConnectionHost() + ":" + config.getHSQLDBConnectionPort() + "/"
-          + config.getHSQLDBDatabase() + ";ifexists=false;shutdown=true";
+      url = config.getHsqldbConnectionPrefix() + "hsql://" + config.getJdbcConnectionHost() + ":" + config.getHsqldbConnectionPort() + "/"
+          + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();
     } else {
-      url = config.getHSQLDBConnectionPrefix() + "file:" + config.getHSQLDBDatabase() + ";ifexists=false;shutdown=true";
+      url = config.getHsqldbConnectionPrefix() + "file:" + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();
     }
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
@@ -237,11 +239,11 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, "SA", "", true);
+    connection = connect(url, driver, config.getHsqldbUserSys(), "", true);
 
-    String hsqldbPassword = config.getHSQLDBPassword();
-    String hsqldbSchema   = config.getHSQLDBSchema();
-    String hsqldbUser     = config.getHSQLDBUser();
+    String hsqldbPassword = config.getHsqldbPassword();
+    String hsqldbSchema   = config.getHsqldbSchema();
+    String hsqldbUser     = config.getHsqldbUser();
 
     // -----------------------------------------------------------------------
     // Drop the schema and the user if already existing
