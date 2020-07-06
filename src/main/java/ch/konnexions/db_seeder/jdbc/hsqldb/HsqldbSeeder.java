@@ -237,14 +237,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, "SA", "");
-
-    try {
-      connection.setAutoCommit(true);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    connection = connect(url, driver, "SA", "", true);
 
     String hsqldbPassword = config.getHSQLDBPassword();
     String hsqldbSchema   = config.getHSQLDBSchema();

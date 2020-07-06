@@ -18,6 +18,7 @@ env:
     - DB_SEEDER_DBMS=hsqldb
     - DB_SEEDER_DBMS=hsqldb_emb
     - DB_SEEDER_DBMS=ibmdb2
+    - DB_SEEDER_DBMS=informix
     - DB_SEEDER_DBMS=mariadb
     - DB_SEEDER_DBMS=mssqlserver
     - DB_SEEDER_DBMS=mysql

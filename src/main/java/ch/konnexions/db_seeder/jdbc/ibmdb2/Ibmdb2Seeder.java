@@ -124,11 +124,9 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
-    Connection connectionLocal = connect(url, null, "db2inst1", config.getIbmdb2Password());
+    Connection connectionLocal = connect(url, null, "db2inst1", config.getIbmdb2Password(), true);
 
     try {
-      connectionLocal.setAutoCommit(true);
-
       Statement statementLocal = connectionLocal.createStatement();
 
       preparedStatement = connection.prepareStatement(dropTableStmnt);

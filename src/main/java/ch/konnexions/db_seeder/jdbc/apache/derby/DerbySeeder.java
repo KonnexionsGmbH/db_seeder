@@ -137,9 +137,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     try {
-      Connection connectionLocal = connect(urlSetup, driver);
-
-      connectionLocal.setAutoCommit(true);
+      Connection connectionLocal = connect(urlSetup, driver, true);
 
       preparedStatement = connection.prepareStatement(sqlStmnt);
 
@@ -210,14 +208,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver);
-
-    try {
-      connection.setAutoCommit(true);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    connection = connect(urlSetup, driver, true);
 
     // -----------------------------------------------------------------------
     // Drop the database tables if already existing

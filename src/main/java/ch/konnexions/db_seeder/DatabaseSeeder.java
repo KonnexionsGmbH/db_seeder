@@ -15,6 +15,7 @@ import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
 import ch.konnexions.db_seeder.jdbc.h2.H2Seeder;
 import ch.konnexions.db_seeder.jdbc.hsqldb.HsqldbSeeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
+import ch.konnexions.db_seeder.jdbc.informix.InformixSeeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
@@ -118,6 +119,12 @@ public class DatabaseSeeder {
       Ibmdb2Seeder ibmdb2Seeder = new Ibmdb2Seeder();
       ibmdb2Seeder.createData();
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   IBM Db2 Database");
+      break;
+    case "informix":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start IBM Informix");
+      InformixSeeder informixSeeder = new InformixSeeder();
+      informixSeeder.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   IBM Informix");
       break;
     case "mariadb":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start MariaDB Server");

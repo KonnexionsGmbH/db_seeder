@@ -26,6 +26,7 @@ public abstract class AbstractDatabaseSeeder {
     H2,
     HSQLDB,
     IBMDB2,
+    INFORMIX,
     MARIADB,
     MSSQLSERVER,
     MYSQL,
@@ -66,7 +67,7 @@ public abstract class AbstractDatabaseSeeder {
   protected final List<String> TABLE_NAMES_DROP         = Arrays
       .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
 
-  protected String             tableNameDelimiter       = "\"";
+  protected String             tableNameDelimiter       = "tbd";
 
   /**
    * Initialises a new abstract database seeder object.

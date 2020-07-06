@@ -169,10 +169,23 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Create a database connection.
    *
    * @param url the URL
+   * 
    * @return the database connection
    */
   protected final Connection connect(String url) {
-    return connect(url, null);
+    return connect(url, null, null, null, false);
+  }
+
+  /**
+   * Create a database connection.
+   *
+   * @param url the URL
+   * @param autoCommit the auto commit option
+   * 
+   * @return the database connection
+   */
+  protected final Connection connect(String url, boolean autoCommit) {
+    return connect(url, null, null, null, autoCommit);
   }
 
   /**
@@ -184,7 +197,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @return the database connection
    */
   protected final Connection connect(String url, String driver) {
-    return connect(url, driver, null, null);
+    return connect(url, driver, null, null, false);
+  }
+
+  /**
+   * Create a database connection.
+   *
+   * @param url the URL
+   * @param driver the database driver
+   * @param autoCommit the auto commit option
+   * 
+   * @return the database connection
+   */
+  protected final Connection connect(String url, String driver, boolean autoCommit) {
+    return connect(url, driver, null, null, autoCommit);
   }
 
   /**
@@ -194,10 +220,25 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param driver the database driver
    * @param user the user name
    * @param password the password
-   * 
+   *   
    * @return the database connection
    */
   protected final Connection connect(String url, String driver, String user, String password) {
+    return connect(url, driver, user, password, false);
+  }
+
+  /**
+   * Create a database connection.
+   *
+   * @param url the URL
+   * @param driver the database driver
+   * @param user the user name
+   * @param password the password
+   * @param autoCommit the auto commit option
+   * 
+   * @return the database connection
+   */
+  protected final Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
@@ -223,11 +264,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
         connection = DriverManager.getConnection(url, user, password);
       }
 
-      if (dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD) {
-        connection.setAutoCommit(true);
-      } else {
-        connection.setAutoCommit(false);
-      }
+      connection.setAutoCommit(autoCommit);
 
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- auto  =" + connection.getAutoCommit());
     } catch (SQLException ec) {

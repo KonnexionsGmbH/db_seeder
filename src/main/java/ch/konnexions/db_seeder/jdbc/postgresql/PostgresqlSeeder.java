@@ -159,14 +159,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup);
-
-    try {
-      connection.setAutoCommit(true);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    connection = connect(urlSetup, true);
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user.

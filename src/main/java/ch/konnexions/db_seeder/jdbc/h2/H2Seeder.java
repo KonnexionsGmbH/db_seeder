@@ -236,14 +236,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, "sa", "");
-
-    try {
-      connection.setAutoCommit(true);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    connection = connect(url, driver, "sa", "", true);
 
     String h2Password = config.getH2Password();
     String h2Schema   = config.getH2Schema();

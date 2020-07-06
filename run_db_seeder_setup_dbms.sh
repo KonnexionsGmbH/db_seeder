@@ -18,6 +18,7 @@ export DB_SEEDER_FIREBIRD_DATABASE=kxn_db
 export DB_SEEDER_H2_DATABASE=./tmp/kxn_db
 export DB_SEEDER_HSQLDB_DATABASE=kxn_db
 export DB_SEEDER_IBMDB2_DATABASE=kxn_db
+export DB_SEEDER_INFORMIX_DATABASE=kxn_db
 export DB_SEEDER_SQLITE_DATABASE=kxn_db
 
 export DB_SEEDER_VERSION_CRATEDB=4.1.6
@@ -27,6 +28,7 @@ export DB_SEEDER_VERSION_FIREBIRD=3.0.5
 export DB_SEEDER_VERSION_H2=1.4.200
 export DB_SEEDER_VERSION_HSQLDB=2.5.1
 export DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
+export DB_SEEDER_VERSION_INFORMIX=14.10.FC3DE
 
 export DB_SEEDER_VERSION_MARIADB=10.4.13
 export DB_SEEDER_VERSION_MARIADB=10.5.3
@@ -53,6 +55,7 @@ if [ -z "$1" ]; then
     echo "hsqldb      - HyperSQL Database [client]"
     echo "hsqldb_emb  - HyperSQL Database [embedded]"
     echo "ibmdb2      - IBM Db2 Database"
+    echo "informix    - IBM Informix"
     echo "mariadb     - MariaDB Server"
     echo "mssqlserver - Microsoft SQL Server"
     echo "mysql       - MySQL"
@@ -140,7 +143,7 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
     echo "VERSION_POSTGRESQL        : $DB_SEEDER_VERSION_POSTGRESQL"
 fi
 
-( ./run_db_seeder_setup_files.sh %DB_SEEDER_DBMS% )
+( ./scripts/run_db_seeder_setup_files.sh %DB_SEEDER_DBMS% )
 
 # ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate
@@ -290,7 +293,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ]; then
     echo "DOCKER HyperSQL Database was ready in $((end - start)) seconds"
 fi
 
-## ------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # IBM Db2 Database                           https://hub.docker.com/r/ibmcom/db2
 # ------------------------------------------------------------------------------
 
@@ -305,6 +308,28 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
 
     end=$(date +%s)
     echo "DOCKER IBM Db2 Database was ready in $((end - start)) seconds"
+fi
+
+## -----------------------------------------------------------------------------
+# IBM Informix       https://hub.docker.com/r/ibmcom/informix-developer-database
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS" = "informix" ]; then
+    start=$(date +%s)
+    echo "IBM Informix."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (IBM Informix $DB_SEEDER_VERSION_INFORMIX)"
+    docker run -itd --name db_seeder_db --restart unless-stopped -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:$DB_SEEDER_VERSION_INFORMIX
+
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    if [ $? -ne 0 ]; then
+        exit 255
+    fi
+
+    docker exec -i db_seeder_db bash < scripts/run_db_seeder_setup_informix.input
+
+    end=$(date +%s)
+    echo "DOCKER IBM Informix was ready in $((end - start)) seconds"
 fi
 
 # ------------------------------------------------------------------------------

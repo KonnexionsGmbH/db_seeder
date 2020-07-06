@@ -82,6 +82,14 @@ public class Config {
   private String                                                       ibmdb2Password;
   private String                                                       ibmdb2Schema;
 
+  private String                                                       informixConnectionPrefix;
+  private String                                                       informixConnectionSuffix;
+  private String                                                       informixDatabase;
+  private String                                                       informixDatabaseSys;
+  private String                                                       informixPasswordSys;
+  private String                                                       informixUserSys;
+  private int                                                          informixConnectionPort;
+
   private String                                                       jdbcConnectionHost;
 
   private ArrayList<String>                                            keysSorted = new ArrayList<>();
@@ -252,7 +260,7 @@ public class Config {
   }
 
   /**
-   * @return the CUBRID password to connect to the database
+   * @return the CUBRID password of the normal user
    */
   public final String getCubridPassword() {
     return cubridPassword;
@@ -437,7 +445,7 @@ public class Config {
   }
 
   /**
-   * @return the IBM Db2 password to connect to the database
+   * @return the IBM Db2 password of the normal user
    */
   public final String getIbmdb2Password() {
     return ibmdb2Password;
@@ -448,6 +456,57 @@ public class Config {
    */
   public final String getIbmdb2Schema() {
     return ibmdb2Schema.toUpperCase();
+  }
+
+  // IBM Informix ------------------------------------------------------------
+
+  /**
+   * @return the IBM Informix port number where the database server is listening for requests
+   */
+  public final int getInformixConnectionPort() {
+    return informixConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the IBM Informix connection string
+   */
+  public final String getInformixConnectionPrefix() {
+    return informixConnectionPrefix;
+  }
+
+  /**
+   * @return the suffix of the IBM Informix connection string
+   */
+  public final String getInformixConnectionSuffix() {
+    return informixConnectionSuffix;
+  }
+
+  /**
+   * @return the IBM Informix database name of the normal user
+   */
+  public final String getInformixDatabase() {
+    return informixDatabase;
+  }
+
+  /**
+   * @return the IBM Informix database name of the privileged user
+   */
+  public final String getInformixDatabaseSys() {
+    return informixDatabaseSys;
+  }
+
+  /**
+   * @return the IBM Informix password of the privileged user
+   */
+  public final String getInformixPasswordSys() {
+    return informixPasswordSys;
+  }
+
+  /**
+   * @return the IBM Informix user name of the privileged user
+   */
+  public final String getInformixUserSys() {
+    return informixUserSys;
   }
 
   // JDBC Connection ---------------------------------------------------------
@@ -665,6 +724,7 @@ public class Config {
     list.add("db_seeder.h2.connection.port");
     list.add("db_seeder.hsqldb.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
+    list.add("db_seeder.informix.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
     list.add("db_seeder.max.row.company");
@@ -833,6 +893,14 @@ public class Config {
     ibmdb2Database              = propertiesConfiguration.getString("db_seeder.ibmdb2.database");
     ibmdb2Password              = propertiesConfiguration.getString("db_seeder.ibmdb2.password");
     ibmdb2Schema                = propertiesConfiguration.getString("db_seeder.ibmdb2.schema");
+
+    informixConnectionPort      = propertiesConfiguration.getInt("db_seeder.informix.connection.port");
+    informixConnectionPrefix    = propertiesConfiguration.getString("db_seeder.informix.connection.prefix");
+    informixConnectionSuffix    = propertiesConfiguration.getString("db_seeder.informix.connection.suffix");
+    informixDatabase            = propertiesConfiguration.getString("db_seeder.informix.database");
+    informixDatabaseSys         = propertiesConfiguration.getString("db_seeder.informix.database.sys");
+    informixPasswordSys         = propertiesConfiguration.getString("db_seeder.informix.password.sys");
+    informixUserSys             = propertiesConfiguration.getString("db_seeder.informix.user.sys");
 
     jdbcConnectionHost          = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
 
@@ -1091,6 +1159,43 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_SCHEMA")) {
       ibmdb2Schema = environmentVariables.get("DB_SEEDER_IBMDB2_SCHEMA");
       propertiesConfiguration.setProperty("db_seeder.ibmdb2.schema", ibmdb2Schema);
+    }
+
+    // IBM Informix ------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_PORT")) {
+      informixConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", informixConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_PREFIX")) {
+      informixConnectionPrefix = environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", informixConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_SUFFIX")) {
+      informixConnectionSuffix = environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", informixConnectionSuffix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_DATABASE")) {
+      informixDatabase = environmentVariables.get("DB_SEEDER_INFORMIX_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.informix.database", informixDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_DATABASE_SYS")) {
+      informixDatabaseSys = environmentVariables.get("DB_SEEDER_INFORMIX_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.informix.database.sys", informixDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_PASSWORD_SYS")) {
+      informixPasswordSys = environmentVariables.get("DB_SEEDER_INFORMIX_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.informix.password.sys", informixPasswordSys);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_USER_SYS")) {
+      informixUserSys = environmentVariables.get("DB_SEEDER_INFORMIX_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.informix.user.sys", informixUserSys);
     }
 
     // JDBC Connection ---------------------------------------------------------

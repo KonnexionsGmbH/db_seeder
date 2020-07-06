@@ -23,6 +23,7 @@ if ["%1"] EQU [""] (
     echo hsqldb      - HyperSQL Database [client]
     echo hsqldb_emb  - HyperSQL Database [embedded]
     echo ibmdb2      - IBM Db2 Database
+    echo informix    - IBM Informix
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
@@ -108,6 +109,17 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_IBMDB2_DATABASE=
     set DB_SEEDER_IBMDB2_PASSWORD=
     set DB_SEEDER_IBMDB2_SCHEMA=
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
+    set DB_SEEDER_INFORMIX_CONNECTION_PORT=
+    set DB_SEEDER_INFORMIX_CONNECTION_PREFIX=
+    set DB_SEEDER_INFORMIX_CONNECTION_SUFFIX=
+    set DB_SEEDER_INFORMIX_DATABASE=
+    set DB_SEEDER_INFORMIX_DATABASE_SYS=
+    set DB_SEEDER_INFORMIX_PASSWORD=
+    set DB_SEEDER_INFORMIX_PASSWORD_SYS=
+    set DB_SEEDER_INFORMIX_USER=
+    set DB_SEEDER_INFORMIX_USER_SYS=
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_MARIADB_CONNECTION_PORT=
@@ -243,6 +255,17 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     echo IBMDB2_DATABASE                 : %DB_SEEDER_IBMDB2_DATABASE%
     echo IBMDB2_PASSWORD                 : %DB_SEEDER_IBMDB2_PASSWORD%
     echo IBMDB2_SCHEMA                   : %DB_SEEDER_IBMDB2_SCHEMA%
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
+    echo INFORMIX_CONNECTION_PORT        : %DB_SEEDER_INFORMIX_CONNECTION_PORT%
+    echo INFORMIX_CONNECTION_PREFIX      : %DB_SEEDER_INFORMIX_CONNECTION_PREFIX%
+    echo INFORMIX_CONNECTION_SUFFIX      : %DB_SEEDER_INFORMIX_CONNECTION_SUFFIX%
+    echo INFORMIX_DATABASE               : %DB_SEEDER_INFORMIX_DATABASE%
+    echo INFORMIX_DATABASE_SYS           : %DB_SEEDER_INFORMIX_DATABASE.SYS%
+    echo INFORMIX_PASSWORD               : %DB_SEEDER_INFORMIX_PASSWORD%
+    echo INFORMIX_PASSWORD_SYS           : %DB_SEEDER_INFORMIX_PASSWORD.SYS%
+    echo INFORMIX_USER                   : %DB_SEEDER_INFORMIX_USER%
+    echo INFORMIX_USER_SYS               : %DB_SEEDER_INFORMIX_USER.SYS%
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     echo MARIADB_CONNECTION_PORT         : %DB_SEEDER_MARIADB_CONNECTION_PORT%
