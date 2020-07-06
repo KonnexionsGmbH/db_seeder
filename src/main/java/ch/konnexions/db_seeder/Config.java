@@ -131,9 +131,11 @@ public class Config {
   private String                                                       mysqlConnectionPrefix;
   private String                                                       mysqlConnectionSuffix;
   private String                                                       mysqlDatabase;
+  private String                                                       mysqlDatabaseSys;
   private String                                                       mysqlPassword;
   private String                                                       mysqlPasswordSys;
   private String                                                       mysqlUser;
+  private String                                                       mysqlUserSys;
 
   private int                                                          oracleConnectionPort;
   private String                                                       oracleConnectionPrefix;
@@ -788,6 +790,13 @@ public class Config {
   }
 
   /**
+   * @return the MySQL database name of the privileged database
+   */
+  public final String getMysqlDatabaseSys() {
+    return mysqlDatabaseSys;
+  }
+
+  /**
    * @return the MySQL password to connect as normal user to the database
    */
   public final String getMysqlPassword() {
@@ -806,6 +815,13 @@ public class Config {
    */
   public final String getMysqlUser() {
     return mysqlUser;
+  }
+
+  /**
+   * @return the MySQL user name to connect as privileged user to the database
+   */
+  public final String getMysqlUserSys() {
+    return mysqlUserSys;
   }
 
   @SuppressWarnings("unused")
@@ -1037,9 +1053,11 @@ public class Config {
     mysqlConnectionPrefix       = propertiesConfiguration.getString("db_seeder.mysql.connection.prefix");
     mysqlConnectionSuffix       = propertiesConfiguration.getString("db_seeder.mysql.connection.suffix");
     mysqlDatabase               = propertiesConfiguration.getString("db_seeder.mysql.database");
+    mysqlDatabaseSys            = propertiesConfiguration.getString("db_seeder.mysql.database.sys");
     mysqlPassword               = propertiesConfiguration.getString("db_seeder.mysql.password");
     mysqlPasswordSys            = propertiesConfiguration.getString("db_seeder.mysql.password.sys");
     mysqlUser                   = propertiesConfiguration.getString("db_seeder.mysql.user");
+    mysqlUserSys                = propertiesConfiguration.getString("db_seeder.mysql.user.sys");
 
     oracleConnectionPort        = propertiesConfiguration.getInt("db_seeder.oracle.connection.port");
     oracleConnectionPrefix      = propertiesConfiguration.getString("db_seeder.oracle.connection.prefix");
@@ -1493,6 +1511,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.mysql.database", mysqlDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_MYSQL_DATABASE_SYS")) {
+      mysqlDatabaseSys = environmentVariables.get("DB_SEEDER_MYSQL_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mysql.database.sys", mysqlDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_PASSWORD")) {
       mysqlPassword = environmentVariables.get("DB_SEEDER_MYSQL_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.mysql.password", mysqlPassword);
@@ -1506,6 +1529,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_USER")) {
       mysqlUser = environmentVariables.get("DB_SEEDER_MYSQL_USER");
       propertiesConfiguration.setProperty("db_seeder.mysql.user", mysqlUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MYSQL_USER_SYS")) {
+      mysqlUserSys = environmentVariables.get("DB_SEEDER_MYSQL_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mysql.user.sys", mysqlUserSys);
     }
 
     // Oracle Database ---------------------------------------------------------

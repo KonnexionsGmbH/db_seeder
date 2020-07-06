@@ -160,9 +160,11 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
     unset -f DB_SEEDER_MYSQL_CONNETION_PREFIX=
     unset -f DB_SEEDER_MYSQL_CONNETION_SUFFIX=
     unset -f DB_SEEDER_MYSQL_DATABASE=
+    unset -f DB_SEEDER_MYSQL_DATABASE_SYS=
     unset -f DB_SEEDER_MYSQL_PASSWORD=
     unset -f DB_SEEDER_MYSQL_PASSWORD_SYS=
     unset -f DB_SEEDER_MYSQL_USER=
+    unset -f DB_SEEDER_MYSQL_USER_SYS=
 fi
 if [ "$DB_SEEDER_DBMS" = "oracle" ]; then
     unset -f DB_SEEDER_ORACLE_CONNECTION_PORT=
@@ -318,9 +320,11 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
     echo "MYSQL_CONNECTION_PREFIX           : $DB_SEEDER_MYSQL_CONNECTION_PREFIX"
     echo "MYSQL_CONNECTION_SUFFIX           : $DB_SEEDER_MYSQL_CONNECTION_SUFFIX"
     echo "MYSQL_DATABASE                    : $DB_SEEDER_MYSQL_DATABASE"
+    echo "MYSQL_DATABASE_SYS                : $DB_SEEDER_MYSQL_DATABASE_SYS"
     echo "MYSQL_PASSWORD                    : $DB_SEEDER_MYSQL_PASSWORD"
     echo "MYSQL_PASSWORD_SYS                : $DB_SEEDER_MYSQL_PASSWORD_SYS"
     echo "MYSQL_USER                        : $DB_SEEDER_MYSQL_USER"
+    echo "MYSQL_USER_SYS                    : $DB_SEEDER_MYSQL_USER_SYS"
 fi
 if [ "$DB_SEEDER_DBMS" = "oracle" ]; then
     echo "ORACLE_CONNECTION_PORT            : $DB_SEEDER_ORACLE_CONNECTION_PORT"

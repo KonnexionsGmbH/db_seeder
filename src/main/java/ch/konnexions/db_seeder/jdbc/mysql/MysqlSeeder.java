@@ -37,9 +37,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     tableNameDelimiter = "`";
 
     urlBase            = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
-
     url                = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
-    urlSetup           = urlBase + "sys" + config.getMysqlConnectionSuffix();
+    urlSetup           = urlBase + config.getMysqlDatabaseSys() + config.getMysqlConnectionSuffix();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -131,7 +130,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, "root", config.getMysqlPasswordSys());
+    connection = connect(urlSetup, driver, config.getMysqlUserSys(), config.getMysqlPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user if already existing.
