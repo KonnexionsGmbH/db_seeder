@@ -86,8 +86,9 @@ public class Config {
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
   private String                                                       ibmdb2Database;
-  private String                                                       ibmdb2Password;
+  private String                                                       ibmdb2PasswordSys;
   private String                                                       ibmdb2Schema;
+  private String                                                       ibmdb2UserSys;
 
   private String                                                       informixConnectionPrefix;
   private String                                                       informixConnectionSuffix;
@@ -104,9 +105,11 @@ public class Config {
   private int                                                          mariadbConnectionPort;
   private String                                                       mariadbConnectionPrefix;
   private String                                                       mariadbDatabase;
+  private String                                                       mariadbDatabaseSys;
   private String                                                       mariadbPassword;
   private String                                                       mariadbPasswordSys;
   private String                                                       mariadbUser;
+  private String                                                       mariadbUserSys;
 
   private int                                                          maxRowCity;
   private int                                                          maxRowCompany;
@@ -196,7 +199,7 @@ public class Config {
   }
 
   /**
-   * @return the IBM Db2 Database name
+   * @return the IBM Db2 Database name of the normal database
    */
   public final String getApachederbyDatabase() {
     return derbyDatabase;
@@ -274,7 +277,7 @@ public class Config {
   }
 
   /**
-   * @return the CUBRID name
+   * @return the CUBRID name of the normal database
    */
   public final String getCubridDatabase() {
     return cubridDatabase;
@@ -341,7 +344,7 @@ public class Config {
   }
 
   /**
-   * @return the Firebird database name
+   * @return the Firebird name of the normal database
    */
   public final String getFirebirdDatabase() {
     return firebirdDatabase;
@@ -392,7 +395,7 @@ public class Config {
   }
 
   /**
-   * @return the H2 Database Engine database name
+   * @return the H2 Database Engine name of the normal database
    */
   public final String getH2Database() {
     return h2Database;
@@ -413,7 +416,7 @@ public class Config {
   }
 
   /**
-   * @return the H2 Database Engine user name
+   * @return the H2 Database Engine user name to connect as normal user to the database
    */
   public final String getH2User() {
     return h2User.toUpperCase();
@@ -443,7 +446,7 @@ public class Config {
   }
 
   /**
-   * @return the HyperSQL Database database name
+   * @return the HyperSQL Database name of the normal database
    */
   public final String getHsqldbDatabase() {
     return hsqldbDatabase;
@@ -494,17 +497,17 @@ public class Config {
   }
 
   /**
-   * @return the IBM Db2 Database name
+   * @return the IBM Db2 Database name of the normal database
    */
   public final String getIbmdb2Database() {
     return ibmdb2Database;
   }
 
   /**
-   * @return the IBM Db2 password of the normal user
+   * @return the IBM Db2 password to connect as privileged user to the database
    */
-  public final String getIbmdb2Password() {
-    return ibmdb2Password;
+  public final String getIbmdb2PasswordSys() {
+    return ibmdb2PasswordSys;
   }
 
   /**
@@ -512,6 +515,13 @@ public class Config {
    */
   public final String getIbmdb2Schema() {
     return ibmdb2Schema.toUpperCase();
+  }
+
+  /**
+   * @return the IBM Db2 user name to connect as privileged user to the database
+   */
+  public final String getIbmdb2UserSys() {
+    return ibmdb2UserSys;
   }
 
   // IBM Informix ------------------------------------------------------------
@@ -538,14 +548,14 @@ public class Config {
   }
 
   /**
-   * @return the IBM Informix database name of the normal user
+   * @return the IBM Informix name of the normal database
    */
   public final String getInformixDatabase() {
     return informixDatabase;
   }
 
   /**
-   * @return the IBM Informix database name of the privileged user
+   * @return the IBM Informix name of the privileged database
    */
   public final String getInformixDatabaseSys() {
     return informixDatabaseSys;
@@ -602,10 +612,17 @@ public class Config {
   }
 
   /**
-   * @return the MariaDB database name
+   * @return the MariaDB database name of the normal database
    */
   public final String getMariadbDatabase() {
     return mariadbDatabase;
+  }
+
+  /**
+   * @return the MariaDB database name of the privileged database
+   */
+  public final String getMariadbDatabaseSys() {
+    return mariadbDatabaseSys;
   }
 
   /**
@@ -627,6 +644,13 @@ public class Config {
    */
   public final String getMariadbUser() {
     return mariadbUser;
+  }
+
+  /**
+   * @return the MariaDB user name to connect as privileged user to the database
+   */
+  public final String getMariadbUserSys() {
+    return mariadbUserSys;
   }
 
   // MAX (rows) --------------------------------------------------------------
@@ -683,7 +707,7 @@ public class Config {
   }
 
   /**
-   * @return the Microsoft SQL Server database name
+   * @return the Microsoft SQL Server database name of the normal database
    */
   public final String getMssqlserverDatabase() {
     return mssqlserverDatabase;
@@ -741,7 +765,7 @@ public class Config {
   }
 
   /**
-   * @return the MySQL database name
+   * @return the MySQL database name of the normal database
    */
   public final String getMysqlDatabase() {
     return mysqlDatabase;
@@ -856,7 +880,7 @@ public class Config {
   }
 
   /**
-   * @return the PostgreSQL Database database name
+   * @return the PostgreSQL Database name of the normal database
    */
   public final String getPostgresqlDatabase() {
     return postgresqlDatabase;
@@ -893,7 +917,7 @@ public class Config {
   }
 
   /**
-   * @return the SQLite database name
+   * @return the SQLite database name of the normal database
    */
   public final String getSQLiteDatabase() {
     return sqliteDatabase;
@@ -954,8 +978,9 @@ public class Config {
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
     ibmdb2Database              = propertiesConfiguration.getString("db_seeder.ibmdb2.database");
-    ibmdb2Password              = propertiesConfiguration.getString("db_seeder.ibmdb2.password");
+    ibmdb2PasswordSys           = propertiesConfiguration.getString("db_seeder.ibmdb2.password.sys");
     ibmdb2Schema                = propertiesConfiguration.getString("db_seeder.ibmdb2.schema");
+    ibmdb2UserSys               = propertiesConfiguration.getString("db_seeder.ibmdb2.user.sys");
 
     informixConnectionPort      = propertiesConfiguration.getInt("db_seeder.informix.connection.port");
     informixConnectionPrefix    = propertiesConfiguration.getString("db_seeder.informix.connection.prefix");
@@ -970,9 +995,11 @@ public class Config {
     mariadbConnectionPort       = propertiesConfiguration.getInt("db_seeder.mariadb.connection.port");
     mariadbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.mariadb.connection.prefix");
     mariadbDatabase             = propertiesConfiguration.getString("db_seeder.mariadb.database");
+    mariadbDatabaseSys          = propertiesConfiguration.getString("db_seeder.mariadb.database.sys");
     mariadbPassword             = propertiesConfiguration.getString("db_seeder.mariadb.password");
     mariadbPasswordSys          = propertiesConfiguration.getString("db_seeder.mariadb.password.sys");
     mariadbUser                 = propertiesConfiguration.getString("db_seeder.mariadb.user");
+    mariadbUserSys              = propertiesConfiguration.getString("db_seeder.mariadb.user.sys");
 
     maxRowCity                  = propertiesConfiguration.getInt("db_seeder.max.row.city");
     maxRowCompany               = propertiesConfiguration.getInt("db_seeder.max.row.company");
@@ -1251,14 +1278,19 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.ibmdb2.database", ibmdb2Database);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_PASSWORD")) {
-      ibmdb2Password = environmentVariables.get("DB_SEEDER_IBMDB2_PASSWORD");
-      propertiesConfiguration.setProperty("db_seeder.ibmdb2.password", ibmdb2Password);
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_PASSWORD_SYS")) {
+      ibmdb2PasswordSys = environmentVariables.get("DB_SEEDER_IBMDB2_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.password.sys", ibmdb2PasswordSys);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_SCHEMA")) {
       ibmdb2Schema = environmentVariables.get("DB_SEEDER_IBMDB2_SCHEMA");
       propertiesConfiguration.setProperty("db_seeder.ibmdb2.schema", ibmdb2Schema);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_USER_SYS")) {
+      ibmdb2UserSys = environmentVariables.get("DB_SEEDER_IBMDB2_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.user.sys", ibmdb2UserSys);
     }
 
     // IBM Informix ------------------------------------------------------------
@@ -1322,6 +1354,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.mariadb.database", mariadbDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_DATABASE_SYS")) {
+      mariadbDatabaseSys = environmentVariables.get("DB_SEEDER_MARIADB_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.database.sys", mariadbDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MARIADB_PASSWORD")) {
       mariadbPassword = environmentVariables.get("DB_SEEDER_MARIADB_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.mariadb.password", mariadbPassword);
@@ -1335,6 +1372,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MARIADB_USER")) {
       mariadbUser = environmentVariables.get("DB_SEEDER_MARIADB_USER");
       propertiesConfiguration.setProperty("db_seeder.mariadb.user", mariadbUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_USER_SYS")) {
+      mariadbUserSys = environmentVariables.get("DB_SEEDER_MARIADB_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.user.sys", mariadbUserSys);
     }
 
     // MAX (rows) --------------------------------------------------------------

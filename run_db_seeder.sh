@@ -120,8 +120,9 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     unset -f DB_SEEDER_IBMDB2_CONNECTION_PORT=
     unset -f DB_SEEDER_IBMDB2_CONNETION_PREFIX=
     unset -f DB_SEEDER_IBMDB2_DATABASE=
-    unset -f DB_SEEDER_IBMDB2_PASSWORD=
+    unset -f DB_SEEDER_IBMDB2_PASSWORD_SYS=
     unset -f DB_SEEDER_IBMDB2_SCHEMA=
+    unset -f DB_SEEDER_IBMDB2_USER_SYS=
 fi
 if [ "$DB_SEEDER_DBMS" = "informix" ]; then
     unset -f DB_SEEDER_INFORMIX_CONNECTION_PORT=
@@ -136,9 +137,11 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     unset -f DB_SEEDER_MARIADB_CONNECTION_PORT=
     unset -f DB_SEEDER_MARIADB_CONNETION_PREFIX=
     unset -f DB_SEEDER_MARIADB_DATABASE=
+    unset -f DB_SEEDER_MARIADB_DATABASE_SYS=
     unset -f DB_SEEDER_MARIADB_PASSWORD=
     unset -f DB_SEEDER_MARIADB_PASSWORD_SYS=
     unset -f DB_SEEDER_MARIADB_USER=
+    unset -f DB_SEEDER_MARIADB_USER_SYS=
 fi
 if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
     export DB_SEEDER_ENCODING_UTF_8=false
@@ -274,8 +277,9 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "IBMDB2_CONNECTION_PORT            : $DB_SEEDER_IBMDB2_CONNECTION_PORT"
     echo "IBMDB2_CONNECTION_PREFIX          : $DB_SEEDER_IBMDB2_CONNECTION_PREFIX"
     echo "IBMDB2_DATABASE                   : $DB_SEEDER_IBMDB2_DATABASE"
-    echo "IBMDB2_PASSWORD                   : $DB_SEEDER_IBMDB2_PASSWORD"
+    echo "IBMDB2_PASSWORD_SYS               : $DB_SEEDER_IBMDB2_PASSWORD_SYS"
     echo "IBMDB2_SCHEMA                     : $DB_SEEDER_IBMDB2_SCHEMA"
+    echo "IBMDB2_USER_SYS                   : $DB_SEEDER_IBMDB2_USER_SYS"
 fi
 if [ "$DB_SEEDER_DBMS" = "informix" ]; then
     echo "INFORMIX_CONNECTION_PORT          : $DB_SEEDER_INFORMIX_CONNECTION_PORT"
@@ -290,9 +294,11 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     echo "MARIADB_CONNECTION_PORT           : $DB_SEEDER_MARIADB_CONNECTION_PORT"
     echo "MARIADB_CONNECTION_PREFIX         : $DB_SEEDER_MARIADB_CONNECTION_PREFIX"
     echo "MARIADB_DATABASE                  : $DB_SEEDER_MARIADB_DATABASE"
+    echo "MARIADB_DATABASE_SYS              : $DB_SEEDER_MARIADB_DATABASE_SYS"
     echo "MARIADB_PASSWORD                  : $DB_SEEDER_MARIADB_PASSWORD"
     echo "MARIADB_PASSWORD_SYS              : $DB_SEEDER_MARIADB_PASSWORD_SYS"
     echo "MARIADB_USER                      : $DB_SEEDER_MARIADB_USER"
+    echo "MARIADB_USER_SYS                  : $DB_SEEDER_MARIADB_USER_SYS"
 fi
 if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
     echo "MSSQLSERVER_CONNECTION_PORT       : $DB_SEEDER_MSSQLSERVER_CONNECTION_PORT"
