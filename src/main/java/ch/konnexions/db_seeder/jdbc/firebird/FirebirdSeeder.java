@@ -128,7 +128,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     try {
-      Connection connectionLocal = connect(url, driver, "sysdba", config.getFirebirdPasswordSys(), true);
+      Connection connectionLocal = connect(url, null, "sysdba", config.getFirebirdPasswordSys(), true);
 
       preparedStatement = connection.prepareStatement(sqlStmnt);
       preparedStatement.setString(2, config.getFirebirdUser());

@@ -137,7 +137,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
     try {
-      Connection connectionLocal = connect(urlSetup, driver, true);
+      Connection connectionLocal = connect(urlSetup, null, true);
 
       preparedStatement = connection.prepareStatement(sqlStmnt);
 

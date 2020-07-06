@@ -223,7 +223,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, driver, config.getCubridUser(), config.getCubridPassword());
+    connection = connect(url, null, config.getCubridUser(), config.getCubridPassword());
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }

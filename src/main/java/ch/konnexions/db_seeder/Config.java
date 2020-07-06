@@ -120,10 +120,12 @@ public class Config {
   private int                                                          mssqlserverConnectionPort;
   private String                                                       mssqlserverConnectionPrefix;
   private String                                                       mssqlserverDatabase;
+  private String                                                       mssqlserverDatabaseSys;
   private String                                                       mssqlserverPassword;
   private String                                                       mssqlserverPasswordSys;
   private String                                                       mssqlserverSchema;
   private String                                                       mssqlserverUser;
+  private String                                                       mssqlserverUserSys;
 
   private int                                                          mysqlConnectionPort;
   private String                                                       mysqlConnectionPrefix;
@@ -714,6 +716,13 @@ public class Config {
   }
 
   /**
+   * @return the Microsoft SQL Server database name of the privileged database
+   */
+  public final String getMssqlserverDatabaseSys() {
+    return mssqlserverDatabaseSys;
+  }
+
+  /**
    * @return the Microsoft SQL Server password to connect as normal user to the database
    */
   public final String getMssqlserverPassword() {
@@ -739,6 +748,13 @@ public class Config {
    */
   public final String getMssqlserverUser() {
     return mssqlserverUser;
+  }
+
+  /**
+   * @return the Microsoft SQL Server user name to connect as privileged user to the database
+   */
+  public final String getMssqlserverUserSys() {
+    return mssqlserverUserSys;
   }
 
   // MySQL Database ----------------------------------------------------------
@@ -1010,10 +1026,12 @@ public class Config {
     mssqlserverConnectionPort   = propertiesConfiguration.getInt("db_seeder.mssqlserver.connection.port");
     mssqlserverConnectionPrefix = propertiesConfiguration.getString("db_seeder.mssqlserver.connection.prefix");
     mssqlserverDatabase         = propertiesConfiguration.getString("db_seeder.mssqlserver.database");
+    mssqlserverDatabaseSys      = propertiesConfiguration.getString("db_seeder.mssqlserver.database.sys");
     mssqlserverPassword         = propertiesConfiguration.getString("db_seeder.mssqlserver.password");
     mssqlserverPasswordSys      = propertiesConfiguration.getString("db_seeder.mssqlserver.password.sys");
     mssqlserverSchema           = propertiesConfiguration.getString("db_seeder.mssqlserver.schema");
     mssqlserverUser             = propertiesConfiguration.getString("db_seeder.mssqlserver.user");
+    mssqlserverUserSys          = propertiesConfiguration.getString("db_seeder.mssqlserver.user.sys");
 
     mysqlConnectionPort         = propertiesConfiguration.getInt("db_seeder.mysql.connection.port");
     mysqlConnectionPrefix       = propertiesConfiguration.getString("db_seeder.mysql.connection.prefix");
@@ -1423,6 +1441,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.mssqlserver.database", mssqlserverDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_DATABASE_SYS")) {
+      mssqlserverDatabaseSys = environmentVariables.get("DB_SEEDER_MSSQLSERVER_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mssqlserver.database.sys", mssqlserverDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_PASSWORD")) {
       mssqlserverPassword = environmentVariables.get("DB_SEEDER_MSSQLSERVER_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.mssqlserver.password", mssqlserverPassword);
@@ -1441,6 +1464,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_USER")) {
       mssqlserverUser = environmentVariables.get("DB_SEEDER_MSSQLSERVER_USER");
       propertiesConfiguration.setProperty("db_seeder.mssqlserver.user", mssqlserverUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_USER_SYS")) {
+      mssqlserverUserSys = environmentVariables.get("DB_SEEDER_MSSQLSERVER_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mssqlserver.user.sys", mssqlserverUserSys);
     }
 
     // MySQL Database ----------------------------------------------------------
