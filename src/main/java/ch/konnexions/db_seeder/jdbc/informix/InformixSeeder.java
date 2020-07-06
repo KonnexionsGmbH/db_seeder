@@ -173,6 +173,10 @@ public class InformixSeeder extends AbstractJdbcSeeder {
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
+    disconnect(connection);
+
+    connection = connect(url, null, config.getInformixUserSys(), config.getInformixPasswordSys());
+
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }
 }
