@@ -61,6 +61,7 @@ if [ "$DB_SEEDER_DBMS" = "cratedb" ]; then
     unset -f DB_SEEDER_CRATEDB_CONNETION_PREFIX=
     unset -f DB_SEEDER_CRATEDB_PASSWORD=
     unset -f DB_SEEDER_CRATEDB_USER=
+    unset -f DB_SEEDER_CRATEDB_USER_SYS=
 fi
 if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
     export DB_SEEDER_ENCODING_UTF_8=false
@@ -200,14 +201,17 @@ if [ "$DB_SEEDER_DBMS" = "cratedb" ]; then
     echo "CRATEDB_CONNECTION_PREFIX         : $DB_SEEDER_CRATEDB_CONNECTION_PREFIX"
     echo "CRATEDB_PASSWORD                  : $DB_SEEDER_CRATEDB_PASSWORD"
     echo "CRATEDB_USER                      : $DB_SEEDER_CRATEDB_USER"
+    echo "CRATEDB_USER_SYS                  : $DB_SEEDER_CRATEDB_USER_SYS"
 fi
 if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
     echo "CUBRID_CONNECTION_PORT            : $DB_SEEDER_CUBRID_CONNECTION_PORT"
     echo "CUBRID_CONNECTION_PREFIX          : $DB_SEEDER_CUBRID_CONNECTION_PREFIX"
+    echo "CUBRID_CONNECTION_SUFFIX          : $DB_SEEDER_CUBRID_CONNECTION_SUFFIX"
     echo "CUBRID_DATABASE                   : $DB_SEEDER_CUBRID_DATABASE"
     echo "CUBRID_PASSWORD                   : $DB_SEEDER_CUBRID_PASSWORD"
     echo "CUBRID_PASSWORD_SYS               : $DB_SEEDER_CUBRID_PASSWORD_SYS"
     echo "CUBRID_USER                       : $DB_SEEDER_CUBRID_USER"
+    echo "CUBRID_USER_SYS                   : $DB_SEEDER_CUBRID_USER_SYS"
 fi
 if [ "$DB_SEEDER_DBMS" = "derby" ]; then
     echo "DERBY_CONNECTION_PORT             : $DB_SEEDER_DERBY_CONNECTION_PORT"

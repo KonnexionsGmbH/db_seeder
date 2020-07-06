@@ -35,12 +35,15 @@ public class Config {
   private String                                                       cratedbConnectionPrefix;
   private String                                                       cratedbPassword;
   private String                                                       cratedbUser;
+  private String                                                       cratedbUserSys;
 
   private int                                                          cubridConnectionPort;
   private String                                                       cubridConnectionPrefix;
+  private String                                                       cubridConnectionSuffix;
   private String                                                       cubridDatabase;
   private String                                                       cubridPassword;
   private String                                                       cubridUser;
+  private String                                                       cubridUserSys;
 
   private int                                                          derbyConnectionPort;
   private String                                                       derbyConnectionPrefix;
@@ -236,6 +239,13 @@ public class Config {
     return cratedbUser;
   }
 
+  /**
+   * @return the CrateDB user name to connect as privileged user to the database
+   */
+  public final String getCratedbUserSys() {
+    return cratedbUserSys;
+  }
+
   // CUBRID ------------------------------------------------------------------
 
   /**
@@ -253,6 +263,13 @@ public class Config {
   }
 
   /**
+   * @return the suffix of the CUBRID connection string
+   */
+  public final String getCubridConnectionSuffix() {
+    return cubridConnectionSuffix;
+  }
+
+  /**
    * @return the CUBRID name
    */
   public final String getCubridDatabase() {
@@ -260,17 +277,24 @@ public class Config {
   }
 
   /**
-   * @return the CUBRID password of the normal user
+   * @return the CUBRID  password to connect as normal user to the database
    */
   public final String getCubridPassword() {
     return cubridPassword;
   }
 
   /**
-   * @return the CUBRID schema name
+   * @return the CUBRID  user name to connect as normal user to the database
    */
   public final String getCubridUser() {
     return cubridUser.toUpperCase();
+  }
+
+  /**
+   * @return the CUBRID  user name to connect as privileged user to the database
+   */
+  public final String getCubridUserSys() {
+    return cubridUserSys.toUpperCase();
   }
 
   // Encoding ----------------------------------------------------------------
@@ -847,20 +871,23 @@ public class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
-    derbyConnectionPort         = propertiesConfiguration.getInt("db_seeder.derby.connection.port");
-    derbyConnectionPrefix       = propertiesConfiguration.getString("db_seeder.derby.connection.prefix");
-    derbyDatabase               = propertiesConfiguration.getString("db_seeder.derby.database");
-
     cratedbConnectionPort       = propertiesConfiguration.getInt("db_seeder.cratedb.connection.port");
     cratedbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.cratedb.connection.prefix");
     cratedbPassword             = propertiesConfiguration.getString("db_seeder.cratedb.password");
     cratedbUser                 = propertiesConfiguration.getString("db_seeder.cratedb.user");
+    cratedbUserSys              = propertiesConfiguration.getString("db_seeder.cratedb.user.sys");
 
     cubridConnectionPort        = propertiesConfiguration.getInt("db_seeder.cubrid.connection.port");
     cubridConnectionPrefix      = propertiesConfiguration.getString("db_seeder.cubrid.connection.prefix");
+    cubridConnectionSuffix      = propertiesConfiguration.getString("db_seeder.cubrid.connection.suffix");
     cubridDatabase              = propertiesConfiguration.getString("db_seeder.cubrid.database");
     cubridPassword              = propertiesConfiguration.getString("db_seeder.cubrid.password");
     cubridUser                  = propertiesConfiguration.getString("db_seeder.cubrid.user");
+    cubridUserSys               = propertiesConfiguration.getString("db_seeder.cubrid.user.sys");
+
+    derbyConnectionPort         = propertiesConfiguration.getInt("db_seeder.derby.connection.port");
+    derbyConnectionPrefix       = propertiesConfiguration.getString("db_seeder.derby.connection.prefix");
+    derbyDatabase               = propertiesConfiguration.getString("db_seeder.derby.database");
 
     encodingIso_8859_1          = propertiesConfiguration.getBoolean("db_seeder.encoding.iso_8859_1");
     encodingUtf_8               = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
@@ -994,6 +1021,13 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.cratedb.user", cratedbUser);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_USER_SYS")) {
+      cratedbUserSys = environmentVariables.get("DB_SEEDER_CRATEDB_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.cratedb.user.sys", cratedbUserSys);
+    }
+
+    // --------------------------------------------------------------------------
+
     if (environmentVariables.containsKey("DB_SEEDER_FILE_CONFIGURATION_NAME")) {
       fileConfigurationName = environmentVariables.get("DB_SEEDER_FILE_CONFIGURATION_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.configuration.name", fileConfigurationName);
@@ -1011,6 +1045,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", cubridConnectionPrefix);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_SUFFIX")) {
+      cubridConnectionSuffix = environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", cubridConnectionSuffix);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_DATABASE")) {
       cubridDatabase = environmentVariables.get("DB_SEEDER_CUBRID_DATABASE");
       propertiesConfiguration.setProperty("db_seeder.cubrid.database", cubridDatabase);
@@ -1024,6 +1063,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER")) {
       cubridUser = environmentVariables.get("DB_SEEDER_CUBRID_USER");
       propertiesConfiguration.setProperty("db_seeder.cubrid.user", cubridUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER_SYS")) {
+      cubridUserSys = environmentVariables.get("DB_SEEDER_CUBRID_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.cubrid.user.sys", cubridUserSys);
     }
 
     // Encoding ----------------------------------------------------------------

@@ -34,10 +34,9 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter = "";
 
-    urlBase            = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true";
-
-    url                = urlBase + "&user=" + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
-    urlSetup           = urlBase + "&user=crate";
+    urlBase            = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true&user=";
+    url                = urlBase + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
+    urlSetup           = urlBase + config.getCratedbUserSys();
 
     dropTableStmnt     = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
 
@@ -141,7 +140,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup);
+    connection = connect(urlSetup, true);
 
     // -----------------------------------------------------------------------
     // Drop the database user and tables if already existing.
@@ -184,7 +183,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url);
+    connection = connect(url, true);
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }

@@ -30,14 +30,16 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms     = Dbms.CUBRID;
+    dbms               = Dbms.CUBRID;
 
-    driver   = "cubrid.jdbc.driver.CUBRIDDriver";
+    driver             = "cubrid.jdbc.driver.CUBRIDDriver";
 
-    urlBase  = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":" + config.getCubridDatabase();
+    tableNameDelimiter = "\"";
 
-    url      = urlBase + ":::";
-    urlSetup = urlBase + ":dba::";
+    urlBase            = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
+        + config.getCubridDatabase() + ":";
+    url                = urlBase + config.getCubridConnectionSuffix();
+    urlSetup           = urlBase + config.getCubridUserSys() + config.getCubridConnectionSuffix();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
