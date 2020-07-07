@@ -766,9 +766,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - database / schema `sysmaster`
   - INFORMIXSERVER `informix`
 
-- **restrictions**: 
-  - the IBM Informix DBMS only accepts operating system accounts or users mappeded to operating system accounts as database users 
-  - no full UTF-8 support - unclear how to implement
+- **restrictions**: the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users 
 
 - **DBeaver database connection settings**:
 
