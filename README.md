@@ -25,12 +25,12 @@
 
 **`db_seeder`** allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
-- [Apache Derby](https://db.apache.org/derby/)
+- [Apache Derby](https://db.apache.org/derby)
   - relational database management system (RDBMS)
   - open source
   - client and embedded version
   - **[see technical details here](#details_derby)**
-- [CrateDB](https://crate.io/)
+- [CrateDB](https://crate.io)
   - relational database management system (RDBMS)
   - open source
   - client only version
@@ -50,7 +50,7 @@ Currently the following management database systems are supported:
   - open source
   - client and embedded version
   - **[see technical details here](#details_h2)**
-- [HyperSQL Database](https://hsqldb.org/) 
+- [HyperSQL Database](https://hsqldb.org) 
   - relational database management system (RDBMS)
   - open source
   - client and embedded version
@@ -63,7 +63,7 @@ Currently the following management database systems are supported:
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_informix)**
-- [MariaDB Server](https://mariadb.com/) 
+- [MariaDB Server](https://mariadb.com) 
   - relational database management system (RDBMS)
   - open source
   - client only version
@@ -72,21 +72,25 @@ Currently the following management database systems are supported:
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_mssqlserver)**
-- [MySQL Database](https://www.mysql.com/) 
+- [Mimer SQL](https://www.mimer.com) 
+  - relational database management system (RDBMS)
+  - client and embedded (not supported here) version
+  - **[see technical details here](#details_mimer)**
+- [MySQL Database](https://www.mysql.com) 
   - relational database management system (RDBMS)
   - open source
   - client only version
   - **[see technical details here](#details_mysql)**
-- [Oracle Database](https://www.oracle.com/database/)
+- [Oracle Database](https://www.oracle.com/database)
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_oracle)**
-- [PostgreSQL Database](https://www.postgresql.org/)
+- [PostgreSQL Database](https://www.postgresql.org)
   - relational database management system (RDBMS)
   - open source
   - client only version
   - **[see technical details here](#details_postgresql)**
-- [SQLite](https://www.sqlite.org/)
+- [SQLite](https://www.sqlite.org)
   - relational database management system (RDBMS)
   - open source
   - embedded only version
@@ -101,22 +105,23 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 
 ### 1.1 Relational Database Management Systems
 
-| DBMS | DB Ticker Symbol(s) | Tested Versions |
-|---|---|---|
-| Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 
-| CrateDB | CRATEDB | 4.1.6 | 
-| CUBRID | CUBRID | 10.2 | 
-| Firebird | FIREBIRD | 3.0.5 | 
-| H2 Database Engine | H2 | 1.4.200 | 
-| HyperSQL Database | HSQLDB | 2.5.1 | 
-| IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
-| IBM Informix | INFORMIX | 14.10 FC3 | 
-| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 
-| Microsoft SQL Server | MSSQLSERVER | 2019| 
-| MySQL Database | MYSQL | 8.0.20 | 
-| Oracle Database | ORACLE | 12c, 18c, 19c |
-| PostgreSQL Database | POSTGRESQL | 12.3 |
-| SQLite | SQLITE | 3.32.2 |
+| DBMS | DB Ticker Symbol(s) | DBMS Versions | Latest JDBC |
+|---|---|---|---|
+| Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 10.15.2.0 |
+| CrateDB | CRATEDB | 4.1.6 | 2.6.0 |
+| CUBRID | CUBRID | 10.2 | 10.2.0.8797  |
+| Firebird | FIREBIRD | 3.0.5 | 4.0.0.java11 | 
+| H2 Database Engine | H2 | 1.4.200 | 1.4.200  | 
+| HyperSQL Database | HSQLDB | 2.5.1 | 2.5.1 | 
+| IBM Db2 Database | IBMDB2 | 11.5.1.0 | 11.5.0.0 | 
+| IBM Informix | INFORMIX | 14.10 FC3 | 4.50.3  | 
+| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 2.6.0  | 
+| Microsoft SQL Server | MSSQLSERVER | 2019| 8.3.1.jre14-preview | 
+| Mimer SQL | MIMER | 11.0.3C | 3.40  | 
+| MySQL Database | MYSQL | 8.0.20 | 8.0.20 | 
+| Oracle Database | ORACLE | 12c - 19c | 19.3.0.0 |
+| PostgreSQL Database | POSTGRESQL | 12.3 | 42.2.14 |
+| SQLite | SQLITE | 3.32.2 | 3.32.3 |
 
 [//]: # (===========================================================================================)
 
@@ -400,7 +405,7 @@ db_seeder.sqlite.database=kxn_db
 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 
-[DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
+[DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
 **[Apache Derby](#details_derby)** / 
@@ -531,13 +536,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **Docker image (latest)**:
   - pull command: `docker pull cubrid/cubrid:10.2`
-  - [DockerHub](https://hub.docker.com/r/cubrid/cubrid/)
+  - [DockerHub](https://hub.docker.com/r/cubrid/cubrid)
 
 - **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
 - **issue tracking**: 
   - [Jira](https://jira.cubrid.org/secure/Dashboard.jspa)
-  - [reddit](https://www.reddit.com/r/CUBRID/)
+  - [reddit](https://www.reddit.com/r/CUBRID)
 
 - **JDBC driver (latest)**:
   - version 10.2.1.8849
@@ -674,7 +679,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **privileged database access**: user `SA`
 
-- **source code**: [SourceForge](https://sourceforge.net/projects/hsqldb/files/hsqldb/)
+- **source code**: [SourceForge](https://sourceforge.net/projects/hsqldb/files/hsqldb)
 
 - **DBeaver database connection settings**:
 
@@ -787,10 +792,10 @@ Below are also DBeaver based connection parameter examples for each database man
 | timestamp | DATETIME |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://mariadb.com/kb/en/create-database/) 
+  - [CREATE DATABASE](https://mariadb.com/kb/en/create-database) 
   - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://mariadb.com/kb/en/create-table/) 
-  - [CREATE USER](https://mariadb.com/kb/en/create-user/) 
+  - [CREATE TABLE](https://mariadb.com/kb/en/create-table) 
+  - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
   - pull command: `docker pull mariadb:10.5.4`
