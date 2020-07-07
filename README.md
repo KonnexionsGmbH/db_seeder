@@ -393,7 +393,7 @@ db_seeder.sqlite.database=kxn_db
 | <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the privileged user |
 | <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
-| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |
+| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID, INFORMIX and MSSQLSERVER | generate column content with tradtional chinese characters included |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |

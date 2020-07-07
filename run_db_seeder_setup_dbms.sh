@@ -326,7 +326,7 @@ if [ "$DB_SEEDER_DBMS" = "informix" ]; then
         exit 255
     fi
 
-    docker exec -i db_seeder_db bash < script./run_db_seeder.sh informixrun_db_seeder_setup_informix.input
+    docker exec -i db_seeder_db bash < scripts/run_db_seeder_setup_informix.input
 
     end=$(date +%s)
     echo "DOCKER IBM Informix was ready in $((end - start)) seconds"
