@@ -37,7 +37,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     urlBase            = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
 
     url                = urlBase + config.getMariadbDatabase();
-    urlSetup           = urlBase + "mysql";
+    urlSetup           = urlBase + config.getMariadbDatabaseSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -129,7 +129,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, null, "root", config.getMariadbPassword());
+    connection = connect(urlSetup, null, config.getMariadbUserSys(), config.getMariadbPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user.

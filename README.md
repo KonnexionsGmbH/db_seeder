@@ -3,8 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.13.0.svg)
-
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.14.0
 ----
 
 ### Table of Contents
@@ -60,6 +59,10 @@ Currently the following management database systems are supported:
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_ibmdb2)**
+- [IBM Informix](https://www.ibm.com/products/informix) 
+  - relational database management system (RDBMS)
+  - client only version
+  - **[see technical details here](#details_informix)**
 - [MariaDB Server](https://mariadb.com/) 
   - relational database management system (RDBMS)
   - open source
@@ -107,6 +110,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | H2 Database Engine | H2 | 1.4.200 | 
 | HyperSQL Database | HSQLDB | 2.5.1 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
+| IBM Informix | INFORMIX | 14.10 FC3 | 
 | MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 
 | MySQL Database | MYSQL | 8.0.20 | 
@@ -258,12 +262,15 @@ The following control parameters are currently supported:
 db_seeder.cratedb.connection.port=5432
 db_seeder.cratedb.connection.prefix=crate://
 db_seeder.cratedb.password=cratedb
+db_seeder.cratedb.user.sys=crate
 db_seeder.cratedb.user=kxn_user
 
 db_seeder.cubrid.connection.port=33000
 db_seeder.cubrid.connection.prefix=jdbc:CUBRID:
+db_seeder.cubrid.connection.suffix=::
 db_seeder.cubrid.database=kxn_db
 db_seeder.cubrid.password=cubrid
+db_seeder.cubrid.user.sys=DBA
 db_seeder.cubrid.user=kxn_user
 
 db_seeder.derby.connection.port=1527
@@ -275,9 +282,11 @@ db_seeder.encoding.utf_8=true
 
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
+db_seeder.firebird.connection.suffix=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
 db_seeder.firebird.database=kxn_db
 db_seeder.firebird.password.sys=firebird
 db_seeder.firebird.password=firebird
+db_seeder.firebird.user.sys=SYSDBA
 db_seeder.firebird.user=kxn_user
 
 db_seeder.h2.connection.port=9092
@@ -289,24 +298,37 @@ db_seeder.h2.user=kxn_user
 
 db_seeder.hsqldb.connection.port=9001
 db_seeder.hsqldb.connection.prefix=jdbc:hsqldb:
+db_seeder.hsqldb.connection.suffix=;ifexists=false;shutdown=true
 db_seeder.hsqldb.database=kxn_db
 db_seeder.hsqldb.password=hsqldb
 db_seeder.hsqldb.schema=kxn_schema
+db_seeder.hsqldb.user.sys=SA
 db_seeder.hsqldb.user=kxn_user
 
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
 db_seeder.ibmdb2.database=kxn_db
-db_seeder.ibmdb2.password=ibmdb2
+db_seeder.ibmdb2.password.sys=ibmdb2
 db_seeder.ibmdb2.schema=kxn_schema
+db_seeder.ibmdb2.user.sys=db2inst1
+
+db_seeder.informix.connection.port=9088
+db_seeder.informix.connection.prefix=jdbc:informix-sqli://
+db_seeder.informix.connection.suffix=:INFORMIXSERVER=informix
+db_seeder.informix.database.sys=sysmaster
+db_seeder.informix.database=kxn_db
+db_seeder.informix.password.sys=in4mix
+db_seeder.informix.user.sys=informix
 
 db_seeder.jdbc.connection.host=localhost
 
 db_seeder.mariadb.connection.port=3306
 db_seeder.mariadb.connection.prefix=jdbc:mariadb://
+db_seeder.mariadb.database.sys=mysql
 db_seeder.mariadb.database=kxn_db
 db_seeder.mariadb.password.sys=mariadb
 db_seeder.mariadb.password=mariadb
+db_seeder.mariadb.user.sys=root
 db_seeder.mariadb.user=kxn_user
 
 db_seeder.max.row.city=1800
@@ -317,18 +339,22 @@ db_seeder.max.row.timezone=11
 
 db_seeder.mssqlserver.connection.port=1433
 db_seeder.mssqlserver.connection.prefix=jdbc:sqlserver://
+db_seeder.mssqlserver.database.sys=master
 db_seeder.mssqlserver.database=kxn_db
 db_seeder.mssqlserver.password.sys=mssqlserver_2019
 db_seeder.mssqlserver.password=mssqlserver_2019
 db_seeder.mssqlserver.schema=kxn_schema
+db_seeder.mssqlserver.user.sys=sa
 db_seeder.mssqlserver.user=kxn_user
 
 db_seeder.mysql.connection.port=3306
 db_seeder.mysql.connection.prefix=jdbc:mysql://
 db_seeder.mysql.connection.suffix=?serverTimezone=UTC
+db_seeder.mysql.database.sys=sys
 db_seeder.mysql.database=kxn_db
 db_seeder.mysql.password.sys=mysql
 db_seeder.mysql.password=mysql
+db_seeder.mysql.user.sys=root
 db_seeder.mysql.user=kxn_user
 
 db_seeder.oracle.connection.port=1521
@@ -337,12 +363,15 @@ db_seeder.oracle.connection.service=orclpdb1
 db_seeder.oracle.password.sys=oracle
 db_seeder.oracle.password=oracle
 db_seeder.oracle.user=kxn_user
+db_seeder.oracle.user.sys=SYS AS SYSDBA
 
 db_seeder.postgresql.connection.port=5432
 db_seeder.postgresql.connection.prefix=jdbc:postgresql://
+db_seeder.postgresql.database.sys=kxn_db_sys
 db_seeder.postgresql.database=kxn_db
 db_seeder.postgresql.password.sys=postgresql
 db_seeder.postgresql.password=postgresql
+db_seeder.postgresql.user.sys=kxn_user_sys
 db_seeder.postgresql.user=kxn_user
 
 db_seeder.sqlite.connection.prefix=jdbc:sqlite:
@@ -353,17 +382,19 @@ db_seeder.sqlite.database=kxn_db
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| <db_ticker>.connection.port=<port_number> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
-| <db_ticker>.connection.prefix=<url_prefix> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
-| <db_ticker>.connection.suffix=<url_suffix> | <DB_TICKER>_CONNECTION_SUFFIX | MYSQL | suffix of the database connection string |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
-| <db_ticker>.password.sys=<db_ticker> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
-| <db_ticker>.password=<db_ticker> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
+| <db_ticker>.connection.port=<9...9> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
+| <db_ticker>.connection.prefix=<x...x> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
+| <db_ticker>.connection.suffix=<x...x> | <DB_TICKER>_CONNECTION_SUFFIX | CUBRID, FIREBIRD, HSQLDB, INFORMIX, MYSQL | suffix of the database connection string |
+| <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | INFORMIX, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL | privileged database name |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
+| <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | H2, HSQLDB, IBMDB2, MSSQLSERVER | schema name |
+| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the privileged user |
 | <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
-| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
+| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID, INFORMIX and MSSQLSERVER | generate column content with tradtional chinese characters included |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
@@ -379,6 +410,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[H2 Database Engine](#details_h2)** /  
 **[HyperSQL Database](#details_hsqldb)** /  
 **[IBM Db2 Database](#details_ibmdb2)** / 
+**[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
 **[Microsoft SQL Server](#details_mssqlserver)** / 
 **[MySQL Database](#details_mysql)** / 
@@ -699,7 +731,52 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mariadb"></a> 5.8 MariaDB Server
+### <a name="details_informix"></a> 5.8 IBM Informix
+
+- **data types**:
+
+| JDBC Data Type | IBM Informix Database Type |
+| --- | --- |
+| Blob / byte[] | BYTE |
+| Clob | TEXT |
+| long | BIGINT |
+| string | VARCHAR / LVARCHAR |
+| timestamp | DATETIME |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0368.htm) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0509.htm) 
+  - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC3DE`
+  - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
+
+- **encoding**:
+  - code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made
+  
+- **JDBC driver (latest)**:
+  - version 4.50.3
+  - [Maven repository](https://mvnrepository.com/artifact/com.ibm.informix/jdbc)
+
+- **privileged database access**: 
+  - user `informix`
+  - password `in4mix`
+  - database / schema `sysmaster`
+  - INFORMIXSERVER `informix`
+
+- **restrictions**: 
+  - the IBM Informix DBMS only accepts operating system accounts or users mappeded to operating system accounts as database users 
+  - no full UTF-8 support - unclear how to implement
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_INFORMIX.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_mariadb"></a> 5.9 MariaDB Server
 
 - **data types**:
 
@@ -745,7 +822,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_mssqlserver"></a> 5.9 Microsoft SQL Server
+###  <a name="details_mssqlserver"></a> 5.10 Microsoft SQL Server
 
 - **data types**:
 
@@ -785,7 +862,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.10 MySQL Database
+### <a name="details_mysql"></a> 5.11 MySQL Database
 
 - **data types**:
 
@@ -827,7 +904,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.11 Oracle Database
+### <a name="details_oracle"></a> 5.12 Oracle Database
 
 - **data types**:
 
@@ -863,7 +940,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.12 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.13 PostgreSQL Database
 
 - **data types**:
 
@@ -899,7 +976,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.13 SQLite
+### <a name="details_sqlite"></a> 5.14 SQLite
 
 - **data types**:
 

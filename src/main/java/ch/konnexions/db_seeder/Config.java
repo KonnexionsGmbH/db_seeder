@@ -35,12 +35,15 @@ public class Config {
   private String                                                       cratedbConnectionPrefix;
   private String                                                       cratedbPassword;
   private String                                                       cratedbUser;
+  private String                                                       cratedbUserSys;
 
   private int                                                          cubridConnectionPort;
   private String                                                       cubridConnectionPrefix;
+  private String                                                       cubridConnectionSuffix;
   private String                                                       cubridDatabase;
   private String                                                       cubridPassword;
   private String                                                       cubridUser;
+  private String                                                       cubridUserSys;
 
   private int                                                          derbyConnectionPort;
   private String                                                       derbyConnectionPrefix;
@@ -54,10 +57,12 @@ public class Config {
 
   private int                                                          firebirdConnectionPort;
   private String                                                       firebirdConnectionPrefix;
+  private String                                                       firebirdConnectionSuffix;
   private String                                                       firebirdDatabase;
   private String                                                       firebirdPassword;
   private String                                                       firebirdPasswordSys;
   private String                                                       firebirdUser;
+  private String                                                       firebirdUserSys;
 
   @SuppressWarnings("unused")
   private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
@@ -71,16 +76,27 @@ public class Config {
 
   private int                                                          hsqldbConnectionPort;
   private String                                                       hsqldbConnectionPrefix;
+  private String                                                       hsqldbConnectionSuffix;
   private String                                                       hsqldbDatabase;
   private String                                                       hsqldbPassword;
   private String                                                       hsqldbSchema;
   private String                                                       hsqldbUser;
+  private String                                                       hsqldbUserSys;
 
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
   private String                                                       ibmdb2Database;
-  private String                                                       ibmdb2Password;
+  private String                                                       ibmdb2PasswordSys;
   private String                                                       ibmdb2Schema;
+  private String                                                       ibmdb2UserSys;
+
+  private String                                                       informixConnectionPrefix;
+  private String                                                       informixConnectionSuffix;
+  private String                                                       informixDatabase;
+  private String                                                       informixDatabaseSys;
+  private String                                                       informixPasswordSys;
+  private String                                                       informixUserSys;
+  private int                                                          informixConnectionPort;
 
   private String                                                       jdbcConnectionHost;
 
@@ -89,9 +105,11 @@ public class Config {
   private int                                                          mariadbConnectionPort;
   private String                                                       mariadbConnectionPrefix;
   private String                                                       mariadbDatabase;
+  private String                                                       mariadbDatabaseSys;
   private String                                                       mariadbPassword;
   private String                                                       mariadbPasswordSys;
   private String                                                       mariadbUser;
+  private String                                                       mariadbUserSys;
 
   private int                                                          maxRowCity;
   private int                                                          maxRowCompany;
@@ -102,18 +120,22 @@ public class Config {
   private int                                                          mssqlserverConnectionPort;
   private String                                                       mssqlserverConnectionPrefix;
   private String                                                       mssqlserverDatabase;
+  private String                                                       mssqlserverDatabaseSys;
   private String                                                       mssqlserverPassword;
   private String                                                       mssqlserverPasswordSys;
   private String                                                       mssqlserverSchema;
   private String                                                       mssqlserverUser;
+  private String                                                       mssqlserverUserSys;
 
   private int                                                          mysqlConnectionPort;
   private String                                                       mysqlConnectionPrefix;
   private String                                                       mysqlConnectionSuffix;
   private String                                                       mysqlDatabase;
+  private String                                                       mysqlDatabaseSys;
   private String                                                       mysqlPassword;
   private String                                                       mysqlPasswordSys;
   private String                                                       mysqlUser;
+  private String                                                       mysqlUserSys;
 
   private int                                                          oracleConnectionPort;
   private String                                                       oracleConnectionPrefix;
@@ -121,13 +143,16 @@ public class Config {
   private String                                                       oraclePassword;
   private String                                                       oraclePasswordSys;
   private String                                                       oracleUser;
+  private String                                                       oracleUserSys;
 
   private int                                                          postgresqlConnectionPort;
   private String                                                       postgresqlConnectionPrefix;
   private String                                                       postgresqlDatabase;
+  private String                                                       postgresqlDatabaseSys;
   private String                                                       postgresqlPassword;
   private String                                                       postgresqlPasswordSys;
   private String                                                       postgresqlUser;
+  private String                                                       postgresqlUserSys;
 
   private PropertiesConfiguration                                      propertiesConfiguration;
 
@@ -181,7 +206,7 @@ public class Config {
   }
 
   /**
-   * @return the IBM Db2 Database name
+   * @return the IBM Db2 Database name of the normal database
    */
   public final String getApachederbyDatabase() {
     return derbyDatabase;
@@ -228,6 +253,13 @@ public class Config {
     return cratedbUser;
   }
 
+  /**
+   * @return the CrateDB user name to connect as privileged user to the database
+   */
+  public final String getCratedbUserSys() {
+    return cratedbUserSys;
+  }
+
   // CUBRID ------------------------------------------------------------------
 
   /**
@@ -245,24 +277,38 @@ public class Config {
   }
 
   /**
-   * @return the CUBRID name
+   * @return the suffix of the CUBRID connection string
+   */
+  public final String getCubridConnectionSuffix() {
+    return cubridConnectionSuffix;
+  }
+
+  /**
+   * @return the CUBRID name of the normal database
    */
   public final String getCubridDatabase() {
     return cubridDatabase;
   }
 
   /**
-   * @return the CUBRID password to connect to the database
+   * @return the CUBRID  password to connect as normal user to the database
    */
   public final String getCubridPassword() {
     return cubridPassword;
   }
 
   /**
-   * @return the CUBRID schema name
+   * @return the CUBRID  user name to connect as normal user to the database
    */
   public final String getCubridUser() {
     return cubridUser.toUpperCase();
+  }
+
+  /**
+   * @return the CUBRID  user name to connect as privileged user to the database
+   */
+  public final String getCubridUserSys() {
+    return cubridUserSys.toUpperCase();
   }
 
   // Encoding ----------------------------------------------------------------
@@ -298,7 +344,14 @@ public class Config {
   }
 
   /**
-   * @return the Firebird database name
+   * @return the suffix of the Firebird connection string
+   */
+  public final String getFirebirdConnectionSuffix() {
+    return firebirdConnectionSuffix;
+  }
+
+  /**
+   * @return the Firebird name of the normal database
    */
   public final String getFirebirdDatabase() {
     return firebirdDatabase;
@@ -325,6 +378,13 @@ public class Config {
     return firebirdUser.toUpperCase();
   }
 
+  /**
+   * @return the MariaDB user name to connect as privileged user to the database
+   */
+  public final String getFirebirdUserSys() {
+    return firebirdUserSys.toUpperCase();
+  }
+
   // H2 Database Engine-------------------------------------------------------
 
   /**
@@ -342,7 +402,7 @@ public class Config {
   }
 
   /**
-   * @return the H2 Database Engine database name
+   * @return the H2 Database Engine name of the normal database
    */
   public final String getH2Database() {
     return h2Database;
@@ -363,7 +423,7 @@ public class Config {
   }
 
   /**
-   * @return the H2 Database Engine user name
+   * @return the H2 Database Engine user name to connect as normal user to the database
    */
   public final String getH2User() {
     return h2User.toUpperCase();
@@ -374,43 +434,57 @@ public class Config {
   /**
    * @return the HyperSQL Database port number where the database server is listening for requests
    */
-  public final int getHSQLDBConnectionPort() {
+  public final int getHsqldbConnectionPort() {
     return hsqldbConnectionPort;
   }
 
   /**
    * @return the prefix of the HyperSQL Database connection string
    */
-  public final String getHSQLDBConnectionPrefix() {
+  public final String getHsqldbConnectionPrefix() {
     return hsqldbConnectionPrefix;
   }
 
   /**
-   * @return the HyperSQL Database database name
+   * @return the suffix of the HyperSQL Database connection string
    */
-  public final String getHSQLDBDatabase() {
+  public final String getHsqldbConnectionSuffix() {
+    return hsqldbConnectionSuffix;
+  }
+
+  /**
+   * @return the HyperSQL Database name of the normal database
+   */
+  public final String getHsqldbDatabase() {
     return hsqldbDatabase;
   }
 
   /**
    * @return the HyperSQL Database password to connect as normal user to the database
    */
-  public final String getHSQLDBPassword() {
+  public final String getHsqldbPassword() {
     return hsqldbPassword;
   }
 
   /**
    * @return the HyperSQL Database schema
    */
-  public final String getHSQLDBSchema() {
+  public final String getHsqldbSchema() {
     return hsqldbSchema.toUpperCase();
   }
 
   /**
-   * @return the HyperSQL Database user name
+   * @return the HyperSQL Database user name to connect as normal user to the database
    */
-  public final String getHSQLDBUser() {
+  public final String getHsqldbUser() {
     return hsqldbUser.toUpperCase();
+  }
+
+  /**
+   * @return the HyperSQL Database user name to connect as privileged user to the database
+   */
+  public final String getHsqldbUserSys() {
+    return hsqldbUserSys.toUpperCase();
   }
 
   // IBM Db2 Database --------------------------------------------------------
@@ -430,17 +504,17 @@ public class Config {
   }
 
   /**
-   * @return the IBM Db2 Database name
+   * @return the IBM Db2 Database name of the normal database
    */
   public final String getIbmdb2Database() {
     return ibmdb2Database;
   }
 
   /**
-   * @return the IBM Db2 password to connect to the database
+   * @return the IBM Db2 password to connect as privileged user to the database
    */
-  public final String getIbmdb2Password() {
-    return ibmdb2Password;
+  public final String getIbmdb2PasswordSys() {
+    return ibmdb2PasswordSys;
   }
 
   /**
@@ -448,6 +522,64 @@ public class Config {
    */
   public final String getIbmdb2Schema() {
     return ibmdb2Schema.toUpperCase();
+  }
+
+  /**
+   * @return the IBM Db2 user name to connect as privileged user to the database
+   */
+  public final String getIbmdb2UserSys() {
+    return ibmdb2UserSys;
+  }
+
+  // IBM Informix ------------------------------------------------------------
+
+  /**
+   * @return the IBM Informix port number where the database server is listening for requests
+   */
+  public final int getInformixConnectionPort() {
+    return informixConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the IBM Informix connection string
+   */
+  public final String getInformixConnectionPrefix() {
+    return informixConnectionPrefix;
+  }
+
+  /**
+   * @return the suffix of the IBM Informix connection string
+   */
+  public final String getInformixConnectionSuffix() {
+    return informixConnectionSuffix;
+  }
+
+  /**
+   * @return the IBM Informix name of the normal database
+   */
+  public final String getInformixDatabase() {
+    return informixDatabase;
+  }
+
+  /**
+   * @return the IBM Informix name of the privileged database
+   */
+  public final String getInformixDatabaseSys() {
+    return informixDatabaseSys;
+  }
+
+  /**
+   * @return the IBM Informix password of the privileged user
+   */
+  public final String getInformixPasswordSys() {
+    return informixPasswordSys;
+  }
+
+  /**
+   * @return the IBM Informix user name of the privileged user
+   */
+  public final String getInformixUserSys() {
+    return informixUserSys;
   }
 
   // JDBC Connection ---------------------------------------------------------
@@ -487,10 +619,17 @@ public class Config {
   }
 
   /**
-   * @return the MariaDB database name
+   * @return the MariaDB database name of the normal database
    */
   public final String getMariadbDatabase() {
     return mariadbDatabase;
+  }
+
+  /**
+   * @return the MariaDB database name of the privileged database
+   */
+  public final String getMariadbDatabaseSys() {
+    return mariadbDatabaseSys;
   }
 
   /**
@@ -512,6 +651,13 @@ public class Config {
    */
   public final String getMariadbUser() {
     return mariadbUser;
+  }
+
+  /**
+   * @return the MariaDB user name to connect as privileged user to the database
+   */
+  public final String getMariadbUserSys() {
+    return mariadbUserSys;
   }
 
   // MAX (rows) --------------------------------------------------------------
@@ -568,10 +714,17 @@ public class Config {
   }
 
   /**
-   * @return the Microsoft SQL Server database name
+   * @return the Microsoft SQL Server database name of the normal database
    */
   public final String getMssqlserverDatabase() {
     return mssqlserverDatabase;
+  }
+
+  /**
+   * @return the Microsoft SQL Server database name of the privileged database
+   */
+  public final String getMssqlserverDatabaseSys() {
+    return mssqlserverDatabaseSys;
   }
 
   /**
@@ -602,6 +755,13 @@ public class Config {
     return mssqlserverUser;
   }
 
+  /**
+   * @return the Microsoft SQL Server user name to connect as privileged user to the database
+   */
+  public final String getMssqlserverUserSys() {
+    return mssqlserverUserSys;
+  }
+
   // MySQL Database ----------------------------------------------------------
 
   /**
@@ -626,10 +786,17 @@ public class Config {
   }
 
   /**
-   * @return the MySQL database name
+   * @return the MySQL database name of the normal database
    */
   public final String getMysqlDatabase() {
     return mysqlDatabase;
+  }
+
+  /**
+   * @return the MySQL database name of the privileged database
+   */
+  public final String getMysqlDatabaseSys() {
+    return mysqlDatabaseSys;
   }
 
   /**
@@ -653,6 +820,13 @@ public class Config {
     return mysqlUser;
   }
 
+  /**
+   * @return the MySQL user name to connect as privileged user to the database
+   */
+  public final String getMysqlUserSys() {
+    return mysqlUserSys;
+  }
+
   @SuppressWarnings("unused")
   private final List<String> getNumericProperties() {
 
@@ -665,6 +839,7 @@ public class Config {
     list.add("db_seeder.h2.connection.port");
     list.add("db_seeder.hsqldb.connection.port");
     list.add("db_seeder.ibmdb2.connection.port");
+    list.add("db_seeder.informix.connection.port");
     list.add("db_seeder.mariadb.connection.port");
     list.add("db_seeder.max.row.city");
     list.add("db_seeder.max.row.company");
@@ -723,6 +898,13 @@ public class Config {
     return oracleUser.toUpperCase();
   }
 
+  /**
+   * @return the Oracle user name to connect as privileged user to the database
+   */
+  public final String getOracleUserSys() {
+    return oracleUserSys.toUpperCase();
+  }
+
   // PostgreSQL Database -----------------------------------------------------
 
   /**
@@ -740,10 +922,17 @@ public class Config {
   }
 
   /**
-   * @return the PostgreSQL Database database name
+   * @return the PostgreSQL Database name of the normal database
    */
   public final String getPostgresqlDatabase() {
     return postgresqlDatabase;
+  }
+
+  /**
+   * @return the PostgreSQL Database name of the privileged database
+   */
+  public final String getPostgresqlDatabaseSys() {
+    return postgresqlDatabaseSys;
   }
 
   /**
@@ -767,6 +956,13 @@ public class Config {
     return postgresqlUser;
   }
 
+  /**
+   * @return the PostgreSQL Database user name to connect as privileged user to the database
+   */
+  public final String getPostgresqlUserSys() {
+    return postgresqlUserSys;
+  }
+
   // SQLite ---------------------------------------------------------
 
   /**
@@ -777,7 +973,7 @@ public class Config {
   }
 
   /**
-   * @return the SQLite database name
+   * @return the SQLite database name of the normal database
    */
   public final String getSQLiteDatabase() {
     return sqliteDatabase;
@@ -787,20 +983,23 @@ public class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
-    derbyConnectionPort         = propertiesConfiguration.getInt("db_seeder.derby.connection.port");
-    derbyConnectionPrefix       = propertiesConfiguration.getString("db_seeder.derby.connection.prefix");
-    derbyDatabase               = propertiesConfiguration.getString("db_seeder.derby.database");
-
     cratedbConnectionPort       = propertiesConfiguration.getInt("db_seeder.cratedb.connection.port");
     cratedbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.cratedb.connection.prefix");
     cratedbPassword             = propertiesConfiguration.getString("db_seeder.cratedb.password");
     cratedbUser                 = propertiesConfiguration.getString("db_seeder.cratedb.user");
+    cratedbUserSys              = propertiesConfiguration.getString("db_seeder.cratedb.user.sys");
 
     cubridConnectionPort        = propertiesConfiguration.getInt("db_seeder.cubrid.connection.port");
     cubridConnectionPrefix      = propertiesConfiguration.getString("db_seeder.cubrid.connection.prefix");
+    cubridConnectionSuffix      = propertiesConfiguration.getString("db_seeder.cubrid.connection.suffix");
     cubridDatabase              = propertiesConfiguration.getString("db_seeder.cubrid.database");
     cubridPassword              = propertiesConfiguration.getString("db_seeder.cubrid.password");
     cubridUser                  = propertiesConfiguration.getString("db_seeder.cubrid.user");
+    cubridUserSys               = propertiesConfiguration.getString("db_seeder.cubrid.user.sys");
+
+    derbyConnectionPort         = propertiesConfiguration.getInt("db_seeder.derby.connection.port");
+    derbyConnectionPrefix       = propertiesConfiguration.getString("db_seeder.derby.connection.prefix");
+    derbyDatabase               = propertiesConfiguration.getString("db_seeder.derby.database");
 
     encodingIso_8859_1          = propertiesConfiguration.getBoolean("db_seeder.encoding.iso_8859_1");
     encodingUtf_8               = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
@@ -809,10 +1008,12 @@ public class Config {
 
     firebirdConnectionPort      = propertiesConfiguration.getInt("db_seeder.firebird.connection.port");
     firebirdConnectionPrefix    = propertiesConfiguration.getString("db_seeder.firebird.connection.prefix");
+    firebirdConnectionSuffix    = propertiesConfiguration.getString("db_seeder.firebird.connection.suffix");
     firebirdDatabase            = propertiesConfiguration.getString("db_seeder.firebird.database");
     firebirdPassword            = propertiesConfiguration.getString("db_seeder.firebird.password");
     firebirdPasswordSys         = propertiesConfiguration.getString("db_seeder.firebird.password.sys");
     firebirdUser                = propertiesConfiguration.getString("db_seeder.firebird.user");
+    firebirdUserSys             = propertiesConfiguration.getString("db_seeder.firebird.user.sys");
 
     h2ConnectionPort            = propertiesConfiguration.getInt("db_seeder.h2.connection.port");
     h2ConnectionPrefix          = propertiesConfiguration.getString("db_seeder.h2.connection.prefix");
@@ -823,25 +1024,38 @@ public class Config {
 
     hsqldbConnectionPort        = propertiesConfiguration.getInt("db_seeder.hsqldb.connection.port");
     hsqldbConnectionPrefix      = propertiesConfiguration.getString("db_seeder.hsqldb.connection.prefix");
+    hsqldbConnectionSuffix      = propertiesConfiguration.getString("db_seeder.hsqldb.connection.suffix");
     hsqldbDatabase              = propertiesConfiguration.getString("db_seeder.hsqldb.database");
     hsqldbPassword              = propertiesConfiguration.getString("db_seeder.hsqldb.password");
     hsqldbSchema                = propertiesConfiguration.getString("db_seeder.hsqldb.schema");
     hsqldbUser                  = propertiesConfiguration.getString("db_seeder.hsqldb.user");
+    hsqldbUserSys               = propertiesConfiguration.getString("db_seeder.hsqldb.user.sys");
 
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
     ibmdb2Database              = propertiesConfiguration.getString("db_seeder.ibmdb2.database");
-    ibmdb2Password              = propertiesConfiguration.getString("db_seeder.ibmdb2.password");
+    ibmdb2PasswordSys           = propertiesConfiguration.getString("db_seeder.ibmdb2.password.sys");
     ibmdb2Schema                = propertiesConfiguration.getString("db_seeder.ibmdb2.schema");
+    ibmdb2UserSys               = propertiesConfiguration.getString("db_seeder.ibmdb2.user.sys");
+
+    informixConnectionPort      = propertiesConfiguration.getInt("db_seeder.informix.connection.port");
+    informixConnectionPrefix    = propertiesConfiguration.getString("db_seeder.informix.connection.prefix");
+    informixConnectionSuffix    = propertiesConfiguration.getString("db_seeder.informix.connection.suffix");
+    informixDatabase            = propertiesConfiguration.getString("db_seeder.informix.database");
+    informixDatabaseSys         = propertiesConfiguration.getString("db_seeder.informix.database.sys");
+    informixPasswordSys         = propertiesConfiguration.getString("db_seeder.informix.password.sys");
+    informixUserSys             = propertiesConfiguration.getString("db_seeder.informix.user.sys");
 
     jdbcConnectionHost          = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
 
     mariadbConnectionPort       = propertiesConfiguration.getInt("db_seeder.mariadb.connection.port");
     mariadbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.mariadb.connection.prefix");
     mariadbDatabase             = propertiesConfiguration.getString("db_seeder.mariadb.database");
+    mariadbDatabaseSys          = propertiesConfiguration.getString("db_seeder.mariadb.database.sys");
     mariadbPassword             = propertiesConfiguration.getString("db_seeder.mariadb.password");
     mariadbPasswordSys          = propertiesConfiguration.getString("db_seeder.mariadb.password.sys");
     mariadbUser                 = propertiesConfiguration.getString("db_seeder.mariadb.user");
+    mariadbUserSys              = propertiesConfiguration.getString("db_seeder.mariadb.user.sys");
 
     maxRowCity                  = propertiesConfiguration.getInt("db_seeder.max.row.city");
     maxRowCompany               = propertiesConfiguration.getInt("db_seeder.max.row.company");
@@ -852,18 +1066,22 @@ public class Config {
     mssqlserverConnectionPort   = propertiesConfiguration.getInt("db_seeder.mssqlserver.connection.port");
     mssqlserverConnectionPrefix = propertiesConfiguration.getString("db_seeder.mssqlserver.connection.prefix");
     mssqlserverDatabase         = propertiesConfiguration.getString("db_seeder.mssqlserver.database");
+    mssqlserverDatabaseSys      = propertiesConfiguration.getString("db_seeder.mssqlserver.database.sys");
     mssqlserverPassword         = propertiesConfiguration.getString("db_seeder.mssqlserver.password");
     mssqlserverPasswordSys      = propertiesConfiguration.getString("db_seeder.mssqlserver.password.sys");
     mssqlserverSchema           = propertiesConfiguration.getString("db_seeder.mssqlserver.schema");
     mssqlserverUser             = propertiesConfiguration.getString("db_seeder.mssqlserver.user");
+    mssqlserverUserSys          = propertiesConfiguration.getString("db_seeder.mssqlserver.user.sys");
 
     mysqlConnectionPort         = propertiesConfiguration.getInt("db_seeder.mysql.connection.port");
     mysqlConnectionPrefix       = propertiesConfiguration.getString("db_seeder.mysql.connection.prefix");
     mysqlConnectionSuffix       = propertiesConfiguration.getString("db_seeder.mysql.connection.suffix");
     mysqlDatabase               = propertiesConfiguration.getString("db_seeder.mysql.database");
+    mysqlDatabaseSys            = propertiesConfiguration.getString("db_seeder.mysql.database.sys");
     mysqlPassword               = propertiesConfiguration.getString("db_seeder.mysql.password");
     mysqlPasswordSys            = propertiesConfiguration.getString("db_seeder.mysql.password.sys");
     mysqlUser                   = propertiesConfiguration.getString("db_seeder.mysql.user");
+    mysqlUserSys                = propertiesConfiguration.getString("db_seeder.mysql.user.sys");
 
     oracleConnectionPort        = propertiesConfiguration.getInt("db_seeder.oracle.connection.port");
     oracleConnectionPrefix      = propertiesConfiguration.getString("db_seeder.oracle.connection.prefix");
@@ -871,13 +1089,16 @@ public class Config {
     oraclePassword              = propertiesConfiguration.getString("db_seeder.oracle.password");
     oraclePasswordSys           = propertiesConfiguration.getString("db_seeder.oracle.password.sys");
     oracleUser                  = propertiesConfiguration.getString("db_seeder.oracle.user");
+    oracleUserSys               = propertiesConfiguration.getString("db_seeder.oracle.user.sys");
 
     postgresqlConnectionPort    = propertiesConfiguration.getInt("db_seeder.postgresql.connection.port");
     postgresqlConnectionPrefix  = propertiesConfiguration.getString("db_seeder.postgresql.connection.prefix");
     postgresqlDatabase          = propertiesConfiguration.getString("db_seeder.postgresql.database");
+    postgresqlDatabaseSys       = propertiesConfiguration.getString("db_seeder.postgresql.database.sys");
     postgresqlPassword          = propertiesConfiguration.getString("db_seeder.postgresql.password");
     postgresqlPasswordSys       = propertiesConfiguration.getString("db_seeder.postgresql.password.sys");
     postgresqlUser              = propertiesConfiguration.getString("db_seeder.postgresql.user");
+    postgresqlUserSys           = propertiesConfiguration.getString("db_seeder.postgresql.user.sys");
 
     sqliteConnectionPrefix      = propertiesConfiguration.getString("db_seeder.sqlite.connection.prefix");
     sqliteDatabase              = propertiesConfiguration.getString("db_seeder.sqlite.database");
@@ -926,6 +1147,13 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.cratedb.user", cratedbUser);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_USER_SYS")) {
+      cratedbUserSys = environmentVariables.get("DB_SEEDER_CRATEDB_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.cratedb.user.sys", cratedbUserSys);
+    }
+
+    // --------------------------------------------------------------------------
+
     if (environmentVariables.containsKey("DB_SEEDER_FILE_CONFIGURATION_NAME")) {
       fileConfigurationName = environmentVariables.get("DB_SEEDER_FILE_CONFIGURATION_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.configuration.name", fileConfigurationName);
@@ -943,6 +1171,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", cubridConnectionPrefix);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_SUFFIX")) {
+      cubridConnectionSuffix = environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", cubridConnectionSuffix);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_DATABASE")) {
       cubridDatabase = environmentVariables.get("DB_SEEDER_CUBRID_DATABASE");
       propertiesConfiguration.setProperty("db_seeder.cubrid.database", cubridDatabase);
@@ -956,6 +1189,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER")) {
       cubridUser = environmentVariables.get("DB_SEEDER_CUBRID_USER");
       propertiesConfiguration.setProperty("db_seeder.cubrid.user", cubridUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER_SYS")) {
+      cubridUserSys = environmentVariables.get("DB_SEEDER_CUBRID_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.cubrid.user.sys", cubridUserSys);
     }
 
     // Encoding ----------------------------------------------------------------
@@ -982,6 +1220,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", firebirdConnectionPrefix);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_SUFFIX")) {
+      firebirdConnectionSuffix = environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", firebirdConnectionSuffix);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_DATABASE")) {
       firebirdDatabase = environmentVariables.get("DB_SEEDER_FIREBIRD_DATABASE");
       propertiesConfiguration.setProperty("db_seeder.firebird.database", firebirdDatabase);
@@ -1000,6 +1243,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_USER")) {
       firebirdUser = environmentVariables.get("DB_SEEDER_FIREBIRD_USER");
       propertiesConfiguration.setProperty("db_seeder.firebird.user", firebirdUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_USER_SYS")) {
+      firebirdUserSys = environmentVariables.get("DB_SEEDER_FIREBIRD_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.firebird.user.sys", firebirdUserSys);
     }
 
     // H2 database Engine --------------------------------------------------------
@@ -1046,6 +1294,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", hsqldbConnectionPrefix);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_SUFFIX")) {
+      hsqldbConnectionSuffix = environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", hsqldbConnectionSuffix);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_DATABASE")) {
       hsqldbDatabase = environmentVariables.get("DB_SEEDER_HSQLDB_DATABASE");
       propertiesConfiguration.setProperty("db_seeder.hsqldb.database", hsqldbDatabase);
@@ -1066,6 +1319,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.hsqldb.user", hsqldbUser);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_USER_SYS")) {
+      hsqldbUserSys = environmentVariables.get("DB_SEEDER_HSQLDB_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.user.sys", hsqldbUserSys);
+    }
+
     // IBM Db2 Database ----------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_PORT")) {
@@ -1083,14 +1341,56 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.ibmdb2.database", ibmdb2Database);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_PASSWORD")) {
-      ibmdb2Password = environmentVariables.get("DB_SEEDER_IBMDB2_PASSWORD");
-      propertiesConfiguration.setProperty("db_seeder.ibmdb2.password", ibmdb2Password);
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_PASSWORD_SYS")) {
+      ibmdb2PasswordSys = environmentVariables.get("DB_SEEDER_IBMDB2_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.password.sys", ibmdb2PasswordSys);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_SCHEMA")) {
       ibmdb2Schema = environmentVariables.get("DB_SEEDER_IBMDB2_SCHEMA");
       propertiesConfiguration.setProperty("db_seeder.ibmdb2.schema", ibmdb2Schema);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_USER_SYS")) {
+      ibmdb2UserSys = environmentVariables.get("DB_SEEDER_IBMDB2_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.user.sys", ibmdb2UserSys);
+    }
+
+    // IBM Informix ------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_PORT")) {
+      informixConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", informixConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_PREFIX")) {
+      informixConnectionPrefix = environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", informixConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_SUFFIX")) {
+      informixConnectionSuffix = environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_SUFFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", informixConnectionSuffix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_DATABASE")) {
+      informixDatabase = environmentVariables.get("DB_SEEDER_INFORMIX_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.informix.database", informixDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_DATABASE_SYS")) {
+      informixDatabaseSys = environmentVariables.get("DB_SEEDER_INFORMIX_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.informix.database.sys", informixDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_PASSWORD_SYS")) {
+      informixPasswordSys = environmentVariables.get("DB_SEEDER_INFORMIX_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.informix.password.sys", informixPasswordSys);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_USER_SYS")) {
+      informixUserSys = environmentVariables.get("DB_SEEDER_INFORMIX_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.informix.user.sys", informixUserSys);
     }
 
     // JDBC Connection ---------------------------------------------------------
@@ -1117,6 +1417,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.mariadb.database", mariadbDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_DATABASE_SYS")) {
+      mariadbDatabaseSys = environmentVariables.get("DB_SEEDER_MARIADB_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.database.sys", mariadbDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MARIADB_PASSWORD")) {
       mariadbPassword = environmentVariables.get("DB_SEEDER_MARIADB_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.mariadb.password", mariadbPassword);
@@ -1130,6 +1435,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MARIADB_USER")) {
       mariadbUser = environmentVariables.get("DB_SEEDER_MARIADB_USER");
       propertiesConfiguration.setProperty("db_seeder.mariadb.user", mariadbUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_USER_SYS")) {
+      mariadbUserSys = environmentVariables.get("DB_SEEDER_MARIADB_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.user.sys", mariadbUserSys);
     }
 
     // MAX (rows) --------------------------------------------------------------
@@ -1176,6 +1486,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.mssqlserver.database", mssqlserverDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_DATABASE_SYS")) {
+      mssqlserverDatabaseSys = environmentVariables.get("DB_SEEDER_MSSQLSERVER_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mssqlserver.database.sys", mssqlserverDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_PASSWORD")) {
       mssqlserverPassword = environmentVariables.get("DB_SEEDER_MSSQLSERVER_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.mssqlserver.password", mssqlserverPassword);
@@ -1194,6 +1509,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_USER")) {
       mssqlserverUser = environmentVariables.get("DB_SEEDER_MSSQLSERVER_USER");
       propertiesConfiguration.setProperty("db_seeder.mssqlserver.user", mssqlserverUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_USER_SYS")) {
+      mssqlserverUserSys = environmentVariables.get("DB_SEEDER_MSSQLSERVER_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mssqlserver.user.sys", mssqlserverUserSys);
     }
 
     // MySQL Database ----------------------------------------------------------
@@ -1218,6 +1538,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.mysql.database", mysqlDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_MYSQL_DATABASE_SYS")) {
+      mysqlDatabaseSys = environmentVariables.get("DB_SEEDER_MYSQL_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mysql.database.sys", mysqlDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_PASSWORD")) {
       mysqlPassword = environmentVariables.get("DB_SEEDER_MYSQL_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.mysql.password", mysqlPassword);
@@ -1231,6 +1556,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_USER")) {
       mysqlUser = environmentVariables.get("DB_SEEDER_MYSQL_USER");
       propertiesConfiguration.setProperty("db_seeder.mysql.user", mysqlUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MYSQL_USER_SYS")) {
+      mysqlUserSys = environmentVariables.get("DB_SEEDER_MYSQL_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mysql.user.sys", mysqlUserSys);
     }
 
     // Oracle Database ---------------------------------------------------------
@@ -1265,6 +1595,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.oracle.user", oracleUser);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_USER_SYS")) {
+      oracleUserSys = environmentVariables.get("DB_SEEDER_ORACLE_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.oracle.user.sys", oracleUserSys);
+    }
+
     // PostgreSQL Database -----------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_PORT")) {
@@ -1282,6 +1617,11 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.postgresql.database", postgresqlDatabase);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_DATABASE_SYS")) {
+      postgresqlDatabaseSys = environmentVariables.get("DB_SEEDER_POSTGRESQL_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.postgresql.database.sys", postgresqlDatabaseSys);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_PASSWORD")) {
       postgresqlPassword = environmentVariables.get("DB_SEEDER_POSTGRESQL_PASSWORD");
       propertiesConfiguration.setProperty("db_seeder.postgresql.password", postgresqlPassword);
@@ -1295,6 +1635,11 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_USER")) {
       postgresqlUser = environmentVariables.get("DB_SEEDER_POSTGRESQL_USER");
       propertiesConfiguration.setProperty("db_seeder.postgresql.user", postgresqlUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_USER_SYS")) {
+      postgresqlUserSys = environmentVariables.get("DB_SEEDER_POSTGRESQL_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.postgresql.user.sys", postgresqlUserSys);
     }
 
     // SQLite ---------------------------------------------------------

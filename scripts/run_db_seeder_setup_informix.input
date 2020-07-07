@@ -1,0 +1,34 @@
+. ~/.bashrc
+export KXN_LOCALE=de_CH.utf8
+echo 'export CLIENT_LOCALE=$KXN_LOCALE' >> ~/.bashrc
+echo 'export DB_LOCALE=$KXN_LOCALE' >> ~/.bashrc
+echo 'export GL_USEGLU=1' >> ~/.bashrc
+echo 'export SERVER_LOCALE=$KXN_LOCALE' >> ~/.bashrc
+. ~/.bashrc
+echo ""
+echo "Initial State ..........................................................."
+echo "CLIENT_LOCALE=$CLIENT_LOCALE"
+echo "DB_LOCALE    =$DB_LOCALE"
+echo "GL_USEGLU    =$GL_USEGLU"
+echo "SERVER_LOCALE=$SERVER_LOCALE"
+echo "........................................................................."
+sed -n 's/USERMAPPING OFF/USERMAPPING ADMIN/g' /opt/ibm/config/onconfig
+sed -i 's/USERMAPPING OFF/USERMAPPING ADMIN/g' /opt/ibm/config/onconfig
+echo ""
+echo "Stop Database ..........................................................."
+bash $INFORMIXDIR/bin/onshutdown.sh 30
+echo "Database is stopped ....................................................."
+echo ""
+echo "Start Database .........................................................."
+oninit -v -y
+echo "Database is started ....................................................."
+onstat -g env
+echo "........................................................................."
+cat /dev/null > kxn_chunk
+chmod 660 kxn_chunk
+onspaces -c -S sbspace -p /home/informix/kxn_chunk -o 0 -s 40960
+echo ""
+echo "Database Space .........................................................."
+onstat -d
+echo "........................................................................."
+exit

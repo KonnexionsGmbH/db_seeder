@@ -18,6 +18,7 @@ set DB_SEEDER_FIREBIRD_DATABASE=kxn_db
 set DB_SEEDER_H2_DATABASE=.\tmp\kxn_db
 set DB_SEEDER_HSQLDB_DATABASE=kxn_db
 set DB_SEEDER_IBMDB2_DATABASE=kxn_db
+set DB_SEEDER_INFORMIX_DATABASE=kxn_db
 set DB_SEEDER_SQLITE_DATABASE=kxn_db
 
 set DB_SEEDER_VERSION_CRATEDB=4.1.6
@@ -27,6 +28,7 @@ set DB_SEEDER_VERSION_FIREBIRD=3.0.5
 set DB_SEEDER_VERSION_H2=1.4.200
 set DB_SEEDER_VERSION_HSQLDB=2.5.1
 set DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
+set DB_SEEDER_VERSION_INFORMIX=14.10.FC3DE
 
 set DB_SEEDER_VERSION_MARIADB=10.4.13
 set DB_SEEDER_VERSION_MARIADB=10.5.3
@@ -53,6 +55,7 @@ if ["%1"] EQU [""] (
     echo hsqldb      - HyperSQL Database [client]
     echo hsqldb_emb  - HyperSQL Database [embedded]
     echo ibmdb2      - IBM Db2 Database
+    echo informix    - IBM Informix
     echo mariadb     - MariaDB Server
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
@@ -113,7 +116,7 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] EQU ["no"] (
     echo DELETE_EXISTING_CONTAINER : %DB_SEEDER_DELETE_EXISTING_CONTAINER%
 )    
    
-call run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
 
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] EQU ["no"] (
     lib\Gammadyne\timer.exe /reset
