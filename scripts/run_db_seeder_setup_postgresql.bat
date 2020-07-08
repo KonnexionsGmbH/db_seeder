@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo PostgreSQL Database
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION_POSTGRESQL%)
-docker create -e POSTGRES_DB=kxn_db_sys -e POSTGRES_PASSWORD=postgresql -e POSTGRES_USER=kxn_user_sys --name db_seeder_db -p 5432:5432 postgres:%DB_SEEDER_VERSION_POSTGRESQL%
+docker create --name db_seeder_db -e POSTGRES_DB=kxn_db_sys -e POSTGRES_PASSWORD=postgresql -e POSTGRES_USER=kxn_user_sys -p 5432:5432 postgres:%DB_SEEDER_VERSION_POSTGRESQL%
 
 echo Docker start db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION_POSTGRESQL%) ...
 docker start db_seeder_db

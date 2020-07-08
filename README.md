@@ -74,7 +74,7 @@ Currently the following management database systems are supported:
   - **[see technical details here](#details_mssqlserver)**
 - [Mimer SQL](https://www.mimer.com) 
   - relational database management system (RDBMS)
-  - client and embedded (not supported here) version
+  - client only version
   - **[see technical details here](#details_mimer)**
 - [MySQL Database](https://www.mysql.com) 
   - relational database management system (RDBMS)
@@ -342,6 +342,15 @@ db_seeder.max.row.country=200
 db_seeder.max.row.country_state=600
 db_seeder.max.row.timezone=11
 
+db_seeder.mimer.connection.port=11360
+db_seeder.mimer.connection.prefix=jdbc:mimer://
+db_seeder.mimer.database.sys=mimerdb
+db_seeder.mimer.database=kxn_db
+db_seeder.mimer.password.sys=mimersql
+db_seeder.mimer.password=mimersql
+db_seeder.mimer.user.sys=SYSADM
+db_seeder.mimer.user=kxn_user
+
 db_seeder.mssqlserver.connection.port=1433
 db_seeder.mssqlserver.connection.prefix=jdbc:sqlserver://
 db_seeder.mssqlserver.database.sys=master
@@ -390,16 +399,16 @@ db_seeder.sqlite.database=kxn_db
 | <db_ticker>.connection.port=<9...9> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
 | <db_ticker>.connection.prefix=<x...x> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
 | <db_ticker>.connection.suffix=<x...x> | <DB_TICKER>_CONNECTION_SUFFIX | CUBRID, FIREBIRD, HSQLDB, INFORMIX, MYSQL | suffix of the database connection string |
-| <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | INFORMIX, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL | privileged database name |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
-| <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
-| <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
+| <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, POSTGRESQL | privileged database name |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
+| <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | H2, HSQLDB, IBMDB2, MSSQLSERVER | schema name |
-| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the privileged user |
-| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, HSQLDB, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the privileged user |
+| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
-| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID, INFORMIX and MSSQLSERVER | generate column content with tradtional chinese characters included |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
+| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
@@ -417,6 +426,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
+**[Mimer SQL](#details_mimer)** / 
 **[Microsoft SQL Server](#details_mssqlserver)** / 
 **[MySQL Database](#details_mysql)** / 
 **[Oracle Database](#details_oracle)** / 
@@ -825,7 +835,43 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_mssqlserver"></a> 5.10 Microsoft SQL Server
+### <a name="details_mimer"></a> 5.10 Mimer SQL
+
+- **data types**:
+
+| JDBC Data Type | MariaDB Server Type |
+| --- | --- |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+  - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull mimersql/mimersql_v11.0:v11.0.3c`
+  - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
+
+- **encoding**: NCHAR, NVARCHAR
+  
+- **JDBC driver (latest)**: [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se/)
+
+- **privileged database access**:
+  - database; `mimerdb`
+  - user: `SYSADM`
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_MIMER.png)
+
+[//]: # (===========================================================================================)
+
+###  <a name="details_mssqlserver"></a> 5.11 Microsoft SQL Server
 
 - **data types**:
 
@@ -865,7 +911,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.11 MySQL Database
+### <a name="details_mysql"></a> 5.12 MySQL Database
 
 - **data types**:
 
@@ -907,7 +953,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.12 Oracle Database
+### <a name="details_oracle"></a> 5.13 Oracle Database
 
 - **data types**:
 
@@ -943,7 +989,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.13 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.14 PostgreSQL Database
 
 - **data types**:
 
@@ -979,7 +1025,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.14 SQLite
+### <a name="details_sqlite"></a> 5.15 SQLite
 
 - **data types**:
 

@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo Firebird
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (Firebird %DB_SEEDER_VERSION_FIREBIRD%)
-docker create --name db_seeder_db -p 3050:3050/tcp -e FIREBIRD_DATABASE=%DB_SEEDER_FIREBIRD_DATABASE% -e ISC_PASSWORD=firebird jacobalberty/firebird:%DB_SEEDER_VERSION_FIREBIRD%
+docker create --name db_seeder_db -e FIREBIRD_DATABASE=%DB_SEEDER_FIREBIRD_DATABASE% -e ISC_PASSWORD=firebird -p 3050:3050/tcp jacobalberty/firebird:%DB_SEEDER_VERSION_FIREBIRD%
 
 echo Docker start db_seeder_db (Firebird %DB_SEEDER_VERSION_FIREBIRD%) ...
 docker start db_seeder_db

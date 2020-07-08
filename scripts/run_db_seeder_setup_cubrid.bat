@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo CUBRID
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (CUBRID %DB_SEEDER_VERSION_CUBRID%)
-docker create --name db_seeder_db -p 33000:33000/tcp -e CUBRID_DB=%DB_SEEDER_CUBRID_DATABASE% cubrid/cubrid:%DB_SEEDER_VERSION_CUBRID%
+docker create --name db_seeder_db -e CUBRID_DB=%DB_SEEDER_CUBRID_DATABASE% -p 33000:33000/tcp cubrid/cubrid:%DB_SEEDER_VERSION_CUBRID%
 
 echo Docker start db_seeder_db (CUBRID %DB_SEEDER_VERSION_CUBRID%) ...
 docker start db_seeder_db

@@ -121,12 +121,12 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void dropUser(String oracleUser) {
+  private final void dropUser(String user) {
     try {
       int count = 0;
 
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = ?");
-      preparedStatement.setString(1, oracleUser);
+      preparedStatement.setString(1, user);
 
       resultSet = preparedStatement.executeQuery();
 
@@ -141,7 +141,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       if (count > 0) {
         statement = connection.createStatement();
 
-        statement.execute("DROP USER " + oracleUser + " CASCADE");
+        statement.execute("DROP USER " + user + " CASCADE");
 
         statement.close();
       }

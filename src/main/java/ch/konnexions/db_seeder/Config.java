@@ -117,6 +117,15 @@ public class Config {
   private int                                                          maxRowCountryState;
   private int                                                          maxRowTimezone;
 
+  private int                                                          mimerConnectionPort;
+  private String                                                       mimerConnectionPrefix;
+  private String                                                       mimerDatabase;
+  private String                                                       mimerDatabaseSys;
+  private String                                                       mimerPassword;
+  private String                                                       mimerPasswordSys;
+  private String                                                       mimerUser;
+  private String                                                       mimerUserSys;
+
   private int                                                          mssqlserverConnectionPort;
   private String                                                       mssqlserverConnectionPrefix;
   private String                                                       mssqlserverDatabase;
@@ -697,6 +706,64 @@ public class Config {
     return maxRowTimezone;
   }
 
+  // Mimer SQL ---------------------------------------------------------------
+
+  /**
+   * @return the Mimer SQL port number where the database server is listening for requests
+   */
+  public final int getMimerConnectionPort() {
+    return mimerConnectionPort;
+  }
+
+  /**
+   * @return the prefix of the Mimer SQL connection string
+   */
+  public final String getMimerConnectionPrefix() {
+    return mimerConnectionPrefix;
+  }
+
+  /**
+   * @return the Mimer SQL database name of the normal database
+   */
+  public final String getMimerDatabase() {
+    return mimerDatabase;
+  }
+
+  /**
+   * @return the Mimer SQL database name of the privileged database
+   */
+  public final String getMimerDatabaseSys() {
+    return mimerDatabaseSys;
+  }
+
+  /**
+   * @return the Mimer SQL password to connect as normal user to the database
+   */
+  public final String getMimerPassword() {
+    return mimerPassword;
+  }
+
+  /**
+   * @return the Mimer SQL password to connect as privileged user to the database
+   */
+  public final String getMimerPasswordSys() {
+    return mimerPasswordSys;
+  }
+
+  /**
+   * @return the Mimer SQL user name to connect as normal user to the database
+   */
+  public final String getMimerUser() {
+    return mimerUser;
+  }
+
+  /**
+   * @return the Mimer SQL user name to connect as privileged user to the database
+   */
+  public final String getMimerUserSys() {
+    return mimerUserSys;
+  }
+
   // Microsoft SQL Server ----------------------------------------------------
 
   /**
@@ -841,6 +908,7 @@ public class Config {
     list.add("db_seeder.ibmdb2.connection.port");
     list.add("db_seeder.informix.connection.port");
     list.add("db_seeder.mariadb.connection.port");
+    list.add("db_seeder.mimer.connection.port");
     list.add("db_seeder.max.row.city");
     list.add("db_seeder.max.row.company");
     list.add("db_seeder.max.row.country");
@@ -1062,6 +1130,15 @@ public class Config {
     maxRowCountry               = propertiesConfiguration.getInt("db_seeder.max.row.country");
     maxRowCountryState          = propertiesConfiguration.getInt("db_seeder.max.row.country_state");
     maxRowTimezone              = propertiesConfiguration.getInt("db_seeder.max.row.timezone");
+
+    mimerConnectionPort         = propertiesConfiguration.getInt("db_seeder.mimer.connection.port");
+    mimerConnectionPrefix       = propertiesConfiguration.getString("db_seeder.mimer.connection.prefix");
+    mimerDatabase               = propertiesConfiguration.getString("db_seeder.mimer.database");
+    mimerDatabaseSys            = propertiesConfiguration.getString("db_seeder.mimer.database.sys");
+    mimerPassword               = propertiesConfiguration.getString("db_seeder.mimer.password");
+    mimerPasswordSys            = propertiesConfiguration.getString("db_seeder.mimer.password.sys");
+    mimerUser                   = propertiesConfiguration.getString("db_seeder.mimer.user");
+    mimerUserSys                = propertiesConfiguration.getString("db_seeder.mimer.user.sys");
 
     mssqlserverConnectionPort   = propertiesConfiguration.getInt("db_seeder.mssqlserver.connection.port");
     mssqlserverConnectionPrefix = propertiesConfiguration.getString("db_seeder.mssqlserver.connection.prefix");
@@ -1467,6 +1544,48 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_TIMEZONE")) {
       maxRowTimezone = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_TIMEZONE"));
       propertiesConfiguration.setProperty("db_seeder.max.row.timezone", maxRowTimezone);
+    }
+
+    // Mimer SQL ---------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_CONNECTION_PORT")) {
+      mimerConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MIMER_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", mimerConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_CONNECTION_PREFIX")) {
+      mimerConnectionPrefix = environmentVariables.get("DB_SEEDER_MIMER_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", mimerConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_DATABASE")) {
+      mimerDatabase = environmentVariables.get("DB_SEEDER_MIMER_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.mimer.database", mimerDatabase);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_DATABASE_SYS")) {
+      mimerDatabaseSys = environmentVariables.get("DB_SEEDER_MIMER_DATABASE_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mimer.database.sys", mimerDatabaseSys);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_PASSWORD")) {
+      mimerPassword = environmentVariables.get("DB_SEEDER_MIMER_PASSWORD");
+      propertiesConfiguration.setProperty("db_seeder.mimer.password", mimerPassword);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_PASSWORD_SYS")) {
+      mimerPasswordSys = environmentVariables.get("DB_SEEDER_MIMER_PASSWORD_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mimer.password.sys", mimerPasswordSys);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_USER")) {
+      mimerUser = environmentVariables.get("DB_SEEDER_MIMER_USER");
+      propertiesConfiguration.setProperty("db_seeder.mimer.user", mimerUser);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_USER_SYS")) {
+      mimerUserSys = environmentVariables.get("DB_SEEDER_MIMER_USER_SYS");
+      propertiesConfiguration.setProperty("db_seeder.mimer.user.sys", mimerUserSys);
     }
 
     // Microsoft SQL Server ----------------------------------------------------

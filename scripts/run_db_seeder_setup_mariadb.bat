@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo MariaDB Server
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (MariaDB Server %DB_SEEDER_VERSION_MARIADB%)
-docker create -e MYSQL_ROOT_PASSWORD=mariadb --name db_seeder_db -p 3306:3306/tcp mariadb:%DB_SEEDER_VERSION_MARIADB% --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mariadb -p 3306:3306/tcp mariadb:%DB_SEEDER_VERSION_MARIADB% --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 echo Docker start db_seeder_db (MariaDB Server %DB_SEEDER_VERSION_MARIADB%) ...
 docker start db_seeder_db

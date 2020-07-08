@@ -25,6 +25,7 @@ if ["%1"] EQU [""] (
     echo ibmdb2      - IBM Db2 Database
     echo informix    - IBM Informix
     echo mariadb     - MariaDB Server
+    echo mimer       - Mimer SQL
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
     echo oracle      - Oracle Database
@@ -136,6 +137,16 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_MARIADB_PASSWORD_SYS=
     set DB_SEEDER_MARIADB_USER=
     set DB_SEEDER_MARIADB_USER_SYS=
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
+    set DB_SEEDER_MIMER_CONNECTION_PORT=
+    set DB_SEEDER_MIMER_CONNECTION_PREFIX=
+    set DB_SEEDER_MIMER_DATABASE=
+    set DB_SEEDER_MIMER_DATABASE_SYS=
+    set DB_SEEDER_MIMER_PASSWORD=
+    set DB_SEEDER_MIMER_PASSWORD_SYS=
+    set DB_SEEDER_MIMER_USER=
+    set DB_SEEDER_MIMER_USER_SYS=
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
     set DB_SEEDER_ENCODING_UTF_8=false
@@ -299,6 +310,16 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     echo MARIADB_PASSWORD_SYS            : %DB_SEEDER_MARIADB_PASSWORD_SYS%
     echo MARIADB_USER                    : %DB_SEEDER_MARIADB_USER%
     echo MARIADB_USER_SYS                : %DB_SEEDER_MARIADB_USER_SYS%
+)
+if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
+    echo MIMER_CONNECTION_PORT           : %DB_SEEDER_MIMER_CONNECTION_PORT%
+    echo MIMER_CONNECTION_PREFIX         : %DB_SEEDER_MIMER_CONNECTION_PREFIX%
+    echo MIMER_DATABASE                  : %DB_SEEDER_MIMER_DATABASE%
+    echo MIMER_DATABASE_SYS              : %DB_SEEDER_MIMER_DATABASE_SYS%
+    echo MIMER_PASSWORD                  : %DB_SEEDER_MIMER_PASSWORD%
+    echo MIMER_PASSWORD_SYS              : %DB_SEEDER_MIMER_PASSWORD_SYS%
+    echo MIMER_USER                      : %DB_SEEDER_MIMER_USER%
+    echo MIMER_USER_SYS                  : %DB_SEEDER_MIMER_USER_SYS%
 )
 if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
     echo MSSQLSERVER_CONNECTION_PORT     : %DB_SEEDER_MSSQLSERVER_CONNECTION_PORT%

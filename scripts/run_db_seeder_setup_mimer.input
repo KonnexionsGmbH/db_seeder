@@ -1,0 +1,6 @@
+. ~/.bashrc
+mimhosts -d kxn_db
+mimhosts -d
+mimhosts -l kxn_db /data/mimerdb
+mimhosts -l
+exit

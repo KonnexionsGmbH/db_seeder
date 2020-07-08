@@ -17,6 +17,7 @@ import ch.konnexions.db_seeder.jdbc.hsqldb.HsqldbSeeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.informix.InformixSeeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
+import ch.konnexions.db_seeder.jdbc.mimer.MimerSeeder;
 import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
@@ -131,6 +132,12 @@ public class DatabaseSeeder {
       MariadbSeeder mariadbSeeder = new MariadbSeeder();
       mariadbSeeder.createData();
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   MariaDB Server");
+      break;
+    case "mimer":
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Mimer SQL");
+      MimerSeeder mimerSeeder = new MimerSeeder();
+      mimerSeeder.createData();
+      logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  End   Mimer SQL");
       break;
     case "mssqlserver":
       logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  Start Microsoft SQL Server");

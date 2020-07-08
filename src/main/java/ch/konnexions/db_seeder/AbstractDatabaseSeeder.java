@@ -28,6 +28,7 @@ public abstract class AbstractDatabaseSeeder {
     IBMDB2,
     INFORMIX,
     MARIADB,
+    MIMER,
     MSSQLSERVER,
     MYSQL,
     ORACLE,

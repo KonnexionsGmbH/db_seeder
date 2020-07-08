@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo IBM Informix
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (IBM Informix %DB_SEEDER_VERSION_INFORMIX%)
-docker run -itd --name db_seeder_db --restart unless-stopped -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:%DB_SEEDER_VERSION_INFORMIX%
+docker run -itd --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:%DB_SEEDER_VERSION_INFORMIX%
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER IBM Informix was ready in %CONSUMED%

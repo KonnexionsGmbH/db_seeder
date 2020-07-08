@@ -19,6 +19,7 @@ set DB_SEEDER_H2_DATABASE=.\tmp\kxn_db
 set DB_SEEDER_HSQLDB_DATABASE=kxn_db
 set DB_SEEDER_IBMDB2_DATABASE=kxn_db
 set DB_SEEDER_INFORMIX_DATABASE=kxn_db
+set DB_SEEDER_MIMER_DATABASE=kxn_db
 set DB_SEEDER_SQLITE_DATABASE=kxn_db
 
 set DB_SEEDER_VERSION_CRATEDB=4.1.6
@@ -34,6 +35,7 @@ set DB_SEEDER_VERSION_MARIADB=10.4.13
 set DB_SEEDER_VERSION_MARIADB=10.5.3
 set DB_SEEDER_VERSION_MARIADB=10.5.4
 
+set DB_SEEDER_VERSION_MIMER=v11.0.3c
 set DB_SEEDER_VERSION_MSSQLSERVER=2019-latest
 set DB_SEEDER_VERSION_MYSQL=8.0.20
 
@@ -57,6 +59,7 @@ if ["%1"] EQU [""] (
     echo ibmdb2      - IBM Db2 Database
     echo informix    - IBM Informix
     echo mariadb     - MariaDB Server
+    echo mimer       - Mimer SQL
     echo mssqlserver - Microsoft SQL Server
     echo mysql       - MySQL
     echo oracle      - Oracle Database
