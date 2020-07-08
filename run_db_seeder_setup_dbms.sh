@@ -304,7 +304,12 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
     echo "IBM Db2 Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM Db2 $DB_SEEDER_VERSION_IBMDB2)"
-    docker run -itd --name db_seeder_db -e DBNAME=$DB_SEEDER_IBMDB2_DATABASE -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p 50000:50000 --privileged=true ibmcom/db2:$DB_SEEDER_VERSION_IBMDB2
+    docker create --name db_seeder_db -e DBNAME=$DB_SEEDER_IBMDB2_DATABASE -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p 50000:50000 --privileged=true ibmcom/db2:$DB_SEEDER_VERSION_IBMDB2
+
+    echo "Docker start db_seeder_db (IBM Db2 $DB_SEEDER_VERSION_IBMDB2)"
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
 
     sleep 120
 
@@ -321,7 +326,12 @@ if [ "$DB_SEEDER_DBMS" = "informix" ]; then
     echo "IBM Informix."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM Informix $DB_SEEDER_VERSION_INFORMIX)"
-    docker run -itd --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:$DB_SEEDER_VERSION_INFORMIX
+    docker create --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:$DB_SEEDER_VERSION_INFORMIX
+
+    echo "Docker start db_seeder_db (IBM Informix $DB_SEEDER_VERSION_INFORMIX)"
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
 
     while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
     if [ $? -ne 0 ]; then
@@ -372,9 +382,9 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
         exit 255
     fi
 
-    rem wwe sleep 20
+    # wwe sleep 20
 
-    docker exec -i db_seeder_db bash < scripts/run_db_seeder_setup_informix.input
+    docker exec -i db_seeder_db bash < scripts/run_db_seeder_setup_mimer.input
 
     end=$(date +%s)
     echo "DOCKER Mimer SQL was ready in $((end - start)) seconds"

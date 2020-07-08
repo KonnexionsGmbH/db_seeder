@@ -30,9 +30,6 @@ docker create --name db_seeder_db -e FIREBIRD_DATABASE=%DB_SEEDER_FIREBIRD_DATAB
 echo Docker start db_seeder_db (Firebird %DB_SEEDER_VERSION_FIREBIRD%) ...
 docker start db_seeder_db
 
-for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
-echo DOCKER Firebird was ready in %CONSUMED%
-
 :check_health_status:
 mkdir tmp >nul 2>&1
 docker inspect -f {{.State.Health.Status}} db_seeder_db > tmp\docker_health_status.txt
@@ -42,6 +39,9 @@ if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (
     ping -n 10 127.0.0.1 >nul
     goto :check_health_status
 )
+
+for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
+echo DOCKER Firebird was ready in %CONSUMED%
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

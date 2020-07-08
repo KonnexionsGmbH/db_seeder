@@ -32,10 +32,10 @@ docker start db_seeder_db
 
 rem wwe ping -n 20 127.0.0.1>nul
 
+docker exec -i db_seeder_db bash < scripts\run_db_seeder_setup_mimer.input
+
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER Mimer SQL was ready in %CONSUMED%
-
-docker exec -i db_seeder_db bash < scripts\run_db_seeder_setup_mimer.input
 
 echo --------------------------------------------------------------------------------
 echo:| TIME
