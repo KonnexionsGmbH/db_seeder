@@ -30,7 +30,7 @@ docker create --name db_seeder_db -e MIMER_SYSADM_PASSWORD=mimersql -p 11360:136
 echo Docker start db_seeder_db (Mimer SQL %DB_SEEDER_VERSION_MIMER%) ...
 docker start db_seeder_db
 
-rem wwe ping -n 20 127.0.0.1>nul
+ping -n 20 127.0.0.1>nul
 
 docker exec -i db_seeder_db bash < scripts\run_db_seeder_setup_mimer.input
 

@@ -382,7 +382,7 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
         exit 255
     fi
 
-    # wwe sleep 20
+    sleep 20
 
     docker exec -i db_seeder_db bash < scripts/run_db_seeder_setup_mimer.input
 
@@ -431,8 +431,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
     sleep 20
 
     end=$(date +%s)
-    echo "DOCKER MySQL Database was ready in $((end - start)) seconds"
-fi
+run_db_seeder.shfi
 
 # ------------------------------------------------------------------------------
 # Oracle Database.
