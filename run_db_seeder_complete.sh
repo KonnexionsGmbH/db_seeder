@@ -2,9 +2,12 @@
 
 set -e
 
+exec &> >(tee -i run_db_seeder_complete.log)
+sleep .1
+
 # ------------------------------------------------------------------------------
 #
-# runrun_db_seeder_complete.sh: Run all DBMS variations.
+# run_db_seeder_complete.sh: Run all DBMS variations.
 #
 # ------------------------------------------------------------------------------
 
