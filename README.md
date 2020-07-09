@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.14.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.0.svg)
 ----
 
 ### Table of Contents
@@ -111,8 +111,8 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | CrateDB | CRATEDB | 4.1.6 | 2.6.0 |
 | CUBRID | CUBRID | 10.2 | 10.2.0.8797  |
 | Firebird | FIREBIRD | 3.0.5 | 4.0.0.java11 | 
-| H2 Database Engine | H2 | 1.4.200 | 1.4.200  | 
-| HyperSQL Database | HSQLDB | 2.5.1 | 2.5.1 | 
+| H2 Database Engine | H2, H2_EMB | 1.4.200 | 1.4.200  | 
+| HyperSQL Database | HSQLDB, HSQLDB_EMB | 2.5.1 | 2.5.1 | 
 | IBM Db2 Database | IBMDB2 | 11.5.1.0 | 11.5.0.0 | 
 | IBM Informix | INFORMIX | 14.10 FC3 | 4.50.3  | 
 | MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 2.6.0  | 
@@ -253,6 +253,18 @@ The following script parameters are required:
 
 - `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
 - `DB_SEEDER_DELETE_EXISTING_CONTAINER`: delete the existing Docker container (`yes`/`no`)
+ 
+#### 4.1.3 Batch Script `run_db_seeder_complete`
+
+The `run_db_seeder_complete` batch script allows a complete run-through for all DBMS, 
+i.e. it performs the following processing for each implemented DBMS: 
+
+1. `run_db_seeder_setup_dbms`
+1. `run_db_seeder`
+1. `run_db_seeder`
+
+A statistics file is created with the respective runtimes.
+No script parameters are required. 
  
 [//]: # (===========================================================================================)
 

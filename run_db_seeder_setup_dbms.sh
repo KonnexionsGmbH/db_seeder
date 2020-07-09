@@ -431,7 +431,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
     sleep 20
 
     end=$(date +%s)
-run_db_seeder.shfi
+fi
 
 # ------------------------------------------------------------------------------
 # Oracle Database.
