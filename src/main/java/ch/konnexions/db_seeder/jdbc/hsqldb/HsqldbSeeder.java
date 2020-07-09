@@ -21,14 +21,19 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new HyperQL Database seeder.
+   * @param dbmsTickerSymbol 
+   *
+   * @param isClient client database version
    */
-  public HsqldbSeeder() {
-    super();
+  public HsqldbSeeder(String dbmsTickerSymbol, boolean isClient) {
+    super(isClient);
 
     String methodName = new Object() {
     }.getClass().getName();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     init();
 
@@ -37,16 +42,17 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new HyperQL Database seeder.
-   *
-   * @param isClient client database version
+   * @param args0 
    */
-  public HsqldbSeeder(boolean isClient) {
-    super(isClient);
+  public HsqldbSeeder(String dbmsTickerSymbol) {
+    super();
 
     String methodName = new Object() {
     }.getClass().getName();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     init();
 

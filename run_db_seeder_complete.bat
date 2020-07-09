@@ -27,6 +27,10 @@ set DB_SEEDER_DBMS_ORACLE=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
 set DB_SEEDER_DBMS_SQLITE=yes
 
+set DB_SEEDER_FILE_STATISTICS_DELIMITER=
+set DB_SEEDER_FILE_STATISTICS_HEADER=
+set DB_SEEDER_FILE_STATISTICS_NAME=resources\db_seeder.tsv
+
 set DB_SEEDER_MAX_ROW_CITY=
 set DB_SEEDER_MAX_ROW_COMPANY=
 set DB_SEEDER_MAX_ROW_COUNTRY=
@@ -73,10 +77,14 @@ echo.
     echo MAX_ROW_COUNTRY_STATE           : %DB_SEEDER_MAX_ROW_COUNTRY_STATE%
     echo MAX_ROW_TIMEZONE                : %DB_SEEDER_MAX_ROW_TIMEZONE%
     echo --------------------------------------------------------------------------------
+    echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
+    echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
+    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
+    echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
     
-    if exist db_seeder.csv del /f /q db_seeder.csv
+    if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
     
     rem ------------------------------------------------------------------------------
     rem CrateDB.
@@ -116,6 +124,16 @@ echo.
         call run_db_seeder_setup_dbms derby_emb no
         call run_db_seeder            derby_emb
         call run_db_seeder            derby_emb
+    )
+    
+    rem ------------------------------------------------------------------------------
+    rem Firebird - client version.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_FIREBIRD%"] EQU ["yes"] (
+        call run_db_seeder_setup_dbms firebird yes
+        call run_db_seeder            firebird
+        call run_db_seeder            firebird
     )
     
     rem ------------------------------------------------------------------------------

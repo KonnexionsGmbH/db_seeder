@@ -21,8 +21,9 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new MariaDB Server seeder.
+   * @param args0 
    */
-  public MariadbSeeder() {
+  public MariadbSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,14 +31,15 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.MARIADB;
+    dbms                  = Dbms.MARIADB;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter = "`";
+    tableNameDelimiter    = "`";
 
-    urlBase            = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
+    urlBase               = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
 
-    url                = urlBase + config.getMariadbDatabase();
-    urlSetup           = urlBase + config.getMariadbDatabaseSys();
+    url                   = urlBase + config.getMariadbDatabase();
+    urlSetup              = urlBase + config.getMariadbDatabaseSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

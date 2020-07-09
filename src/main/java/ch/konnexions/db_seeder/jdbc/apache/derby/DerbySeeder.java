@@ -22,14 +22,19 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Apache Derby seeder.
+   * @param dbmsTickerSymbol 
+   *
+   * @param isClient client database version
    */
-  public DerbySeeder() {
-    super();
+  public DerbySeeder(String dbmsTickerSymbol, boolean isClient) {
+    super(isClient);
 
     String methodName = new Object() {
     }.getClass().getName();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     init();
 
@@ -38,16 +43,17 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Apache Derby seeder.
-   *
-   * @param isClient client database version
+   * @param args0 
    */
-  public DerbySeeder(boolean isClient) {
-    super(isClient);
+  public DerbySeeder(String dbmsTickerSymbol) {
+    super();
 
     String methodName = new Object() {
     }.getClass().getName();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     init();
 

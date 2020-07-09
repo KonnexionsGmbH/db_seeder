@@ -21,8 +21,9 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Oracle Database seeder.
+   * @param args0 
    */
-  public OracleSeeder() {
+  public OracleSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,11 +31,12 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.ORACLE;
+    dbms                  = Dbms.ORACLE;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter = "";
+    tableNameDelimiter    = "";
 
-    url                = config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
+    url                   = config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
         + config.getOracleConnectionService();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");

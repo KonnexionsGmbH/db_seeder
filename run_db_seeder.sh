@@ -11,6 +11,10 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_DBMS_EMBEDDED=no
 
+unset -f DB_SEEDER_FILE_STATISTICS_DELIMITER=
+unset -f DB_SEEDER_FILE_STATISTICS_HEADER=
+unset -f DB_SEEDER_FILE_STATISTICS_NAME=
+
 if [ -z "$1" ]; then
     echo "==========================================="
     echo "derby       - Apache Derby [client]"
@@ -374,6 +378,10 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
     echo "SQLITE_DATABASE                   : $DB_SEEDER_SQLITE_DATABASE"
 fi
 
+echo "--------------------------------------------------------------------------------"
+echo "FILE_STATISTICS_DELIMITER         : $DB_SEEDER_FILE_STATISTICS_DELIMITER"
+echo "FILE_STATISTICS_HEADER            : $DB_SEEDER_FILE_STATISTICS_HEADER"
+echo "FILE_STATISTICS_NAME              : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"

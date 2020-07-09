@@ -27,8 +27,9 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new PostgreSQL Database seeder.
+   * @param args0 
    */
-  public PostgresqlSeeder() {
+  public PostgresqlSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -36,13 +37,14 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.POSTGRESQL;
+    dbms                  = Dbms.POSTGRESQL;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter = "";
+    tableNameDelimiter    = "";
 
-    urlBase            = config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/";
-    url                = urlBase + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword();
-    urlSetup           = urlBase + config.getPostgresqlDatabaseSys() + "?user=" + config.getPostgresqlUserSys() + "&password="
+    urlBase               = config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/";
+    url                   = urlBase + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword();
+    urlSetup              = urlBase + config.getPostgresqlDatabaseSys() + "?user=" + config.getPostgresqlUserSys() + "&password="
         + config.getPostgresqlPasswordSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");

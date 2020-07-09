@@ -28,7 +28,8 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
-import ch.konnexions.db_seeder.Config;
+import ch.konnexions.db_seeder.utils.Config;
+import ch.konnexions.db_seeder.utils.Statistics;
 
 /**
  * Test Data Generator for a Database.
@@ -377,6 +378,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }.getClass().getEnclosingMethod().getName();
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
 
+    Statistics statistics = new Statistics(config, dbmsTickerSymbol, dbmsValues);
+
     setupDatabase();
 
     for (String tableName : TABLE_NAMES_CREATE) {
@@ -384,6 +387,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     disconnect(connection);
+
+    statistics.createMeasuringEntry();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
   }

@@ -21,8 +21,9 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Mimer SQL seeder.
+   * @param args0 
    */
-  public MimerSeeder() {
+  public MimerSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,17 +31,18 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.MIMER;
+    dbms                  = Dbms.MIMER;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    driver             = "com.mimer.jdbc.Driver";
+    driver                = "com.mimer.jdbc.Driver";
 
-    tableNameDelimiter = "";
+    tableNameDelimiter    = "";
 
-    urlBase            = config.getMimerConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMimerConnectionPort() + "/";
+    urlBase               = config.getMimerConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMimerConnectionPort() + "/";
 
-    url                = urlBase + config.getMimerDatabase();
-    url                = urlBase + config.getMimerDatabaseSys();
-    urlSetup           = urlBase + config.getMimerDatabaseSys();
+    url                   = urlBase + config.getMimerDatabase();
+    url                   = urlBase + config.getMimerDatabaseSys();
+    urlSetup              = urlBase + config.getMimerDatabaseSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

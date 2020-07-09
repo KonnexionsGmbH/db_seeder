@@ -2,10 +2,9 @@
  *
  */
 
-package ch.konnexions.db_seeder;
+package ch.konnexions.db_seeder.utils;
 
 import java.io.File;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,6 +16,8 @@ import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.log4j.Logger;
+
+import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
 
 /**
  * The configuration parameters for the supported database management systems. 
@@ -54,6 +55,9 @@ public class Config {
 
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
   private String                                                       fileConfigurationName;
+  private String                                                       fileStatisticsDelimiter;
+  private String                                                       fileStatisticsHeader;
+  private String                                                       fileStatisticsName;
 
   private int                                                          firebirdConnectionPort;
   private String                                                       firebirdConnectionPrefix;
@@ -63,9 +67,6 @@ public class Config {
   private String                                                       firebirdPasswordSys;
   private String                                                       firebirdUser;
   private String                                                       firebirdUserSys;
-
-  @SuppressWarnings("unused")
-  private final DateTimeFormatter                                      formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
   private int                                                          h2ConnectionPort;
   private String                                                       h2ConnectionPrefix;
@@ -334,6 +335,29 @@ public class Config {
    */
   public final boolean getEncodingUtf_8() {
     return encodingUtf_8;
+  }
+
+  // File Statistics ---------------------------------------------------------
+
+  /**
+   * @return the file statistics delimiter
+   */
+  public final String getFileStatisticsDelimiter() {
+    return fileStatisticsDelimiter;
+  }
+
+  /**
+   * @return the file statistics header
+   */
+  public final String getFileStatisticsHeader() {
+    return fileStatisticsHeader;
+  }
+
+  /**
+   * @return the file statistics name
+   */
+  public final String getFileStatisticsName() {
+    return fileStatisticsName;
   }
 
   // Firebird ----------------------------------------------------------------
@@ -1073,6 +1097,9 @@ public class Config {
     encodingUtf_8               = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
 
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
+    fileStatisticsDelimiter     = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
+    fileStatisticsHeader        = propertiesConfiguration.getString("db_seeder.file.statistics.header").replace(";", fileStatisticsDelimiter);
+    fileStatisticsName          = propertiesConfiguration.getString("db_seeder.file.statistics.name");
 
     firebirdConnectionPort      = propertiesConfiguration.getInt("db_seeder.firebird.connection.port");
     firebirdConnectionPrefix    = propertiesConfiguration.getString("db_seeder.firebird.connection.prefix");
@@ -1283,6 +1310,23 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_ENCODING_UTF_8")) {
       String encodingUtf_8Helper = environmentVariables.get("DB_SEEDER_ENCODING_UTF_8");
       propertiesConfiguration.setProperty("db_seeder.encoding.utf_8", "true".equals(encodingUtf_8Helper.toLowerCase()) ? true : false);
+    }
+
+    // File Statistics ---------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_DELIMITER")) {
+      fileStatisticsDelimiter = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_DELIMITER");
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.delimiter", fileStatisticsDelimiter);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_HEADER")) {
+      fileStatisticsHeader = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_HEADER");
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.header", fileStatisticsHeader);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_NAME")) {
+      fileStatisticsName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_NAME");
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.name", fileStatisticsName);
     }
 
     // Firebird ------------------------------------------------------------------

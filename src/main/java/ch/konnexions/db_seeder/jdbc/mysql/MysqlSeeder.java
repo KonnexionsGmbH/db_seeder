@@ -21,8 +21,9 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new MySQL seeder.
+   * @param args0 
    */
-  public MysqlSeeder() {
+  public MysqlSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,15 +31,16 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.MYSQL;
+    dbms                  = Dbms.MYSQL;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    driver             = "com.mysql.cj.jdbc.Driver";
+    driver                = "com.mysql.cj.jdbc.Driver";
 
-    tableNameDelimiter = "`";
+    tableNameDelimiter    = "`";
 
-    urlBase            = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
-    url                = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
-    urlSetup           = urlBase + config.getMysqlDatabaseSys() + config.getMysqlConnectionSuffix();
+    urlBase               = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
+    url                   = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
+    urlSetup              = urlBase + config.getMysqlDatabaseSys() + config.getMysqlConnectionSuffix();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

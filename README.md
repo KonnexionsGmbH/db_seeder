@@ -297,6 +297,10 @@ db_seeder.derby.database=kxn_db
 db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
 
+db_seeder.file.statistics.delimiter=\t
+db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;
+db_seeder.file.statistics.name=resources/db_seeder.tsv
+
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
 db_seeder.firebird.connection.suffix=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
@@ -420,6 +424,9 @@ db_seeder.sqlite.database=kxn_db
 | <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
 | encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |
+| file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
+| file.statistics.header=<x...x> | FILE_STATISTICS_NAME | all DBMS | header line of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
+| file.statistics.name=<x...x> | FILE_STATISTICS_NAME | all DBMS | file name of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
 | jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
@@ -1085,20 +1092,27 @@ In case of software changes we strongly recommend you to respect the license ter
 1. Push to the branch (git push origin my-new-feature)
 1. Create a new Pull Request
 1. Action points to be considered when adding a new database:
-    1. lib/<database_driver>.jar
-    1. scripts/run_db_seeder_setup_<database>.bat
-    1. src/main/java/ch/konnexions/db_seeder/AbstractDatabaseSeeder.java
-    1. src/main/java/ch/konnexions/db_seeder/Config.java
-    1. src/main/java/ch/konnexions/db_seeder/DatabaseSeeder.java
-    1. src/main/java/ch/konnexions/db_seeder/jdbc/<database>/<Database>Seeder.java
-    1. src/main/resources/db_seeder.properties
-    1. .travis.yml
-    1. build.gradle
-    1. README.md
-    1. Release-Notes.md
-    1. run_db_seeder.bat
-    1. run_db_seeder.sh
-    1. run_db_seeder_setup_dbms.bat
-    1. run_db_seeder_setup_dbms.sh
-    1. run_db_seeder_setup_files.bat
-    1. run_db_seeder_setup_files.sh
+   - lib/<database_driver>.jar
+    
+   - scripts/run_db_seeder_setup_<database>.bat
+   - scripts/run_db_seeder_setup_files.bat
+   - scripts/run_db_seeder_setup_files.sh
+    
+   - src/main/java/ch/konnexions/db_seeder/AbstractDatabaseSeeder.java
+   - src/main/java/ch/konnexions/db_seeder/Config.java
+   - src/main/java/ch/konnexions/db_seeder/DatabaseSeeder.java
+   - src/main/java/ch/konnexions/db_seeder/jdbc/<database>/<Database>Seeder.java
+    
+   - src/main/resources/db_seeder.properties
+    
+   - .travis.yml
+   - build.gradle
+   - README.md
+   - Release-Notes.md
+    
+   - run_db_seeder.bat
+   - run_db_seeder.sh
+   - run_db_seeder_complete.bat
+   - run_db_seeder_complete.sh
+   - run_db_seeder_setup_dbms.bat
+   - run_db_seeder_setup_dbms.sh

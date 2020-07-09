@@ -30,6 +30,10 @@ export DB_SEEDER_DBMS_ORACLE=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
 export DB_SEEDER_DBMS_SQLITE=yes
 
+unset -f DB_SEEDER_FILE_STATISTICS_DELIMITER=
+unset -f DB_SEEDER_FILE_STATISTICS_HEADER=
+export DB_SEEDER_FILE_STATISTICS_NAME=resources/db_seeder.tsv
+
 unset -f DB_SEEDER_MAX_ROW_CITY=
 unset -f DB_SEEDER_MAX_ROW_COMPANY=
 unset -f DB_SEEDER_MAX_ROW_COUNTRY=
@@ -66,10 +70,14 @@ echo "MAX_ROW_COUNTRY                 : $DB_SEEDER_MAX_ROW_COUNTRY"
 echo "MAX_ROW_COUNTRY_STATE           : $DB_SEEDER_MAX_ROW_COUNTRY_STATE"
 echo "MAX_ROW_TIMEZONE                : $DB_SEEDER_MAX_ROW_TIMEZONE"
 echo "--------------------------------------------------------------------------------"
+echo "FILE_STATISTICS_DELIMITER       : $DB_SEEDER_FILE_STATISTICS_DELIMITER"
+echo "FILE_STATISTICS_HEADER          : $DB_SEEDER_FILE_STATISTICS_HEADER"
+echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
+echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : $d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-rm -f db_seeder.csv
+rm -f $DB_SEEDER_FILE_STATISTICS_NAME
 
 # ------------------------------------------------------------------------------
 # CrateDB.
@@ -109,6 +117,16 @@ if [ "$DB_SEEDER_DBMS_DERBY_EMB" = "yes" ]; then
     ( ./run_db_seeder_setup_dbms.sh derby_emb no )
     ( ./run_db_seeder.sh            derby_emb )
     ( ./run_db_seeder.sh            derby_emb )
+fi
+
+# ------------------------------------------------------------------------------
+# Firebird - client version.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_FIREBIRD" = "yes" ]; then
+    ( ./run_db_seeder_setup_dbms.sh firebird yes )
+    ( ./run_db_seeder.sh            firebird )
+    ( ./run_db_seeder.sh            firebird )
 fi
 
 # ------------------------------------------------------------------------------

@@ -28,6 +28,7 @@ Release Date: 12.07.2020
 
 #### New Features
 
+- New batch script: `run_db_seeder_complete`: Run all DBMS variations
 - New DBMS: Mimer SQL
 
 #### Modified Features

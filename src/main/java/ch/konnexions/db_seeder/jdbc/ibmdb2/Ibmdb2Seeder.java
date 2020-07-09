@@ -23,8 +23,9 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new IBM Db2 Database seeder.
+   * @param args0 
    */
-  public Ibmdb2Seeder() {
+  public Ibmdb2Seeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -32,14 +33,15 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.IBMDB2;
+    dbms                  = Dbms.IBMDB2;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter = "";
+    tableNameDelimiter    = "";
 
-    url                = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
+    url                   = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
         + config.getIbmdb2Database();
 
-    dropTableStmnt     = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
+    dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

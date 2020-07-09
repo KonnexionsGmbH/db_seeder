@@ -11,6 +11,10 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_DBMS_EMBEDDED=no
 
+set DB_SEEDER_FILE_STATISTICS_DELIMITER=
+set DB_SEEDER_FILE_STATISTICS_HEADER=
+set DB_SEEDER_FILE_STATISTICS_NAME=
+
 if ["%1"] EQU [""] (
     echo ===========================================
     echo derby       - Apache Derby [client]
@@ -367,6 +371,10 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
     echo SQLITE_DATABASE                 : %DB_SEEDER_SQLITE_DATABASE%
 )
 
+echo --------------------------------------------------------------------------------
+echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
+echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
+echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
