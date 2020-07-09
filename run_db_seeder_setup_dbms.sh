@@ -474,6 +474,8 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
         exit 255
     fi
 
+    sleep 20
+
     end=$(date +%s)
     echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"
 fi

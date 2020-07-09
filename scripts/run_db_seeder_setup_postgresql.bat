@@ -30,6 +30,8 @@ docker create --name db_seeder_db -e POSTGRES_DB=kxn_db_sys -e POSTGRES_PASSWORD
 echo Docker start db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION_POSTGRESQL%) ...
 docker start db_seeder_db
 
+ping -n 20 127.0.0.1>nul
+
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER PostgreSQL Database was ready in %CONSUMED%
 

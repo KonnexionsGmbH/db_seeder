@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export -e
+set -e
 
 # ------------------------------------------------------------------------------
 #
@@ -194,8 +194,8 @@ fi
 
 if [ "$DB_SEEDER_DBMS_MIMER" = "yes" ]; then
     ( ./run_db_seeder_setup_dbms.sh mimer yes )
-    ( ./run_db_seeder.sh            mimer
-    ( ./run_db_seeder.sh            mimer
+    ( ./run_db_seeder.sh            mimer )
+    ( ./run_db_seeder.sh            mimer )
 fi
 
 # ------------------------------------------------------------------------------
