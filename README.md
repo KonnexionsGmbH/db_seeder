@@ -17,7 +17,6 @@
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
 **[4.2 Control Parameters](#operating_instructions_control)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
-**[6. Contributing](#contributing)**<br>
 
 ----
 
@@ -1080,40 +1079,3 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLITE.png)
-
-[//]: # (===========================================================================================)
-
-## <a name="contributing"></a> 6. Contributing 
-
-In case of software changes we strongly recommend you to respect the license terms.
-
-1. Fork it
-1. Create your feature branch (git checkout -b my-new-feature)
-1. Commit your changes (git commit -am 'Add some feature')
-1. Push to the branch (git push origin my-new-feature)
-1. Create a new Pull Request
-1. Action points to be considered when adding a new database:
-   - lib/<database_driver>.jar
-    
-   - scripts/run_db_seeder_setup_<database>.bat
-   - scripts/run_db_seeder_setup_files.bat
-   - scripts/run_db_seeder_setup_files.sh
-    
-   - src/main/java/ch/konnexions/db_seeder/AbstractDatabaseSeeder.java
-   - src/main/java/ch/konnexions/db_seeder/Config.java
-   - src/main/java/ch/konnexions/db_seeder/DatabaseSeeder.java
-   - src/main/java/ch/konnexions/db_seeder/jdbc/<database>/<Database>Seeder.java
-    
-   - src/main/resources/db_seeder.properties
-    
-   - .travis.yml
-   - build.gradle
-   - README.md
-   - Release-Notes.md
-    
-   - run_db_seeder.bat
-   - run_db_seeder.sh
-   - run_db_seeder_complete.bat
-   - run_db_seeder_complete.sh
-   - run_db_seeder_setup_dbms.bat
-   - run_db_seeder_setup_dbms.sh
