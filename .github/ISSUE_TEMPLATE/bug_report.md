@@ -24,15 +24,16 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+ - OS: [e.g. Windows 10 Pro 2004] 
+ - Java: [e.g. "14" 2020-03-17]
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+**Database (please complete the following information):**
+ - DBMS name: [e.g. Apache Derby]
+ - DBMS version: [e.g. 10.15.2.0]
+ - DBMS URL: [e.g. https://db.apache.org/derby]
+ - JDBC version: [e.g. 10.15.2.0]
+ - JDBC URL: [e.g. https://mvnrepository.com/artifact/org.apache.derby/derby]
+ - Docker Image [e.g. docker pull konnexionsgmbh/apache_derby:10.15.2.0]
 
 **Additional context**
 Add any other context about the problem here.
