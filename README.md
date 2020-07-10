@@ -232,31 +232,30 @@ The system requirements are described in the respective release notes.
 ### <a name="operating_instructions_scripts"></a> 4.1 Scripts
 
 Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
-To run **`db_seeder`**, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
-All parameters used in **`db_seeder`** can be adjusted in the batch script to suit your needs.
+To run **`db_seeder`**, only the libraries in the `lib` directory and the appropriate script of `run_db_seeder` are required. 
+All parameters used in **`db_seeder`** can be adjusted in the script to suit your needs.
 
-#### 4.1.1 Batch Script `run_db_seeder`
+#### 4.1.1 Script `run_db_seeder`
 
-The `run_db_seeder` batch script generates dummy data for a selected DBMS.
+The `run_db_seeder` script generates dummy data for a selected DBMS.
 Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
 The following script parameter is required: 
 
 - `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
 
 
-#### 4.1.2 Batch Script `run_db_seeder_setup_dbms`
+#### 4.1.2 Script `run_db_seeder_setup_dbms`
 
-The `run_db_seeder_setup_dbms` batch script creates an empty database for a selected DBMS.
+The `run_db_seeder_setup_dbms` script creates an empty database for a selected DBMS.
 With all client DBMS this database is based on a corresponding Docker image.
 Therefore, the prerequisite is that Docker is started and a suitable connection to the Internet exists.
 The following script parameters are required: 
 
 - `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
-- `DB_SEEDER_DELETE_EXISTING_CONTAINER`: delete the existing Docker container (`yes`/`no`)
  
-#### 4.1.3 Batch Script `run_db_seeder_complete`
+#### 4.1.3 Script `run_db_seeder_complete`
 
-The `run_db_seeder_complete` batch script allows a complete run-through for all DBMS, 
+The `run_db_seeder_complete` script allows a complete run-through for all DBMS, 
 i.e. it performs the following processing for each implemented DBMS: 
 
 1. `run_db_seeder_setup_dbms`
@@ -272,7 +271,7 @@ No script parameters are required.
  
 #### 4.2.1 Supported Parameters
 
-The flow control parameters for **`db_seeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the batch script.
+The flow control parameters for **`db_seeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the script.
 The following control parameters are currently supported:
 
 ```
@@ -298,8 +297,8 @@ db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
 
 db_seeder.file.statistics.delimiter=\t
-db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores; operating system
-db_seeder.file.statistics.name=resources/db_seeder.tsv
+db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
+db_seeder.file.statistics.name=statistics/db_seeder.tsv
 
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
@@ -405,7 +404,7 @@ db_seeder.postgresql.user.sys=kxn_user_sys
 db_seeder.postgresql.user=kxn_user
 
 db_seeder.sqlite.connection.prefix=jdbc:sqlite:
-db_seeder.sqlite.database=./tmp/kxn_db
+db_seeder.sqlite.database=tmp/kxn_db
 ```
 
 #### 4.2.2 Explanation and Cross-reference

@@ -29,7 +29,7 @@ set DB_SEEDER_DBMS_SQLITE=yes
 
 set DB_SEEDER_FILE_STATISTICS_DELIMITER=
 set DB_SEEDER_FILE_STATISTICS_HEADER=
-set DB_SEEDER_FILE_STATISTICS_NAME=resources\db_seeder_cmd.tsv
+set DB_SEEDER_FILE_STATISTICS_NAME=statistics\db_seeder_cmd.tsv
 
 set DB_SEEDER_MAX_ROW_CITY=
 set DB_SEEDER_MAX_ROW_COMPANY=
@@ -91,7 +91,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_CRATEDB%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms cratedb yes
+        call run_db_seeder_setup_dbms cratedb
         call run_db_seeder            cratedb
         call run_db_seeder            cratedb
     )
@@ -101,7 +101,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_CUBRID%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms cubrid yes
+        call run_db_seeder_setup_dbms cubrid
         call run_db_seeder            cubrid
         call run_db_seeder            cubrid
     )
@@ -111,7 +111,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_DERBY%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms derby yes
+        call run_db_seeder_setup_dbms derby
         call run_db_seeder            derby
         call run_db_seeder            derby
     )
@@ -121,7 +121,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_DERBY_EMB%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms derby_emb no
+        call run_db_seeder_setup_dbms derby_emb
         call run_db_seeder            derby_emb
         call run_db_seeder            derby_emb
     )
@@ -131,7 +131,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_FIREBIRD%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms firebird yes
+        call run_db_seeder_setup_dbms firebird
         call run_db_seeder            firebird
         call run_db_seeder            firebird
     )
@@ -141,7 +141,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_H2%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms h2 yes
+        call run_db_seeder_setup_dbms h2
         call run_db_seeder            h2
         call run_db_seeder            h2
     )
@@ -151,7 +151,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_H2_EMB%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms h2_emb no
+        call run_db_seeder_setup_dbms h2_emb
         call run_db_seeder            h2_emb
         call run_db_seeder            h2_emb
     )
@@ -161,7 +161,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms hsqldb yes
+        call run_db_seeder_setup_dbms hsqldb
         call run_db_seeder            hsqldb
         call run_db_seeder            hsqldb
     )
@@ -171,7 +171,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms hsqldb_emb no
+        call run_db_seeder_setup_dbms hsqldb_emb
         call run_db_seeder            hsqldb_emb
         call run_db_seeder            hsqldb_emb
     )
@@ -181,7 +181,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_IBMDB2%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms ibmdb2 yes
+        call run_db_seeder_setup_dbms ibmdb2
         call run_db_seeder            ibmdb2
         call run_db_seeder            ibmdb2
     )
@@ -191,7 +191,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_INFORMIX%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms informix yes
+        call run_db_seeder_setup_dbms informix
         call run_db_seeder            informix
         call run_db_seeder            informix
     )
@@ -201,7 +201,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MARIADB%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms mariadb yes
+        call run_db_seeder_setup_dbms mariadb
         call run_db_seeder            mariadb
         call run_db_seeder            mariadb
     )
@@ -211,7 +211,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MSSQLSERVER%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms mssqlserver yes
+        call run_db_seeder_setup_dbms mssqlserver
         call run_db_seeder            mssqlserver
         call run_db_seeder            mssqlserver
     )
@@ -221,7 +221,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MIMER%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms mimer yes
+        call run_db_seeder_setup_dbms mimer
         call run_db_seeder            mimer
         call run_db_seeder            mimer
     )
@@ -231,7 +231,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MYSQL%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms mysql yes
+        call run_db_seeder_setup_dbms mysql
         call run_db_seeder            mysql
         call run_db_seeder            mysql
     )
@@ -241,7 +241,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_ORACLE%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms oracle yes
+        call run_db_seeder_setup_dbms oracle
         call run_db_seeder            oracle
         call run_db_seeder            oracle
     )
@@ -251,7 +251,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms postgresql yes
+        call run_db_seeder_setup_dbms postgresql
         call run_db_seeder            postgresql
         call run_db_seeder            postgresql
     )
@@ -261,7 +261,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
-        call run_db_seeder_setup_dbms sqlite no
+        call run_db_seeder_setup_dbms sqlite
         call run_db_seeder            sqlite
         call run_db_seeder            sqlite
     )

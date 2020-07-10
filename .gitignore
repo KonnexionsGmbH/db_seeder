@@ -7,7 +7,7 @@
 /.gradle/
 bin
 build
-kxn_db
-kxn_db.*
+db_seeder.csv
+db_seeder.tsv
 timer.txt
 tmp

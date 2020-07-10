@@ -10,7 +10,6 @@ set -e
 
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_DBMS_EMBEDDED=no
-export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
 
 export DB_SEEDER_CUBRID_DATABASE=kxn_db
 export DB_SEEDER_DERBY_DATABASE=./tmp/kxn_db
@@ -20,7 +19,7 @@ export DB_SEEDER_HSQLDB_DATABASE=./tmp/kxn_db
 export DB_SEEDER_IBMDB2_DATABASE=kxn_db
 export DB_SEEDER_INFORMIX_DATABASE=kxn_db
 export DB_SEEDER_MIMER_DATABASE=kxn_db
-export DB_SEEDER_SQLITE_DATABASE=./tmp/kxn_db
+export DB_SEEDER_SQLITE_DATABASE=tmp/kxn_db
 
 export DB_SEEDER_VERSION_CRATEDB=4.1.6
 export DB_SEEDER_VERSION_CUBRID=10.2
@@ -89,28 +88,7 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 
-if [ "$DB_SEEDER_DBMS_EMBEDDED" = "yes" ]; then
-    export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
-fi
-
-if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
-    export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=no
-else
-    export DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT=yes
-fi
-
-if [ -z "$2" ]; then
-    read -p "Delete the existing Docker container $DB_SEEDER_DBMS (yes/no) [default: $DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT] " DB_SEEDER_DELETE_EXISTING_CONTAINER
-    export DB_SEEDER_DELETE_EXISTING_CONTAINER=$DB_SEEDER_DELETE_EXISTING_CONTAINER
-
-    if [ -z "$DB_SEEDER_DELETE_EXISTING_CONTAINER" ]; then
-        export DB_SEEDER_DELETE_EXISTING_CONTAINER=$DB_SEEDER_DELETE_EXISTING_CONTAINER_DEFAULT
-    fi
-else
-    export DB_SEEDER_DELETE_EXISTING_CONTAINER=$2
-fi
-
-if [ "$DB_SEEDER_DELETE_EXISTING_CONTAINER" != "no" ]; then
+if [ "$DB_SEEDER_DBMS_EMBEDDED" != "no" ]; then
     echo "Docker stop/rm db_seeder_db"
     docker stop db_seeder_db
     docker rm -f db_seeder_db
@@ -123,9 +101,6 @@ echo "DB Seeder - setup a database Docker container."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                      : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED             : $DB_SEEDER_DBMS_EMBEDDED"
-if [ "$DB_SEEDER_DBMS_EMBEDDED" != "no" ]; then
-    echo "DELETE_EXISTING_CONTAINER : $DB_SEEDER_DELETE_EXISTING_CONTAINER"
-fi    
 echo --------------------------------------------------------------------------------
 if [ "$DB_SEEDER_DBMS" = "cratedb" ]; then
     echo "VERSION_CRATEDB           : $DB_SEEDER_VERSION_CRATEDB"

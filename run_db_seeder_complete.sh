@@ -32,7 +32,7 @@ export DB_SEEDER_DBMS_SQLITE=yes
 
 unset -f DB_SEEDER_FILE_STATISTICS_DELIMITER=
 unset -f DB_SEEDER_FILE_STATISTICS_HEADER=
-export DB_SEEDER_FILE_STATISTICS_NAME=resources/db_seeder_bash.tsv
+export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_bash.tsv
 
 unset -f DB_SEEDER_MAX_ROW_CITY=
 unset -f DB_SEEDER_MAX_ROW_COMPANY=
@@ -84,7 +84,7 @@ rm -f $DB_SEEDER_FILE_STATISTICS_NAME
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_CRATEDB" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh cratedb yes )
+    ( ./run_db_seeder_setup_dbms.sh cratedb )
     ( ./run_db_seeder.sh            cratedb )
     ( ./run_db_seeder.sh            cratedb )
 fi
@@ -94,7 +94,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_CUBRID" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh cubrid yes )
+    ( ./run_db_seeder_setup_dbms.sh cubrid )
     ( ./run_db_seeder.sh            cubrid )
     ( ./run_db_seeder.sh            cubrid )
 fi
@@ -104,7 +104,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_DERBY" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh derby yes )
+    ( ./run_db_seeder_setup_dbms.sh derby )
     ( ./run_db_seeder.sh            derby )
     ( ./run_db_seeder.sh            derby )
 fi
@@ -114,7 +114,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_DERBY_EMB" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh derby_emb no )
+    ( ./run_db_seeder_setup_dbms.sh derby_emb )
     ( ./run_db_seeder.sh            derby_emb )
     ( ./run_db_seeder.sh            derby_emb )
 fi
@@ -124,7 +124,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_FIREBIRD" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh firebird yes )
+    ( ./run_db_seeder_setup_dbms.sh firebird )
     ( ./run_db_seeder.sh            firebird )
     ( ./run_db_seeder.sh            firebird )
 fi
@@ -134,7 +134,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_H2" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh h2 yes )
+    ( ./run_db_seeder_setup_dbms.sh h2 )
     ( ./run_db_seeder.sh            h2 )
     ( ./run_db_seeder.sh            h2 )
 fi
@@ -144,7 +144,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_H2_EMB" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh h2_emb no )
+    ( ./run_db_seeder_setup_dbms.sh h2_emb )
     ( ./run_db_seeder.sh            h2_emb )
     ( ./run_db_seeder.sh            h2_emb )
 fi
@@ -154,7 +154,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh hsqldb yes )
+    ( ./run_db_seeder_setup_dbms.sh hsqldb )
     ( ./run_db_seeder.sh            hsqldb )
     ( ./run_db_seeder.sh            hsqldb )
 fi
@@ -164,7 +164,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB_EMB" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh hsqldb_emb no )
+    ( ./run_db_seeder_setup_dbms.sh hsqldb_emb )
     ( ./run_db_seeder.sh            hsqldb_emb )
     ( ./run_db_seeder.sh            hsqldb_emb )
 fi
@@ -174,7 +174,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_IBMDB2" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh ibmdb2 yes )
+    ( ./run_db_seeder_setup_dbms.sh ibmdb2 )
     ( ./run_db_seeder.sh            ibmdb2 )
     ( ./run_db_seeder.sh            ibmdb2 )
 fi
@@ -184,7 +184,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_INFORMIX" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh informix yes )
+    ( ./run_db_seeder_setup_dbms.sh informix )
     ( ./run_db_seeder.sh            informix )
     ( ./run_db_seeder.sh            informix )
 fi
@@ -194,7 +194,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MARIADB" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh mariadb yes )
+    ( ./run_db_seeder_setup_dbms.sh mariadb )
     ( ./run_db_seeder.sh            mariadb )
     ( ./run_db_seeder.sh            mariadb )
 fi
@@ -204,7 +204,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MSSQLSERVER" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh mssqlserver yes )
+    ( ./run_db_seeder_setup_dbms.sh mssqlserver )
     ( ./run_db_seeder.sh            mssqlserver )
     ( ./run_db_seeder.sh            mssqlserver )
 fi
@@ -214,7 +214,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MIMER" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh mimer yes )
+    ( ./run_db_seeder_setup_dbms.sh mimer )
     ( ./run_db_seeder.sh            mimer )
     ( ./run_db_seeder.sh            mimer )
 fi
@@ -224,7 +224,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh mysql yes )
+    ( ./run_db_seeder_setup_dbms.sh mysql )
     ( ./run_db_seeder.sh            mysql )
     ( ./run_db_seeder.sh            mysql )
 fi
@@ -234,7 +234,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh oracle yes )
+    ( ./run_db_seeder_setup_dbms.sh oracle )
     ( ./run_db_seeder.sh            oracle )
     ( ./run_db_seeder.sh            oracle )
 fi
@@ -244,7 +244,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh postgresql yes )
+    ( ./run_db_seeder_setup_dbms.sh postgresql )
     ( ./run_db_seeder.sh            postgresql )
     ( ./run_db_seeder.sh            postgresql )
 fi
@@ -254,7 +254,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
-    ( ./run_db_seeder_setup_dbms.sh sqlite no )
+    ( ./run_db_seeder_setup_dbms.sh sqlite )
     ( ./run_db_seeder.sh            sqlite )
     ( ./run_db_seeder.sh            sqlite )
 fi
