@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.5.svg)
 ----
 
 ### Table of Contents
@@ -108,20 +108,20 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | DBMS | DB Ticker Symbol(s) | DBMS Versions | Latest JDBC |
 |---|---|---|---|
 | Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 10.15.2.0 |
-| CrateDB | CRATEDB | 4.1.6 | 2.6.0 |
-| CUBRID | CUBRID | 10.2 | 10.2.0.8797  |
-| Firebird | FIREBIRD | 3.0.5 | 4.0.0.java11 | 
-| H2 Database Engine | H2, H2_EMB | 1.4.200 | 1.4.200  | 
+| CrateDB | CRATEDB | 4.1.6 - 4.1.8 | 2.6.0 |
+| CUBRID | CUBRID | 10.2 | 10.2.1.8849 |
+| Firebird | FIREBIRD | 3.0.5 - 3.0.6 | 4.0.0.java11 | 
+| H2 Database Engine | H2, H2_EMB | 1.4.200 | 1.4.200 | 
 | HyperSQL Database | HSQLDB, HSQLDB_EMB | 2.5.1 | 2.5.1 | 
-| IBM Db2 Database | IBMDB2 | 11.5.1.0 | 11.5.0.0 | 
-| IBM Informix | INFORMIX | 14.10 FC3 | 4.50.3  | 
-| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 2.6.0  | 
+| IBM Db2 Database | IBMDB2 | 11.5.1.0 - 11.5.4.0 | 11.5.4.0 | 
+| IBM Informix | INFORMIX | 14.10 FC3DE | 4.50.4.1 | 
+| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 2.6.1 | 
 | Microsoft SQL Server | MSSQLSERVER | 2019| 8.3.1.jre14-preview | 
-| Mimer SQL | MIMER | 11.0.3C | 3.40  | 
+| Mimer SQL | MIMER | 11.0.3C | 3.40 | 
 | MySQL Database | MYSQL | 8.0.20 | 8.0.20 | 
-| Oracle Database | ORACLE | 12c - 19c | 19.3.0.0 |
+| Oracle Database | ORACLE | 12c - 19c | 19.7.0.0 |
 | PostgreSQL Database | POSTGRESQL | 12.3 | 42.2.14 |
-| SQLite | SQLITE | 3.32.2 | 3.32.3 |
+| SQLite | SQLITE | 3.32.3 | 3.32.3 |
 
 [//]: # (===========================================================================================)
 
@@ -517,7 +517,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.1.6`
+  - pull command: `docker pull crate:4.1.8`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -607,7 +607,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:3.0.5`
+  - pull command: `docker pull jacobalberty/firebird:3.0.6`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
@@ -751,7 +751,7 @@ Below are also DBeaver based connection parameter examples for each database man
     - procedure or function
   
 - **JDBC driver (latest)**:
-  - version 11.5.0.0
+  - version 11.5.4.0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
@@ -790,7 +790,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made
   
 - **JDBC driver (latest)**:
-  - version 4.50.3
+  - version 4.50.4.1
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.informix/jdbc)
 
 - **privileged database access**: 
@@ -994,7 +994,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 19.3.0.0
+  - version 19.7.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc10)
 
 - **privileged database access**:

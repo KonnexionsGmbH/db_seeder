@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.5.svg)
 
 ----------
 
-## Version 1.15.0
+## Version 1.15.5
 
-Release Date: 12.07.2020
+Release Date: 10.07.2020
 
 #### System Requirements
 
@@ -38,12 +38,15 @@ Release Date: 12.07.2020
 
 #### Modified Features
 
-n/a
+- CrateDB: DBMS 4.1.8
+- Firebird: DBMS 3.0.6
+- IBM Db2 Database: DBMS & JDBC 11.5.4.0
+- IBM Informix: JDBC 4.50.4.1
+- Oracle Database: JDBC 19.7.0.0
 
 #### Deleted Features
 
 n/a
-
 
 ----------
 

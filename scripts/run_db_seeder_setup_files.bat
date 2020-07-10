@@ -8,15 +8,15 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_CUBRID_DATABASE=.\tmp\kxn_db
+set DB_SEEDER_CUBRID_DATABASE=kxn_db
 set DB_SEEDER_DERBY_DATABASE=.\tmp\kxn_db
-set DB_SEEDER_FIREBIRD_DATABASE=.\tmp\kxn_db
+set DB_SEEDER_FIREBIRD_DATABASE=kxn_db
 set DB_SEEDER_H2_DATABASE=.\tmp\kxn_db
 set DB_SEEDER_HSQLDB_DATABASE=.\tmp\kxn_db
 set DB_SEEDER_IBMDB2_DATABASE=kxn_db
 set DB_SEEDER_INFORMIX_DATABASE=kxn_db
 set DB_SEEDER_MIMER_DATABASE=kxn_db
-set DB_SEEDER_SQLITE_DATABASE=.\tmp\kxn_db
+set DB_SEEDER_SQLITE_DATABASE=tmp\kxn_db
 
 if ["%1"] EQU [""] (
     echo ===========================================
