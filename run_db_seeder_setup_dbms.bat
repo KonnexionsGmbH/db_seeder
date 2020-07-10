@@ -21,13 +21,21 @@ set DB_SEEDER_INFORMIX_DATABASE=kxn_db
 set DB_SEEDER_MIMER_DATABASE=kxn_db
 set DB_SEEDER_SQLITE_DATABASE=tmp\kxn_db
 
+set DB_SEEDER_VERSION_CRATEDB=4.1.6
 set DB_SEEDER_VERSION_CRATEDB=4.1.8
+
 set DB_SEEDER_VERSION_CUBRID=10.2
 set DB_SEEDER_VERSION_DERBY=10.15.2.0
+
+set DB_SEEDER_VERSION_FIREBIRD=3.0.5
 set DB_SEEDER_VERSION_FIREBIRD=3.0.6
+
 set DB_SEEDER_VERSION_H2=1.4.200
 set DB_SEEDER_VERSION_HSQLDB=2.5.1
+
 set DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
+set DB_SEEDER_VERSION_IBMDB2=11.5.4.0
+
 set DB_SEEDER_VERSION_INFORMIX=14.10.FC3DE
 
 set DB_SEEDER_VERSION_MARIADB=10.4.13
@@ -87,7 +95,7 @@ if ["%DB_SEEDER_DBMS%"] == ["sqlite"] (
     set DB_SEEDER_DBMS_EMBEDDED=yes
 )
 
-if NOT ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
+if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     echo Docker stop/rm db_seeder_db
     docker ps -q --filter "name=db_seeder_db" | grep -q . && docker stop db_seeder_db && docker rm -fv db_seeder_db
 )

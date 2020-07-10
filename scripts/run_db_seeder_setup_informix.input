@@ -20,7 +20,8 @@ bash $INFORMIXDIR/bin/onshutdown.sh 30
 echo "Database is stopped ....................................................."
 echo ""
 echo "Start Database .........................................................."
-oninit -v -w 30 -y
+onclean –ky
+oninit -vw 30 -y
 echo "Database is started ....................................................."
 onstat -g env
 echo "........................................................................."

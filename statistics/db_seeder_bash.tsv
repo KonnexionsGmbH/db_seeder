@@ -1,19 +1,35 @@
-ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	" operating system"
-cratedb	CrateDB	client	35	2020-07-10 08:25:55.773791000	2020-07-10 08:26:31.477579000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-cratedb	CrateDB	client	29	2020-07-10 08:26:32.187031000	2020-07-10 08:27:01.672951000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-cubrid	CUBRID	client	16	2020-07-10 08:27:34.342847000	2020-07-10 08:27:50.460355000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-cubrid	CUBRID	client	16	2020-07-10 08:27:51.212156000	2020-07-10 08:28:07.915404000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-derby	Apache Derby [client]	client	19	2020-07-10 08:28:51.417899000	2020-07-10 08:29:11.072593000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-derby	Apache Derby [client]	client	17	2020-07-10 08:29:11.885225000	2020-07-10 08:29:29.345475000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-firebird	Firebird	client	66	2020-07-10 08:30:02.665234000	2020-07-10 08:31:08.857469000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-firebird	Firebird	client	66	2020-07-10 08:31:09.574875000	2020-07-10 08:32:16.254921000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-h2	H2 Database Engine [client]	client	11	2020-07-10 08:32:58.932733000	2020-07-10 08:33:10.251736000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-h2	H2 Database Engine [client]	client	11	2020-07-10 08:33:10.983091000	2020-07-10 08:33:22.823345000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-h2_emb	H2 Database Engine [embedded]	embedded	19	2020-07-10 08:33:23.577783000	2020-07-10 08:33:43.200437000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-h2_emb	H2 Database Engine [embedded]	embedded	16	2020-07-10 08:33:43.981415000	2020-07-10 08:34:00.017272000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-hsqldb	HyperSQL Database [client]	client	20	2020-07-10 08:34:33.575653000	2020-07-10 08:34:54.166306000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-hsqldb	HyperSQL Database [client]	client	18	2020-07-10 08:34:54.932788000	2020-07-10 08:35:13.928394000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-hsqldb_emb	HyperSQL Database [embedded]	embedded	307	2020-07-10 08:35:14.685291000	2020-07-10 08:40:21.835677000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-hsqldb_emb	HyperSQL Database [embedded]	embedded	302	2020-07-10 08:40:22.668684000	2020-07-10 08:45:24.926881000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-ibmdb2	IBM Db2 Database	client	22	2020-07-10 08:47:27.264116000	2020-07-10 08:47:49.565356000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
-ibmdb2	IBM Db2 Database	client	16	2020-07-10 08:47:50.595753000	2020-07-10 08:48:07.371954000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
+cratedb	CrateDB	client	38	2020-07-10 14:37:58.809389000	2020-07-10 14:38:37.362950000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+cratedb	CrateDB	client	31	2020-07-10 14:38:38.149132000	2020-07-10 14:39:10.126098000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+cubrid	CUBRID	client	16	2020-07-10 14:39:42.938443000	2020-07-10 14:39:59.192323000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+cubrid	CUBRID	client	16	2020-07-10 14:40:00.330302000	2020-07-10 14:40:16.929382000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+derby	Apache Derby [client]	client	20	2020-07-10 14:41:00.822119000	2020-07-10 14:41:21.025713000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+derby	Apache Derby [client]	client	17	2020-07-10 14:41:21.763746000	2020-07-10 14:41:39.188256000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+firebird	Firebird	client	68	2020-07-10 14:42:23.186221000	2020-07-10 14:43:32.086819000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+firebird	Firebird	client	67	2020-07-10 14:43:32.850858000	2020-07-10 14:44:40.610156000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+h2	H2 Database Engine [client]	client	10	2020-07-10 14:45:13.440008000	2020-07-10 14:45:24.287971000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+h2	H2 Database Engine [client]	client	12	2020-07-10 14:45:25.027322000	2020-07-10 14:45:37.359962000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+h2_emb	H2 Database Engine [embedded]	embedded	8	2020-07-10 14:45:38.210614000	2020-07-10 14:45:46.217446000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+h2_emb	H2 Database Engine [embedded]	embedded	11	2020-07-10 14:45:47.063349000	2020-07-10 14:45:58.380636000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+hsqldb	HyperSQL Database [client]	client	21	2020-07-10 14:46:31.835105000	2020-07-10 14:46:52.962987000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+hsqldb	HyperSQL Database [client]	client	19	2020-07-10 14:46:53.982233000	2020-07-10 14:47:13.705915000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+hsqldb_emb	HyperSQL Database [embedded]	embedded	301	2020-07-10 14:47:14.444530000	2020-07-10 14:52:15.593390000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+hsqldb_emb	HyperSQL Database [embedded]	embedded	297	2020-07-10 14:52:16.367028000	2020-07-10 14:57:13.721130000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+ibmdb2	IBM Db2 Database	client	23	2020-07-10 14:59:16.120513000	2020-07-10 14:59:39.733312000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+ibmdb2	IBM Db2 Database	client	18	2020-07-10 14:59:40.953180000	2020-07-10 14:59:59.336940000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+informix	IBM Informix	client	29	2020-07-10 15:00:54.710711000	2020-07-10 15:01:23.961111000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+informix	IBM Informix	client	42	2020-07-10 15:01:25.067997000	2020-07-10 15:02:07.652905000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mariadb	MariaDB Server	client	12	2020-07-10 15:02:30.005192000	2020-07-10 15:02:42.779531000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mariadb	MariaDB Server	client	12	2020-07-10 15:02:43.570061000	2020-07-10 15:02:55.683008000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mssqlserver	MS SQL Server	client	15	2020-07-10 15:03:19.425586000	2020-07-10 15:03:35.333249000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mssqlserver	MS SQL Server	client	15	2020-07-10 15:03:36.270931000	2020-07-10 15:03:51.499612000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mimer	Mimer SQL	client	46	2020-07-10 15:04:14.180615000	2020-07-10 15:05:00.202782000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mimer	Mimer SQL	client	47	2020-07-10 15:05:00.948819000	2020-07-10 15:05:48.647012000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mysql	MySQL Database	client	16	2020-07-10 15:06:15.916849000	2020-07-10 15:06:32.346919000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+mysql	MySQL Database	client	15	2020-07-10 15:06:33.146773000	2020-07-10 15:06:48.977577000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+oracle	Oracle Database	client	16	2020-07-10 15:08:54.467894000	2020-07-10 15:09:11.430786000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+oracle	Oracle Database	client	15	2020-07-10 15:09:12.172864000	2020-07-10 15:09:27.984004000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+postgresql	PostgreSQL Database	client	19	2020-07-10 15:10:01.342988000	2020-07-10 15:10:20.559086000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+postgresql	PostgreSQL Database	client	18	2020-07-10 15:10:21.320368000	2020-07-10 15:10:39.911906000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+sqlite	SQLite	embedded	13	2020-07-10 15:10:41.120133000	2020-07-10 15:10:54.960056000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard
+sqlite	SQLite	embedded	17	2020-07-10 15:10:55.679063000	2020-07-10 15:11:13.292298000	jfww-windows	8	amd64 / Linux / 4.19.104-microsoft-standard

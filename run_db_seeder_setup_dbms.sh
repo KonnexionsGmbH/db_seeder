@@ -21,13 +21,21 @@ export DB_SEEDER_INFORMIX_DATABASE=kxn_db
 export DB_SEEDER_MIMER_DATABASE=kxn_db
 export DB_SEEDER_SQLITE_DATABASE=tmp/kxn_db
 
+export DB_SEEDER_VERSION_CRATEDB=4.1.6
 export DB_SEEDER_VERSION_CRATEDB=4.1.8
+
 export DB_SEEDER_VERSION_CUBRID=10.2
 export DB_SEEDER_VERSION_DERBY=10.15.2.0
+
+export DB_SEEDER_VERSION_FIREBIRD=3.0.5
 export DB_SEEDER_VERSION_FIREBIRD=3.0.6
+
 export DB_SEEDER_VERSION_H2=1.4.200
 export DB_SEEDER_VERSION_HSQLDB=2.5.1
+
 export DB_SEEDER_VERSION_IBMDB2=11.5.0.0a
+export DB_SEEDER_VERSION_IBMDB2=11.5.4.0
+
 export DB_SEEDER_VERSION_INFORMIX=14.10.FC3DE
 
 export DB_SEEDER_VERSION_MARIADB=10.4.13
@@ -121,7 +129,7 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
     echo "VERSION_POSTGRESQL        : $DB_SEEDER_VERSION_POSTGRESQL"
 fi
 
-( ./scripts/run_db_seeder_setup_files.sh %DB_SEEDER_DBMS% )
+( ./scripts/run_db_seeder_setup_files.sh $DB_SEEDER_DBMS )
 
 # ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate
