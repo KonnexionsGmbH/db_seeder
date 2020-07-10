@@ -480,7 +480,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://issues.apache.org/jira/secure/Dashboard.jspa)
   
 - **JDBC driver (latest)**:
-  - version 10.15.2.
+  - version 10.15.2.0
   - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
   - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
@@ -853,43 +853,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mimer"></a> 5.10 Mimer SQL
-
-- **data types**:
-
-| JDBC Data Type | MariaDB Server Type |
-| --- | --- |
-| Blob / byte[] | BLOB |
-| Clob | CLOB |
-| long | BIGINT |
-| string | VARCHAR |
-| timestamp | TIMESTAMP |
-
-- **DDL syntax**:
-  - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
-  - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
-
-- **Docker image (latest)**:
-  - pull command: `docker pull mimersql/mimersql_v11.0:v11.0.3c`
-  - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
-
-- **encoding**: NCHAR, NVARCHAR
-  
-- **JDBC driver (latest)**: [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se/)
-
-- **privileged database access**:
-  - database; `mimerdb`
-  - user: `SYSADM`
-
-- **DBeaver database connection settings**:
-
-![](.README_images/DBeaver_MIMER.png)
-
-[//]: # (===========================================================================================)
-
-###  <a name="details_mssqlserver"></a> 5.11 Microsoft SQL Server
+###  <a name="details_mssqlserver"></a> 5.10 Microsoft SQL Server
 
 - **data types**:
 
@@ -926,6 +890,44 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_MSSQLSERVER.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_mimer"></a> 5.11 Mimer SQL
+
+- **data types**:
+
+| JDBC Data Type | MariaDB Server Type |
+| --- | --- |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+  - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull mimersql/mimersql_v11.0:v11.0.3c`
+  - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
+
+- **encoding**: NCHAR, NVARCHAR
+  
+- **JDBC driver (latest)**: 
+  - version 3.40
+  - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se/)
+
+- **privileged database access**:
+  - database; `mimerdb`
+  - user: `SYSADM`
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_MIMER.png)
 
 [//]: # (===========================================================================================)
 
@@ -1032,7 +1034,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
   
 - **JDBC driver (latest)**:
-  - version 4.2.14
+  - version 42.2.14
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)

@@ -86,6 +86,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
 fi
 if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
+    install -Dv /dev/null $DB_SEEDER_SQLITE_DATABASE
 fi
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
