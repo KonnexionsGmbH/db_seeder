@@ -7,7 +7,7 @@
 /.gradle/
 bin
 build
-db_seeder.csv
-db_seeder.tsv
+statisics/db_seeder.csv
+statisics/db_seeder.tsv
 timer.txt
 tmp
