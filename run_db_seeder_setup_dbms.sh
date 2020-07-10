@@ -88,7 +88,7 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 
-if [ "$DB_SEEDER_DBMS_EMBEDDED" != "no" ]; then
+if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
     echo "Docker stop/rm db_seeder_db"
     docker stop db_seeder_db
     docker rm -f db_seeder_db
