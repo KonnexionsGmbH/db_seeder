@@ -7,6 +7,7 @@ package ch.konnexions.db_seeder.utils;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,7 +69,10 @@ public class Statistics {
                                  dbmsValues.get(dbmsTickerSymbol)[1],
                                  Duration.between(startDateTime, endDateTime).toSeconds(),
                                  startDateTime.format(formatter),
-                                 endDateTime.format(formatter));
+                                 endDateTime.format(formatter),
+                                 InetAddress.getLocalHost().getHostName(),
+                                 Integer.toString(Runtime.getRuntime().availableProcessors()),
+                                 System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"));
 
       statisticsFile.close();
     } catch (IOException e) {

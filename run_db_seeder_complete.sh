@@ -32,7 +32,7 @@ export DB_SEEDER_DBMS_SQLITE=yes
 
 unset -f DB_SEEDER_FILE_STATISTICS_DELIMITER=
 unset -f DB_SEEDER_FILE_STATISTICS_HEADER=
-export DB_SEEDER_FILE_STATISTICS_NAME=resources/db_seeder.tsv
+export DB_SEEDER_FILE_STATISTICS_NAME=resources/db_seeder_bash.tsv
 
 unset -f DB_SEEDER_MAX_ROW_CITY=
 unset -f DB_SEEDER_MAX_ROW_COMPANY=

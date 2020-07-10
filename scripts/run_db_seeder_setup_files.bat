@@ -8,14 +8,15 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_CUBRID_DATABASE=kxn_db
-set DB_SEEDER_DERBY_DATABASE=kxn_db
-set DB_SEEDER_FIREBIRD_DATABASE=kxn_db
+set DB_SEEDER_CUBRID_DATABASE=.\tmp\kxn_db
+set DB_SEEDER_DERBY_DATABASE=.\tmp\kxn_db
+set DB_SEEDER_FIREBIRD_DATABASE=.\tmp\kxn_db
 set DB_SEEDER_H2_DATABASE=.\tmp\kxn_db
-set DB_SEEDER_HSQLDB_DATABASE=kxn_db
+set DB_SEEDER_HSQLDB_DATABASE=.\tmp\kxn_db
 set DB_SEEDER_IBMDB2_DATABASE=kxn_db
 set DB_SEEDER_INFORMIX_DATABASE=kxn_db
-set DB_SEEDER_SQLITE_DATABASE=kxn_db
+set DB_SEEDER_MIMER_DATABASE=kxn_db
+set DB_SEEDER_SQLITE_DATABASE=.\tmp\kxn_db
 
 if ["%1"] EQU [""] (
     echo ===========================================
@@ -26,6 +27,7 @@ if ["%1"] EQU [""] (
     echo hsqldb_emb  - HyperSQL Database [embedded]
     echo ibmdb2      - IBM Db2 Database
     echo informix    - IBM Informix
+    echo mimer       - Mimer SQL
     echo sqlite      - SQLite [embedded]
     echo -------------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "

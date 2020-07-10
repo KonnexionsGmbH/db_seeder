@@ -88,13 +88,13 @@ public abstract class AbstractDatabaseSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
+    dbmsValues = initDbmsValues();
+
     isClient   = true;
     isEmbedded = !(this.isClient);
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
-
-    dbmsValues = initDbmsValues();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -112,6 +112,8 @@ public abstract class AbstractDatabaseSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
+    dbmsValues    = initDbmsValues();
+
     this.isClient = isClient;
     isEmbedded    = !(this.isClient);
 
@@ -128,7 +130,7 @@ public abstract class AbstractDatabaseSeeder {
                    new String[] {
                        "CrateDB",
                        "client" });
-    dbmsValues.put("cubris",
+    dbmsValues.put("cubrid",
                    new String[] {
                        "CUBRID",
                        "client" });

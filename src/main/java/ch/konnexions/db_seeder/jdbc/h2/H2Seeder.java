@@ -21,12 +21,10 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new H2 Database Engine seeder.
-   * @param dbmsTickerSymbol 
-   *
-   * @param isClient client database version
+   * @param args0 
    */
-  public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
-    super(isClient);
+  public H2Seeder(String dbmsTickerSymbol) {
+    super();
 
     String methodName = new Object() {
     }.getClass().getName();
@@ -42,10 +40,12 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new H2 Database Engine seeder.
-   * @param args0 
+   * @param dbmsTickerSymbol 
+   *
+   * @param isClient client database version
    */
-  public H2Seeder(String dbmsTickerSymbol) {
-    super();
+  public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
+    super(isClient);
 
     String methodName = new Object() {
     }.getClass().getName();

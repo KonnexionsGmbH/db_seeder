@@ -292,13 +292,13 @@ db_seeder.cubrid.user=kxn_user
 
 db_seeder.derby.connection.port=1527
 db_seeder.derby.connection.prefix=jdbc:derby:
-db_seeder.derby.database=kxn_db
+db_seeder.derby.database=./tmp/kxn_db
 
 db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
 
 db_seeder.file.statistics.delimiter=\t
-db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;
+db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores; operating system
 db_seeder.file.statistics.name=resources/db_seeder.tsv
 
 db_seeder.firebird.connection.port=3050
@@ -312,7 +312,7 @@ db_seeder.firebird.user=kxn_user
 
 db_seeder.h2.connection.port=9092
 db_seeder.h2.connection.prefix=jdbc:h2:
-db_seeder.h2.database=kxn_db
+db_seeder.h2.database=./tmp/kxn_db
 db_seeder.h2.password=h2
 db_seeder.h2.schema=kxn_schema
 db_seeder.h2.user=kxn_user
@@ -320,7 +320,7 @@ db_seeder.h2.user=kxn_user
 db_seeder.hsqldb.connection.port=9001
 db_seeder.hsqldb.connection.prefix=jdbc:hsqldb:
 db_seeder.hsqldb.connection.suffix=;ifexists=false;shutdown=true
-db_seeder.hsqldb.database=kxn_db
+db_seeder.hsqldb.database=./tmp/kxn_db
 db_seeder.hsqldb.password=hsqldb
 db_seeder.hsqldb.schema=kxn_schema
 db_seeder.hsqldb.user.sys=SA
@@ -405,7 +405,7 @@ db_seeder.postgresql.user.sys=kxn_user_sys
 db_seeder.postgresql.user=kxn_user
 
 db_seeder.sqlite.connection.prefix=jdbc:sqlite:
-db_seeder.sqlite.database=kxn_db
+db_seeder.sqlite.database=./tmp/kxn_db
 ```
 
 #### 4.2.2 Explanation and Cross-reference
