@@ -21,8 +21,9 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new CUBRID seeder.
+   * @param args0 
    */
-  public CubridSeeder() {
+  public CubridSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,16 +31,17 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.CUBRID;
+    dbms                  = Dbms.CUBRID;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    driver             = "cubrid.jdbc.driver.CUBRIDDriver";
+    driver                = "cubrid.jdbc.driver.CUBRIDDriver";
 
-    tableNameDelimiter = "\"";
+    tableNameDelimiter    = "\"";
 
-    urlBase            = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
+    urlBase               = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
         + config.getCubridDatabase() + ":";
-    url                = urlBase + config.getCubridConnectionSuffix();
-    urlSetup           = urlBase + config.getCubridUserSys() + config.getCubridConnectionSuffix();
+    url                   = urlBase + config.getCubridConnectionSuffix();
+    urlSetup              = urlBase + config.getCubridUserSys() + config.getCubridConnectionSuffix();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

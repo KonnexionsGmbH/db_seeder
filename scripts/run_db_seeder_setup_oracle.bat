@@ -25,13 +25,10 @@ rem ----------------------------------------------------------------------------
 echo Oracle Database
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (Oracle Database %DB_SEEDER_VERSION_ORACLE%)
-docker create -e ORACLE_PWD=oracle --name db_seeder_db -p 1521:1521/tcp --shm-size 1G konnexionsgmbh/%DB_SEEDER_VERSION_ORACLE%
+docker create --name db_seeder_db -e ORACLE_PWD=oracle -p 1521:1521/tcp --shm-size 1G konnexionsgmbh/%DB_SEEDER_VERSION_ORACLE%
 
 echo Docker start db_seeder_db (Oracle Database %DB_SEEDER_VERSION_ORACLE%) ...
 docker start db_seeder_db
-
-for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
-echo DOCKER Oracle Database was ready in %CONSUMED%
 
 :check_health_status:
 mkdir tmp >nul 2>&1
@@ -42,6 +39,9 @@ if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (
     ping -n 60 127.0.0.1 >nul
     goto :check_health_status
 )
+
+for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
+echo DOCKER Oracle Database was ready in %CONSUMED%
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

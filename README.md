@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.14.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.5.svg)
 ----
 
 ### Table of Contents
@@ -25,12 +25,12 @@
 
 **`db_seeder`** allows the generation of dummy data in different database management systems. 
 Currently the following management database systems are supported:
-- [Apache Derby](https://db.apache.org/derby/)
+- [Apache Derby](https://db.apache.org/derby)
   - relational database management system (RDBMS)
   - open source
   - client and embedded version
   - **[see technical details here](#details_derby)**
-- [CrateDB](https://crate.io/)
+- [CrateDB](https://crate.io)
   - relational database management system (RDBMS)
   - open source
   - client only version
@@ -50,7 +50,7 @@ Currently the following management database systems are supported:
   - open source
   - client and embedded version
   - **[see technical details here](#details_h2)**
-- [HyperSQL Database](https://hsqldb.org/) 
+- [HyperSQL Database](https://hsqldb.org) 
   - relational database management system (RDBMS)
   - open source
   - client and embedded version
@@ -63,7 +63,7 @@ Currently the following management database systems are supported:
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_informix)**
-- [MariaDB Server](https://mariadb.com/) 
+- [MariaDB Server](https://mariadb.com) 
   - relational database management system (RDBMS)
   - open source
   - client only version
@@ -72,21 +72,25 @@ Currently the following management database systems are supported:
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_mssqlserver)**
-- [MySQL Database](https://www.mysql.com/) 
+- [Mimer SQL](https://www.mimer.com) 
+  - relational database management system (RDBMS)
+  - client only version
+  - **[see technical details here](#details_mimer)**
+- [MySQL Database](https://www.mysql.com) 
   - relational database management system (RDBMS)
   - open source
   - client only version
   - **[see technical details here](#details_mysql)**
-- [Oracle Database](https://www.oracle.com/database/)
+- [Oracle Database](https://www.oracle.com/database)
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_oracle)**
-- [PostgreSQL Database](https://www.postgresql.org/)
+- [PostgreSQL Database](https://www.postgresql.org)
   - relational database management system (RDBMS)
   - open source
   - client only version
   - **[see technical details here](#details_postgresql)**
-- [SQLite](https://www.sqlite.org/)
+- [SQLite](https://www.sqlite.org)
   - relational database management system (RDBMS)
   - open source
   - embedded only version
@@ -101,22 +105,23 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 
 ### 1.1 Relational Database Management Systems
 
-| DBMS | DB Ticker Symbol(s) | Tested Versions |
-|---|---|---|
-| Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 
-| CrateDB | CRATEDB | 4.1.6 | 
-| CUBRID | CUBRID | 10.2 | 
-| Firebird | FIREBIRD | 3.0.5 | 
-| H2 Database Engine | H2 | 1.4.200 | 
-| HyperSQL Database | HSQLDB | 2.5.1 | 
-| IBM Db2 Database | IBMDB2 | 11.5.1.0 | 
-| IBM Informix | INFORMIX | 14.10 FC3 | 
-| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 
-| Microsoft SQL Server | MSSQLSERVER | 2019| 
-| MySQL Database | MYSQL | 8.0.20 | 
-| Oracle Database | ORACLE | 12c, 18c, 19c |
-| PostgreSQL Database | POSTGRESQL | 12.3 |
-| SQLite | SQLITE | 3.32.2 |
+| DBMS | DB Ticker Symbol(s) | DBMS Versions | Latest JDBC |
+|---|---|---|---|
+| Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 10.15.2.0 |
+| CrateDB | CRATEDB | 4.1.6 - 4.1.8 | 2.6.0 |
+| CUBRID | CUBRID | 10.2 | 10.2.1.8849 |
+| Firebird | FIREBIRD | 3.0.5 - 3.0.6 | 4.0.0.java11 | 
+| H2 Database Engine | H2, H2_EMB | 1.4.200 | 1.4.200 | 
+| HyperSQL Database | HSQLDB, HSQLDB_EMB | 2.5.1 | 2.5.1 | 
+| IBM Db2 Database | IBMDB2 | 11.5.1.0 - 11.5.4.0 | 11.5.4.0 | 
+| IBM Informix | INFORMIX | 14.10 FC3DE | 4.50.4.1 | 
+| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 2.6.1 | 
+| Microsoft SQL Server | MSSQLSERVER | 2019| 8.3.1.jre14-preview | 
+| Mimer SQL | MIMER | 11.0.3C | 3.40 | 
+| MySQL Database | MYSQL | 8.0.20 | 8.0.20 | 
+| Oracle Database | ORACLE | 12c - 19c | 19.7.0.0 |
+| PostgreSQL Database | POSTGRESQL | 12.3 | 42.2.14 |
+| SQLite | SQLITE | 3.32.3 | 3.32.3 |
 
 [//]: # (===========================================================================================)
 
@@ -227,27 +232,38 @@ The system requirements are described in the respective release notes.
 ### <a name="operating_instructions_scripts"></a> 4.1 Scripts
 
 Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
-To run **`db_seeder`**, only the libraries in the `lib` directory and the appropriate batch script of `run_db_seeder` are required. 
-All parameters used in **`db_seeder`** can be adjusted in the batch script to suit your needs.
+To run **`db_seeder`**, only the libraries in the `lib` directory and the appropriate script of `run_db_seeder` are required. 
+All parameters used in **`db_seeder`** can be adjusted in the script to suit your needs.
 
-#### 4.1.1 Batch Script `run_db_seeder`
+#### 4.1.1 Script `run_db_seeder`
 
-The `run_db_seeder` batch script generates dummy data for a selected DBMS.
+The `run_db_seeder` script generates dummy data for a selected DBMS.
 Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
 The following script parameter is required: 
 
 - `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
 
 
-#### 4.1.2 Batch Script `run_db_seeder_setup_dbms`
+#### 4.1.2 Script `run_db_seeder_setup_dbms`
 
-The `run_db_seeder_setup_dbms` batch script creates an empty database for a selected DBMS.
+The `run_db_seeder_setup_dbms` script creates an empty database for a selected DBMS.
 With all client DBMS this database is based on a corresponding Docker image.
 Therefore, the prerequisite is that Docker is started and a suitable connection to the Internet exists.
 The following script parameters are required: 
 
 - `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
-- `DB_SEEDER_DELETE_EXISTING_CONTAINER`: delete the existing Docker container (`yes`/`no`)
+ 
+#### 4.1.3 Script `run_db_seeder_complete`
+
+The `run_db_seeder_complete` script allows a complete run-through for all DBMS, 
+i.e. it performs the following processing for each implemented DBMS: 
+
+1. `run_db_seeder_setup_dbms`
+1. `run_db_seeder`
+1. `run_db_seeder`
+
+A statistics file is created with the respective runtimes.
+No script parameters are required. 
  
 [//]: # (===========================================================================================)
 
@@ -255,7 +271,7 @@ The following script parameters are required:
  
 #### 4.2.1 Supported Parameters
 
-The flow control parameters for **`db_seeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the batch script.
+The flow control parameters for **`db_seeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the script.
 The following control parameters are currently supported:
 
 ```
@@ -275,10 +291,14 @@ db_seeder.cubrid.user=kxn_user
 
 db_seeder.derby.connection.port=1527
 db_seeder.derby.connection.prefix=jdbc:derby:
-db_seeder.derby.database=kxn_db
+db_seeder.derby.database=./tmp/kxn_db
 
 db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
+
+db_seeder.file.statistics.delimiter=\t
+db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
+db_seeder.file.statistics.name=statistics/db_seeder.tsv
 
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
@@ -291,7 +311,7 @@ db_seeder.firebird.user=kxn_user
 
 db_seeder.h2.connection.port=9092
 db_seeder.h2.connection.prefix=jdbc:h2:
-db_seeder.h2.database=kxn_db
+db_seeder.h2.database=./tmp/kxn_db
 db_seeder.h2.password=h2
 db_seeder.h2.schema=kxn_schema
 db_seeder.h2.user=kxn_user
@@ -299,7 +319,7 @@ db_seeder.h2.user=kxn_user
 db_seeder.hsqldb.connection.port=9001
 db_seeder.hsqldb.connection.prefix=jdbc:hsqldb:
 db_seeder.hsqldb.connection.suffix=;ifexists=false;shutdown=true
-db_seeder.hsqldb.database=kxn_db
+db_seeder.hsqldb.database=./tmp/kxn_db
 db_seeder.hsqldb.password=hsqldb
 db_seeder.hsqldb.schema=kxn_schema
 db_seeder.hsqldb.user.sys=SA
@@ -336,6 +356,15 @@ db_seeder.max.row.company=5400
 db_seeder.max.row.country=200
 db_seeder.max.row.country_state=600
 db_seeder.max.row.timezone=11
+
+db_seeder.mimer.connection.port=11360
+db_seeder.mimer.connection.prefix=jdbc:mimer://
+db_seeder.mimer.database.sys=mimerdb
+db_seeder.mimer.database=kxn_db
+db_seeder.mimer.password.sys=mimersql
+db_seeder.mimer.password=mimersql
+db_seeder.mimer.user.sys=SYSADM
+db_seeder.mimer.user=kxn_user
 
 db_seeder.mssqlserver.connection.port=1433
 db_seeder.mssqlserver.connection.prefix=jdbc:sqlserver://
@@ -375,7 +404,7 @@ db_seeder.postgresql.user.sys=kxn_user_sys
 db_seeder.postgresql.user=kxn_user
 
 db_seeder.sqlite.connection.prefix=jdbc:sqlite:
-db_seeder.sqlite.database=kxn_db
+db_seeder.sqlite.database=tmp/kxn_db
 ```
 
 #### 4.2.2 Explanation and Cross-reference
@@ -385,22 +414,25 @@ db_seeder.sqlite.database=kxn_db
 | <db_ticker>.connection.port=<9...9> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
 | <db_ticker>.connection.prefix=<x...x> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
 | <db_ticker>.connection.suffix=<x...x> | <DB_TICKER>_CONNECTION_SUFFIX | CUBRID, FIREBIRD, HSQLDB, INFORMIX, MYSQL | suffix of the database connection string |
-| <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | INFORMIX, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL | privileged database name |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
-| <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
-| <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
+| <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, POSTGRESQL | privileged database name |
+| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
+| <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
+| <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
 | <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | H2, HSQLDB, IBMDB2, MSSQLSERVER | schema name |
-| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, HSQLDB, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the privileged user |
-| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, HSQLDB, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the privileged user |
+| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
-| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID, INFORMIX and MSSQLSERVER | generate column content with tradtional chinese characters included |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
+| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |
+| file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
+| file.statistics.header=<x...x> | FILE_STATISTICS_NAME | all DBMS | header line of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
+| file.statistics.name=<x...x> | FILE_STATISTICS_NAME | all DBMS | file name of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 
-[DBeaver](https://dbeaver.io/) is a great tool to analyze the database content. 
+[DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
 **[Apache Derby](#details_derby)** / 
@@ -412,6 +444,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
+**[Mimer SQL](#details_mimer)** / 
 **[Microsoft SQL Server](#details_mssqlserver)** / 
 **[MySQL Database](#details_mysql)** / 
 **[Oracle Database](#details_oracle)** / 
@@ -447,7 +480,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://issues.apache.org/jira/secure/Dashboard.jspa)
   
 - **JDBC driver (latest)**:
-  - version 10.15.2.
+  - version 10.15.2.0
   - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
   - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
@@ -484,7 +517,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.1.6`
+  - pull command: `docker pull crate:4.1.8`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -531,13 +564,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **Docker image (latest)**:
   - pull command: `docker pull cubrid/cubrid:10.2`
-  - [DockerHub](https://hub.docker.com/r/cubrid/cubrid/)
+  - [DockerHub](https://hub.docker.com/r/cubrid/cubrid)
 
 - **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
 - **issue tracking**: 
   - [Jira](https://jira.cubrid.org/secure/Dashboard.jspa)
-  - [reddit](https://www.reddit.com/r/CUBRID/)
+  - [reddit](https://www.reddit.com/r/CUBRID)
 
 - **JDBC driver (latest)**:
   - version 10.2.1.8849
@@ -574,7 +607,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:3.0.5`
+  - pull command: `docker pull jacobalberty/firebird:3.0.6`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
@@ -674,7 +707,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **privileged database access**: user `SA`
 
-- **source code**: [SourceForge](https://sourceforge.net/projects/hsqldb/files/hsqldb/)
+- **source code**: [SourceForge](https://sourceforge.net/projects/hsqldb/files/hsqldb)
 
 - **DBeaver database connection settings**:
 
@@ -718,7 +751,7 @@ Below are also DBeaver based connection parameter examples for each database man
     - procedure or function
   
 - **JDBC driver (latest)**:
-  - version 11.5.0.0
+  - version 11.5.4.0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
@@ -757,7 +790,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made
   
 - **JDBC driver (latest)**:
-  - version 4.50.3
+  - version 4.50.4.1
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.informix/jdbc)
 
 - **privileged database access**: 
@@ -787,10 +820,10 @@ Below are also DBeaver based connection parameter examples for each database man
 | timestamp | DATETIME |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://mariadb.com/kb/en/create-database/) 
+  - [CREATE DATABASE](https://mariadb.com/kb/en/create-database) 
   - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://mariadb.com/kb/en/create-table/) 
-  - [CREATE USER](https://mariadb.com/kb/en/create-user/) 
+  - [CREATE TABLE](https://mariadb.com/kb/en/create-table) 
+  - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
   - pull command: `docker pull mariadb:10.5.4`
@@ -860,7 +893,45 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.11 MySQL Database
+### <a name="details_mimer"></a> 5.11 Mimer SQL
+
+- **data types**:
+
+| JDBC Data Type | MariaDB Server Type |
+| --- | --- |
+| Blob / byte[] | BLOB |
+| Clob | CLOB |
+| long | BIGINT |
+| string | VARCHAR |
+| timestamp | TIMESTAMP |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+  - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull mimersql/mimersql_v11.0:v11.0.3c`
+  - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
+
+- **encoding**: NCHAR, NVARCHAR
+  
+- **JDBC driver (latest)**: 
+  - version 3.40
+  - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se/)
+
+- **privileged database access**:
+  - database; `mimerdb`
+  - user: `SYSADM`
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_MIMER.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_mysql"></a> 5.12 MySQL Database
 
 - **data types**:
 
@@ -902,7 +973,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.12 Oracle Database
+### <a name="details_oracle"></a> 5.13 Oracle Database
 
 - **data types**:
 
@@ -925,7 +996,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 19.3.0.0
+  - version 19.7.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc10)
 
 - **privileged database access**:
@@ -938,7 +1009,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.13 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.14 PostgreSQL Database
 
 - **data types**:
 
@@ -963,7 +1034,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
   
 - **JDBC driver (latest)**:
-  - version 4.2.14
+  - version 42.2.14
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)
@@ -974,7 +1045,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.14 SQLite
+### <a name="details_sqlite"></a> 5.15 SQLite
 
 - **data types**:
 
@@ -1022,20 +1093,27 @@ In case of software changes we strongly recommend you to respect the license ter
 1. Push to the branch (git push origin my-new-feature)
 1. Create a new Pull Request
 1. Action points to be considered when adding a new database:
-    1. lib/<database_driver>.jar
-    1. scripts/run_db_seeder_setup_<database>.bat
-    1. src/main/java/ch/konnexions/db_seeder/AbstractDatabaseSeeder.java
-    1. src/main/java/ch/konnexions/db_seeder/Config.java
-    1. src/main/java/ch/konnexions/db_seeder/DatabaseSeeder.java
-    1. src/main/java/ch/konnexions/db_seeder/jdbc/<database>/<Database>Seeder.java
-    1. src/main/resources/db_seeder.properties
-    1. .travis.yml
-    1. build.gradle
-    1. README.md
-    1. Release-Notes.md
-    1. run_db_seeder.bat
-    1. run_db_seeder.sh
-    1. run_db_seeder_setup_dbms.bat
-    1. run_db_seeder_setup_dbms.sh
-    1. run_db_seeder_setup_files.bat
-    1. run_db_seeder_setup_files.sh
+   - lib/<database_driver>.jar
+    
+   - scripts/run_db_seeder_setup_<database>.bat
+   - scripts/run_db_seeder_setup_files.bat
+   - scripts/run_db_seeder_setup_files.sh
+    
+   - src/main/java/ch/konnexions/db_seeder/AbstractDatabaseSeeder.java
+   - src/main/java/ch/konnexions/db_seeder/Config.java
+   - src/main/java/ch/konnexions/db_seeder/DatabaseSeeder.java
+   - src/main/java/ch/konnexions/db_seeder/jdbc/<database>/<Database>Seeder.java
+    
+   - src/main/resources/db_seeder.properties
+    
+   - .travis.yml
+   - build.gradle
+   - README.md
+   - Release-Notes.md
+    
+   - run_db_seeder.bat
+   - run_db_seeder.sh
+   - run_db_seeder_complete.bat
+   - run_db_seeder_complete.sh
+   - run_db_seeder_setup_dbms.bat
+   - run_db_seeder_setup_dbms.sh

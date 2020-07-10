@@ -11,6 +11,10 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_DBMS_EMBEDDED=no
 
+unset -f DB_SEEDER_FILE_STATISTICS_DELIMITER=
+unset -f DB_SEEDER_FILE_STATISTICS_HEADER=
+unset -f DB_SEEDER_FILE_STATISTICS_NAME=
+
 if [ -z "$1" ]; then
     echo "==========================================="
     echo "derby       - Apache Derby [client]"
@@ -25,6 +29,7 @@ if [ -z "$1" ]; then
     echo "ibmdb2      - IBM Db2 Database"
     echo "informix    - IBM Informix"
     echo "mariadb     - MariaDB Server"
+    echo "mimer       - Mimer SQL"
     echo "mssqlserver - Microsoft SQL Server"
     echo "mysql       - MySQL"
     echo "oracle      - Oracle Database"
@@ -142,6 +147,16 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     unset -f DB_SEEDER_MARIADB_PASSWORD_SYS=
     unset -f DB_SEEDER_MARIADB_USER=
     unset -f DB_SEEDER_MARIADB_USER_SYS=
+fi
+if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
+    unset -f DB_SEEDER_MIMER_CONNECTION_PORT=
+    unset -f DB_SEEDER_MIMER_CONNETION_PREFIX=
+    unset -f DB_SEEDER_MIMER_DATABASE=
+    unset -f DB_SEEDER_MIMER_DATABASE_SYS=
+    unset -f DB_SEEDER_MIMER_PASSWORD=
+    unset -f DB_SEEDER_MIMER_PASSWORD_SYS=
+    unset -f DB_SEEDER_MIMER_USER=
+    unset -f DB_SEEDER_MIMER_USER_SYS=
 fi
 if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
     export DB_SEEDER_ENCODING_UTF_8=false
@@ -307,6 +322,16 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     echo "MARIADB_USER                      : $DB_SEEDER_MARIADB_USER"
     echo "MARIADB_USER_SYS                  : $DB_SEEDER_MARIADB_USER_SYS"
 fi
+if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
+    echo "MIMER_CONNECTION_PORT             : $DB_SEEDER_MIMER_CONNECTION_PORT"
+    echo "MIMER_CONNECTION_PREFIX           : $DB_SEEDER_MIMER_CONNECTION_PREFIX"
+    echo "MIMER_DATABASE                    : $DB_SEEDER_MIMER_DATABASE"
+    echo "MIMER_DATABASE_SYS                : $DB_SEEDER_MIMER_DATABASE_SYS"
+    echo "MIMER_PASSWORD                    : $DB_SEEDER_MIMER_PASSWORD"
+    echo "MIMER_PASSWORD_SYS                : $DB_SEEDER_MIMER_PASSWORD_SYS"
+    echo "MIMER_USER                        : $DB_SEEDER_MIMER_USER"
+    echo "MIMER_USER_SYS                    : $DB_SEEDER_MIMER_USER_SYS"
+fi
 if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
     echo "MSSQLSERVER_CONNECTION_PORT       : $DB_SEEDER_MSSQLSERVER_CONNECTION_PORT"
     echo "MSSQLSERVER_CONNECTION_PREFIX     : $DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX"
@@ -353,6 +378,10 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
     echo "SQLITE_DATABASE                   : $DB_SEEDER_SQLITE_DATABASE"
 fi
 
+echo "--------------------------------------------------------------------------------"
+echo "FILE_STATISTICS_DELIMITER         : $DB_SEEDER_FILE_STATISTICS_DELIMITER"
+echo "FILE_STATISTICS_HEADER            : $DB_SEEDER_FILE_STATISTICS_HEADER"
+echo "FILE_STATISTICS_NAME              : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"

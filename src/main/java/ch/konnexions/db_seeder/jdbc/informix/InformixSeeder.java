@@ -21,8 +21,9 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new IBM Informix seeder.
+   * @param args0 
    */
-  public InformixSeeder() {
+  public InformixSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,19 +31,20 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.INFORMIX;
+    dbms                  = Dbms.INFORMIX;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    driver             = "com.informix.jdbc.IfxDriver";
+    driver                = "com.informix.jdbc.IfxDriver";
 
-    tableNameDelimiter = "";
+    tableNameDelimiter    = "";
 
-    url                = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
+    url                   = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
         + config.getInformixDatabase() + config.getInformixConnectionSuffix();
 
-    urlSetup           = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
+    urlSetup              = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
         + config.getInformixDatabaseSys() + config.getInformixConnectionSuffix();
 
-    dropTableStmnt     = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
+    dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

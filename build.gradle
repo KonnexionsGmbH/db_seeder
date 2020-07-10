@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '1.14.0'
+version '1.15.5'
 
 repositories {
     jcenter()
@@ -16,16 +16,16 @@ repositories {
 
 dependencies {
     implementation 'com.h2database:h2:1.4.200'
-    implementation 'com.ibm.db2:jcc:11.5.0.0'
-    implementation 'com.ibm.informix:jdbc:4.50.3'
+    implementation 'com.ibm.db2:jcc:11.5.4.0'
+    implementation 'com.ibm.informix:jdbc:4.50.4.1'
     implementation 'com.microsoft.sqlserver:mssql-jdbc:8.3.1.jre14-preview'
-    implementation 'com.oracle.ojdbc:ojdbc10:19.3.0.0'
+    implementation 'com.oracle.database.jdbc:ojdbc8:19.7.0.0'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
     implementation 'cubrid:cubrid-jdbc:10.2.1.8849'
     implementation 'io.crate:crate-jdbc:2.6.0'
     implementation 'mysql:mysql-connector-java:8.0.20'
     implementation 'org.apache.commons:commons-configuration2:2.7'
-    implementation 'org.apache.commons:commons-lang3:3.10'
+    implementation 'org.apache.commons:commons-csv:1.8'
     implementation 'org.apache.derby:derby:10.15.2.0'
     implementation 'org.apache.derby:derbyclient:10.15.2.0'
     implementation 'org.firebirdsql.jdbc:jaybird:4.0.0.java11'

@@ -21,8 +21,9 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new CrateDB seeder.
+   * @param args0 
    */
-  public CratedbSeeder() {
+  public CratedbSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,15 +31,17 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.CRATEDB;
+    dbms                  = Dbms.CRATEDB;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter = "";
+    tableNameDelimiter    = "";
 
-    urlBase            = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort() + "/?strict=true&user=";
-    url                = urlBase + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
-    urlSetup           = urlBase + config.getCratedbUserSys();
+    urlBase               = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
+        + "/?strict=true&user=";
+    url                   = urlBase + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
+    urlSetup              = urlBase + config.getCratedbUserSys();
 
-    dropTableStmnt     = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
+    dropTableStmnt        = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }

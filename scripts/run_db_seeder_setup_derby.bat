@@ -31,9 +31,6 @@ docker create --name db_seeder_db -p 1527:1527/tcp konnexionsgmbh/apache_derby:%
 echo Docker start db_seeder_db (Apache Derby %DB_SEEDER_VERSION_DERBY%) ...
 docker start db_seeder_db
 
-for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
-echo DOCKER Apache Derby was ready in %CONSUMED%
-
 :check_health_status:
 mkdir tmp >nul 2>&1
 docker inspect -f {{.State.Health.Status}} db_seeder_db > tmp\docker_health_status.txt
@@ -43,6 +40,9 @@ if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (
     ping -n 10 127.0.0.1 >nul
     goto :check_health_status
 )
+
+for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
+echo DOCKER Apache Derby was ready in %CONSUMED%
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

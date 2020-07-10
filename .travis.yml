@@ -20,6 +20,7 @@ env:
     - DB_SEEDER_DBMS=ibmdb2
     - DB_SEEDER_DBMS=informix
     - DB_SEEDER_DBMS=mariadb
+    - DB_SEEDER_DBMS=mimer
     - DB_SEEDER_DBMS=mssqlserver
     - DB_SEEDER_DBMS=mysql
     - DB_SEEDER_DBMS=oracle

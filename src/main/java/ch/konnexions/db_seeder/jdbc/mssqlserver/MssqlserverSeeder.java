@@ -21,8 +21,9 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Microsoft SQL Server seeder.
+   * @param args0 
    */
-  public MssqlserverSeeder() {
+  public MssqlserverSeeder(String dbmsTickerSymbol) {
     super();
 
     String methodName = new Object() {
@@ -30,14 +31,15 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
 
-    dbms               = Dbms.MSSQLSERVER;
+    dbms                  = Dbms.MSSQLSERVER;
+    this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter = "";
+    tableNameDelimiter    = "";
 
-    urlBase            = config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMssqlserverConnectionPort()
+    urlBase               = config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMssqlserverConnectionPort()
         + ";databaseName=";
-    url                = urlBase + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword();
-    urlSetup           = urlBase + config.getMssqlserverDatabaseSys() + ";user=" + config.getMssqlserverUserSys() + ";password="
+    url                   = urlBase + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword();
+    urlSetup              = urlBase + config.getMssqlserverDatabaseSys() + ";user=" + config.getMssqlserverUserSys() + ";password="
         + config.getMssqlserverPasswordSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
