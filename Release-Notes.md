@@ -15,6 +15,7 @@ Release Date: 12.07.2020
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
 

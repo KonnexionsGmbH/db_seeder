@@ -90,8 +90,7 @@ fi
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
     echo "Docker stop/rm db_seeder_db"
-    docker stop db_seeder_db
-    docker rm -f db_seeder_db
+    docker ps -q --filter "name=db_seeder_db" | grep -q . && docker stop db_seeder_db && docker rm -fv db_seeder_db
 fi
 
 echo "================================================================================"
