@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a MySQL Database Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_MYSQL             : %DB_SEEDER_VERSION_MYSQL%
+echo VERSION_MYSQL             : %DB_SEEDER_MYSQL_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo MySQL Database
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (MySQL Database %DB_SEEDER_VERSION_MYSQL%)
-docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mysql -p 3306:3306/tcp mysql:%DB_SEEDER_VERSION_MYSQL%
+echo Docker create db_seeder_db (MySQL Database %DB_SEEDER_MYSQL_VERSION%)
+docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mysql -p 3306:3306/tcp mysql:%DB_SEEDER_MYSQL_VERSION%
 
-echo Docker start db_seeder_db (MySQL Database %DB_SEEDER_VERSION_MYSQL%) ...
+echo Docker start db_seeder_db (MySQL Database %DB_SEEDER_MYSQL_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 20 127.0.0.1>nul

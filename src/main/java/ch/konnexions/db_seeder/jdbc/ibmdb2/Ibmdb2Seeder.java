@@ -38,7 +38,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
+    url                   = config.getIbmdb2ConnectionPrefix() + config.getIbmdb2ConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
         + config.getIbmdb2Database();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";

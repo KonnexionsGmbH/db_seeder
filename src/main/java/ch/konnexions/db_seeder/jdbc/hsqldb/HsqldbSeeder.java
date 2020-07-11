@@ -225,7 +225,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     tableNameDelimiter = "";
 
     if (isClient) {
-      url = config.getHsqldbConnectionPrefix() + "hsql://" + config.getJdbcConnectionHost() + ":" + config.getHsqldbConnectionPort() + "/"
+      url = config.getHsqldbConnectionPrefix() + "hsql://" + config.getHsqldbConnectionHost() + ":" + config.getHsqldbConnectionPort() + "/"
           + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();
     } else {
       url = config.getHsqldbConnectionPrefix() + "file:" + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();

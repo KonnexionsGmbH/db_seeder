@@ -12,6 +12,10 @@ In case of software changes we strongly recommend you to respect the license ter
      - <database_driver>.jar
    - scripts
      - run_db_seeder_setup_<database>.bat
+     - run_db_seeder_complete.bat
+     - run_db_seeder_complete.sh
+     - run_db_seeder_setup_dbms.bat
+     - run_db_seeder_setup_dbms.sh
      - run_db_seeder_setup_files.bat
      - run_db_seeder_setup_files.sh
    - src/main/java
@@ -27,7 +31,3 @@ In case of software changes we strongly recommend you to respect the license ter
    - Release-Notes.md
    - run_db_seeder.bat
    - run_db_seeder.sh
-   - run_db_seeder_complete.bat
-   - run_db_seeder_complete.sh
-   - run_db_seeder_setup_dbms.bat
-   - run_db_seeder_setup_dbms.sh

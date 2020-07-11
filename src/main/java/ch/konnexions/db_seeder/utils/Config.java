@@ -32,12 +32,14 @@ public class Config {
   @SuppressWarnings("unused")
   private static Logger                                                logger     = Logger.getLogger(Config.class);
 
+  private String                                                       cratedbConnectionHost;
   private int                                                          cratedbConnectionPort;
   private String                                                       cratedbConnectionPrefix;
   private String                                                       cratedbPassword;
   private String                                                       cratedbUser;
   private String                                                       cratedbUserSys;
 
+  private String                                                       cubridConnectionHost;
   private int                                                          cubridConnectionPort;
   private String                                                       cubridConnectionPrefix;
   private String                                                       cubridConnectionSuffix;
@@ -46,6 +48,7 @@ public class Config {
   private String                                                       cubridUser;
   private String                                                       cubridUserSys;
 
+  private String                                                       derbyConnectionHost;
   private int                                                          derbyConnectionPort;
   private String                                                       derbyConnectionPrefix;
   private String                                                       derbyDatabase;
@@ -59,6 +62,7 @@ public class Config {
   private String                                                       fileStatisticsHeader;
   private String                                                       fileStatisticsName;
 
+  private String                                                       firebirdConnectionHost;
   private int                                                          firebirdConnectionPort;
   private String                                                       firebirdConnectionPrefix;
   private String                                                       firebirdConnectionSuffix;
@@ -68,6 +72,7 @@ public class Config {
   private String                                                       firebirdUser;
   private String                                                       firebirdUserSys;
 
+  private String                                                       h2ConnectionHost;
   private int                                                          h2ConnectionPort;
   private String                                                       h2ConnectionPrefix;
   private String                                                       h2Database;
@@ -75,6 +80,7 @@ public class Config {
   private String                                                       h2Schema;
   private String                                                       h2User;
 
+  private String                                                       hsqldbConnectionHost;
   private int                                                          hsqldbConnectionPort;
   private String                                                       hsqldbConnectionPrefix;
   private String                                                       hsqldbConnectionSuffix;
@@ -84,6 +90,7 @@ public class Config {
   private String                                                       hsqldbUser;
   private String                                                       hsqldbUserSys;
 
+  private String                                                       ibmdb2ConnectionHost;
   private int                                                          ibmdb2ConnectionPort;
   private String                                                       ibmdb2ConnectionPrefix;
   private String                                                       ibmdb2Database;
@@ -91,18 +98,18 @@ public class Config {
   private String                                                       ibmdb2Schema;
   private String                                                       ibmdb2UserSys;
 
+  private String                                                       informixConnectionHost;
+  private int                                                          informixConnectionPort;
   private String                                                       informixConnectionPrefix;
   private String                                                       informixConnectionSuffix;
   private String                                                       informixDatabase;
   private String                                                       informixDatabaseSys;
   private String                                                       informixPasswordSys;
   private String                                                       informixUserSys;
-  private int                                                          informixConnectionPort;
-
-  private String                                                       jdbcConnectionHost;
 
   private ArrayList<String>                                            keysSorted = new ArrayList<>();
 
+  private String                                                       mariadbConnectionHost;
   private int                                                          mariadbConnectionPort;
   private String                                                       mariadbConnectionPrefix;
   private String                                                       mariadbDatabase;
@@ -118,6 +125,7 @@ public class Config {
   private int                                                          maxRowCountryState;
   private int                                                          maxRowTimezone;
 
+  private String                                                       mimerConnectionHost;
   private int                                                          mimerConnectionPort;
   private String                                                       mimerConnectionPrefix;
   private String                                                       mimerDatabase;
@@ -127,6 +135,7 @@ public class Config {
   private String                                                       mimerUser;
   private String                                                       mimerUserSys;
 
+  private String                                                       mssqlserverConnectionHost;
   private int                                                          mssqlserverConnectionPort;
   private String                                                       mssqlserverConnectionPrefix;
   private String                                                       mssqlserverDatabase;
@@ -137,6 +146,7 @@ public class Config {
   private String                                                       mssqlserverUser;
   private String                                                       mssqlserverUserSys;
 
+  private String                                                       mysqlConnectionHost;
   private int                                                          mysqlConnectionPort;
   private String                                                       mysqlConnectionPrefix;
   private String                                                       mysqlConnectionSuffix;
@@ -147,6 +157,7 @@ public class Config {
   private String                                                       mysqlUser;
   private String                                                       mysqlUserSys;
 
+  private String                                                       oracleConnectionHost;
   private int                                                          oracleConnectionPort;
   private String                                                       oracleConnectionPrefix;
   private String                                                       oracleConnectionService;
@@ -155,6 +166,7 @@ public class Config {
   private String                                                       oracleUser;
   private String                                                       oracleUserSys;
 
+  private String                                                       postgresqlConnectionHost;
   private int                                                          postgresqlConnectionPort;
   private String                                                       postgresqlConnectionPrefix;
   private String                                                       postgresqlDatabase;
@@ -202,6 +214,13 @@ public class Config {
   // Apache Derby ------------------------------------------------------------
 
   /**
+   * @return the Apache Derby host name where the database server is listening for requests
+   */
+  public final String getApachederbyConnectionHost() {
+    return derbyConnectionHost;
+  }
+
+  /**
    * @return the Apache Derby port number where the database server is listening for requests
    */
   public final int getApachederbyConnectionPort() {
@@ -234,6 +253,13 @@ public class Config {
   }
 
   // CrateDB ----------------------------------------------------------
+
+  /**
+   * @return the CrateDB host name where the database server is listening for requests
+   */
+  public final String getCratedbConnectionHost() {
+    return cratedbConnectionHost;
+  }
 
   /**
    * @return the CrateDB port number where the database server is listening for requests
@@ -271,6 +297,13 @@ public class Config {
   }
 
   // CUBRID ------------------------------------------------------------------
+
+  /**
+   * @return the CUBRID host name where the database server is listening for requests
+   */
+  public final String getCubridConnectionHost() {
+    return cubridConnectionHost;
+  }
 
   /**
    * @return the CUBRID port number where the database server is listening for requests
@@ -363,6 +396,13 @@ public class Config {
   // Firebird ----------------------------------------------------------------
 
   /**
+   * @return the Firebird host name where the database server is listening for requests
+   */
+  public final String getFirebirdConnectionHost() {
+    return firebirdConnectionHost;
+  }
+
+  /**
    * @return the Firebird port number where the database server is listening for requests
    */
   public final int getFirebirdConnectionPort() {
@@ -421,6 +461,13 @@ public class Config {
   // H2 Database Engine-------------------------------------------------------
 
   /**
+   * @return the H2 Database Engine host name where the database server is listening for requests
+   */
+  public final String getH2ConnectionHost() {
+    return h2ConnectionHost;
+  }
+
+  /**
    * @return the H2 Database Engine port number where the database server is listening for requests
    */
   public final int getH2ConnectionPort() {
@@ -463,6 +510,13 @@ public class Config {
   }
 
   // HyperSQL Database--------------------------------------------------------
+
+  /**
+   * @return the HyperSQL Database host name where the database server is listening for requests
+   */
+  public final String getHsqldbConnectionHost() {
+    return hsqldbConnectionHost;
+  }
 
   /**
    * @return the HyperSQL Database port number where the database server is listening for requests
@@ -523,6 +577,13 @@ public class Config {
   // IBM Db2 Database --------------------------------------------------------
 
   /**
+   * @return the IBM Db2 Database host name where the database server is listening for requests
+   */
+  public final String getIbmdb2ConnectionHost() {
+    return ibmdb2ConnectionHost;
+  }
+
+  /**
    * @return the IBM Db2 port number where the database server is listening for requests
    */
   public final int getIbmdb2ConnectionPort() {
@@ -565,6 +626,13 @@ public class Config {
   }
 
   // IBM Informix ------------------------------------------------------------
+
+  /**
+   * @return the IBM Informix host name where the database server is listening for requests
+   */
+  public final String getInformixConnectionHost() {
+    return informixConnectionHost;
+  }
 
   /**
    * @return the IBM Informix port number where the database server is listening for requests
@@ -615,14 +683,7 @@ public class Config {
     return informixUserSys;
   }
 
-  // JDBC Connection ---------------------------------------------------------
-
-  /**
-   * @return the host name or the IP address of the database
-   */
-  public final String getJdbcConnectionHost() {
-    return jdbcConnectionHost;
-  }
+  // -------------------------------------------------------------------------
 
   private final ArrayList<String> getKeysSorted() {
 
@@ -638,56 +699,63 @@ public class Config {
   // MariaDB Server ----------------------------------------------------------
 
   /**
-   * @return the MariaDB port number where the database server is listening for requests
+   * @return the MariaDB Server host name where the database server is listening for requests
+   */
+  public final String getMariadbConnectionHost() {
+    return mariadbConnectionHost;
+  }
+
+  /**
+   * @return the MariaDB Server port number where the database server is listening for requests
    */
   public final int getMariadbConnectionPort() {
     return mariadbConnectionPort;
   }
 
   /**
-   * @return the prefix of the MariaDB connection string
+   * @return the prefix of the MariaDB Server connection string
    */
   public final String getMariadbConnectionPrefix() {
     return mariadbConnectionPrefix;
   }
 
   /**
-   * @return the MariaDB database name of the normal database
+   * @return the MariaDB Server database name of the normal database
    */
   public final String getMariadbDatabase() {
     return mariadbDatabase;
   }
 
   /**
-   * @return the MariaDB database name of the privileged database
+   * @return the MariaDB Server database name of the privileged database
    */
   public final String getMariadbDatabaseSys() {
     return mariadbDatabaseSys;
   }
 
   /**
-   * @return the MariaDB password to connect as normal user to the database
+   * @return the MariaDB Server password to connect as normal user to the database
    */
   public final String getMariadbPassword() {
     return mariadbPassword;
   }
 
   /**
-   * @return the MariaDB password to connect as privileged user to the database
+   * @return the MariaDB Server password to connect as privileged user to the database
    */
   public final String getMariadbPasswordSys() {
     return mariadbPasswordSys;
   }
 
   /**
-   * @return the MariaDB user name to connect as normal user to the database
+   * @return the MariaDB Server user name to connect as normal user to the database
    */
   public final String getMariadbUser() {
     return mariadbUser;
   }
 
   /**
-   * @return the MariaDB user name to connect as privileged user to the database
+   * @return the MariaDB Server user name to connect as privileged user to the database
    */
   public final String getMariadbUserSys() {
     return mariadbUserSys;
@@ -731,6 +799,13 @@ public class Config {
   }
 
   // Mimer SQL ---------------------------------------------------------------
+
+  /**
+   * @return the Mimer SQL host name where the database server is listening for requests
+   */
+  public final String getMimerConnectionHost() {
+    return mimerConnectionHost;
+  }
 
   /**
    * @return the Mimer SQL port number where the database server is listening for requests
@@ -789,6 +864,13 @@ public class Config {
   }
 
   // Microsoft SQL Server ----------------------------------------------------
+
+  /**
+   * @return the Microsoft SQL Server host name where the database server is listening for requests
+   */
+  public final String getMssqlserverConnectionHost() {
+    return mssqlserverConnectionHost;
+  }
 
   /**
    * @return the Microsoft SQL Server port number where the database server is listening for requests
@@ -854,6 +936,13 @@ public class Config {
   }
 
   // MySQL Database ----------------------------------------------------------
+
+  /**
+   * @return the MySQL Database host name where the database server is listening for requests
+   */
+  public final String getMysqlConnectionHost() {
+    return mysqlConnectionHost;
+  }
 
   /**
    * @return the MySQL port number where the database server is listening for requests
@@ -949,55 +1038,69 @@ public class Config {
   // Oracle Database ---------------------------------------------------------
 
   /**
-   * @return the Oracle port number where the database server is listening for requests
+   * @return the Oracle Database host name where the database server is listening for requests
+   */
+  public final String getOracleConnectionHost() {
+    return oracleConnectionHost;
+  }
+
+  /**
+   * @return the Oracle Database port number where the database server is listening for requests
    */
   public final int getOracleConnectionPort() {
     return oracleConnectionPort;
   }
 
   /**
-   * @return the prefix of the Oracle connection string
+   * @return the prefix of the Oracle Database connection string
    */
   public final String getOracleConnectionPrefix() {
     return oracleConnectionPrefix;
   }
 
   /**
-   * @return the Oracle service name to connect to the database
+   * @return the Oracle Database service name to connect to the database
    */
   public final String getOracleConnectionService() {
     return oracleConnectionService;
   }
 
   /**
-   * @return the Oracle password to connect as normal user to the database
+   * @return the Oracle Database password to connect as normal user to the database
    */
   public final String getOraclePassword() {
     return oraclePassword;
   }
 
   /**
-   * @return the Oracle password to connect as privileged user to the database
+   * @return the Oracle Database password to connect as privileged user to the database
    */
   public final String getOraclePasswordSys() {
     return oraclePasswordSys;
   }
 
   /**
-   * @return the Oracle user name to connect as normal user to the database
+   * @return the Oracle Database user name to connect as normal user to the database
    */
   public final String getOracleUser() {
     return oracleUser.toUpperCase();
   }
 
   /**
-   * @return the Oracle user name to connect as privileged user to the database
+   * @return the Oracle Database user name to connect as privileged user to the database
    */
   public final String getOracleUserSys() {
     return oracleUserSys.toUpperCase();
   }
 
   // PostgreSQL Database -----------------------------------------------------
+
+  /**
+   * @return the PostgreSQL Database host name where the database server is listening for requests
+   */
+  public final String getPostgresqlConnectionHost() {
+    return postgresqlConnectionHost;
+  }
 
   /**
    * @return the PostgreSQL Database port number where the database server is listening for requests
@@ -1075,12 +1178,14 @@ public class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
+    cratedbConnectionHost       = propertiesConfiguration.getString("db_seeder.cratedb.connection.host");
     cratedbConnectionPort       = propertiesConfiguration.getInt("db_seeder.cratedb.connection.port");
     cratedbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.cratedb.connection.prefix");
     cratedbPassword             = propertiesConfiguration.getString("db_seeder.cratedb.password");
     cratedbUser                 = propertiesConfiguration.getString("db_seeder.cratedb.user");
     cratedbUserSys              = propertiesConfiguration.getString("db_seeder.cratedb.user.sys");
 
+    cubridConnectionHost        = propertiesConfiguration.getString("db_seeder.cubrid.connection.host");
     cubridConnectionPort        = propertiesConfiguration.getInt("db_seeder.cubrid.connection.port");
     cubridConnectionPrefix      = propertiesConfiguration.getString("db_seeder.cubrid.connection.prefix");
     cubridConnectionSuffix      = propertiesConfiguration.getString("db_seeder.cubrid.connection.suffix");
@@ -1089,6 +1194,7 @@ public class Config {
     cubridUser                  = propertiesConfiguration.getString("db_seeder.cubrid.user");
     cubridUserSys               = propertiesConfiguration.getString("db_seeder.cubrid.user.sys");
 
+    derbyConnectionHost         = propertiesConfiguration.getString("db_seeder.derby.connection.host");
     derbyConnectionPort         = propertiesConfiguration.getInt("db_seeder.derby.connection.port");
     derbyConnectionPrefix       = propertiesConfiguration.getString("db_seeder.derby.connection.prefix");
     derbyDatabase               = propertiesConfiguration.getString("db_seeder.derby.database");
@@ -1101,6 +1207,7 @@ public class Config {
     fileStatisticsHeader        = propertiesConfiguration.getString("db_seeder.file.statistics.header").replace(";", fileStatisticsDelimiter);
     fileStatisticsName          = propertiesConfiguration.getString("db_seeder.file.statistics.name");
 
+    firebirdConnectionHost      = propertiesConfiguration.getString("db_seeder.firebird.connection.host");
     firebirdConnectionPort      = propertiesConfiguration.getInt("db_seeder.firebird.connection.port");
     firebirdConnectionPrefix    = propertiesConfiguration.getString("db_seeder.firebird.connection.prefix");
     firebirdConnectionSuffix    = propertiesConfiguration.getString("db_seeder.firebird.connection.suffix");
@@ -1110,6 +1217,7 @@ public class Config {
     firebirdUser                = propertiesConfiguration.getString("db_seeder.firebird.user");
     firebirdUserSys             = propertiesConfiguration.getString("db_seeder.firebird.user.sys");
 
+    h2ConnectionHost            = propertiesConfiguration.getString("db_seeder.h2.connection.host");
     h2ConnectionPort            = propertiesConfiguration.getInt("db_seeder.h2.connection.port");
     h2ConnectionPrefix          = propertiesConfiguration.getString("db_seeder.h2.connection.prefix");
     h2Database                  = propertiesConfiguration.getString("db_seeder.h2.database");
@@ -1117,6 +1225,7 @@ public class Config {
     h2Schema                    = propertiesConfiguration.getString("db_seeder.h2.schema");
     h2User                      = propertiesConfiguration.getString("db_seeder.h2.user");
 
+    hsqldbConnectionHost        = propertiesConfiguration.getString("db_seeder.hsqldb.connection.host");
     hsqldbConnectionPort        = propertiesConfiguration.getInt("db_seeder.hsqldb.connection.port");
     hsqldbConnectionPrefix      = propertiesConfiguration.getString("db_seeder.hsqldb.connection.prefix");
     hsqldbConnectionSuffix      = propertiesConfiguration.getString("db_seeder.hsqldb.connection.suffix");
@@ -1126,6 +1235,7 @@ public class Config {
     hsqldbUser                  = propertiesConfiguration.getString("db_seeder.hsqldb.user");
     hsqldbUserSys               = propertiesConfiguration.getString("db_seeder.hsqldb.user.sys");
 
+    ibmdb2ConnectionHost        = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.host");
     ibmdb2ConnectionPort        = propertiesConfiguration.getInt("db_seeder.ibmdb2.connection.port");
     ibmdb2ConnectionPrefix      = propertiesConfiguration.getString("db_seeder.ibmdb2.connection.prefix");
     ibmdb2Database              = propertiesConfiguration.getString("db_seeder.ibmdb2.database");
@@ -1133,6 +1243,7 @@ public class Config {
     ibmdb2Schema                = propertiesConfiguration.getString("db_seeder.ibmdb2.schema");
     ibmdb2UserSys               = propertiesConfiguration.getString("db_seeder.ibmdb2.user.sys");
 
+    informixConnectionHost      = propertiesConfiguration.getString("db_seeder.informix.connection.host");
     informixConnectionPort      = propertiesConfiguration.getInt("db_seeder.informix.connection.port");
     informixConnectionPrefix    = propertiesConfiguration.getString("db_seeder.informix.connection.prefix");
     informixConnectionSuffix    = propertiesConfiguration.getString("db_seeder.informix.connection.suffix");
@@ -1141,8 +1252,7 @@ public class Config {
     informixPasswordSys         = propertiesConfiguration.getString("db_seeder.informix.password.sys");
     informixUserSys             = propertiesConfiguration.getString("db_seeder.informix.user.sys");
 
-    jdbcConnectionHost          = propertiesConfiguration.getString("db_seeder.jdbc.connection.host");
-
+    mariadbConnectionHost       = propertiesConfiguration.getString("db_seeder.mariadb.connection.host");
     mariadbConnectionPort       = propertiesConfiguration.getInt("db_seeder.mariadb.connection.port");
     mariadbConnectionPrefix     = propertiesConfiguration.getString("db_seeder.mariadb.connection.prefix");
     mariadbDatabase             = propertiesConfiguration.getString("db_seeder.mariadb.database");
@@ -1158,6 +1268,7 @@ public class Config {
     maxRowCountryState          = propertiesConfiguration.getInt("db_seeder.max.row.country_state");
     maxRowTimezone              = propertiesConfiguration.getInt("db_seeder.max.row.timezone");
 
+    mimerConnectionHost         = propertiesConfiguration.getString("db_seeder.mimer.connection.host");
     mimerConnectionPort         = propertiesConfiguration.getInt("db_seeder.mimer.connection.port");
     mimerConnectionPrefix       = propertiesConfiguration.getString("db_seeder.mimer.connection.prefix");
     mimerDatabase               = propertiesConfiguration.getString("db_seeder.mimer.database");
@@ -1167,6 +1278,7 @@ public class Config {
     mimerUser                   = propertiesConfiguration.getString("db_seeder.mimer.user");
     mimerUserSys                = propertiesConfiguration.getString("db_seeder.mimer.user.sys");
 
+    mssqlserverConnectionHost   = propertiesConfiguration.getString("db_seeder.mssqlserver.connection.host");
     mssqlserverConnectionPort   = propertiesConfiguration.getInt("db_seeder.mssqlserver.connection.port");
     mssqlserverConnectionPrefix = propertiesConfiguration.getString("db_seeder.mssqlserver.connection.prefix");
     mssqlserverDatabase         = propertiesConfiguration.getString("db_seeder.mssqlserver.database");
@@ -1177,6 +1289,7 @@ public class Config {
     mssqlserverUser             = propertiesConfiguration.getString("db_seeder.mssqlserver.user");
     mssqlserverUserSys          = propertiesConfiguration.getString("db_seeder.mssqlserver.user.sys");
 
+    mysqlConnectionHost         = propertiesConfiguration.getString("db_seeder.mysql.connection.host");
     mysqlConnectionPort         = propertiesConfiguration.getInt("db_seeder.mysql.connection.port");
     mysqlConnectionPrefix       = propertiesConfiguration.getString("db_seeder.mysql.connection.prefix");
     mysqlConnectionSuffix       = propertiesConfiguration.getString("db_seeder.mysql.connection.suffix");
@@ -1187,6 +1300,7 @@ public class Config {
     mysqlUser                   = propertiesConfiguration.getString("db_seeder.mysql.user");
     mysqlUserSys                = propertiesConfiguration.getString("db_seeder.mysql.user.sys");
 
+    oracleConnectionHost        = propertiesConfiguration.getString("db_seeder.oracle.connection.host");
     oracleConnectionPort        = propertiesConfiguration.getInt("db_seeder.oracle.connection.port");
     oracleConnectionPrefix      = propertiesConfiguration.getString("db_seeder.oracle.connection.prefix");
     oracleConnectionService     = propertiesConfiguration.getString("db_seeder.oracle.connection.service");
@@ -1195,6 +1309,7 @@ public class Config {
     oracleUser                  = propertiesConfiguration.getString("db_seeder.oracle.user");
     oracleUserSys               = propertiesConfiguration.getString("db_seeder.oracle.user.sys");
 
+    postgresqlConnectionHost    = propertiesConfiguration.getString("db_seeder.postgresql.connection.host");
     postgresqlConnectionPort    = propertiesConfiguration.getInt("db_seeder.postgresql.connection.port");
     postgresqlConnectionPrefix  = propertiesConfiguration.getString("db_seeder.postgresql.connection.prefix");
     postgresqlDatabase          = propertiesConfiguration.getString("db_seeder.postgresql.database");
@@ -1212,33 +1327,21 @@ public class Config {
 
     Map<String, String> environmentVariables = System.getenv();
 
-    // Apache Derby ------------------------------------------------------------
-
-    if (environmentVariables.containsKey("DB_SEEDER_DERBY_CONNECTION_PORT")) {
-      derbyConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_DERBY_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", derbyConnectionPort);
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_DERBY_CONNECTION_PREFIX")) {
-      derbyConnectionPrefix = environmentVariables.get("DB_SEEDER_DERBY_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", derbyConnectionPrefix);
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_DERBY_DATABASE")) {
-      derbyDatabase = environmentVariables.get("DB_SEEDER_DERBY_DATABASE");
-      propertiesConfiguration.setProperty("db_seeder.derby.database", derbyDatabase);
-    }
-
     // CrateDB ----------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_CONNECTION_HOST")) {
+      cratedbConnectionHost = environmentVariables.get("DB_SEEDER_CRATEDB_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.cratedb.connection.host", cratedbConnectionHost);
+    }
 
     if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_CONNECTION_PORT")) {
       cratedbConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_CRATEDB_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", cratedbConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.cratedb.connection.port", cratedbConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_CONNECTION_PREFIX")) {
       cratedbConnectionPrefix = environmentVariables.get("DB_SEEDER_CRATEDB_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", cratedbConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.cratedb.connection.prefix", cratedbConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CRATEDB_PASSWORD")) {
@@ -1265,19 +1368,24 @@ public class Config {
 
     // CUBRID ------------------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_HOST")) {
+      cubridConnectionHost = environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.cubrid.connection.host", cubridConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_PORT")) {
       cubridConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", cubridConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.cubrid.connection.port", cubridConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_PREFIX")) {
       cubridConnectionPrefix = environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", cubridConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.cubrid.connection.prefix", cubridConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_CONNECTION_SUFFIX")) {
       cubridConnectionSuffix = environmentVariables.get("DB_SEEDER_CUBRID_CONNECTION_SUFFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", cubridConnectionSuffix);
+      propertiesConfiguration.setProperty("db_seeder.cubrid.connection.suffix", cubridConnectionSuffix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_DATABASE")) {
@@ -1298,6 +1406,28 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_CUBRID_USER_SYS")) {
       cubridUserSys = environmentVariables.get("DB_SEEDER_CUBRID_USER_SYS");
       propertiesConfiguration.setProperty("db_seeder.cubrid.user.sys", cubridUserSys);
+    }
+
+    // Apache Derby ------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_DERBY_CONNECTION_HOST")) {
+      derbyConnectionHost = environmentVariables.get("DB_SEEDER_DERBY_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.derby.connection.host", derbyConnectionHost);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_DERBY_CONNECTION_PORT")) {
+      derbyConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_DERBY_CONNECTION_PORT"));
+      propertiesConfiguration.setProperty("db_seeder.derby.connection.port", derbyConnectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_DERBY_CONNECTION_PREFIX")) {
+      derbyConnectionPrefix = environmentVariables.get("DB_SEEDER_DERBY_CONNECTION_PREFIX");
+      propertiesConfiguration.setProperty("db_seeder.derby.connection.prefix", derbyConnectionPrefix);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_DERBY_DATABASE")) {
+      derbyDatabase = environmentVariables.get("DB_SEEDER_DERBY_DATABASE");
+      propertiesConfiguration.setProperty("db_seeder.derby.database", derbyDatabase);
     }
 
     // Encoding ----------------------------------------------------------------
@@ -1331,19 +1461,24 @@ public class Config {
 
     // Firebird ------------------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_HOST")) {
+      firebirdConnectionHost = environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.firebird.connection.host", firebirdConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_PORT")) {
       firebirdConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", firebirdConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.firebird.connection.port", firebirdConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_PREFIX")) {
       firebirdConnectionPrefix = environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", firebirdConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.firebird.connection.prefix", firebirdConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_CONNECTION_SUFFIX")) {
       firebirdConnectionSuffix = environmentVariables.get("DB_SEEDER_FIREBIRD_CONNECTION_SUFFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", firebirdConnectionSuffix);
+      propertiesConfiguration.setProperty("db_seeder.firebird.connection.suffix", firebirdConnectionSuffix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_FIREBIRD_DATABASE")) {
@@ -1373,14 +1508,19 @@ public class Config {
 
     // H2 database Engine --------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_H2_CONNECTION_HOST")) {
+      h2ConnectionHost = environmentVariables.get("DB_SEEDER_H2_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.h2.connection.host", h2ConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_H2_CONNECTION_PORT")) {
       h2ConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_H2_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", h2ConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.h2.connection.port", h2ConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_H2_CONNECTION_PREFIX")) {
       h2ConnectionPrefix = environmentVariables.get("DB_SEEDER_H2_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", h2ConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.h2.connection.prefix", h2ConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_H2_DATABASE")) {
@@ -1405,19 +1545,24 @@ public class Config {
 
     // HyperSQL Database --------------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_HOST")) {
+      hsqldbConnectionHost = environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.connection.host", hsqldbConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_PORT")) {
       hsqldbConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", hsqldbConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.connection.port", hsqldbConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_PREFIX")) {
       hsqldbConnectionPrefix = environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", hsqldbConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.connection.prefix", hsqldbConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_CONNECTION_SUFFIX")) {
       hsqldbConnectionSuffix = environmentVariables.get("DB_SEEDER_HSQLDB_CONNECTION_SUFFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", hsqldbConnectionSuffix);
+      propertiesConfiguration.setProperty("db_seeder.hsqldb.connection.suffix", hsqldbConnectionSuffix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_HSQLDB_DATABASE")) {
@@ -1447,14 +1592,19 @@ public class Config {
 
     // IBM Db2 Database ----------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_HOST")) {
+      ibmdb2ConnectionHost = environmentVariables.get("DB_SEEDER_IBMDB2_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.connection.host", ibmdb2ConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_PORT")) {
       ibmdb2ConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_IBMDB2_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", ibmdb2ConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.connection.port", ibmdb2ConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_CONNECTION_PREFIX")) {
       ibmdb2ConnectionPrefix = environmentVariables.get("DB_SEEDER_IBMDB2_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", ibmdb2ConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.ibmdb2.connection.prefix", ibmdb2ConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_IBMDB2_DATABASE")) {
@@ -1479,19 +1629,24 @@ public class Config {
 
     // IBM Informix ------------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_HOST")) {
+      informixConnectionHost = environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.informix.connection.host", informixConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_PORT")) {
       informixConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", informixConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.informix.connection.port", informixConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_PREFIX")) {
       informixConnectionPrefix = environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", informixConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.informix.connection.prefix", informixConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_CONNECTION_SUFFIX")) {
       informixConnectionSuffix = environmentVariables.get("DB_SEEDER_INFORMIX_CONNECTION_SUFFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", informixConnectionSuffix);
+      propertiesConfiguration.setProperty("db_seeder.informix.connection.suffix", informixConnectionSuffix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_INFORMIX_DATABASE")) {
@@ -1514,23 +1669,21 @@ public class Config {
       propertiesConfiguration.setProperty("db_seeder.informix.user.sys", informixUserSys);
     }
 
-    // JDBC Connection ---------------------------------------------------------
-
-    if (environmentVariables.containsKey("DB_SEEDER_JDBC_CONNECTION_HOST")) {
-      jdbcConnectionHost = environmentVariables.get("DB_SEEDER_JDBC_CONNECTION_HOST");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.host", jdbcConnectionHost);
-    }
-
     // MariaDB Server ----------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_MARIADB_CONNECTION_HOST")) {
+      mariadbConnectionHost = environmentVariables.get("DB_SEEDER_MARIADB_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.mariadb.connection.host", mariadbConnectionHost);
+    }
 
     if (environmentVariables.containsKey("DB_SEEDER_MARIADB_CONNECTION_PORT")) {
       mariadbConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MARIADB_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", mariadbConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.mariadb.connection.port", mariadbConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MARIADB_CONNECTION_PREFIX")) {
       mariadbConnectionPrefix = environmentVariables.get("DB_SEEDER_MARIADB_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", mariadbConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.mariadb.connection.prefix", mariadbConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MARIADB_DATABASE")) {
@@ -1592,14 +1745,19 @@ public class Config {
 
     // Mimer SQL ---------------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_MIMER_CONNECTION_HOST")) {
+      mimerConnectionHost = environmentVariables.get("DB_SEEDER_MIMER_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.mimer.connection.host", mimerConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MIMER_CONNECTION_PORT")) {
       mimerConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MIMER_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", mimerConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.mimer.connection.port", mimerConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MIMER_CONNECTION_PREFIX")) {
       mimerConnectionPrefix = environmentVariables.get("DB_SEEDER_MIMER_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", mimerConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.mimer.connection.prefix", mimerConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MIMER_DATABASE")) {
@@ -1634,14 +1792,19 @@ public class Config {
 
     // Microsoft SQL Server ----------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_CONNECTION_HOST")) {
+      mssqlserverConnectionHost = environmentVariables.get("DB_SEEDER_MSSQLSERVER_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.mssqlserver.connection.host", mssqlserverConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_CONNECTION_PORT")) {
       mssqlserverConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MSSQLSERVER_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", mssqlserverConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.mssqlserver.connection.port", mssqlserverConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX")) {
       mssqlserverConnectionPrefix = environmentVariables.get("DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", mssqlserverConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.mssqlserver.connection.prefix", mssqlserverConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MSSQLSERVER_DATABASE")) {
@@ -1681,19 +1844,24 @@ public class Config {
 
     // MySQL Database ----------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_MYSQL_CONNECTION_HOST")) {
+      mysqlConnectionHost = environmentVariables.get("DB_SEEDER_MYSQL_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.mysql.connection.host", mysqlConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_CONNECTION_PORT")) {
       mysqlConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_MYSQL_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", mysqlConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.mysql.connection.port", mysqlConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_CONNECTION_PREFIX")) {
       mysqlConnectionPrefix = environmentVariables.get("DB_SEEDER_MYSQL_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", mysqlConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.mysql.connection.prefix", mysqlConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_CONNECTION_SUFFIX")) {
       mysqlConnectionSuffix = environmentVariables.get("DB_SEEDER_MYSQL_CONNECTION_SUFFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.suffix", mysqlConnectionSuffix);
+      propertiesConfiguration.setProperty("db_seeder.mysql.connection.suffix", mysqlConnectionSuffix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MYSQL_DATABASE")) {
@@ -1728,14 +1896,19 @@ public class Config {
 
     // Oracle Database ---------------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_ORACLE_CONNECTION_HOST")) {
+      oracleConnectionHost = environmentVariables.get("DB_SEEDER_ORACLE_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.oracle.connection.host", oracleConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_ORACLE_CONNECTION_PORT")) {
       oracleConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_ORACLE_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", oracleConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.oracle.connection.port", oracleConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_ORACLE_CONNECTION_PREFIX")) {
       oracleConnectionPrefix = environmentVariables.get("DB_SEEDER_ORACLE_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", oracleConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.oracle.connection.prefix", oracleConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_ORACLE_CONNECTION_SERVICE")) {
@@ -1765,14 +1938,19 @@ public class Config {
 
     // PostgreSQL Database -----------------------------------------------------
 
+    if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_HOST")) {
+      postgresqlConnectionHost = environmentVariables.get("DB_SEEDER_POSTGRESQL_CONNECTION_HOST");
+      propertiesConfiguration.setProperty("db_seeder.postgresql.connection.host", postgresqlConnectionHost);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_PORT")) {
       postgresqlConnectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_POSTGRESQL_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.port", postgresqlConnectionPort);
+      propertiesConfiguration.setProperty("db_seeder.postgresql.connection.port", postgresqlConnectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX")) {
       postgresqlConnectionPrefix = environmentVariables.get("DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", postgresqlConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.postgresql.connection.prefix", postgresqlConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_POSTGRESQL_DATABASE")) {
@@ -1809,7 +1987,7 @@ public class Config {
 
     if (environmentVariables.containsKey("DB_SEEDER_SQLITE_CONNECTION_PREFIX")) {
       sqliteConnectionPrefix = environmentVariables.get("DB_SEEDER_SQLITE_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.jdbc.connection.prefix", sqliteConnectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.sqlite.connection.prefix", sqliteConnectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_SQLITE_DATABASE")) {

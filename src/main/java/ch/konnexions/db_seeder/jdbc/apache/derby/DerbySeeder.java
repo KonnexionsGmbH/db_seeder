@@ -188,7 +188,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
     if (isClient) {
       driver  = "org.apache.derby.jdbc.ClientDriver";
-      urlBase = config.getApachederbyConnectionPrefix() + "//" + config.getJdbcConnectionHost() + ":" + config.getApachederbyConnectionPort() + "/"
+      urlBase = config.getApachederbyConnectionPrefix() + "//" + config.getApachederbyConnectionHost() + ":" + config.getApachederbyConnectionPort() + "/"
           + config.getApachederbyDatabase() + ";create=";
     } else {
       driver  = "org.apache.derby.jdbc.EmbeddedDriver";

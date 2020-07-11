@@ -38,11 +38,9 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
-        + config.getInformixDatabase() + config.getInformixConnectionSuffix();
-
-    urlSetup              = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
-        + config.getInformixDatabaseSys() + config.getInformixConnectionSuffix();
+    urlBase               = config.getInformixConnectionHost() + ":" + config.getInformixConnectionPort() + "/";
+    url                   = urlBase + config.getInformixDatabase() + config.getInformixConnectionSuffix();
+    urlSetup              = urlBase + config.getInformixDatabaseSys() + config.getInformixConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
 

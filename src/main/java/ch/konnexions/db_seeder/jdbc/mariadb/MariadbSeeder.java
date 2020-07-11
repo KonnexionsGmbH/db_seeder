@@ -36,8 +36,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
-
+    urlBase               = config.getMariadbConnectionPrefix() + config.getMariadbConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
     url                   = urlBase + config.getMariadbDatabase();
     urlSetup              = urlBase + config.getMariadbDatabaseSys();
 

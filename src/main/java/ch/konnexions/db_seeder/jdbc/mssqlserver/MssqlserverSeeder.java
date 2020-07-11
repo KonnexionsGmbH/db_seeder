@@ -36,7 +36,7 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMssqlserverConnectionPort()
+    urlBase               = config.getMssqlserverConnectionPrefix() + config.getMssqlserverConnectionHost() + ":" + config.getMssqlserverConnectionPort()
         + ";databaseName=";
     url                   = urlBase + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword();
     urlSetup              = urlBase + config.getMssqlserverDatabaseSys() + ";user=" + config.getMssqlserverUserSys() + ";password="

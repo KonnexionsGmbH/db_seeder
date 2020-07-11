@@ -38,7 +38,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "\"";
 
-    urlBase               = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
+    urlBase               = config.getCubridConnectionPrefix() + config.getCubridConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
         + config.getCubridDatabase() + ":";
     url                   = urlBase + config.getCubridConnectionSuffix();
     urlSetup              = urlBase + config.getCubridUserSys() + config.getCubridConnectionSuffix();

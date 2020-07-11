@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a MariaDB Server Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_MARIADB           : %DB_SEEDER_VERSION_MARIADB%
+echo VERSION_MARIADB           : %DB_SEEDER_MARIADB_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo MariaDB Server
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (MariaDB Server %DB_SEEDER_VERSION_MARIADB%)
-docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mariadb -p 3306:3306/tcp mariadb:%DB_SEEDER_VERSION_MARIADB% --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+echo Docker create db_seeder_db (MariaDB Server %DB_SEEDER_MARIADB_VERSION%)
+docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mariadb -p 3306:3306/tcp mariadb:%DB_SEEDER_MARIADB_VERSION% --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-echo Docker start db_seeder_db (MariaDB Server %DB_SEEDER_VERSION_MARIADB%) ...
+echo Docker start db_seeder_db (MariaDB Server %DB_SEEDER_MARIADB_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 20 127.0.0.1>nul

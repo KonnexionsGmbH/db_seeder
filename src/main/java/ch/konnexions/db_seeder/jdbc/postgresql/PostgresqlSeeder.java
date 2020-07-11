@@ -42,7 +42,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getPostgresqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/";
+    urlBase               = config.getPostgresqlConnectionPrefix() + config.getPostgresqlConnectionHost() + ":" + config.getPostgresqlConnectionPort() + "/";
     url                   = urlBase + config.getPostgresqlDatabase() + "?user=" + config.getPostgresqlUser() + "&password=" + config.getPostgresqlPassword();
     urlSetup              = urlBase + config.getPostgresqlDatabaseSys() + "?user=" + config.getPostgresqlUserSys() + "&password="
         + config.getPostgresqlPasswordSys();

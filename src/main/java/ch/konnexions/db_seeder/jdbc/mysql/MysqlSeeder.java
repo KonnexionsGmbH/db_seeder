@@ -38,7 +38,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
+    urlBase               = config.getMysqlConnectionPrefix() + config.getMysqlConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
     url                   = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
     urlSetup              = urlBase + config.getMysqlDatabaseSys() + config.getMysqlConnectionSuffix();
 

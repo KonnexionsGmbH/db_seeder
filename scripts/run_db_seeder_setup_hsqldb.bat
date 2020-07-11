@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a HyperSQL Database Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_HSQLDB            : %DB_SEEDER_VERSION_HSQLDB%
+echo VERSION_HSQLDB            : %DB_SEEDER_HSQLDB_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -25,10 +25,10 @@ rem ----------------------------------------------------------------------------
 
 echo HyperSQL Database
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (HyperSQL Database %DB_SEEDER_VERSION_HSQLDB%)
-docker create --name db_seeder_db -p 9001:9001/tcp konnexionsgmbh/hypersql_database:%DB_SEEDER_VERSION_HSQLDB%
+echo Docker create db_seeder_db (HyperSQL Database %DB_SEEDER_HSQLDB_VERSION%)
+docker create --name db_seeder_db -p 9001:9001/tcp konnexionsgmbh/hypersql_database:%DB_SEEDER_HSQLDB_VERSION%
 
-echo Docker start db_seeder_db (HyperSQL Database %DB_SEEDER_VERSION_HSQLDB%) ...
+echo Docker start db_seeder_db (HyperSQL Database %DB_SEEDER_HSQLDB_VERSION%) ...
 docker start db_seeder_db
 
 :check_health_status:

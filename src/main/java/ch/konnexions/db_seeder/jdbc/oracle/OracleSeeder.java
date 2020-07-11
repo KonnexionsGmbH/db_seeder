@@ -36,7 +36,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getOracleConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
+    url                   = config.getOracleConnectionPrefix() + config.getOracleConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
         + config.getOracleConnectionService();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");

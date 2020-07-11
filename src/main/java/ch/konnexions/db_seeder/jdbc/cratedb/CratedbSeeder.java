@@ -36,7 +36,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getCratedbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCratedbConnectionPort()
+    urlBase               = config.getCratedbConnectionPrefix() + config.getCratedbConnectionHost() + ":" + config.getCratedbConnectionPort()
         + "/?strict=true&user=";
     url                   = urlBase + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
     urlSetup              = urlBase + config.getCratedbUserSys();

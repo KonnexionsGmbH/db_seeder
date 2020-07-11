@@ -38,10 +38,10 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getMimerConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMimerConnectionPort() + "/";
+    urlBase               = config.getMimerConnectionPrefix() + config.getMimerConnectionHost() + ":" + config.getMimerConnectionPort() + "/";
 
     url                   = urlBase + config.getMimerDatabase();
-    url                   = urlBase + config.getMimerDatabaseSys();
+    // wwe    url                   = urlBase + config.getMimerDatabaseSys();
     urlSetup              = urlBase + config.getMimerDatabaseSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");

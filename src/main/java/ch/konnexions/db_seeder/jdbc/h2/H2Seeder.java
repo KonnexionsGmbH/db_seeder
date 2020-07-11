@@ -225,7 +225,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     tableNameDelimiter = "";
 
     if (isClient) {
-      url = config.getH2ConnectionPrefix() + "tcp://" + config.getJdbcConnectionHost() + ":" + config.getH2ConnectionPort() + "/" + config.getH2Database();
+      url = config.getH2ConnectionPrefix() + "tcp://" + config.getH2ConnectionHost() + ":" + config.getH2ConnectionPort() + "/" + config.getH2Database();
     } else {
       url = config.getH2ConnectionPrefix() + "file:" + config.getH2Database();
     }

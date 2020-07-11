@@ -39,7 +39,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getFirebirdConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
+    url                   = config.getFirebirdConnectionPrefix() + config.getFirebirdConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
         + config.getFirebirdDatabase() + config.getFirebirdConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
