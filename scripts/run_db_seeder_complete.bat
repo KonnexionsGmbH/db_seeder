@@ -71,8 +71,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_CRATEDB%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=cratedb
-        call scripts\run_db_seeder_single.bat
+        call run_db_seeder.bat cratedb yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -80,8 +79,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_CUBRID%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=cubrid
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat cubrid yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -89,8 +87,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_DERBY%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=derby
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat derby yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -98,8 +95,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_DERBY_EMB%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=derby_emb
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat derby_emb yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -107,8 +103,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_FIREBIRD%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=firebird
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat firebird yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -116,8 +111,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_H2%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=h2
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat h2 yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -125,8 +119,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_H2_EMB%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=h2_emb
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat h2_emb yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -134,8 +127,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=hsqldb
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat hsqldb yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -143,8 +135,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=hsqldb_emb
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat hsqldb_emb yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -152,8 +143,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_IBMDB2%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=ibmdb2
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat ibmdb2 yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -161,8 +151,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_INFORMIX%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=informix
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat informix yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -170,8 +159,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MARIADB%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=mariadb
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat mariadb yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -179,8 +167,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MSSQLSERVER%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=mssqlserver
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat mssqlserver yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -188,8 +175,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MIMER%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=mimer
-        call scripts\run_db_seeder_single.bat mimer
+        call run_db_seeder.bat mimer yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -197,8 +183,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MYSQL%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=mysql
-        call scripts\run_db_seeder_single.bat mysql
+        call run_db_seeder.bat mysql yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -206,8 +191,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_ORACLE%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=oracle
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat oracle yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -215,8 +199,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=postgresql
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat postgresql yes 2
     )
     
     rem ------------------------------------------------------------------------------
@@ -224,8 +207,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
-        set DB_SEEDER_DBMS=sqlite
-        call scripts\run_db_seeder_single.bat 
+        call run_db_seeder.bat sqlite yes 2
     )
     
     echo --------------------------------------------------------------------------------
