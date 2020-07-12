@@ -136,7 +136,7 @@ if [ "$DB_SEEDER_DBMS" = "h2" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_H2_CONNECTION_HOST=
     unset -f DB_SEEDER_H2_CONNECTION_PORT=
     unset -f DB_SEEDER_H2_CONNETION_PREFIX=
-    export DB_SEEDER_H2_DATABASE=
+    export DB_SEEDER_H2_DATABASE=./tmp/h2_kxn_db
     unset -f DB_SEEDER_H2_PASSWORD=
     unset -f DB_SEEDER_H2_SCHEMA=
     unset -f DB_SEEDER_H2_USER=

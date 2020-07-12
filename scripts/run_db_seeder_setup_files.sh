@@ -22,7 +22,7 @@ if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
     export DB_SEEDER_DATABASE=$DB_SEEDER_DERBY_DATABASE
 fi
 
-if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
+if [ "$DB_SEEDER_DBMS" = "h2" ] || [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
     echo "H2_VERSION                : $DB_SEEDER_H2_VERSION"
     echo "H2_DATABASE               : $DB_SEEDER_H2_DATABASE"
     export DB_SEEDER_DATABASE=$DB_SEEDER_H2_DATABASE

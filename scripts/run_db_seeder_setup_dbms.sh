@@ -27,6 +27,7 @@ fi
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "yes" ] ||
    [ "$DB_SEEDER_DBMS" = "derby" ] ||
+   [ "$DB_SEEDER_DBMS" = "h2" ] ||
    [ "$DB_SEEDER_DBMS" = "ibmdb2" ] ; then
     ( ./scripts/run_db_seeder_setup_files.sh $DB_SEEDER_DBMS )
 fi
