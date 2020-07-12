@@ -15,13 +15,21 @@ echo "........................................................................."
 sed -n 's/USERMAPPING OFF/USERMAPPING ADMIN/g' /opt/ibm/config/onconfig
 sed -i 's/USERMAPPING OFF/USERMAPPING ADMIN/g' /opt/ibm/config/onconfig
 echo ""
-echo "Stop Database ..........................................................."
-( bash $INFORMIXDIR/bin/onshutdown.sh ) &
+echo "Waiting ................................................................."
 sleep 60
+echo ""
+echo "Stop Database ..........................................................."
+onmode -ksy
+echo ""
+echo "Waiting ................................................................."
+sleep 60
+echo ""
 echo "Database is stopped ....................................................."
 echo ""
 echo "Start Database .........................................................."
-oninit -vy
+oninit -y
+echo ""
+echo "Waiting ................................................................."
 sleep 60
 echo "Database is started ....................................................."
 onstat -g env
