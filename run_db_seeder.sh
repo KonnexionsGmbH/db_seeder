@@ -123,7 +123,7 @@ if [ "$DB_SEEDER_DBMS" = "firebird" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; the
     unset -f DB_SEEDER_FIREBIRD_CONNECTION_PORT=
     unset -f DB_SEEDER_FIREBIRD_CONNETION_PREFIX=
     unset -f DB_SEEDER_FIREBIRD_CONNETION_SUFFIX=
-    export DB_SEEDER_FIREBIRD_DATABASE=./tmp/firebird_kxn_db
+    export DB_SEEDER_FIREBIRD_DATABASE=firebird_kxn_db
     unset -f DB_SEEDER_FIREBIRD_PASSWORD=
     unset -f DB_SEEDER_FIREBIRD_PASSWORD_SYS=
     unset -f DB_SEEDER_FIREBIRD_USER=
@@ -156,7 +156,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_HSQLDB_CONNECTION_PORT=
     unset -f DB_SEEDER_HSQLDB_CONNETION_PREFIX=
     unset -f DB_SEEDER_HSQLDB_CONNETION_SUFFIX=
-    unset -f DB_SEEDER_HSQLDB_DATABASE=
+    export DB_SEEDER_HSQLDB_DATABASE=kxn_db
     unset -f DB_SEEDER_HSQLDB_PASSWORD=
     unset -f DB_SEEDER_HSQLDB_SCHEMA=
     unset -f DB_SEEDER_HSQLDB_USER=
@@ -167,7 +167,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_HSQLDB_CONNETION_PREFIX=
     unset -f DB_SEEDER_HSQLDB_CONNETION_SUFFIX=
-    unset -f DB_SEEDER_HSQLDB_DATABASE=
+    export DB_SEEDER_HSQLDB_DATABASE=./tmp/hsqldb_kxn_db
     unset -f DB_SEEDER_HSQLDB_PASSWORD=
     unset -f DB_SEEDER_HSQLDB_SCHEMA=
     unset -f DB_SEEDER_HSQLDB_USER=
