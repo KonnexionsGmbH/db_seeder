@@ -100,7 +100,7 @@ if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_DERBY_CONNECTION_HOST=
     unset -f DB_SEEDER_DERBY_CONNECTION_PORT=
     unset -f DB_SEEDER_DERBY_CONNETION_PREFIX=
-    export DB_SEEDER_DERBY_DATABASE=
+    export DB_SEEDER_DERBY_DATABASE=./tmp/derby_kxn_db
     export DB_SEEDER_DERBY_VERSION=10.15.2.0
 fi
 

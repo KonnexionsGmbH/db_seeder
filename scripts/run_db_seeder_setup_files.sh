@@ -11,12 +11,12 @@ set -e
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - setup a database Docker container."
+echo "DB Seeder - creating database files or directories."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                      : $DB_SEEDER_DBMS"
 echo --------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
+if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
     echo "DERBY_VERSION             : $DB_SEEDER_DERBY_VERSION"
     echo "DERBY_DATABASE            : $DB_SEEDER_DERBY_DATABASE"
     export DB_SEEDER_DATABASE=$DB_SEEDER_DERBY_DATABASE
@@ -61,7 +61,7 @@ if [ ! -z "$DB_SEEDER_DATABASE" ]; then
         rm -rf $DB_SEEDER_DATABASE
     fi    
 
-    if [ "$DB_SEEDER_DBMS" = "ibmdb2" ] ||
+    if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
         mkdir -p $DB_SEEDER_DATABASE
     else
         fileDirectory=$DB_SEEDER_DATABASE

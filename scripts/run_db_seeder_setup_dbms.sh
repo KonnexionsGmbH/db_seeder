@@ -11,7 +11,7 @@ set -e
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - setup a database Docker container."
+echo "DB Seeder - setting up the DBMS."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                      : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED             : $DB_SEEDER_DBMS_EMBEDDED"
@@ -26,6 +26,7 @@ if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
 fi
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "yes" ] ||
+   [ "$DB_SEEDER_DBMS" = "derby" ] ||
    [ "$DB_SEEDER_DBMS" = "ibmdb2" ] ; then
     ( ./scripts/run_db_seeder_setup_files.sh $DB_SEEDER_DBMS )
 fi
