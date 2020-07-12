@@ -210,7 +210,7 @@ if [ "$DB_SEEDER_DBMS" = "informix" ]; then
     echo "IBM Informix."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM Informix $DB_SEEDER_INFORMIX_VERSION)"
-    docker create --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -m 6GB -p 9088:9088 --privileged ibmcom/informix-developer-database:$DB_SEEDER_INFORMIX_VERSION
+    docker create --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:$DB_SEEDER_INFORMIX_VERSION
 
     echo "Docker start db_seeder_db (IBM Informix $DB_SEEDER_INFORMIX_VERSION)"
     if ! docker start db_seeder_db; then

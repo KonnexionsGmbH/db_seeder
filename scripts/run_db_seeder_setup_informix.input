@@ -16,7 +16,7 @@ sed -n 's/USERMAPPING OFF/USERMAPPING ADMIN/g' /opt/ibm/config/onconfig
 sed -i 's/USERMAPPING OFF/USERMAPPING ADMIN/g' /opt/ibm/config/onconfig
 echo ""
 echo "Stop Database ..........................................................."
-bash $INFORMIXDIR/bin/onshutdown.sh
+( bash $INFORMIXDIR/bin/onshutdown.sh ) &
 sleep 60
 echo "Database is stopped ....................................................."
 echo ""
