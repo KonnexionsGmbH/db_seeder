@@ -8,14 +8,6 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
-    echo "Docker stop/rm db_seeder_db ................................ before:"
-    docker ps -a
-    docker ps -qa --filter "name=db_seeder_db" | grep -q . && docker stop db_seeder_db && docker rm -fv db_seeder_db
-    echo "............................................................. after:"
-    docker ps -a
-fi
-
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
@@ -25,7 +17,18 @@ echo "DBMS                      : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED             : $DB_SEEDER_DBMS_EMBEDDED"
 echo --------------------------------------------------------------------------------
 
-( ./scripts/run_db_seeder_setup_files.sh $DB_SEEDER_DBMS )
+if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
+    echo "Docker stop/rm db_seeder_db ................................ before:"
+    docker ps -a
+    docker ps -qa --filter "name=db_seeder_db" | grep -q . && docker stop db_seeder_db && docker rm -fv db_seeder_db
+    echo "............................................................. after:"
+    docker ps -a
+fi
+
+if [ "$DB_SEEDER_DBMS_EMBEDDED" = "yes" ] ||
+   [ "$DB_SEEDER_DBMS" = "ibmdb2" ] ; then
+    ( ./scripts/run_db_seeder_setup_files.sh $DB_SEEDER_DBMS )
+fi
 
 # ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate

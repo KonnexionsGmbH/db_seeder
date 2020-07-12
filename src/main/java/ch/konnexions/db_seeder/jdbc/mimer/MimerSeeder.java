@@ -38,11 +38,8 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getMimerConnectionPrefix() + config.getMimerConnectionHost() + ":" + config.getMimerConnectionPort() + "/";
-
-    url                   = urlBase + config.getMimerDatabase();
-    // wwe    url                   = urlBase + config.getMimerDatabaseSys();
-    urlSetup              = urlBase + config.getMimerDatabaseSys();
+    url                   = config.getMimerConnectionPrefix() + config.getMimerConnectionHost() + ":" + config.getMimerConnectionPort() + "/"
+        + config.getMimerDatabaseSys();
 
     logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
   }
@@ -194,7 +191,7 @@ public class MimerSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, config.getMimerUserSys(), config.getMimerPasswordSys(), true);
+    connection = connect(url, driver, config.getMimerUserSys(), config.getMimerPasswordSys(), true);
 
     // -----------------------------------------------------------------------
     // Drop the database and database user if already existing.

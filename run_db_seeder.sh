@@ -89,7 +89,7 @@ if [ "$DB_SEEDER_DBMS" = "cubrid" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_CUBRID_CONNECTION_PORT=
     unset -f DB_SEEDER_CUBRID_CONNETION_PREFIX=
     unset -f DB_SEEDER_CUBRID_CONNETION_SUFFIX=
-    unset -f DB_SEEDER_CUBRID_DATABASE=
+    export DB_SEEDER_CUBRID_DATABASE=kxn_db
     unset -f DB_SEEDER_CUBRID_PASSWORD=
     unset -f DB_SEEDER_CUBRID_USER=
     unset -f DB_SEEDER_CUBRID_USER_SYS=
@@ -100,13 +100,13 @@ if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_DERBY_CONNECTION_HOST=
     unset -f DB_SEEDER_DERBY_CONNECTION_PORT=
     unset -f DB_SEEDER_DERBY_CONNETION_PREFIX=
-    export DB_SEEDER_DERBY_DATABASE=./tmp/kxn_db
+    export DB_SEEDER_DERBY_DATABASE=
     export DB_SEEDER_DERBY_VERSION=10.15.2.0
 fi
 
 if [ "$DB_SEEDER_DBMS" = "derby_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_DERBY_CONNETION_PREFIX=
-    export DB_SEEDER_DERBY_DATABASE=./tmp/kxn_db
+    export DB_SEEDER_DERBY_DATABASE=./tmp/derby_kxn_db
 fi
 
 unset -f DB_SEEDER_ENCODING_ISO_8859_1=
@@ -123,7 +123,7 @@ if [ "$DB_SEEDER_DBMS" = "firebird" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; the
     unset -f DB_SEEDER_FIREBIRD_CONNECTION_PORT=
     unset -f DB_SEEDER_FIREBIRD_CONNETION_PREFIX=
     unset -f DB_SEEDER_FIREBIRD_CONNETION_SUFFIX=
-    unset -f DB_SEEDER_FIREBIRD_DATABASE=
+    export DB_SEEDER_FIREBIRD_DATABASE=./tmp/firebird_kxn_db
     unset -f DB_SEEDER_FIREBIRD_PASSWORD=
     unset -f DB_SEEDER_FIREBIRD_PASSWORD_SYS=
     unset -f DB_SEEDER_FIREBIRD_USER=
@@ -136,7 +136,7 @@ if [ "$DB_SEEDER_DBMS" = "h2" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_H2_CONNECTION_HOST=
     unset -f DB_SEEDER_H2_CONNECTION_PORT=
     unset -f DB_SEEDER_H2_CONNETION_PREFIX=
-    export DB_SEEDER_H2_DATABASE=./tmp/kxn_db
+    export DB_SEEDER_H2_DATABASE=
     unset -f DB_SEEDER_H2_PASSWORD=
     unset -f DB_SEEDER_H2_SCHEMA=
     unset -f DB_SEEDER_H2_USER=
@@ -145,7 +145,7 @@ fi
 
 if [ "$DB_SEEDER_DBMS" = "h2_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_H2_CONNETION_PREFIX=
-    export DB_SEEDER_H2_DATABASE=./tmp/kxn_db
+    export DB_SEEDER_H2_DATABASE=./tmp/h2_kxn_db
     unset -f DB_SEEDER_H2_PASSWORD=
     unset -f DB_SEEDER_H2_SCHEMA=
     unset -f DB_SEEDER_H2_USER=
@@ -156,7 +156,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_HSQLDB_CONNECTION_PORT=
     unset -f DB_SEEDER_HSQLDB_CONNETION_PREFIX=
     unset -f DB_SEEDER_HSQLDB_CONNETION_SUFFIX=
-    export DB_SEEDER_HSQLDB_DATABASE=./tmp/kxn_db
+    unset -f DB_SEEDER_HSQLDB_DATABASE=
     unset -f DB_SEEDER_HSQLDB_PASSWORD=
     unset -f DB_SEEDER_HSQLDB_SCHEMA=
     unset -f DB_SEEDER_HSQLDB_USER=
@@ -167,7 +167,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_HSQLDB_CONNETION_PREFIX=
     unset -f DB_SEEDER_HSQLDB_CONNETION_SUFFIX=
-    export DB_SEEDER_HSQLDB_DATABASE=./tmp/kxn_db
+    unset -f DB_SEEDER_HSQLDB_DATABASE=
     unset -f DB_SEEDER_HSQLDB_PASSWORD=
     unset -f DB_SEEDER_HSQLDB_SCHEMA=
     unset -f DB_SEEDER_HSQLDB_USER=
@@ -178,7 +178,7 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_IBMDB2_CONNECTION_HOST=
     unset -f DB_SEEDER_IBMDB2_CONNECTION_PORT=
     unset -f DB_SEEDER_IBMDB2_CONNETION_PREFIX=
-    unset -f DB_SEEDER_IBMDB2_DATABASE=
+    export DB_SEEDER_IBMDB2_DATABASE=kxn_db
     unset -f DB_SEEDER_IBMDB2_PASSWORD_SYS=
     unset -f DB_SEEDER_IBMDB2_SCHEMA=
     unset -f DB_SEEDER_IBMDB2_USER_SYS=
@@ -290,7 +290,7 @@ fi
 
 if [ "$DB_SEEDER_DBMS" = "sqlite" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     unset -f DB_SEEDER_SQLITE_CONNETION_PREFIX=
-    export DB_SEEDER_SQLITE_DATABASE=./tmp/kxn_db
+    export DB_SEEDER_SQLITE_DATABASE=./tmp/sqlite_kxn_db
 fi
 
 # ------------------------------------------------------------------------------

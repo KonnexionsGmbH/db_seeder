@@ -38,7 +38,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getInformixConnectionHost() + ":" + config.getInformixConnectionPort() + "/";
+    urlBase               = config.getInformixConnectionPrefix() + config.getInformixConnectionHost() + ":" + config.getInformixConnectionPort() + "/";
     url                   = urlBase + config.getInformixDatabase() + config.getInformixConnectionSuffix();
     urlSetup              = urlBase + config.getInformixDatabaseSys() + config.getInformixConnectionSuffix();
 
