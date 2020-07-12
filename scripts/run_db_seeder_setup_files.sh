@@ -47,13 +47,6 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
 fi
 
 if [ ! -z "$DB_SEEDER_DATABASE" ]; then
-    if [ -f $DB_SEEDER_DATABASE ] || [ -f ${DB_SEEDER_DATABASE}.lobs ]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll ${DB_SEEDER_DATABASE}*
-        rm -f ${DB_SEEDER_DATABASE}*
-    fi    
-    
     if [ -d $DB_SEEDER_DATABASE ]; then 
         echo ""
         echo "............................................................ before:"
@@ -61,6 +54,13 @@ if [ ! -z "$DB_SEEDER_DATABASE" ]; then
         rm -rf $DB_SEEDER_DATABASE
     fi    
 
+    if [ -f $DB_SEEDER_DATABASE ] || [ -f ${DB_SEEDER_DATABASE}.lobs ]; then 
+        echo ""
+        echo "............................................................ before:"
+        ls -ll ${DB_SEEDER_DATABASE}*
+        rm -f ${DB_SEEDER_DATABASE}*
+    fi    
+    
     if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
         mkdir -p $DB_SEEDER_DATABASE
     else

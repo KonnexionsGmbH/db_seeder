@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_create_data.bat: Creation of dummy data in an empty database schema / user.
+rem run_db_seeder_create_data.bat: Creation of dummy data in an empty database.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Creation of dummy data in an empty database schema / user.
+echo DB Seeder - Creation of dummy data in an empty database.
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%

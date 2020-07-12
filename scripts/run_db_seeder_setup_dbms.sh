@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder_setup_dbms.sh: Setup a database Docker container.
+# run_db_seeder_setup_dbms.sh: Setup database files or a Docker container.
 #
 # ------------------------------------------------------------------------------
 

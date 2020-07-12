@@ -4,7 +4,8 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder.sh: Creation of dummy data.
+# run_db_seeder.bat: Creation of dummy data in an empty databases, 
+#                    database users or schemas.
 #
 # ------------------------------------------------------------------------------
 

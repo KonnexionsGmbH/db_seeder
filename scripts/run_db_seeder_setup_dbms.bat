@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_dbms.bat: Setup a database Docker container.
+rem run_db_seeder_setup_dbms.bat: Setup database files or a Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a database Docker container.
+echo DB Seeder - setting up the DBMS.
 echo --------------------------------------------------------------------------------
 echo DBMS                      : %DB_SEEDER_DBMS%
 echo DBMS_EMBEDDED             : %DB_SEEDER_DBMS_EMBEDDED%
@@ -23,7 +23,21 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     docker ps -qa --filter "name=db_seeder_db" | grep -q . && docker stop db_seeder_db && docker rm -fv db_seeder_db
     echo ............................................................. after:
     docker ps -a
-) else (    
+)
+    
+if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["yes"] (
+    call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+)
+
+if ["%DB_SEEDER_DBMS%"] == ["derby"] (
+    call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+)
+
+if ["%DB_SEEDER_DBMS%"] == ["h2"] (
+    call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+)
+
+if ["%DB_SEEDER_DBMS%"] == ["ibmdb2"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
 )
 
