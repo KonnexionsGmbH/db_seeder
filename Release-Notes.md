@@ -3,11 +3,11 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.16.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.6.svg)
 
 ----------
 
-## Version 1.16.0
+## Version 1.15.6
 
 Release Date: dd.mm.2020
 

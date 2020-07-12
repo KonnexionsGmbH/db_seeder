@@ -17,12 +17,12 @@ sed -i 's/USERMAPPING OFF/USERMAPPING ADMIN/g' /opt/ibm/config/onconfig
 echo ""
 echo "Stop Database ..........................................................."
 bash $INFORMIXDIR/bin/onshutdown.sh
-sleeo 60
+sleep 60
 echo "Database is stopped ....................................................."
 echo ""
 echo "Start Database .........................................................."
 oninit -vy
-sleeo 60
+sleep 60
 echo "Database is started ....................................................."
 onstat -g env
 echo "........................................................................."
