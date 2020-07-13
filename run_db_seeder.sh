@@ -107,7 +107,7 @@ fi
 
 if [ "$DB_SEEDER_DBMS" = "derby_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     # TODO Bug in Apache Derby
-    if [ "%DB_SEEDER_NO_CREATE_RUNS" = "2" ]; then
+    if [ "$DB_SEEDER_NO_CREATE_RUNS" = "2" ]; then
         export DB_SEEDER_NO_CREATE_RUNS=1
     fi
     unset -f DB_SEEDER_DERBY_CONNETION_PREFIX=

@@ -31,7 +31,7 @@ upload_file() {
   # Remove existing "origin"
   git remote rm origin
   # Add new "origin" with access token in the git URL for authentication
-  git remote add origin https://KonnexionsGmbH:"${DB_SEEDER_TOKEN}"@github.com/KonnexionsGmbH/db_seeder.git > /dev/null 2>&1
+  git remote add origin https://KonnexionsGmbH:"${ORA_BENCH_TOKEN}"@github.com/KonnexionsGmbH/db_seeder.git > /dev/null 2>&1
   git push origin gh-pages
 }
 

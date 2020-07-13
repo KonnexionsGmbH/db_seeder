@@ -122,7 +122,7 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 
 if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     rem TODO Bug in Apache Derby
-    if ["!DB_SEEDER_NO_CREATE_RUNS!"] EQU ["2"] (
+    if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["2"] (
         set DB_SEEDER_NO_CREATE_RUNS=1
     )
     set DB_SEEDER_DERBY_CONNECTION_PREFIX=

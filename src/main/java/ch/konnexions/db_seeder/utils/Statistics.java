@@ -96,8 +96,6 @@ public class Statistics {
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
     String statisticsName      = config.getFileStatisticsName();
 
-    logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "wwe statisticsName='"+statisticsName+"'");
-
     try {
       Path    statisticsPath = Paths.get(statisticsName);
 
