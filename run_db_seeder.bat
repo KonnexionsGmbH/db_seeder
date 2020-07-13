@@ -186,7 +186,7 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
     set DB_SEEDER_DBMS=hsqld
 )
 
-if ["%DB_SEEDER_DBMS%"] EQU ["hsqld"] (
+if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_HSQLDB_CONNECTION_HOST=
     set DB_SEEDER_HSQLDB_CONNECTION_PORT=
     set DB_SEEDER_HSQLDB_CONNECTION_PREFIX=
@@ -203,7 +203,7 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
     set DB_SEEDER_DBMS=hsqld_emb
 )
 
-if ["%DB_SEEDER_DBMS%"] EQU ["hsqld_emb"] (
+if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
     set DB_SEEDER_HSQLDB_CONNECTION_PREFIX=
     set DB_SEEDER_HSQLDB_CONNECTION_SUFFIX=
     set DB_SEEDER_HSQLDB_DATABASE=.\tmp\hsqldb_kxn_db

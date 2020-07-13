@@ -57,11 +57,23 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : $d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_bash.tsv
+unset -f $DB_SEEDER_DBMS=
+
+# ------------------------------------------------------------------------------
+# Initialise Statistics.
+# ------------------------------------------------------------------------------
+
+if [ -z "$DB_SEEDER_IS_TRAVIS" ]; then
+    export DB_SEEDER_IS_TRAVIS=no
+fi
+
+if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
+    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_travis.tsv
+else
+    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_bash.tsv
+fi  
 
 rm -f $DB_SEEDER_FILE_STATISTICS_NAME
-
-unset -f $DB_SEEDER_DBMS=
 
 # ------------------------------------------------------------------------------
 # CrateDB.
@@ -206,6 +218,14 @@ fi
 if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
     ( ./run_db_seeder.sh sqlite yes 2 )
 fi
+
+# ------------------------------------------------------------------------------
+# Upload Statistics.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
+    ./scripts/run_travis_push_to_github.sh
+fi  
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
