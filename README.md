@@ -243,51 +243,6 @@ The following script parameters are required:
 - `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system
 
 
-#### 4.1.3 Script `run_db_seeder_complete`
-
-The `run_db_seeder_complete` script allows a complete run-through for all DBMS, 
-i.e. it performs the following processing for each implemented DBMS: 
-
-1. `run_db_seeder_setup_dbms`
-1. `run_db_seeder`
-1. `run_db_seeder`
-
-A statistics file is created with the respective runtimes.
-No script parameters are required. 
- 
-#### 4.1.4 Script `run_db_seeder_create_data`
-
-The `run_db_seeder` script generates dummy data for a selected DBMS.
-Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
-The following script parameter is required: 
-
-- `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
-
-
-#### 4.1.5 Script `run_db_seeder_setup_dbms`
-
-The `run_db_seeder_setup_dbms` script creates an empty database for a selected DBMS.
-With all client DBMS this database is based on a corresponding Docker image.
-Therefore, the prerequisite is that Docker is started and a suitable connection to the Internet exists.
-The following script parameters are required: 
-
-- `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
- 
-#### 4.1.6 Script `run_db_seeder_setup_files`
-
-The `run_db_seeder_setup_dbms` script creates an empty database for a selected DBMS.
-With all client DBMS this database is based on a corresponding Docker image.
-Therefore, the prerequisite is that Docker is started and a suitable connection to the Internet exists.
-The following script parameters are required: 
-
-#### 4.1.7 Script `run_db_seeder_single`
-
-The `run_db_seeder` script generates dummy data for a selected DBMS.
-Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
-The following script parameter is required: 
-
-- `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
- 
 [//]: # (===========================================================================================)
 
 ### <a name="operating_instructions_control"></a> 4.2 Control Parameters
@@ -298,63 +253,71 @@ The flow control parameters for **`db_seeder`** are stored in the properties fil
 The following control parameters are currently supported:
 
 ```
+db_seeder.cratedb.connection.host=localhost
 db_seeder.cratedb.connection.port=5432
 db_seeder.cratedb.connection.prefix=crate://
 db_seeder.cratedb.password=cratedb
 db_seeder.cratedb.user.sys=crate
 db_seeder.cratedb.user=kxn_user
 
+db_seeder.cubrid.connection.host=localhost
 db_seeder.cubrid.connection.port=33000
 db_seeder.cubrid.connection.prefix=jdbc:CUBRID:
 db_seeder.cubrid.connection.suffix=::
-db_seeder.cubrid.database=kxn_db
+db_seeder.cubrid.database=see script run_db_seeder
 db_seeder.cubrid.password=cubrid
 db_seeder.cubrid.user.sys=DBA
 db_seeder.cubrid.user=kxn_user
 
+db_seeder.derby.connection.host=localhost
 db_seeder.derby.connection.port=1527
 db_seeder.derby.connection.prefix=jdbc:derby:
-db_seeder.derby.database=./tmp/kxn_db
+db_seeder.derby.database=kxn_db
 
 db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
 
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
-db_seeder.file.statistics.name=statistics/db_seeder.tsv
+db_seeder.file.statistics.name=statistics/db_seeder_local.tsv
 
+db_seeder.firebird.connection.host=localhost
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
 db_seeder.firebird.connection.suffix=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
-db_seeder.firebird.database=kxn_db
+db_seeder.firebird.database=see script run_db_seeder
 db_seeder.firebird.password.sys=firebird
 db_seeder.firebird.password=firebird
 db_seeder.firebird.user.sys=SYSDBA
 db_seeder.firebird.user=kxn_user
 
+db_seeder.h2.connection.host=localhost
 db_seeder.h2.connection.port=9092
 db_seeder.h2.connection.prefix=jdbc:h2:
-db_seeder.h2.database=./tmp/kxn_db
+db_seeder.h2.database=kxn_db
 db_seeder.h2.password=h2
 db_seeder.h2.schema=kxn_schema
 db_seeder.h2.user=kxn_user
 
+db_seeder.hsqldb.connection.host=localhost
 db_seeder.hsqldb.connection.port=9001
 db_seeder.hsqldb.connection.prefix=jdbc:hsqldb:
 db_seeder.hsqldb.connection.suffix=;ifexists=false;shutdown=true
-db_seeder.hsqldb.database=./tmp/kxn_db
+db_seeder.hsqldb.database=see script run_db_seeder
 db_seeder.hsqldb.password=hsqldb
 db_seeder.hsqldb.schema=kxn_schema
 db_seeder.hsqldb.user.sys=SA
 db_seeder.hsqldb.user=kxn_user
 
+db_seeder.ibmdb2.connection.host=localhost
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
-db_seeder.ibmdb2.database=kxn_db
+db_seeder.ibmdb2.database=see script run_db_seeder
 db_seeder.ibmdb2.password.sys=ibmdb2
 db_seeder.ibmdb2.schema=kxn_schema
 db_seeder.ibmdb2.user.sys=db2inst1
 
+db_seeder.informix.connection.host=localhost
 db_seeder.informix.connection.port=9088
 db_seeder.informix.connection.prefix=jdbc:informix-sqli://
 db_seeder.informix.connection.suffix=:INFORMIXSERVER=informix
@@ -363,8 +326,7 @@ db_seeder.informix.database=kxn_db
 db_seeder.informix.password.sys=in4mix
 db_seeder.informix.user.sys=informix
 
-db_seeder.jdbc.connection.host=localhost
-
+db_seeder.mariadb.connection.host=localhost
 db_seeder.mariadb.connection.port=3306
 db_seeder.mariadb.connection.prefix=jdbc:mariadb://
 db_seeder.mariadb.database.sys=mysql
@@ -380,6 +342,7 @@ db_seeder.max.row.country=200
 db_seeder.max.row.country_state=600
 db_seeder.max.row.timezone=11
 
+db_seeder.mimer.connection.host=localhost
 db_seeder.mimer.connection.port=11360
 db_seeder.mimer.connection.prefix=jdbc:mimer://
 db_seeder.mimer.database.sys=mimerdb
@@ -389,6 +352,7 @@ db_seeder.mimer.password=mimersql
 db_seeder.mimer.user.sys=SYSADM
 db_seeder.mimer.user=kxn_user
 
+db_seeder.mssqlserver.connection.host=localhost
 db_seeder.mssqlserver.connection.port=1433
 db_seeder.mssqlserver.connection.prefix=jdbc:sqlserver://
 db_seeder.mssqlserver.database.sys=master
@@ -399,6 +363,7 @@ db_seeder.mssqlserver.schema=kxn_schema
 db_seeder.mssqlserver.user.sys=sa
 db_seeder.mssqlserver.user=kxn_user
 
+db_seeder.mysql.connection.host=localhost
 db_seeder.mysql.connection.port=3306
 db_seeder.mysql.connection.prefix=jdbc:mysql://
 db_seeder.mysql.connection.suffix=?serverTimezone=UTC
@@ -409,6 +374,7 @@ db_seeder.mysql.password=mysql
 db_seeder.mysql.user.sys=root
 db_seeder.mysql.user=kxn_user
 
+db_seeder.oracle.connection.host=localhost
 db_seeder.oracle.connection.port=1521
 db_seeder.oracle.connection.prefix=jdbc:oracle:thin:@//
 db_seeder.oracle.connection.service=orclpdb1
@@ -417,6 +383,7 @@ db_seeder.oracle.password=oracle
 db_seeder.oracle.user=kxn_user
 db_seeder.oracle.user.sys=SYS AS SYSDBA
 
+db_seeder.postgresql.connection.host=localhost
 db_seeder.postgresql.connection.port=5432
 db_seeder.postgresql.connection.prefix=jdbc:postgresql://
 db_seeder.postgresql.database.sys=kxn_db_sys
@@ -427,7 +394,7 @@ db_seeder.postgresql.user.sys=kxn_user_sys
 db_seeder.postgresql.user=kxn_user
 
 db_seeder.sqlite.connection.prefix=jdbc:sqlite:
-db_seeder.sqlite.database=tmp/kxn_db
+db_seeder.sqlite.database=see script run_db_seeder
 ```
 
 #### 4.2.2 Explanation and Cross-reference
