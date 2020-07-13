@@ -12,40 +12,28 @@ setup_git() {
 }
 
 commit_statistics_file() {
-  pwd
-  echo "cp statistics/$DB_SEEDER_FILE_STATISTICS_NAME /tmp"
-  cp statistics/$DB_SEEDER_FILE_STATISTICS_NAME /tmp
-  echo "cd /tmp || exit 255"
+  cp $DB_SEEDER_FILE_STATISTICS_NAME /tmp
   cd /tmp || exit 255
-  pwd
-  echo "git clone --branch=master https://github.com/KonnexionsGmbH/db_seeder.git"
   git clone --branch=master https://github.com/KonnexionsGmbH/db_seeder.git
-  echo "mv /tmp/$DB_SEEDER_FILE_STATISTICS_NAME db_seeder/statistics/"
-  mv /tmp/$DB_SEEDER_FILE_STATISTICS_NAME db_seeder/statistics/
-  echo "cd db_seeder || exit 255"
+  mv /tmp/$DB_SEEDER_FILE_STATISTICS_NAME db_seeder/
   cd db_seeder || exit 255
   pwd
   # Current month and year, e.g: Apr 2018
   dateAndMonth=$(date "+%b %Y")
   # Stage the modified files in dist/output
-  echo "git add -f statistics/$DB_SEEDER_FILE_STATISTICS_NAME"
-  git add -f statistics/$DB_SEEDER_FILE_STATISTICS_NAME
+  git add -f $DB_SEEDER_FILE_STATISTICS_NAME
   # Create a new commit with a custom build message
   # with "[skip ci]" to avoid a build loop
   # and Travis build number for reference
-  echo "git commit -m ..."
   git commit -m "Travis update: $dateAndMonth (Build $TRAVIS_BUILD_NUMBER)" -m "[skip ci]"
 }
 
 upload_file() {
   # Remove existing "origin"
   pwd
-  echo "git remote rm origin"
   git remote rm origin
   # Add new "origin" with access token in the git URL for authentication
-  echo "git remote add origin https://KonnexionsGmbH:..."
   git remote add origin https://KonnexionsGmbH:"${ORA_BENCH_TOKEN}"@github.com/KonnexionsGmbH/db_seeder.git > /dev/null 2>&1
-  echo "git push origin master"
   git push origin master
 }
 
