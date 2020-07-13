@@ -12,12 +12,20 @@ setup_git() {
 }
 
 commit_statistics_file() {
+  echo "start directory"
+  pwd
+  ls -ll
   cp $DB_SEEDER_FILE_STATISTICS_NAME /tmp
   cd /tmp || exit 255
+  echo "/tmp directory"
+  pwd
+  ls -ll
   git clone --branch=master https://github.com/KonnexionsGmbH/db_seeder.git
   mv /tmp/$DB_SEEDER_FILE_STATISTICS_NAME db_seeder/
   cd db_seeder || exit 255
+  echo "/tmp/db_seeder directory"
   pwd
+  ls -ll
   # Current month and year, e.g: Apr 2018
   dateAndMonth=$(date "+%b %Y")
   # Stage the modified files in dist/output
@@ -40,7 +48,6 @@ upload_file() {
 setup_git
 
 # Attempt to commit to git only if "git commit" succeeded
-ls -ll
 if commit_statistics_file; then
   echo "A new commit with changed statistics file exists. Uploading to GitHub"
   upload_file
