@@ -30,6 +30,22 @@ export DB_SEEDER_DBMS_ORACLE=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
 export DB_SEEDER_DBMS_SQLITE=yes
 
+# ------------------------------------------------------------------------------
+# Initialise Statistics.
+# ------------------------------------------------------------------------------
+
+if [ -z "$DB_SEEDER_IS_TRAVIS" ]; then
+    export DB_SEEDER_IS_TRAVIS=no
+fi
+
+if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
+    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_travis.tsv
+else
+    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_bash.tsv
+fi  
+
+rm -f $DB_SEEDER_FILE_STATISTICS_NAME
+
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
@@ -54,26 +70,12 @@ echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
 echo "DBMS_SQLITE                     : $DB_SEEDER_DBMS_SQLITE"
 echo "--------------------------------------------------------------------------------"
+echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
+echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : $d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
 unset -f $DB_SEEDER_DBMS=
-
-# ------------------------------------------------------------------------------
-# Initialise Statistics.
-# ------------------------------------------------------------------------------
-
-if [ -z "$DB_SEEDER_IS_TRAVIS" ]; then
-    export DB_SEEDER_IS_TRAVIS=no
-fi
-
-if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_travis.tsv
-else
-    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_bash.tsv
-fi  
-
-rm -f $DB_SEEDER_FILE_STATISTICS_NAME
 
 # ------------------------------------------------------------------------------
 # CrateDB.

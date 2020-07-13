@@ -37,6 +37,8 @@ echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
 echo "SETUP_DBMS                        : $DB_SEEDER_SETUP_DBMS"
 echo "--------------------------------------------------------------------------------"
+echo "FILE_STATISTICS_NAME              : $DB_SEEDER_FILE_STATISTICS_NAME"
+echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : $d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 

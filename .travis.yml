@@ -55,5 +55,6 @@ script:
 
   # Generate Dummy ---------------------------------------------------------------
   - travis_fold start "Generate_Dummy_Data"
+  - export DB_SEEDER_IS_TRAVIS=yes
   - ./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2
   - travis_fold end   "Generate_Dummy_Data"

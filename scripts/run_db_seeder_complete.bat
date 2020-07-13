@@ -37,6 +37,10 @@ echo.
 
 > run_db_seeder_complete.log 2>&1 (
 
+    set DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_cmd.tsv
+
+    if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
+    
     echo ================================================================================
     echo Start %0
     echo --------------------------------------------------------------------------------
@@ -61,12 +65,10 @@ echo.
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
     echo DBMS_SQLITE                     : %DB_SEEDER_DBMS_SQLITE%
     echo --------------------------------------------------------------------------------
+    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
+    echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
-    
-    set DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_cmd.tsv
-
-    if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
     
     rem ------------------------------------------------------------------------------
     rem CrateDB.
