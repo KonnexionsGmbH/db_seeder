@@ -1,0 +1,3 @@
+ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
+cratedb	CrateDB	client	44	2020-07-13 16:42:10.112002000	2020-07-13 16:42:54.718142000	travis-job-b2ff79c9-6359-47e4-9cd7-6a3ef0a5261f	2	amd64 / Linux / 5.0.0-1031-gcp
+cratedb	CrateDB	client	33	2020-07-13 16:42:55.287918000	2020-07-13 16:43:29.246395000	travis-job-b2ff79c9-6359-47e4-9cd7-6a3ef0a5261f	2	amd64 / Linux / 5.0.0-1031-gcp
