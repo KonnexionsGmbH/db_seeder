@@ -14,14 +14,19 @@ setup_git() {
 commit_statistics_file() {
   echo "start directory"
   pwd
-  ls -ll
+  ls -ll statistics
   cp $DB_SEEDER_FILE_STATISTICS_NAME /tmp
   cd /tmp || exit 255
   echo "/tmp directory"
   pwd
   ls -ll
+  dirname=$(dirname $DB_SEEDER_FILE_STATISTICS_NAME)
+  echo dirname
+  basename=$(basename $DB_SEEDER_FILE_STATISTICS_NAME)
+  echo basename
   git clone --branch=master https://github.com/KonnexionsGmbH/db_seeder.git
-  mv /tmp/$DB_SEEDER_FILE_STATISTICS_NAME db_seeder/
+  mkdir -p db_seeder/dirname
+  mv basename db_seeder/dirname/
   cd db_seeder || exit 255
   echo "/tmp/db_seeder directory"
   pwd
@@ -29,7 +34,7 @@ commit_statistics_file() {
   # Current month and year, e.g: Apr 2018
   dateAndMonth=$(date "+%b %Y")
   # Stage the modified files in dist/output
-  git add -f $DB_SEEDER_FILE_STATISTICS_NAME
+  git add -f dirname/basename
   # Create a new commit with a custom build message
   # with "[skip ci]" to avoid a build loop
   # and Travis build number for reference
