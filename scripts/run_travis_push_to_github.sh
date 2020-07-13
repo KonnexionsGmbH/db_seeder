@@ -12,25 +12,14 @@ setup_git() {
 }
 
 commit_statistics_file() {
-  echo "start directory"
-  pwd
-  ls -ll statistics
+  dirname=$(dirname $DB_SEEDER_FILE_STATISTICS_NAME)
+  basename=$(basename $DB_SEEDER_FILE_STATISTICS_NAME)
   cp $DB_SEEDER_FILE_STATISTICS_NAME /tmp
   cd /tmp || exit 255
-  echo "/tmp directory"
-  pwd
-  ls -ll
-  dirname=$(dirname $DB_SEEDER_FILE_STATISTICS_NAME)
-  echo $dirname
-  basename=$(basename $DB_SEEDER_FILE_STATISTICS_NAME)
-  echo $basename
   git clone --branch=master https://github.com/KonnexionsGmbH/db_seeder.git
   mkdir -p db_seeder/$dirname
   mv $basename db_seeder/$dirname/
   cd db_seeder || exit 255
-  echo "/tmp/db_seeder directory"
-  pwd
-  ls -ll
   # Current month and year, e.g: Apr 2018
   dateAndMonth=$(date "+%b %Y")
   # Stage the modified files in dist/output
@@ -46,7 +35,7 @@ upload_file() {
   pwd
   git remote rm origin
   # Add new "origin" with access token in the git URL for authentication
-  git remote add origin https://KonnexionsGmbH:"${ORA_BENCH_TOKEN}"@github.com/KonnexionsGmbH/db_seeder.git > /dev/null 2>&1
+  git remote add origin https://KonnexionsGmbH:"${DB_SEEDER_TOKEN}"@github.com/KonnexionsGmbH/db_seeder.git > /dev/null 2>&1
   git push origin master
 }
 

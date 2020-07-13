@@ -1,0 +1,5 @@
+[credential]
+	helper = store --file=\"/ora_bench/.git-credentials\"
+[user]
+	name = walter-weinmann
+	email = walter@konnexions.ch
