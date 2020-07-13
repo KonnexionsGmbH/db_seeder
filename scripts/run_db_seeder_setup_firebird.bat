@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Firebird Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_FIREBIRD          : %DB_SEEDER_VERSION_FIREBIRD%
+echo VERSION_FIREBIRD          : %DB_SEEDER_FIREBIRD_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo Firebird
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (Firebird %DB_SEEDER_VERSION_FIREBIRD%)
-docker create --name db_seeder_db -e FIREBIRD_DATABASE=%DB_SEEDER_FIREBIRD_DATABASE% -e ISC_PASSWORD=firebird -p 3050:3050/tcp jacobalberty/firebird:%DB_SEEDER_VERSION_FIREBIRD%
+echo Docker create db_seeder_db (Firebird %DB_SEEDER_FIREBIRD_VERSION%)
+docker create --name db_seeder_db -e FIREBIRD_DATABASE=%DB_SEEDER_FIREBIRD_DATABASE% -e ISC_PASSWORD=firebird -p 3050:3050/tcp jacobalberty/firebird:%DB_SEEDER_FIREBIRD_VERSION%
 
-echo Docker start db_seeder_db (Firebird %DB_SEEDER_VERSION_FIREBIRD%) ...
+echo Docker start db_seeder_db (Firebird %DB_SEEDER_FIREBIRD_VERSION%) ...
 docker start db_seeder_db
 
 :check_health_status:

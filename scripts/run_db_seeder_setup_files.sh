@@ -8,129 +8,66 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-export DB_SEEDER_CUBRID_DATABASE=kxn_db
-export DB_SEEDER_DERBY_DATABASE=./tmp/kxn_db
-export DB_SEEDER_FIREBIRD_DATABASE=kxn_db
-export DB_SEEDER_H2_DATABASE=./tmp/kxn_db
-export DB_SEEDER_HSQLDB_DATABASE=./tmp/kxn_db
-export DB_SEEDER_IBMDB2_DATABASE=kxn_db
-export DB_SEEDER_INFORMIX_DATABASE=kxn_db
-export DB_SEEDER_MIMER_DATABASE=kxn_db
-export DB_SEEDER_SQLITE_DATABASE=tmp/kxn_db
-
-if [ -z "$1" ]; then
-    echo "==========================================="
-    echo "derby_emb   - Apache Derby [embedded]"
-    echo "cubrid      - CUBRID"
-    echo "firebird    - Firebird"
-    echo "h2_emb      - H2 Database Engine [embedded]"
-    echo "hsqldb_emb  - HyperSQL Database [embedded]"
-    echo "ibmdb2      - IBM Db2 Database"
-    echo "informix    - IBM Informix"
-    echo "sqlite      - SQLite [embedded]"
-    echo "-------------------------------------------"
-    read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
-    export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
-
-    if [ -z "$DB_SEEDER_DBMS" ]; then
-        export DB_SEEDER_DBMS=$DB_SEEDER_DBMS_DEFAULT
-    fi
-else
-    export DB_SEEDER_DBMS=$1
-fi
-
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - setup a database Docker container."
+echo "DB Seeder - creating database files or directories."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                      : $DB_SEEDER_DBMS"
 echo --------------------------------------------------------------------------------
-if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
-    echo "VERSION_CUBRID            : $DB_SEEDER_VERSION_CUBRID"
-    echo "CUBRID_DATABASE           : $DB_SEEDER_CUBRID_DATABASE"
-    if [[ -f $DB_SEEDER_CUBRID_DATABASE ]] || [[ -d $DB_SEEDER_CUBRID_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_CUBRID_DATABASE
-        rm -f $DB_SEEDER_CUBRID_DATABASE
-    fi    
-fi
-if [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
-    echo "VERSION_DERBY             : $DB_SEEDER_VERSION_DERRBY"
+
+if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "derby_emb" ]; then
+    echo "DERBY_VERSION             : $DB_SEEDER_DERBY_VERSION"
     echo "DERBY_DATABASE            : $DB_SEEDER_DERBY_DATABASE"
-    if [[ -f $DB_SEEDER_DERBY_DATABASE ]] || [[ -d $DB_SEEDER_DERBY_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_DERBY_DATABASE
-        rm -f $DB_SEEDER_DERBY_DATABASE
-    fi    
+    export DB_SEEDER_DATABASE=$DB_SEEDER_DERBY_DATABASE
 fi
-if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
-    echo "VERSION_FIREBIRD          : $DB_SEEDER_VERSION_FIREBIRD"
-    echo "FIREBIRD_DATABASE         : $DB_SEEDER_FIREBIRD_DATABASE"
-    if [[ -f $DB_SEEDER_FIREBIRD_DATABASE ]] || [[ -d $DB_SEEDER_FIREBIRD_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_FIREBIRD_DATABASE
-        rm -f $DB_SEEDER_FIREBIRD_DATABASE
-    fi    
-fi
-if [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
-    echo "VERSION_H2                : $DB_SEEDER_VERSION_H2"
+
+if [ "$DB_SEEDER_DBMS" = "h2" ] || [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
+    echo "H2_VERSION                : $DB_SEEDER_H2_VERSION"
     echo "H2_DATABASE               : $DB_SEEDER_H2_DATABASE"
-    if [[ -f ${DB_SEEDER_H2_DATABASE}.mv.db ]] || [[ -d ${DB_SEEDER_H2_DATABASE}.mv.db ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll ${DB_SEEDER_H2_DATABASE}.mv.db
-        rm -f ${DB_SEEDER_H2_DATABASE}.mv.db
-    fi    
+    export DB_SEEDER_DATABASE=$DB_SEEDER_H2_DATABASE
 fi
+
 if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
-    echo "VERSION_HSQLDB            : $DB_SEEDER_VERSION_HSQLDB"
+    echo "HSQLDB_VERSION            : $DB_SEEDER_HSQLDB_VERSION"
     echo "HSQLDB_DATABASE           : $DB_SEEDER_HSQLDB_DATABASE"
-    if [[ -f ${DB_SEEDER_HSQLDB_DATABASE}.lobs ]] || [[ -d ${DB_SEEDER_HSQLDB_DATABASE}.tmp ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll ${DB_SEEDER_HSQLDB_DATABASE}.*
-        rm -f ${DB_SEEDER_HSQLDB_DATABASE}.lck
-        rm -f ${DB_SEEDER_HSQLDB_DATABASE}.lobs
-        rm -f ${DB_SEEDER_HSQLDB_DATABASE}.log
-        rm -f ${DB_SEEDER_HSQLDB_DATABASE}.properties
-        rm -f ${DB_SEEDER_HSQLDB_DATABASE}.script
-        rm -f ${DB_SEEDER_HSQLDB_DATABASE}.tmp
-    fi    
+    export DB_SEEDER_DATABASE=$DB_SEEDER_HSQLDB_DATABASE
 fi
+
 if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
-    echo "VERSION_IBMDB2            : $DB_SEEDER_VERSION_IBMDB2"
+    echo "IBMDB2_VERSION            : $DB_SEEDER_IBMDB2_VERSION"
     echo "IBMDB2_DATABASE           : $DB_SEEDER_IBMDB2_DATABASE"
-    if [[ -f $DB_SEEDER_IBMDB2_DATABASE ]] || [[ -d $DB_SEEDER_IBMDB2_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_IBMDB2_DATABASE
-        rm -f $DB_SEEDER_IBMDB2_DATABASE
-    fi    
+    export DB_SEEDER_DATABASE=$DB_SEEDER_IBMDB2_DATABASE
 fi
-if [ "$DB_SEEDER_DBMS" = "informix" ]; then
-    echo "VERSION_INFORMIX          : $DB_SEEDER_VERSION_INFORMIX"
-    echo "INFORMIX_DATABASE         : $DB_SEEDER_INFORMIX_DATABASE"
-    if [[ -f $DB_SEEDER_INFORMIX_DATABASE ]] || [[ -d $DB_SEEDER_INFORMIX_DATABASE ]]; then 
-        echo ""
-        echo "............................................................ before:"
-        ls -ll $DB_SEEDER_INFORMIX_DATABASE
-        rm -f $DB_SEEDER_INFORMIX_DATABASE
-    fi    
-fi
+
 if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
-    echo "VERSION_SQLITE            : $DB_SEEDER_VERSION_SQLITE"
+    echo "SQLITE_VERSION            : $DB_SEEDER_SQLITE_VERSION"
     echo "SQLITE_DATABASE           : $DB_SEEDER_SQLITE_DATABASE"
-    if [[ -f $DB_SEEDER_SQLITE_DATABASE ]] || [[ -d $DB_SEEDER_SQLITE_DATABASE ]]; then 
+    export DB_SEEDER_DATABASE=$DB_SEEDER_SQLITE_DATABASE
+fi
+
+if [ ! -z "$DB_SEEDER_DATABASE" ]; then
+    if [ -d $DB_SEEDER_DATABASE ]; then 
         echo ""
         echo "............................................................ before:"
-        ls -ll $DB_SEEDER_SQLITE_DATABASE
-        rm -f $DB_SEEDER_SQLITE_DATABASE
+        ls -ll $DB_SEEDER_DATABASE
+        rm -rf $DB_SEEDER_DATABASE
     fi    
-fi
+
+    if [ -f $DB_SEEDER_DATABASE ] || [ -f ${DB_SEEDER_DATABASE}.lobs ]; then 
+        echo ""
+        echo "............................................................ before:"
+        ls -ll ${DB_SEEDER_DATABASE}*
+        rm -f ${DB_SEEDER_DATABASE}*
+    fi    
+    
+    if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
+        mkdir -p $DB_SEEDER_DATABASE
+    else
+        fileDirectory=$DB_SEEDER_DATABASE
+        mkdir -p ${fileDirectory%/*}
+    fi
+fi    
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

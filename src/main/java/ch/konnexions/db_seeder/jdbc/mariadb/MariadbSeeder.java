@@ -26,22 +26,27 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
   public MariadbSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.MARIADB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMariadbConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
-
+    urlBase               = config.getMariadbConnectionPrefix() + config.getMariadbConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
     url                   = urlBase + config.getMariadbDatabase();
     urlSetup              = urlBase + config.getMariadbDatabaseSys();
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -122,10 +127,14 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -180,6 +189,8 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getMariadbUser(), config.getMariadbPassword());
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

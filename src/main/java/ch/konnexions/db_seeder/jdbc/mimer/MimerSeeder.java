@@ -26,10 +26,14 @@ public class MimerSeeder extends AbstractJdbcSeeder {
   public MimerSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.MIMER;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -38,13 +42,12 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getMimerConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMimerConnectionPort() + "/";
+    url                   = config.getMimerConnectionPrefix() + config.getMimerConnectionHost() + ":" + config.getMimerConnectionPort() + "/"
+        + config.getMimerDatabaseSys();
 
-    url                   = urlBase + config.getMimerDatabase();
-    url                   = urlBase + config.getMimerDatabaseSys();
-    urlSetup              = urlBase + config.getMimerDatabaseSys();
-
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -185,16 +188,20 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, config.getMimerUserSys(), config.getMimerPasswordSys(), true);
+    connection = connect(url, driver, config.getMimerUserSys(), config.getMimerPasswordSys(), true);
 
     // -----------------------------------------------------------------------
     // Drop the database and database user if already existing.
@@ -233,6 +240,8 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getMimerUser(), config.getMimerPassword(), true);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

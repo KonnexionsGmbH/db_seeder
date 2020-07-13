@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a IBM Informix Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_INFORMIX          : %DB_SEEDER_VERSION_INFORMIX%
+echo VERSION_INFORMIX          : %DB_SEEDER_INFORMIX_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo IBM Informix
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (IBM Informix %DB_SEEDER_VERSION_INFORMIX%)
-docker create --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:%DB_SEEDER_VERSION_INFORMIX%
+echo Docker create db_seeder_db (IBM Informix %DB_SEEDER_INFORMIX_VERSION%)
+docker create --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -p 9088:9088 --privileged ibmcom/informix-developer-database:%DB_SEEDER_INFORMIX_VERSION%
 
-echo Docker start db_seeder_db (IBM Informix %DB_SEEDER_VERSION_INFORMIX%)
+echo Docker start db_seeder_db (IBM Informix %DB_SEEDER_INFORMIX_VERSION%)
 docker start db_seeder_db
 
 :check_health_status:

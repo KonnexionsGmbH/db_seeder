@@ -26,10 +26,14 @@ public class CubridSeeder extends AbstractJdbcSeeder {
   public CubridSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.CUBRID;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -38,12 +42,14 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "\"";
 
-    urlBase               = config.getCubridConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
+    urlBase               = config.getCubridConnectionPrefix() + config.getCubridConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
         + config.getCubridDatabase() + ":";
     url                   = urlBase + config.getCubridConnectionSuffix();
     urlSetup              = urlBase + config.getCubridUserSys() + config.getCubridConnectionSuffix();
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -143,10 +149,14 @@ public class CubridSeeder extends AbstractJdbcSeeder {
   }
 
   private final void dropUser(String cubridUser) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     try {
       int count = 0;
@@ -176,15 +186,21 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -227,6 +243,8 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getCubridUser(), config.getCubridPassword());
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

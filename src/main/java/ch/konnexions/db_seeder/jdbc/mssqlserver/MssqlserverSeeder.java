@@ -26,23 +26,29 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
   public MssqlserverSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.MSSQLSERVER;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getMssqlserverConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMssqlserverConnectionPort()
+    urlBase               = config.getMssqlserverConnectionPrefix() + config.getMssqlserverConnectionHost() + ":" + config.getMssqlserverConnectionPort()
         + ";databaseName=";
     url                   = urlBase + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword();
     urlSetup              = urlBase + config.getMssqlserverDatabaseSys() + ";user=" + config.getMssqlserverUserSys() + ";password="
         + config.getMssqlserverPasswordSys();
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -123,10 +129,14 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -190,6 +200,8 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

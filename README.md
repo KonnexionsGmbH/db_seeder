@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.5.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.8.svg)
 ----
 
 ### Table of Contents
@@ -104,30 +104,31 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 
 ### 1.1 Relational Database Management Systems
 
-| DBMS | DB Ticker Symbol(s) | DBMS Versions | Latest JDBC |
+| DBMS | Ticker Symbol(s) | DBMS Versions | Latest JDBC |
 |---|---|---|---|
-| Apache Derby | DERBY, DERBY_EMB | 10.15.2.0 | 10.15.2.0 |
-| CrateDB | CRATEDB | 4.1.6 - 4.1.8 | 2.6.0 |
-| CUBRID | CUBRID | 10.2 | 10.2.1.8849 |
-| Firebird | FIREBIRD | 3.0.5 - 3.0.6 | 4.0.0.java11 | 
-| H2 Database Engine | H2, H2_EMB | 1.4.200 | 1.4.200 | 
-| HyperSQL Database | HSQLDB, HSQLDB_EMB | 2.5.1 | 2.5.1 | 
-| IBM Db2 Database | IBMDB2 | 11.5.1.0 - 11.5.4.0 | 11.5.4.0 | 
-| IBM Informix | INFORMIX | 14.10 FC3DE | 4.50.4.1 | 
-| MariaDB Server | MARIADB | 10.4.13 - 10.5.4 | 2.6.1 | 
-| Microsoft SQL Server | MSSQLSERVER | 2019| 8.3.1.jre14-preview | 
-| Mimer SQL | MIMER | 11.0.3C | 3.40 | 
-| MySQL Database | MYSQL | 8.0.20 | 8.0.20 | 
-| Oracle Database | ORACLE | 12c - 19c | 19.7.0.0 |
-| PostgreSQL Database | POSTGRESQL | 12.3 | 42.2.14 |
-| SQLite | SQLITE | 3.32.3 | 3.32.3 |
+| Apache Derby | derby, derby_emb | 10.15.2.0 | 10.15.2.0 |
+| CrateDB | cratedb | 4.1.6 - 4.1.8 | 2.6.0 |
+| CUBRID | cubrid | 10.2 | 10.2.1.8849 |
+| Firebird | firebird | 3.0.5 - 3.0.6 | 4.0.0.java11 | 
+| H2 Database Engine | h2, h2_emb | 1.4.200 | 1.4.200 | 
+| HyperSQL Database | hsqldb, hsqldb_emb | 2.5.1 | 2.5.1 | 
+| IBM Db2 Database | ibmdb2 | 11.5.1.0 - 11.5.4.0 | 11.5.4.0 | 
+| IBM Informix | informix | 14.10 FC3DE | 4.50.4.1 | 
+| MariaDB Server | mariadb | 10.4.13 - 10.5.4 | 2.6.1 | 
+| Microsoft SQL Server | mssqlserver | 2019| 8.3.1.jre14-preview | 
+| Mimer SQL | mimer | 11.0.3C | 3.40 | 
+| MySQL Database | mysql | 8.0.20 | 8.0.20 | 
+| Oracle Database | oracle | 12c - 19c | 19.7.0.0 |
+| PostgreSQL Database | postgresql | 12.3 | 42.2.14 |
+| SQLite | sqlite | 3.32.3 | 3.32.3 |
 
 [//]: # (===========================================================================================)
 
 ## <a name="data"></a> 2. Data 
 
 The underlying data model is quite simple and is shown here in the relational version.
-The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
+The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, 
+and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
 
 ### <a name="data_logical"></a> 2.1 Logical Schema
 
@@ -226,44 +227,41 @@ The easiest way is to download a current release of **`db_seeder`** from the Git
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 The system requirements are described in the respective release notes. 
 
+[//]: # (===========================================================================================)
+
 ## <a name="operating_instructions"></a> 4. Operating Instructions 
 
-### <a name="operating_instructions_scripts"></a> 4.1 Scripts
+### <a name="operating_instructions_scripts"></a> 4.1 Script `run_db_seeder`
 
-Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
-To run **`db_seeder`**, only the libraries in the `lib` directory and the appropriate script of `run_db_seeder` are required. 
-All parameters used in **`db_seeder`** can be adjusted in the script to suit your needs.
-
-#### 4.1.1 Script `run_db_seeder`
-
-The `run_db_seeder` script generates dummy data for a selected DBMS.
-Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
-The following script parameter is required: 
-
-- `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
-
-
-#### 4.1.2 Script `run_db_seeder_setup_dbms`
-
-The `run_db_seeder_setup_dbms` script creates an empty database for a selected DBMS.
-With all client DBMS this database is based on a corresponding Docker image.
-Therefore, the prerequisite is that Docker is started and a suitable connection to the Internet exists.
-The following script parameters are required: 
-
-- `DB_SEEDER_DBMS_DEFAULT`: the ticker symbol of the desired database management system
+Using the Konnexions development Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) eliminates the need to install the runtime environment.
  
-#### 4.1.3 Script `run_db_seeder_complete`
+With the script `run_db_seeder` the complete functionality of the **`db_seeder`** application can be used:
 
-The `run_db_seeder_complete` script allows a complete run-through for all DBMS, 
-i.e. it performs the following processing for each implemented DBMS: 
+- Creating a suitable database
+- Generation of any number of dummy data.
 
-1. `run_db_seeder_setup_dbms`
-1. `run_db_seeder`
-1. `run_db_seeder`
-
-A statistics file is created with the respective runtimes.
-No script parameters are required. 
+All scripts are available in a Windows version (`cmd` / `.bat`) as well as in a Unix version (`bash` / `.sh`). 
+To run the scripts, apart from the prerequisites as release notes (`ReleaseNotes.md`), 
+only the libraries in the `lib` directory and the corresponding script of `run_db_seeder` are required. 
+The creation of the databases also requires a working access to [Docker Hub](https://hub.docker.com/).
  
+All control parameters used in **`db_seeder`** (see section 4.2) can be adapted in the scripts to specific needs.
+
+The `run_db_seeder' script is controlled by the following script parameters:: 
+
+- `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system (default value `sqlite`) or `complete` for all implemented DBMS.
+- `DB_SEEDER_SETUP_DBMS`: should an empty database be created:
+  - `yes`: a new database is created based on a suitable Docker image
+  - otherwise: no database is created 
+- `DB_SEEDER_NO_CREATE_RUNS`: Number of dummy data generation runs:
+  - 1: one run
+  - 2: two runs
+  - otherwise: no run
+
+An overview of the structure of the scripts used can be taken from the following diagram:
+
+![](.README_images/script_structure.png)
+
 [//]: # (===========================================================================================)
 
 ### <a name="operating_instructions_control"></a> 4.2 Control Parameters
@@ -274,63 +272,71 @@ The flow control parameters for **`db_seeder`** are stored in the properties fil
 The following control parameters are currently supported:
 
 ```
+db_seeder.cratedb.connection.host=localhost
 db_seeder.cratedb.connection.port=5432
 db_seeder.cratedb.connection.prefix=crate://
 db_seeder.cratedb.password=cratedb
 db_seeder.cratedb.user.sys=crate
 db_seeder.cratedb.user=kxn_user
 
+db_seeder.cubrid.connection.host=localhost
 db_seeder.cubrid.connection.port=33000
 db_seeder.cubrid.connection.prefix=jdbc:CUBRID:
 db_seeder.cubrid.connection.suffix=::
-db_seeder.cubrid.database=kxn_db
+db_seeder.cubrid.database=see script run_db_seeder
 db_seeder.cubrid.password=cubrid
 db_seeder.cubrid.user.sys=DBA
 db_seeder.cubrid.user=kxn_user
 
+db_seeder.derby.connection.host=localhost
 db_seeder.derby.connection.port=1527
 db_seeder.derby.connection.prefix=jdbc:derby:
-db_seeder.derby.database=./tmp/kxn_db
+db_seeder.derby.database=kxn_db
 
 db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
 
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
-db_seeder.file.statistics.name=statistics/db_seeder.tsv
+db_seeder.file.statistics.name=statistics/db_seeder_local.tsv
 
+db_seeder.firebird.connection.host=localhost
 db_seeder.firebird.connection.port=3050
 db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
 db_seeder.firebird.connection.suffix=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
-db_seeder.firebird.database=kxn_db
+db_seeder.firebird.database=see script run_db_seeder
 db_seeder.firebird.password.sys=firebird
 db_seeder.firebird.password=firebird
 db_seeder.firebird.user.sys=SYSDBA
 db_seeder.firebird.user=kxn_user
 
+db_seeder.h2.connection.host=localhost
 db_seeder.h2.connection.port=9092
 db_seeder.h2.connection.prefix=jdbc:h2:
-db_seeder.h2.database=./tmp/kxn_db
+db_seeder.h2.database=kxn_db
 db_seeder.h2.password=h2
 db_seeder.h2.schema=kxn_schema
 db_seeder.h2.user=kxn_user
 
+db_seeder.hsqldb.connection.host=localhost
 db_seeder.hsqldb.connection.port=9001
 db_seeder.hsqldb.connection.prefix=jdbc:hsqldb:
 db_seeder.hsqldb.connection.suffix=;ifexists=false;shutdown=true
-db_seeder.hsqldb.database=./tmp/kxn_db
+db_seeder.hsqldb.database=see script run_db_seeder
 db_seeder.hsqldb.password=hsqldb
 db_seeder.hsqldb.schema=kxn_schema
 db_seeder.hsqldb.user.sys=SA
 db_seeder.hsqldb.user=kxn_user
 
+db_seeder.ibmdb2.connection.host=localhost
 db_seeder.ibmdb2.connection.port=50000
 db_seeder.ibmdb2.connection.prefix=jdbc:db2://
-db_seeder.ibmdb2.database=kxn_db
+db_seeder.ibmdb2.database=see script run_db_seeder
 db_seeder.ibmdb2.password.sys=ibmdb2
 db_seeder.ibmdb2.schema=kxn_schema
 db_seeder.ibmdb2.user.sys=db2inst1
 
+db_seeder.informix.connection.host=localhost
 db_seeder.informix.connection.port=9088
 db_seeder.informix.connection.prefix=jdbc:informix-sqli://
 db_seeder.informix.connection.suffix=:INFORMIXSERVER=informix
@@ -339,8 +345,9 @@ db_seeder.informix.database=kxn_db
 db_seeder.informix.password.sys=in4mix
 db_seeder.informix.user.sys=informix
 
-db_seeder.jdbc.connection.host=localhost
+db_seeder.is.debug=false
 
+db_seeder.mariadb.connection.host=localhost
 db_seeder.mariadb.connection.port=3306
 db_seeder.mariadb.connection.prefix=jdbc:mariadb://
 db_seeder.mariadb.database.sys=mysql
@@ -356,6 +363,7 @@ db_seeder.max.row.country=200
 db_seeder.max.row.country_state=600
 db_seeder.max.row.timezone=11
 
+db_seeder.mimer.connection.host=localhost
 db_seeder.mimer.connection.port=11360
 db_seeder.mimer.connection.prefix=jdbc:mimer://
 db_seeder.mimer.database.sys=mimerdb
@@ -365,6 +373,7 @@ db_seeder.mimer.password=mimersql
 db_seeder.mimer.user.sys=SYSADM
 db_seeder.mimer.user=kxn_user
 
+db_seeder.mssqlserver.connection.host=localhost
 db_seeder.mssqlserver.connection.port=1433
 db_seeder.mssqlserver.connection.prefix=jdbc:sqlserver://
 db_seeder.mssqlserver.database.sys=master
@@ -375,6 +384,7 @@ db_seeder.mssqlserver.schema=kxn_schema
 db_seeder.mssqlserver.user.sys=sa
 db_seeder.mssqlserver.user=kxn_user
 
+db_seeder.mysql.connection.host=localhost
 db_seeder.mysql.connection.port=3306
 db_seeder.mysql.connection.prefix=jdbc:mysql://
 db_seeder.mysql.connection.suffix=?serverTimezone=UTC
@@ -385,6 +395,7 @@ db_seeder.mysql.password=mysql
 db_seeder.mysql.user.sys=root
 db_seeder.mysql.user=kxn_user
 
+db_seeder.oracle.connection.host=localhost
 db_seeder.oracle.connection.port=1521
 db_seeder.oracle.connection.prefix=jdbc:oracle:thin:@//
 db_seeder.oracle.connection.service=orclpdb1
@@ -393,6 +404,7 @@ db_seeder.oracle.password=oracle
 db_seeder.oracle.user=kxn_user
 db_seeder.oracle.user.sys=SYS AS SYSDBA
 
+db_seeder.postgresql.connection.host=localhost
 db_seeder.postgresql.connection.port=5432
 db_seeder.postgresql.connection.prefix=jdbc:postgresql://
 db_seeder.postgresql.database.sys=kxn_db_sys
@@ -403,29 +415,29 @@ db_seeder.postgresql.user.sys=kxn_user_sys
 db_seeder.postgresql.user=kxn_user
 
 db_seeder.sqlite.connection.prefix=jdbc:sqlite:
-db_seeder.sqlite.database=tmp/kxn_db
+db_seeder.sqlite.database=see script run_db_seeder
 ```
 
 #### 4.2.2 Explanation and Cross-reference
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| <db_ticker>.connection.port=<9...9> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
-| <db_ticker>.connection.prefix=<x...x> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
-| <db_ticker>.connection.suffix=<x...x> | <DB_TICKER>_CONNECTION_SUFFIX | CUBRID, FIREBIRD, HSQLDB, INFORMIX, MYSQL | suffix of the database connection string |
-| <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, POSTGRESQL | privileged database name |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | DERBY, CUBRID, FIREBIRD, H2, HSQLDB, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, POSTGRESQL, SQLITE | database name |
-| <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | FIREBIRD, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the privileged user |
-| <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | password of the normal user |
-| <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | H2, HSQLDB, IBMDB2, MSSQLSERVER | schema name |
-| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, HSQLDB, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the privileged user |
-| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | CRATEDB, CUBRID, FIREBIRD, H2, HSQLDB, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name of the normal user |
+| <db_ticker>.connection.port=<9...9> | <TICKER_SYMBOL>_CONNECTION_PORT | all client RDBMS | port number of the database server |
+| <db_ticker>.connection.prefix=<x...x> | <TICKER_SYMBOL>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
+| <db_ticker>.connection.suffix=<x...x> | <TICKER_SYMBOL>_CONNECTION_SUFFIX | cubrid, firebird, hsqldb, informix, mysql | suffix of the database connection string |
+| <db_ticker>.database.sys=<x...x> | <TICKER_SYMBOL>_DATABASE | informix, mariadb, mimer, mssqlserver, mysql, postgresql | privileged database name |
+| <db_ticker>.database=kxn_db | <TICKER_SYMBOL>_DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, postgresql, sqlite | database name |
+| <db_ticker>.password.sys=<x...x> | <TICKER_SYMBOL>_PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
+| <db_ticker>.password=<x...x> | <TICKER_SYMBOL>_PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
+| <db_ticker>.schema=kxn_schema | <TICKER_SYMBOL>_SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |
+| <db_ticker>.user.sys=<x...x>> | <TICKER_SYMBOL>_USER | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the privileged user |
+| <db_ticker>.user=kxn_user | <TICKER_SYMBOL>_USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
-| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except CUBRID and MSSQLSERVER | generate column content with tradtional chinese characters included |
+| encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except cubrid and mssqlserver | generate column content with tradtional chinese characters included |
 | file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
 | file.statistics.header=<x...x> | FILE_STATISTICS_NAME | all DBMS | header line of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
 | file.statistics.name=<x...x> | FILE_STATISTICS_NAME | all DBMS | file name of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | CRATEDB, CUBRID, FIREBIRD, IBMDB2, INFORMIX, MARIADB, MIMER, MSSQLSERVER, MYSQL, ORACLE, POSTGRESQL | name or ip address of the database server |
+| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | cratedb, cubrid, firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 |     |     |     |     |
 

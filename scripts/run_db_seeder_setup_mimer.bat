@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Mimer SQL Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_MIMER             : %DB_SEEDER_VERSION_MIMER%
+echo VERSION_MIMER             : %DB_SEEDER_MIMER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo Mimer SQL
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (Mimer SQL %DB_SEEDER_VERSION_MIMER%)
-docker create --name db_seeder_db -e MIMER_SYSADM_PASSWORD=mimersql -p 11360:1360/tcp mimersql/mimersql_v11.0:%DB_SEEDER_VERSION_MIMER%
+echo Docker create db_seeder_db (Mimer SQL %DB_SEEDER_MIMER_VERSION%)
+docker create --name db_seeder_db -e MIMER_SYSADM_PASSWORD=mimersql -p 11360:1360/tcp mimersql/mimersql_v11.0:%DB_SEEDER_MIMER_VERSION%
  
-echo Docker start db_seeder_db (Mimer SQL %DB_SEEDER_VERSION_MIMER%) ...
+echo Docker start db_seeder_db (Mimer SQL %DB_SEEDER_MIMER_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 20 127.0.0.1>nul

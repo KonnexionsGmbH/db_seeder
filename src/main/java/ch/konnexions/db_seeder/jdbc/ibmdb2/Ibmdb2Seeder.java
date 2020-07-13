@@ -28,22 +28,28 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
   public Ibmdb2Seeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.IBMDB2;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";
 
-    url                   = config.getIbmdb2ConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
+    url                   = config.getIbmdb2ConnectionPrefix() + config.getIbmdb2ConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
         + config.getIbmdb2Database();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -123,10 +129,14 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
   }
 
   private final void dropAllTables(String ibmdb2Schema) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     Connection connectionLocal = connect(url, null, config.getIbmdb2UserSys(), config.getIbmdb2PasswordSys(), true);
 
@@ -161,14 +171,19 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 
   private final void dropSchema(String ibmdb2Schema) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     try {
       int count = 0;
@@ -200,15 +215,21 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -241,6 +262,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

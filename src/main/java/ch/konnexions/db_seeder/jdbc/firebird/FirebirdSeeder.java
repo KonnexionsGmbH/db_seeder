@@ -27,10 +27,14 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
   public FirebirdSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.FIREBIRD;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -39,12 +43,14 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getFirebirdConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
+    url                   = config.getFirebirdConnectionPrefix() + config.getFirebirdConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
         + config.getFirebirdDatabase() + config.getFirebirdConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -124,10 +130,14 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
   }
 
   protected final void dropAllTables(String sqlStmnt) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     try {
       Connection connectionLocal = connect(url, null, "sysdba", config.getFirebirdPasswordSys(), true);
@@ -160,7 +170,9 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 
   private final void dropUser(String userName) {
@@ -195,10 +207,14 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -241,6 +257,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getFirebirdUser(), config.getFirebirdPassword(), true);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

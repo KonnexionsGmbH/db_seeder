@@ -26,10 +26,14 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
   public MysqlSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.MYSQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -38,11 +42,13 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMysqlConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
+    urlBase               = config.getMysqlConnectionPrefix() + config.getMysqlConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
     url                   = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
     urlSetup              = urlBase + config.getMysqlDatabaseSys() + config.getMysqlConnectionSuffix();
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -123,10 +129,14 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -181,6 +191,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getMysqlUser(), config.getMysqlPassword());
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

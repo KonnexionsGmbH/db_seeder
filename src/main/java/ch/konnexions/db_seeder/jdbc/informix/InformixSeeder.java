@@ -26,10 +26,14 @@ public class InformixSeeder extends AbstractJdbcSeeder {
   public InformixSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.INFORMIX;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -38,15 +42,15 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
-        + config.getInformixDatabase() + config.getInformixConnectionSuffix();
-
-    urlSetup              = config.getInformixConnectionPrefix() + config.getJdbcConnectionHost() + ":" + config.getInformixConnectionPort() + "/"
-        + config.getInformixDatabaseSys() + config.getInformixConnectionSuffix();
+    urlBase               = config.getInformixConnectionPrefix() + config.getInformixConnectionHost() + ":" + config.getInformixConnectionPort() + "/";
+    url                   = urlBase + config.getInformixDatabase() + config.getInformixConnectionSuffix();
+    urlSetup              = urlBase + config.getInformixDatabaseSys() + config.getInformixConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -127,10 +131,14 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -179,6 +187,8 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getInformixUserSys(), config.getInformixPasswordSys());
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

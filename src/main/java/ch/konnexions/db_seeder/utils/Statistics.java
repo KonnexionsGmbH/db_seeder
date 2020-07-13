@@ -35,6 +35,8 @@ public class Statistics {
 
   private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
+  private final boolean               isDebug   = logger.isDebugEnabled();
+
   private final LocalDateTime         startDateTime;
   private CSVPrinter                  statisticsFile;
 
@@ -56,10 +58,14 @@ public class Statistics {
   }
 
   public final void createMeasuringEntry() {
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     try {
       LocalDateTime endDateTime = LocalDateTime.now();
@@ -80,7 +86,9 @@ public class Statistics {
       System.exit(1);
     }
 
-    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 
   /**
@@ -89,15 +97,19 @@ public class Statistics {
   @SuppressWarnings("resource")
   private final void createStatisticsFile() {
     String methodName = new Object() {
-    }.getClass().getName();
+    }.getClass().getEnclosingMethod().getName();
 
-    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
     String statisticsName      = config.getFileStatisticsName();
 
     try {
-      Path    statisticsPath = Paths.get(statisticsName);
+      Path statisticsPath = Paths.get(statisticsName);
+
+      Files.createDirectories(statisticsPath.getParent());
 
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 
@@ -119,7 +131,9 @@ public class Statistics {
       System.exit(1);
     }
 
-    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 
   private final void openStatisticsFile() {
@@ -130,7 +144,10 @@ public class Statistics {
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 
       if (!(isFileExisting)) {
-        logger.error("fatal error: program abort =====> statistics file \"" + statisticsName + "\" is missing <=====");
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        logger.error(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  fatal error: program abort =====> statistics file \""
+            + statisticsName + "\" is missing <=====");
         System.exit(1);
       }
 
