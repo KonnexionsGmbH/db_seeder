@@ -104,7 +104,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 
 ### 1.1 Relational Database Management Systems
 
-| DBMS | DB Ticker Symbol(s) | DBMS Versions | Latest JDBC |
+| DBMS | Ticker Symbol(s) | DBMS Versions | Latest JDBC |
 |---|---|---|---|
 | Apache Derby | derby, derby_emb | 10.15.2.0 | 10.15.2.0 |
 | CrateDB | cratedb | 4.1.6 - 4.1.8 | 2.6.0 |
@@ -127,7 +127,8 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 ## <a name="data"></a> 2. Data 
 
 The underlying data model is quite simple and is shown here in the relational version.
-The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
+The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, 
+and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
 
 ### <a name="data_logical"></a> 2.1 Logical Schema
 
@@ -232,16 +233,34 @@ The system requirements are described in the respective release notes.
 
 ### <a name="operating_instructions_scripts"></a> 4.1 Script `run_db_seeder`
 
-Using the Konnexions development docker image from DockerHub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) saves the effort of installing the latest Java version. 
-To run the **`db_seeder`** script, only the libraries in the `lib` directory and the appropriate script of `run_db_seeder` are required. 
-All properties used in **`db_seeder`** can be adjusted in the script to suit your needs.
-The `run_db_seeder` script generates dummy data for a selected DBMS.
-Prerequisite is a connection to a suitable Database, e.g. via a Docker container.
-The following script parameters are required: 
+Using the Konnexions development Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) eliminates the need to install the runtime environment.
+ 
+With the script `run_db_seeder` the complete functionality of the **`db_seeder`** application can be used:
 
-- `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system (default value `sqlite`)
-- `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system
+- Creating a suitable database
+- Generation of any number of dummy data.
 
+All scripts are available in a Windows version (`cmd` / `.bat`) as well as in a Unix version (`bash` / `.sh`). 
+To run the scripts, apart from the prerequisites as release notes (`ReleaseNotes.md`), 
+only the libraries in the `lib` directory and the corresponding script of `run_db_seeder` are required. 
+The creation of the databases also requires a working access to [Docker Hub](https://hub.docker.com/).
+ 
+All control parameters used in **`db_seeder`** (see section 4.2) can be adapted in the scripts to specific needs.
+
+The `run_db_seeder' script is controlled by the following script parameters:: 
+
+- `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system (default value `sqlite`) or `complete` for all implemented DBMS.
+- `DB_SEEDER_SETUP_DBMS`: should an empty database be created:
+  - `yes`: a new database is created based on a suitable Docker image
+  - otherwise: no database is created 
+- `DB_SEEDER_NO_CREATE_RUNS`: Number of dummy data generation runs:
+  - 1: one run
+  - 2: two runs
+  - otherwise: no run
+
+An overview of the structure of the scripts used can be taken from the following diagram:
+
+![](.README_images/script_structure.png)
 
 [//]: # (===========================================================================================)
 
@@ -401,16 +420,16 @@ db_seeder.sqlite.database=see script run_db_seeder
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| <db_ticker>.connection.port=<9...9> | <DB_TICKER>_CONNECTION_PORT | all client RDBMS | port number of the database server |
-| <db_ticker>.connection.prefix=<x...x> | <DB_TICKER>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
-| <db_ticker>.connection.suffix=<x...x> | <DB_TICKER>_CONNECTION_SUFFIX | cubrid, firebird, hsqldb, informix, mysql | suffix of the database connection string |
-| <db_ticker>.database.sys=<x...x> | <DB_TICKER>_DATABASE | informix, mariadb, mimer, mssqlserver, mysql, postgresql | privileged database name |
-| <db_ticker>.database=kxn_db | <DB_TICKER>_DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, postgresql, sqlite | database name |
-| <db_ticker>.password.sys=<x...x> | <DB_TICKER>_PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
-| <db_ticker>.password=<x...x> | <DB_TICKER>_PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
-| <db_ticker>.schema=kxn_schema | <DB_TICKER>_SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |
-| <db_ticker>.user.sys=<x...x>> | <DB_TICKER>_USER | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the privileged user |
-| <db_ticker>.user=kxn_user | <DB_TICKER>_USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the normal user |
+| <db_ticker>.connection.port=<9...9> | <TICKER_SYMBOL>_CONNECTION_PORT | all client RDBMS | port number of the database server |
+| <db_ticker>.connection.prefix=<x...x> | <TICKER_SYMBOL>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
+| <db_ticker>.connection.suffix=<x...x> | <TICKER_SYMBOL>_CONNECTION_SUFFIX | cubrid, firebird, hsqldb, informix, mysql | suffix of the database connection string |
+| <db_ticker>.database.sys=<x...x> | <TICKER_SYMBOL>_DATABASE | informix, mariadb, mimer, mssqlserver, mysql, postgresql | privileged database name |
+| <db_ticker>.database=kxn_db | <TICKER_SYMBOL>_DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, postgresql, sqlite | database name |
+| <db_ticker>.password.sys=<x...x> | <TICKER_SYMBOL>_PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
+| <db_ticker>.password=<x...x> | <TICKER_SYMBOL>_PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
+| <db_ticker>.schema=kxn_schema | <TICKER_SYMBOL>_SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |
+| <db_ticker>.user.sys=<x...x>> | <TICKER_SYMBOL>_USER | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the privileged user |
+| <db_ticker>.user=kxn_user | <TICKER_SYMBOL>_USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the normal user |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
 | encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except cubrid and mssqlserver | generate column content with tradtional chinese characters included |
 | file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
