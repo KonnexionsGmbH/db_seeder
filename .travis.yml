@@ -9,24 +9,24 @@ jdk:
 env:
   matrix:
     - DB_SEEDER_DBMS=complete
-    - DB_SEEDER_DBMS=cratedb
-    - DB_SEEDER_DBMS=cubrid
-    - DB_SEEDER_DBMS=derby
-    - DB_SEEDER_DBMS=derby_emb
-    - DB_SEEDER_DBMS=firebird
-    - DB_SEEDER_DBMS=h2
-    - DB_SEEDER_DBMS=h2_emb
-    - DB_SEEDER_DBMS=hsqldb
-    - DB_SEEDER_DBMS=hsqldb_emb
-    - DB_SEEDER_DBMS=ibmdb2
-    - DB_SEEDER_DBMS=informix
-    - DB_SEEDER_DBMS=mariadb
-    - DB_SEEDER_DBMS=mimer
-    - DB_SEEDER_DBMS=mssqlserver
-    - DB_SEEDER_DBMS=mysql
-    - DB_SEEDER_DBMS=oracle
-    - DB_SEEDER_DBMS=postgresql
-    - DB_SEEDER_DBMS=sqlite
+#    - DB_SEEDER_DBMS=cratedb
+#    - DB_SEEDER_DBMS=cubrid
+#    - DB_SEEDER_DBMS=derby
+#    - DB_SEEDER_DBMS=derby_emb
+#    - DB_SEEDER_DBMS=firebird
+#    - DB_SEEDER_DBMS=h2
+#    - DB_SEEDER_DBMS=h2_emb
+#    - DB_SEEDER_DBMS=hsqldb
+#    - DB_SEEDER_DBMS=hsqldb_emb
+#    - DB_SEEDER_DBMS=ibmdb2
+#    - DB_SEEDER_DBMS=informix
+#    - DB_SEEDER_DBMS=mariadb
+#    - DB_SEEDER_DBMS=mimer
+#    - DB_SEEDER_DBMS=mssqlserver
+#    - DB_SEEDER_DBMS=mysql
+#    - DB_SEEDER_DBMS=oracle
+#    - DB_SEEDER_DBMS=postgresql
+#    - DB_SEEDER_DBMS=sqlite
 
 script:
   # Prepare Installation Process -------------------------------------------------

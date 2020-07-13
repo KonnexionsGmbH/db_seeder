@@ -12,23 +12,23 @@ sleep .1
 # ------------------------------------------------------------------------------
 
 export DB_SEEDER_DBMS_CRATEDB=yes
-export DB_SEEDER_DBMS_CUBRID=yes
-export DB_SEEDER_DBMS_DERBY=yes
-export DB_SEEDER_DBMS_DERBY_EMB=yes
-export DB_SEEDER_DBMS_FIREBIRD=yes
-export DB_SEEDER_DBMS_H2=yes
-export DB_SEEDER_DBMS_H2_EMB=yes
-export DB_SEEDER_DBMS_HSQLDB=yes
-export DB_SEEDER_DBMS_HSQLDB_EMB=yes
-export DB_SEEDER_DBMS_IBMDB2=yes
-export DB_SEEDER_DBMS_INFORMIX=yes
-export DB_SEEDER_DBMS_MARIADB=yes
-export DB_SEEDER_DBMS_MIMER=yes
-export DB_SEEDER_DBMS_MSSQLSERVER=yes
-export DB_SEEDER_DBMS_MYSQL=yes
-export DB_SEEDER_DBMS_ORACLE=yes
-export DB_SEEDER_DBMS_POSTGRESQL=yes
-export DB_SEEDER_DBMS_SQLITE=yes
+export DB_SEEDER_DBMS_CUBRID=
+export DB_SEEDER_DBMS_DERBY=
+export DB_SEEDER_DBMS_DERBY_EMB=
+export DB_SEEDER_DBMS_FIREBIRD=
+export DB_SEEDER_DBMS_H2=
+export DB_SEEDER_DBMS_H2_EMB=
+export DB_SEEDER_DBMS_HSQLDB=
+export DB_SEEDER_DBMS_HSQLDB_EMB=
+export DB_SEEDER_DBMS_IBMDB2=
+export DB_SEEDER_DBMS_INFORMIX=
+export DB_SEEDER_DBMS_MARIADB=
+export DB_SEEDER_DBMS_MIMER=
+export DB_SEEDER_DBMS_MSSQLSERVER=
+export DB_SEEDER_DBMS_MYSQL=
+export DB_SEEDER_DBMS_ORACLE=
+export DB_SEEDER_DBMS_POSTGRESQL=
+export DB_SEEDER_DBMS_SQLITE=
 
 # ------------------------------------------------------------------------------
 # Initialise Statistics.
