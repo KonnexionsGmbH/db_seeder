@@ -14,7 +14,7 @@ setup_git() {
 commit_statistics_file() {
   cp statistics/$DB_SEEDER_FILE_STATISTICS_NAME /tmp
   cd /tmp || exit 255
-  git clone --branch=gh-pages https://github.com/KonnexionsGmbH/db_seeder.git
+  git clone --branch=master https://github.com/KonnexionsGmbH/db_seeder.git
   mv /tmp/$DB_SEEDER_FILE_STATISTICS_NAME db_seeder/statistics/
   cd db_seeder || exit 255
   # Current month and year, e.g: Apr 2018
@@ -32,7 +32,7 @@ upload_file() {
   git remote rm origin
   # Add new "origin" with access token in the git URL for authentication
   git remote add origin https://KonnexionsGmbH:"${ORA_BENCH_TOKEN}"@github.com/KonnexionsGmbH/db_seeder.git > /dev/null 2>&1
-  git push origin gh-pages
+  git push origin master
 }
 
 setup_git

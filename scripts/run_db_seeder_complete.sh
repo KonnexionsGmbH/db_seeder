@@ -14,7 +14,7 @@ sleep .1
 export DB_SEEDER_DBMS_CRATEDB=yes
 export DB_SEEDER_DBMS_CUBRID=yes
 export DB_SEEDER_DBMS_DERBY=yes
-unset -f DB_SEEDER_DBMS_DERBY_EMB=yes
+export DB_SEEDER_DBMS_DERBY_EMB=yes
 export DB_SEEDER_DBMS_FIREBIRD=yes
 export DB_SEEDER_DBMS_H2=yes
 export DB_SEEDER_DBMS_H2_EMB=yes
@@ -71,6 +71,8 @@ echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
 echo "DBMS_SQLITE                     : $DB_SEEDER_DBMS_SQLITE"
 echo "--------------------------------------------------------------------------------"
 echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
+echo "--------------------------------------------------------------------------------"
+echo "IS_TRAVIS                       : $DB_SEEDER_IS_TRAVIS"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : $d.%m.%Y %H:%M:%S"
 echo "================================================================================"
