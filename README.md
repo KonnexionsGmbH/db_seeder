@@ -345,6 +345,8 @@ db_seeder.informix.database=kxn_db
 db_seeder.informix.password.sys=in4mix
 db_seeder.informix.user.sys=informix
 
+db_seeder.is.debug=false
+
 db_seeder.mariadb.connection.host=localhost
 db_seeder.mariadb.connection.port=3306
 db_seeder.mariadb.connection.prefix=jdbc:mariadb://

@@ -26,10 +26,14 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
   public SqliteSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.SQLITE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -38,7 +42,9 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
 
     url                   = config.getSQLiteConnectionPrefix() + config.getSQLiteDatabase();
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -139,10 +145,14 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -160,6 +170,8 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

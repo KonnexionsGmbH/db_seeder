@@ -307,9 +307,10 @@ echo "--------------------------------------------------------------------------
 echo "DB Seeder - Creation of dummy data in an empty database schema / user."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                              : $DB_SEEDER_DBMS"
+echo "IS_TRAVIS                         : $DB_SEEDER_IS_TRAVIS"
+echo "JAVA_CLASSPATH                    : $DB_SEEDER_JAVA_CLASSPATH"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
 echo "SETUP_DBMS                        : $DB_SEEDER_SETUP_DBMS"
-echo "JAVA_CLASSPATH                    : $DB_SEEDER_JAVA_CLASSPATH"
 echo --------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------

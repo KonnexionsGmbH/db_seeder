@@ -107,6 +107,8 @@ public class Config {
   private String                                                       informixPasswordSys;
   private String                                                       informixUserSys;
 
+  private final boolean                                                isDebug    = logger.isDebugEnabled();
+
   private ArrayList<String>                                            keysSorted = new ArrayList<>();
 
   private String                                                       mariadbConnectionHost;
@@ -187,10 +189,14 @@ public class Config {
   public Config() {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     fileBasedConfigurationBuilder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class);
 
@@ -208,7 +214,9 @@ public class Config {
     storeConfiguration();
     validateProperties();
 
-    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   // Apache Derby ------------------------------------------------------------
@@ -1998,10 +2006,14 @@ public class Config {
 
   private final void validateProperties() {
 
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     boolean isChanged = false;
 
@@ -2021,7 +2033,10 @@ public class Config {
       } catch (ConfigurationException e) {
         e.printStackTrace();
       }
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+
+      if (isDebug) {
+        logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      }
     }
   }
 }

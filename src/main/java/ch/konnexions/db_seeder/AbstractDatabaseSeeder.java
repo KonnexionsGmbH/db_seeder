@@ -58,6 +58,7 @@ public abstract class AbstractDatabaseSeeder {
   protected Map<String, String[]> dbmsValues               = null;
 
   protected boolean               isClient                 = true;
+  protected final boolean         isDebug                  = logger.isDebugEnabled();
   protected boolean               isEmbedded               = !(isClient);
 
   protected ArrayList<Object>     pkListCity               = new ArrayList<Object>();
@@ -83,20 +84,26 @@ public abstract class AbstractDatabaseSeeder {
   public AbstractDatabaseSeeder() {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbmsValues = initDbmsValues();
 
     isClient   = true;
     isEmbedded = !(this.isClient);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   /**
@@ -107,20 +114,26 @@ public abstract class AbstractDatabaseSeeder {
   public AbstractDatabaseSeeder(boolean isClient) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbmsValues    = initDbmsValues();
 
     this.isClient = isClient;
     isEmbedded    = !(this.isClient);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   private final Map<String, String[]> initDbmsValues() {

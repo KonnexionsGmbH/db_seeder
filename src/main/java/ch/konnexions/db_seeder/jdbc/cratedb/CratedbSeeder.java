@@ -26,10 +26,14 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
   public CratedbSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = new Object() {
-    }.getClass().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+    }
 
     dbms                  = Dbms.CRATEDB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -43,7 +47,9 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     dropTableStmnt        = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+    }
   }
 
   @SuppressWarnings("preview")
@@ -118,10 +124,14 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
   }
 
   private final void dropAllTables() throws SQLException {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     for (String tableName : TABLE_NAMES_DROP) {
       String sqlStmntLocal = "DROP TABLE IF EXISTS " + tableName;
@@ -129,15 +139,21 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
       statement.execute(sqlStmntLocal);
     }
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 
   @Override
   protected final void setupDatabase() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+    String methodName = null;
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    if (isDebug) {
+      methodName = new Object() {
+      }.getClass().getEnclosingMethod().getName();
+
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
 
     // -----------------------------------------------------------------------
     // Connect.
@@ -188,6 +204,8 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     connection = connect(url, true);
 
-    logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
   }
 }

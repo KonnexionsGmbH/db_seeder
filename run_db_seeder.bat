@@ -383,9 +383,9 @@ echo DB Seeder - Creation of dummy data in an empty databases, database users or
 echo             schemas.
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
+echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
-echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------
 
 rem ------------------------------------------------------------------------------
