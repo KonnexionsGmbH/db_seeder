@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DBMS_CRATEDB=yes
 set DB_SEEDER_DBMS_CUBRID=yes
 set DB_SEEDER_DBMS_DERBY=yes
-set DB_SEEDER_DBMS_DERBY_EMB=
+set DB_SEEDER_DBMS_DERBY_EMB=yes
 set DB_SEEDER_DBMS_FIREBIRD=yes
 set DB_SEEDER_DBMS_H2=yes
 set DB_SEEDER_DBMS_H2_EMB=yes
@@ -64,6 +64,8 @@ echo.
     echo:| TIME
     echo ================================================================================
     
+    set DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_cmd.tsv
+
     if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
     
     rem ------------------------------------------------------------------------------

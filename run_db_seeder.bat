@@ -121,6 +121,10 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
+    rem TODO Bug in Apache Derby
+    if ["!DB_SEEDER_NO_CREATE_RUNS!"] EQU ["2"] (
+        set DB_SEEDER_NO_CREATE_RUNS=1
+    )
     set DB_SEEDER_DERBY_CONNECTION_PREFIX=
     set DB_SEEDER_DERBY_DATABASE=.\tmp\derby_kxn_db
 )
@@ -132,7 +136,6 @@ set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
 set DB_SEEDER_FILE_STATISTICS_DELIMITER=
 set DB_SEEDER_FILE_STATISTICS_HEADER=
-set DB_SEEDER_FILE_STATISTICS_NAME=
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
     set DB_SEEDER_DBMS=firebird
