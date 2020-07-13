@@ -38,6 +38,7 @@ upload_file() {
 setup_git
 
 # Attempt to commit to git only if "git commit" succeeded
+ls -ll
 if commit_statistics_file; then
   echo "A new commit with changed statistics file exists. Uploading to GitHub"
   upload_file
