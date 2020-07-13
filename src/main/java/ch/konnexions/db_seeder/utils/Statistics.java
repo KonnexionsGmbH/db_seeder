@@ -97,7 +97,9 @@ public class Statistics {
     String statisticsName      = config.getFileStatisticsName();
 
     try {
-      Path    statisticsPath = Paths.get(statisticsName);
+      Path statisticsPath = Paths.get(statisticsName);
+
+      Files.createDirectories(statisticsPath.getParent());
 
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 
