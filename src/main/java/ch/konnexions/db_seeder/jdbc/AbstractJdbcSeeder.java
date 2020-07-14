@@ -1030,16 +1030,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       fileInputStream = new FileInputStream(file);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
 
-    try {
       fileInputStream.read(blobDataBytesArray);
 
       fileInputStream.close();
     } catch (IOException e) {
       e.printStackTrace();
+      System.exit(1);
     }
 
     if (isDebug) {

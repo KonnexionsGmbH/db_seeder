@@ -21,7 +21,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new H2 Database Engine seeder.
-   * @param args0 
+   * @param dbmsTickerSymbol 
    */
   public H2Seeder(String dbmsTickerSymbol) {
     super();
@@ -253,9 +253,9 @@ public class H2Seeder extends AbstractJdbcSeeder {
     tableNameDelimiter = "";
 
     if (isClient) {
-      url = config.getH2ConnectionPrefix() + "tcp://" + config.getH2ConnectionHost() + ":" + config.getH2ConnectionPort() + "/" + config.getH2Database();
+      url = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
     } else {
-      url = config.getH2ConnectionPrefix() + "file:" + config.getH2Database();
+      url = config.getConnectionPrefix() + "file:" + config.getDatabase();
     }
 
     if (isDebug) {
@@ -280,9 +280,9 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
     connection = connect(url, driver, "sa", "", true);
 
-    String h2Password = config.getH2Password();
-    String h2Schema   = config.getH2Schema();
-    String h2User     = config.getH2User();
+    String h2Password = config.getPassword();
+    String h2Schema   = config.getSchema();
+    String h2User     = config.getUser();
 
     // -----------------------------------------------------------------------
     // Drop the schema and the user if already existing

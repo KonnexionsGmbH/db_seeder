@@ -15,53 +15,42 @@ echo DB Seeder - cleanup embedded database files.
 echo --------------------------------------------------------------------------------
 echo DBMS                      : %DB_SEEDER_DBMS%
 echo --------------------------------------------------------------------------------
+echo VERSION                   : %DB_SEEDER_VERSION%
+echo DATABASE                  : %DB_SEEDER_DATABASE%
+echo --------------------------------------------------------------------------------
+
+set DB_SEEDER_DATABASE_INTERN=
 
 if ["%DB_SEEDER_DBMS%"] == ["derby"] (
-    echo DERBY_VERSION             : %DB_SEEDER_DERBY_VERSION%
-    echo DERBY_DATABASE            : %DB_SEEDER_DERBY_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_DERBY_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 if ["%DB_SEEDER_DBMS%"] == ["derby_emb"] (
-    echo DERBY_VERSION             : %DB_SEEDER_DERBY_VERSION%
-    echo DERBY_DATABASE            : %DB_SEEDER_DERBY_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_DERBY_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 
 if ["%DB_SEEDER_DBMS%"] == ["h2"] (
-    echo H2_VERSION                : %DB_SEEDER_H2_VERSION%
-    echo H2_DATABASE               : %DB_SEEDER_H2_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_H2_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 if ["%DB_SEEDER_DBMS%"] == ["h2_emb"] (
-    echo H2_VERSION                : %DB_SEEDER_H2_VERSION%
-    echo H2_DATABASE               : %DB_SEEDER_H2_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_H2_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 
 if ["%DB_SEEDER_DBMS%"] == ["hsqldb"] (
-    echo HSQLDB_VERSION            : %DB_SEEDER_HSQLDB_VERSION%
-    echo HSQLDB_DATABASE           : %DB_SEEDER_HSQLDB_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_HSQLDB_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 if ["%DB_SEEDER_DBMS%"] == ["hsqldb_emb"] (
-    echo HSQLDB_VERSION            : %DB_SEEDER_HSQLDB_VERSION%
-    echo HSQLDB_DATABASE           : %DB_SEEDER_HSQLDB_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_HSQLDB_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 
 if ["%DB_SEEDER_DBMS%"] == ["ibmdb2"] (
-    echo IBMDB2_VERSION            : %DB_SEEDER_IBMDB2_VERSION%
-    echo IBMDB2_DATABASE           : %DB_SEEDER_IBMDB2_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_IBMDB2_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 
 if ["%DB_SEEDER_DBMS%"] == ["sqlite"] (
-    echo SQLITE_VERSION            : %DB_SEEDER_SQLITE_VERSION%
-    echo SQLITE_DATABASE           : %DB_SEEDER_SQLITE_DATABASE%
-    set DB_SEEDER_DATABASE=%DB_SEEDER_SQLITE_DATABASE%
+    set DB_SEEDER_DATABASE_INTERN=%DB_SEEDER_DATABASE%
 )
 
-if NOT ["%DB_SEEDER_DATABASE%" == ""] (
+if NOT ["%DB_SEEDER_DATABASE_INTERN%" == ""] (
     if EXIST %DB_SEEDER_DATABASE%\nul ( 
         echo. 
         echo ............................................................ before:

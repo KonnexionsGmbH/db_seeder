@@ -21,7 +21,8 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new CrateDB seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public CratedbSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,10 +41,9 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getCratedbConnectionPrefix() + config.getCratedbConnectionHost() + ":" + config.getCratedbConnectionPort()
-        + "/?strict=true&user=";
-    url                   = urlBase + config.getCratedbUser() + "&password=" + config.getCratedbPassword();
-    urlSetup              = urlBase + config.getCratedbUserSys();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/?strict=true&user=";
+    url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
+    urlSetup              = urlBase + config.getUserSys();
 
     dropTableStmnt        = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
 
@@ -168,7 +168,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // DataSource is not implemented
     // -----------------------------------------------------------------------
 
-    String cratedbUser = config.getCratedbUser();
+    String cratedbUser = config.getUser();
 
     try {
       statement = connection.createStatement();
@@ -186,7 +186,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE USER " + cratedbUser + " WITH (PASSWORD = '" + config.getCratedbPassword() + "')");
+      statement.execute("CREATE USER " + cratedbUser + " WITH (PASSWORD = '" + config.getPassword() + "')");
 
       statement.execute("GRANT ALL PRIVILEGES TO " + cratedbUser);
 

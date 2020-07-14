@@ -21,7 +21,8 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new HyperQL Database seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public HsqldbSeeder(String dbmsTickerSymbol) {
     super();
@@ -253,10 +254,10 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     tableNameDelimiter = "";
 
     if (isClient) {
-      url = config.getHsqldbConnectionPrefix() + "hsql://" + config.getHsqldbConnectionHost() + ":" + config.getHsqldbConnectionPort() + "/"
-          + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();
+      url = config.getConnectionPrefix() + "hsql://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase()
+          + config.getConnectionSuffix();
     } else {
-      url = config.getHsqldbConnectionPrefix() + "file:" + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();
+      url = config.getConnectionPrefix() + "file:" + config.getDatabase() + config.getConnectionSuffix();
     }
 
     if (isDebug) {
@@ -279,11 +280,11 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getHsqldbUserSys(), "", true);
+    connection = connect(url, driver, config.getUserSys(), "", true);
 
-    String hsqldbPassword = config.getHsqldbPassword();
-    String hsqldbSchema   = config.getHsqldbSchema();
-    String hsqldbUser     = config.getHsqldbUser();
+    String hsqldbPassword = config.getPassword();
+    String hsqldbSchema   = config.getSchema();
+    String hsqldbUser     = config.getUser();
 
     // -----------------------------------------------------------------------
     // Drop the schema and the user if already existing

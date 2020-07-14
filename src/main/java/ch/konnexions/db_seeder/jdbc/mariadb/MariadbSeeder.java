@@ -21,7 +21,8 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new MariaDB Server seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public MariadbSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,9 +41,9 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMariadbConnectionPrefix() + config.getMariadbConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
-    url                   = urlBase + config.getMariadbDatabase();
-    urlSetup              = urlBase + config.getMariadbDatabaseSys();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
+    url                   = urlBase + config.getDatabase();
+    urlSetup              = urlBase + config.getDatabaseSys();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -140,14 +141,14 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, null, config.getMariadbUserSys(), config.getMariadbPasswordSys());
+    connection = connect(urlSetup, null, config.getUserSys(), config.getPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user.
     // -----------------------------------------------------------------------
 
-    String mariadbDatabase = config.getMariadbDatabase();
-    String mariadbUser     = config.getMariadbUser();
+    String mariadbDatabase = config.getDatabase();
+    String mariadbUser     = config.getUser();
 
     try {
       statement = connection.createStatement();
@@ -169,7 +170,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
       statement.execute("USE `" + mariadbDatabase + "`");
 
-      statement.execute("CREATE USER '" + mariadbUser + "'@'%' IDENTIFIED BY '" + config.getMariadbPassword() + "'");
+      statement.execute("CREATE USER '" + mariadbUser + "'@'%' IDENTIFIED BY '" + config.getPassword() + "'");
 
       statement.execute("GRANT ALL PRIVILEGES ON *.* TO '" + mariadbUser + "'@'%'");
 
@@ -187,7 +188,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getMariadbUser(), config.getMariadbPassword());
+    connection = connect(url, null, config.getUser(), config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Apache Derby Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_DERBY             : %DB_SEEDER_DERBY_VERSION%
+echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -25,10 +25,10 @@ rem ----------------------------------------------------------------------------
 
 echo Apache Derby
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (Apache Derby %DB_SEEDER_DERBY_VERSION%)
-docker create --name db_seeder_db -p 1527:1527/tcp konnexionsgmbh/apache_derby:%DB_SEEDER_DERBY_VERSION%
+echo Docker create db_seeder_db (Apache Derby %DB_SEEDER_VERSION%)
+docker create --name db_seeder_db -p 1527:1527/tcp konnexionsgmbh/apache_derby:%DB_SEEDER_VERSION%
 
-echo Docker start db_seeder_db (Apache Derby %DB_SEEDER_DERBY_VERSION%) ...
+echo Docker start db_seeder_db (Apache Derby %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 :check_health_status:

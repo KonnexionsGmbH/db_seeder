@@ -21,7 +21,8 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Microsoft SQL Server seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public MssqlserverSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,11 +41,9 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getMssqlserverConnectionPrefix() + config.getMssqlserverConnectionHost() + ":" + config.getMssqlserverConnectionPort()
-        + ";databaseName=";
-    url                   = urlBase + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword();
-    urlSetup              = urlBase + config.getMssqlserverDatabaseSys() + ";user=" + config.getMssqlserverUserSys() + ";password="
-        + config.getMssqlserverPasswordSys();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ";databaseName=";
+    url                   = urlBase + config.getDatabase() + ";user=" + config.getUser() + ";password=" + config.getPassword();
+    urlSetup              = urlBase + config.getDatabaseSys() + ";user=" + config.getUserSys() + ";password=" + config.getPasswordSys();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -148,9 +147,9 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     // Drop the database if already existing.
     // -----------------------------------------------------------------------
 
-    final String mssqlserverDatabase = config.getMssqlserverDatabase();
-    final String mssqlserverSchema   = config.getMssqlserverSchema();
-    final String mssqlserverUser     = config.getMssqlserverUser();
+    final String mssqlserverDatabase = config.getDatabase();
+    final String mssqlserverSchema   = config.getSchema();
+    final String mssqlserverUser     = config.getUser();
 
     try {
       statement = connection.createStatement();
@@ -182,7 +181,7 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
       statement.execute("CREATE SCHEMA " + mssqlserverSchema);
 
-      statement.execute("CREATE USER " + mssqlserverUser + " WITH PASSWORD = '" + config.getMssqlserverPassword() + "', DEFAULT_SCHEMA=" + mssqlserverSchema);
+      statement.execute("CREATE USER " + mssqlserverUser + " WITH PASSWORD = '" + config.getPassword() + "', DEFAULT_SCHEMA=" + mssqlserverSchema);
 
       statement.execute("sp_addrolemember 'db_owner', '" + mssqlserverUser + "'");
 

@@ -21,7 +21,8 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new SQLite seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public SqliteSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,7 +41,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getSQLiteConnectionPrefix() + config.getSQLiteDatabase();
+    url                   = config.getConnectionPrefix() + config.getDatabase();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");

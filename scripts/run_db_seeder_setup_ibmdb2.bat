@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a IBM Db2 Database Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_IBMDB2            : %DB_SEEDER_IBMDB2_VERSION%
+echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo IBM Db2 Database
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (IBM Db2 Database %DB_SEEDER_IBMDB2_VERSION%)
-docker create --name db_seeder_db -e DBNAME=%DB_SEEDER_IBMDB2_DATABASE% -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p 50000:50000 --privileged=true ibmcom/db2:%DB_SEEDER_IBMDB2_VERSION%
+echo Docker create db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
+docker create --name db_seeder_db -e DBNAME=%DB_SEEDER_DATABASE% -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p 50000:50000 --privileged=true ibmcom/db2:%DB_SEEDER_VERSION%
 
-echo Docker start db_seeder_db (IBM Db2 Database %DB_SEEDER_IBMDB2_VERSION%)
+echo Docker start db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
 docker start db_seeder_db
  
 ping -n 120 127.0.0.1>nul

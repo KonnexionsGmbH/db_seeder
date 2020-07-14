@@ -21,7 +21,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new MySQL seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public MysqlSeeder(String dbmsTickerSymbol) {
     super();
@@ -42,9 +43,9 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMysqlConnectionPrefix() + config.getMysqlConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
-    url                   = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
-    urlSetup              = urlBase + config.getMysqlDatabaseSys() + config.getMysqlConnectionSuffix();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
+    url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
+    urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -142,14 +143,14 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, config.getMysqlUserSys(), config.getMysqlPasswordSys());
+    connection = connect(urlSetup, driver, config.getUserSys(), config.getPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String mysqlDatabase = config.getMysqlDatabase();
-    String mysqlUser     = config.getMysqlUser();
+    String mysqlDatabase = config.getDatabase();
+    String mysqlUser     = config.getUser();
 
     try {
       statement = connection.createStatement();
@@ -173,7 +174,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
       statement.execute("USE `" + mysqlDatabase + "`");
 
-      statement.execute("CREATE USER `" + mysqlUser + "` IDENTIFIED BY '" + config.getMysqlPassword() + "'");
+      statement.execute("CREATE USER `" + mysqlUser + "` IDENTIFIED BY '" + config.getPassword() + "'");
 
       statement.execute("GRANT ALL ON " + mysqlDatabase + ".* TO `" + mysqlUser + "`");
 
@@ -189,7 +190,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getMysqlUser(), config.getMysqlPassword());
+    connection = connect(url, null, config.getUser(), config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

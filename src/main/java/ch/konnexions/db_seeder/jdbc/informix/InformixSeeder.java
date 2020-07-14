@@ -21,7 +21,8 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new IBM Informix seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public InformixSeeder(String dbmsTickerSymbol) {
     super();
@@ -42,9 +43,9 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getInformixConnectionPrefix() + config.getInformixConnectionHost() + ":" + config.getInformixConnectionPort() + "/";
-    url                   = urlBase + config.getInformixDatabase() + config.getInformixConnectionSuffix();
-    urlSetup              = urlBase + config.getInformixDatabaseSys() + config.getInformixConnectionSuffix();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
+    url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
+    urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
 
@@ -144,9 +145,9 @@ public class InformixSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, config.getInformixUserSys(), config.getInformixPasswordSys(), true);
+    connection = connect(urlSetup, driver, config.getUserSys(), config.getPasswordSys(), true);
 
-    String informixDatabase = config.getInformixDatabase();
+    String informixDatabase = config.getDatabase();
 
     // -----------------------------------------------------------------------
     // Drop the database and user if already existing
@@ -185,7 +186,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getInformixUserSys(), config.getInformixPasswordSys());
+    connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

@@ -21,7 +21,8 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Oracle Database seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public OracleSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,8 +41,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getOracleConnectionPrefix() + config.getOracleConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
-        + config.getOracleConnectionService();
+    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -174,13 +174,13 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getOracleUserSys(), config.getOraclePasswordSys());
+    connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String oracleUser = config.getOracleUser();
+    String oracleUser = config.getUser();
 
     dropUser(oracleUser);
 
@@ -191,7 +191,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
+      statement.execute("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getPassword() + "\"");
 
       statement.execute("ALTER USER " + oracleUser + " QUOTA UNLIMITED ON users");
 
@@ -215,7 +215,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getOracleUser(), config.getOraclePassword());
+    connection = connect(url, null, config.getUser(), config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

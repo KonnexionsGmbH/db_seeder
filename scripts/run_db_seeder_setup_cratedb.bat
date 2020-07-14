@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a CrateDB Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_CRATEDB           : %DB_SEEDER_CRATEDB_VERSION%
+echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo CrateDB
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (CrateDB %DB_SEEDER_CRATEDB_VERSION%)
-docker create --name db_seeder_db --env CRATE_HEAP_SIZE=2g -p 5432:5432/tcp crate:%DB_SEEDER_CRATEDB_VERSION% crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
+echo Docker create db_seeder_db (CrateDB %DB_SEEDER_VERSION%)
+docker create --name db_seeder_db --env CRATE_HEAP_SIZE=2g -p 5432:5432/tcp crate:%DB_SEEDER_VERSION% crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
 
-echo Docker start db_seeder_db (CrateDB %DB_SEEDER_CRATEDB_VERSION%) ...
+echo Docker start db_seeder_db (CrateDB %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 10 127.0.0.1>nul

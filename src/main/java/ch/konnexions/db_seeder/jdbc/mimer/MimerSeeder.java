@@ -21,7 +21,8 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Mimer SQL seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public MimerSeeder(String dbmsTickerSymbol) {
     super();
@@ -42,8 +43,7 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getMimerConnectionPrefix() + config.getMimerConnectionHost() + ":" + config.getMimerConnectionPort() + "/"
-        + config.getMimerDatabaseSys();
+    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -201,14 +201,14 @@ public class MimerSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getMimerUserSys(), config.getMimerPasswordSys(), true);
+    connection = connect(url, driver, config.getUserSys(), config.getPasswordSys(), true);
 
     // -----------------------------------------------------------------------
     // Drop the database and database user if already existing.
     // -----------------------------------------------------------------------
 
-    String mimerDatabase = config.getMimerDatabase();
-    String mimerUser     = config.getMimerUser();
+    String mimerDatabase = config.getDatabase();
+    String mimerUser     = config.getUser();
 
     dropDatabase(mimerDatabase);
     dropUser(mimerUser);
@@ -222,7 +222,7 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
       statement.execute("CREATE DATABANK " + mimerDatabase + " SET OPTION TRANSACTION");
 
-      statement.execute("CREATE IDENT " + mimerUser + " AS USER USING '" + config.getMimerPassword() + "'");
+      statement.execute("CREATE IDENT " + mimerUser + " AS USER USING '" + config.getPassword() + "'");
 
       statement.execute("GRANT TABLE ON DATABANK " + mimerDatabase + " TO " + mimerUser);
 
@@ -238,7 +238,7 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getMimerUser(), config.getMimerPassword(), true);
+    connection = connect(url, null, config.getUser(), config.getPassword(), true);
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

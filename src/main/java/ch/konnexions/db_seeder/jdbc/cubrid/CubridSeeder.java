@@ -21,7 +21,8 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new CUBRID seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public CubridSeeder(String dbmsTickerSymbol) {
     super();
@@ -42,10 +43,9 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "\"";
 
-    urlBase               = config.getCubridConnectionPrefix() + config.getCubridConnectionHost() + ":" + config.getCubridConnectionPort() + ":"
-        + config.getCubridDatabase() + ":";
-    url                   = urlBase + config.getCubridConnectionSuffix();
-    urlSetup              = urlBase + config.getCubridUserSys() + config.getCubridConnectionSuffix();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ":" + config.getDatabase() + ":";
+    url                   = urlBase + config.getConnectionSuffix();
+    urlSetup              = urlBase + config.getUserSys() + config.getConnectionSuffix();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -212,7 +212,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     // Drop the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String cubridUser = config.getCubridUser();
+    String cubridUser = config.getUser();
 
     dropAllTables();
 
@@ -225,7 +225,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + cubridUser + " PASSWORD '" + config.getCubridPassword() + "' GROUPS dba");
+      statement.execute("CREATE USER " + cubridUser + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
 
       statement.close();
 
@@ -241,7 +241,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getCubridUser(), config.getCubridPassword());
+    connection = connect(url, null, config.getUser(), config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

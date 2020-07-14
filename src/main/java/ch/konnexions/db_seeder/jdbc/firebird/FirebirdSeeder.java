@@ -22,7 +22,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Firebird Server seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public FirebirdSeeder(String dbmsTickerSymbol) {
     super();
@@ -43,8 +44,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getFirebirdConnectionPrefix() + config.getFirebirdConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
-        + config.getFirebirdDatabase() + config.getFirebirdConnectionSuffix();
+    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase()
+        + config.getConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
 
@@ -140,10 +141,10 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     }
 
     try {
-      Connection connectionLocal = connect(url, null, "sysdba", config.getFirebirdPasswordSys(), true);
+      Connection connectionLocal = connect(url, null, "sysdba", config.getPasswordSys(), true);
 
       preparedStatement = connection.prepareStatement(sqlStmnt);
-      preparedStatement.setString(2, config.getFirebirdUser());
+      preparedStatement.setString(2, config.getUser());
 
       statement = connectionLocal.createStatement();
 
@@ -220,13 +221,13 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getFirebirdUserSys(), config.getFirebirdPasswordSys(), true);
+    connection = connect(url, driver, config.getUserSys(), config.getPasswordSys(), true);
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user.
     // -----------------------------------------------------------------------
 
-    String firebirdUser = config.getFirebirdUser();
+    String firebirdUser = config.getUser();
 
     dropAllTables(dropTableStmnt);
 
@@ -239,7 +240,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + firebirdUser + " PASSWORD '" + config.getFirebirdPassword() + "' GRANT ADMIN ROLE");
+      statement.execute("CREATE USER " + firebirdUser + " PASSWORD '" + config.getPassword() + "' GRANT ADMIN ROLE");
 
       statement.execute("GRANT CREATE TABLE TO " + firebirdUser);
 
@@ -255,7 +256,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getFirebirdUser(), config.getFirebirdPassword(), true);
+    connection = connect(url, null, config.getUser(), config.getPassword(), true);
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

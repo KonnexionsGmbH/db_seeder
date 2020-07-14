@@ -23,7 +23,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new IBM Db2 Database seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public Ibmdb2Seeder(String dbmsTickerSymbol) {
     super();
@@ -42,8 +43,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getIbmdb2ConnectionPrefix() + config.getIbmdb2ConnectionHost() + ":" + config.getIbmdb2ConnectionPort() + "/"
-        + config.getIbmdb2Database();
+    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
 
@@ -138,7 +138,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
     }
 
-    Connection connectionLocal = connect(url, null, config.getIbmdb2UserSys(), config.getIbmdb2PasswordSys(), true);
+    Connection connectionLocal = connect(url, null, config.getUserSys(), config.getPasswordSys(), true);
 
     try {
       Statement statementLocal = connectionLocal.createStatement();
@@ -235,9 +235,9 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getIbmdb2UserSys(), config.getIbmdb2PasswordSys());
+    connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
 
-    String ibmdb2Schema = config.getIbmdb2Schema();
+    String ibmdb2Schema = config.getSchema();
 
     // -----------------------------------------------------------------------
     // Drop the schema if already existing
