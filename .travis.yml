@@ -29,7 +29,7 @@ env:
     - DB_SEEDER_DBMS=sqlite
 
 before_script:
-  - echo 'European/Zurich' | sudo tee /etc/timezone
+  - echo 'Europe/Zurich' | sudo tee /etc/timezone
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 script:
