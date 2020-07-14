@@ -21,7 +21,7 @@ commit_statistics_file() {
   mv $basename db_seeder/$dirname/
   cd db_seeder || exit 255
   # Current month and year, e.g: Apr 2018
-  dateAndMonth=$(date "+%b %Y")
+  dateAndMonth=$(date "+%d.%m.%Y %H:%M:%S")
   # Stage the modified files in dist/output
   git add -f $dirname/$basename
   # Create a new commit with a custom build message

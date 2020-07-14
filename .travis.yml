@@ -28,6 +28,10 @@ env:
     - DB_SEEDER_DBMS=postgresql
     - DB_SEEDER_DBMS=sqlite
 
+before_script:
+  - echo 'Europe/Zurich' | sudo tee /etc/timezone
+  - sudo dpkg-reconfigure --frontend noninteractive tzdata
+
 script:
   # Prepare Installation Process -------------------------------------------------
   - travis_fold start "Prepare_Installation_Process"
