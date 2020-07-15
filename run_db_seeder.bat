@@ -12,6 +12,7 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
+set DB_SEEDER_RELEASE=1.15.8
 
 if ["%1"] EQU [""] (
     echo ===========================================
@@ -98,6 +99,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=crate://
+    set DB_SEEDER_CONTAINER_PORT=5432
     set DB_SEEDER_PASSWORD=cratedb
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=crate
@@ -115,6 +117,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_CONNECTION_PORT=33000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
     set DB_SEEDER_CONNECTION_SUFFIX=::
+    set DB_SEEDER_CONTAINER_PORT=33000
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_PASSWORD=cubrid
     set DB_SEEDER_USER=kxn_user
@@ -130,6 +133,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1527
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
+    set DB_SEEDER_CONTAINER_PORT=1527
     set DB_SEEDER_DATABASE=.\tmp\derby_kxn_db
     set DB_SEEDER_VERSION=10.15.2.0
 )
@@ -157,6 +161,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_CONNECTION_PORT=3050
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:firebirdsql://
     set DB_SEEDER_CONNECTION_SUFFIX=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
+    set DB_SEEDER_CONTAINER_PORT=3050
     set DB_SEEDER_DATABASE=firebird_kxn_db
     set DB_SEEDER_PASSWORD=firebird
     set DB_SEEDER_PASSWORD_SYS=firebird
@@ -174,6 +179,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=9092
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
+    set DB_SEEDER_CONTAINER_PORT=9092
     set DB_SEEDER_DATABASE=.\tmp\h2_kxn_db
     set DB_SEEDER_PASSWORD=h2
     set DB_SEEDER_SCHEMA=kxn_schema
@@ -203,6 +209,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_CONNECTION_PORT=9001
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
     set DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
+    set DB_SEEDER_CONTAINER_PORT=9001
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_PASSWORD=hsqldb
     set DB_SEEDER_SCHEMA=kxn_schema
@@ -234,6 +241,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=50000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:db2://
+    set DB_SEEDER_CONTAINER_PORT=50000
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_PASSWORD_SYS=ibmdb2
     set DB_SEEDER_SCHEMA=kxn_schema
@@ -251,6 +259,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_CONNECTION_PORT=9088
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:informix-sqli://
     set DB_SEEDER_CONNECTION_SUFFIX=:INFORMIXSERVER=informix
+    set DB_SEEDER_CONTAINER_PORT=9088
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sysmaster
     set DB_SEEDER_PASSWORD_SYS=in4mix
@@ -266,6 +275,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mariadb://
+    set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=mysql
     set DB_SEEDER_PASSWORD=mariadb
@@ -285,6 +295,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=11360
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mimer://
+    set DB_SEEDER_CONTAINER_PORT=1360
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=mimerdb
     set DB_SEEDER_PASSWORD=mimer
@@ -303,6 +314,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1433
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    set DB_SEEDER_CONTAINER_PORT=1433
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=master
     set DB_SEEDER_PASSWORD=mssqlserver_2019
@@ -322,6 +334,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
     set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC
+    set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys
     set DB_SEEDER_PASSWORD=mysql
@@ -340,6 +353,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_CONNECTION_PORT=1521
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
+    set DB_SEEDER_CONTAINER_PORT=1521
     set DB_SEEDER_PASSWORD=oracle
     set DB_SEEDER_PASSWORD_SYS=oracle
     set DB_SEEDER_USER=kxn_user
@@ -357,6 +371,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    set DB_SEEDER_CONTAINER_PORT=5432
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=kxn_db_sys
     set DB_SEEDER_PASSWORD=postgresql
@@ -393,6 +408,7 @@ echo ---------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
+echo RELEASE                         : %DB_SEEDER_RELEASE%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
 echo --------------------------------------------------------------------------------
 echo ENCODING_ISO_8859_1             : %DB_SEEDER_ENCODING_ISO_8859_1%
@@ -414,6 +430,7 @@ echo CONNECTION_PORT                 : %DB_SEEDER_CONNECTION_PORT%
 echo CONNECTION_PREFIX               : %DB_SEEDER_CONNECTION_PREFIX%
 echo CONNECTION_SERVICE              : %DB_SEEDER_CONNECTION_SERVICE%
 echo CONNECTION_SUFFIX               : %DB_SEEDER_CONNECTION_SUFFIX%
+echo CONTAINER_PORT                  : %DB_SEEDER_CONTAINER_PORT%
 echo DATABASE                        : %DB_SEEDER_DATABASE%
 echo DATABASE_SYS                    : %DB_SEEDER_DATABASE_SYS%
 echo PASSWORD                        : %DB_SEEDER_PASSWORD%

@@ -12,6 +12,7 @@ export -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
+export DB_SEEDER_RELEASE=1.15.8
 
 if [ -z "$1" ]; then
     echo "==========================================="
@@ -95,6 +96,7 @@ if [ "$DB_SEEDER_DBMS" = "cratedb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
     export DB_SEEDER_CONNECTION_PREFIX=crate://
+    export DB_SEEDER_CONTAINER_PORT=5432
     export DB_SEEDER_PASSWORD=cratedb
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=crate
@@ -108,6 +110,7 @@ if [ "$DB_SEEDER_DBMS" = "cubrid" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_PORT=33000
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
     export DB_SEEDER_CONNECTION_SUFFIX=::
+    export DB_SEEDER_CONTAINER_PORT=33000
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD=cubrid
     export DB_SEEDER_USER=kxn_user
@@ -119,6 +122,7 @@ if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1527
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
+    export DB_SEEDER_CONTAINER_PORT=1527
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
     export DB_SEEDER_VERSION=10.15.2.0
 fi
@@ -138,6 +142,7 @@ if [ "$DB_SEEDER_DBMS" = "firebird" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; the
     export DB_SEEDER_CONNECTION_PORT=3050
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:firebirdsql://
     export DB_SEEDER_CONNECTION_SUFFIX=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
+    export DB_SEEDER_CONTAINER_PORT=3050
     export DB_SEEDER_DATABASE=firebird_kxn_db
     export DB_SEEDER_PASSWORD=firebird
     export DB_SEEDER_PASSWORD_SYS=firebird
@@ -151,6 +156,7 @@ if [ "$DB_SEEDER_DBMS" = "h2" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9092
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
+    export DB_SEEDER_CONTAINER_PORT=9092
     export DB_SEEDER_DATABASE=./tmp/h2_kxn_db
     export DB_SEEDER_PASSWORD=h2
     export DB_SEEDER_SCHEMA=kxn_schema
@@ -172,6 +178,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_PORT=9001
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
     export DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
+    export DB_SEEDER_CONTAINER_PORT=9001
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD=hsqldb
     export DB_SEEDER_SCHEMA=kxn_schema
@@ -195,6 +202,7 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=50000
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:db2://
+    export DB_SEEDER_CONTAINER_PORT=50000
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD_SYS=ibmdb2
     export DB_SEEDER_SCHEMA=kxn_schema
@@ -208,6 +216,7 @@ if [ "$DB_SEEDER_DBMS" = "informix" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; the
     export DB_SEEDER_CONNECTION_PORT=9088
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:informix-sqli://
     export DB_SEEDER_CONNECTION_SUFFIX=:INFORMIXSERVER=informix
+    export DB_SEEDER_CONTAINER_PORT=9088
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sysmaster
     export DB_SEEDER_PASSWORD_SYS=in4mix
@@ -219,6 +228,7 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mariadb://
+    export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=mysql
     export DB_SEEDER_PASSWORD=mariadb
@@ -234,6 +244,7 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=11360
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mimer://
+    export DB_SEEDER_CONTAINER_PORT=1360
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=mimerdb
     export DB_SEEDER_PASSWORD=mimer
@@ -248,6 +259,7 @@ if [ "$DB_SEEDER_DBMS" = "mssqlserver" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; 
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    export DB_SEEDER_CONTAINER_PORT=1433
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=master
     export DB_SEEDER_PASSWORD=mssqlserver_2019
@@ -263,6 +275,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
     export DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC
+    export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys
     export DB_SEEDER_PASSWORD=mysql
@@ -277,6 +290,7 @@ if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_PORT=1521
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
+    export DB_SEEDER_CONTAINER_PORT=1521
     export DB_SEEDER_PASSWORD=oracle
     export DB_SEEDER_PASSWORD_SYS=oracle
     export DB_SEEDER_USER=kxn_user
@@ -290,6 +304,7 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; t
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    export DB_SEEDER_CONTAINER_PORT=5432
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=kxn_db_sys
     export DB_SEEDER_PASSWORD=postgresql
@@ -318,6 +333,7 @@ echo "DBMS                              : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
 echo "IS_TRAVIS                         : $DB_SEEDER_IS_TRAVIS"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
+echo "RELEEASE                          : $DB_SEEDER_RELEASE"
 echo "SETUP_DBMS                        : $DB_SEEDER_SETUP_DBMS"
 echo --------------------------------------------------------------------------------
 echo "ENCODING_ISO_8859_1               : $DB_SEEDER_ENCODING_ISO_8859_1"
@@ -339,6 +355,7 @@ echo "CONNECTION_PORT                   : $DB_SEEDER_CONNECTION_PORT"
 echo "CONNECTION_PREFIX                 : $DB_SEEDER_CONNECTION_PREFIX"
 echo "CONNECTION_SERVICE                : $DB_SEEDER_CONNECTION_SERVICE"
 echo "CONNECTION_SUFFIX                 : $DB_SEEDER_CONNECTION_SUFFIX"
+echo "CONTAINER_PORT                    : $DB_SEEDER_CONTAINER_PORT"
 echo "DATABASE                          : $DB_SEEDER_DATABASE"
 echo "DATABASE_SYS                      : $DB_SEEDER_DATABASE_SYS"
 echo "PASSWORD                          : $DB_SEEDER_PASSWORD"

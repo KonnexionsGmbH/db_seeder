@@ -26,7 +26,7 @@ rem ----------------------------------------------------------------------------
 echo Microsoft SQL Server
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=mssqlserver_2019" -p 1433:1433 mcr.microsoft.com/mssql/server:%DB_SEEDER_VERSION%
+docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=mssqlserver_2019" -p %DB_SEEDER_CONNECTION_HOST%:%DB_SEEDER_CONTAINER_HOST% mcr.microsoft.com/mssql/server:%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

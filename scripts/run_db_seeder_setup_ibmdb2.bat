@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo IBM Db2 Database
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -e DBNAME=%DB_SEEDER_DATABASE% -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p 50000:50000 --privileged=true ibmcom/db2:%DB_SEEDER_VERSION%
+docker create --name db_seeder_db -e DBNAME=%DB_SEEDER_DATABASE% -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p %DB_SEEDER_CONNECTION_HOST%:%DB_SEEDER_CONTAINER_HOST% --privileged=true ibmcom/db2:%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
 docker start db_seeder_db

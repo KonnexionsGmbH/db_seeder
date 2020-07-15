@@ -39,7 +39,7 @@ if [ -z "$DB_SEEDER_IS_TRAVIS" ]; then
 fi
 
 if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_travis_bash.tsv
+    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_travis_${DB_SEEDER_RELEASE}.tsv
 else
     export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_local_bash.tsv
 fi  
@@ -264,7 +264,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
-    ./scripts/run_travis_push_to_github.sh
+    if ! ( ./scripts/run_travis_push_to_github.sh ); then
         exit 255
     fi    
 fi  
