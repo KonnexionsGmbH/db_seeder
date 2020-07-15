@@ -12,7 +12,7 @@ export -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=1.15.8
+export DB_SEEDER_RELEASE=1.15.10
 
 if [ -z "$1" ]; then
     echo "==========================================="
@@ -80,7 +80,7 @@ export DB_SEEDER_ENCODING_UTF_8=true
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
-export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+export DB_SEEDER_FILE_STATISTICS_DELIMITER=\\t
 
 if [ -z "$DB_SEEDER_FILE_STATISTICS_NAME" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_local.tsv
@@ -283,6 +283,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=root
     export DB_SEEDER_VERSION=8.0.20
+    export DB_SEEDER_VERSION=8.0.21
 fi
 
 if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then

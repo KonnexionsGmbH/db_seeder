@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.9.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.10.svg)
 ----
 
 ### Table of Contents
@@ -115,9 +115,9 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | IBM Db2 Database | ibmdb2 | 11.5.1.0 - 11.5.4.0 | 11.5.4.0 | 
 | IBM Informix | informix | 14.10 FC3DE | 4.50.4.1 | 
 | MariaDB Server | mariadb | 10.4.13 - 10.5.4 | 2.6.1 | 
-| Microsoft SQL Server | mssqlserver | 2019| 8.3.1.jre14-preview | 
+| Microsoft SQL Server | mssqlserver | 2019-latest| 8.3.1.jre14-preview | 
 | Mimer SQL | mimer | 11.0.3C | 3.40 | 
-| MySQL Database | mysql | 8.0.20 | 8.0.20 | 
+| MySQL Database | mysql | 8.0.20 - 8.0.21 | 8.0.21 | 
 | Oracle Database | oracle | 12c - 19c | 19.7.0.0 |
 | PostgreSQL Database | postgresql | 12.3 | 42.2.14 |
 | SQLite | sqlite | 3.32.3 | 3.32.3 |
@@ -848,7 +848,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.20`
+  - pull command: `docker pull mysql:8.0.21`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -856,7 +856,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
 
 - **JDBC driver (latest)**:
-  - version 8.0.20
+  - version 8.0.21
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:

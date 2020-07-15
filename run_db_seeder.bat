@@ -12,7 +12,7 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=1.15.8
+set DB_SEEDER_RELEASE=1.15.10
 
 if ["%1"] EQU [""] (
     echo ===========================================
@@ -342,6 +342,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=8.0.20
+    set DB_SEEDER_VERSION=8.0.21
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (

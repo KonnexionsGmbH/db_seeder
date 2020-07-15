@@ -3,11 +3,11 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.9.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.10.svg)
 
 ----------
 
-## Version 1.15.9
+## Version 1.15.10
 
 Release Date: 14.07.2020
 
@@ -34,6 +34,7 @@ n/a
 #### Modified Features
 
 - Config.java: reduce number of properties (issue #36)
+- MySQL Database: DBMS & JDBC 8.0.21
 
 #### Deleted Features
 
