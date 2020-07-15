@@ -26,7 +26,7 @@ rem ----------------------------------------------------------------------------
 echo HyperSQL Database
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (HyperSQL Database %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -p %DB_SEEDER_CONNECTION_HOST%:%DB_SEEDER_CONTAINER_HOST%/tcp konnexionsgmbh/hypersql_database:%DB_SEEDER_VERSION%
+docker create --name db_seeder_db -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp konnexionsgmbh/hypersql_database:%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (HyperSQL Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

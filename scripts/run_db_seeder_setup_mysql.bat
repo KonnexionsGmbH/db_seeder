@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo MySQL Database
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (MySQL Database %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mysql -p %DB_SEEDER_CONNECTION_HOST%:%DB_SEEDER_CONTAINER_HOST%/tcp mysql:%DB_SEEDER_VERSION%
+docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mysql -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp mysql:%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (MySQL Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo CrateDB
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (CrateDB %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db --env CRATE_HEAP_SIZE=2g -p %DB_SEEDER_CONNECTION_HOST%:%DB_SEEDER_CONTAINER_HOST%/tcp crate:%DB_SEEDER_VERSION% crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
+docker create --name db_seeder_db --env CRATE_HEAP_SIZE=2g -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp crate:%DB_SEEDER_VERSION% crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
 
 echo Docker start db_seeder_db (CrateDB %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
