@@ -289,8 +289,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       if (isDebug) {
         logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- auto  =" + connection.getAutoCommit());
       }
-    } catch (SQLException ec) {
-      ec.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
       System.exit(1);
     }
 
@@ -1030,16 +1030,13 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       fileInputStream = new FileInputStream(file);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
 
-    try {
       fileInputStream.read(blobDataBytesArray);
 
       fileInputStream.close();
     } catch (IOException e) {
       e.printStackTrace();
+      System.exit(1);
     }
 
     if (isDebug) {

@@ -22,7 +22,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Firebird Server seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public FirebirdSeeder(String dbmsTickerSymbol) {
     super();
@@ -43,8 +44,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getFirebirdConnectionPrefix() + config.getFirebirdConnectionHost() + ":" + config.getFirebirdConnectionPort() + "/"
-        + config.getFirebirdDatabase() + config.getFirebirdConnectionSuffix();
+    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase()
+        + config.getConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
 
@@ -130,24 +131,26 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
   }
 
   protected final void dropAllTables(String sqlStmnt) {
-    String methodName = null;
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
     }
 
     try {
-      Connection connectionLocal = connect(url, null, "sysdba", config.getFirebirdPasswordSys(), true);
+      Connection connectionLocal = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys(), true);
 
       preparedStatement = connection.prepareStatement(sqlStmnt);
-      preparedStatement.setString(2, config.getFirebirdUser());
+      preparedStatement.setString(2, config.getUser().toUpperCase());
 
       statement = connectionLocal.createStatement();
 
       for (String tableName : TABLE_NAMES_DROP) {
+        if (isDebug) {
+          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "  table to be deleted='" + tableName + "'");
+        }
+
         preparedStatement.setString(1, tableName);
 
         resultSet = preparedStatement.executeQuery();
@@ -175,12 +178,12 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void dropUser(String userName) {
+  private final void dropUser(String user) {
     try {
       int count = 0;
 
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM SEC$USERS WHERE sec$user_name = ?");
-      preparedStatement.setString(1, userName);
+      preparedStatement.setString(1, user);
 
       resultSet = preparedStatement.executeQuery();
 
@@ -195,7 +198,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
       if (count > 0) {
         statement = connection.createStatement();
 
-        statement.execute("DROP USER " + userName);
+        statement.execute("DROP USER " + user);
 
         statement.close();
       }
@@ -220,17 +223,17 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getFirebirdUserSys(), config.getFirebirdPasswordSys(), true);
+    connection = connect(url, driver, config.getUserSys().toUpperCase(), config.getPasswordSys(), true);
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user.
     // -----------------------------------------------------------------------
 
-    String firebirdUser = config.getFirebirdUser();
+    String user = config.getUser().toUpperCase();
 
     dropAllTables(dropTableStmnt);
 
-    dropUser(firebirdUser);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the database, the database user and grant the necessary rights.
@@ -239,9 +242,9 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + firebirdUser + " PASSWORD '" + config.getFirebirdPassword() + "' GRANT ADMIN ROLE");
+      statement.execute("CREATE USER " + user + " PASSWORD '" + config.getPassword() + "' GRANT ADMIN ROLE");
 
-      statement.execute("GRANT CREATE TABLE TO " + firebirdUser);
+      statement.execute("GRANT CREATE TABLE TO " + user);
 
       statement.close();
     } catch (SQLException e) {
@@ -255,7 +258,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getFirebirdUser(), config.getFirebirdPassword(), true);
+    connection = connect(url, null, user, config.getPassword(), true);
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

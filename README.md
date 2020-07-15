@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.8.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.10.svg)
 ----
 
 ### Table of Contents
@@ -115,9 +115,9 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | IBM Db2 Database | ibmdb2 | 11.5.1.0 - 11.5.4.0 | 11.5.4.0 | 
 | IBM Informix | informix | 14.10 FC3DE | 4.50.4.1 | 
 | MariaDB Server | mariadb | 10.4.13 - 10.5.4 | 2.6.1 | 
-| Microsoft SQL Server | mssqlserver | 2019| 8.3.1.jre14-preview | 
+| Microsoft SQL Server | mssqlserver | 2019-latest| 8.3.1.jre14-preview | 
 | Mimer SQL | mimer | 11.0.3C | 3.40 | 
-| MySQL Database | mysql | 8.0.20 | 8.0.20 | 
+| MySQL Database | mysql | 8.0.20 - 8.0.21 | 8.0.21 | 
 | Oracle Database | oracle | 12c - 19c | 19.7.0.0 |
 | PostgreSQL Database | postgresql | 12.3 | 42.2.14 |
 | SQLite | sqlite | 3.32.3 | 3.32.3 |
@@ -272,173 +272,60 @@ The flow control parameters for **`db_seeder`** are stored in the properties fil
 The following control parameters are currently supported:
 
 ```
-db_seeder.cratedb.connection.host=localhost
-db_seeder.cratedb.connection.port=5432
-db_seeder.cratedb.connection.prefix=crate://
-db_seeder.cratedb.password=cratedb
-db_seeder.cratedb.user.sys=crate
-db_seeder.cratedb.user=kxn_user
+db_seeder.connection.host=
+db_seeder.connection.port=0
+db_seeder.connection.prefix=
+db_seeder.connection.service=
+db_seeder.connection.suffix=
 
-db_seeder.cubrid.connection.host=localhost
-db_seeder.cubrid.connection.port=33000
-db_seeder.cubrid.connection.prefix=jdbc:CUBRID:
-db_seeder.cubrid.connection.suffix=::
-db_seeder.cubrid.database=see script run_db_seeder
-db_seeder.cubrid.password=cubrid
-db_seeder.cubrid.user.sys=DBA
-db_seeder.cubrid.user=kxn_user
-
-db_seeder.derby.connection.host=localhost
-db_seeder.derby.connection.port=1527
-db_seeder.derby.connection.prefix=jdbc:derby:
-db_seeder.derby.database=kxn_db
+db_seeder.database.sys=
+db_seeder.database=
 
 db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
 
-db_seeder.file.statistics.delimiter=\t
+db_seeder.file.configuration.name=
+db_seeder.file.statistics.delimiter=
 db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
-db_seeder.file.statistics.name=statistics/db_seeder_local.tsv
+db_seeder.file.statistics.name=statistics\db_seeder_local.tsv
 
-db_seeder.firebird.connection.host=localhost
-db_seeder.firebird.connection.port=3050
-db_seeder.firebird.connection.prefix=jdbc:firebirdsql://
-db_seeder.firebird.connection.suffix=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
-db_seeder.firebird.database=see script run_db_seeder
-db_seeder.firebird.password.sys=firebird
-db_seeder.firebird.password=firebird
-db_seeder.firebird.user.sys=SYSDBA
-db_seeder.firebird.user=kxn_user
+db_seeder.max.row.city=
+db_seeder.max.row.company=
+db_seeder.max.row.country=
+db_seeder.max.row.country_state=
+db_seeder.max.row.timezone=
 
-db_seeder.h2.connection.host=localhost
-db_seeder.h2.connection.port=9092
-db_seeder.h2.connection.prefix=jdbc:h2:
-db_seeder.h2.database=kxn_db
-db_seeder.h2.password=h2
-db_seeder.h2.schema=kxn_schema
-db_seeder.h2.user=kxn_user
+db_seeder.password.sys=
+db_seeder.password=
 
-db_seeder.hsqldb.connection.host=localhost
-db_seeder.hsqldb.connection.port=9001
-db_seeder.hsqldb.connection.prefix=jdbc:hsqldb:
-db_seeder.hsqldb.connection.suffix=;ifexists=false;shutdown=true
-db_seeder.hsqldb.database=see script run_db_seeder
-db_seeder.hsqldb.password=hsqldb
-db_seeder.hsqldb.schema=kxn_schema
-db_seeder.hsqldb.user.sys=SA
-db_seeder.hsqldb.user=kxn_user
+db_seeder.schema=
 
-db_seeder.ibmdb2.connection.host=localhost
-db_seeder.ibmdb2.connection.port=50000
-db_seeder.ibmdb2.connection.prefix=jdbc:db2://
-db_seeder.ibmdb2.database=see script run_db_seeder
-db_seeder.ibmdb2.password.sys=ibmdb2
-db_seeder.ibmdb2.schema=kxn_schema
-db_seeder.ibmdb2.user.sys=db2inst1
-
-db_seeder.informix.connection.host=localhost
-db_seeder.informix.connection.port=9088
-db_seeder.informix.connection.prefix=jdbc:informix-sqli://
-db_seeder.informix.connection.suffix=:INFORMIXSERVER=informix
-db_seeder.informix.database.sys=sysmaster
-db_seeder.informix.database=kxn_db
-db_seeder.informix.password.sys=in4mix
-db_seeder.informix.user.sys=informix
-
-db_seeder.is.debug=false
-
-db_seeder.mariadb.connection.host=localhost
-db_seeder.mariadb.connection.port=3306
-db_seeder.mariadb.connection.prefix=jdbc:mariadb://
-db_seeder.mariadb.database.sys=mysql
-db_seeder.mariadb.database=kxn_db
-db_seeder.mariadb.password.sys=mariadb
-db_seeder.mariadb.password=mariadb
-db_seeder.mariadb.user.sys=root
-db_seeder.mariadb.user=kxn_user
-
-db_seeder.max.row.city=1800
-db_seeder.max.row.company=5400
-db_seeder.max.row.country=200
-db_seeder.max.row.country_state=600
-db_seeder.max.row.timezone=11
-
-db_seeder.mimer.connection.host=localhost
-db_seeder.mimer.connection.port=11360
-db_seeder.mimer.connection.prefix=jdbc:mimer://
-db_seeder.mimer.database.sys=mimerdb
-db_seeder.mimer.database=kxn_db
-db_seeder.mimer.password.sys=mimersql
-db_seeder.mimer.password=mimersql
-db_seeder.mimer.user.sys=SYSADM
-db_seeder.mimer.user=kxn_user
-
-db_seeder.mssqlserver.connection.host=localhost
-db_seeder.mssqlserver.connection.port=1433
-db_seeder.mssqlserver.connection.prefix=jdbc:sqlserver://
-db_seeder.mssqlserver.database.sys=master
-db_seeder.mssqlserver.database=kxn_db
-db_seeder.mssqlserver.password.sys=mssqlserver_2019
-db_seeder.mssqlserver.password=mssqlserver_2019
-db_seeder.mssqlserver.schema=kxn_schema
-db_seeder.mssqlserver.user.sys=sa
-db_seeder.mssqlserver.user=kxn_user
-
-db_seeder.mysql.connection.host=localhost
-db_seeder.mysql.connection.port=3306
-db_seeder.mysql.connection.prefix=jdbc:mysql://
-db_seeder.mysql.connection.suffix=?serverTimezone=UTC
-db_seeder.mysql.database.sys=sys
-db_seeder.mysql.database=kxn_db
-db_seeder.mysql.password.sys=mysql
-db_seeder.mysql.password=mysql
-db_seeder.mysql.user.sys=root
-db_seeder.mysql.user=kxn_user
-
-db_seeder.oracle.connection.host=localhost
-db_seeder.oracle.connection.port=1521
-db_seeder.oracle.connection.prefix=jdbc:oracle:thin:@//
-db_seeder.oracle.connection.service=orclpdb1
-db_seeder.oracle.password.sys=oracle
-db_seeder.oracle.password=oracle
-db_seeder.oracle.user=kxn_user
-db_seeder.oracle.user.sys=SYS AS SYSDBA
-
-db_seeder.postgresql.connection.host=localhost
-db_seeder.postgresql.connection.port=5432
-db_seeder.postgresql.connection.prefix=jdbc:postgresql://
-db_seeder.postgresql.database.sys=kxn_db_sys
-db_seeder.postgresql.database=kxn_db
-db_seeder.postgresql.password.sys=postgresql
-db_seeder.postgresql.password=postgresql
-db_seeder.postgresql.user.sys=kxn_user_sys
-db_seeder.postgresql.user=kxn_user
-
-db_seeder.sqlite.connection.prefix=jdbc:sqlite:
-db_seeder.sqlite.database=see script run_db_seeder
+db_seeder.user.sys=
+db_seeder.user=
 ```
 
 #### 4.2.2 Explanation and Cross-reference
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
 | --- | --- | --- | --- |
-| <db_ticker>.connection.port=<9...9> | <TICKER_SYMBOL>_CONNECTION_PORT | all client RDBMS | port number of the database server |
-| <db_ticker>.connection.prefix=<x...x> | <TICKER_SYMBOL>_CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
-| <db_ticker>.connection.suffix=<x...x> | <TICKER_SYMBOL>_CONNECTION_SUFFIX | cubrid, firebird, hsqldb, informix, mysql | suffix of the database connection string |
-| <db_ticker>.database.sys=<x...x> | <TICKER_SYMBOL>_DATABASE | informix, mariadb, mimer, mssqlserver, mysql, postgresql | privileged database name |
-| <db_ticker>.database=kxn_db | <TICKER_SYMBOL>_DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, postgresql, sqlite | database name |
-| <db_ticker>.password.sys=<x...x> | <TICKER_SYMBOL>_PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
-| <db_ticker>.password=<x...x> | <TICKER_SYMBOL>_PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
-| <db_ticker>.schema=kxn_schema | <TICKER_SYMBOL>_SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |
-| <db_ticker>.user.sys=<x...x>> | <TICKER_SYMBOL>_USER | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the privileged user |
-| <db_ticker>.user=kxn_user | <TICKER_SYMBOL>_USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the normal user |
+| connection.host=<x...x> | CONNECTION_HOST | all client RDBMS | host name or ip address of the database server |
+| connection.port=<9...9> | CONNECTION_PORT | all client RDBMS | port number of the database server |
+| connection.prefix=<x...x> | CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
+| connection.service=<x...x> | CONNECTION_SERVICE | oracle | service name of the database connection string |
+| connection.suffix=<x...x> | CONNECTION_SUFFIX | cubrid, firebird, hsqldb, informix, mysql | suffix of the database connection string |
+| database.sys=<x...x> | DATABASE | informix, mariadb, mimer, mssqlserver, mysql, postgresql | privileged database name |
+| database=<x...x> | DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, postgresql, sqlite | database name |
 | encoding.iso_8859_1=false/true | ENCODING_ISO_8859_1 | all RDBMS | generate column content with Western Latin characters included |
 | encoding.utf_8=false/true | ENCODING_UTF_8 | all RDBMS except cubrid and mssqlserver | generate column content with tradtional chinese characters included |
 | file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
 | file.statistics.header=<x...x> | FILE_STATISTICS_NAME | all DBMS | header line of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
 | file.statistics.name=<x...x> | FILE_STATISTICS_NAME | all DBMS | file name of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
-| jdbc.connection.host=localhost | JDBC_CONNECTION_HOST | cratedb, cubrid, firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name or ip address of the database server |
 | max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
+| password.sys=<x...x> | PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
+| password=<x...x> | PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
+| schema=kxn_schema | SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |
+| user.sys=<x...x>> | USER.SYS | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the privileged user |
+| user=kxn_user | USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the normal user |
 |     |     |     |     |
 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
@@ -961,7 +848,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.20`
+  - pull command: `docker pull mysql:8.0.21`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -969,7 +856,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
 
 - **JDBC driver (latest)**:
-  - version 8.0.20
+  - version 8.0.21
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:

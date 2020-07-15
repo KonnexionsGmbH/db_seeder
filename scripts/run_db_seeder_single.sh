@@ -43,16 +43,24 @@ date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
 if [ "$DB_SEEDER_SETUP_DBMS" = "yes" ]; then
-    ( ./scripts/run_db_seeder_setup_dbms.sh $DB_SEEDER_SETUP_DBMS )
+    if ! ( ./scripts/run_db_seeder_setup_dbms.sh $DB_SEEDER_SETUP_DBMS ); then
+        exit 255
+    fi    
 fi
 
 if [ "$DB_SEEDER_NO_CREATE_RUNS" = "1" ]; then
-    ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS )
+    if ! ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 if [ "$DB_SEEDER_NO_CREATE_RUNS" = "2" ]; then
-    ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS )
-    ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS )
+    if ! ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
+    if ! ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 echo "--------------------------------------------------------------------------------"

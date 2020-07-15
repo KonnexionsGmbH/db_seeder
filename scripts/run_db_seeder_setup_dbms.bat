@@ -27,18 +27,30 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["yes"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
 
 if ["%DB_SEEDER_DBMS%"] == ["derby"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
 
 if ["%DB_SEEDER_DBMS%"] == ["h2"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
 
 if ["%DB_SEEDER_DBMS%"] == ["ibmdb2"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
 
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] EQU ["no"] (
@@ -46,6 +58,9 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] EQU ["no"] (
     lib\Gammadyne\timer.exe /q
     
     call scripts\run_db_seeder_setup_%DB_SEEDER_DBMS%.bat
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
     
     docker ps
 )

@@ -21,7 +21,8 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new HyperQL Database seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public HsqldbSeeder(String dbmsTickerSymbol) {
     super();
@@ -253,10 +254,10 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     tableNameDelimiter = "";
 
     if (isClient) {
-      url = config.getHsqldbConnectionPrefix() + "hsql://" + config.getHsqldbConnectionHost() + ":" + config.getHsqldbConnectionPort() + "/"
-          + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();
+      url = config.getConnectionPrefix() + "hsql://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase()
+          + config.getConnectionSuffix();
     } else {
-      url = config.getHsqldbConnectionPrefix() + "file:" + config.getHsqldbDatabase() + config.getHsqldbConnectionSuffix();
+      url = config.getConnectionPrefix() + "file:" + config.getDatabase() + config.getConnectionSuffix();
     }
 
     if (isDebug) {
@@ -279,19 +280,19 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getHsqldbUserSys(), "", true);
+    connection = connect(url, driver, config.getUserSys().toUpperCase(), "", true);
 
-    String hsqldbPassword = config.getHsqldbPassword();
-    String hsqldbSchema   = config.getHsqldbSchema();
-    String hsqldbUser     = config.getHsqldbUser();
+    String password = config.getPassword();
+    String schema   = config.getSchema().toUpperCase();
+    String user     = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
     // Drop the schema and the user if already existing
     // -----------------------------------------------------------------------
 
-    dropSchema(hsqldbSchema);
+    dropSchema(schema);
 
-    dropUser(hsqldbUser);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the user and the schema
@@ -300,9 +301,9 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + hsqldbUser + " PASSWORD '" + hsqldbPassword + "' ADMIN");
+      statement.execute("CREATE USER " + user + " PASSWORD '" + password + "' ADMIN");
 
-      statement.execute("CREATE SCHEMA " + hsqldbSchema + " AUTHORIZATION " + hsqldbUser);
+      statement.execute("CREATE SCHEMA " + schema + " AUTHORIZATION " + user);
 
       statement.close();
     } catch (SQLException e) {
@@ -316,12 +317,12 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, hsqldbUser, hsqldbPassword);
+    connection = connect(url, null, user, password);
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("SET SCHEMA " + hsqldbSchema);
+      statement.execute("SET SCHEMA " + schema);
 
       statement.close();
     } catch (SQLException e) {

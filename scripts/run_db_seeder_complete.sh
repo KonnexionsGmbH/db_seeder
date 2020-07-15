@@ -39,7 +39,7 @@ if [ -z "$DB_SEEDER_IS_TRAVIS" ]; then
 fi
 
 if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_travis_bash.tsv
+    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_travis_${DB_SEEDER_RELEASE}.tsv
 else
     export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_local_bash.tsv
 fi  
@@ -74,7 +74,7 @@ echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "--------------------------------------------------------------------------------"
 echo "IS_TRAVIS                       : $DB_SEEDER_IS_TRAVIS"
 echo "--------------------------------------------------------------------------------"
-date +"DATE TIME : %$d.%m.%Y %H:%M:%S"
+date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
 unset -f $DB_SEEDER_DBMS=
@@ -84,7 +84,9 @@ unset -f $DB_SEEDER_DBMS=
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_CRATEDB" = "yes" ]; then
-    ( ./run_db_seeder.sh cratedb yes 2 )
+    if ! ( ./run_db_seeder.sh cratedb yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -92,7 +94,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_CUBRID" = "yes" ]; then
-    ( ./run_db_seeder.sh cubrid yes 2 )
+    if ! ( ./run_db_seeder.sh cubrid yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -100,7 +104,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_DERBY" = "yes" ]; then
-    ( ./run_db_seeder.sh derby yes 2 )
+    if ! ( ./run_db_seeder.sh derby yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -108,7 +114,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_DERBY_EMB" = "yes" ]; then
-    ( ./run_db_seeder.sh derby_emb yes 2 )
+    if ! ( ./run_db_seeder.sh derby_emb yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -116,7 +124,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_FIREBIRD" = "yes" ]; then
-    ( ./run_db_seeder.sh firebird yes 2 )
+    if ! ( ./run_db_seeder.sh firebird yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -124,7 +134,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_H2" = "yes" ]; then
-    ( ./run_db_seeder.sh h2 yes 2 )
+    if ! ( ./run_db_seeder.sh h2 yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -132,7 +144,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_H2_EMB" = "yes" ]; then
-    ( ./run_db_seeder.sh h2_emb yes 2 )
+    if ! ( ./run_db_seeder.sh h2_emb yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -140,7 +154,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
-    ( ./run_db_seeder.sh hsqldb yes 2 )
+    if ! ( ./run_db_seeder.sh hsqldb yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -148,7 +164,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB_EMB" = "yes" ]; then
-    ( ./run_db_seeder.sh hsqldb_emb yes 2 )
+    if ! ( ./run_db_seeder.sh hsqldb_emb yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -156,7 +174,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_IBMDB2" = "yes" ]; then
-    ( ./run_db_seeder.sh ibmdb2 yes 2 )
+    if ! ( ./run_db_seeder.sh ibmdb2 yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -164,7 +184,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_INFORMIX" = "yes" ]; then
-    ( ./run_db_seeder.sh informix yes 2 )
+    if ! ( ./run_db_seeder.sh informix yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -172,7 +194,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MARIADB" = "yes" ]; then
-    ( ./run_db_seeder.sh mariadb yes 2 )
+    if ! ( ./run_db_seeder.sh mariadb yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -180,7 +204,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MSSQLSERVER" = "yes" ]; then
-    ( ./run_db_seeder.sh mssqlserver yes 2 )
+    if ! ( ./run_db_seeder.sh mssqlserver yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -188,7 +214,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MIMER" = "yes" ]; then
-    ( ./run_db_seeder.sh mimer yes 2 )
+    if ! ( ./run_db_seeder.sh mimer yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -196,7 +224,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
-    ( ./run_db_seeder.sh mysql yes 2 )
+    if ! ( ./run_db_seeder.sh mysql yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -204,7 +234,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
-    ( ./run_db_seeder.sh oracle yes 2 )
+    if ! ( ./run_db_seeder.sh oracle yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -212,7 +244,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
-    ( ./run_db_seeder.sh postgresql yes 2 )
+    if ! ( ./run_db_seeder.sh postgresql yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -220,7 +254,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
-    ( ./run_db_seeder.sh sqlite yes 2 )
+    if ! ( ./run_db_seeder.sh sqlite yes 2 ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
@@ -228,7 +264,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
-    ./scripts/run_travis_push_to_github.sh
+    if ! ( ./scripts/run_travis_push_to_github.sh ); then
+        exit 255
+    fi    
 fi  
 
 echo "--------------------------------------------------------------------------------"

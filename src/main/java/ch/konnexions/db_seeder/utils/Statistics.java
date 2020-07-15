@@ -104,7 +104,7 @@ public class Statistics {
     }
 
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
-    String statisticsName      = config.getFileStatisticsName();
+    String statisticsName = config.getFileStatisticsName();
 
     try {
       Path statisticsPath = Paths.get(statisticsName);
@@ -119,7 +119,7 @@ public class Statistics {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, false));
 
         new CSVPrinter(bufferedWriter,
-            CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)).withHeader(config.getFileStatisticsHeader().split(statisticsDelimiter)));
+            CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)).withHeader(config.getFileStatisticsHeader().replace(";", statisticsDelimiter).split(statisticsDelimiter)));
 
         bufferedWriter.close();
 

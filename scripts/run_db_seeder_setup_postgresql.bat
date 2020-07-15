@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a PostgreSQL Database Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_POSTGRESQL        : %DB_SEEDER_POSTGRESQL_VERSION%
+echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo PostgreSQL Database
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (PostgreSQL Database %DB_SEEDER_POSTGRESQL_VERSION%)
-docker create --name db_seeder_db -e POSTGRES_DB=kxn_db_sys -e POSTGRES_PASSWORD=postgresql -e POSTGRES_USER=kxn_user_sys -p 5432:5432 postgres:%DB_SEEDER_POSTGRESQL_VERSION%
+echo Docker create db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION%)
+docker create --name db_seeder_db -e POSTGRES_DB=kxn_db_sys -e POSTGRES_PASSWORD=postgresql -e POSTGRES_USER=kxn_user_sys -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% postgres:%DB_SEEDER_VERSION%
 
-echo Docker start db_seeder_db (PostgreSQL Database %DB_SEEDER_POSTGRESQL_VERSION%) ...
+echo Docker start db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 20 127.0.0.1>nul

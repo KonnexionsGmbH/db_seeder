@@ -76,6 +76,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_CRATEDB%"] EQU ["yes"] (
         call run_db_seeder.bat cratedb yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -84,6 +87,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_CUBRID%"] EQU ["yes"] (
         call run_db_seeder.bat cubrid yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -92,6 +98,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_DERBY%"] EQU ["yes"] (
         call run_db_seeder.bat derby yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -100,6 +109,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_DERBY_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat derby_emb yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -108,6 +120,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_FIREBIRD%"] EQU ["yes"] (
         call run_db_seeder.bat firebird yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -116,6 +131,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_H2%"] EQU ["yes"] (
         call run_db_seeder.bat h2 yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -124,6 +142,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_H2_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat h2_emb yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -132,6 +153,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
         call run_db_seeder.bat hsqldb yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -140,6 +164,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat hsqldb_emb yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -148,6 +175,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_IBMDB2%"] EQU ["yes"] (
         call run_db_seeder.bat ibmdb2 yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -156,6 +186,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_INFORMIX%"] EQU ["yes"] (
         call run_db_seeder.bat informix yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -164,6 +197,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_MARIADB%"] EQU ["yes"] (
         call run_db_seeder.bat mariadb yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -172,6 +208,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_MSSQLSERVER%"] EQU ["yes"] (
         call run_db_seeder.bat mssqlserver yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -180,6 +219,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_MIMER%"] EQU ["yes"] (
         call run_db_seeder.bat mimer yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -188,6 +230,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_MYSQL%"] EQU ["yes"] (
         call run_db_seeder.bat mysql yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -196,6 +241,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_ORACLE%"] EQU ["yes"] (
         call run_db_seeder.bat oracle yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -204,6 +252,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
         call run_db_seeder.bat postgresql yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     rem ------------------------------------------------------------------------------
@@ -212,6 +263,9 @@ echo.
     
     if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
         call run_db_seeder.bat sqlite yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
     )
     
     echo --------------------------------------------------------------------------------

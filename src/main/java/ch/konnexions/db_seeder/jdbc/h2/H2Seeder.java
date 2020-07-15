@@ -21,7 +21,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new H2 Database Engine seeder.
-   * @param args0 
+   * @param dbmsTickerSymbol 
    */
   public H2Seeder(String dbmsTickerSymbol) {
     super();
@@ -253,9 +253,9 @@ public class H2Seeder extends AbstractJdbcSeeder {
     tableNameDelimiter = "";
 
     if (isClient) {
-      url = config.getH2ConnectionPrefix() + "tcp://" + config.getH2ConnectionHost() + ":" + config.getH2ConnectionPort() + "/" + config.getH2Database();
+      url = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
     } else {
-      url = config.getH2ConnectionPrefix() + "file:" + config.getH2Database();
+      url = config.getConnectionPrefix() + "file:" + config.getDatabase();
     }
 
     if (isDebug) {
@@ -280,17 +280,17 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
     connection = connect(url, driver, "sa", "", true);
 
-    String h2Password = config.getH2Password();
-    String h2Schema   = config.getH2Schema();
-    String h2User     = config.getH2User();
+    String password = config.getPassword();
+    String schema   = config.getSchema().toUpperCase();
+    String user     = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
     // Drop the schema and the user if already existing
     // -----------------------------------------------------------------------
 
-    dropSchema(h2Schema);
+    dropSchema(schema);
 
-    dropUser(h2User);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the user and the schema
@@ -299,9 +299,9 @@ public class H2Seeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + h2User + " PASSWORD '" + h2Password + "' ADMIN");
+      statement.execute("CREATE USER " + user + " PASSWORD '" + password + "' ADMIN");
 
-      statement.execute("CREATE SCHEMA " + h2Schema + " AUTHORIZATION " + h2User);
+      statement.execute("CREATE SCHEMA " + schema + " AUTHORIZATION " + user);
 
       statement.close();
     } catch (SQLException e) {
@@ -315,12 +315,12 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, h2User, h2Password);
+    connection = connect(url, null, user, password);
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("SET SCHEMA " + h2Schema);
+      statement.execute("SET SCHEMA " + schema);
 
       statement.close();
     } catch (SQLException e) {

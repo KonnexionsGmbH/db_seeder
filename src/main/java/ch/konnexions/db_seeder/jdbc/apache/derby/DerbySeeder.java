@@ -22,7 +22,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Apache Derby seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public DerbySeeder(String dbmsTickerSymbol) {
     super();
@@ -210,11 +211,10 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
     if (isClient) {
       driver  = "org.apache.derby.jdbc.ClientDriver";
-      urlBase = config.getApachederbyConnectionPrefix() + "//" + config.getApachederbyConnectionHost() + ":" + config.getApachederbyConnectionPort() + "/"
-          + config.getApachederbyDatabase() + ";create=";
+      urlBase = config.getConnectionPrefix() + "//" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + ";create=";
     } else {
       driver  = "org.apache.derby.jdbc.EmbeddedDriver";
-      urlBase = config.getApachederbyConnectionPrefix() + ";databaseName=" + config.getApachederbyDatabase() + ";create=";
+      urlBase = config.getConnectionPrefix() + ";databaseName=" + config.getDatabase() + ";create=";
     }
 
     tableNameDelimiter = "";

@@ -21,7 +21,8 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Oracle Database seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public OracleSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,8 +41,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getOracleConnectionPrefix() + config.getOracleConnectionHost() + ":" + config.getOracleConnectionPort() + "/"
-        + config.getOracleConnectionService();
+    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -174,15 +174,15 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getOracleUserSys(), config.getOraclePasswordSys());
+    connection = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String oracleUser = config.getOracleUser();
+    String user = config.getUser().toUpperCase();
 
-    dropUser(oracleUser);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the database user and grant the necessary rights.
@@ -191,17 +191,17 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getOraclePassword() + "\"");
+      statement.execute("CREATE USER " + user + " IDENTIFIED BY \"" + config.getPassword() + "\"");
 
-      statement.execute("ALTER USER " + oracleUser + " QUOTA UNLIMITED ON users");
+      statement.execute("ALTER USER " + user + " QUOTA UNLIMITED ON users");
 
-      statement.execute("GRANT CREATE SEQUENCE TO " + oracleUser);
+      statement.execute("GRANT CREATE SEQUENCE TO " + user);
 
-      statement.execute("GRANT CREATE SESSION TO " + oracleUser);
+      statement.execute("GRANT CREATE SESSION TO " + user);
 
-      statement.execute("GRANT CREATE TABLE TO " + oracleUser);
+      statement.execute("GRANT CREATE TABLE TO " + user);
 
-      statement.execute("GRANT UNLIMITED TABLESPACE TO " + oracleUser);
+      statement.execute("GRANT UNLIMITED TABLESPACE TO " + user);
 
       statement.close();
     } catch (SQLException e) {
@@ -215,7 +215,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getOracleUser(), config.getOraclePassword());
+    connection = connect(url, null, user, config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

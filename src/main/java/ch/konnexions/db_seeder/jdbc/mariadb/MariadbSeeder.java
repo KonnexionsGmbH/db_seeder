@@ -21,7 +21,8 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new MariaDB Server seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public MariadbSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,9 +41,9 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMariadbConnectionPrefix() + config.getMariadbConnectionHost() + ":" + config.getMariadbConnectionPort() + "/";
-    url                   = urlBase + config.getMariadbDatabase();
-    urlSetup              = urlBase + config.getMariadbDatabaseSys();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
+    url                   = urlBase + config.getDatabase();
+    urlSetup              = urlBase + config.getDatabaseSys();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -140,21 +141,21 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, null, config.getMariadbUserSys(), config.getMariadbPasswordSys());
+    connection = connect(urlSetup, null, config.getUserSys(), config.getPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user.
     // -----------------------------------------------------------------------
 
-    String mariadbDatabase = config.getMariadbDatabase();
-    String mariadbUser     = config.getMariadbUser();
+    String database = config.getDatabase();
+    String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS `" + mariadbDatabase + "`");
+      statement.execute("DROP DATABASE IF EXISTS `" + database + "`");
 
-      statement.execute("DROP USER IF EXISTS '" + mariadbUser + "'");
+      statement.execute("DROP USER IF EXISTS '" + user + "'");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -165,13 +166,13 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE `" + mariadbDatabase + "`");
+      statement.execute("CREATE DATABASE `" + database + "`");
 
-      statement.execute("USE `" + mariadbDatabase + "`");
+      statement.execute("USE `" + database + "`");
 
-      statement.execute("CREATE USER '" + mariadbUser + "'@'%' IDENTIFIED BY '" + config.getMariadbPassword() + "'");
+      statement.execute("CREATE USER '" + user + "'@'%' IDENTIFIED BY '" + config.getPassword() + "'");
 
-      statement.execute("GRANT ALL PRIVILEGES ON *.* TO '" + mariadbUser + "'@'%'");
+      statement.execute("GRANT ALL PRIVILEGES ON *.* TO '" + user + "'@'%'");
 
       statement.execute("FLUSH PRIVILEGES");
 
@@ -187,7 +188,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getMariadbUser(), config.getMariadbPassword());
+    connection = connect(url, null, user, config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

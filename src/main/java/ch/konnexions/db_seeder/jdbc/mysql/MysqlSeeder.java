@@ -21,7 +21,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new MySQL seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public MysqlSeeder(String dbmsTickerSymbol) {
     super();
@@ -42,9 +43,9 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "`";
 
-    urlBase               = config.getMysqlConnectionPrefix() + config.getMysqlConnectionHost() + ":" + config.getMysqlConnectionPort() + "/";
-    url                   = urlBase + config.getMysqlDatabase() + config.getMysqlConnectionSuffix();
-    urlSetup              = urlBase + config.getMysqlDatabaseSys() + config.getMysqlConnectionSuffix();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
+    url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
+    urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -142,21 +143,21 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, config.getMysqlUserSys(), config.getMysqlPasswordSys());
+    connection = connect(urlSetup, driver, config.getUserSys(), config.getPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database and the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String mysqlDatabase = config.getMysqlDatabase();
-    String mysqlUser     = config.getMysqlUser();
+    String database = config.getDatabase();
+    String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS `" + mysqlDatabase + "`");
+      statement.execute("DROP DATABASE IF EXISTS `" + database + "`");
 
-      statement.execute("DROP USER IF EXISTS `" + mysqlUser + "`");
+      statement.execute("DROP USER IF EXISTS `" + user + "`");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -167,15 +168,15 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE `" + mysqlDatabase + "`");
+      statement.execute("CREATE DATABASE `" + database + "`");
 
-      statement.execute("USE `" + mysqlDatabase + "`");
+      statement.execute("USE `" + database + "`");
 
-      statement.execute("USE `" + mysqlDatabase + "`");
+      statement.execute("USE `" + database + "`");
 
-      statement.execute("CREATE USER `" + mysqlUser + "` IDENTIFIED BY '" + config.getMysqlPassword() + "'");
+      statement.execute("CREATE USER `" + user + "` IDENTIFIED BY '" + config.getPassword() + "'");
 
-      statement.execute("GRANT ALL ON " + mysqlDatabase + ".* TO `" + mysqlUser + "`");
+      statement.execute("GRANT ALL ON " + database + ".* TO `" + user + "`");
 
       statement.close();
     } catch (SQLException e) {
@@ -189,7 +190,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getMysqlUser(), config.getMysqlPassword());
+    connection = connect(url, null, user, config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

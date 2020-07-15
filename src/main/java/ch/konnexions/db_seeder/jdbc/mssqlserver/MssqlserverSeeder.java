@@ -21,7 +21,8 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new Microsoft SQL Server seeder.
-   * @param args0 
+   * 
+   * @param dbmsTickerSymbol 
    */
   public MssqlserverSeeder(String dbmsTickerSymbol) {
     super();
@@ -40,11 +41,9 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    urlBase               = config.getMssqlserverConnectionPrefix() + config.getMssqlserverConnectionHost() + ":" + config.getMssqlserverConnectionPort()
-        + ";databaseName=";
-    url                   = urlBase + config.getMssqlserverDatabase() + ";user=" + config.getMssqlserverUser() + ";password=" + config.getMssqlserverPassword();
-    urlSetup              = urlBase + config.getMssqlserverDatabaseSys() + ";user=" + config.getMssqlserverUserSys() + ";password="
-        + config.getMssqlserverPasswordSys();
+    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ";databaseName=";
+    url                   = urlBase + config.getDatabase() + ";user=" + config.getUser() + ";password=" + config.getPassword();
+    urlSetup              = urlBase + config.getDatabaseSys() + ";user=" + config.getUserSys() + ";password=" + config.getPasswordSys();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -148,14 +147,14 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     // Drop the database if already existing.
     // -----------------------------------------------------------------------
 
-    final String mssqlserverDatabase = config.getMssqlserverDatabase();
-    final String mssqlserverSchema   = config.getMssqlserverSchema();
-    final String mssqlserverUser     = config.getMssqlserverUser();
+    final String database = config.getDatabase();
+    final String schema   = config.getSchema();
+    final String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + mssqlserverDatabase);
+      statement.execute("DROP DATABASE IF EXISTS " + database);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -172,19 +171,19 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
       statement.execute("USE master");
 
-      statement.execute("CREATE DATABASE " + mssqlserverDatabase);
+      statement.execute("CREATE DATABASE " + database);
 
       statement.execute("USE master");
 
-      statement.execute("ALTER DATABASE " + mssqlserverDatabase + " SET CONTAINMENT = PARTIAL");
+      statement.execute("ALTER DATABASE " + database + " SET CONTAINMENT = PARTIAL");
 
-      statement.execute("USE " + mssqlserverDatabase);
+      statement.execute("USE " + database);
 
-      statement.execute("CREATE SCHEMA " + mssqlserverSchema);
+      statement.execute("CREATE SCHEMA " + schema);
 
-      statement.execute("CREATE USER " + mssqlserverUser + " WITH PASSWORD = '" + config.getMssqlserverPassword() + "', DEFAULT_SCHEMA=" + mssqlserverSchema);
+      statement.execute("CREATE USER " + user + " WITH PASSWORD = '" + config.getPassword() + "', DEFAULT_SCHEMA=" + schema);
 
-      statement.execute("sp_addrolemember 'db_owner', '" + mssqlserverUser + "'");
+      statement.execute("sp_addrolemember 'db_owner', '" + user + "'");
 
       statement.close();
     } catch (SQLException e) {

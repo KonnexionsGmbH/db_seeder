@@ -13,7 +13,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Oracle Database Docker container.
 echo --------------------------------------------------------------------------------
-echo VERSION_ORACLE            : %DB_SEEDER_ORACLE_VERSION%
+echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -24,10 +24,10 @@ rem ----------------------------------------------------------------------------
 
 echo Oracle Database
 echo --------------------------------------------------------------------------------
-echo Docker create db_seeder_db (Oracle Database %DB_SEEDER_ORACLE_VERSION%)
-docker create --name db_seeder_db -e ORACLE_PWD=oracle -p 1521:1521/tcp --shm-size 1G konnexionsgmbh/%DB_SEEDER_ORACLE_VERSION%
+echo Docker create db_seeder_db (Oracle Database %DB_SEEDER_VERSION%)
+docker create --name db_seeder_db -e ORACLE_PWD=oracle -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp --shm-size 1G konnexionsgmbh/%DB_SEEDER_VERSION%
 
-echo Docker start db_seeder_db (Oracle Database %DB_SEEDER_ORACLE_VERSION%) ...
+echo Docker start db_seeder_db (Oracle Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 :check_health_status:
