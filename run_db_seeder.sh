@@ -280,7 +280,7 @@ if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_PASSWORD=oracle
     export DB_SEEDER_PASSWORD_SYS=oracle
     export DB_SEEDER_USER=kxn_user
-    export DB_SEEDER_USER_SYS=SYS AS SYSDBA
+    export DB_SEEDER_USER_SYS="SYS AS SYSDBA"
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
