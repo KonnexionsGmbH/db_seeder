@@ -289,8 +289,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       if (isDebug) {
         logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- auto  =" + connection.getAutoCommit());
       }
-    } catch (SQLException ec) {
-      ec.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
       System.exit(1);
     }
 

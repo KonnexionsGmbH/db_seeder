@@ -45,7 +45,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ":" + config.getDatabase() + ":";
     url                   = urlBase + config.getConnectionSuffix();
-    urlSetup              = urlBase + config.getUserSys() + config.getConnectionSuffix();
+    urlSetup              = urlBase + config.getUserSys().toUpperCase() + config.getConnectionSuffix();
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
@@ -134,11 +134,24 @@ public class CubridSeeder extends AbstractJdbcSeeder {
   }
 
   private final void dropAllTables() {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+    }
+
     try {
       statement = connection.createStatement();
 
       for (String tableName : TABLE_NAMES_DROP) {
-        statement.execute("DROP TABLE IF EXISTS \"" + tableName + "\"");
+        String sqlStmnt = "DROP TABLE IF EXISTS \"" + tableName.toLowerCase() + "\"";
+
+        if (isDebug) {
+          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
       }
 
       statement.close();
@@ -146,23 +159,25 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       e.printStackTrace();
       System.exit(1);
     }
-  }
-
-  private final void dropUser(String cubridUser) {
-    String methodName = null;
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+    }
+  }
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+  private final void dropUser(String user) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - user='" + user + "'");
     }
 
     try {
       int count = 0;
 
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM db_user WHERE name = ?");
-      preparedStatement.setString(1, cubridUser);
+      preparedStatement.setString(1, user);
 
       resultSet = preparedStatement.executeQuery();
 
@@ -177,7 +192,13 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       if (count > 0) {
         statement = connection.createStatement();
 
-        statement.execute("DROP USER " + cubridUser);
+        String sqlStmnt = "DROP USER " + user;
+
+        if (isDebug) {
+          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
 
         statement.close();
       }
@@ -212,11 +233,11 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     // Drop the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String cubridUser = config.getUser();
+    String user = config.getUser().toUpperCase();
 
     dropAllTables();
 
-    dropUser(cubridUser);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the database user.
@@ -225,7 +246,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + cubridUser + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
+      statement.execute("CREATE USER " + user + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
 
       statement.close();
 
@@ -241,7 +262,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getUser(), config.getPassword());
+    connection = connect(url, null, user, config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

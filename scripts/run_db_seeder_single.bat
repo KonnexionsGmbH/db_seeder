@@ -43,15 +43,27 @@ echo ===========================================================================
     
 if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
     call scripts\run_db_seeder_setup_dbms.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
     
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["1"] (
     call scripts\run_db_seeder_create_data.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
     
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["2"] (
     call scripts\run_db_seeder_create_data.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
     call scripts\run_db_seeder_create_data.bat %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
 
 echo --------------------------------------------------------------------------------

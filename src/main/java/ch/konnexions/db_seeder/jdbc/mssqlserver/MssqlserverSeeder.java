@@ -147,14 +147,14 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     // Drop the database if already existing.
     // -----------------------------------------------------------------------
 
-    final String mssqlserverDatabase = config.getDatabase();
-    final String mssqlserverSchema   = config.getSchema();
-    final String mssqlserverUser     = config.getUser();
+    final String database = config.getDatabase();
+    final String schema   = config.getSchema();
+    final String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + mssqlserverDatabase);
+      statement.execute("DROP DATABASE IF EXISTS " + database);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -171,19 +171,19 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
 
       statement.execute("USE master");
 
-      statement.execute("CREATE DATABASE " + mssqlserverDatabase);
+      statement.execute("CREATE DATABASE " + database);
 
       statement.execute("USE master");
 
-      statement.execute("ALTER DATABASE " + mssqlserverDatabase + " SET CONTAINMENT = PARTIAL");
+      statement.execute("ALTER DATABASE " + database + " SET CONTAINMENT = PARTIAL");
 
-      statement.execute("USE " + mssqlserverDatabase);
+      statement.execute("USE " + database);
 
-      statement.execute("CREATE SCHEMA " + mssqlserverSchema);
+      statement.execute("CREATE SCHEMA " + schema);
 
-      statement.execute("CREATE USER " + mssqlserverUser + " WITH PASSWORD = '" + config.getPassword() + "', DEFAULT_SCHEMA=" + mssqlserverSchema);
+      statement.execute("CREATE USER " + user + " WITH PASSWORD = '" + config.getPassword() + "', DEFAULT_SCHEMA=" + schema);
 
-      statement.execute("sp_addrolemember 'db_owner', '" + mssqlserverUser + "'");
+      statement.execute("sp_addrolemember 'db_owner', '" + user + "'");
 
       statement.close();
     } catch (SQLException e) {

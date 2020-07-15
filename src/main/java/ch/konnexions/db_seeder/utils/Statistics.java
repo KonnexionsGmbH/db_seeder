@@ -104,7 +104,11 @@ public class Statistics {
     }
 
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
-    String statisticsName      = config.getFileStatisticsName();
+    logger.info("wee statisticsDelimiter='" + statisticsDelimiter + "'");
+    String statisticsName = config.getFileStatisticsName();
+    logger.info("wee statisticsName='" + statisticsName + "'");
+    String statisticsHeader = config.getFileStatisticsHeader().replace(";", statisticsDelimiter);
+    logger.info("wee statisticsHeader='" + statisticsHeader + "'");
 
     try {
       Path statisticsPath = Paths.get(statisticsName);

@@ -168,12 +168,12 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // DataSource is not implemented
     // -----------------------------------------------------------------------
 
-    String cratedbUser = config.getUser();
+    String user = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP USER IF EXISTS " + cratedbUser);
+      statement.execute("DROP USER IF EXISTS " + user);
 
       dropAllTables();
     } catch (SQLException e) {
@@ -186,9 +186,9 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE USER " + cratedbUser + " WITH (PASSWORD = '" + config.getPassword() + "')");
+      statement.execute("CREATE USER " + user + " WITH (PASSWORD = '" + config.getPassword() + "')");
 
-      statement.execute("GRANT ALL PRIVILEGES TO " + cratedbUser);
+      statement.execute("GRANT ALL PRIVILEGES TO " + user);
 
       statement.close();
     } catch (SQLException e) {

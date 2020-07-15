@@ -95,6 +95,7 @@ public class Config {
       keysSorted = getKeysSorted();
     } catch (ConfigurationException e) {
       e.printStackTrace();
+      System.exit(1);
     }
 
     storeConfiguration();
@@ -200,7 +201,7 @@ public class Config {
    * @return the file statistics delimiter
    */
   public final String getFileStatisticsDelimiter() {
-    return fileStatisticsDelimiter;
+    return "\\t".equals(fileStatisticsDelimiter) ? Character.toString('\t') : fileStatisticsDelimiter;
   }
 
   /**
@@ -306,7 +307,7 @@ public class Config {
    * @return the schema name
    */
   public final String getSchema() {
-    return schema.toUpperCase();
+    return schema;
   }
 
   // USER -------------------------------------------------------------
@@ -343,7 +344,7 @@ public class Config {
 
     fileConfigurationName   = propertiesConfiguration.getString("db_seeder.file.configuration.name");
     fileStatisticsDelimiter = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
-    fileStatisticsHeader    = propertiesConfiguration.getString("db_seeder.file.statistics.header").replace(";", fileStatisticsDelimiter);
+    fileStatisticsHeader    = propertiesConfiguration.getString("db_seeder.file.statistics.header");
     fileStatisticsName      = propertiesConfiguration.getString("db_seeder.file.statistics.name");
 
     maxRowCity              = propertiesConfiguration.getInt("db_seeder.max.row.city");
@@ -483,7 +484,7 @@ public class Config {
 
     if (environmentVariables.containsKey("DB_SEEDER_SCHEMA")) {
       schema = environmentVariables.get("DB_SEEDER_SCHEMA");
-      propertiesConfiguration.setProperty("db_seeder.schema.sys", schema);
+      propertiesConfiguration.setProperty("db_seeder.schema", schema);
     }
 
     // USER -------------------------------------------------------------
@@ -527,6 +528,7 @@ public class Config {
         propertiesConfiguration = fileBasedConfigurationBuilder.getConfiguration();
       } catch (ConfigurationException e) {
         e.printStackTrace();
+        System.exit(1);
       }
 
       if (isDebug) {

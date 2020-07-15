@@ -70,6 +70,7 @@ rem ----------------------------------------------------------------------------
 rem Start Properties.
 rem ------------------------------------------------------------------------------
 
+set DB_SEEDER_DBMS_EMBEDDED=no
 set DB_SEEDER_ENCODING_ISO_8859_1=true
 set DB_SEEDER_ENCODING_UTF_8=true
 
@@ -144,6 +145,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     )
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     set DB_SEEDER_DATABASE=.\tmp\derby_kxn_db
+    set DB_SEEDER_DBMS_EMBEDDED=yes
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
@@ -186,6 +188,7 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
     set DB_SEEDER_DATABASE=.\tmp\h2_kxn_db
+    set DB_SEEDER_DBMS_EMBEDDED=yes
     set DB_SEEDER_PASSWORD=h2
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
@@ -216,6 +219,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
     set DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
     set DB_SEEDER_DATABASE=.\tmp\hsqldb_kxn_db
+    set DB_SEEDER_DBMS_EMBEDDED=yes
     set DB_SEEDER_PASSWORD=hsqldb
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
@@ -369,6 +373,7 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlite:
     set DB_SEEDER_DATABASE=.\tmp\sqlite_kxn_db
+    set DB_SEEDER_DBMS_EMBEDDED=yes
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
@@ -386,6 +391,7 @@ echo DB Seeder - Creation of dummy data in an empty databases, database users or
 echo             schemas.
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
+echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
 echo --------------------------------------------------------------------------------
@@ -422,8 +428,14 @@ echo ===========================================================================
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
     call scripts\run_db_seeder_complete
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 ) else (
     call scripts\run_db_seeder_single %DB_SEEDER_DBMS%
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
 )
 
 echo --------------------------------------------------------------------------------

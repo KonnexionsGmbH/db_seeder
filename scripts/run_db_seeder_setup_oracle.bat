@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo Oracle Database
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (Oracle Database %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -e PWD=oracle -p 1521:1521/tcp --shm-size 1G konnexionsgmbh/%DB_SEEDER_VERSION%
+docker create --name db_seeder_db -e ORACLE_PWD=oracle -p 1521:1521/tcp --shm-size 1G konnexionsgmbh/%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (Oracle Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

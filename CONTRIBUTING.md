@@ -22,9 +22,6 @@ In case of software changes we strongly recommend you to respect the license ter
      - ch/konnexions/db_seeder/AbstractDatabaseSeeder.java
      - ch/konnexions/db_seeder/DatabaseSeeder.java
      - ch/konnexions/db_seeder/jdbc/<ticker_symbol>/<Database>Seeder.java
-     - ch/konnexions/db_seeder/utils/Config.java
-   - src/main/resources
-     - db_seeder.properties
    - .travis.yml
    - README.md
    - Release-Notes.md

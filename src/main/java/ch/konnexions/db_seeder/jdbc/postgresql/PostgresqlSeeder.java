@@ -179,15 +179,15 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     // Drop the database and the database user.
     // -----------------------------------------------------------------------
 
-    String postgresqlDatabase = config.getDatabase();
-    String postgresqlUser     = config.getUser();
+    String database = config.getDatabase();
+    String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + postgresqlDatabase);
+      statement.execute("DROP DATABASE IF EXISTS " + database);
 
-      statement.execute("DROP USER IF EXISTS " + postgresqlUser);
+      statement.execute("DROP USER IF EXISTS " + user);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -198,11 +198,11 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE " + postgresqlDatabase);
+      statement.execute("CREATE DATABASE " + database);
 
-      statement.execute("CREATE USER " + postgresqlUser + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'");
+      statement.execute("CREATE USER " + user + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'");
 
-      statement.execute("GRANT ALL PRIVILEGES ON DATABASE " + postgresqlDatabase + " TO " + postgresqlUser);
+      statement.execute("GRANT ALL PRIVILEGES ON DATABASE " + database + " TO " + user);
 
       statement.close();
     } catch (SQLException e) {

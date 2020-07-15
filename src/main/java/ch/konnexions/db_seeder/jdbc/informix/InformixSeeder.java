@@ -147,7 +147,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     connection = connect(urlSetup, driver, config.getUserSys(), config.getPasswordSys(), true);
 
-    String informixDatabase = config.getDatabase();
+    String database = config.getDatabase();
 
     // -----------------------------------------------------------------------
     // Drop the database and user if already existing
@@ -156,7 +156,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + informixDatabase);
+      statement.execute("DROP DATABASE IF EXISTS " + database);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -168,7 +168,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE " + informixDatabase + " WITH LOG");
+      statement.execute("CREATE DATABASE " + database + " WITH LOG");
 
       statement.execute("GRANT CONNECT TO PUBLIC");
 

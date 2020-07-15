@@ -207,11 +207,11 @@ public class MimerSeeder extends AbstractJdbcSeeder {
     // Drop the database and database user if already existing.
     // -----------------------------------------------------------------------
 
-    String mimerDatabase = config.getDatabase();
-    String mimerUser     = config.getUser();
+    String database = config.getDatabase();
+    String user     = config.getUser();
 
-    dropDatabase(mimerDatabase);
-    dropUser(mimerUser);
+    dropDatabase(database);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the database user and grant the necessary rights.
@@ -220,11 +220,11 @@ public class MimerSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE DATABANK " + mimerDatabase + " SET OPTION TRANSACTION");
+      statement.execute("CREATE DATABANK " + database + " SET OPTION TRANSACTION");
 
-      statement.execute("CREATE IDENT " + mimerUser + " AS USER USING '" + config.getPassword() + "'");
+      statement.execute("CREATE IDENT " + user + " AS USER USING '" + config.getPassword() + "'");
 
-      statement.execute("GRANT TABLE ON DATABANK " + mimerDatabase + " TO " + mimerUser);
+      statement.execute("GRANT TABLE ON DATABANK " + database + " TO " + user);
 
       statement.close();
     } catch (SQLException e) {
@@ -238,7 +238,7 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getUser(), config.getPassword(), true);
+    connection = connect(url, null, user, config.getPassword(), true);
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

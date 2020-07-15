@@ -149,15 +149,15 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // Drop the database and the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String mysqlDatabase = config.getDatabase();
-    String mysqlUser     = config.getUser();
+    String database = config.getDatabase();
+    String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS `" + mysqlDatabase + "`");
+      statement.execute("DROP DATABASE IF EXISTS `" + database + "`");
 
-      statement.execute("DROP USER IF EXISTS `" + mysqlUser + "`");
+      statement.execute("DROP USER IF EXISTS `" + user + "`");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -168,15 +168,15 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE `" + mysqlDatabase + "`");
+      statement.execute("CREATE DATABASE `" + database + "`");
 
-      statement.execute("USE `" + mysqlDatabase + "`");
+      statement.execute("USE `" + database + "`");
 
-      statement.execute("USE `" + mysqlDatabase + "`");
+      statement.execute("USE `" + database + "`");
 
-      statement.execute("CREATE USER `" + mysqlUser + "` IDENTIFIED BY '" + config.getPassword() + "'");
+      statement.execute("CREATE USER `" + user + "` IDENTIFIED BY '" + config.getPassword() + "'");
 
-      statement.execute("GRANT ALL ON " + mysqlDatabase + ".* TO `" + mysqlUser + "`");
+      statement.execute("GRANT ALL ON " + database + ".* TO `" + user + "`");
 
       statement.close();
     } catch (SQLException e) {
@@ -190,7 +190,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getUser(), config.getPassword());
+    connection = connect(url, null, user, config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

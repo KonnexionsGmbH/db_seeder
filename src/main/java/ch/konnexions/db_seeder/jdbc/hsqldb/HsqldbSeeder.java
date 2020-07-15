@@ -280,19 +280,19 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getUserSys(), "", true);
+    connection = connect(url, driver, config.getUserSys().toUpperCase(), "", true);
 
-    String hsqldbPassword = config.getPassword();
-    String hsqldbSchema   = config.getSchema();
-    String hsqldbUser     = config.getUser();
+    String password = config.getPassword();
+    String schema   = config.getSchema().toUpperCase();
+    String user     = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
     // Drop the schema and the user if already existing
     // -----------------------------------------------------------------------
 
-    dropSchema(hsqldbSchema);
+    dropSchema(schema);
 
-    dropUser(hsqldbUser);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the user and the schema
@@ -301,9 +301,9 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + hsqldbUser + " PASSWORD '" + hsqldbPassword + "' ADMIN");
+      statement.execute("CREATE USER " + user + " PASSWORD '" + password + "' ADMIN");
 
-      statement.execute("CREATE SCHEMA " + hsqldbSchema + " AUTHORIZATION " + hsqldbUser);
+      statement.execute("CREATE SCHEMA " + schema + " AUTHORIZATION " + user);
 
       statement.close();
     } catch (SQLException e) {
@@ -317,12 +317,12 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, hsqldbUser, hsqldbPassword);
+    connection = connect(url, null, user, password);
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("SET SCHEMA " + hsqldbSchema);
+      statement.execute("SET SCHEMA " + schema);
 
       statement.close();
     } catch (SQLException e) {

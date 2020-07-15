@@ -63,7 +63,7 @@ if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
     echo "CUBRID."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (CUBRID $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e DB=$DB_SEEDER_DATABASE -p 33000:33000/tcp cubrid/cubrid:$DB_SEEDER_VERSION
+    docker create --name db_seeder_db -e CUBRID_DB=$DB_SEEDER_DATABASE -p 33000:33000/tcp cubrid/cubrid:$DB_SEEDER_VERSION
 
     echo "Docker start db_seeder_db (CUBRID $DB_SEEDER_VERSION) ..."
     if ! docker start db_seeder_db; then
@@ -111,7 +111,7 @@ if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
     echo "Firebird."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Firebird $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e DATABASE=$DB_SEEDER_DATABASE -e ISC_PASSWORD=firebird -p 3050:3050/tcp jacobalberty/firebird:$DB_SEEDER_VERSION
+    docker create --name db_seeder_db -e FIREBIRD_DATABASE=$DB_SEEDER_DATABASE -e ISC_PASSWORD=firebird -p 3050:3050/tcp jacobalberty/firebird:$DB_SEEDER_VERSION
 
     echo "Docker start db_seeder_db (Firebird $DB_SEEDER_VERSION) ..."
     if ! docker start db_seeder_db; then
@@ -237,7 +237,7 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
     echo "MariaDB Server."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MariaDB Server $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e ROOT_PASSWORD=mariadb -p 3306:3306/tcp mariadb:$DB_SEEDER_VERSION --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mariadb -p 3306:3306/tcp mariadb:$DB_SEEDER_VERSION --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
     echo "Docker start db_seeder_db (MariaDB Server $DB_SEEDER_VERSION) ..."
     if ! docker start db_seeder_db; then
@@ -259,7 +259,7 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
     echo "Mimer SQL."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Mimer SQL $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e SYSADM_PASSWORD=mimersql -p 11360:1360/tcp mimersql/mimersql_v11.0:$DB_SEEDER_VERSION
+    docker create --name db_seeder_db -e MIMER_SYSADM_PASSWORD=mimersql -p 11360:1360/tcp mimersql/mimersql_v11.0:$DB_SEEDER_VERSION
 
     echo "Docker start db_seeder_db (Mimer SQL $DB_SEEDER_VERSION) ..."
     if ! docker start db_seeder_db; then
@@ -305,7 +305,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
     echo "MySQL Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MySQL $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e ROOT_PASSWORD=mysql -p 3306:3306/tcp mysql:$DB_SEEDER_VERSION
+    docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mysql -p 3306:3306/tcp mysql:$DB_SEEDER_VERSION
 
     echo "Docker start db_seeder_db (MySQL $DB_SEEDER_VERSION) ..."
     if ! docker start db_seeder_db; then
@@ -326,7 +326,7 @@ if [ "$DB_SEEDER_DBMS" = "oracle" ]; then
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
     echo "Docker create db_seeder_db (Oracle $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e PWD=oracle -p 1521:1521/tcp --shm-size 1G konnexionsgmbh/$DB_SEEDER_VERSION
+    docker create --name db_seeder_db -e ORACLE_PWD=oracle -p 1521:1521/tcp --shm-size 1G konnexionsgmbh/$DB_SEEDER_VERSION
 
     echo "Docker start db_seeder_db (Oracle $DB_SEEDER_VERSION) ..."
     if ! docker start db_seeder_db; then

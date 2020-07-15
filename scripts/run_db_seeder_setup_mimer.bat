@@ -25,7 +25,7 @@ rem ----------------------------------------------------------------------------
 echo Mimer SQL
 echo --------------------------------------------------------------------------------
 echo Docker create db_seeder_db (Mimer SQL %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -e SYSADM_PASSWORD=mimer -p 11360:1360/tcp mimersql/mimersql_v11.0:%DB_SEEDER_VERSION%
+docker create --name db_seeder_db -e MIMER_SYSADM_PASSWORD=mimer -p 11360:1360/tcp mimersql/mimersql_v11.0:%DB_SEEDER_VERSION%
  
 echo Docker start db_seeder_db (Mimer SQL %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

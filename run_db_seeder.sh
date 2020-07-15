@@ -73,6 +73,7 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 # Start Properties.
 # ------------------------------------------------------------------------------
 
+export DB_SEEDER_DBMS_EMBEDDED=no
 export DB_SEEDER_ENCODING_ISO_8859_1=true
 export DB_SEEDER_ENCODING_UTF_8=true
 
@@ -129,6 +130,7 @@ if [ "$DB_SEEDER_DBMS" = "derby_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; th
     fi
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
+    export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 
 if [ "$DB_SEEDER_DBMS" = "firebird" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
@@ -159,6 +161,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "h2_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
     export DB_SEEDER_DATABASE=./tmp/h2_kxn_db
+    export DB_SEEDER_DBMS_EMBEDDED=yes
     export DB_SEEDER_PASSWORD=h2
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
@@ -181,6 +184,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; t
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
     export DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
     export DB_SEEDER_DATABASE=./tmp/hsqldb_kxn_db
+    export DB_SEEDER_DBMS_EMBEDDED=yes
     export DB_SEEDER_PASSWORD=hsqldb
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
@@ -298,6 +302,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "sqlite" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlite:
     export DB_SEEDER_DATABASE=./tmp/sqlite_kxn_db
+    export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 
 # ------------------------------------------------------------------------------
@@ -310,6 +315,7 @@ echo "--------------------------------------------------------------------------
 echo "DB Seeder - Creation of dummy data in an empty database schema / user."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                              : $DB_SEEDER_DBMS"
+echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
 echo "IS_TRAVIS                         : $DB_SEEDER_IS_TRAVIS"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
 echo "SETUP_DBMS                        : $DB_SEEDER_SETUP_DBMS"
@@ -346,9 +352,13 @@ date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
 if [ "$DB_SEEDER_DBMS" = "complete" ]; then
-    ( ./scripts/run_db_seeder_complete.sh )
+    if ! ( ./scripts/run_db_seeder_complete.sh ); then
+        exit 255
+    fi    
 else
-    ( ./scripts/run_db_seeder_single.sh $DB_SEEDER_DBMS )
+    if ! ( ./scripts/run_db_seeder_single.sh $DB_SEEDER_DBMS ); then
+        exit 255
+    fi    
 fi  
 
 echo "--------------------------------------------------------------------------------"

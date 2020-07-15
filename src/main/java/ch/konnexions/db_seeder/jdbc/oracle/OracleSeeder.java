@@ -174,15 +174,15 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
+    connection = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys());
 
     // -----------------------------------------------------------------------
     // Drop the database user if already existing.
     // -----------------------------------------------------------------------
 
-    String oracleUser = config.getUser();
+    String user = config.getUser().toUpperCase();
 
-    dropUser(oracleUser);
+    dropUser(user);
 
     // -----------------------------------------------------------------------
     // Create the database user and grant the necessary rights.
@@ -191,17 +191,17 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + oracleUser + " IDENTIFIED BY \"" + config.getPassword() + "\"");
+      statement.execute("CREATE USER " + user + " IDENTIFIED BY \"" + config.getPassword() + "\"");
 
-      statement.execute("ALTER USER " + oracleUser + " QUOTA UNLIMITED ON users");
+      statement.execute("ALTER USER " + user + " QUOTA UNLIMITED ON users");
 
-      statement.execute("GRANT CREATE SEQUENCE TO " + oracleUser);
+      statement.execute("GRANT CREATE SEQUENCE TO " + user);
 
-      statement.execute("GRANT CREATE SESSION TO " + oracleUser);
+      statement.execute("GRANT CREATE SESSION TO " + user);
 
-      statement.execute("GRANT CREATE TABLE TO " + oracleUser);
+      statement.execute("GRANT CREATE TABLE TO " + user);
 
-      statement.execute("GRANT UNLIMITED TABLESPACE TO " + oracleUser);
+      statement.execute("GRANT UNLIMITED TABLESPACE TO " + user);
 
       statement.close();
     } catch (SQLException e) {
@@ -215,7 +215,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getUser(), config.getPassword());
+    connection = connect(url, null, user, config.getPassword());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");

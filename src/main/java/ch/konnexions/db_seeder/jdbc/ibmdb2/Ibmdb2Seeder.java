@@ -128,7 +128,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void dropAllTables(String ibmdb2Schema) {
+  private final void dropAllTables(String schema) {
     String methodName = null;
 
     if (isDebug) {
@@ -138,13 +138,13 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
     }
 
-    Connection connectionLocal = connect(url, null, config.getUserSys(), config.getPasswordSys(), true);
+    Connection connectionLocal = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys(), true);
 
     try {
       Statement statementLocal = connectionLocal.createStatement();
 
       preparedStatement = connection.prepareStatement(dropTableStmnt);
-      preparedStatement.setString(2, ibmdb2Schema);
+      preparedStatement.setString(2, schema);
 
       for (String tableName : TABLE_NAMES_DROP) {
         preparedStatement.setString(1, tableName);
@@ -176,7 +176,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void dropSchema(String ibmdb2Schema) {
+  private final void dropSchema(String schema) {
     String methodName = null;
     if (isDebug) {
       methodName = new Object() {
@@ -189,7 +189,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       int count = 0;
 
       preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSIBM.SYSSCHEMATA WHERE name = ?");
-      preparedStatement.setString(1, ibmdb2Schema);
+      preparedStatement.setString(1, schema);
 
       resultSet = preparedStatement.executeQuery();
 
@@ -202,11 +202,11 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       preparedStatement.close();
 
       if (count > 0) {
-        dropAllTables(ibmdb2Schema);
+        dropAllTables(schema);
 
         statement = connection.createStatement();
 
-        statement.execute("DROP SCHEMA " + ibmdb2Schema + " RESTRICT");
+        statement.execute("DROP SCHEMA " + schema + " RESTRICT");
 
         statement.close();
       }
@@ -237,13 +237,13 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
 
-    String ibmdb2Schema = config.getSchema();
+    String schema = config.getSchema().toUpperCase();
 
     // -----------------------------------------------------------------------
     // Drop the schema if already existing
     // -----------------------------------------------------------------------
 
-    dropSchema(ibmdb2Schema);
+    dropSchema(schema);
 
     // -----------------------------------------------------------------------
     // Create the schema.
@@ -252,9 +252,9 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE SCHEMA " + ibmdb2Schema);
+      statement.execute("CREATE SCHEMA " + schema);
 
-      statement.execute("SET CURRENT SCHEMA " + ibmdb2Schema + ";");
+      statement.execute("SET CURRENT SCHEMA " + schema + ";");
 
       statement.close();
     } catch (SQLException e) {
