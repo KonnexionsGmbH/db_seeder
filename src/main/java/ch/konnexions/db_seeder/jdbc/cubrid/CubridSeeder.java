@@ -33,7 +33,8 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.CUBRID;
@@ -48,13 +49,12 @@ public class CubridSeeder extends AbstractJdbcSeeder {
     urlSetup              = urlBase + config.getUserSys().toUpperCase() + config.getConnectionSuffix();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -129,128 +129,57 @@ public class CubridSeeder extends AbstractJdbcSeeder {
                  V_TIME_ZONE    VARCHAR (4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  private final void dropAllTables() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    try {
-      statement = connection.createStatement();
-
-      for (String tableName : TABLE_NAMES_DROP) {
-        String sqlStmnt = "DROP TABLE IF EXISTS \"" + tableName.toLowerCase() + "\"";
-
-        if (isDebug) {
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- next SQL statement=" + sqlStmnt);
-        }
-
-        statement.execute(sqlStmnt);
-      }
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private final void dropUser(String user) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - user='" + user + "'");
-    }
-
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM db_user WHERE name = ?");
-      preparedStatement.setString(1, user);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        String sqlStmnt = "DROP USER " + user;
-
-        if (isDebug) {
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- next SQL statement=" + sqlStmnt);
-        }
-
-        statement.execute(sqlStmnt);
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver);
+    connection = connect(urlSetup,
+                         driver);
+
+    String userName = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Drop the database user if already existing.
-    // -----------------------------------------------------------------------
-
-    String user = config.getUser().toUpperCase();
-
-    dropAllTables();
-
-    dropUser(user);
-
-    // -----------------------------------------------------------------------
-    // Create the database user.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("CREATE USER " + user + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
+      dropAllTablesIfExists();
+
+      dropUser(userName,
+               "",
+               "db_user",
+               "name");
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE USER " + userName + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
 
       statement.close();
-
-      preparedStatement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -262,10 +191,14 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, config.getPassword());
+    connection = connect(url,
+                         null,
+                         userName,
+                         config.getPassword());
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

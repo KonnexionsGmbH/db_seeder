@@ -34,7 +34,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.FIREBIRD;
@@ -44,19 +45,18 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     tableNameDelimiter    = "";
 
-    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase()
-        + config.getConnectionSuffix();
+    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
+        .getConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -126,7 +126,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
@@ -135,23 +136,31 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     }.getClass().getEnclosingMethod().getName();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     try {
-      Connection connectionLocal = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys(), true);
+      Connection connectionLocal = connect(url,
+                                           null,
+                                           config.getUserSys().toUpperCase(),
+                                           config.getPasswordSys(),
+                                           true);
 
       preparedStatement = connection.prepareStatement(sqlStmnt);
-      preparedStatement.setString(2, config.getUser().toUpperCase());
+      preparedStatement.setString(2,
+                                  config.getUser().toUpperCase());
 
       statement = connectionLocal.createStatement();
 
       for (String tableName : TABLE_NAMES_DROP) {
         if (isDebug) {
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "  table to be deleted='" + tableName + "'");
+          logger.debug(String.format(FORMAT_METHOD_NAME,
+                                     methodName) + "  table to be deleted='" + tableName + "'");
         }
 
-        preparedStatement.setString(1, tableName);
+        preparedStatement.setString(1,
+                                    tableName);
 
         resultSet = preparedStatement.executeQuery();
 
@@ -174,77 +183,59 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 
-  private final void dropUser(String user) {
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SEC$USERS WHERE sec$user_name = ?");
-      preparedStatement.setString(1, user);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP USER " + user);
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getUserSys().toUpperCase(), config.getPasswordSys(), true);
+    connection = connect(url,
+                         driver,
+                         config.getUserSys().toUpperCase(),
+                         config.getPasswordSys(),
+                         true);
+
+    String userName = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Drop the database and the database user.
-    // -----------------------------------------------------------------------
-
-    String user = config.getUser().toUpperCase();
-
-    dropAllTables(dropTableStmnt);
-
-    dropUser(user);
-
-    // -----------------------------------------------------------------------
-    // Create the database, the database user and grant the necessary rights.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE USER " + user + " PASSWORD '" + config.getPassword() + "' GRANT ADMIN ROLE");
+    dropAllTables(dropTableStmnt);
 
-      statement.execute("GRANT CREATE TABLE TO " + user);
+    dropUser(userName,
+             "",
+             "SEC$USERS",
+             "sec$user_name");
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE USER " + userName + " PASSWORD '" + config.getPassword() + "' GRANT ADMIN ROLE",
+                       "GRANT CREATE TABLE TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -258,10 +249,15 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, config.getPassword(), true);
+    connection = connect(url,
+                         null,
+                         userName,
+                         config.getPassword(),
+                         true);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

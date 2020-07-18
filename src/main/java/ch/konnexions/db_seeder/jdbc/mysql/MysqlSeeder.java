@@ -33,7 +33,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.MYSQL;
@@ -48,13 +49,12 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -124,59 +124,57 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
                 `V_TIME_ZONE`    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, config.getUserSys(), config.getPasswordSys());
+    connection = connect(urlSetup,
+                         driver,
+                         config.getUserSys(),
+                         config.getPasswordSys());
+
+    String databaseName = config.getDatabase();
+    String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
-    // Drop the database and the database user if already existing.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
-
-    String database = config.getDatabase();
-    String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS `" + database + "`");
-
-      statement.execute("DROP USER IF EXISTS `" + user + "`");
+      executeDdlStmnts("DROP DATABASE IF EXISTS `" + databaseName + "`",
+                       "DROP USER IF EXISTS `" + userName + "`");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Create the user and grant the necessary rights.
+    // Setup the database.
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE `" + database + "`");
-
-      statement.execute("USE `" + database + "`");
-
-      statement.execute("USE `" + database + "`");
-
-      statement.execute("CREATE USER `" + user + "` IDENTIFIED BY '" + config.getPassword() + "'");
-
-      statement.execute("GRANT ALL ON " + database + ".* TO `" + user + "`");
+      executeDdlStmnts("CREATE DATABASE `" + databaseName + "`",
+                       "USE `" + databaseName + "`",
+                       "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",
+                       "GRANT ALL ON " + databaseName + ".* TO `" + userName + "`");
 
       statement.close();
     } catch (SQLException e) {
@@ -190,10 +188,14 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, config.getPassword());
+    connection = connect(url,
+                         null,
+                         userName,
+                         config.getPassword());
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

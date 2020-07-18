@@ -33,7 +33,8 @@ public class MimerSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.MIMER;
@@ -46,13 +47,12 @@ public class MimerSeeder extends AbstractJdbcSeeder {
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -122,109 +122,64 @@ public class MimerSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    NVARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  private final void dropDatabase(String database) {
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSTEM.DATABANKS WHERE databank_name = ?");
-      preparedStatement.setString(1, database);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP DATABANK " + database + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  private final void dropUser(String user) {
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSTEM.USERS WHERE user_name = ?");
-      preparedStatement.setString(1, user);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP IDENT " + user + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getUserSys(), config.getPasswordSys(), true);
+    connection = connect(url,
+                         driver,
+                         config.getUserSys(),
+                         config.getPasswordSys(),
+                         true);
+
+    String databaseName = config.getDatabase();
+    String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
-    // Drop the database and database user if already existing.
-    // -----------------------------------------------------------------------
-
-    String database = config.getDatabase();
-    String user     = config.getUser();
-
-    dropDatabase(database);
-    dropUser(user);
-
-    // -----------------------------------------------------------------------
-    // Create the database user and grant the necessary rights.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE DATABANK " + database + " SET OPTION TRANSACTION");
+    dropDatabase(databaseName,
+                 "CASCADE",
+                 "SYSTEM.DATABANKS",
+                 "databank_name");
 
-      statement.execute("CREATE IDENT " + user + " AS USER USING '" + config.getPassword() + "'");
+    dropUser(userName,
+             "CASCADE",
+             "SYSTEM.USERS",
+             "user_name");
 
-      statement.execute("GRANT TABLE ON DATABANK " + database + " TO " + user);
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE DATABANK " + databaseName + " SET OPTION TRANSACTION",
+                       "CREATE IDENT " + userName + " AS USER USING '" + config.getPassword() + "'",
+                       "GRANT TABLE ON DATABANK " + databaseName + " TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -238,10 +193,15 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, config.getPassword(), true);
+    connection = connect(url,
+                         null,
+                         userName,
+                         config.getPassword(),
+                         true);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

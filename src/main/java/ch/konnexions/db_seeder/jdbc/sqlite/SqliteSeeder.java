@@ -33,7 +33,8 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.SQLITE;
@@ -44,13 +45,12 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     url                   = config.getConnectionPrefix() + config.getDatabase();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -125,34 +125,20 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
                  V_TIME_ZONE    VARCHAR2 (4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  private final void dropAllTables() {
-    try {
-      statement = connection.createStatement();
-
-      for (String tableName : TABLE_NAMES_DROP) {
-        statement.execute("DROP TABLE IF EXISTS \"" + tableName + "\"");
-      }
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  @Override
-  protected void setupDatabase() {
+  @Override protected void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
@@ -162,17 +148,25 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     connection = connect(url);
 
     // -----------------------------------------------------------------------
-    // Drop the database tables if already existing.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
-    dropAllTables();
+    try {
+      statement = connection.createStatement();
+      dropAllTablesIfExists();
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     // -----------------------------------------------------------------------
     // Disconnect and reconnect.
     // -----------------------------------------------------------------------
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

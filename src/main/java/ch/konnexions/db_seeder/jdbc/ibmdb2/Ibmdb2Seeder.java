@@ -35,7 +35,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.IBMDB2;
@@ -48,13 +49,12 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -124,7 +124,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
@@ -135,25 +136,33 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
-    Connection connectionLocal = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys(), true);
+    Connection connectionLocal = connect(url,
+                                         null,
+                                         config.getUserSys().toUpperCase(),
+                                         config.getPasswordSys(),
+                                         true);
 
     try {
       Statement statementLocal = connectionLocal.createStatement();
 
       preparedStatement = connection.prepareStatement(dropTableStmnt);
-      preparedStatement.setString(2, schema);
+      preparedStatement.setString(2,
+                                  schema);
 
       for (String tableName : TABLE_NAMES_DROP) {
-        preparedStatement.setString(1, tableName);
+        preparedStatement.setString(1,
+                                    tableName);
 
         resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
           String sqlStmntLocal = resultSet.getString(1);
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
+          logger.debug(String.format(FORMAT_METHOD_NAME,
+                                     methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
           statementLocal.execute(sqlStmntLocal);
         }
       }
@@ -172,89 +181,58 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 
-  private final void dropSchema(String schema) {
-    String methodName = null;
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSIBM.SYSSCHEMATA WHERE name = ?");
-      preparedStatement.setString(1, schema);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        dropAllTables(schema);
-
-        statement = connection.createStatement();
-
-        statement.execute("DROP SCHEMA " + schema + " RESTRICT");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
+    connection = connect(url,
+                         null,
+                         config.getUserSys(),
+                         config.getPasswordSys());
 
-    String schema = config.getSchema().toUpperCase();
-
-    // -----------------------------------------------------------------------
-    // Drop the schema if already existing
-    // -----------------------------------------------------------------------
-
-    dropSchema(schema);
+    String schemaName = config.getSchema().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Create the schema.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE SCHEMA " + schema);
+    dropAllTables(schemaName);
 
-      statement.execute("SET CURRENT SCHEMA " + schema + ";");
+    dropSchema(schemaName,
+               "RESTRICT",
+               "SYSIBM.SYSSCHEMATA",
+               "name");
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE SCHEMA " + schemaName,
+                       "SET CURRENT SCHEMA " + schemaName + ";");
 
       statement.close();
     } catch (SQLException e) {
@@ -263,7 +241,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

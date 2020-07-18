@@ -32,7 +32,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -40,7 +41,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
@@ -59,7 +61,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -67,13 +70,12 @@ public class H2Seeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -143,93 +145,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
-  }
-
-  private final void dropSchema(String schemaName) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE schema_name = ?");
-      preparedStatement.setString(1, schemaName);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP SCHEMA " + schemaName + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private final void dropUser(String userName) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM INFORMATION_SCHEMA.USERS WHERE name = ?");
-      preparedStatement.setString(1, userName);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP USER " + userName);
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
@@ -240,10 +157,13 @@ public class H2Seeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- client  =" + isClient);
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- embedded=" + isEmbedded);
     }
 
     dbms               = Dbms.H2;
@@ -259,49 +179,64 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, "sa", "", true);
+    connection = connect(url,
+                         driver,
+                         "sa",
+                         "",
+                         true);
 
-    String password = config.getPassword();
-    String schema   = config.getSchema().toUpperCase();
-    String user     = config.getUser().toUpperCase();
-
-    // -----------------------------------------------------------------------
-    // Drop the schema and the user if already existing
-    // -----------------------------------------------------------------------
-
-    dropSchema(schema);
-
-    dropUser(user);
+    String password   = config.getPassword();
+    String schemaName = config.getSchema().toUpperCase();
+    String userName   = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Create the user and the schema
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE USER " + user + " PASSWORD '" + password + "' ADMIN");
+    dropSchema(schemaName,
+               "CASCADE",
+               "INFORMATION_SCHEMA.SCHEMATA",
+               "schema_name");
 
-      statement.execute("CREATE SCHEMA " + schema + " AUTHORIZATION " + user);
+    dropUser(userName,
+             "",
+             "INFORMATION_SCHEMA.USERS",
+             "name");
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
+                       "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -315,12 +250,15 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, password);
+    connection = connect(url,
+                         null,
+                         userName,
+                         password);
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("SET SCHEMA " + schema);
+      executeDdlStmnts("SET SCHEMA " + schemaName);
 
       statement.close();
     } catch (SQLException e) {
@@ -329,7 +267,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }
