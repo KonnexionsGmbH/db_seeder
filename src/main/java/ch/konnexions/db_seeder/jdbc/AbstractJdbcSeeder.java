@@ -961,26 +961,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int    count    = 0;
 
-      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = ?";
+      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + databaseName + "'";
 
       if (isDebug) {
         logger.debug(String.format(FORMAT_METHOD_NAME,
                                    methodName) + "- next SQL statement=" + sqlStmnt);
       }
 
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-      preparedStatement.setString(1,
-                                  databaseName);
-
-      resultSet = preparedStatement.executeQuery();
+      resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
       }
 
       resultSet.close();
-
-      preparedStatement.close();
 
       if (count > 0) {
         sqlStmnt = "DROP " + (dbms == Dbms.MIMER ? "DATABANK" : "DATABASE") + " " + databaseName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
@@ -1023,26 +1017,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int    count    = 0;
 
-      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = ?";
+      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + schemaName + "'";
 
       if (isDebug) {
         logger.debug(String.format(FORMAT_METHOD_NAME,
                                    methodName) + "- next SQL statement=" + sqlStmnt);
       }
 
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-      preparedStatement.setString(1,
-                                  schemaName);
-
-      resultSet = preparedStatement.executeQuery();
+      resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
       }
 
       resultSet.close();
-
-      preparedStatement.close();
 
       if (count > 0) {
         sqlStmnt = "DROP SCHEMA " + schemaName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
@@ -1085,26 +1073,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       int    count    = 0;
 
-      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = ?";
+      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + userName + "'";
 
       if (isDebug) {
         logger.debug(String.format(FORMAT_METHOD_NAME,
                                    methodName) + "- next SQL statement=" + sqlStmnt);
       }
 
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-      preparedStatement.setString(1,
-                                  userName);
-
-      resultSet = preparedStatement.executeQuery();
+      resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
       }
 
       resultSet.close();
-
-      preparedStatement.close();
 
       if (count > 0) {
         sqlStmnt = "DROP " + (dbms == Dbms.MIMER ? "IDENT" : "USER") + "  " + userName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
