@@ -3,9 +3,7 @@
  */
 package ch.konnexions.db_seeder.jdbc.ibmdb2;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
@@ -46,7 +44,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
 
-    dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
+    dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = 'schemaName' AND TABNAME = '?'";
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME,
@@ -129,63 +127,6 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void dropAllTables(String schema) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
-    }
-
-    Connection connectionLocal = connect(url,
-                                         null,
-                                         config.getUserSys().toUpperCase(),
-                                         config.getPasswordSys(),
-                                         true);
-
-    try {
-      Statement statementLocal = connectionLocal.createStatement();
-
-      preparedStatement = connection.prepareStatement(dropTableStmnt);
-      preparedStatement.setString(2,
-                                  schema);
-
-      for (String tableName : TABLE_NAMES_DROP) {
-        preparedStatement.setString(1,
-                                    tableName);
-
-        resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          String sqlStmntLocal = resultSet.getString(1);
-          logger.debug(String.format(FORMAT_METHOD_NAME,
-                                     methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
-          statementLocal.execute(sqlStmntLocal);
-        }
-      }
-
-      resultSet.close();
-
-      statementLocal.close();
-
-      preparedStatement.close();
-
-      disconnect(connectionLocal);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
-    }
-  }
-
   @Override protected final void setupDatabase() {
     String methodName = null;
 
@@ -219,7 +160,8 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    dropAllTables(schemaName);
+    dropAllTables(dropTableStmnt.replace("schemaName",
+                                         schemaName));
 
     dropSchema(schemaName,
                "RESTRICT",

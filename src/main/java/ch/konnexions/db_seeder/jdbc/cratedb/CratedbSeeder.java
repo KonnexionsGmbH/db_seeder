@@ -46,8 +46,6 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
     urlSetup              = urlBase + config.getUserSys();
 
-    dropTableStmnt        = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
-
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME,
                                  methodName) + "- End   Constructor");
@@ -124,30 +122,6 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  private final void dropAllTables() throws SQLException {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
-    }
-
-    for (String tableName : TABLE_NAMES_DROP) {
-      String sqlStmntLocal = "DROP TABLE IF EXISTS " + tableName;
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
-      statement.execute(sqlStmntLocal);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
-    }
-  }
-
   @Override protected final void setupDatabase() {
     String methodName = null;
 
@@ -177,7 +151,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
       executeDdlStmnts("DROP USER IF EXISTS " + userName);
 
-      dropAllTables();
+      dropAllTablesIfExists();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);

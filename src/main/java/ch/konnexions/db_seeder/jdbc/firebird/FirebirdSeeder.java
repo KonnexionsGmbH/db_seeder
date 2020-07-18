@@ -3,7 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.firebird;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -48,7 +47,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
         .getConnectionSuffix();
 
-    dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$RELATION_NAME = ? AND RDB$OWNER_NAME = ?";
+    dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$OWNER_NAME = 'userName' AND RDB$RELATION_NAME = '?'";
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME,
@@ -131,63 +130,6 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  protected final void dropAllTables(String sqlStmnt) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
-    }
-
-    try {
-      Connection connectionLocal = connect(url,
-                                           null,
-                                           config.getUserSys().toUpperCase(),
-                                           config.getPasswordSys(),
-                                           true);
-
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-      preparedStatement.setString(2,
-                                  config.getUser().toUpperCase());
-
-      statement = connectionLocal.createStatement();
-
-      for (String tableName : TABLE_NAMES_DROP) {
-        if (isDebug) {
-          logger.debug(String.format(FORMAT_METHOD_NAME,
-                                     methodName) + "  table to be deleted='" + tableName + "'");
-        }
-
-        preparedStatement.setString(1,
-                                    tableName);
-
-        resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          statement.execute(resultSet.getString(1));
-        }
-
-        resultSet.close();
-      }
-
-      statement.close();
-
-      preparedStatement.close();
-
-      disconnect(connectionLocal);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
-    }
-  }
-
   @Override protected final void setupDatabase() {
     String methodName = null;
 
@@ -222,7 +164,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
       System.exit(1);
     }
 
-    dropAllTables(dropTableStmnt);
+    dropAllTables(dropTableStmnt.replace("userName",
+                                         userName));
 
     dropUser(userName,
              "",

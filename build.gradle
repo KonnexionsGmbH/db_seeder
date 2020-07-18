@@ -38,6 +38,7 @@ dependencies {
 
 jar {
     archivesBaseName = project.name
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     manifest {
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.DatabaseSeeder'

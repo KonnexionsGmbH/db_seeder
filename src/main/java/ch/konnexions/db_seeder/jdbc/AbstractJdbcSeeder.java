@@ -41,99 +41,63 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
-  private static final int     ENCODING_MAX             = 3;
+  private static final int   ENCODING_MAX             = 3;
+  private static Logger      logger                   = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  private static Logger        logger                   = Logger.getLogger(AbstractJdbcSeeder.class);
+  private final String       BLOB_FILE                = Paths.get("src",
+                                                                  "main",
+                                                                  "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]       BLOB_DATA_BYTES          = readBlobFile2Bytes();
+  private final String       CLOB_FILE                = Paths.get("src",
+                                                                  "main",
+                                                                  "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String       CLOB_DATA                = readClobFile();
 
-  private final String         BLOB_FILE                = Paths.get("src",
-                                                                    "main",
-                                                                    "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]         BLOB_DATA_BYTES          = readBlobFile2Bytes();
+  private final Properties   COLUMN_NAME;
+  protected Connection       connection               = null;
 
-  private final String         CLOB_FILE                = Paths.get("src",
-                                                                    "main",
-                                                                    "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final String         CLOB_DATA                = readClobFile();
-  private final Properties     COLUMN_NAME;
+  protected String           driver                   = "";
 
-  /** The connection. */
-  protected Connection         connection               = null;
+  protected String           dropTableStmnt           = "";
+  protected boolean          isClient                 = true;
 
-  /** The driver. */
-  protected String             driver                   = "";
+  protected boolean          isEmbedded               = !(isClient);
 
-  /** The drop table stmnt. */
-  protected String             dropTableStmnt           = "";
+  private final int          MAX_ROW_SIZE             = Integer.MAX_VALUE;
 
-  /** The is client. */
-  protected boolean            isClient                 = true;
+  private ArrayList<Object>  pkListCity               = new ArrayList<Object>();
+  private ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
+  private ArrayList<Object>  pkListCountryState       = new ArrayList<Object>();
+  private ArrayList<Object>  pkListTimezone           = new ArrayList<Object>();
+  private PreparedStatement  preparedStatement        = null;
 
-  /** The is embedded. */
-  protected boolean            isEmbedded               = !(isClient);
+  private final int          RANDOM_NUMBER            = 4;
+  private Random             randomInt                = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private ResultSet          resultSet                = null;
 
-  private final int            MAX_ROW_SIZE             = Integer.MAX_VALUE;
+  protected Statement        statement                = null;
 
-  /** The pk list city. */
-  protected ArrayList<Object>  pkListCity               = new ArrayList<Object>();
+  protected final String     TABLE_NAME_CITY          = "CITY";
+  protected final String     TABLE_NAME_COMPANY       = "COMPANY";
+  protected final String     TABLE_NAME_COUNTRY       = "COUNTRY";
+  protected final String     TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
+  protected final String     TABLE_NAME_TIMEZONE      = "TIMEZONE";
 
-  /** The pk list country. */
-  protected ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
+  private final List<String> TABLE_NAMES_CREATE       = Arrays.asList(TABLE_NAME_COUNTRY,
+                                                                      TABLE_NAME_TIMEZONE,
+                                                                      TABLE_NAME_COUNTRY_STATE,
+                                                                      TABLE_NAME_CITY,
+                                                                      TABLE_NAME_COMPANY);
 
-  /** The pk list country state. */
-  protected ArrayList<Object>  pkListCountryState       = new ArrayList<Object>();
+  private final List<String> TABLE_NAMES_DROP         = Arrays.asList(TABLE_NAME_COMPANY,
+                                                                      TABLE_NAME_CITY,
+                                                                      TABLE_NAME_COUNTRY_STATE,
+                                                                      TABLE_NAME_COUNTRY,
+                                                                      TABLE_NAME_TIMEZONE);
 
-  /** The pk list timezone. */
-  protected ArrayList<Object>  pkListTimezone           = new ArrayList<Object>();
-
-  /** The prepared statement. */
-  protected PreparedStatement  preparedStatement        = null;
-
-  private final int            RANDOM_NUMBER            = 4;
-  private Random               randomInt                = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-
-  /** The result set. */
-  protected ResultSet          resultSet                = null;
-
-  /** The statement. */
-  protected Statement          statement                = null;
-
-  /** The table name city. */
-  protected final String       TABLE_NAME_CITY          = "CITY";
-
-  /** The table name company. */
-  protected final String       TABLE_NAME_COMPANY       = "COMPANY";
-
-  /** The table name country. */
-  protected final String       TABLE_NAME_COUNTRY       = "COUNTRY";
-
-  /** The table name country state. */
-  protected final String       TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-
-  /** The table name timezone. */
-  protected final String       TABLE_NAME_TIMEZONE      = "TIMEZONE";
-
-  /** The table names create. */
-  protected final List<String> TABLE_NAMES_CREATE       = Arrays.asList(TABLE_NAME_COUNTRY,
-                                                                        TABLE_NAME_TIMEZONE,
-                                                                        TABLE_NAME_COUNTRY_STATE,
-                                                                        TABLE_NAME_CITY,
-                                                                        TABLE_NAME_COMPANY);
-
-  /** The table names drop. */
-  protected final List<String> TABLE_NAMES_DROP         = Arrays.asList(TABLE_NAME_COMPANY,
-                                                                        TABLE_NAME_CITY,
-                                                                        TABLE_NAME_COUNTRY_STATE,
-                                                                        TABLE_NAME_COUNTRY,
-                                                                        TABLE_NAME_TIMEZONE);
-
-  /** The url. */
-  protected String             url                      = "";
-
-  /** The url base. */
-  protected String             urlBase                  = "";
-
-  /** The url setup. */
-  protected String             urlSetup                 = "";
+  protected String           url                      = "";
+  protected String           urlBase                  = "";
+  protected String           urlSetup                 = "";
 
   /**
    * Instantiates a new abstract JDBC seeder.
@@ -892,6 +856,58 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
   }
 
   /**
+   * Drop all tables based on q metadata query.
+   *
+   * @param sqlStmnt the SQL statement
+   */
+  protected final void dropAllTables(String sqlStmnt) {
+    String methodName = new Object() {
+    }.getClass().getEnclosingMethod().getName();
+    ;
+
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
+    }
+
+    try {
+      for (String tableName : TABLE_NAMES_DROP) {
+        String queryStmnt = sqlStmnt.replace("?",
+                                             tableName);
+
+        if (isDebug) {
+          logger.debug(String.format(FORMAT_METHOD_NAME,
+                                     methodName) + "- next SQL statement=" + queryStmnt);
+        }
+
+        resultSet = statement.executeQuery(queryStmnt);
+
+        if (resultSet.next()) {
+          String dropStmnt = resultSet.getString(1);
+
+          if (isDebug) {
+            logger.debug(String.format(FORMAT_METHOD_NAME,
+                                       methodName) + "- next SQL statement=" + dropStmnt);
+          }
+
+          statement.execute(dropStmnt);
+        }
+
+        resultSet.close();
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
+    }
+  }
+
+  /**
    * Drop all existing tables.
    */
   protected final void dropAllTablesIfExists() {
@@ -1091,7 +1107,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       preparedStatement.close();
 
       if (count > 0) {
-        sqlStmnt = "DROP USER " + userName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
+        sqlStmnt = "DROP " + (dbms == Dbms.MIMER ? "IDENT" : "USER") + "  " + userName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
 
         if (isDebug) {
           logger.debug(String.format(FORMAT_METHOD_NAME,

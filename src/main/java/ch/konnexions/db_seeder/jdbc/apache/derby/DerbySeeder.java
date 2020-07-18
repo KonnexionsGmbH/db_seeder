@@ -3,7 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.apache.derby;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -152,56 +151,6 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     }
   }
 
-  protected final void dropAllTables(String sqlStmnt) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
-    }
-
-    try {
-      Connection connectionLocal = connect(urlSetup,
-                                           null,
-                                           true);
-
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-
-      statement         = connectionLocal.createStatement();
-
-      for (String tableName : TABLE_NAMES_DROP) {
-        preparedStatement.setString(1,
-                                    tableName);
-
-        resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          statement.execute(resultSet.getString(2));
-        }
-
-        resultSet.close();
-      }
-
-      statement.close();
-
-      preparedStatement.close();
-
-      disconnect(connectionLocal);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
-    }
-  }
-
   private final void init() {
     String methodName = null;
 
@@ -233,7 +182,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     url                = urlBase + "false";
     urlSetup           = urlBase + "true";
 
-    dropTableStmnt     = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
+    dropTableStmnt     = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME,
@@ -264,7 +213,21 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
+    try {
+      statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
     dropAllTables(dropTableStmnt);
+
+    try {
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     // -----------------------------------------------------------------------
     // Disconnect and reconnect.
