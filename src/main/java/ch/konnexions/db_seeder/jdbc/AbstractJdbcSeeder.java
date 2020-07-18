@@ -873,7 +873,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       for (String tableName : TABLE_NAMES_DROP) {
         String queryStmnt = sqlStmnt.replace("?",
-                                             tableName);
+                                             dbms == Dbms.CRATEDB ? tableName.toLowerCase() : tableName.toUpperCase());
 
         if (isDebug) {
           logger.debug(String.format(FORMAT_METHOD_NAME,

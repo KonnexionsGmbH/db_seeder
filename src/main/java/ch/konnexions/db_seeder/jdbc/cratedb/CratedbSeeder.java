@@ -46,6 +46,8 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
     urlSetup              = urlBase + config.getUserSys();
 
+    dropTableStmnt        = "SELECT 'DROP TABLE ' || table_name FROM information_schema.tables WHERE table_schema = 'doc' AND table_name = '?'";
+
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME,
                                  methodName) + "- End   Constructor");
@@ -151,7 +153,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
       executeDdlStmnts("DROP USER IF EXISTS " + userName);
 
-      dropAllTablesIfExists();
+      dropAllTables(dropTableStmnt);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
