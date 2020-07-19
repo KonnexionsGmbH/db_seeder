@@ -54,74 +54,8 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT    NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT,
-                 CITY_MAP            OBJECT,
-                 CREATED             TIMESTAMP NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                TEXT      NOT NULL
-              )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT    NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    BIGINT    NOT NULL,
-                 ACTIVE        TEXT      NOT NULL,
-                 ADDRESS1      TEXT,
-                 ADDRESS2      TEXT,
-                 ADDRESS3      TEXT,
-                 CREATED       TIMESTAMP NOT NULL,
-                 DIRECTIONS    TEXT,
-                 EMAIL         TEXT,
-                 FAX           TEXT,
-                 MODIFIED      TIMESTAMP,
-                 NAME          TEXT      NOT NULL,
-                 PHONE         TEXT,
-                 POSTAL_CODE   TEXT,
-                 URL           TEXT,
-                 VAT_ID_NUMBER TEXT
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT    NOT NULL PRIMARY KEY,
-                COUNTRY_MAP   OBJECT,
-                CREATED       TIMESTAMP NOT NULL,
-                ISO3166       TEXT,
-                MODIFIED      TIMESTAMP,
-                NAME          TEXT      NOT NULL
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT    NOT NULL PRIMARY KEY,
-                FK_COUNTRY_ID       BIGINT    NOT NULL,
-                FK_TIMEZONE_ID      BIGINT    NOT NULL,
-                COUNTRY_STATE_MAP   OBJECT,
-                CREATED             TIMESTAMP NOT NULL,
-                MODIFIED            TIMESTAMP,
-                NAME                TEXT      NOT NULL,
-                SYMBOL              TEXT
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT     NOT NULL PRIMARY KEY,
-                ABBREVIATION   TEXT       NOT NULL,
-                CREATED        TIMESTAMP  NOT NULL,
-                MODIFIED       TIMESTAMP,
-                NAME           TEXT       NOT NULL,
-                V_TIME_ZONE    TEXT
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
-                                                                                           tableName));
-    }
+  @Override protected final String createDdlStmnt(final String tableName) {
+    return CratedbSchema.databaseTables.get(tableName);
   }
 
   @Override protected final void setupDatabase() {

@@ -52,79 +52,8 @@ public class MimerSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT        NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT,
-                 CITY_MAP            BLOB,
-                 CREATED             TIMESTAMP     NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                NVARCHAR(100) NOT NULL,
-                 FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
-              )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT        NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    BIGINT        NOT NULL,
-                 ACTIVE        NVARCHAR(1)   NOT NULL,
-                 ADDRESS1      NVARCHAR(50),
-                 ADDRESS2      NVARCHAR(50),
-                 ADDRESS3      NVARCHAR(50),
-                 CREATED       TIMESTAMP     NOT NULL,
-                 DIRECTIONS    CLOB,
-                 EMAIL         NVARCHAR(100),
-                 FAX           NVARCHAR(50),
-                 MODIFIED      TIMESTAMP,
-                 NAME          NVARCHAR(250) NOT NULL UNIQUE,
-                 PHONE         NVARCHAR(50),
-                 POSTAL_CODE   NVARCHAR(50),
-                 URL           NVARCHAR(250),
-                 VAT_ID_NUMBER NVARCHAR(100),
-                 FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT        NOT NULL PRIMARY KEY,
-                COUNTRY_MAP   BLOB,
-                CREATED       TIMESTAMP     NOT NULL,
-                ISO3166       NVARCHAR(50),
-                MODIFIED      TIMESTAMP,
-                NAME          NVARCHAR(100) NOT NULL UNIQUE
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT        NOT NULL PRIMARY KEY,
-                FK_COUNTRY_ID       BIGINT        NOT NULL,
-                FK_TIMEZONE_ID      BIGINT        NOT NULL,
-                COUNTRY_STATE_MAP   BLOB,
-                CREATED             TIMESTAMP     NOT NULL,
-                MODIFIED            TIMESTAMP,
-                NAME                NVARCHAR(100) NOT NULL,
-                SYMBOL              NVARCHAR(50),
-                FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
-                UNIQUE      (FK_COUNTRY_ID,NAME)
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT         NOT NULL PRIMARY KEY,
-                ABBREVIATION   NVARCHAR(50)   NOT NULL,
-                CREATED        TIMESTAMP      NOT NULL,
-                MODIFIED       TIMESTAMP,
-                NAME           NVARCHAR(100)  NOT NULL UNIQUE,
-                V_TIME_ZONE    NVARCHAR(4000)
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
-                                                                                           tableName));
-    }
+  @Override protected final String createDdlStmnt(final String tableName) {
+    return MimerSchema.databaseTables.get(tableName);
   }
 
   @Override protected final void setupDatabase() {

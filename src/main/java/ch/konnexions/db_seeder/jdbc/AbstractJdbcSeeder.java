@@ -39,65 +39,59 @@ import ch.konnexions.db_seeder.utils.Statistics;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
+public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implements JdbcSchema {
 
-  private static final int   ENCODING_MAX             = 3;
-  private static Logger      logger                   = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final int   ENCODING_MAX       = 3;
+  private static Logger      logger             = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  private final String       BLOB_FILE                = Paths.get("src",
-                                                                  "main",
-                                                                  "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]       BLOB_DATA_BYTES          = readBlobFile2Bytes();
-  private final String       CLOB_FILE                = Paths.get("src",
-                                                                  "main",
-                                                                  "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final String       CLOB_DATA                = readClobFile();
+  private final String       BLOB_FILE          = Paths.get("src",
+                                                            "main",
+                                                            "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]       BLOB_DATA_BYTES    = readBlobFile2Bytes();
+  private final String       CLOB_FILE          = Paths.get("src",
+                                                            "main",
+                                                            "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String       CLOB_DATA          = readClobFile();
 
   private final Properties   COLUMN_NAME;
-  protected Connection       connection               = null;
+  protected Connection       connection         = null;
 
-  protected String           driver                   = "";
+  protected String           driver             = "";
 
-  protected String           dropTableStmnt           = "";
-  protected boolean          isClient                 = true;
+  protected String           dropTableStmnt     = "";
+  protected boolean          isClient           = true;
 
-  protected boolean          isEmbedded               = !(isClient);
+  protected boolean          isEmbedded         = !(isClient);
 
-  private final int          MAX_ROW_SIZE             = Integer.MAX_VALUE;
+  private final int          MAX_ROW_SIZE       = Integer.MAX_VALUE;
 
-  private ArrayList<Object>  pkListCity               = new ArrayList<Object>();
-  private ArrayList<Object>  pkListCountry            = new ArrayList<Object>();
-  private ArrayList<Object>  pkListCountryState       = new ArrayList<Object>();
-  private ArrayList<Object>  pkListTimezone           = new ArrayList<Object>();
-  private PreparedStatement  preparedStatement        = null;
+  private ArrayList<Object>  pkListCity         = new ArrayList<Object>();
+  private ArrayList<Object>  pkListCountry      = new ArrayList<Object>();
+  private ArrayList<Object>  pkListCountryState = new ArrayList<Object>();
+  private ArrayList<Object>  pkListTimezone     = new ArrayList<Object>();
+  private PreparedStatement  preparedStatement  = null;
 
-  private final int          RANDOM_NUMBER            = 4;
-  private Random             randomInt                = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  private ResultSet          resultSet                = null;
+  private final int          RANDOM_NUMBER      = 4;
+  private Random             randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private ResultSet          resultSet          = null;
 
-  protected Statement        statement                = null;
+  protected Statement        statement          = null;
 
-  protected final String     TABLE_NAME_CITY          = "CITY";
-  protected final String     TABLE_NAME_COMPANY       = "COMPANY";
-  protected final String     TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected final String     TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected final String     TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  private final List<String> TABLE_NAMES_CREATE = Arrays.asList(TABLE_NAME_COUNTRY,
+                                                                TABLE_NAME_TIMEZONE,
+                                                                TABLE_NAME_COUNTRY_STATE,
+                                                                TABLE_NAME_CITY,
+                                                                TABLE_NAME_COMPANY);
 
-  private final List<String> TABLE_NAMES_CREATE       = Arrays.asList(TABLE_NAME_COUNTRY,
-                                                                      TABLE_NAME_TIMEZONE,
-                                                                      TABLE_NAME_COUNTRY_STATE,
-                                                                      TABLE_NAME_CITY,
-                                                                      TABLE_NAME_COMPANY);
+  private final List<String> TABLE_NAMES_DROP   = Arrays.asList(TABLE_NAME_COMPANY,
+                                                                TABLE_NAME_CITY,
+                                                                TABLE_NAME_COUNTRY_STATE,
+                                                                TABLE_NAME_COUNTRY,
+                                                                TABLE_NAME_TIMEZONE);
 
-  private final List<String> TABLE_NAMES_DROP         = Arrays.asList(TABLE_NAME_COMPANY,
-                                                                      TABLE_NAME_CITY,
-                                                                      TABLE_NAME_COUNTRY_STATE,
-                                                                      TABLE_NAME_COUNTRY,
-                                                                      TABLE_NAME_TIMEZONE);
-
-  protected String           url                      = "";
-  protected String           urlBase                  = "";
-  protected String           urlSetup                 = "";
+  protected String           url                = "";
+  protected String           urlBase            = "";
+  protected String           urlSetup           = "";
 
   /**
    * Instantiates a new abstract JDBC seeder.
