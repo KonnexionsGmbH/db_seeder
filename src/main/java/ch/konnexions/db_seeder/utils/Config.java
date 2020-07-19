@@ -108,7 +108,8 @@ public class Config {
     }
   }
 
-  @SuppressWarnings("unused") private final List<String> getBooleanProperties() {
+  @SuppressWarnings("unused")
+  private final List<String> getBooleanProperties() {
 
     List<String> list = new ArrayList<>();
 
@@ -271,7 +272,8 @@ public class Config {
 
   // -------------------------------------------------------------------------
 
-  @SuppressWarnings("unused") private final List<String> getNumericProperties() {
+  @SuppressWarnings("unused")
+  private final List<String> getNumericProperties() {
 
     List<String> list = new ArrayList<>();
 

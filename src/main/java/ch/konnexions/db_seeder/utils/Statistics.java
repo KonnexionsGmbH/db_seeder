@@ -97,7 +97,8 @@ public class Statistics {
   /**
    * Creates a new statistics file if none exists yet.
    */
-  @SuppressWarnings("resource") private final void createStatisticsFile() {
+  @SuppressWarnings("resource")
+  private final void createStatisticsFile() {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
