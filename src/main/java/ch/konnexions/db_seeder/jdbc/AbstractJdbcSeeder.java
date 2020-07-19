@@ -583,7 +583,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
       if (isDebug) {
         logger.debug(String.format(FORMAT_METHOD_NAME,
-                                   methodName) + "- sql='" + sqlStmnt + "'");
+                                   methodName) + "- next SQL statement=" + sqlStmnt);
       }
 
       statement.execute(sqlStmnt);

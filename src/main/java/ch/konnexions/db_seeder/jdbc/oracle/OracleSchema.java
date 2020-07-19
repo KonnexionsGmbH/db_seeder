@@ -26,8 +26,7 @@ public final class OracleSchema implements JdbcSchema {
 
     statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE CITY
-                   (
+                   CREATE TABLE CITY (
                        PK_CITY_ID          NUMBER         NOT NULL PRIMARY KEY,
                        FK_COUNTRY_STATE_ID NUMBER,
                        CITY_MAP            BLOB,
@@ -35,12 +34,12 @@ public final class OracleSchema implements JdbcSchema {
                        MODIFIED            TIMESTAMP,
                        NAME                VARCHAR2 (100) NOT NULL,
                        CONSTRAINT FK_CITY_COUNTRY_STATE   FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
-                              )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
-                   CREATE TABLE COMPANY
-                   (
+                   CREATE TABLE COMPANY (
                        PK_COMPANY_ID       NUMBER         NOT NULL PRIMARY KEY,
                        FK_CITY_ID          NUMBER         NOT NULL,
                        ACTIVE              VARCHAR2 (1)   NOT NULL,
@@ -58,24 +57,24 @@ public final class OracleSchema implements JdbcSchema {
                        URL                 VARCHAR2 (250),
                        VAT_ID_NUMBER       VARCHAR2 (100),
                        CONSTRAINT FK_COMPANY_CITY         FOREIGN KEY (FK_CITY_ID)          REFERENCES CITY (PK_CITY_ID)
-                             )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
-                   CREATE TABLE COUNTRY
-                   (
+                   CREATE TABLE COUNTRY (
                        PK_COUNTRY_ID NUMBER         NOT NULL PRIMARY KEY,
                        COUNTRY_MAP   BLOB,
                        CREATED       TIMESTAMP      NOT NULL,
                        ISO3166       VARCHAR2 (50),
                        MODIFIED      TIMESTAMP,
                        NAME          VARCHAR2 (100) NOT NULL UNIQUE
-                             )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE COUNTRY_STATE
-                   (
+                   CREATE TABLE COUNTRY_STATE (
                        PK_COUNTRY_STATE_ID NUMBER         NOT NULL PRIMARY KEY,
                        FK_COUNTRY_ID       NUMBER         NOT NULL,
                        FK_TIMEZONE_ID      NUMBER         NOT NULL,
@@ -87,19 +86,20 @@ public final class OracleSchema implements JdbcSchema {
                        CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
                        CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
                        CONSTRAINT UQ_COUNTRY_STATE          UNIQUE (FK_COUNTRY_ID, NAME)
-                             )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
-                   CREATE TABLE TIMEZONE
-                   (
+                   CREATE TABLE TIMEZONE (
                        PK_TIMEZONE_ID NUMBER          NOT NULL PRIMARY KEY,
                        ABBREVIATION   VARCHAR2 (50)   NOT NULL,
                        CREATED        TIMESTAMP       NOT NULL,
                        MODIFIED       TIMESTAMP,
                        NAME           VARCHAR2 (100)  NOT NULL UNIQUE,
                        V_TIME_ZONE    VARCHAR2 (4000)
-                             )""");
+                   )
+                   """);
 
     return statements;
   }

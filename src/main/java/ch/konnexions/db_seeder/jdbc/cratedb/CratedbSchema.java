@@ -33,7 +33,8 @@ public final class CratedbSchema implements JdbcSchema {
                        CREATED             TIMESTAMP NOT NULL,
                        MODIFIED            TIMESTAMP,
                        NAME                TEXT      NOT NULL
-                              )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
@@ -54,42 +55,46 @@ public final class CratedbSchema implements JdbcSchema {
                        POSTAL_CODE   TEXT,
                        URL           TEXT,
                        VAT_ID_NUMBER TEXT
-                             )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                      PK_COUNTRY_ID BIGINT    NOT NULL PRIMARY KEY,
-                      COUNTRY_MAP   OBJECT,
-                      CREATED       TIMESTAMP NOT NULL,
-                      ISO3166       TEXT,
-                      MODIFIED      TIMESTAMP,
-                      NAME          TEXT      NOT NULL
-                             )""");
+                       PK_COUNTRY_ID BIGINT    NOT NULL PRIMARY KEY,
+                       COUNTRY_MAP   OBJECT,
+                       CREATED       TIMESTAMP NOT NULL,
+                       ISO3166       TEXT,
+                       MODIFIED      TIMESTAMP,
+                       NAME          TEXT      NOT NULL
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
                    CREATE TABLE COUNTRY_STATE (
-                      PK_COUNTRY_STATE_ID BIGINT    NOT NULL PRIMARY KEY,
-                      FK_COUNTRY_ID       BIGINT    NOT NULL,
-                      FK_TIMEZONE_ID      BIGINT    NOT NULL,
-                      COUNTRY_STATE_MAP   OBJECT,
-                      CREATED             TIMESTAMP NOT NULL,
-                      MODIFIED            TIMESTAMP,
-                      NAME                TEXT      NOT NULL,
-                      SYMBOL              TEXT
-                             )""");
+                       PK_COUNTRY_STATE_ID BIGINT    NOT NULL PRIMARY KEY,
+                       FK_COUNTRY_ID       BIGINT    NOT NULL,
+                       FK_TIMEZONE_ID      BIGINT    NOT NULL,
+                       COUNTRY_STATE_MAP   OBJECT,
+                       CREATED             TIMESTAMP NOT NULL,
+                       MODIFIED            TIMESTAMP,
+                       NAME                TEXT      NOT NULL,
+                       SYMBOL              TEXT
+                   )
+                   """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE TIMEZONE (
-                      PK_TIMEZONE_ID BIGINT     NOT NULL PRIMARY KEY,
-                      ABBREVIATION   TEXT       NOT NULL,
-                      CREATED        TIMESTAMP  NOT NULL,
-                      MODIFIED       TIMESTAMP,
-                      NAME           TEXT       NOT NULL,
-                      V_TIME_ZONE    TEXT
-                             )""");
+                       PK_TIMEZONE_ID BIGINT     NOT NULL PRIMARY KEY,
+                       ABBREVIATION   TEXT       NOT NULL,
+                       CREATED        TIMESTAMP  NOT NULL,
+                       MODIFIED       TIMESTAMP,
+                       NAME           TEXT       NOT NULL,
+                       V_TIME_ZONE    TEXT
+                   )
+                   """);
 
     return statements;
   }

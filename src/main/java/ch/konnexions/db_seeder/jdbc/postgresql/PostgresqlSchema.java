@@ -34,7 +34,8 @@ public final class PostgresqlSchema implements JdbcSchema {
                        MODIFIED            TIMESTAMP,
                        NAME                VARCHAR(100)   NOT NULL,
                        FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
-                              )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
@@ -56,45 +57,49 @@ public final class PostgresqlSchema implements JdbcSchema {
                        URL           VARCHAR(250),
                        VAT_ID_NUMBER VARCHAR(100),
                        FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
-                             )""");
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                      PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
-                      COUNTRY_MAP   BYTEA,
-                      CREATED       TIMESTAMP      NOT NULL,
-                      ISO3166       VARCHAR(50),
-                      MODIFIED      TIMESTAMP,
-                      NAME          VARCHAR(100)   NOT NULL UNIQUE
-                             )""");
+                       PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
+                       COUNTRY_MAP   BYTEA,
+                       CREATED       TIMESTAMP      NOT NULL,
+                       ISO3166       VARCHAR(50),
+                       MODIFIED      TIMESTAMP,
+                       NAME          VARCHAR(100)   NOT NULL UNIQUE
+                   )
+                   """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
                    CREATE TABLE COUNTRY_STATE (
-                      PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
-                      FK_COUNTRY_ID       BIGINT         NOT NULL,
-                      FK_TIMEZONE_ID      BIGINT         NOT NULL,
-                      COUNTRY_STATE_MAP   BYTEA,
-                      CREATED             TIMESTAMP      NOT NULL,
-                      MODIFIED            TIMESTAMP,
-                      NAME                VARCHAR(100)   NOT NULL,
-                      SYMBOL              VARCHAR(50),
-                      FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                      FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
-                      UNIQUE      (FK_COUNTRY_ID,NAME)
-                             )""");
+                       PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
+                       FK_COUNTRY_ID       BIGINT         NOT NULL,
+                       FK_TIMEZONE_ID      BIGINT         NOT NULL,
+                       COUNTRY_STATE_MAP   BYTEA,
+                       CREATED             TIMESTAMP      NOT NULL,
+                       MODIFIED            TIMESTAMP,
+                       NAME                VARCHAR(100)   NOT NULL,
+                       SYMBOL              VARCHAR(50),
+                       FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
+                       FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
+                       UNIQUE      (FK_COUNTRY_ID,NAME)
+                   )
+                   """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE TIMEZONE (
-                      PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
-                      ABBREVIATION   VARCHAR(50)   NOT NULL,
-                      CREATED        TIMESTAMP     NOT NULL,
-                      MODIFIED       TIMESTAMP,
-                      NAME           VARCHAR(100)  NOT NULL UNIQUE,
-                      V_TIME_ZONE    VARCHAR(4000)
-                             )""");
+                       PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
+                       ABBREVIATION   VARCHAR(50)   NOT NULL,
+                       CREATED        TIMESTAMP     NOT NULL,
+                       MODIFIED       TIMESTAMP,
+                       NAME           VARCHAR(100)  NOT NULL UNIQUE,
+                       V_TIME_ZONE    VARCHAR(4000)
+                   )
+                   """);
 
     return statements;
   }
