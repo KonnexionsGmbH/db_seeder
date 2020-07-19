@@ -54,11 +54,13 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final String createDdlStmnt(final String tableName) {
-    return MysqlSchema.databaseTables.get(tableName);
+  @Override
+  protected final String createDdlStmnt(final String tableName) {
+    return MysqlSchema.createTableStmnts.get(tableName);
   }
 
-  @Override protected final void setupDatabase() {
+  @Override
+  protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {

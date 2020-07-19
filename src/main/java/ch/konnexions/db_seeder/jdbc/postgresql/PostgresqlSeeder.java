@@ -58,11 +58,13 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final String createDdlStmnt(final String tableName) {
-    return PostgresqlSchema.databaseTables.get(tableName);
+  @Override
+  protected final String createDdlStmnt(final String tableName) {
+    return PostgresqlSchema.createTableStmnts.get(tableName);
   }
 
-  @Override protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  @Override
+  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     FileInputStream blobData = null;
 
     try {
@@ -90,7 +92,8 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final void setupDatabase() {
+  @Override
+  protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {

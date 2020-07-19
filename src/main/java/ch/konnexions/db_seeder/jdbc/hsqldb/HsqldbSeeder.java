@@ -76,8 +76,9 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final String createDdlStmnt(final String tableName) {
-    return HsqldbSchema.databaseTables.get(tableName);
+  @Override
+  protected final String createDdlStmnt(final String tableName) {
+    return HsqldbSchema.createTableStmnts.get(tableName);
   }
 
   private final void init() {
@@ -115,7 +116,8 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final void setupDatabase() {
+  @Override
+  protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {

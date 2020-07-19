@@ -52,11 +52,13 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final String createDdlStmnt(final String tableName) {
-    return Ibmdb2Schema.databaseTables.get(tableName);
+  @Override
+  protected final String createDdlStmnt(final String tableName) {
+    return Ibmdb2Schema.createTableStmnts.get(tableName);
   }
 
-  @Override protected final void setupDatabase() {
+  @Override
+  protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {

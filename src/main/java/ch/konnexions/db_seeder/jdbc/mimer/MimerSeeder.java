@@ -52,11 +52,13 @@ public class MimerSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final String createDdlStmnt(final String tableName) {
-    return MimerSchema.databaseTables.get(tableName);
+  @Override
+  protected final String createDdlStmnt(final String tableName) {
+    return MimerSchema.createTableStmnts.get(tableName);
   }
 
-  @Override protected final void setupDatabase() {
+  @Override
+  protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {

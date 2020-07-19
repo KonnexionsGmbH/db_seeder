@@ -50,11 +50,13 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final String createDdlStmnt(final String tableName) {
-    return SqliteSchema.databaseTables.get(tableName);
+  @Override
+  protected final String createDdlStmnt(final String tableName) {
+    return SqliteSchema.createTableStmnts.get(tableName);
   }
 
-  @Override protected void setupDatabase() {
+  @Override
+  protected void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {

@@ -75,8 +75,9 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final String createDdlStmnt(final String tableName) {
-    return H2Schema.databaseTables.get(tableName);
+  @Override
+  protected final String createDdlStmnt(final String tableName) {
+    return H2Schema.createTableStmnts.get(tableName);
   }
 
   private final void init() {
@@ -113,7 +114,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override protected final void setupDatabase() {
+  @Override
+  protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
