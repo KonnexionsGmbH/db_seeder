@@ -1813,10 +1813,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
   }
 
   /**
-   * Delete any existing relevant database objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user, 
    * schema or tables)and initialise the database for a new run.
    */
-
   protected abstract void setupDatabase();
 
   private void validateEncoding(String tableName, String columnName, int rowCount) {

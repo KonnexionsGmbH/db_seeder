@@ -56,11 +56,22 @@ public class InformixSeeder extends AbstractJdbcSeeder {
     }
   }
 
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
   protected final String createDdlStmnt(final String tableName) {
     return InformixSchema.createTableStmnts.get(tableName);
   }
 
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or tables)and initialise the database for a new run.
+   */
   @Override
   protected final void setupDatabase() {
     String methodName = null;

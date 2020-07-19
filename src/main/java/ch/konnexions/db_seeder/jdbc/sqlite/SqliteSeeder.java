@@ -50,11 +50,22 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     }
   }
 
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
   protected final String createDdlStmnt(final String tableName) {
     return SqliteSchema.createTableStmnts.get(tableName);
   }
 
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or tables)and initialise the database for a new run.
+   */
   @Override
   protected void setupDatabase() {
     String methodName = null;
