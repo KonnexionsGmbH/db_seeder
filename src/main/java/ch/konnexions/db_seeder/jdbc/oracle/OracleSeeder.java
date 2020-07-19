@@ -33,7 +33,8 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.ORACLE;
@@ -44,13 +45,12 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -125,83 +125,60 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                  V_TIME_ZONE    VARCHAR2 (4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  private final void dropUser(String user) {
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = ?");
-      preparedStatement.setString(1, user);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP USER " + user + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys());
+    connection = connect(url,
+                         null,
+                         config.getUserSys().toUpperCase(),
+                         config.getPasswordSys());
+
+    String userName = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Drop the database user if already existing.
-    // -----------------------------------------------------------------------
-
-    String user = config.getUser().toUpperCase();
-
-    dropUser(user);
-
-    // -----------------------------------------------------------------------
-    // Create the database user and grant the necessary rights.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE USER " + user + " IDENTIFIED BY \"" + config.getPassword() + "\"");
+    dropUser(userName,
+             "CASCADE",
+             "ALL_USERS",
+             "username");
 
-      statement.execute("ALTER USER " + user + " QUOTA UNLIMITED ON users");
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
 
-      statement.execute("GRANT CREATE SEQUENCE TO " + user);
-
-      statement.execute("GRANT CREATE SESSION TO " + user);
-
-      statement.execute("GRANT CREATE TABLE TO " + user);
-
-      statement.execute("GRANT UNLIMITED TABLESPACE TO " + user);
+    try {
+      executeDdlStmnts("CREATE USER " + userName + " IDENTIFIED BY \"" + config.getPassword() + "\"",
+                       "ALTER USER " + userName + " QUOTA UNLIMITED ON users",
+                       "GRANT CREATE SEQUENCE TO " + userName,
+                       "GRANT CREATE SESSION TO " + userName,
+                       "GRANT CREATE TABLE TO " + userName,
+                       "GRANT UNLIMITED TABLESPACE TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -215,10 +192,14 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, config.getPassword());
+    connection = connect(url,
+                         null,
+                         userName,
+                         config.getPassword());
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

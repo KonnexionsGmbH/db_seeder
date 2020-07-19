@@ -39,7 +39,8 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.POSTGRESQL;
@@ -52,13 +53,12 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     urlSetup              = urlBase + config.getDatabaseSys() + "?user=" + config.getUserSys() + "&password=" + config.getPasswordSys();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -128,23 +128,26 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  @Override
-  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  @Override protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     FileInputStream blobData = null;
 
     try {
-      blobData = new FileInputStream(new File(Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png"));
+      blobData = new FileInputStream(new File(Paths.get("src",
+                                                        "main",
+                                                        "resources").toAbsolutePath().toString() + File.separator + "blob.png"));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     try {
-      preparedStatement.setBinaryStream(columnPos, blobData);
+      preparedStatement.setBinaryStream(columnPos,
+                                        blobData);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -158,51 +161,49 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     }
   }
 
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, true);
+    connection = connect(urlSetup,
+                         true);
+
+    String databaseName = config.getDatabase();
+    String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
-    // Drop the database and the database user.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
-
-    String database = config.getDatabase();
-    String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + database);
-
-      statement.execute("DROP USER IF EXISTS " + user);
+      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName,
+                       "DROP USER IF EXISTS " + userName);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Create the database, the database user and grant the necessary rights.
+    // Setup the database.
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE " + database);
-
-      statement.execute("CREATE USER " + user + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'");
-
-      statement.execute("GRANT ALL PRIVILEGES ON DATABASE " + database + " TO " + user);
+      executeDdlStmnts("CREATE DATABASE " + databaseName,
+                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+                       "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -219,7 +220,8 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     connection = connect(url);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 

@@ -33,7 +33,8 @@ public class InformixSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.INFORMIX;
@@ -50,13 +51,12 @@ public class InformixSeeder extends AbstractJdbcSeeder {
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -126,53 +126,55 @@ public class InformixSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    LVARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, config.getUserSys(), config.getPasswordSys(), true);
+    connection = connect(urlSetup,
+                         driver,
+                         config.getUserSys(),
+                         config.getPasswordSys(),
+                         true);
 
-    String database = config.getDatabase();
+    String databaseName = config.getDatabase();
 
     // -----------------------------------------------------------------------
-    // Drop the database and user if already existing
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + database);
-
+      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Create the database and user.
+    // Setup the database.
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE " + database + " WITH LOG");
-
-      statement.execute("GRANT CONNECT TO PUBLIC");
-
-      statement.execute("GRANT RESOURCE TO PUBLIC");
+      executeDdlStmnts("CREATE DATABASE " + databaseName + " WITH LOG",
+                       "GRANT CONNECT TO PUBLIC",
+                       "GRANT RESOURCE TO PUBLIC");
 
       statement.close();
     } catch (SQLException e) {
@@ -186,10 +188,14 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
+    connection = connect(url,
+                         null,
+                         config.getUserSys(),
+                         config.getPasswordSys());
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

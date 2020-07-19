@@ -3,7 +3,6 @@
  */
 package ch.konnexions.db_seeder.jdbc.apache.derby;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -34,7 +33,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -42,7 +42,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
@@ -61,7 +62,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -69,13 +71,12 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -145,52 +146,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
-  }
-
-  protected final void dropAllTables(String sqlStmnt) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    try {
-      Connection connectionLocal = connect(urlSetup, null, true);
-
-      preparedStatement = connection.prepareStatement(sqlStmnt);
-
-      statement         = connectionLocal.createStatement();
-
-      for (String tableName : TABLE_NAMES_DROP) {
-        preparedStatement.setString(1, tableName);
-
-        resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          statement.execute(resultSet.getString(2));
-        }
-
-        resultSet.close();
-      }
-
-      statement.close();
-
-      preparedStatement.close();
-
-      disconnect(connectionLocal);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
@@ -201,10 +158,13 @@ public class DerbySeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- client  =" + isClient);
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- embedded=" + isEmbedded);
     }
 
     dbms = Dbms.DERBY;
@@ -222,35 +182,52 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     url                = urlBase + "false";
     urlSetup           = urlBase + "true";
 
-    dropTableStmnt     = "SELECT T.TABLENAME, 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = ? AND S.SCHEMANAME = 'APP'";
+    dropTableStmnt     = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, driver, true);
+    connection = connect(urlSetup,
+                         driver,
+                         true);
 
     // -----------------------------------------------------------------------
-    // Drop the database tables if already existing
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
+
+    try {
+      statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     dropAllTables(dropTableStmnt);
+
+    try {
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     // -----------------------------------------------------------------------
     // Disconnect and reconnect.
@@ -261,7 +238,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     connection = connect(url);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

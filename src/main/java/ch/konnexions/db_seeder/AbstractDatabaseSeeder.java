@@ -3,10 +3,7 @@
  */
 package ch.konnexions.db_seeder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -40,14 +37,14 @@ public abstract class AbstractDatabaseSeeder {
     SQLITE
   }
 
-  private static Logger           logger                   = Logger.getLogger(AbstractDatabaseSeeder.class);
+  private static Logger           logger             = Logger.getLogger(AbstractDatabaseSeeder.class);
 
-  public final static String      FORMAT_IDENTIFIER        = "%-10d";
+  public final static String      FORMAT_IDENTIFIER  = "%-10d";
 
   // protected final static String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
-  public final static String      FORMAT_METHOD_NAME       = "%-25s";
-  protected final static String   FORMAT_ROW_NO            = "%1$10d";
-  protected final static String   FORMAT_TABLE_NAME        = "%-17s";
+  public final static String      FORMAT_METHOD_NAME = "%-25s";
+  protected final static String   FORMAT_ROW_NO      = "%1$10d";
+  protected final static String   FORMAT_TABLE_NAME  = "%-17s";
 
   protected int                   autoIncrement;
 
@@ -55,28 +52,11 @@ public abstract class AbstractDatabaseSeeder {
 
   protected Dbms                  dbms;
   protected String                dbmsTickerSymbol;
-  protected Map<String, String[]> dbmsValues               = null;
+  protected Map<String, String[]> dbmsValues         = null;
 
-  protected boolean               isClient                 = true;
-  protected final boolean         isDebug                  = logger.isDebugEnabled();
-  protected boolean               isEmbedded               = !(isClient);
+  protected final boolean         isDebug            = logger.isDebugEnabled();
 
-  protected ArrayList<Object>     pkListCity               = new ArrayList<Object>();
-  protected ArrayList<Object>     pkListCountry            = new ArrayList<Object>();
-  protected ArrayList<Object>     pkListCountryState       = new ArrayList<Object>();
-  protected ArrayList<Object>     pkListTimezone           = new ArrayList<Object>();
-
-  protected final String          TABLE_NAME_CITY          = "CITY";
-  protected final String          TABLE_NAME_COMPANY       = "COMPANY";
-  protected final String          TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected final String          TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected final String          TABLE_NAME_TIMEZONE      = "TIMEZONE";
-  protected final List<String>    TABLE_NAMES_CREATE       = Arrays
-      .asList(TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_CITY, TABLE_NAME_COMPANY);
-  protected final List<String>    TABLE_NAMES_DROP         = Arrays
-      .asList(TABLE_NAME_COMPANY, TABLE_NAME_CITY, TABLE_NAME_COUNTRY_STATE, TABLE_NAME_COUNTRY, TABLE_NAME_TIMEZONE);
-
-  protected String                tableNameDelimiter       = "tbd";
+  protected String                tableNameDelimiter = "tbd";
 
   /**
    * Initialises a new abstract database seeder object.
@@ -90,19 +70,15 @@ public abstract class AbstractDatabaseSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbmsValues = initDbmsValues();
 
-    isClient   = true;
-    isEmbedded = !(this.isClient);
-
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
@@ -120,19 +96,15 @@ public abstract class AbstractDatabaseSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
-    dbmsValues    = initDbmsValues();
-
-    this.isClient = isClient;
-    isEmbedded    = !(this.isClient);
+    dbmsValues = initDbmsValues();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 

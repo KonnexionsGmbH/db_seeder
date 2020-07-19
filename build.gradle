@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '1.15.10'
+version '1.15.11'
 
 repositories {
     jcenter()
@@ -38,6 +38,7 @@ dependencies {
 
 jar {
     archivesBaseName = project.name
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     manifest {
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.DatabaseSeeder'

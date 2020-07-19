@@ -64,7 +64,8 @@ public class Statistics {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     try {
@@ -73,7 +74,8 @@ public class Statistics {
       statisticsFile.printRecord(dbmsTickerSymbol,
                                  dbmsValues.get(dbmsTickerSymbol)[0],
                                  dbmsValues.get(dbmsTickerSymbol)[1],
-                                 Duration.between(startDateTime, endDateTime).toSeconds(),
+                                 Duration.between(startDateTime,
+                                                  endDateTime).toSeconds(),
                                  startDateTime.format(formatter),
                                  endDateTime.format(formatter),
                                  InetAddress.getLocalHost().getHostName(),
@@ -87,24 +89,25 @@ public class Statistics {
     }
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 
   /**
    * Creates a new statistics file if none exists yet.
    */
-  @SuppressWarnings("resource")
-  private final void createStatisticsFile() {
+  @SuppressWarnings("resource") private final void createStatisticsFile() {
     String methodName = new Object() {
     }.getClass().getEnclosingMethod().getName();
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
-    String statisticsName = config.getFileStatisticsName();
+    String statisticsName      = config.getFileStatisticsName();
 
     try {
       Path statisticsPath = Paths.get(statisticsName);
@@ -118,13 +121,14 @@ public class Statistics {
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, false));
 
-        new CSVPrinter(bufferedWriter,
-            CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)).withHeader(config.getFileStatisticsHeader().replace(";", statisticsDelimiter).split(statisticsDelimiter)));
+        new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)).withHeader(config.getFileStatisticsHeader().replace(";",
+                                                                                                                                                        statisticsDelimiter)
+            .split(statisticsDelimiter)));
 
         bufferedWriter.close();
 
-        logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  missing statistics file created: file name="
-            + config.getFileStatisticsName());
+        logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                  methodName) + "  missing statistics file created: file name=" + config.getFileStatisticsName());
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -132,7 +136,8 @@ public class Statistics {
     }
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 
@@ -146,8 +151,8 @@ public class Statistics {
       if (!(isFileExisting)) {
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
-        logger.error(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  fatal error: program abort =====> statistics file \""
-            + statisticsName + "\" is missing <=====");
+        logger.error(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                   methodName) + "  fatal error: program abort =====> statistics file \"" + statisticsName + "\" is missing <=====");
         System.exit(1);
       }
 

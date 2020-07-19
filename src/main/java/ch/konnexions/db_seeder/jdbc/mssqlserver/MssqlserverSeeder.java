@@ -33,7 +33,8 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     dbms                  = Dbms.MSSQLSERVER;
@@ -46,13 +47,12 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     urlSetup              = urlBase + config.getDatabaseSys() + ";user=" + config.getUserSys() + ";password=" + config.getPasswordSys();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
-  @Override
-  protected final String createDdlStmnt(final String tableName) {
+  @SuppressWarnings("preview") @Override protected final String createDdlStmnt(final String tableName) {
     switch (tableName) {
     case TABLE_NAME_CITY:
       return """
@@ -122,68 +122,61 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
                 V_TIME_ZONE    VARCHAR(4000)
              )""";
     default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
+                                                                                           tableName));
     }
   }
 
-  @Override
-  protected final void setupDatabase() {
+  @Override protected final void setupDatabase() {
     String methodName = null;
 
     if (isDebug) {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, true);
+    connection = connect(urlSetup,
+                         true);
+
+    final String databaseNmame = config.getDatabase();
+    final String schemaName    = config.getSchema();
+    final String userName      = config.getUser();
 
     // -----------------------------------------------------------------------
-    // Drop the database if already existing.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
-
-    final String database = config.getDatabase();
-    final String schema   = config.getSchema();
-    final String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + database);
+      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseNmame);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Create the database, schema and database user.
+    // Setup the database.
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("sp_configure 'contained database authentication', 1");
-
-      statement.execute("RECONFIGURE");
-
-      statement.execute("USE master");
-
-      statement.execute("CREATE DATABASE " + database);
-
-      statement.execute("USE master");
-
-      statement.execute("ALTER DATABASE " + database + " SET CONTAINMENT = PARTIAL");
-
-      statement.execute("USE " + database);
-
-      statement.execute("CREATE SCHEMA " + schema);
-
-      statement.execute("CREATE USER " + user + " WITH PASSWORD = '" + config.getPassword() + "', DEFAULT_SCHEMA=" + schema);
-
-      statement.execute("sp_addrolemember 'db_owner', '" + user + "'");
+      executeDdlStmnts("sp_configure 'contained database authentication', 1",
+                       "RECONFIGURE",
+                       "USE master",
+                       "CREATE DATABASE " + databaseNmame,
+                       "USE master",
+                       "ALTER DATABASE " + databaseNmame + " SET CONTAINMENT = PARTIAL",
+                       "USE " + databaseNmame,
+                       "CREATE SCHEMA " + schemaName,
+                       "CREATE USER " + userName + " WITH PASSWORD = '" + config.getPassword() + "', DEFAULT_SCHEMA=" + schemaName,
+                       "sp_addrolemember 'db_owner', '" + userName + "'");
 
       statement.close();
     } catch (SQLException e) {
@@ -200,7 +193,8 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
     connection = connect(url);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug(String.format(FORMAT_METHOD_NAME,
+                                 methodName) + "- End");
     }
   }
 }

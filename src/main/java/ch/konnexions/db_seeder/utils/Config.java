@@ -81,7 +81,8 @@ public class Config {
       methodName = new Object() {
       }.getClass().getName();
 
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                 methodName) + "- Start Constructor");
     }
 
     fileBasedConfigurationBuilder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class);
@@ -102,12 +103,12 @@ public class Config {
     validateProperties();
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                 methodName) + "- End   Constructor");
     }
   }
 
-  @SuppressWarnings("unused")
-  private final List<String> getBooleanProperties() {
+  @SuppressWarnings("unused") private final List<String> getBooleanProperties() {
 
     List<String> list = new ArrayList<>();
 
@@ -270,8 +271,7 @@ public class Config {
 
   // -------------------------------------------------------------------------
 
-  @SuppressWarnings("unused")
-  private final List<String> getNumericProperties() {
+  @SuppressWarnings("unused") private final List<String> getNumericProperties() {
 
     List<String> list = new ArrayList<>();
 
@@ -370,133 +370,156 @@ public class Config {
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_HOST")) {
       connectionHost = environmentVariables.get("DB_SEEDER_CONNECTION_HOST");
-      propertiesConfiguration.setProperty("db_seeder.connection.host", connectionHost);
+      propertiesConfiguration.setProperty("db_seeder.connection.host",
+                                          connectionHost);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PORT")) {
       connectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_CONNECTION_PORT"));
-      propertiesConfiguration.setProperty("db_seeder.connection.port", connectionPort);
+      propertiesConfiguration.setProperty("db_seeder.connection.port",
+                                          connectionPort);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PREFIX")) {
       connectionPrefix = environmentVariables.get("DB_SEEDER_CONNECTION_PREFIX");
-      propertiesConfiguration.setProperty("db_seeder.connection.prefix", connectionPrefix);
+      propertiesConfiguration.setProperty("db_seeder.connection.prefix",
+                                          connectionPrefix);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_SERVICE")) {
       connectionService = environmentVariables.get("DB_SEEDER_CONNECTION_SERVICE");
-      propertiesConfiguration.setProperty("db_seeder.connection.service", connectionService);
+      propertiesConfiguration.setProperty("db_seeder.connection.service",
+                                          connectionService);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_SUFFIX")) {
       connectionSuffix = environmentVariables.get("DB_SEEDER_CONNECTION_SUFFIX");
-      propertiesConfiguration.setProperty("db_seeder.connection.suffix", connectionSuffix);
+      propertiesConfiguration.setProperty("db_seeder.connection.suffix",
+                                          connectionSuffix);
     }
 
     // DATABASE ---------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_DATABASE")) {
       database = environmentVariables.get("DB_SEEDER_DATABASE");
-      propertiesConfiguration.setProperty("db_seeder.database", database);
+      propertiesConfiguration.setProperty("db_seeder.database",
+                                          database);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_DATABASE_SYS")) {
       databaseSys = environmentVariables.get("DB_SEEDER_DATABASE_SYS");
-      propertiesConfiguration.setProperty("db_seeder.database.sys", databaseSys);
+      propertiesConfiguration.setProperty("db_seeder.database.sys",
+                                          databaseSys);
     }
 
     // Encoding ----------------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_ENCODING_ISO_8859_1")) {
       String encodingIso_8859_1Helper = environmentVariables.get("DB_SEEDER_ENCODING_ISO_8859_1");
-      propertiesConfiguration.setProperty("db_seeder.encoding.is_8859_1", "true".equals(encodingIso_8859_1Helper.toLowerCase()) ? true : false);
+      propertiesConfiguration.setProperty("db_seeder.encoding.is_8859_1",
+                                          "true".equals(encodingIso_8859_1Helper.toLowerCase()) ? true : false);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_ENCODING_UTF_8")) {
       String encodingUtf_8Helper = environmentVariables.get("DB_SEEDER_ENCODING_UTF_8");
-      propertiesConfiguration.setProperty("db_seeder.encoding.utf_8", "true".equals(encodingUtf_8Helper.toLowerCase()) ? true : false);
+      propertiesConfiguration.setProperty("db_seeder.encoding.utf_8",
+                                          "true".equals(encodingUtf_8Helper.toLowerCase()) ? true : false);
     }
 
     // File Configuration -------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_FILE_CONFIGURATION_NAME")) {
       fileConfigurationName = environmentVariables.get("DB_SEEDER_FILE_CONFIGURATION_NAME");
-      propertiesConfiguration.setProperty("db_seeder.file.configuration.name", fileConfigurationName);
+      propertiesConfiguration.setProperty("db_seeder.file.configuration.name",
+                                          fileConfigurationName);
     }
 
     // File Statistics ---------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_DELIMITER")) {
       fileStatisticsDelimiter = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_DELIMITER");
-      propertiesConfiguration.setProperty("db_seeder.file.statistics.delimiter", fileStatisticsDelimiter);
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.delimiter",
+                                          fileStatisticsDelimiter);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_HEADER")) {
       fileStatisticsHeader = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_HEADER");
-      propertiesConfiguration.setProperty("db_seeder.file.statistics.header", fileStatisticsHeader);
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.header",
+                                          fileStatisticsHeader);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_NAME")) {
       fileStatisticsName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_NAME");
-      propertiesConfiguration.setProperty("db_seeder.file.statistics.name", fileStatisticsName);
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.name",
+                                          fileStatisticsName);
     }
 
     // MAX (rows) --------------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_CITY")) {
       maxRowCity = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_CITY"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.city", maxRowCity);
+      propertiesConfiguration.setProperty("db_seeder.max.row.city",
+                                          maxRowCity);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_COMPANY")) {
       maxRowCompany = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_COMPANY"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.company", maxRowCompany);
+      propertiesConfiguration.setProperty("db_seeder.max.row.company",
+                                          maxRowCompany);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_COUNTRY")) {
       maxRowCountry = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_COUNTRY"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.country", maxRowCountry);
+      propertiesConfiguration.setProperty("db_seeder.max.row.country",
+                                          maxRowCountry);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_COUNTRY_STATE")) {
       maxRowCountryState = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_COUNTRY_STATE"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.country_state", maxRowCountryState);
+      propertiesConfiguration.setProperty("db_seeder.max.row.country_state",
+                                          maxRowCountryState);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_TIMEZONE")) {
       maxRowTimezone = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_TIMEZONE"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.timezone", maxRowTimezone);
+      propertiesConfiguration.setProperty("db_seeder.max.row.timezone",
+                                          maxRowTimezone);
     }
 
     // PASSWORD ---------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_PASSWORD")) {
       password = environmentVariables.get("DB_SEEDER_PASSWORD");
-      propertiesConfiguration.setProperty("db_seeder.password", password);
+      propertiesConfiguration.setProperty("db_seeder.password",
+                                          password);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_PASSWORD_SYS")) {
       passwordSys = environmentVariables.get("DB_SEEDER_PASSWORD_SYS");
-      propertiesConfiguration.setProperty("db_seeder.password.sys", passwordSys);
+      propertiesConfiguration.setProperty("db_seeder.password.sys",
+                                          passwordSys);
     }
 
     // SCHEMA -----------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_SCHEMA")) {
       schema = environmentVariables.get("DB_SEEDER_SCHEMA");
-      propertiesConfiguration.setProperty("db_seeder.schema", schema);
+      propertiesConfiguration.setProperty("db_seeder.schema",
+                                          schema);
     }
 
     // USER -------------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_USER")) {
       user = environmentVariables.get("DB_SEEDER_USER");
-      propertiesConfiguration.setProperty("db_seeder.user", user);
+      propertiesConfiguration.setProperty("db_seeder.user",
+                                          user);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_USER_SYS")) {
       userSys = environmentVariables.get("DB_SEEDER_USER_SYS");
-      propertiesConfiguration.setProperty("db_seeder.user.sys", userSys);
+      propertiesConfiguration.setProperty("db_seeder.user.sys",
+                                          userSys);
     }
   }
 
@@ -508,7 +531,8 @@ public class Config {
       methodName = new Object() {
       }.getClass().getEnclosingMethod().getName();
 
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                 methodName) + "- Start");
     }
 
     boolean isChanged = false;
@@ -532,7 +556,8 @@ public class Config {
       }
 
       if (isDebug) {
-        logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+        logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
+                                   methodName) + "- End");
       }
     }
   }
