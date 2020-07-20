@@ -20,8 +20,6 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
-
 /**
  * This class is used to record the statisticss of the db_seeder runs.
  */
@@ -58,14 +56,8 @@ public class Statistics {
   }
 
   public final void createMeasuringEntry() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     try {
@@ -89,8 +81,7 @@ public class Statistics {
     }
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 
@@ -99,12 +90,8 @@ public class Statistics {
    */
   @SuppressWarnings("resource")
   private final void createStatisticsFile() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
@@ -128,8 +115,7 @@ public class Statistics {
 
         bufferedWriter.close();
 
-        logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                  methodName) + "  missing statistics file created: file name=" + config.getFileStatisticsName());
+        logger.info("missing statistics file created: file name=" + config.getFileStatisticsName());
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -137,8 +123,7 @@ public class Statistics {
     }
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 
@@ -150,10 +135,7 @@ public class Statistics {
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 
       if (!(isFileExisting)) {
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        logger.error(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                   methodName) + "  fatal error: program abort =====> statistics file \"" + statisticsName + "\" is missing <=====");
+        logger.error("fatal error: program abort =====> statistics file \"" + statisticsName + "\" is missing <=====");
         System.exit(1);
       }
 

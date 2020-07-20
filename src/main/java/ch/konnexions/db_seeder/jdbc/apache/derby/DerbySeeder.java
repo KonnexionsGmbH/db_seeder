@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.generated.DerbySchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -27,14 +28,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
   public DerbySeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -42,8 +37,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -56,14 +50,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
   public DerbySeeder(String dbmsTickerSymbol, boolean isClient) {
     super(isClient);
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -71,8 +59,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -89,22 +76,14 @@ public class DerbySeeder extends AbstractJdbcSeeder {
   }
 
   /**
-   * The common intialisation part.
+   * The common initialisation part.
    */
   private final void init() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
+      logger.debug("Start");
 
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- client  =" + isClient);
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- embedded=" + isEmbedded);
+      logger.debug("client  =" + isClient);
+      logger.debug("embedded=" + isEmbedded);
     }
 
     dbms = Dbms.DERBY;
@@ -125,8 +104,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     dropTableStmnt     = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 
@@ -136,14 +114,8 @@ public class DerbySeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
@@ -183,8 +155,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
     connection = connect(url);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

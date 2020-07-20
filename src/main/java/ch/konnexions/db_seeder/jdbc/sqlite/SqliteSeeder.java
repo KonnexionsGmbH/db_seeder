@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.generated.SqliteSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -27,14 +28,8 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
   public SqliteSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     dbms                  = Dbms.SQLITE;
@@ -45,8 +40,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     url                   = config.getConnectionPrefix() + config.getDatabase();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -68,14 +62,8 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
@@ -102,8 +90,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
     // -----------------------------------------------------------------------
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

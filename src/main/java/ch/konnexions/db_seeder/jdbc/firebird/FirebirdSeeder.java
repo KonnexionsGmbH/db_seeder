@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.generated.FirebirdSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -27,14 +28,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
   public FirebirdSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     dbms                  = Dbms.FIREBIRD;
@@ -50,8 +45,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$OWNER_NAME = 'userName' AND RDB$RELATION_NAME = '?'";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -73,14 +67,8 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
@@ -141,8 +129,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
                          true);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

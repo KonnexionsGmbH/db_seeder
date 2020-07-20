@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.generated.OracleSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -27,14 +28,8 @@ public class OracleSeeder extends AbstractJdbcSeeder {
   public OracleSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     dbms                  = Dbms.ORACLE;
@@ -45,8 +40,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -68,14 +62,8 @@ public class OracleSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
@@ -135,8 +123,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
                          config.getPassword());
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 }
