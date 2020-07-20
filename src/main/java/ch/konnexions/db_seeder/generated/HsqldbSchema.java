@@ -1,21 +1,19 @@
 /**
  * 
  */
-package ch.konnexions.db_seeder.jdbc.h2;
+package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
-import ch.konnexions.db_seeder.jdbc.JdbcSchema;
-
 /**
- * CREATE TABLE statements for a H2 DBMS.
+ * CREATE TABLE statements for a HyperSQL DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class H2Schema implements JdbcSchema {
+public final class HsqldbSchema implements JdbcSchema {
 
-  protected final static HashMap<String, String> createTableStmnts = createTableStmnts();
+  public final static HashMap<String, String> createTableStmnts = createTableStmnts();
 
   /**
    * Creates the CREATE TABLE statements.

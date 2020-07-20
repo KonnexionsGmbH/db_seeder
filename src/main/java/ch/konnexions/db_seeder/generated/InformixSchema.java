@@ -1,11 +1,9 @@
 /**
  * 
  */
-package ch.konnexions.db_seeder.jdbc.informix;
+package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
-
-import ch.konnexions.db_seeder.jdbc.JdbcSchema;
 
 /**
  * CREATE TABLE statements for a IBM Informix DBMS.
@@ -15,7 +13,7 @@ import ch.konnexions.db_seeder.jdbc.JdbcSchema;
  */
 public final class InformixSchema implements JdbcSchema {
 
-  protected final static HashMap<String, String> createTableStmnts = createTableStmnts();
+  public final static HashMap<String, String> createTableStmnts = createTableStmnts();
 
   /**
    * Creates the CREATE TABLE statements.

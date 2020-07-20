@@ -27,6 +27,7 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
+import ch.konnexions.db_seeder.generated.JdbcSchema;
 import ch.konnexions.db_seeder.utils.Config;
 import ch.konnexions.db_seeder.utils.Statistics;
 

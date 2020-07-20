@@ -1,11 +1,9 @@
 /**
  * 
  */
-package ch.konnexions.db_seeder.jdbc.sqlite;
+package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
-
-import ch.konnexions.db_seeder.jdbc.JdbcSchema;
 
 /**
  * CREATE TABLE statements for a SQLite DBMS.
@@ -15,7 +13,7 @@ import ch.konnexions.db_seeder.jdbc.JdbcSchema;
  */
 public final class SqliteSchema implements JdbcSchema {
 
-  protected final static HashMap<String, String> createTableStmnts = createTableStmnts();
+  public final static HashMap<String, String> createTableStmnts = createTableStmnts();
 
   /**
    * Creates the CREATE TABLE statements.

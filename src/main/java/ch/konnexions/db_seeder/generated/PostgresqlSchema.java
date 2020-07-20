@@ -1,21 +1,19 @@
 /**
  * 
  */
-package ch.konnexions.db_seeder.jdbc.ibmdb2;
+package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
-import ch.konnexions.db_seeder.jdbc.JdbcSchema;
-
 /**
- * CREATE TABLE statements for a IBM Db2 DBMS.
+ * CREATE TABLE statements for a PostgreSQL DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class Ibmdb2Schema implements JdbcSchema {
+public final class PostgresqlSchema implements JdbcSchema {
 
-  protected final static HashMap<String, String> createTableStmnts = createTableStmnts();
+  public final static HashMap<String, String> createTableStmnts = createTableStmnts();
 
   /**
    * Creates the CREATE TABLE statements.
@@ -27,13 +25,13 @@ public final class Ibmdb2Schema implements JdbcSchema {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE CITY (
-                       PK_CITY_ID          BIGINT       NOT NULL PRIMARY KEY,
+                       PK_CITY_ID          BIGINT         NOT NULL PRIMARY KEY,
                        FK_COUNTRY_STATE_ID BIGINT,
-                       CITY_MAP            BLOB,
-                       CREATED             TIMESTAMP    NOT NULL,
+                       CITY_MAP            BYTEA,
+                       CREATED             TIMESTAMP      NOT NULL,
                        MODIFIED            TIMESTAMP,
-                       NAME                VARCHAR(100) NOT NULL,
-                       CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID) ON DELETE CASCADE
+                       NAME                VARCHAR(100)   NOT NULL,
+                       FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
                    )
                    """);
 
@@ -47,7 +45,7 @@ public final class Ibmdb2Schema implements JdbcSchema {
                        ADDRESS2      VARCHAR(50),
                        ADDRESS3      VARCHAR(50),
                        CREATED       TIMESTAMP    NOT NULL,
-                       DIRECTIONS    CLOB,
+                       DIRECTIONS    TEXT,
                        EMAIL         VARCHAR(100),
                        FAX           VARCHAR(50),
                        MODIFIED      TIMESTAMP,
@@ -56,36 +54,36 @@ public final class Ibmdb2Schema implements JdbcSchema {
                        POSTAL_CODE   VARCHAR(50),
                        URL           VARCHAR(250),
                        VAT_ID_NUMBER VARCHAR(100),
-                       CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID) ON DELETE CASCADE
+                       FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID BIGINT       NOT NULL PRIMARY KEY,
-                       COUNTRY_MAP   BLOB,
-                       CREATED       TIMESTAMP    NOT NULL,
+                       PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
+                       COUNTRY_MAP   BYTEA,
+                       CREATED       TIMESTAMP      NOT NULL,
                        ISO3166       VARCHAR(50),
                        MODIFIED      TIMESTAMP,
-                       NAME          VARCHAR(100) NOT NULL UNIQUE
+                       NAME          VARCHAR(100)   NOT NULL UNIQUE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
                    CREATE TABLE COUNTRY_STATE (
-                       PK_COUNTRY_STATE_ID BIGINT       NOT NULL PRIMARY KEY,
-                       FK_COUNTRY_ID       BIGINT       NOT NULL,
-                       FK_TIMEZONE_ID      BIGINT       NOT NULL,
-                       COUNTRY_STATE_MAP   BLOB,
-                       CREATED             TIMESTAMP    NOT NULL,
+                       PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
+                       FK_COUNTRY_ID       BIGINT         NOT NULL,
+                       FK_TIMEZONE_ID      BIGINT         NOT NULL,
+                       COUNTRY_STATE_MAP   BYTEA,
+                       CREATED             TIMESTAMP      NOT NULL,
                        MODIFIED            TIMESTAMP,
-                       NAME                VARCHAR(100) NOT NULL,
+                       NAME                VARCHAR(100)   NOT NULL,
                        SYMBOL              VARCHAR(50),
-                       CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID)  ON DELETE CASCADE,
-                       CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID) ON DELETE CASCADE,
-                       CONSTRAINT UQ_COUNTRY_STATE          UNIQUE (FK_COUNTRY_ID,NAME)
+                       FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
+                       FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
+                       UNIQUE      (FK_COUNTRY_ID,NAME)
                    )
                    """);
 

@@ -1,4 +1,4 @@
-package ch.konnexions.db_seeder.jdbc;
+package ch.konnexions.db_seeder.generated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
