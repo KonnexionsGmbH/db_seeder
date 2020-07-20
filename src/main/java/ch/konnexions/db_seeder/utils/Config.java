@@ -17,8 +17,6 @@ import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
-
 /**
  * The configuration parameters for the supported database management systems. 
  * 
@@ -46,6 +44,7 @@ public class Config {
 
   private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
   private String                                                       fileConfigurationName;
+  private String                                                       fileJsonName;
   private String                                                       fileStatisticsDelimiter;
   private String                                                       fileStatisticsHeader;
   private String                                                       fileStatisticsName;
@@ -75,14 +74,8 @@ public class Config {
   public Config() {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     fileBasedConfigurationBuilder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class);
@@ -103,8 +96,7 @@ public class Config {
     validateProperties();
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -195,6 +187,13 @@ public class Config {
    */
   public final String getFileConfigurationName() {
     return fileConfigurationName;
+  }
+
+  /**
+   * @return the file JSON name
+   */
+  public final String getFileJsonName() {
+    return fileJsonName;
   }
 
   // File Statistics ---------------------------------------------------------
@@ -345,6 +344,7 @@ public class Config {
     encodingUtf_8           = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
 
     fileConfigurationName   = propertiesConfiguration.getString("db_seeder.file.configuration.name");
+    fileJsonName            = propertiesConfiguration.getString("db_seeder.file.json.name");
     fileStatisticsDelimiter = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
     fileStatisticsHeader    = propertiesConfiguration.getString("db_seeder.file.statistics.header");
     fileStatisticsName      = propertiesConfiguration.getString("db_seeder.file.statistics.name");
@@ -434,6 +434,14 @@ public class Config {
       fileConfigurationName = environmentVariables.get("DB_SEEDER_FILE_CONFIGURATION_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.configuration.name",
                                           fileConfigurationName);
+    }
+
+    // File Json ----------------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_JSON_NAME")) {
+      fileJsonName = environmentVariables.get("DB_SEEDER_FILE_JSON_NAME");
+      propertiesConfiguration.setProperty("db_seeder.file.json.name",
+                                          fileJsonName);
     }
 
     // File Statistics ---------------------------------------------------------
@@ -526,21 +534,14 @@ public class Config {
   }
 
   private final void validateProperties() {
-
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     boolean isChanged = false;
 
     //    if (benchmarkBatchSize < 0) {
-    //      logger.error(String.format(FORMAT_METHOD_NAME, methodName) 
+    //      logger.error( methodName) 
     //          + "Attention: The value of the configuration parameter 'benchmark.batch.size' ["
     //          + benchmarkBatchSize + "] must not be less than 0, the specified value is replaced by 0.");
     //      benchmarkBatchSize = 0;
@@ -558,8 +559,7 @@ public class Config {
       }
 
       if (isDebug) {
-        logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME,
-                                   methodName) + "- End");
+        logger.debug("End");
       }
     }
   }

@@ -334,7 +334,7 @@ echo "DBMS                              : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
 echo "IS_TRAVIS                         : $DB_SEEDER_IS_TRAVIS"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
-echo "RELEEASE                          : $DB_SEEDER_RELEASE"
+echo "RELEASE                           : $DB_SEEDER_RELEASE"
 echo "SETUP_DBMS                        : $DB_SEEDER_SETUP_DBMS"
 echo --------------------------------------------------------------------------------
 echo "ENCODING_ISO_8859_1               : $DB_SEEDER_ENCODING_ISO_8859_1"

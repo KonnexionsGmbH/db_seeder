@@ -27,14 +27,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
   public MysqlSeeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     dbms                  = Dbms.MYSQL;
@@ -49,8 +43,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
     urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -72,14 +65,8 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
@@ -136,8 +123,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
                          config.getPassword());
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

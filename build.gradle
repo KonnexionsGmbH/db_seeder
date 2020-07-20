@@ -61,13 +61,18 @@ task fatJar(type: Jar) {
     with jar
 }
 
-task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
-    group = "Konnexions"
-    description = 'Create the jar file and copy it to the lib directory'
+// exclude / fail / include / warn
+['fail'].each { strategy ->
+    task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
+        group = "Konnexions"
+        description = 'Create the jar file and copy it to the lib directory'
 
-    from "$buildDir/libs"
-    rename project.name + '-' + version + '-all.jar', project.name + '.jar'
-    into "lib"
+        from "$buildDir/libs"
+        rename project.name + '-' + version + '-all.jar', project.name + '.jar'
+        into "lib"
+
+        duplicatesStrategy = strategy
+    }
 }
 
 tasks.withType(JavaCompile).each {

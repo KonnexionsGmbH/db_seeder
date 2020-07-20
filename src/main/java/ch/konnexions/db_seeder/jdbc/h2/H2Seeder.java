@@ -26,14 +26,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
   public H2Seeder(String dbmsTickerSymbol) {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -41,8 +35,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -55,14 +48,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
   public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
     super(isClient);
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -70,8 +57,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -88,22 +74,14 @@ public class H2Seeder extends AbstractJdbcSeeder {
   }
 
   /**
-   * The common intialisation part.
+   * The common initialisation part.
    */
   private final void init() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
+      logger.debug("Start");
 
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- client  =" + isClient);
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- embedded=" + isEmbedded);
+      logger.debug("client  =" + isClient);
+      logger.debug("embedded=" + isEmbedded);
     }
 
     dbms               = Dbms.H2;
@@ -119,8 +97,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 
@@ -130,14 +107,8 @@ public class H2Seeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
@@ -212,8 +183,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

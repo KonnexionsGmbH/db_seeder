@@ -42,7 +42,6 @@ public abstract class AbstractDatabaseSeeder {
   public final static String      FORMAT_IDENTIFIER  = "%-10d";
 
   // protected final static String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
-  public final static String      FORMAT_METHOD_NAME = "%-25s";
   protected final static String   FORMAT_ROW_NO      = "%1$10d";
   protected final static String   FORMAT_TABLE_NAME  = "%-17s";
 
@@ -64,21 +63,14 @@ public abstract class AbstractDatabaseSeeder {
   public AbstractDatabaseSeeder() {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     dbmsValues = initDbmsValues();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
@@ -90,21 +82,14 @@ public abstract class AbstractDatabaseSeeder {
   public AbstractDatabaseSeeder(boolean isClient) {
     super();
 
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
     dbmsValues = initDbmsValues();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
