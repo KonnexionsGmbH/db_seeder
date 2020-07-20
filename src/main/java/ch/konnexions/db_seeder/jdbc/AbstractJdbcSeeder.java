@@ -20,10 +20,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-//import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -41,57 +38,41 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implements JdbcSchema {
 
-  private static final int   ENCODING_MAX       = 3;
-  private static Logger      logger             = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final int  ENCODING_MAX      = 3;
+  private static Logger     logger            = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  private final String       BLOB_FILE          = Paths.get("src",
-                                                            "main",
-                                                            "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]       BLOB_DATA_BYTES    = readBlobFile2Bytes();
-  private final String       CLOB_FILE          = Paths.get("src",
-                                                            "main",
-                                                            "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final String       CLOB_DATA          = readClobFile();
+  private final String      BLOB_FILE         = Paths.get("src",
+                                                          "main",
+                                                          "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]      BLOB_DATA_BYTES   = readBlobFile2Bytes();
+  private final String      CLOB_FILE         = Paths.get("src",
+                                                          "main",
+                                                          "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String      CLOB_DATA         = readClobFile();
 
-  private final Properties   COLUMN_NAME;
-  protected Connection       connection         = null;
+  private final Properties  COLUMN_NAME;
+  protected Connection      connection        = null;
 
-  protected String           driver             = "";
+  protected String          driver            = "";
 
-  protected String           dropTableStmnt     = "";
-  protected boolean          isClient           = true;
+  protected String          dropTableStmnt    = "";
+  protected boolean         isClient          = true;
 
-  protected boolean          isEmbedded         = !(isClient);
+  protected boolean         isEmbedded        = !(isClient);
 
-  private final int          MAX_ROW_SIZE       = Integer.MAX_VALUE;
+  private final int         MAX_ROW_SIZE      = Integer.MAX_VALUE;
 
-  private ArrayList<Object>  pkListCity         = new ArrayList<Object>();
-  private ArrayList<Object>  pkListCountry      = new ArrayList<Object>();
-  private ArrayList<Object>  pkListCountryState = new ArrayList<Object>();
-  private ArrayList<Object>  pkListTimezone     = new ArrayList<Object>();
-  private PreparedStatement  preparedStatement  = null;
+  private PreparedStatement preparedStatement = null;
 
-  private final int          RANDOM_NUMBER      = 4;
-  private Random             randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  private ResultSet          resultSet          = null;
+  private final int         RANDOM_NUMBER     = 4;
+  private Random            randomInt         = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private ResultSet         resultSet         = null;
 
-  protected Statement        statement          = null;
+  protected Statement       statement         = null;
 
-  private final List<String> TABLE_NAMES_CREATE = Arrays.asList(TABLE_NAME_COUNTRY,
-                                                                TABLE_NAME_TIMEZONE,
-                                                                TABLE_NAME_COUNTRY_STATE,
-                                                                TABLE_NAME_CITY,
-                                                                TABLE_NAME_COMPANY);
-
-  private final List<String> TABLE_NAMES_DROP   = Arrays.asList(TABLE_NAME_COMPANY,
-                                                                TABLE_NAME_CITY,
-                                                                TABLE_NAME_COUNTRY_STATE,
-                                                                TABLE_NAME_COUNTRY,
-                                                                TABLE_NAME_TIMEZONE);
-
-  protected String           url                = "";
-  protected String           urlBase            = "";
-  protected String           urlSetup           = "";
+  protected String          url               = "";
+  protected String          urlBase           = "";
+  protected String          urlSetup          = "";
 
   /**
    * Instantiates a new abstract JDBC seeder.
@@ -160,72 +141,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
       logger.debug(String.format(FORMAT_METHOD_NAME,
                                  methodName) + "- End   Constructor");
-    }
-  }
-
-  private final void addOptionalFk(final String tableName, final ArrayList<Object> fKList) {
-    switch (tableName) {
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCity == null) {
-        recreatePkList(TABLE_NAME_CITY);
-      }
-
-      addOptionalFk(TABLE_NAME_CITY,
-                    "PK_CITY_ID",
-                    pkListCity,
-                    "FK_COUNTRY_STATE_ID",
-                    fKList);
-      break;
-    }
-  }
-
-  private final void addOptionalFk(final String tableName,
-                                   final String pkcolumnName,
-                                   final ArrayList<Object> pkList,
-                                   final String fkColumnName,
-                                   final ArrayList<Object> fkList) {
-    int pkListSize = pkList.size();
-    if (pkListSize == 0) {
-      return;
-    }
-
-    int fkListSize = fkList.size();
-    if (fkListSize == 0) {
-      return;
-    }
-
-    pkListSize++;
-
-    try {
-      preparedStatement = connection.prepareStatement("UPDATE " + tableName + " SET " + fkColumnName + " = ? WHERE " + pkcolumnName + " = ?");
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    for (Object pkIndex : pkList) {
-      if (getRandomIntExcluded(pkListSize) % RANDOM_NUMBER == 0) {
-        continue;
-      }
-
-      try {
-        preparedStatement.setObject(1,
-                                    fkList.get(getRandomIntExcluded(fkListSize)));
-        preparedStatement.setObject(2,
-                                    pkIndex);
-
-        preparedStatement.executeUpdate();
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
-
-    try {
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
     }
   }
 
@@ -608,17 +523,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
     ArrayList<Object> pkList = new ArrayList<Object>();
 
-    retrieveFkList(tableName);
-    createFkList(tableName);
-
     autoIncrement = 0;
 
     createDataInsert(tableName,
                      rowCount,
                      pkList);
-
-    addOptionalFk(tableName,
-                  pkList);
 
     if (!(dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD)) {
       try {
@@ -742,76 +651,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
                                                                                                     tableName));
     };
-  }
-
-  private final void createFkList(final String tableName) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start [" + connection.toString() + "]");
-    }
-
-    switch (tableName) {
-    case TABLE_NAME_COMPANY:
-      if (pkListCity.size() == 0) {
-        createData(TABLE_NAME_CITY,
-                   config.getMaxRowCity());
-      }
-
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCountry.size() == 0) {
-        createData(TABLE_NAME_COUNTRY,
-                   config.getMaxRowCountry());
-      }
-
-      if (pkListTimezone.size() == 0) {
-        createData(TABLE_NAME_TIMEZONE,
-                   config.getMaxRowTimezone());
-      }
-
-      break;
-    }
-
-    if (TABLE_NAME_COMPANY.equals(tableName)) {
-      if (pkListCity.size() == 0) {
-        if (countData(TABLE_NAME_CITY) == 0) {
-          createData(TABLE_NAME_CITY,
-                     config.getMaxRowCity());
-        } else {
-          recreatePkList(TABLE_NAME_CITY);
-        }
-      }
-    }
-
-    if (TABLE_NAME_COUNTRY_STATE.equals(tableName)) {
-      if (pkListCountry.size() == 0) {
-        if (countData(TABLE_NAME_COUNTRY) == 0) {
-          createData(TABLE_NAME_COUNTRY,
-                     config.getMaxRowCountry());
-        } else {
-          recreatePkList(TABLE_NAME_COUNTRY);
-        }
-      }
-
-      if (pkListTimezone.size() == 0) {
-        if (countData(TABLE_NAME_TIMEZONE) == 0) {
-          createData(TABLE_NAME_TIMEZONE,
-                     config.getMaxRowTimezone());
-        } else {
-          recreatePkList(TABLE_NAME_TIMEZONE);
-        }
-      }
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
-    }
   }
 
   /**
@@ -1256,7 +1095,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
     prepStmntInsertColFKOpt(i++,
                             preparedStatement,
-                            pkListCountryState,
+                            pkLists.get(TABLE_NAME_COUNTRY_STATE),
                             rowCount);
     prepStmntInsertColBlobOpt(preparedStatement,
                               i++,
@@ -1278,7 +1117,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
       int i = 2;
 
       preparedStatement.setObject(i++,
-                                  pkListCity.get(getRandomIntExcluded(pkListCity.size())));
+                                  pkLists.get(TABLE_NAME_CITY).get(getRandomIntExcluded(pkListSizes.get(TABLE_NAME_CITY).intValue())));
       prepStmntInsertColFlagNY(preparedStatement,
                                i++,
                                rowCount);
@@ -1374,9 +1213,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
       int i = 2;
 
       preparedStatement.setObject(i++,
-                                  pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
+                                  pkLists.get(TABLE_NAME_COUNTRY).get(getRandomIntExcluded(pkListSizes.get(TABLE_NAME_COUNTRY).intValue())));
       preparedStatement.setObject(i++,
-                                  pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
+                                  pkLists.get(TABLE_NAME_TIMEZONE).get(getRandomIntExcluded(pkListSizes.get(TABLE_NAME_TIMEZONE).intValue())));
       prepStmntInsertColBlobOpt(preparedStatement,
                                 i++,
                                 rowCount);
@@ -1709,72 +1548,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
   //    }
   //  }
 
-  private final void recreatePkList(final String tableName) {
-    ArrayList<Object> pkList    = new ArrayList<Object>();
-
-    Statement         statement = null;
-
-    try {
-      statement = connection.createStatement();
-
-      resultSet = statement.executeQuery("SELECT PK_" + tableName + "_ID FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
-
-      while (resultSet.next()) {
-        pkList.add(resultSet.getInt(1));
-      }
-
-      resultSet.close();
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    savePkList(tableName,
-               pkList);
-  }
-
-  private final void retrieveFkList(final String tableName) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- Start");
-    }
-
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      if (pkListCountryState.size() == 0) {
-        recreatePkList(TABLE_NAME_COUNTRY_STATE);
-      }
-
-      break;
-    case TABLE_NAME_COMPANY:
-      if (pkListCity.size() == 0) {
-        recreatePkList(TABLE_NAME_CITY);
-      }
-
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCountry.size() == 0) {
-        recreatePkList(TABLE_NAME_COUNTRY);
-      }
-
-      if (pkListTimezone.size() == 0) {
-        recreatePkList(TABLE_NAME_TIMEZONE);
-      }
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME,
-                                 methodName) + "- End");
-    }
-  }
-
   private final void savePkList(final String tableName, final ArrayList<Object> pkList) {
     String methodName = null;
 
@@ -1786,25 +1559,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
                                  methodName) + "- Start");
     }
 
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      pkListCity = pkList;
-      break;
-    case TABLE_NAME_COMPANY:
-      break;
-    case TABLE_NAME_COUNTRY:
-      pkListCountry = pkList;
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      pkListCountryState = pkList;
-      break;
-    case TABLE_NAME_TIMEZONE:
-      pkListTimezone = pkList;
-      break;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
-                                                                                           tableName));
-    }
+    pkLists.put(tableName,
+                pkList);
+    pkListSizes.put(tableName,
+                    pkList.size());
 
     if (isDebug) {
       logger.debug(String.format(FORMAT_METHOD_NAME,
