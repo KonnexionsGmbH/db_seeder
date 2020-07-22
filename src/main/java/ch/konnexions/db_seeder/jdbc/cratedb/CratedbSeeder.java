@@ -32,7 +32,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.CRATEDB;
+    dbmsEnum              = DbmsEnum.CRATEDB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";

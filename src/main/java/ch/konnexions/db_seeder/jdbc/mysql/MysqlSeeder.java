@@ -32,7 +32,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.MYSQL;
+    dbmsEnum              = DbmsEnum.MYSQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.mysql.cj.jdbc.Driver";

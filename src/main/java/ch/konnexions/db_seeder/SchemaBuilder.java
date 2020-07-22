@@ -59,7 +59,7 @@ public class SchemaBuilder {
     }
 
     new GenerateSchema().generateSchema(release,
-                                      fileJsonName);
+                                        fileJsonName);
 
     logger.info("End");
 

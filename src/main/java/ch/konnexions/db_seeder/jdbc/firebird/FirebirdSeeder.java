@@ -32,7 +32,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.FIREBIRD;
+    dbmsEnum              = DbmsEnum.FIREBIRD;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "org.firebirdsql.jdbc.FBDriver";

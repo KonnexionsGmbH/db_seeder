@@ -38,7 +38,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.POSTGRESQL;
+    dbmsEnum              = DbmsEnum.POSTGRESQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";

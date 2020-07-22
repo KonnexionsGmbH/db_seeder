@@ -85,7 +85,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbmsEnum               = DbmsEnum.H2;
+    dbmsEnum           = DbmsEnum.H2;
 
     driver             = "org.h2.Driver";
 

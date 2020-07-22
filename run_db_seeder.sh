@@ -86,11 +86,7 @@ if [ -z "$DB_SEEDER_FILE_STATISTICS_NAME" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_local.tsv
 fi 
 
-export DB_SEEDER_MAX_ROW_CITY=1800
-export DB_SEEDER_MAX_ROW_COMPANY=5400
-export DB_SEEDER_MAX_ROW_COUNTRY=200
-export DB_SEEDER_MAX_ROW_COUNTRY_STATE=600
-export DB_SEEDER_MAX_ROW_TIMEZONE=11
+export DB_SEEDER_DEFAULT_ROW_SIZE=1000
 
 if [ "$DB_SEEDER_DBMS" = "cratedb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost

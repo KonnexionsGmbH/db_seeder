@@ -32,7 +32,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.MARIADB;
+    dbmsEnum              = DbmsEnum.MARIADB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "`";

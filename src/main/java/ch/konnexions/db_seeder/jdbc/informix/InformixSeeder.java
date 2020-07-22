@@ -32,7 +32,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.INFORMIX;
+    dbmsEnum              = DbmsEnum.INFORMIX;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.informix.jdbc.IfxDriver";

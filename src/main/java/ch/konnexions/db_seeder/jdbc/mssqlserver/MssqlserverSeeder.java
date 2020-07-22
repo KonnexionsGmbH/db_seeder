@@ -32,7 +32,7 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.MSSQLSERVER;
+    dbmsEnum              = DbmsEnum.MSSQLSERVER;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";

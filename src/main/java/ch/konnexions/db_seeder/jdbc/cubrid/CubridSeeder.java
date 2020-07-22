@@ -32,7 +32,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.CUBRID;
+    dbmsEnum              = DbmsEnum.CUBRID;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "cubrid.jdbc.driver.CUBRIDDriver";

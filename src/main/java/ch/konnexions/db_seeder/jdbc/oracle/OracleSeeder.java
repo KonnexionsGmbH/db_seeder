@@ -32,7 +32,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.ORACLE;
+    dbmsEnum              = DbmsEnum.ORACLE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";

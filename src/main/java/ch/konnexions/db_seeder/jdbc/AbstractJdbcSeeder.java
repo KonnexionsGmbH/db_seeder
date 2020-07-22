@@ -442,12 +442,6 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
     tableName = tableName.toUpperCase();
 
-    if (rowCount < 1) {
-      rowCount = getDefaultRowSize(tableName);
-    } else if (rowCount > MAX_ROW_SIZE) {
-      rowCount = MAX_ROW_SIZE;
-    }
-
     try {
       statement = connection.createStatement();
 
@@ -592,15 +586,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
   protected abstract String createDdlStmnt(String tableName);
 
   private final String createDmlStmnt(final String tableName) {
-    return "pk_" + tableName.toLowerCase() + "_id," + switch (tableName) {
-    case TABLE_NAME_CITY -> "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?,?";
-    case TABLE_NAME_COMPANY -> "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
-    case TABLE_NAME_COUNTRY -> "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?,?";
-    case TABLE_NAME_COUNTRY_STATE -> "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?,?";
-    case TABLE_NAME_TIMEZONE -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?,?";
-    default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
-                                                                                                    tableName));
-    };
+    return "pk_" + tableName.toLowerCase() + "_id," + dmlStatements.get(tableName);
   }
 
   /**
@@ -734,7 +720,8 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
       resultSet.close();
 
       if (count > 0) {
-        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER ? "DATABANK" : "DATABASE") + " " + databaseName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
+        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER ? "DATABANK" : "DATABASE") + " " + databaseName + (cascadeRestrict != null ? " " + cascadeRestrict
+            : "");
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -891,40 +878,16 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
                                                                                                    rowNo);
   }
 
-  private final int getDefaultRowSize(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return 1200;
-    case TABLE_NAME_COMPANY:
-      return 6000;
-    case TABLE_NAME_COUNTRY:
-      return 100;
-    case TABLE_NAME_COUNTRY_STATE:
-      return 400;
-    case TABLE_NAME_TIMEZONE:
-      return 11;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
-                                                                                           tableName));
-    }
-  }
-
   private final int getMaxRowSize(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return config.getMaxRowCity();
-    case TABLE_NAME_COMPANY:
-      return config.getMaxRowCompany();
-    case TABLE_NAME_COUNTRY:
-      return config.getMaxRowCountry();
-    case TABLE_NAME_COUNTRY_STATE:
-      return config.getMaxRowCountryState();
-    case TABLE_NAME_TIMEZONE:
-      return config.getMaxRowTimezone();
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
-                                                                                           tableName));
+    int maxRowSize = maxRowSizes.get(tableName).intValue();
+
+    if (maxRowSize < 1) {
+      return config.getDefaultRowSize();
+    } else if (maxRowSize > MAX_ROW_SIZE) {
+      return MAX_ROW_SIZE;
     }
+
+    return maxRowSize;
   }
 
   private final int getRandomIntExcluded(final int upperLimit) {

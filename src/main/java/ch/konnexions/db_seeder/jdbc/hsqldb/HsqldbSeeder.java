@@ -86,7 +86,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbmsEnum               = DbmsEnum.HSQLDB;
+    dbmsEnum           = DbmsEnum.HSQLDB;
 
     driver             = "org.hsqldb.jdbc.JDBCDriver";
 

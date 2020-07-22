@@ -32,7 +32,7 @@ public class MimerSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.MIMER;
+    dbmsEnum              = DbmsEnum.MIMER;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.mimer.jdbc.Driver";

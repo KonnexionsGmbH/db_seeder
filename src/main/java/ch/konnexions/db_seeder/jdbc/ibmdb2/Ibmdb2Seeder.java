@@ -32,7 +32,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.IBMDB2;
+    dbmsEnum              = DbmsEnum.IBMDB2;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";

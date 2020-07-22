@@ -38,6 +38,7 @@ public class Config {
 
   private String                                                       database;
   private String                                                       databaseSys;
+  private int                                                          defaultRowSize;
 
   private boolean                                                      encodingIso_8859_1;
   private boolean                                                      encodingUtf_8;
@@ -52,12 +53,6 @@ public class Config {
   private final boolean                                                isDebug    = logger.isDebugEnabled();
 
   private ArrayList<String>                                            keysSorted = new ArrayList<>();
-
-  private int                                                          maxRowCity;
-  private int                                                          maxRowCompany;
-  private int                                                          maxRowCountry;
-  private int                                                          maxRowCountryState;
-  private int                                                          maxRowTimezone;
 
   private String                                                       password;
   private String                                                       passwordSys;
@@ -164,6 +159,15 @@ public class Config {
     return databaseSys;
   }
 
+  // DEFAULT (rows) ----------------------------------------------------------
+
+  /**
+   * @return the default number of rows to be generated for database table
+   */
+  public final int getDefaultRowSize() {
+    return defaultRowSize;
+  }
+
   // Encoding ----------------------------------------------------------------
 
   /**
@@ -230,43 +234,6 @@ public class Config {
     Collections.sort(keysSorted);
 
     return keysSorted;
-  }
-
-  // MAX (rows) --------------------------------------------------------------
-
-  /**
-   * @return the maximum number of rows to be generated for database table CITY
-   */
-  public final int getMaxRowCity() {
-    return maxRowCity;
-  }
-
-  /**
-   * @return the maximum number of rows to be generated for database table COMPANY
-   */
-  public final int getMaxRowCompany() {
-    return maxRowCompany;
-  }
-
-  /**
-   * @return the maximum number of rows to be generated for database table COUNTRY
-   */
-  public final int getMaxRowCountry() {
-    return maxRowCountry;
-  }
-
-  /**
-   * @return the maximum number of rows to be generated for database table COUNTRY_STATE
-   */
-  public final int getMaxRowCountryState() {
-    return maxRowCountryState;
-  }
-
-  /**
-   * @return the maximum number of rows to be generated for database table COUNTRY
-   */
-  public final int getMaxRowTimezone() {
-    return maxRowTimezone;
   }
 
   // -------------------------------------------------------------------------
@@ -339,6 +306,7 @@ public class Config {
 
     database                = propertiesConfiguration.getString("db_seeder.database");
     databaseSys             = propertiesConfiguration.getString("db_seeder.database.sys");
+    defaultRowSize          = propertiesConfiguration.getInt("db_seeder.default.row.size");
 
     encodingIso_8859_1      = propertiesConfiguration.getBoolean("db_seeder.encoding.iso_8859_1");
     encodingUtf_8           = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
@@ -348,12 +316,6 @@ public class Config {
     fileStatisticsDelimiter = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
     fileStatisticsHeader    = propertiesConfiguration.getString("db_seeder.file.statistics.header");
     fileStatisticsName      = propertiesConfiguration.getString("db_seeder.file.statistics.name");
-
-    maxRowCity              = propertiesConfiguration.getInt("db_seeder.max.row.city");
-    maxRowCompany           = propertiesConfiguration.getInt("db_seeder.max.row.company");
-    maxRowCountry           = propertiesConfiguration.getInt("db_seeder.max.row.country");
-    maxRowCountryState      = propertiesConfiguration.getInt("db_seeder.max.row.country_state");
-    maxRowTimezone          = propertiesConfiguration.getInt("db_seeder.max.row.timezone");
 
     password                = propertiesConfiguration.getString("db_seeder.password");
     passwordSys             = propertiesConfiguration.getString("db_seeder.password.sys");
@@ -414,6 +376,14 @@ public class Config {
                                           databaseSys);
     }
 
+    // DEFAULT (rows) ----------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_DEFAULT_ROW_SIZE")) {
+      defaultRowSize = Integer.parseInt(environmentVariables.get("DB_SEEDER_DEFAULT_ROW_SIZE"));
+      propertiesConfiguration.setProperty("db_seeder.default.row.size",
+                                          defaultRowSize);
+    }
+
     // Encoding ----------------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_ENCODING_ISO_8859_1")) {
@@ -462,38 +432,6 @@ public class Config {
       fileStatisticsName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.statistics.name",
                                           fileStatisticsName);
-    }
-
-    // MAX (rows) --------------------------------------------------------------
-
-    if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_CITY")) {
-      maxRowCity = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_CITY"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.city",
-                                          maxRowCity);
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_COMPANY")) {
-      maxRowCompany = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_COMPANY"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.company",
-                                          maxRowCompany);
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_COUNTRY")) {
-      maxRowCountry = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_COUNTRY"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.country",
-                                          maxRowCountry);
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_COUNTRY_STATE")) {
-      maxRowCountryState = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_COUNTRY_STATE"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.country_state",
-                                          maxRowCountryState);
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_MAX_ROW_TIMEZONE")) {
-      maxRowTimezone = Integer.parseInt(environmentVariables.get("DB_SEEDER_MAX_ROW_TIMEZONE"));
-      propertiesConfiguration.setProperty("db_seeder.max.row.timezone",
-                                          maxRowTimezone);
     }
 
     // PASSWORD ---------------------------------------------------------

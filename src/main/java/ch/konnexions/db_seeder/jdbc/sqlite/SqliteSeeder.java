@@ -32,7 +32,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum                  = DbmsEnum.SQLITE;
+    dbmsEnum              = DbmsEnum.SQLITE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";
