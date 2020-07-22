@@ -26,8 +26,7 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.BaseSchema;
-import ch.konnexions.db_seeder.utils.AbstractDatabaseSeeder;
+import ch.konnexions.db_seeder.generated.AbstractSchema;
 import ch.konnexions.db_seeder.utils.Config;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 import ch.konnexions.db_seeder.utils.Statistics;
@@ -38,7 +37,7 @@ import ch.konnexions.db_seeder.utils.Statistics;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implements BaseSchema {
+public abstract class AbstractJdbcSeeder extends AbstractSchema {
 
   private static final int  ENCODING_MAX      = 3;
   private static Logger     logger            = Logger.getLogger(AbstractJdbcSeeder.class);

@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class DerbySchema implements BaseSchema {
+public abstract class DerbySchema extends AbstractSchema {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
@@ -100,6 +100,14 @@ public final class DerbySchema implements BaseSchema {
                    """);
 
     return statements;
+  }
+
+  public DerbySchema() {
+    super();
+  }
+
+  public DerbySchema(boolean isClient) {
+    super();
   }
 
 }

@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class MariadbSchema implements BaseSchema {
+public final class MariadbSchema extends AbstractSchema {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 

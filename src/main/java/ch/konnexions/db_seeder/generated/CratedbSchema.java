@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class CratedbSchema implements BaseSchema {
+public abstract class CratedbSchema extends AbstractSchema {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 

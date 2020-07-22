@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class H2Schema implements BaseSchema {
+public abstract class H2Schema extends AbstractSchema {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
@@ -100,6 +100,14 @@ public final class H2Schema implements BaseSchema {
                    """);
 
     return statements;
+  }
+
+  public H2Schema() {
+    super();
+  }
+
+  public H2Schema(boolean isClient) {
+    super();
   }
 
 }

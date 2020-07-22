@@ -25,12 +25,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import ch.konnexions.db_seeder.AbstractDatabaseSeeder.DbmsEnum;
 import ch.konnexions.db_seeder.schema.SchemaPojo;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column.ColumnConstraint;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
-import ch.konnexions.db_seeder.utils.AbstractDatabaseSeeder.DbmsEnum;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
