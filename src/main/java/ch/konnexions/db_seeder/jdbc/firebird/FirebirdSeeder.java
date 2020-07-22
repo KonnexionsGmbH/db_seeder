@@ -32,7 +32,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.FIREBIRD;
+    dbmsEnum                  = DbmsEnum.FIREBIRD;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "org.firebirdsql.jdbc.FBDriver";
@@ -63,7 +63,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

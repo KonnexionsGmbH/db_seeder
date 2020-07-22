@@ -540,14 +540,15 @@ public class Config {
 
     boolean isChanged = false;
 
-    //    if (benchmarkBatchSize < 0) {
-    //      logger.error( methodName) 
-    //          + "Attention: The value of the configuration parameter 'benchmark.batch.size' ["
-    //          + benchmarkBatchSize + "] must not be less than 0, the specified value is replaced by 0.");
-    //      benchmarkBatchSize = 0;
-    //      propertiesConfiguration.setProperty("benchmark.batch.size", benchmarkBatchSize);
-    //      isChanged = true;
-    //    }
+    //        if (benchmarkBatchSize < 0) {
+    //          MessageHandling.abortProgram(logger,
+    //          logger.warning( 
+    //              "Attention: The value of the configuration parameter 'benchmark.batch.size' ["
+    //              + benchmarkBatchSize + "] must not be less than 0, the specified value is replaced by 0.");
+    //          benchmarkBatchSize = 0;
+    //          propertiesConfiguration.setProperty("benchmark.batch.size", benchmarkBatchSize);
+    //          isChanged = true;
+    //        }
 
     if (isChanged) {
       try {

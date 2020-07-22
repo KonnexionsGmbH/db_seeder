@@ -135,8 +135,8 @@ public class Statistics {
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 
       if (!(isFileExisting)) {
-        logger.error("fatal error: program abort =====> statistics file \"" + statisticsName + "\" is missing <=====");
-        System.exit(1);
+        MessageHandling.abortProgram(logger,
+                                     "Statistics file \"" + statisticsName + "\" is missing");
       }
 
       BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, true));

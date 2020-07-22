@@ -22,7 +22,7 @@ echo.
 echo Please wait ...
 echo.
 
-> run_db_seeder_generate_schema.log 2>&1 (
+REM > run_db_seeder_generate_schema.log 2>&1 (
 
     echo ================================================================================
     echo Start %0
@@ -38,14 +38,15 @@ echo.
     echo:| TIME
     echo ================================================================================
 
-    java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaGenerator %DB_SEEDER_RELEASE%
-    if %ERRORLEVEL% NEQ 0 (
-        exit %ERRORLEVEL%
-    )
+    java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
+rem wwe
+rem if %ERRORLEVEL% NEQ 0 (
+rem     exit %ERRORLEVEL%
+rem )
     
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo --------------------------------------------------------------------------------
     echo End   %0
     echo ================================================================================
-)
+REM )

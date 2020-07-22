@@ -32,7 +32,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.IBMDB2;
+    dbmsEnum                  = DbmsEnum.IBMDB2;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";
@@ -60,7 +60,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

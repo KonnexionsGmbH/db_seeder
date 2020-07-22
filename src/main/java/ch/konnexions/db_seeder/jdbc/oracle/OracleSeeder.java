@@ -32,7 +32,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.ORACLE;
+    dbmsEnum                  = DbmsEnum.ORACLE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";
@@ -58,7 +58,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

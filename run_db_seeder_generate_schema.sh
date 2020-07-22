@@ -31,7 +31,7 @@ echo ---------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-if ! (java --enable-preview -cp $DB_SEEDER_JAVA_CLASSPATH ch.konnexions.db_seeder.SchemaGenerator $DB_SEEDER_RELEASE); then
+if ! (java --enable-preview -cp $DB_SEEDER_JAVA_CLASSPATH ch.konnexions.db_seeder.SchemaBuilder $DB_SEEDER_RELEASE); then
     exit 255
 fi    
 

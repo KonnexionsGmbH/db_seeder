@@ -26,9 +26,10 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
-import ch.konnexions.db_seeder.generated.JdbcSchema;
+import ch.konnexions.db_seeder.generated.BaseSchema;
+import ch.konnexions.db_seeder.utils.AbstractDatabaseSeeder;
 import ch.konnexions.db_seeder.utils.Config;
+import ch.konnexions.db_seeder.utils.MessageHandling;
 import ch.konnexions.db_seeder.utils.Statistics;
 
 /**
@@ -37,7 +38,7 @@ import ch.konnexions.db_seeder.utils.Statistics;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implements JdbcSchema {
+public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implements BaseSchema {
 
   private static final int  ENCODING_MAX      = 3;
   private static Logger     logger            = Logger.getLogger(AbstractJdbcSeeder.class);
@@ -407,7 +408,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
   }
 
   /**
-   * Create the test data for all database tables.
+   * Create the test data for all database valTableNames.
    */
   public final void createData() {
     if (isDebug) {
@@ -483,7 +484,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
                      rowCount,
                      pkList);
 
-    if (!(dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD)) {
+    if (!(dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.FIREBIRD)) {
       try {
         connection.commit();
       } catch (SQLException e) {
@@ -563,7 +564,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
       System.exit(1);
     }
 
-    if (dbms == Dbms.CRATEDB) {
+    if (dbmsEnum == DbmsEnum.CRATEDB) {
       try {
         statement = connection.createStatement();
 
@@ -631,7 +632,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
   }
 
   /**
-   * Drop all tables based on q metadata query.
+   * Drop all valTableNames based on q metadata query.
    *
    * @param sqlStmnt the SQL statement
    */
@@ -643,7 +644,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
     try {
       for (String tableName : TABLE_NAMES_DROP) {
         String queryStmnt = sqlStmnt.replace("?",
-                                             dbms == Dbms.CRATEDB ? tableName.toLowerCase() : tableName.toUpperCase());
+                                             dbmsEnum == DbmsEnum.CRATEDB ? tableName.toLowerCase() : tableName.toUpperCase());
 
         if (isDebug) {
           logger.debug("next SQL statement=" + queryStmnt);
@@ -675,7 +676,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
   }
 
   /**
-   * Drop all existing tables.
+   * Drop all existing valTableNames.
    */
   protected final void dropAllTablesIfExists() {
     if (isDebug) {
@@ -733,7 +734,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
       resultSet.close();
 
       if (count > 0) {
-        sqlStmnt = "DROP " + (dbms == Dbms.MIMER ? "DATABANK" : "DATABASE") + " " + databaseName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
+        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER ? "DATABANK" : "DATABASE") + " " + databaseName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -831,7 +832,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
       resultSet.close();
 
       if (count > 0) {
-        sqlStmnt = "DROP " + (dbms == Dbms.MIMER ? "IDENT" : "USER") + "  " + userName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
+        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER ? "IDENT" : "USER") + "  " + userName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -1176,11 +1177,11 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
   private final void prepStmntInsertColBlobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
-      if (dbms == Dbms.CRATEDB) {
+      if (dbmsEnum == DbmsEnum.CRATEDB) {
         preparedStatement.setNull(columnPos,
                                   Types.NULL);
       } else if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        if (dbms == Dbms.POSTGRESQL) {
+        if (dbmsEnum == DbmsEnum.POSTGRESQL) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
         } else {
@@ -1211,7 +1212,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
   private final void prepStmntInsertColClobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        if (dbms == Dbms.CRATEDB) {
+        if (dbmsEnum == DbmsEnum.CRATEDB) {
           preparedStatement.setNull(columnPos,
                                     Types.VARCHAR);
         } else {
@@ -1287,7 +1288,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
   private final void prepStmntInsertColString(final PreparedStatement preparedStatement, final int columnPos, final String columnName, final int rowNo) {
     try {
-      if (dbms == Dbms.FIREBIRD || dbms == Dbms.MARIADB || dbms == Dbms.MSSQLSERVER || dbms == Dbms.ORACLE) {
+      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
         preparedStatement.setNString(columnPos,
                                      getColumnContent(columnName,
                                                       rowNo));
@@ -1435,7 +1436,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   protected abstract void setupDatabase();
 
@@ -1499,9 +1500,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
       encodingType = "UTF_8";
       break;
     default:
-      logger.error("database table " + String.format(FORMAT_TABLE_NAME,
-                                                     tableName) + " - wrong encoding key : " + rowNo);
-      System.exit(1);
+      MessageHandling.abortProgram(logger,
+                                   "Database table " + String.format(FORMAT_TABLE_NAME,
+                                                                     tableName) + " - wrong encoding key : " + rowNo);
     }
 
     try {
@@ -1519,10 +1520,12 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
 
       switch (count) {
       case 0:
-        logger.error("database table " + String.format(FORMAT_TABLE_NAME,
-                                                       tableName) + " - no rows generated - comparison value='" + getColumnContent(columnName + "_",
-                                                                                                                                   rowNo) + "'");
-        System.exit(1);
+        MessageHandling.abortProgram(logger,
+                                     "Database table " + String.format(FORMAT_TABLE_NAME,
+                                                                       tableName) + " - no rows generated - comparison value='" + getColumnContent(columnName
+                                                                           + "_",
+                                                                                                                                                   rowNo)
+                                         + "'");
       case 1:
         if (isDebug) {
           logger.debug("database table " + String.format(FORMAT_TABLE_NAME,
@@ -1530,9 +1533,9 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder implemen
         }
         break;
       default:
-        logger.error("database table " + String.format(FORMAT_TABLE_NAME,
-                                                       tableName) + " - too many hits: " + count);
-        System.exit(1);
+        MessageHandling.abortProgram(logger,
+                                     "Database table " + String.format(FORMAT_TABLE_NAME,
+                                                                       tableName) + " - too many hits: " + count);
       }
 
       resultSet.close();

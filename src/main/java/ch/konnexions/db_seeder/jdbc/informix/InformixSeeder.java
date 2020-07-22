@@ -32,7 +32,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.INFORMIX;
+    dbmsEnum                  = DbmsEnum.INFORMIX;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.informix.jdbc.IfxDriver";
@@ -64,7 +64,7 @@ public class InformixSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

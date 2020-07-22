@@ -32,7 +32,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.MYSQL;
+    dbmsEnum                  = DbmsEnum.MYSQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.mysql.cj.jdbc.Driver";
@@ -62,7 +62,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

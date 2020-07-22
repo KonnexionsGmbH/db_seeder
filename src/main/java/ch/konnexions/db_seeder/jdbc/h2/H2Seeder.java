@@ -85,7 +85,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbms               = Dbms.H2;
+    dbmsEnum               = DbmsEnum.H2;
 
     driver             = "org.h2.Driver";
 
@@ -104,7 +104,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

@@ -32,7 +32,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.CRATEDB;
+    dbmsEnum                  = DbmsEnum.CRATEDB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     tableNameDelimiter    = "";
@@ -62,7 +62,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

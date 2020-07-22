@@ -11,15 +11,15 @@ import java.util.HashMap;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class FirebirdSchema implements JdbcSchema {
+public final class FirebirdSchema implements BaseSchema {
 
-  public final static HashMap<String, String> createTableStmnts = createTableStmnts();
+  public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
   /**
    * Creates the CREATE TABLE statements.
    */
   @SuppressWarnings("preview")
-  private final static HashMap<String, String> createTableStmnts() {
+  private static final HashMap<String, String> createTableStmnts() {
     HashMap<String, String> statements = new HashMap<String, String>();
 
     statements.put(TABLE_NAME_CITY,

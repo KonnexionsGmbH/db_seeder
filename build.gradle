@@ -9,12 +9,17 @@ version '1.15.11'
 repositories {
     jcenter()
     mavenCentral()
+    maven { 
+        url 'https://jitpack.io' 
+    }
     maven {
-        url "http://maven.cubrid.org/"
+        url "http://maven.cubrid.org"
     }
 }
 
 dependencies {
+    implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.12.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.h2database:h2:1.4.200'
     implementation 'com.ibm.db2:jcc:11.5.4.0'
     implementation 'com.ibm.informix:jdbc:4.50.4.1'
@@ -48,6 +53,7 @@ jar {
 task fatJar(type: Jar) {
     group = "Konnexions"
     description = 'Create a jar file including all dependencies'
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE // allow duplicates
 
     manifest.from jar.manifest
     archiveClassifier  = 'all'
@@ -61,18 +67,13 @@ task fatJar(type: Jar) {
     with jar
 }
 
-// exclude / fail / include / warn
-['fail'].each { strategy ->
-    task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
-        group = "Konnexions"
-        description = 'Create the jar file and copy it to the lib directory'
+task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
+    group = "Konnexions"
+    description = 'Create the jar file and copy it to the lib directory'
 
-        from "$buildDir/libs"
-        rename project.name + '-' + version + '-all.jar', project.name + '.jar'
-        into "lib"
-
-        duplicatesStrategy = strategy
-    }
+    from "$buildDir/libs"
+    rename project.name + '-' + version + '-all.jar', project.name + '.jar'
+    into "lib"
 }
 
 tasks.withType(JavaCompile).each {

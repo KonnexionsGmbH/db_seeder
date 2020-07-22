@@ -32,7 +32,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.CUBRID;
+    dbmsEnum                  = DbmsEnum.CUBRID;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "cubrid.jdbc.driver.CUBRIDDriver";
@@ -62,7 +62,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

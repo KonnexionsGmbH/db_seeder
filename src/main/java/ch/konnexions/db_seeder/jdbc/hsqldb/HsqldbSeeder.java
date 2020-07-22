@@ -86,7 +86,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbms               = Dbms.HSQLDB;
+    dbmsEnum               = DbmsEnum.HSQLDB;
 
     driver             = "org.hsqldb.jdbc.JDBCDriver";
 
@@ -106,7 +106,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

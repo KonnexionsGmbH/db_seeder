@@ -86,7 +86,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbms = Dbms.DERBY;
+    dbmsEnum = DbmsEnum.DERBY;
 
     if (isClient) {
       driver  = "org.apache.derby.jdbc.ClientDriver";
@@ -110,7 +110,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {
