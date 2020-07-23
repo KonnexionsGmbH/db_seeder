@@ -14,18 +14,18 @@ public class SchemaPojo {
    *  The table object.
    */
   @SuppressWarnings("ucd")
-  public class Table {
+  public static class Table {
 
     /*
      *  The column object.
      */
     @SuppressWarnings("ucd")
-    public class Column {
+    public static class Column {
 
       /*
        *  The column constraint object.
        */
-      public class ColumnConstraint {
+      public static class ColumnConstraint {
 
         private String constraintType;
 
@@ -111,7 +111,7 @@ public class SchemaPojo {
     /*
      *  The table constraint object.
      */
-    public class TableConstraint {
+    public static class TableConstraint {
 
       private List<String> columns          = null;
       private String       constraintType;

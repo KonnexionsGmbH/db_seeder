@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ch.konnexions.db_seeder;
 
 import java.io.File;

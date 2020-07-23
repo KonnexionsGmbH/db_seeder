@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mssqlserver;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.MssqlserverSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMssqlserverSchema;
 
 /**
  * Test Data Generator for a Microsoft SQL Server DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MssqlserverSeeder extends AbstractJdbcSeeder {
+public class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
 
-  private static Logger logger = Logger.getLogger(MssqlserverSeeder.class);
+  private static final Logger logger = Logger.getLogger(MssqlserverSeeder.class);
 
   /**
    * Instantiates a new Microsoft SQL Server seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MssqlserverSeeder(String dbmsTickerSymbol) {
     super();
@@ -55,7 +51,7 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return MssqlserverSchema.createTableStmnts.get(tableName);
+    return AbstractGenMssqlserverSchema.createTableStmnts.get(tableName);
   }
 
   /**

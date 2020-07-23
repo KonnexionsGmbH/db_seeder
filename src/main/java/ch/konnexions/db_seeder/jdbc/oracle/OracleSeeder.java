@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.oracle;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.OracleSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenOracleSchema;
 
 /**
  * Test Data Generator for an Oracle DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class OracleSeeder extends AbstractJdbcSeeder {
+public class OracleSeeder extends AbstractGenOracleSchema {
 
-  private static Logger logger = Logger.getLogger(OracleSeeder.class);
+  private static final Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
    * Instantiates a new Oracle Database seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public OracleSeeder(String dbmsTickerSymbol) {
     super();
@@ -53,7 +49,7 @@ public class OracleSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return OracleSchema.createTableStmnts.get(tableName);
+    return AbstractGenOracleSchema.createTableStmnts.get(tableName);
   }
 
   /**

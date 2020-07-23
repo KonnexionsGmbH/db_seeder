@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.firebird;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.FirebirdSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
 
 /**
  * Test Data Generator for a Firebird DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class FirebirdSeeder extends AbstractJdbcSeeder {
+public class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
-  private static Logger logger = Logger.getLogger(FirebirdSeeder.class);
+  private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
 
   /**
    * Instantiates a new Firebird Server seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public FirebirdSeeder(String dbmsTickerSymbol) {
     super();
@@ -58,7 +54,7 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return FirebirdSchema.createTableStmnts.get(tableName);
+    return AbstractGenFirebirdSchema.createTableStmnts.get(tableName);
   }
 
   /**

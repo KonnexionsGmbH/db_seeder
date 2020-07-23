@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.cubrid;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.CubridSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
 
 /**
  * Test Data Generator for a CUBRID DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class CubridSeeder extends AbstractJdbcSeeder {
+public class CubridSeeder extends AbstractGenCubridSchema {
 
-  private static Logger logger = Logger.getLogger(CubridSeeder.class);
+  private static final Logger logger = Logger.getLogger(CubridSeeder.class);
 
   /**
    * Instantiates a new CUBRID seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public CubridSeeder(String dbmsTickerSymbol) {
     super();
@@ -57,7 +53,7 @@ public class CubridSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return CubridSchema.createTableStmnts.get(tableName);
+    return AbstractGenCubridSchema.createTableStmnts.get(tableName);
   }
 
   /**

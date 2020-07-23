@@ -1,13 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.hsqldb;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.HsqldbSchema;
+import ch.konnexions.db_seeder.generated.AbstractGenHsqldbSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -16,14 +13,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class HsqldbSeeder extends AbstractJdbcSeeder {
+public class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
-  private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
 
   /**
    * Instantiates a new HyperQL Database seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public HsqldbSeeder(String dbmsTickerSymbol) {
     super();
@@ -43,7 +40,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Instantiates a new HyperQL Database seeder.
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    *
    * @param isClient client database version
    */
@@ -72,13 +69,13 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return HsqldbSchema.createTableStmnts.get(tableName);
+    return AbstractGenHsqldbSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * The common initialisation part.
    */
-  private final void init() {
+  private void init() {
     if (isDebug) {
       logger.debug("Start");
 

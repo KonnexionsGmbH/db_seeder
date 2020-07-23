@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mysql;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.MysqlSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMysqlSchema;
 
 /**
  * Test Data Generator for a MySQL DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MysqlSeeder extends AbstractJdbcSeeder {
+public class MysqlSeeder extends AbstractGenMysqlSchema {
 
-  private static Logger logger = Logger.getLogger(MysqlSeeder.class);
+  private static final Logger logger = Logger.getLogger(MysqlSeeder.class);
 
   /**
    * Instantiates a new MySQL seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MysqlSeeder(String dbmsTickerSymbol) {
     super();
@@ -57,7 +53,7 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return MysqlSchema.createTableStmnts.get(tableName);
+    return AbstractGenMysqlSchema.createTableStmnts.get(tableName);
   }
 
   /**

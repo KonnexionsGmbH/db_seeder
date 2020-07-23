@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.sqlite;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.SqliteSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
 
 /**
  * Test Data Generator for am SQLite DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class SqliteSeeder extends AbstractJdbcSeeder {
+public class SqliteSeeder extends AbstractGenSqliteSchema {
 
-  private static Logger logger = Logger.getLogger(SqliteSeeder.class);
+  private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
 
   /**
    * Instantiates a new SQLite seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public SqliteSeeder(String dbmsTickerSymbol) {
     super();
@@ -53,7 +49,7 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return SqliteSchema.createTableStmnts.get(tableName);
+    return AbstractGenSqliteSchema.createTableStmnts.get(tableName);
   }
 
   /**

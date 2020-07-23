@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mariadb;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.MariadbSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMariadbSchema;
 
 /**
  * Test Data Generator for a MariaDB DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MariadbSeeder extends AbstractJdbcSeeder {
+public class MariadbSeeder extends AbstractGenMariadbSchema {
 
-  private static Logger logger = Logger.getLogger(MariadbSeeder.class);
+  private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
 
   /**
    * Instantiates a new MariaDB Server seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MariadbSeeder(String dbmsTickerSymbol) {
     super();
@@ -55,7 +51,7 @@ public class MariadbSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return MariadbSchema.createTableStmnts.get(tableName);
+    return AbstractGenMariadbSchema.createTableStmnts.get(tableName);
   }
 
   /**

@@ -1,13 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.apache.derby;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.DerbySchema;
+import ch.konnexions.db_seeder.generated.AbstractGenDerbySchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
@@ -16,14 +13,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class DerbySeeder extends AbstractJdbcSeeder {
+public class DerbySeeder extends AbstractGenDerbySchema {
 
-  private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
 
   /**
    * Instantiates a new Apache Derby seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public DerbySeeder(String dbmsTickerSymbol) {
     super();
@@ -44,7 +41,7 @@ public class DerbySeeder extends AbstractJdbcSeeder {
   /**
    * Instantiates a new Apache Derby seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    * @param isClient client database version
    */
   public DerbySeeder(String dbmsTickerSymbol, boolean isClient) {
@@ -72,13 +69,13 @@ public class DerbySeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return DerbySchema.createTableStmnts.get(tableName);
+    return AbstractGenDerbySchema.createTableStmnts.get(tableName);
   }
 
   /**
    * The common initialisation part.
    */
-  private final void init() {
+  private void init() {
     if (isDebug) {
       logger.debug("Start");
 

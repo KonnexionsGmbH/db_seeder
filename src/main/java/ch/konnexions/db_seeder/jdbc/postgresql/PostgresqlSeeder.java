@@ -1,6 +1,3 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.postgresql;
 
 import java.io.File;
@@ -13,8 +10,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.PostgresqlSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
 
 /**
  * Test Data Generator for a PostgreSQL DBMS.
@@ -22,14 +18,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class PostgresqlSeeder extends AbstractJdbcSeeder {
+public class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
-  private static Logger logger = Logger.getLogger(PostgresqlSeeder.class);
+  private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 
   /**
    * Instantiates a new PostgreSQL Database seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public PostgresqlSeeder(String dbmsTickerSymbol) {
     super();
@@ -61,7 +57,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return PostgresqlSchema.createTableStmnts.get(tableName);
+    return AbstractGenPostgresqlSchema.createTableStmnts.get(tableName);
   }
 
   @Override

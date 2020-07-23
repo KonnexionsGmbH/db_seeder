@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.cratedb;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.CratedbSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
 
 /**
  * Test Data Generator for a CrateDB DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class CratedbSeeder extends AbstractJdbcSeeder {
+public class CratedbSeeder extends AbstractGenCratedbSchema {
 
-  private static Logger logger = Logger.getLogger(CratedbSeeder.class);
+  private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
    * Instantiates a new CrateDB seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public CratedbSeeder(String dbmsTickerSymbol) {
     super();
@@ -57,7 +53,7 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return CratedbSchema.createTableStmnts.get(tableName);
+    return AbstractGenCratedbSchema.createTableStmnts.get(tableName);
   }
 
   /**

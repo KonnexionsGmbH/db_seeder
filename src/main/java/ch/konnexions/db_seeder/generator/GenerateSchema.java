@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ch.konnexions.db_seeder.generator;
 
 import java.io.FileInputStream;
@@ -25,7 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import ch.konnexions.db_seeder.AbstractDatabaseSeeder.DbmsEnum;
+import ch.konnexions.db_seeder.AbstractDbmsSeeder.DbmsEnum;
 import ch.konnexions.db_seeder.schema.SchemaPojo;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
@@ -47,7 +44,6 @@ public class GenerateSchema {
 
   private final boolean                    isDebug = logger.isDebugEnabled();
 
-  private HashSet<String>                  valColumnNames;
   private List<Table>                      valTables;
   private HashMap<String, HashSet<String>> valTablesColumns;
 
@@ -93,10 +89,7 @@ public class GenerateSchema {
 
     try {
       jsonSchema = new JSONObject(new JSONTokener(new FileInputStream(fileSchemaName)));
-    } catch (JSONException e) {
-      e.printStackTrace();
-      System.exit(1);
-    } catch (FileNotFoundException e) {
+    } catch (JSONException | FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
     }
@@ -105,10 +98,7 @@ public class GenerateSchema {
 
     try {
       jsonSubject = new JSONObject(new JSONTokener(new FileInputStream(fileJsonName)));
-    } catch (JSONException e) {
-      e.printStackTrace();
-      System.exit(1);
-    } catch (FileNotFoundException e) {
+    } catch (JSONException | FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
     }
@@ -149,13 +139,7 @@ public class GenerateSchema {
     try {
       schemaPojo = gson.fromJson(Files.newBufferedReader(Paths.get(fileJsonName)),
                                  SchemaPojo.class);
-    } catch (JsonSyntaxException e) {
-      MessageHandling.abortProgram(logger,
-                                   e.getMessage());
-    } catch (JsonIOException e) {
-      MessageHandling.abortProgram(logger,
-                                   e.getMessage());
-    } catch (IOException e) {
+    } catch (JsonSyntaxException | IOException | JsonIOException e) {
       MessageHandling.abortProgram(logger,
                                    e.getMessage());
     }
@@ -215,7 +199,7 @@ public class GenerateSchema {
                                   "Start validating the schema definition");
 
     valTables        = schemaPojo.getTables();
-    valTablesColumns = new HashMap<String, HashSet<String>>();
+    valTablesColumns = new HashMap<>();
 
     if (valTables == null || valTables.size() == 0) {
       logger.error("No definitions found for database valTableNames");
@@ -241,8 +225,8 @@ public class GenerateSchema {
           continue;
         }
 
-        valColumnNames = validateSchemaColumns(tableName,
-                                               columns);
+        HashSet<String> valColumnNames = validateSchemaColumns(tableName,
+                                                               columns);
 
         if (errors == 0) {
           valTablesColumns.put(tableName,
@@ -303,70 +287,57 @@ public class GenerateSchema {
         columnName = column.getColumnName();
 
         for (ColumnConstraint columnConstraint : columnConstraints) {
-          constraintType = columnConstraint.getConstraintType().toUpperCase();
-
-          if (constraintType == null) {
-            logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type is missing (null)");
-            errors++;
-            continue;
-          }
+          constraintType  = columnConstraint.getConstraintType().toUpperCase();
 
           referenceColumn = columnConstraint.getReferenceColumn();
           referenceTable  = columnConstraint.getReferenceTable();
 
           switch (constraintType) {
-          case "FOREIGN":
+          case "FOREIGN" -> {
             if (referenceTable == null) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
                   + "' requires a reference table");
               errors++;
             }
-
             if (tableName.equals(referenceTable)) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' constraint type: '" + constraintType
                   + "' - Reference table must be a different database table");
               errors++;
             }
-
             if (!(valTablesColumns.containsKey(referenceTable))) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' constraint type: '" + constraintType + "' - Reference table '"
                   + referenceTable + "' is not defined");
               errors++;
             }
-
             if (referenceColumn == null) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
                   + "' requires a reference column");
               errors++;
+              continue;
             }
-
             valRefrenceColumnNames = valTablesColumns.get(referenceTable);
-
             if (!valRefrenceColumnNames.contains(referenceColumn.toUpperCase())) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' constraint type: '" + constraintType + "' - Reference column '"
                   + referenceColumn.toUpperCase() + "' is not defined in database table '" + referenceTable + "'");
               errors++;
             }
-
-            break;
-          case "PRIMARY":
-          case "UNIQUE":
+          }
+          case "PRIMARY", "UNIQUE" -> {
             if (referenceTable != null) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
                   + "' does not allow a reference table");
               errors++;
             }
-
             if (referenceColumn != null) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
                   + "' does not allow a reference column");
               errors++;
             }
-
-            break;
-          default:
+          }
+          default -> {
             logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Unknown constraint type '" + constraintType + "'");
             errors++;
+          }
           }
         }
       }
@@ -390,7 +361,7 @@ public class GenerateSchema {
       logger.debug("Start");
     }
 
-    HashSet<String> columnNames = new HashSet<String>();
+    HashSet<String> columnNames = new HashSet<>();
 
     String          columnName;
     String          dataType;
@@ -407,21 +378,18 @@ public class GenerateSchema {
         continue;
       }
 
-      dataType  = column.getDataType().toUpperCase();
-      size      = column.getSize();
-      precision = column.getPrecision();
-
-      if (dataType == null) {
+      if (column.getDataType() == null) {
         logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type is missing (null)");
         errors++;
         continue;
       }
 
+      dataType  = column.getDataType().toUpperCase();
+      size      = column.getSize();
+      precision = column.getPrecision();
+
       switch (dataType) {
-      case "BIGINT":
-      case "BLOB":
-      case "CLOB":
-      case "TIMESTAMP":
+      case "BIGINT", "BLOB", "CLOB", "TIMESTAMP" -> {
         if (size != null) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type '" + dataType + "' does not allow a value for size ("
               + size + ")");
@@ -432,13 +400,14 @@ public class GenerateSchema {
               + precision + ")");
           errors++;
         }
-        break;
-      case "VARCHAR":
+      }
+      case "VARCHAR" -> {
         if (size == null) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Size is missing (null)");
           errors++;
+          continue;
         }
-        if (size.intValue() < 1 || size.intValue() > 4000) {
+        if (size < 1 || size > 4000) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Size must have a value between 1 and 4000");
           errors++;
         }
@@ -447,10 +416,11 @@ public class GenerateSchema {
               + precision + ")");
           errors++;
         }
-        break;
-      default:
+      }
+      default -> {
         logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Unknown data type '" + dataType + "'");
         errors++;
+      }
       }
     }
 
@@ -491,19 +461,19 @@ public class GenerateSchema {
       }
 
       for (TableConstraint tableConstraint : tableConstraints) {
-        constraintType = tableConstraint.getConstraintType().toUpperCase();
-
-        if (constraintType == null) {
+        if (tableConstraint.getConstraintType() == null) {
           logger.error("Database table: '" + tableName + "' - Data type is missing (null)");
           errors++;
           continue;
         }
 
-        columns = tableConstraint.getColumns();
+        constraintType = tableConstraint.getConstraintType().toUpperCase();
+        columns        = tableConstraint.getColumns();
 
         if (columns == null || columns.size() == 0) {
           logger.error("Database table: '" + tableName + "' - Columns missing (null)");
           errors++;
+          continue;
         }
 
         valColumnNames = valTablesColumns.get(tableName);
@@ -520,32 +490,28 @@ public class GenerateSchema {
         referenceTable   = tableConstraint.getReferenceTable();
 
         switch (constraintType) {
-        case "FOREIGN":
+        case "FOREIGN" -> {
           if (referenceTable == null) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' requires a reference table");
             errors++;
+            continue;
           }
-
           referenceTableUpper = referenceTable.toUpperCase();
-
           if (tableName.equals(referenceTableUpper.toUpperCase())) {
             logger.error("Database table: '" + tableName + "' constraint type: '" + constraintType + "' - Reference table must be a different database table");
             errors++;
           }
-
           if (!(valTablesColumns.containsKey(referenceTableUpper))) {
             logger.error("Database table: '" + tableName + "' constraint type: '" + constraintType + "' - Reference table '" + referenceTableUpper
                 + "' is not defined");
             errors++;
           }
-
           if (referenceColumns == null || referenceColumns.size() == 0) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' requires reference column(s)");
             errors++;
+            continue;
           }
-
           valRefrenceColumnNames = valTablesColumns.get(referenceTableUpper);
-
           for (String referenceColumn : referenceColumns) {
             if (!valRefrenceColumnNames.contains(referenceColumn.toUpperCase())) {
               logger.error("Database table: '" + tableName + "' constraint type: '" + constraintType + "' - Reference column '" + referenceColumn.toUpperCase()
@@ -553,24 +519,21 @@ public class GenerateSchema {
               errors++;
             }
           }
-
-          break;
-        case "PRIMARY":
-        case "UNIQUE":
+        }
+        case "PRIMARY", "UNIQUE" -> {
           if (referenceTable != null) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' does not allow a reference table");
             errors++;
           }
-
           if (referenceColumns != null && referenceColumns.size() > 0) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' does not allow reference column(s)");
             errors++;
           }
-
-          break;
-        default:
+        }
+        default -> {
           logger.error("Database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
           errors++;
+        }
         }
       }
     }

@@ -1,7 +1,6 @@
-/**
- * 
- */
 package ch.konnexions.db_seeder;
+
+import java.util.Objects;
 
 import org.apache.log4j.Logger;
 
@@ -53,7 +52,7 @@ public class DatabaseSeeder {
                                    "Command line argument missing (null)");
     }
 
-    switch (args0) {
+    switch (Objects.requireNonNull(args0)) {
     case "cratedb":
       logger.info("Start CrateDB");
       CratedbSeeder cratedbSeeder = new CratedbSeeder(args0);

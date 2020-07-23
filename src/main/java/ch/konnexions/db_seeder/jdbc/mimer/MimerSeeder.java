@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mimer;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.MimerSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
 
 /**
  * Test Data Generator for a Mimer SQL DBMS.
@@ -16,14 +12,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MimerSeeder extends AbstractJdbcSeeder {
+public class MimerSeeder extends AbstractGenMimerSchema {
 
-  private static Logger logger = Logger.getLogger(MimerSeeder.class);
+  private static final Logger logger = Logger.getLogger(MimerSeeder.class);
 
   /**
    * Instantiates a new Mimer SQL seeder.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MimerSeeder(String dbmsTickerSymbol) {
     super();
@@ -55,7 +51,7 @@ public class MimerSeeder extends AbstractJdbcSeeder {
    */
   @Override
   protected final String createDdlStmnt(final String tableName) {
-    return MimerSchema.createTableStmnts.get(tableName);
+    return AbstractGenMimerSchema.createTableStmnts.get(tableName);
   }
 
   /**

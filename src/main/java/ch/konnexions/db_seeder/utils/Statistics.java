@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
  * This class is used to record the statisticss of the db_seeder runs.
  */
 public class Statistics {
-  private static Logger               logger    = Logger.getLogger(Statistics.class);
+  private static final Logger         logger    = Logger.getLogger(Statistics.class);
 
   private final Config                config;
 
@@ -41,7 +41,7 @@ public class Statistics {
   /**
    * Constructs a Statistics object using the given {@link Config} object.
    * @param config the {@link Config} object
-   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param dbmsTickerSymbol DBMS ticker symbol the DBMS ticker symbol
    * @param dbmsValues the DBMS related values DBMS name and client / embedded remark
    */
   public Statistics(Config config, String dbmsTickerSymbol, Map<String, String[]> dbmsValues) {
@@ -89,7 +89,7 @@ public class Statistics {
    * Creates a new statistics file if none exists yet.
    */
   @SuppressWarnings("resource")
-  private final void createStatisticsFile() {
+  private void createStatisticsFile() {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -127,7 +127,7 @@ public class Statistics {
     }
   }
 
-  private final void openStatisticsFile() {
+  private void openStatisticsFile() {
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
     String statisticsName      = config.getFileStatisticsName();
 

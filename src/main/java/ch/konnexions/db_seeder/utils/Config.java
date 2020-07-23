@@ -28,40 +28,39 @@ import org.apache.log4j.Logger;
 public class Config {
 
   @SuppressWarnings("unused")
-  private static Logger                                                logger     = Logger.getLogger(Config.class);
+  private static final Logger     logger     = Logger.getLogger(Config.class);
 
-  private String                                                       connectionHost;
-  private int                                                          connectionPort;
-  private String                                                       connectionPrefix;
-  private String                                                       connectionService;
-  private String                                                       connectionSuffix;
+  private String                  connectionHost;
+  private int                     connectionPort;
+  private String                  connectionPrefix;
+  private String                  connectionService;
+  private String                  connectionSuffix;
 
-  private String                                                       database;
-  private String                                                       databaseSys;
-  private int                                                          defaultRowSize;
+  private String                  database;
+  private String                  databaseSys;
+  private int                     defaultRowSize;
 
-  private boolean                                                      encodingIso_8859_1;
-  private boolean                                                      encodingUtf_8;
+  private boolean                 encodingIso_8859_1;
+  private boolean                 encodingUtf_8;
 
-  private final FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder;
-  private String                                                       fileConfigurationName;
-  private String                                                       fileJsonName;
-  private String                                                       fileStatisticsDelimiter;
-  private String                                                       fileStatisticsHeader;
-  private String                                                       fileStatisticsName;
+  private String                  fileConfigurationName;
+  private String                  fileJsonName;
+  private String                  fileStatisticsDelimiter;
+  private String                  fileStatisticsHeader;
+  private String                  fileStatisticsName;
 
-  private final boolean                                                isDebug    = logger.isDebugEnabled();
+  private final boolean           isDebug    = logger.isDebugEnabled();
 
-  private ArrayList<String>                                            keysSorted = new ArrayList<>();
+  private ArrayList<String>       keysSorted = new ArrayList<>();
 
-  private String                                                       password;
-  private String                                                       passwordSys;
-  private PropertiesConfiguration                                      propertiesConfiguration;
+  private String                  password;
+  private String                  passwordSys;
+  private PropertiesConfiguration propertiesConfiguration;
 
-  private String                                                       schema;
+  private String                  schema;
 
-  private String                                                       user;
-  private String                                                       userSys;
+  private String                  user;
+  private String                  userSys;
 
   /**
    * Initialises a new configuration object.
@@ -73,9 +72,9 @@ public class Config {
       logger.debug("Start Constructor");
     }
 
-    fileBasedConfigurationBuilder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class);
+    FileBasedConfigurationBuilder<PropertiesConfiguration> fileBasedConfigurationBuilder = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class);
 
-    File configFile = new File(System.getenv("DB_SEEDER_FILE_CONFIGURATION_NAME"));
+    File                                                   configFile                    = new File(System.getenv("DB_SEEDER_FILE_CONFIGURATION_NAME"));
     fileBasedConfigurationBuilder.configure(new Parameters().properties().setFile(configFile));
 
     try {
@@ -88,7 +87,6 @@ public class Config {
     }
 
     storeConfiguration();
-    validateProperties();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -96,7 +94,7 @@ public class Config {
   }
 
   @SuppressWarnings("unused")
-  private final List<String> getBooleanProperties() {
+  private List<String> getBooleanProperties() {
 
     List<String> list = new ArrayList<>();
 
@@ -225,7 +223,7 @@ public class Config {
 
   // -------------------------------------------------------------------------
 
-  private final ArrayList<String> getKeysSorted() {
+  private ArrayList<String> getKeysSorted() {
 
     for (final Iterator<String> iterator = propertiesConfiguration.getKeys(); iterator.hasNext();) {
       keysSorted.add(iterator.next());
@@ -239,7 +237,7 @@ public class Config {
   // -------------------------------------------------------------------------
 
   @SuppressWarnings("unused")
-  private final List<String> getNumericProperties() {
+  private List<String> getNumericProperties() {
 
     List<String> list = new ArrayList<>();
 
@@ -294,7 +292,7 @@ public class Config {
     return userSys;
   }
 
-  private final void storeConfiguration() {
+  private void storeConfiguration() {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
@@ -326,7 +324,7 @@ public class Config {
     userSys                 = propertiesConfiguration.getString("db_seeder.user.sys");
   }
 
-  private final void updatePropertiesFromOs() {
+  private void updatePropertiesFromOs() {
 
     Map<String, String> environmentVariables = System.getenv();
 
@@ -389,13 +387,13 @@ public class Config {
     if (environmentVariables.containsKey("DB_SEEDER_ENCODING_ISO_8859_1")) {
       String encodingIso_8859_1Helper = environmentVariables.get("DB_SEEDER_ENCODING_ISO_8859_1");
       propertiesConfiguration.setProperty("db_seeder.encoding.is_8859_1",
-                                          "true".equals(encodingIso_8859_1Helper.toLowerCase()) ? true : false);
+                                          "true".equals(encodingIso_8859_1Helper.toLowerCase()));
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_ENCODING_UTF_8")) {
       String encodingUtf_8Helper = environmentVariables.get("DB_SEEDER_ENCODING_UTF_8");
       propertiesConfiguration.setProperty("db_seeder.encoding.utf_8",
-                                          "true".equals(encodingUtf_8Helper.toLowerCase()) ? true : false);
+                                          "true".equals(encodingUtf_8Helper.toLowerCase()));
     }
 
     // File Configuration -------------------------------------------------------
@@ -468,38 +466,6 @@ public class Config {
       userSys = environmentVariables.get("DB_SEEDER_USER_SYS");
       propertiesConfiguration.setProperty("db_seeder.user.sys",
                                           userSys);
-    }
-  }
-
-  private final void validateProperties() {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    boolean isChanged = false;
-
-    //        if (benchmarkBatchSize < 0) {
-    //          MessageHandling.abortProgram(logger,
-    //          logger.warning( 
-    //              "Attention: The value of the configuration parameter 'benchmark.batch.size' ["
-    //              + benchmarkBatchSize + "] must not be less than 0, the specified value is replaced by 0.");
-    //          benchmarkBatchSize = 0;
-    //          propertiesConfiguration.setProperty("benchmark.batch.size", benchmarkBatchSize);
-    //          isChanged = true;
-    //        }
-
-    if (isChanged) {
-      try {
-        fileBasedConfigurationBuilder.save();
-        propertiesConfiguration = fileBasedConfigurationBuilder.getConfiguration();
-      } catch (ConfigurationException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-
-      if (isDebug) {
-        logger.debug("End");
-      }
     }
   }
 }
