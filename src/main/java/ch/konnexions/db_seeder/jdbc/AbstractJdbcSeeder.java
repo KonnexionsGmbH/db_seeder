@@ -68,12 +68,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   /**
    * Initialises a new abstract JDBC seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
-  public AbstractJdbcSeeder() {
-    super();
+  public AbstractJdbcSeeder(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     config      = new Config();
@@ -82,6 +84,34 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     isClient    = true;
     isEmbedded  = !(this.isClient);
+
+    if (isDebug) {
+      logger.debug("client  =" + isClient);
+      logger.debug("embedded=" + isEmbedded);
+
+      logger.debug("End   Constructor");
+    }
+  }
+
+  /**
+   * Initialises a new abstract JDBC seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param isClient client database version
+   */
+  public AbstractJdbcSeeder(String dbmsTickerSymbol, boolean isClient) {
+    super(dbmsTickerSymbol, isClient);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+    }
+
+    config        = new Config();
+
+    COLUMN_NAME   = createColumnNames();
+
+    this.isClient = isClient;
+    isEmbedded    = !(this.isClient);
 
     if (isDebug) {
       logger.debug("client  =" + isClient);

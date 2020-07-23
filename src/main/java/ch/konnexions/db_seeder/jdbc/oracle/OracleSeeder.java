@@ -17,12 +17,12 @@ public class OracleSeeder extends AbstractGenOracleSchema {
   private static final Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
-   * Instantiates a new Oracle Database seeder.
+   * Instantiates a new Oracle seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public OracleSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

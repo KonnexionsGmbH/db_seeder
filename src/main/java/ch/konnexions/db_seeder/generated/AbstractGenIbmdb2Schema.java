@@ -2,6 +2,8 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * CREATE TABLE statements for a IBM Db2 DBMS.
  * <br>
@@ -11,6 +13,8 @@ import java.util.HashMap;
 public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
+
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenIbmdb2Schema.class);
 
   /**
    * Creates the CREATE TABLE statements.
@@ -99,4 +103,20 @@ public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
     return statements;
   }
 
+  /**
+   * Instantiates a new abstract IBM Db2 schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   */
+  public AbstractGenIbmdb2Schema(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
+  }
 }

@@ -17,12 +17,12 @@ public class MariadbSeeder extends AbstractGenMariadbSchema {
   private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
 
   /**
-   * Instantiates a new MariaDB Server seeder.
+   * Instantiates a new MariaDB seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MariadbSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

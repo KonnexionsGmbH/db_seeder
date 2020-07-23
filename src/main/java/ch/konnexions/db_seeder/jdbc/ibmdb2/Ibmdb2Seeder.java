@@ -17,12 +17,12 @@ public class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
   private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
 
   /**
-   * Instantiates a new IBM Db2 Database seeder.
+   * Instantiates a new IBM Db2 seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public Ibmdb2Seeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

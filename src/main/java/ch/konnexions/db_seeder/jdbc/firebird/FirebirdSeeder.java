@@ -17,12 +17,12 @@ public class FirebirdSeeder extends AbstractGenFirebirdSchema {
   private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
 
   /**
-   * Instantiates a new Firebird Server seeder.
+   * Instantiates a new Firebird seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public FirebirdSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

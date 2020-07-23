@@ -2,6 +2,8 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * CREATE TABLE statements for a HyperSQL DBMS.
  * <br>
@@ -11,6 +13,8 @@ import java.util.HashMap;
 public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
+
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenHsqldbSchema.class);
 
   /**
    * Creates the CREATE TABLE statements.
@@ -99,12 +103,39 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
     return statements;
   }
 
-  public AbstractGenHsqldbSchema() {
-    // TODO Auto-generated constructor stub
+  /**
+   * Initialises a new abstract HyperSQL schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   */
+  public AbstractGenHsqldbSchema(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
   }
 
-  public AbstractGenHsqldbSchema(boolean isClient) {
-    // TODO Auto-generated constructor stub
+  /**
+   * Initialises a new abstract HyperSQL schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param isClient client database version
+   */
+  public AbstractGenHsqldbSchema(String dbmsTickerSymbol, boolean isClient) {
+    super(dbmsTickerSymbol, isClient);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
   }
 
 }

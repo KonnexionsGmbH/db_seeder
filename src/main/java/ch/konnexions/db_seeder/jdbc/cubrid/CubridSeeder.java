@@ -17,12 +17,12 @@ public class CubridSeeder extends AbstractGenCubridSchema {
   private static final Logger logger = Logger.getLogger(CubridSeeder.class);
 
   /**
-   * Instantiates a new CUBRID seeder.
+   * Instantiates a new CUBRID seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public CubridSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

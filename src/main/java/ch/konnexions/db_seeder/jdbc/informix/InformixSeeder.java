@@ -17,12 +17,12 @@ public class InformixSeeder extends AbstractGenInformixSchema {
   private static final Logger logger = Logger.getLogger(InformixSeeder.class);
 
   /**
-   * Instantiates a new IBM Informix seeder.
+   * Instantiates a new IBM Informix seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public InformixSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

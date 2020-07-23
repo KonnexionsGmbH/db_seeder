@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenHsqldbSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
  * Test Data Generator for a HyperQL Database DBMS.
@@ -15,18 +14,18 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
-  private static final Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(HsqldbSeeder.class);
 
   /**
-   * Instantiates a new HyperQL Database seeder.
-   * 
+   * Initialises a new HyperSQL seeder object.
+   *
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public HsqldbSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -39,16 +38,16 @@ public class HsqldbSeeder extends AbstractGenHsqldbSchema {
   }
 
   /**
-   * Instantiates a new HyperQL Database seeder.
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * Initialises a new HyperSQL seeder object.
    *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    * @param isClient client database version
    */
   public HsqldbSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(isClient);
+    super(dbmsTickerSymbol, isClient);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;

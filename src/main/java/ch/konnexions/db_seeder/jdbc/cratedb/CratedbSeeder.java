@@ -17,15 +17,15 @@ public class CratedbSeeder extends AbstractGenCratedbSchema {
   private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
-   * Instantiates a new CrateDB seeder.
-   * 
+   * Instantiates a new CrateDB seeder object.
+   *
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public CratedbSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     dbmsEnum              = DbmsEnum.CRATEDB;

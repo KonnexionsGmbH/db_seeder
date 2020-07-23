@@ -12,9 +12,9 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
 
-  private static final Logger                 logger            = Logger.getLogger(AbstractGenOracleSchema.class);
-
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
+
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenOracleSchema.class);
 
   /**
    * Creates the CREATE TABLE statements.
@@ -104,35 +104,19 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
   }
 
   /**
-   * Initialises a new abstract Database Schema object.
-   */
-  public AbstractGenOracleSchema() {
-    super();
-
-    if (isDebug) {
-      logger.debug("Start Constructor");
-    }
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
-  }
-
-  /**
-   * Initialises a new abstract Database Schema object.
+   * Instantiates a new abstract Oracle schema object.
    *
-   * @param isClient is a client database version ?
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
-  public AbstractGenOracleSchema(boolean isClient) {
-    super();
+  public AbstractGenOracleSchema(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     if (isDebug) {
       logger.debug("End   Constructor");
     }
   }
-
 }

@@ -17,12 +17,12 @@ public class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
   private static final Logger logger = Logger.getLogger(MssqlserverSeeder.class);
 
   /**
-   * Instantiates a new Microsoft SQL Server seeder.
+   * Instantiates a new Microsoft SQL Server seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MssqlserverSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

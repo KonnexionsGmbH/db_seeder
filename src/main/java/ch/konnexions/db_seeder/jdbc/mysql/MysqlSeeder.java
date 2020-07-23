@@ -17,12 +17,12 @@ public class MysqlSeeder extends AbstractGenMysqlSchema {
   private static final Logger logger = Logger.getLogger(MysqlSeeder.class);
 
   /**
-   * Instantiates a new MySQL seeder.
+   * Instantiates a new MySQL seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MysqlSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

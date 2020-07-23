@@ -95,12 +95,34 @@ public abstract class AbstractDbmsSeeder {
 
   /**
    * Initialises a new abstract DBMS seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
-  public AbstractDbmsSeeder() {
+  public AbstractDbmsSeeder(String dbmsTickerSymbol) {
     super();
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    dbmsValues = initDbmsValues();
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
+  }
+
+  /**
+   * Initialises a new abstract DBMS seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param isClient client database version
+   */
+  public AbstractDbmsSeeder(String dbmsTickerSymbol, boolean isClient) {
+    super();
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     dbmsValues = initDbmsValues();

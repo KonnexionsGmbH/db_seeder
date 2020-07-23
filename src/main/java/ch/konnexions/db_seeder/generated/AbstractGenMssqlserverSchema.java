@@ -2,6 +2,8 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * CREATE TABLE statements for a Microsoft SQL Server DBMS.
  * <br>
@@ -11,6 +13,8 @@ import java.util.HashMap;
 public abstract class AbstractGenMssqlserverSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
+
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenMssqlserverSchema.class);
 
   /**
    * Creates the CREATE TABLE statements.
@@ -99,4 +103,20 @@ public abstract class AbstractGenMssqlserverSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  /**
+   * Instantiates a new abstract Microsoft SQL Server schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   */
+  public AbstractGenMssqlserverSchema(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
+  }
 }

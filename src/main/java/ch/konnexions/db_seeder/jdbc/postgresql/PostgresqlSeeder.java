@@ -23,12 +23,12 @@ public class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
   private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 
   /**
-   * Instantiates a new PostgreSQL Database seeder.
+   * Instantiates a new PostgreSQL seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public PostgresqlSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

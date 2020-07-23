@@ -17,12 +17,12 @@ public class SqliteSeeder extends AbstractGenSqliteSchema {
   private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
 
   /**
-   * Instantiates a new SQLite seeder.
+   * Instantiates a new SQLite seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public SqliteSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

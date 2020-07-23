@@ -17,12 +17,12 @@ public class MimerSeeder extends AbstractGenMimerSchema {
   private static final Logger logger = Logger.getLogger(MimerSeeder.class);
 
   /**
-   * Instantiates a new Mimer SQL seeder.
+   * Instantiates a new Mimer SQL seeder object.
    * 
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MimerSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");

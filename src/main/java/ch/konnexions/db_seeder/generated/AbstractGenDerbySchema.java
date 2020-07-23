@@ -2,6 +2,8 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * CREATE TABLE statements for a Apache Derby DBMS.
  * <br>
@@ -11,6 +13,8 @@ import java.util.HashMap;
 public abstract class AbstractGenDerbySchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
+
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenDerbySchema.class);
 
   /**
    * Creates the CREATE TABLE statements.
@@ -99,12 +103,38 @@ public abstract class AbstractGenDerbySchema extends AbstractGenSeeder {
     return statements;
   }
 
-  public AbstractGenDerbySchema() {
-    super();
+  /**
+   * Instantiates a new abstract Apache Derby schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   */
+  public AbstractGenDerbySchema(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
   }
 
-  public AbstractGenDerbySchema(boolean isClient) {
-    super();
-  }
+  /**
+   * Instantiates a new abstract Apache Derby schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param isClient client database version
+   */
+  public AbstractGenDerbySchema(String dbmsTickerSymbol, boolean isClient) {
+    super(dbmsTickerSymbol, isClient);
 
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
+  }
 }

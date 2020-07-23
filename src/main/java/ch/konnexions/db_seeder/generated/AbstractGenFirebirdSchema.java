@@ -2,6 +2,8 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * CREATE TABLE statements for a Firebird DBMS.
  * <br>
@@ -11,6 +13,8 @@ import java.util.HashMap;
 public abstract class AbstractGenFirebirdSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
+
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenFirebirdSchema.class);
 
   /**
    * Creates the CREATE TABLE statements.
@@ -98,4 +102,20 @@ public abstract class AbstractGenFirebirdSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  /**
+   * Instantiates a new abstract Firebird schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   */
+  public AbstractGenFirebirdSchema(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
+  }
 }

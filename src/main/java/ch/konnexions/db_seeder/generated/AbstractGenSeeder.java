@@ -18,12 +18,32 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
 
   /**
    * Initialises a new abstract generated seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
-  public AbstractGenSeeder() {
-    super();
+  public AbstractGenSeeder(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
+  }
+
+  /**
+   * Initialises a new abstract generated seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param isClient client database version
+   */
+  public AbstractGenSeeder(String dbmsTickerSymbol, boolean isClient) {
+    super(dbmsTickerSymbol, isClient);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     if (isDebug) {

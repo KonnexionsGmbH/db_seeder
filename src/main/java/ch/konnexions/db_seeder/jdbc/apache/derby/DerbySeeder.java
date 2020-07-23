@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenDerbySchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
  * Test Data Generator for a Apache Derby DBMS.
@@ -15,18 +14,18 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public class DerbySeeder extends AbstractGenDerbySchema {
 
-  private static final Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(DerbySeeder.class);
 
   /**
-   * Instantiates a new Apache Derby seeder.
-   * 
+   * Instantiates a new Apache Derby seeder object.
+   *
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public DerbySeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -39,16 +38,16 @@ public class DerbySeeder extends AbstractGenDerbySchema {
   }
 
   /**
-   * Instantiates a new Apache Derby seeder.
-   * 
+   * Instantiates a new Apache Derby seeder object.
+   *
    * @param dbmsTickerSymbol DBMS ticker symbol 
    * @param isClient client database version
    */
   public DerbySeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(isClient);
+    super(dbmsTickerSymbol, isClient);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;

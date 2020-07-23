@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
  * Test Data Generator for a H2 Database Engine DBMS.
@@ -15,17 +14,18 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public class H2Seeder extends AbstractGenH2Schema {
 
-  private static final Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(H2Seeder.class);
 
   /**
-   * Instantiates a new H2 Database Engine seeder.
+   * Instantiates a new H2 seeder object.
+   *
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public H2Seeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -38,16 +38,16 @@ public class H2Seeder extends AbstractGenH2Schema {
   }
 
   /**
-   * Instantiates a new H2 Database Engine seeder.
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * Instantiates a new H2 seeder object.
    *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    * @param isClient client database version
    */
   public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
-    super(isClient);
+    super(dbmsTickerSymbol, isClient);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;

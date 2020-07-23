@@ -2,6 +2,8 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 /**
  * CREATE TABLE statements for a H2 DBMS.
  * <br>
@@ -11,6 +13,8 @@ import java.util.HashMap;
 public abstract class AbstractGenH2Schema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
+
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenH2Schema.class);
 
   /**
    * Creates the CREATE TABLE statements.
@@ -99,12 +103,38 @@ public abstract class AbstractGenH2Schema extends AbstractGenSeeder {
     return statements;
   }
 
-  public AbstractGenH2Schema() {
-    super();
+  /**
+   * Instantiates a new abstract H2 schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   */
+  public AbstractGenH2Schema(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
+
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
   }
 
-  public AbstractGenH2Schema(boolean isClient) {
-    super();
-  }
+  /**
+   * Instantiates a new abstract H2 schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param isClient client database version
+   */
+  public AbstractGenH2Schema(String dbmsTickerSymbol, boolean isClient) {
+    super(dbmsTickerSymbol, isClient);
 
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+    }
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
+  }
 }
