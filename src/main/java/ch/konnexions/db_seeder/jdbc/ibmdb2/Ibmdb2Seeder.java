@@ -50,7 +50,7 @@ public class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenIbmdb2Schema.createTableStmnts.get(tableName);
   }
 

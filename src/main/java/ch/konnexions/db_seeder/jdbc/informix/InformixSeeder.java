@@ -54,7 +54,7 @@ public class InformixSeeder extends AbstractGenInformixSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenInformixSchema.createTableStmnts.get(tableName);
   }
 

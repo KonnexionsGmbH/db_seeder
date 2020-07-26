@@ -50,7 +50,7 @@ public class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenMssqlserverSchema.createTableStmnts.get(tableName);
   }
 

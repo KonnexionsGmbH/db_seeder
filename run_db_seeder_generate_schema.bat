@@ -9,44 +9,47 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
-set DB_SEEDER_FILE_JSON_NAME=
-set DB_SEEDER_RELEASE=1.15.11
+
+set DB_SEEDER_RELEASE=2.0.0
+
+set DB_SEEDER_IS_ECLIPSE_INSTALLED=true
 
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
-echo.
-echo Script %0 is now running
-echo.
-echo You can find the run log in the file run_db_seeder_generate_schema.log
-echo.
-echo Please wait ...
-echo.
+echo ================================================================================
+echo Start %0
+echo --------------------------------------------------------------------------------
+echo DB Seeder - Generation of database schema.
+echo --------------------------------------------------------------------------------
+echo FILE_CONFIGURATION_NAME : %DB_SEEDER_FILE_CONFIGURATION_NAME%
+echo FILE_JSON_NAME          : %DB_SEEDER_FILE_JSON_NAME%
+echo RELEASE                 : %DB_SEEDER_RELEASE%
+echo --------------------------------------------------------------------------------
+echo IS_ECLIPSE_INSTALLED    : %DB_SEEDER_IS_ECLIPSE_INSTALLED%
+echo HOME_ECLIPSE            : %HOME_ECLIPSE%
+echo --------------------------------------------------------------------------------
+echo JAVA_CLASSPATH          : %DB_SEEDER_JAVA_CLASSPATH%
+echo --------------------------------------------------------------------------------
+echo:| TIME
+echo ================================================================================
 
-REM > run_db_seeder_generate_schema.log 2>&1 (
-
-    echo ================================================================================
-    echo Start %0
-    echo --------------------------------------------------------------------------------
-    echo DB Seeder - Generation of database schema.
-    echo --------------------------------------------------------------------------------
-    echo FILE_CONFIGURATION_NAME : %DB_SEEDER_FILE_CONFIGURATION_NAME%
-    echo FILE_JSON_NAME          : %DB_SEEDER_FILE_JSON_NAME%
-    echo RELEASE                 : %DB_SEEDER_RELEASE%
-    echo --------------------------------------------------------------------------------
-    echo JAVA_CLASSPATH          : %DB_SEEDER_JAVA_CLASSPATH%
-    echo --------------------------------------------------------------------------------
-    echo:| TIME
-    echo ================================================================================
-
-    java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
+java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
 rem wwe
 rem if %ERRORLEVEL% NEQ 0 (
 rem     exit %ERRORLEVEL%
 rem )
-    
-    echo --------------------------------------------------------------------------------
-    echo:| TIME
-    echo --------------------------------------------------------------------------------
-    echo End   %0
-    echo ================================================================================
-REM )
+
+if exist eclipse_workspace\ rmdir /q /s eclipse_workspace
+
+mkdir eclipse_workspace
+
+%HOME_ECLIPSE%\eclipse -nosplash -data eclipse_workspace -application org.eclipse.jdt.core.JavaCodeFormatter -config src\main\resources\org.eclipse.jdt.core.prefs -quiet src\main\java\ch\konnexions\db_seeder\generated\ -vmargs -Dfile.encoding=UTF-8
+if %ERRORLEVEL% NEQ 0 (
+    exit %ERRORLEVEL%
+)
+
+echo --------------------------------------------------------------------------------
+echo:| TIME
+echo --------------------------------------------------------------------------------
+echo End   %0
+echo ================================================================================

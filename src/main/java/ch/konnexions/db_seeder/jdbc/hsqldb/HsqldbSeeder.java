@@ -67,7 +67,7 @@ public class HsqldbSeeder extends AbstractGenHsqldbSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenHsqldbSchema.createTableStmnts.get(tableName);
   }
 

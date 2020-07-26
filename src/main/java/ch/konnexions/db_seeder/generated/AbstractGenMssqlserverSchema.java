@@ -5,10 +5,10 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a Microsoft SQL Server DBMS.
- * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ * CREATE TABLE statements for a Microsoft SQL Server DBMS. <br>
+ * 
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public abstract class AbstractGenMssqlserverSchema extends AbstractGenSeeder {
 
@@ -106,7 +106,8 @@ public abstract class AbstractGenMssqlserverSchema extends AbstractGenSeeder {
   /**
    * Instantiates a new abstract Microsoft SQL Server schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbol
+   *            DBMS ticker symbol
    */
   public AbstractGenMssqlserverSchema(String dbmsTickerSymbol) {
     super(dbmsTickerSymbol);

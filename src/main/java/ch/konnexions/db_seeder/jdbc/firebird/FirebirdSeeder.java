@@ -53,7 +53,7 @@ public class FirebirdSeeder extends AbstractGenFirebirdSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenFirebirdSchema.createTableStmnts.get(tableName);
   }
 

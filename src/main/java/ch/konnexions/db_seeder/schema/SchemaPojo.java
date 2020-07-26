@@ -1,6 +1,7 @@
 package ch.konnexions.db_seeder.schema;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Test Data Generator for a Database - Complete schema POJO.
@@ -9,6 +10,22 @@ import java.util.List;
  * @since   2020-07-15
  */
 public class SchemaPojo {
+
+  /*
+   *  The globals object.
+   */
+  public class Globals {
+
+    private int defaultNumberOfRows;
+
+    public int getDefaultNumberOfRows() {
+      return defaultNumberOfRows;
+    }
+
+    public void setDefaultNumberOfRows(int defaultNumberOfRows) {
+      this.defaultNumberOfRows = defaultNumberOfRows;
+    }
+  }
 
   /*
    *  The table object.
@@ -62,9 +79,9 @@ public class SchemaPojo {
 
       private String                 dataType;
 
-      private Integer                precision;
+      private int                    precision;
 
-      private Integer                size;
+      private int                    size;
 
       public List<ColumnConstraint> getColumnConstraints() {
         return columnConstraints;
@@ -78,11 +95,11 @@ public class SchemaPojo {
         return dataType;
       }
 
-      public Integer getPrecision() {
+      public int getPrecision() {
         return precision;
       }
 
-      public Integer getSize() {
+      public int getSize() {
         return size;
       }
 
@@ -99,11 +116,11 @@ public class SchemaPojo {
       }
 
       @SuppressWarnings("ucd")
-      public void setPrecision(Integer precision) {
+      public void setPrecision(int precision) {
         this.precision = precision;
       }
 
-      public void setSize(Integer size) {
+      public void setSize(int size) {
         this.size = size;
       }
     }
@@ -153,7 +170,7 @@ public class SchemaPojo {
     }
 
     private List<Column>          columns          = null;
-    private Integer               numberOfRows;
+    private int                   numberOfRows;
 
     private List<TableConstraint> tableConstraints = null;
     private String                tableName;
@@ -162,7 +179,7 @@ public class SchemaPojo {
       return columns;
     }
 
-    public Integer getNumberOfRows() {
+    public int getNumberOfRows() {
       return numberOfRows;
     }
 
@@ -178,7 +195,7 @@ public class SchemaPojo {
       this.columns = columns;
     }
 
-    public void setNumberOfRows(Integer numberOfRows) {
+    public void setNumberOfRows(int numberOfRows) {
       this.numberOfRows = numberOfRows;
     }
 
@@ -191,13 +208,22 @@ public class SchemaPojo {
     }
   }
 
-  private List<Table> tables = null;
+  private Globals    globals;
+  private Set<Table> tables = null;
 
-  public List<Table> getTables() {
+  public Globals getGlobals() {
+    return globals;
+  }
+
+  public Set<Table> getTables() {
     return tables;
   }
 
-  public void setTables(List<Table> tables) {
+  public void setGlobals(Globals globals) {
+    this.globals = globals;
+  }
+
+  public void setTables(Set<Table> tables) {
     this.tables = tables;
   }
 }

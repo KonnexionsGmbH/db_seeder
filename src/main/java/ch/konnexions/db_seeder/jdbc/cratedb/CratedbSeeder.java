@@ -52,7 +52,7 @@ public class CratedbSeeder extends AbstractGenCratedbSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenCratedbSchema.createTableStmnts.get(tableName);
   }
 

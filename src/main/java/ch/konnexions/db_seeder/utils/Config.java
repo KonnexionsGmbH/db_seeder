@@ -38,7 +38,6 @@ public class Config {
 
   private String                  database;
   private String                  databaseSys;
-  private int                     defaultRowSize;
 
   private boolean                 encodingIso_8859_1;
   private boolean                 encodingUtf_8;
@@ -157,15 +156,6 @@ public class Config {
     return databaseSys;
   }
 
-  // DEFAULT (rows) ----------------------------------------------------------
-
-  /**
-   * @return the default number of rows to be generated for database table
-   */
-  public final int getDefaultRowSize() {
-    return defaultRowSize;
-  }
-
   // Encoding ----------------------------------------------------------------
 
   /**
@@ -225,7 +215,7 @@ public class Config {
 
   private ArrayList<String> getKeysSorted() {
 
-    for (final Iterator<String> iterator = propertiesConfiguration.getKeys(); iterator.hasNext();) {
+    for (Iterator<String> iterator = propertiesConfiguration.getKeys(); iterator.hasNext();) {
       keysSorted.add(iterator.next());
     }
 
@@ -304,7 +294,6 @@ public class Config {
 
     database                = propertiesConfiguration.getString("db_seeder.database");
     databaseSys             = propertiesConfiguration.getString("db_seeder.database.sys");
-    defaultRowSize          = propertiesConfiguration.getInt("db_seeder.default.row.size");
 
     encodingIso_8859_1      = propertiesConfiguration.getBoolean("db_seeder.encoding.iso_8859_1");
     encodingUtf_8           = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
@@ -372,14 +361,6 @@ public class Config {
       databaseSys = environmentVariables.get("DB_SEEDER_DATABASE_SYS");
       propertiesConfiguration.setProperty("db_seeder.database.sys",
                                           databaseSys);
-    }
-
-    // DEFAULT (rows) ----------------------------------------------------------
-
-    if (environmentVariables.containsKey("DB_SEEDER_DEFAULT_ROW_SIZE")) {
-      defaultRowSize = Integer.parseInt(environmentVariables.get("DB_SEEDER_DEFAULT_ROW_SIZE"));
-      propertiesConfiguration.setProperty("db_seeder.default.row.size",
-                                          defaultRowSize);
     }
 
     // Encoding ----------------------------------------------------------------

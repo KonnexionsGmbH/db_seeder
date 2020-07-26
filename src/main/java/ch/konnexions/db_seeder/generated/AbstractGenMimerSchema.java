@@ -5,10 +5,10 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a Mimer DBMS.
- * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ * CREATE TABLE statements for a Mimer DBMS. <br>
+ * 
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
 
@@ -106,7 +106,8 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
   /**
    * Instantiates a new abstract Mimer schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbol
+   *            DBMS ticker symbol
    */
   public AbstractGenMimerSchema(String dbmsTickerSymbol) {
     super(dbmsTickerSymbol);

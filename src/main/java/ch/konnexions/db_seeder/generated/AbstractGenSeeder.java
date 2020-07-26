@@ -1,7 +1,6 @@
 package ch.konnexions.db_seeder.generated;
 
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -9,8 +8,9 @@ import org.apache.log4j.Logger;
 /**
  * Test Data Generator for a Database - Abstract Generated Seeder.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ * @author  GenerateSchema.class
+ * @version 2.0.0
+ * @since   2020-07-26
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
@@ -51,7 +51,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  protected final void insertTable(final PreparedStatement preparedStatement,
+  protected final void insertTable(PreparedStatement preparedStatement,
                                    final String tableName,
                                    final int rowCount,
                                    final int rowNo,
@@ -80,176 +80,260 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount) {
-    int i = 2;
+  private void prepDmlStmntInsertCity(PreparedStatement preparedStatement, int rowCount) {
+    int i = 0;
 
-    prepStmntInsertColFKOpt(i++,
-                            preparedStatement,
-                            pkLists.get(TABLE_NAME_COUNTRY_STATE),
-                            rowCount);
+    prepStmntInsertColBigint(preparedStatement,
+                             "CITY",
+                             "PK_CITY_ID",
+                             ++i,
+                             rowCount);
+    prepStmntInsertColFKOpt(preparedStatement,
+                            "CITY",
+                            "FK_COUNTRY_STATE_ID",
+                            ++i,
+                            rowCount,
+                            pkLists.get(TABLE_NAME_COUNTRY_STATE));
     prepStmntInsertColBlobOpt(preparedStatement,
-                              i++,
+                              "CITY",
+                              "CITY_MAP",
+                              ++i,
                               rowCount);
-    prepStmntInsertColDatetime(preparedStatement,
-                               i++,
-                               rowCount);
-    prepStmntInsertColDatetimeOpt(preparedStatement,
-                                  i++,
-                                  rowCount);
+    prepStmntInsertColTimestamp(preparedStatement,
+                                "CITY",
+                                "CREATED",
+                                ++i,
+                                rowCount);
+    prepStmntInsertColTimestampOpt(preparedStatement,
+                                   "CITY",
+                                   "MODIFIED",
+                                   ++i,
+                                   rowCount);
     prepStmntInsertColString(preparedStatement,
-                             i,
-                             "NAME_",
+                             "CITY",
+                             "NAME",
+                             ++i,
+                             rowCount,
                              autoIncrement);
   }
 
-  private void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount) {
-    try {
-      int i = 2;
+  private void prepDmlStmntInsertCompany(PreparedStatement preparedStatement, int rowCount) {
+    int i = 0;
 
-      preparedStatement.setObject(i++,
-                                  pkLists.get(TABLE_NAME_CITY).get(getRandomIntExcluded(pkListSizes.get(TABLE_NAME_CITY))));
-      prepStmntInsertColFlagNY(preparedStatement,
-                               i++,
-                               rowCount);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "ADDRESS1_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "ADDRESS2_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "ADDRESS3_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColDatetime(preparedStatement,
-                                 i++,
-                                 rowCount);
-      prepStmntInsertColClobOpt(preparedStatement,
-                                i++,
-                                rowCount);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "EMAIL_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "FAX_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColDatetimeOpt(preparedStatement,
-                                    i++,
-                                    rowCount);
-      prepStmntInsertColString(preparedStatement,
-                               i++,
-                               "NAME_",
-                               autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "PHONE_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "POSTAL_CODE_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i++,
-                                  "URL_",
-                                  rowCount,
-                                  autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i,
-                                  "VAT_ID_NUMBER_",
-                                  rowCount,
-                                  autoIncrement);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  private void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount) {
-    int i = 2;
-
-    prepStmntInsertColBlobOpt(preparedStatement,
-                              i++,
-                              rowCount);
-    prepStmntInsertColDatetime(preparedStatement,
-                               i++,
-                               rowCount);
+    prepStmntInsertColBigint(preparedStatement,
+                             "COMPANY",
+                             "PK_COMPANY_ID",
+                             ++i,
+                             rowCount);
+    prepStmntInsertColFK(preparedStatement,
+                         "COMPANY",
+                         "FK_CITY_ID",
+                         ++i,
+                         rowCount,
+                         pkLists.get(TABLE_NAME_CITY));
+    prepStmntInsertColString(preparedStatement,
+                             "COMPANY",
+                             "ACTIVE",
+                             ++i,
+                             rowCount,
+                             autoIncrement);
     prepStmntInsertColStringOpt(preparedStatement,
-                                i++,
-                                "ISO3166_",
+                                "COMPANY",
+                                "ADDRESS1",
+                                ++i,
                                 rowCount,
                                 autoIncrement);
-    prepStmntInsertColDatetimeOpt(preparedStatement,
-                                  i++,
-                                  rowCount);
-    prepStmntInsertColString(preparedStatement,
-                             i,
-                             "NAME_",
-                             autoIncrement);
-  }
-
-  private void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount) {
-    try {
-      int i = 2;
-
-      preparedStatement.setObject(i++,
-                                  pkLists.get(TABLE_NAME_COUNTRY).get(getRandomIntExcluded(pkListSizes.get(TABLE_NAME_COUNTRY))));
-      preparedStatement.setObject(i++,
-                                  pkLists.get(TABLE_NAME_TIMEZONE).get(getRandomIntExcluded(pkListSizes.get(TABLE_NAME_TIMEZONE))));
-      prepStmntInsertColBlobOpt(preparedStatement,
-                                i++,
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COMPANY",
+                                "ADDRESS2",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COMPANY",
+                                "ADDRESS3",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColTimestamp(preparedStatement,
+                                "COMPANY",
+                                "CREATED",
+                                ++i,
                                 rowCount);
-      prepStmntInsertColDatetime(preparedStatement,
-                                 i++,
-                                 rowCount);
-      prepStmntInsertColDatetimeOpt(preparedStatement,
-                                    i++,
-                                    rowCount);
-      prepStmntInsertColString(preparedStatement,
-                               i++,
-                               "NAME_",
-                               autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement,
-                                  i,
-                                  "SYMBOL_",
-                                  rowCount,
-                                  autoIncrement);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  private void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount) {
-    int i = 2;
-
+    prepStmntInsertColClobOpt(preparedStatement,
+                              "COMPANY",
+                              "DIRECTIONS",
+                              ++i,
+                              rowCount);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COMPANY",
+                                "EMAIL",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COMPANY",
+                                "FAX",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColTimestampOpt(preparedStatement,
+                                   "COMPANY",
+                                   "MODIFIED",
+                                   ++i,
+                                   rowCount);
     prepStmntInsertColString(preparedStatement,
-                             i++,
-                             "ABBREVIATION_",
-                             autoIncrement);
-    prepStmntInsertColDatetime(preparedStatement,
-                               i++,
-                               rowCount);
-    prepStmntInsertColDatetimeOpt(preparedStatement,
-                                  i++,
-                                  rowCount);
-    prepStmntInsertColString(preparedStatement,
-                             i++,
-                             "NAME_",
+                             "COMPANY",
+                             "NAME",
+                             ++i,
+                             rowCount,
                              autoIncrement);
     prepStmntInsertColStringOpt(preparedStatement,
-                                i,
-                                "V_TIME_ZONE_",
+                                "COMPANY",
+                                "PHONE",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COMPANY",
+                                "POSTAL_CODE",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COMPANY",
+                                "URL",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COMPANY",
+                                "VAT_ID_NUMBER",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+  }
+
+  private void prepDmlStmntInsertCountry(PreparedStatement preparedStatement, int rowCount) {
+    int i = 0;
+
+    prepStmntInsertColBigint(preparedStatement,
+                             "COUNTRY",
+                             "PK_COUNTRY_ID",
+                             ++i,
+                             rowCount);
+    prepStmntInsertColBlobOpt(preparedStatement,
+                              "COUNTRY",
+                              "COUNTRY_MAP",
+                              ++i,
+                              rowCount);
+    prepStmntInsertColTimestamp(preparedStatement,
+                                "COUNTRY",
+                                "CREATED",
+                                ++i,
+                                rowCount);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COUNTRY",
+                                "ISO3166",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+    prepStmntInsertColTimestampOpt(preparedStatement,
+                                   "COUNTRY",
+                                   "MODIFIED",
+                                   ++i,
+                                   rowCount);
+    prepStmntInsertColString(preparedStatement,
+                             "COUNTRY",
+                             "NAME",
+                             ++i,
+                             rowCount,
+                             autoIncrement);
+  }
+
+  private void prepDmlStmntInsertCountryState(PreparedStatement preparedStatement, int rowCount) {
+    int i = 0;
+
+    prepStmntInsertColBigint(preparedStatement,
+                             "COUNTRY_STATE",
+                             "PK_COUNTRY_STATE_ID",
+                             ++i,
+                             rowCount);
+    prepStmntInsertColFK(preparedStatement,
+                         "COUNTRY_STATE",
+                         "FK_COUNTRY_ID",
+                         ++i,
+                         rowCount,
+                         pkLists.get(TABLE_NAME_COUNTRY));
+    prepStmntInsertColFK(preparedStatement,
+                         "COUNTRY_STATE",
+                         "FK_TIMEZONE_ID",
+                         ++i,
+                         rowCount,
+                         pkLists.get(TABLE_NAME_TIMEZONE));
+    prepStmntInsertColBlobOpt(preparedStatement,
+                              "COUNTRY_STATE",
+                              "COUNTRY_STATE_MAP",
+                              ++i,
+                              rowCount);
+    prepStmntInsertColTimestamp(preparedStatement,
+                                "COUNTRY_STATE",
+                                "CREATED",
+                                ++i,
+                                rowCount);
+    prepStmntInsertColTimestampOpt(preparedStatement,
+                                   "COUNTRY_STATE",
+                                   "MODIFIED",
+                                   ++i,
+                                   rowCount);
+    prepStmntInsertColString(preparedStatement,
+                             "COUNTRY_STATE",
+                             "NAME",
+                             ++i,
+                             rowCount,
+                             autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "COUNTRY_STATE",
+                                "SYMBOL",
+                                ++i,
+                                rowCount,
+                                autoIncrement);
+  }
+
+  private void prepDmlStmntInsertTimezone(PreparedStatement preparedStatement, int rowCount) {
+    int i = 0;
+
+    prepStmntInsertColBigint(preparedStatement,
+                             "TIMEZONE",
+                             "PK_TIMEZONE_ID",
+                             ++i,
+                             rowCount);
+    prepStmntInsertColString(preparedStatement,
+                             "TIMEZONE",
+                             "ABBREVIATION",
+                             ++i,
+                             rowCount,
+                             autoIncrement);
+    prepStmntInsertColTimestamp(preparedStatement,
+                                "TIMEZONE",
+                                "CREATED",
+                                ++i,
+                                rowCount);
+    prepStmntInsertColTimestampOpt(preparedStatement,
+                                   "TIMEZONE",
+                                   "MODIFIED",
+                                   ++i,
+                                   rowCount);
+    prepStmntInsertColString(preparedStatement,
+                             "TIMEZONE",
+                             "NAME",
+                             ++i,
+                             rowCount,
+                             autoIncrement);
+    prepStmntInsertColStringOpt(preparedStatement,
+                                "TIMEZONE",
+                                "V_TIME_ZONE",
+                                ++i,
                                 rowCount,
                                 autoIncrement);
   }

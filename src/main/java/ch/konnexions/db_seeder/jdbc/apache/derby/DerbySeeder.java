@@ -67,7 +67,7 @@ public class DerbySeeder extends AbstractGenDerbySchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenDerbySchema.createTableStmnts.get(tableName);
   }
 

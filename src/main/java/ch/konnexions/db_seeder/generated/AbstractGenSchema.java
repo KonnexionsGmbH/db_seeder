@@ -11,8 +11,9 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 /**
  * Test Data Generator for a Database - Abstract Generated Schema.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ * @author  GenerateSchema.class
+ * @version 2.0.0
+ * @since   2020-07-26
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
@@ -69,6 +70,8 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     // Encoding ASCII
     columnName.setProperty("ABBREVIATION_0",
                            "");
+    columnName.setProperty("ACTIVE_0",
+                           "");
     columnName.setProperty("ADDRESS1_0",
                            "");
     columnName.setProperty("ADDRESS2_0",
@@ -85,7 +88,7 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
                            "");
     columnName.setProperty("PHONE_0",
                            "");
-    columnName.setProperty("POSTAL CODE_0",
+    columnName.setProperty("POSTAL_CODE_0",
                            "");
     columnName.setProperty("SYMBOL_0",
                            "");
@@ -100,65 +103,69 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     boolean isIso_8859_1 = config.getEncodingIso_8859_1();
 
     columnName.setProperty("ABBREVIATION_1",
-                           isIso_8859_1 ? "ABRÉVIATION_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "ABBREVIATION_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
+    columnName.setProperty("ACTIVE_1",
+                           isIso_8859_1 ? "ACTIVE_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("ADDRESS1_1",
-                           isIso_8859_1 ? "DIRECCIÓN1_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "ADDRESS1_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("ADDRESS2_1",
-                           isIso_8859_1 ? "DIRECCIÓN2_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "ADDRESS2_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("ADDRESS3_1",
-                           isIso_8859_1 ? "DIRECCIÓN3_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "ADDRESS3_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("EMAIL_1",
-                           isIso_8859_1 ? "CORREO_ELECTRÓNICO_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "EMAIL_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("FAX_1",
-                           isIso_8859_1 ? "TÉLÉCOPIE_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "FAX_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("ISO3166_1",
-                           isIso_8859_1 ? "CÓDIGO 3166_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "ISO3166_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("NAME_1",
-                           isIso_8859_1 ? "COMPAÑÍA_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "NAME_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("PHONE_1",
-                           isIso_8859_1 ? "TÉLÉPHONE_" : "NO_ISO_8859_1_");
-    columnName.setProperty("POSTAL CODE_1",
-                           isIso_8859_1 ? "CÓDIGO_POSTAL_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "PHONE_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
+    columnName.setProperty("POSTAL_CODE_1",
+                           isIso_8859_1 ? "POSTAL_CODE_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("SYMBOL_1",
-                           isIso_8859_1 ? "SÍMBOLO_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "SYMBOL_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("URL_1",
-                           isIso_8859_1 ? "ENDEREÇO_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "URL_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("VAT_ID_NUMBER_1",
-                           isIso_8859_1 ? "NUMÉRO_D'IDENTIFICATION_DE_LA_TVA_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "VAT_ID_NUMBER_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     columnName.setProperty("V_TIME_ZONE_1",
-                           isIso_8859_1 ? "FUSO_HORÁRIO_" : "NO_ISO_8859_1_");
+                           isIso_8859_1 ? "V_TIME_ZONE_ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
 
     // Encoding UTF_8
     boolean isUtf_8 = config.getEncodingUtf_8();
 
-    columnName.setProperty("ABBREVIATION_2",
-                           isUtf_8 ? "缩略语_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS1_2",
-                           isUtf_8 ? "地址1_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS2_2",
-                           isUtf_8 ? "地址2_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS3_2",
-                           isUtf_8 ? "地址3_" : "NO_UTF_8_");
-    columnName.setProperty("EMAIL_2",
-                           isUtf_8 ? "电子邮件_" : "NO_UTF_8_");
-    columnName.setProperty("FAX_2",
-                           isUtf_8 ? "传真_" : "NO_UTF_8_");
-    columnName.setProperty("ISO3166_2",
-                           isUtf_8 ? "ISO 3166标准_" : "NO_UTF_8_");
-    columnName.setProperty("NAME_2",
-                           isUtf_8 ? "名称_" : "NO_UTF_8_");
-    columnName.setProperty("PHONE_2",
-                           isUtf_8 ? "电话_" : "NO_UTF_8_");
-    columnName.setProperty("POSTAL CODE_2",
-                           isUtf_8 ? "邮政编码_" : "NO_UTF_8_");
-    columnName.setProperty("SYMBOL_2",
-                           isUtf_8 ? "符号_" : "NO_UTF_8_");
-    columnName.setProperty("URL_2",
-                           isUtf_8 ? "网址_" : "NO_UTF_8_");
-    columnName.setProperty("VAT_ID_NUMBER_2",
-                           isUtf_8 ? "增值税号_" : "NO_UTF_8_");
-    columnName.setProperty("V_TIME_ZONE_2",
-                           isUtf_8 ? "时区_" : "NO_UTF_8_");
+    columnName.setProperty("ABBREVIATION_1",
+                           isUtf_8 ? "ABBREVIATION_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("ACTIVE_1",
+                           isUtf_8 ? "ACTIVE_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("ADDRESS1_1",
+                           isUtf_8 ? "ADDRESS1_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("ADDRESS2_1",
+                           isUtf_8 ? "ADDRESS2_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("ADDRESS3_1",
+                           isUtf_8 ? "ADDRESS3_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("EMAIL_1",
+                           isUtf_8 ? "EMAIL_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("FAX_1",
+                           isUtf_8 ? "FAX_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("ISO3166_1",
+                           isUtf_8 ? "ISO3166_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("NAME_1",
+                           isUtf_8 ? "NAME_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("PHONE_1",
+                           isUtf_8 ? "PHONE_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("POSTAL_CODE_1",
+                           isUtf_8 ? "POSTAL_CODE_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("SYMBOL_1",
+                           isUtf_8 ? "SYMBOL_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("URL_1",
+                           isUtf_8 ? "URL_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("VAT_ID_NUMBER_1",
+                           isUtf_8 ? "VAT_ID_NUMBER_缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("V_TIME_ZONE_1",
+                           isUtf_8 ? "V_TIME_ZONE_缩略语地址电子邮件传真_" : "NO_UTF_8_");
 
     return columnName;
   }
@@ -171,15 +178,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     dmlStatements      = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
-                               "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?,?");
+                               "PK_CITY_ID,FK_COUNTRY_STATE_ID,CITY_MAP,CREATED,MODIFIED,NAME) VALUES (?,?,?,?,?,?");
                            put(TABLE_NAME_COMPANY,
-                               "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?");
+                               "PK_COMPANY_ID,FK_CITY_ID,ACTIVE,ADDRESS1,ADDRESS2,ADDRESS3,CREATED,DIRECTIONS,EMAIL,FAX,MODIFIED,NAME,PHONE,POSTAL_CODE,URL,VAT_ID_NUMBER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?");
                            put(TABLE_NAME_COUNTRY,
-                               "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?,?");
+                               "PK_COUNTRY_ID,COUNTRY_MAP,CREATED,ISO3166,MODIFIED,NAME) VALUES (?,?,?,?,?,?");
                            put(TABLE_NAME_COUNTRY_STATE,
-                               "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?,?");
+                               "PK_COUNTRY_STATE_ID,FK_COUNTRY_ID,FK_TIMEZONE_ID,COUNTRY_STATE_MAP,CREATED,MODIFIED,NAME,SYMBOL) VALUES (?,?,?,?,?,?,?,?");
                            put(TABLE_NAME_TIMEZONE,
-                               "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?,?");
+                               "PK_TIMEZONE_ID,ABBREVIATION,CREATED,MODIFIED,NAME,V_TIME_ZONE) VALUES (?,?,?,?,?,?");
                          }
                        };
 
@@ -207,9 +214,7 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     TABLE_NAMES_DROP   = Arrays.asList(TABLE_NAME_COMPANY,
                                        TABLE_NAME_CITY,
                                        TABLE_NAME_COUNTRY_STATE,
-                                       TABLE_NAME_COUNTRY,
-                                       TABLE_NAME_TIMEZONE);
-
+                                       TABLE_NAME_TIMEZONE,
+                                       TABLE_NAME_COUNTRY);
   }
-
 }

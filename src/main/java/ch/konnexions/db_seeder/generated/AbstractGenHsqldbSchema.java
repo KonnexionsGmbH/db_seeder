@@ -5,10 +5,10 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a HyperSQL DBMS.
- * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ * CREATE TABLE statements for a HyperSQL DBMS. <br>
+ * 
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
 
@@ -106,7 +106,8 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
   /**
    * Initialises a new abstract HyperSQL schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbol
+   *            DBMS ticker symbol
    */
   public AbstractGenHsqldbSchema(String dbmsTickerSymbol) {
     super(dbmsTickerSymbol);
@@ -123,8 +124,10 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
   /**
    * Initialises a new abstract HyperSQL schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsTickerSymbol
+   *            DBMS ticker symbol
+   * @param isClient
+   *            client database version
    */
   public AbstractGenHsqldbSchema(String dbmsTickerSymbol, boolean isClient) {
     super(dbmsTickerSymbol, isClient);

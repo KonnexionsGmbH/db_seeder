@@ -67,7 +67,7 @@ public class H2Seeder extends AbstractGenH2Schema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenH2Schema.createTableStmnts.get(tableName);
   }
 

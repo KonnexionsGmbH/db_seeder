@@ -52,7 +52,7 @@ public class MysqlSeeder extends AbstractGenMysqlSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenMysqlSchema.createTableStmnts.get(tableName);
   }
 

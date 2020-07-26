@@ -5,10 +5,10 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 /**
- * Test Data Generator for a Database - Abstract Oracle Schema.
- * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ * Test Data Generator for a Database - Abstract Oracle Schema. <br>
+ * 
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
 
@@ -106,7 +106,8 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
   /**
    * Instantiates a new abstract Oracle schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbol
+   *            DBMS ticker symbol
    */
   public AbstractGenOracleSchema(String dbmsTickerSymbol) {
     super(dbmsTickerSymbol);

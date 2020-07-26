@@ -5,10 +5,10 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a IBM Db2 DBMS.
- * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ * CREATE TABLE statements for a IBM Db2 DBMS. <br>
+ * 
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
 
@@ -106,7 +106,8 @@ public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
   /**
    * Instantiates a new abstract IBM Db2 schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbol
+   *            DBMS ticker symbol
    */
   public AbstractGenIbmdb2Schema(String dbmsTickerSymbol) {
     super(dbmsTickerSymbol);

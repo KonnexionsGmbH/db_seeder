@@ -263,7 +263,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return connection;
   }
 
-  private int countData(final String tableName) {
+  private int countData(String tableName) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -409,7 +409,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    final String sqlStmnt = "INSERT INTO " + tableNameDelimiter + tableName + tableNameDelimiter + " (" + createDmlStmnt(tableName) + ")";
+    final String sqlStmnt = "INSERT INTO " + tableNameDelimiter + tableName + tableNameDelimiter + " (" + dmlStatements.get(tableName) + ")";
 
     if (isDebug) {
       logger.debug("sql='" + sqlStmnt + "'");
@@ -425,14 +425,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
-      try {
-        preparedStatement.setInt(1,
-                                 autoIncrement);
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-
       insertTable(preparedStatement,
                   tableName,
                   rowCount,
@@ -484,10 +476,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @return the 'CREATE TABLE' statement
    */
   protected abstract String createDdlStmnt(String tableName);
-
-  private String createDmlStmnt(final String tableName) {
-    return "pk_" + tableName.toLowerCase() + "_id," + dmlStatements.get(tableName);
-  }
 
   /**
    * Close the database connection.
@@ -773,30 +761,26 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   private String getColumnContent(String columnName, int rowNo) {
-    return columnName + COLUMN_NAME.getProperty(columnName + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
-                                                                                                   rowNo);
+    return columnName + COLUMN_NAME.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
+                                                                                                         rowNo);
   }
 
-  private int getMaxRowSize(final String tableName) {
-    int maxRowSize = maxRowSizes.get(tableName);
+  private int getMaxRowSize(String tableName) {
+    int maxRowSize   = maxRowSizes.get(tableName);
 
-    if (maxRowSize < 1) {
-      return config.getDefaultRowSize();
-    } else {
-      int MAX_ROW_SIZE = Integer.MAX_VALUE;
-      if (maxRowSize > MAX_ROW_SIZE) {
-        return MAX_ROW_SIZE;
-      }
+    int MAX_ROW_SIZE = Integer.MAX_VALUE;
+    if (maxRowSize > MAX_ROW_SIZE) {
+      return MAX_ROW_SIZE;
     }
 
     return maxRowSize;
   }
 
-  protected final int getRandomIntExcluded(final int upperLimit) {
+  private final int getRandomIntExcluded(int upperLimit) {
     return randomInt.nextInt(upperLimit);
   }
 
-  private int getRandomIntIncluded(final int upperLimit) {
+  private int getRandomIntIncluded(int upperLimit) {
     return randomInt.nextInt(upperLimit) + 1;
   }
 
@@ -805,11 +789,40 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return new java.sql.Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
-  //  private final double getRandomDouble(final double lowerLimit, final double upperLimit) {
+  //  private final double getRandomDouble( double lowerLimit,  double upperLimit) {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
 
   protected abstract void insertTable(PreparedStatement preparedStatement2, String tableName, int rowCount, int rowNo, ArrayList<Object> pkList);
+
+  protected void prepStmntInsertColBigint(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
+    try {
+      preparedStatement.setInt(1,
+                               autoIncrement);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  @SuppressWarnings("ucd")
+  protected void prepStmntInsertColBigintOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
+    try {
+      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
+        preparedStatement.setNull(columnPos,
+                                  java.sql.Types.INTEGER);
+      } else {
+        prepStmntInsertColBigint(preparedStatement,
+                                 tableName,
+                                 columnName,
+                                 columnPos,
+                                 rowCount);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Sets the designated optional parameter to a BLOB value.
@@ -818,7 +831,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowCount          the row count
    */
-  protected void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  protected void prepStmntInsertColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
     try {
       preparedStatement.setBytes(columnPos,
                                  BLOB_DATA_BYTES);
@@ -828,7 +841,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  protected final void prepStmntInsertColBlobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  protected final void prepStmntInsertColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
     try {
       if (dbmsEnum == DbmsEnum.CRATEDB) {
         preparedStatement.setNull(columnPos,
@@ -843,6 +856,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         }
       } else {
         prepStmntInsertColBlob(preparedStatement,
+                               tableName,
+                               columnName,
                                columnPos,
                                rowCount);
       }
@@ -852,7 +867,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private void prepStmntInsertColClob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  private final void prepStmntInsertColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
     try {
       preparedStatement.setString(columnPos,
                                   CLOB_DATA);
@@ -862,7 +877,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  protected final void prepStmntInsertColClobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  protected final void prepStmntInsertColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         if (dbmsEnum == DbmsEnum.CRATEDB) {
@@ -874,6 +889,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         }
       } else {
         prepStmntInsertColClob(preparedStatement,
+                               tableName,
+                               columnName,
                                columnPos,
                                rowCount);
       }
@@ -883,40 +900,38 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  protected final void prepStmntInsertColDatetime(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  protected final void prepStmntInsertColFK(PreparedStatement preparedStatement,
+                                            String tableName,
+                                            String columnName,
+                                            int columnPos,
+                                            int rowCount,
+                                            ArrayList<Object> fkList) {
     try {
-      preparedStatement.setTimestamp(columnPos,
-                                     getRandomTimestamp());
+      preparedStatement.setObject(columnPos,
+                                  fkList.get(getRandomIntExcluded(fkList.size())));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  protected final void prepStmntInsertColDatetimeOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
-    try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos,
-                                  java.sql.Types.TIMESTAMP);
-      } else {
-        prepStmntInsertColDatetime(preparedStatement,
-                                   columnPos,
-                                   rowCount);
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  protected final void prepStmntInsertColFKOpt(final int columnPos, PreparedStatement preparedStatement, final ArrayList<Object> fkList, final int rowCount) {
+  protected final void prepStmntInsertColFKOpt(PreparedStatement preparedStatement,
+                                               String tableName,
+                                               String columnName,
+                                               int columnPos,
+                                               int rowCount,
+                                               ArrayList<Object> fkList) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos,
                                   java.sql.Types.INTEGER);
       } else {
-        preparedStatement.setObject(columnPos,
-                                    fkList.get(getRandomIntExcluded(fkList.size())));
+        prepStmntInsertColFK(preparedStatement,
+                             tableName,
+                             columnName,
+                             columnPos,
+                             rowCount,
+                             fkList);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -924,7 +939,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  protected final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
+  @SuppressWarnings("ucd")
+  protected final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setString(columnPos,
@@ -939,7 +955,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  protected final void prepStmntInsertColString(final PreparedStatement preparedStatement, final int columnPos, final String columnName, final int rowNo) {
+  protected final void prepStmntInsertColString(PreparedStatement preparedStatement,
+                                                String tableName,
+                                                String columnName,
+                                                int columnPos,
+                                                int rowCount,
+                                                int rowNo) {
     try {
       if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
         preparedStatement.setNString(columnPos,
@@ -956,8 +977,42 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
+  protected final void prepStmntInsertColStringOpt(PreparedStatement preparedStatement,
+                                                   String tableName,
+                                                   String columnName,
+                                                   int columnPos,
+                                                   int rowCount,
+                                                   int rowNo) {
+    try {
+      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
+        preparedStatement.setNull(columnPos,
+                                  java.sql.Types.VARCHAR);
+      } else {
+        prepStmntInsertColString(preparedStatement,
+                                 tableName,
+                                 columnName,
+                                 columnPos,
+                                 rowCount,
+                                 rowNo);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  protected final void prepStmntInsertColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
+    try {
+      preparedStatement.setTimestamp(columnPos,
+                                     getRandomTimestamp());
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
   //  protected final void
-  //            prepStmntInsertColDoubleOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount, double lowerLimit, double upperLimit) {
+  //            prepStmntInsertColDoubleOpt(PreparedStatement preparedStatement, int columnPos, int rowCount, double lowerLimit, double upperLimit) {
   //    try {
   //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
   //        preparedStatement.setNull(columnPos, java.sql.Types.DECIMAL);
@@ -970,20 +1025,17 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   //    }
   //  }
 
-  protected final void prepStmntInsertColStringOpt(final PreparedStatement preparedStatement,
-                                                   final int columnPos,
-                                                   final String columnName,
-                                                   final int rowCount,
-                                                   final int rowNo) {
+  protected final void prepStmntInsertColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowCount) {
     try {
       if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
         preparedStatement.setNull(columnPos,
-                                  java.sql.Types.VARCHAR);
+                                  java.sql.Types.TIMESTAMP);
       } else {
-        prepStmntInsertColString(preparedStatement,
-                                 columnPos,
-                                 columnName,
-                                 rowNo);
+        prepStmntInsertColTimestamp(preparedStatement,
+                                    tableName,
+                                    columnName,
+                                    columnPos,
+                                    rowCount);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -1066,7 +1118,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return clobData.toString();
   }
 
-  //  private final void prepStmntInsertColFlagNYOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
+  //  private final void prepStmntInsertColFlagNYOpt(PreparedStatement preparedStatement, int columnPos, int rowCount) {
   //    try {
   //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
   //        preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
@@ -1079,7 +1131,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   //    }
   //  }
 
-  //  private final void prepStmntInsertColIntOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount, final int upperLimit) {
+  //  private final void prepStmntInsertColIntOpt(PreparedStatement preparedStatement, int columnPos, int rowCount, int upperLimit) {
   //    try {
   //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
   //        preparedStatement.setNull(columnPos, java.sql.Types.INTEGER);
@@ -1157,7 +1209,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter
           + " WHERE " + columnName + " = ?");
       preparedStatement.setString(1,
-                                  getColumnContent(columnName + "_",
+                                  getColumnContent(columnName,
                                                    rowNo));
 
       resultSet = preparedStatement.executeQuery();

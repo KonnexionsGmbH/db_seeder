@@ -1,13 +1,25 @@
 package ch.konnexions.db_seeder.generator;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 import org.everit.json.schema.Schema;
@@ -38,19 +50,39 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public class GenerateSchema {
 
-  private static final Logger              logger  = Logger.getLogger(GenerateSchema.class);
+  private static final Logger              logger                  = Logger.getLogger(GenerateSchema.class);
 
-  private int                              errors  = 0;
+  private int                              errors                  = 0;
 
-  private final boolean                    isDebug = logger.isDebugEnabled();
+  private Map<String, List<String>>        genTableNameColumnNames = new HashMap<>();
+  private List<String>                     genTableHierarchy       = new ArrayList<>();
+  private HashMap<String, List<Column>>    genTablesColumns        = new HashMap<>();
+  private List<String>                     genTableNames           = new ArrayList<>();
+  private Map<String, Integer>             genTableNumberOfRows    = new HashMap<>();
+  private Set<String>                      genVarcharColumnNames   = new HashSet<>();
 
-  private List<Table>                      valTables;
+  private final boolean                    isDebug                 = logger.isDebugEnabled();
+
+  private String                           printDate;
+  private final String                     printDatePattern        = "yyyy-MM-dd";
+
+  private int                              valDefaultNumberOfRows;
+  private Set<Table>                       valTables;
   private HashMap<String, HashSet<String>> valTablesColumns;
+  private HashMap<String, HashSet<String>> valTableNameForeignKeys = new HashMap<>();
 
-  private void generateClassBaseSchema(String release, SchemaPojo schemaPojo) {
+  /**
+   * Instantiates a new GenerateSchema object.
+   */
+  public GenerateSchema() {
+    super();
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(printDatePattern);
+
+    printDate = simpleDateFormat.format(new Date());
   }
 
-  private void generateClassDbmsSchema(String release, SchemaPojo schemaPojo, DbmsEnum ticketSymbol) {
+  private void generateClassDbmsSchema(String release, SchemaPojo schemaPojo, DbmsEnum tickerSymbol) {
   }
 
   /**
@@ -60,16 +92,938 @@ public class GenerateSchema {
    * @param schemaPojo the schema POJO
    */
   private void generateClasses(String release, SchemaPojo schemaPojo) {
-
-    generateClassBaseSchema(release,
-                            schemaPojo);
-
-    for (DbmsEnum ticketSymbol : DbmsEnum.values()) {
-      generateClassDbmsSchema(release,
-                              schemaPojo,
-                              ticketSymbol);
+    if (isDebug) {
+      logger.debug("Start");
     }
 
+    MessageHandling.startProgress(logger,
+                                  "Start generating Java classes");
+
+    generateClassSchema(release,
+                        schemaPojo);
+
+    logger.info("===> Generated class: AbstractGenSchema");
+
+    generateClassSeeder(release,
+                        schemaPojo);
+
+    logger.info("===> Generated class: AbstractGenSeeder");
+
+    for (DbmsEnum tickerSymbol : DbmsEnum.values()) {
+      String tickerSymbolLower  = tickerSymbol.getTicketSymbol().toLowerCase();
+      String tickerSymbolPascal = tickerSymbolLower.substring(0,
+                                                              1).toUpperCase() + tickerSymbolLower.substring(1);
+
+      generateClassDbmsSchema(release,
+                              schemaPojo,
+                              tickerSymbol);
+
+      logger.info("===> Generated class: Abstract" + tickerSymbolPascal + "GenSchema");
+    }
+
+    logger.info("");
+    logger.info("===> The Java class generation was successful.");
+    logger.info("-".repeat(74));
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Generate the Java class AbstractGenSchema.
+   *
+   * @param release the current release number
+   * @param schemaPojo the schema POJO
+   */
+  private void generateClassSchema(String release, SchemaPojo schemaPojo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    BufferedWriter bufferedWriter = null;
+    try {
+      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
+          "src/main/java/ch/konnexions/db_seeder/generated/AbstractGenSchema.java"), false), StandardCharsets.UTF_8));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      generateCodeSchema(bufferedWriter,
+                         release,
+                         schemaPojo);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      bufferedWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Generate the Java class AbstractGenSeeder.
+   *
+   * @param release the current release number
+   * @param schemaPojo the schema POJO
+   */
+  private void generateClassSeeder(String release, SchemaPojo schemaPojo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    BufferedWriter bufferedWriter = null;
+    try {
+      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
+          "src/main/java/ch/konnexions/db_seeder/generated/AbstractGenSeeder.java"), false), StandardCharsets.UTF_8));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      generateCodeSeeder(bufferedWriter,
+                         release,
+                         schemaPojo);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      bufferedWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Generate the code of the Java class Abstract<db_ticker>Schema.
+   *
+   * @param bw the buffered writer
+   * @param release the current release number
+   * @param schemaPojo the schema POJO
+   */
+  private void generateCodeDbmsSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo) throws IOException {
+    try {
+      bw.append("package ch.konnexions.db_seeder.generated;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("import java.util.HashMap;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("import org.apache.log4j.Logger;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("/**");
+      bw.newLine();
+      bw.append(" * CREATE TABLE statements for a ##DBMS_NAME## DBMS.");
+      bw.newLine();
+      bw.append(" * <br>");
+      bw.newLine();
+      bw.append(" * @author  GenerateSchema.class");
+      bw.newLine();
+      bw.append(" * @version " + release);
+      bw.newLine();
+      bw.append(" * @since   " + printDate);
+      bw.newLine();
+      bw.append(" */");
+      bw.newLine();
+      bw.append("public abstract class AbstractGen##DBMS_NAME_PASCAL##Schema extends AbstractGenSeeder {");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  public static final HashMap<String, String> createTableStmnts = createTableStmnts();");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  private static final Logger                 logger            = Logger.getLogger(AbstractGen##DBMS_NAME_PASCAL##Schema.class);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Creates the CREATE TABLE statements.");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @SuppressWarnings(\"preview\")");
+      bw.newLine();
+      bw.append("  private static HashMap<String, String> createTableStmnts() {");
+      bw.newLine();
+      bw.append("    HashMap<String, String> statements = new HashMap<>();");
+      bw.newLine();
+      bw.newLine();
+      //
+      // <=== TBD ===>
+      //
+      bw.append("    statements.put(TABLE_NAME_CITY,");
+      bw.newLine();
+      bw.append("                   \"\"\"");
+      bw.newLine();
+      bw.append("                   CREATE TABLE `CITY` (");
+      bw.newLine();
+      bw.append("                      `PK_CITY_ID`          BIGINT       NOT NULL PRIMARY KEY,");
+      bw.newLine();
+      bw.append("                      `FK_COUNTRY_STATE_ID` BIGINT,");
+      bw.newLine();
+      bw.append("                      `CITY_MAP`            LONGBLOB,");
+      bw.newLine();
+      bw.append("                      `CREATED`             DATETIME     NOT NULL,");
+      bw.newLine();
+      bw.append("                      `MODIFIED`            DATETIME,");
+      bw.newLine();
+      bw.append("                      `NAME`                VARCHAR(100) NOT NULL,");
+      bw.newLine();
+      bw.append("                       CONSTRAINT `FK_CITY_COUNTRY_STATE` FOREIGN KEY `FK_CITY_COUNTRY_STATE` (`FK_COUNTRY_STATE_ID`) REFERENCES `COUNTRY_STATE` (`PK_COUNTRY_STATE_ID`)");
+      bw.newLine();
+      bw.append("                   )");
+      bw.newLine();
+      bw.append("                   \"\"\");");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    statements.put(TABLE_NAME_COMPANY,");
+      bw.newLine();
+      bw.append("                   \"\"\"");
+      bw.newLine();
+      bw.append("                   CREATE TABLE `COMPANY` (");
+      bw.newLine();
+      bw.append("                      `PK_COMPANY_ID` BIGINT       NOT NULL PRIMARY KEY,");
+      bw.newLine();
+      bw.append("                      `FK_CITY_ID`    BIGINT       NOT NULL,");
+      bw.newLine();
+      bw.append("                      `ACTIVE`        VARCHAR(1)   NOT NULL,");
+      bw.newLine();
+      bw.append("                      `ADDRESS1`      VARCHAR(50),");
+      bw.newLine();
+      bw.append("                      `ADDRESS2`      VARCHAR(50),");
+      bw.newLine();
+      bw.append("                      `ADDRESS3`      VARCHAR(50),");
+      bw.newLine();
+      bw.append("                      `CREATED`       DATETIME     NOT NULL,");
+      bw.newLine();
+      bw.append("                      `DIRECTIONS`    LONGTEXT,");
+      bw.newLine();
+      bw.append("                      `EMAIL`         VARCHAR(100),");
+      bw.newLine();
+      bw.append("                      `FAX`           VARCHAR(50),");
+      bw.newLine();
+      bw.append("                      `MODIFIED`      DATETIME,");
+      bw.newLine();
+      bw.append("                      `NAME`          VARCHAR(250) NOT NULL UNIQUE,");
+      bw.newLine();
+      bw.append("                      `PHONE`         VARCHAR(50),");
+      bw.newLine();
+      bw.append("                      `POSTAL_CODE`   VARCHAR(50),");
+      bw.newLine();
+      bw.append("                      `URL`           VARCHAR(250),");
+      bw.newLine();
+      bw.append("                      `VAT_ID_NUMBER` VARCHAR(100),");
+      bw.newLine();
+      bw.append("                       CONSTRAINT `FK_COMPANY_CITY` FOREIGN KEY `FK_COMPANY_CITY` (`FK_CITY_ID`) REFERENCES `CITY` (`PK_CITY_ID`)");
+      bw.newLine();
+      bw.append("                   )");
+      bw.newLine();
+      bw.append("                   \"\"\");");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    statements.put(TABLE_NAME_COUNTRY,");
+      bw.newLine();
+      bw.append("                   \"\"\"");
+      bw.newLine();
+      bw.append("                   CREATE TABLE `COUNTRY` (");
+      bw.newLine();
+      bw.append("                      `PK_COUNTRY_ID` BIGINT       NOT NULL PRIMARY KEY,");
+      bw.newLine();
+      bw.append("                      `COUNTRY_MAP`   LONGBLOB,");
+      bw.newLine();
+      bw.append("                      `CREATED`       DATETIME     NOT NULL,");
+      bw.newLine();
+      bw.append("                      `ISO3166`       VARCHAR(50),");
+      bw.newLine();
+      bw.append("                      `MODIFIED`      DATETIME,");
+      bw.newLine();
+      bw.append("                      `NAME`          VARCHAR(100) NOT NULL UNIQUE");
+      bw.newLine();
+      bw.append("                   )");
+      bw.newLine();
+      bw.append("                   \"\"\");");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    statements.put(TABLE_NAME_COUNTRY_STATE,");
+      bw.newLine();
+      bw.append("                   \"\"\"");
+      bw.newLine();
+      bw.append("                   CREATE TABLE `COUNTRY_STATE` (");
+      bw.newLine();
+      bw.append("                      `PK_COUNTRY_STATE_ID` BIGINT       NOT NULL PRIMARY KEY,");
+      bw.newLine();
+      bw.append("                      `FK_COUNTRY_ID`       BIGINT       NOT NULL,");
+      bw.newLine();
+      bw.append("                      `FK_TIMEZONE_ID`      BIGINT       NOT NULL,");
+      bw.newLine();
+      bw.append("                      `COUNTRY_STATE_MAP`   LONGBLOB,");
+      bw.newLine();
+      bw.append("                      `CREATED`             DATETIME     NOT NULL,");
+      bw.newLine();
+      bw.append("                      `MODIFIED`            DATETIME,");
+      bw.newLine();
+      bw.append("                      `NAME`                VARCHAR(100) NOT NULL,");
+      bw.newLine();
+      bw.append("                      `SYMBOL`              VARCHAR(50),");
+      bw.newLine();
+      bw.append("                       CONSTRAINT `FK_COUNTRY_STATE_COUNTRY`  FOREIGN KEY `FK_COUNTRY_STATE_COUNTRY`  (`FK_COUNTRY_ID`)  REFERENCES `COUNTRY`  (`PK_COUNTRY_ID`),");
+      bw.newLine();
+      bw.append("                       CONSTRAINT `FK_COUNTRY_STATE_TIMEZONE` FOREIGN KEY `FK_COUNTRY_STATE_TIMEZONE` (`FK_TIMEZONE_ID`) REFERENCES `TIMEZONE` (`PK_TIMEZONE_ID`),");
+      bw.newLine();
+      bw.append("                       CONSTRAINT `UQ_COUNTRY_STATE`          UNIQUE (`FK_COUNTRY_ID`,`NAME`)");
+      bw.newLine();
+      bw.append("                   )");
+      bw.newLine();
+      bw.append("                   \"\"\");");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    statements.put(TABLE_NAME_TIMEZONE,");
+      bw.newLine();
+      bw.append("                   \"\"\"");
+      bw.newLine();
+      bw.append("                   CREATE TABLE `TIMEZONE` (");
+      bw.newLine();
+      bw.append("                      `PK_TIMEZONE_ID` BIGINT        NOT NULL PRIMARY KEY,");
+      bw.newLine();
+      bw.append("                      `ABBREVIATION`   VARCHAR(50)   NOT NULL,");
+      bw.newLine();
+      bw.append("                      `CREATED`        DATETIME      NOT NULL,");
+      bw.newLine();
+      bw.append("                      `MODIFIED`       DATETIME,");
+      bw.newLine();
+      bw.append("                      `NAME`           VARCHAR(100)  NOT NULL UNIQUE,");
+      bw.newLine();
+      bw.append("                      `V_TIME_ZONE`    VARCHAR(4000)");
+      bw.newLine();
+      bw.append("                   )");
+      bw.newLine();
+      bw.append("                   \"\"\");");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    return statements;");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Instantiates a new abstract ##DBMS_NAME## schema object.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  public AbstractGen##DBMS_NAME_PASCAL##Schema(String dbmsTickerSymbol) {");
+      bw.newLine();
+      bw.append("    super(dbmsTickerSymbol);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol);");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"End   Constructor\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.append("}");
+      bw.newLine();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  /**
+   * Generate the code of the Java class AbstractGenSchema.
+   *
+   * @param bw the buffered writer
+   * @param release the current release number
+   * @param schemaPojo the schema POJO
+   */
+  private void generateCodeSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo) throws IOException {
+    try {
+      bw.append("package ch.konnexions.db_seeder.generated;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("import java.util.Arrays;");
+      bw.newLine();
+      bw.append("import java.util.HashMap;");
+      bw.newLine();
+      bw.append("import java.util.Properties;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("import org.apache.log4j.Logger;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("/**");
+      bw.newLine();
+      bw.append(" * Test Data Generator for a Database - Abstract Generated Schema.");
+      bw.newLine();
+      bw.append(" * <br>");
+      bw.newLine();
+      bw.append(" * @author  GenerateSchema.class");
+      bw.newLine();
+      bw.append(" * @version " + release);
+      bw.newLine();
+      bw.append(" * @since   " + printDate);
+      bw.newLine();
+      bw.append(" */");
+      bw.newLine();
+      bw.append("abstract class AbstractGenSchema extends AbstractJdbcSeeder {");
+      bw.newLine();
+      bw.newLine();
+
+      for (String tableName : genTableNames) {
+        bw.append("  protected static final String TABLE_NAME_" + String.format("%-30s",
+                                                                                tableName) + " = \"" + tableName + "\";");
+        bw.newLine();
+      }
+
+      bw.newLine();
+      bw.append("  private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Initialises a new abstract generated schema object.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  public AbstractGenSchema(String dbmsTickerSymbol) {");
+      bw.newLine();
+      bw.append("    super(dbmsTickerSymbol);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol);");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    initConstants();");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"End   Constructor\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Initialises a new abstract generated schema object.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
+      bw.newLine();
+      bw.append("   * @param isClient client database version");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  public AbstractGenSchema(String dbmsTickerSymbol, boolean isClient) {");
+      bw.newLine();
+      bw.append("    super(dbmsTickerSymbol, isClient);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - isClient=\" + isClient);");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    initConstants();");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"End   Constructor\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  protected final Properties createColumnNames() {");
+      bw.newLine();
+      bw.append("    Properties columnName = new Properties();");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    // Encoding ASCII");
+      bw.newLine();
+
+      Set<String> genVarcharColumnNamesSorted = new TreeSet<String>(genVarcharColumnNames);
+
+      for (String columnName : genVarcharColumnNamesSorted) {
+        bw.append("    columnName.setProperty(\"" + columnName + "_0\",");
+        bw.newLine();
+        bw.append("                           \"\");");
+        bw.newLine();
+      }
+
+      bw.newLine();
+      bw.append("    // Encoding ISO_8859_1");
+      bw.newLine();
+      bw.append("    boolean isIso_8859_1 = config.getEncodingIso_8859_1();");
+      bw.newLine();
+      bw.newLine();
+
+      for (String columnName : genVarcharColumnNamesSorted) {
+        bw.append("    columnName.setProperty(\"" + columnName + "_1\",");
+        bw.newLine();
+        bw.append("                           isIso_8859_1 ? \"" + columnName + "_ÁÇÉÍÑÓ_\" : \"NO_ISO_8859_1_\");");
+        bw.newLine();
+      }
+
+      bw.newLine();
+      bw.append("    // Encoding UTF_8");
+      bw.newLine();
+      bw.append("    boolean isUtf_8 = config.getEncodingUtf_8();");
+      bw.newLine();
+      bw.newLine();
+
+      for (String columnName : genVarcharColumnNamesSorted) {
+        bw.append("    columnName.setProperty(\"" + columnName + "_1\",");
+        bw.newLine();
+        bw.append("                           isUtf_8 ? \"" + columnName + "_缩略语地址电子邮件传真_\" : \"NO_UTF_8_\");");
+        bw.newLine();
+      }
+
+      bw.newLine();
+      bw.append("    return columnName;");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Initialising constants.");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @SuppressWarnings(\"serial\")");
+      bw.newLine();
+      bw.append("  private void initConstants() {");
+      bw.newLine();
+      bw.append("    dmlStatements      = new HashMap<>() {");
+      bw.newLine();
+      bw.append("                         {");
+      bw.newLine();
+
+      for (String tableName : genTableNames) {
+        List<String> columnNames          = genTableNameColumnNames.get(tableName);
+
+        String       columnnamesWithComma = String.join(",",
+                                                        columnNames);
+        String       questionMarks        = "";
+
+        for (int i = 0; i < columnNames.size(); i++) {
+          questionMarks = questionMarks + (i == 0 ? "?" : ",?");
+        }
+
+        bw.append("                           put(TABLE_NAME_" + tableName + ",");
+        bw.newLine();
+        bw.append("                               \"" + columnnamesWithComma + ") VALUES (" + questionMarks + "\");");
+        bw.newLine();
+      }
+
+      bw.append("                         }");
+      bw.newLine();
+      bw.append("                       };");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    maxRowSizes        = new HashMap<>() {");
+      bw.newLine();
+      bw.append("                         {");
+      bw.newLine();
+
+      for (String tableName : genTableNames) {
+        bw.append("                           put(TABLE_NAME_" + tableName + ",");
+        bw.newLine();
+        bw.append("                               " + genTableNumberOfRows.get(tableName).toString() + ");");
+        bw.newLine();
+      }
+
+      bw.append("                         }");
+      bw.newLine();
+      bw.append("                       };");
+      bw.newLine();
+      bw.newLine();
+
+      int count = 0;
+
+      for (String tableName : genTableHierarchy) {
+        if (count == 0) {
+          bw.append("    TABLE_NAMES_CREATE = Arrays.asList(TABLE_NAME_");
+        } else {
+          bw.append("                                       TABLE_NAME_");
+        }
+
+        bw.append(tableName);
+
+        count++;
+
+        if (genTableHierarchy.size() == count) {
+          bw.append(");");
+        } else {
+          bw.append(",");
+        }
+
+        bw.newLine();
+      }
+
+      bw.newLine();
+
+      Collections.reverse(genTableHierarchy);
+
+      count = 0;
+
+      for (String tableName : genTableHierarchy) {
+        if (count == 0) {
+          bw.append("    TABLE_NAMES_DROP   = Arrays.asList(TABLE_NAME_");
+        } else {
+          bw.append("                                       TABLE_NAME_");
+        }
+
+        bw.append(tableName);
+
+        count++;
+
+        if (genTableHierarchy.size() == count) {
+          bw.append(");");
+        } else {
+          bw.append(",");
+        }
+
+        bw.newLine();
+      }
+
+      bw.append("  }");
+      bw.newLine();
+      bw.append("}");
+      bw.newLine();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  /**
+   * Generate the code of the Java class AbstractGenSeeder.
+   *
+   * @param bw the buffered writer
+   * @param release the current release number
+   * @param schemaPojo the schema POJO
+   */
+  private void generateCodeSeeder(BufferedWriter bw, String release, SchemaPojo schemaPojo) throws IOException {
+    try {
+      bw.append("package ch.konnexions.db_seeder.generated;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("import java.sql.PreparedStatement;");
+      bw.newLine();
+      bw.append("import java.util.ArrayList;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("import org.apache.log4j.Logger;");
+      bw.newLine();
+      bw.newLine();
+      bw.append("/**");
+      bw.newLine();
+      bw.append(" * Test Data Generator for a Database - Abstract Generated Seeder.");
+      bw.newLine();
+      bw.append(" * <br>");
+      bw.newLine();
+      bw.append(" * @author  GenerateSchema.class");
+      bw.newLine();
+      bw.append(" * @version " + release);
+      bw.newLine();
+      bw.append(" * @since   " + printDate);
+      bw.newLine();
+      bw.append(" */");
+      bw.newLine();
+      bw.append("abstract class AbstractGenSeeder extends AbstractGenSchema {");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  private static final Logger logger = Logger.getLogger(AbstractGenSeeder.class);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Initialises a new abstract generated seeder object.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  public AbstractGenSeeder(String dbmsTickerSymbol) {");
+      bw.newLine();
+      bw.append("    super(dbmsTickerSymbol);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol);");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"End   Constructor\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Initialises a new abstract generated seeder object.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
+      bw.newLine();
+      bw.append("   * @param isClient client database version");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  public AbstractGenSeeder(String dbmsTickerSymbol, boolean isClient) {");
+      bw.newLine();
+      bw.append("    super(dbmsTickerSymbol, isClient);");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - isClient=\" + isClient);");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"End   Constructor\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  protected final void insertTable(PreparedStatement preparedStatement,");
+      bw.newLine();
+      bw.append("                                   final String tableName,");
+      bw.newLine();
+      bw.append("                                   final int rowCount,");
+      bw.newLine();
+      bw.append("                                   final int rowNo,");
+      bw.newLine();
+      bw.append("                                   final ArrayList<Object> pkList) {");
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"Start\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    switch (tableName) {");
+      bw.newLine();
+
+      for (String tableName : genTableNames) {
+        bw.append("    case TABLE_NAME_" + tableName + " -> prepDmlStmntInsert" + getTableNamePascalCase(tableName) + "(preparedStatement,");
+        bw.newLine();
+        bw.append("                                                   rowCount);");
+        bw.newLine();
+      }
+
+      bw.append("    default -> throw new RuntimeException(\"Not yet implemented - database table : \" + String.format(FORMAT_TABLE_NAME,");
+      bw.newLine();
+      bw.append("                                                                                                    tableName));");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"End\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+
+      for (String tableName : genTableNames) {
+        bw.append("  private void prepDmlStmntInsert" + getTableNamePascalCase(tableName) + "(PreparedStatement preparedStatement, int rowCount) {");
+        bw.newLine();
+        bw.append("    int i = 0;");
+        bw.newLine();
+        bw.newLine();
+
+        List<Column> columns = genTablesColumns.get(tableName);
+
+        for (Column column : columns) {
+          String                 columnName        = column.getColumnName().toUpperCase();
+          String                 dataType          = column.getDataType().toUpperCase();
+
+          List<ColumnConstraint> columnConstraints = column.getColumnConstraints();
+
+          String                 referenceTable    = getColumnConstraintForeign(columnConstraints);
+          boolean                isNotNull         = getColumnConstraintNotNull(columnConstraints);
+          boolean                isPrimaryKey      = getColumnConstraintPrimary(columnConstraints);
+
+          if (isPrimaryKey) {
+            isNotNull = true;
+          }
+
+          switch (dataType) {
+          case "BIGINT":
+            if ("".equals(referenceTable)) {
+              bw.append("    prepStmntInsertColBigint" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+              bw.newLine();
+              bw.append("                              \"" + tableName + "\",");
+              bw.newLine();
+              bw.append("                              \"" + columnName + "\",");
+              bw.newLine();
+              bw.append("                              ++i,");
+              bw.newLine();
+              bw.append("                              rowCount);");
+              bw.newLine();
+            } else {
+              bw.append("    prepStmntInsertColFK" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+              bw.newLine();
+              bw.append("                            \"" + tableName + "\",");
+              bw.newLine();
+              bw.append("                            \"" + columnName + "\",");
+              bw.newLine();
+              bw.append("                            ++i,");
+              bw.newLine();
+              bw.append("                            rowCount,");
+              bw.newLine();
+              bw.append("                            pkLists.get(TABLE_NAME_" + referenceTable + "));");
+              bw.newLine();
+            }
+
+            break;
+          case "BLOB":
+            bw.append("    prepStmntInsertColBlob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.newLine();
+            bw.append("                              \"" + tableName + "\",");
+            bw.newLine();
+            bw.append("                              \"" + columnName + "\",");
+            bw.newLine();
+            bw.append("                              ++i,");
+            bw.newLine();
+            bw.append("                              rowCount);");
+            bw.newLine();
+
+            break;
+          case "CLOB":
+            bw.append("      prepStmntInsertColClob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.newLine();
+            bw.append("                                \"" + tableName + "\",");
+            bw.newLine();
+            bw.append("                                \"" + columnName + "\",");
+            bw.newLine();
+            bw.append("                                ++i,");
+            bw.newLine();
+            bw.append("                                rowCount);");
+            bw.newLine();
+
+            break;
+          case "TIMESTAMP":
+            bw.append("    prepStmntInsertColTimestamp" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.newLine();
+            bw.append("                               \"" + tableName + "\",");
+            bw.newLine();
+            bw.append("                               \"" + columnName + "\",");
+            bw.newLine();
+            bw.append("                               ++i,");
+            bw.newLine();
+            bw.append("                               rowCount);");
+            bw.newLine();
+            break;
+          case "VARCHAR":
+            bw.append("    prepStmntInsertColString" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.newLine();
+            bw.append("                             \"" + tableName + "\",");
+            bw.newLine();
+            bw.append("                             \"" + columnName + "\",");
+            bw.newLine();
+            bw.append("                             ++i,");
+            bw.newLine();
+            bw.append("                             rowCount,");
+            bw.newLine();
+            bw.append("                             autoIncrement);");
+            bw.newLine();
+
+            //            bw.append("      prepStmntInsertColFlagNY" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            //            bw.newLine();
+            //            bw.append("                               ++i,");
+            //            bw.newLine();
+            //            bw.append("                               rowCount);");
+            //            bw.newLine();
+
+            break;
+          default:
+            MessageHandling.abortProgram(logger,
+                                         "Database table: '" + tableName + "' column: '" + columnName + "' - Unknown data type '" + dataType + "'");
+          }
+        }
+
+        bw.append("  }");
+        bw.newLine();
+        bw.newLine();
+      }
+      bw.append("}");
+      bw.newLine();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
   }
 
   /**
@@ -83,7 +1037,7 @@ public class GenerateSchema {
       logger.debug("Start");
     }
 
-    String     fileSchemaName = "src/main/resources/db_seeder_schema.json";
+    String     fileSchemaName = "src/main/resources/db_seeder_schema.schema.json";
 
     JSONObject jsonSchema     = null;
 
@@ -116,6 +1070,64 @@ public class GenerateSchema {
     if (isDebug) {
       logger.debug("End");
     }
+  }
+
+  private String getColumnConstraintForeign(List<ColumnConstraint> columnConstraints) {
+    if (columnConstraints != null) {
+      for (ColumnConstraint columnConstraint : columnConstraints) {
+        if ("FOREIGN".equals(columnConstraint.getConstraintType().toUpperCase())) {
+          return columnConstraint.getReferenceTable().toUpperCase();
+        }
+      }
+    }
+
+    return "";
+  }
+
+  private boolean getColumnConstraintNotNull(List<ColumnConstraint> columnConstraints) {
+    if (columnConstraints != null) {
+      for (ColumnConstraint columnConstraint : columnConstraints) {
+        if ("NOT NULL".equals(columnConstraint.getConstraintType().toUpperCase())) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  private boolean getColumnConstraintPrimary(List<ColumnConstraint> columnConstraints) {
+    if (columnConstraints != null) {
+      for (ColumnConstraint columnConstraint : columnConstraints) {
+        if ("PRIMARY".equals(columnConstraint.getConstraintType().toUpperCase())) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  private String getTableNamePascalCase(String tableName) {
+    StringBuilder tableNamePascalCase = new StringBuilder();
+
+    boolean       isUnderline         = true;
+
+    for (String ch : tableName.split("")) {
+      if ("_".equals(ch)) {
+        isUnderline = true;
+        continue;
+      }
+
+      if (isUnderline) {
+        tableNamePascalCase.append(ch);
+        isUnderline = false;
+      } else {
+        tableNamePascalCase.append(ch.toLowerCase());
+      }
+    }
+
+    return tableNamePascalCase.toString();
   }
 
   /**
@@ -198,6 +1210,13 @@ public class GenerateSchema {
     MessageHandling.startProgress(logger,
                                   "Start validating the schema definition");
 
+    valDefaultNumberOfRows = schemaPojo.getGlobals().getDefaultNumberOfRows();
+
+    if (valDefaultNumberOfRows <= 0) {
+      logger.error("Default number of rows must be greater than zero");
+      errors++;
+    }
+
     valTables        = schemaPojo.getTables();
     valTablesColumns = new HashMap<>();
 
@@ -206,15 +1225,29 @@ public class GenerateSchema {
       errors++;
     } else {
 
+      int    numberOfRows;
       String tableName;
 
       for (Table table : valTables) {
-        tableName = table.getTableName().toUpperCase();
+        tableName = table.getTableName();
+
+        if (tableName != null) {
+          tableName = tableName.toUpperCase();
+        }
 
         if (valTablesColumns.containsKey(tableName)) {
           logger.error("Database table: '" + tableName + "' - This database table was defined more than once");
           errors++;
           continue;
+        }
+
+        numberOfRows = table.getNumberOfRows();
+
+        if (numberOfRows < 0) {
+          logger.error("Number of rows must not be negative");
+          errors++;
+        } else if (numberOfRows == 0) {
+          numberOfRows = valDefaultNumberOfRows;
         }
 
         List<Column> columns = table.getColumns();
@@ -229,15 +1262,32 @@ public class GenerateSchema {
                                                                columns);
 
         if (errors == 0) {
+          genTablesColumns.put(tableName,
+                               columns);
+          genTableNames.add(tableName);
+          genTableNumberOfRows.put(tableName,
+                                   numberOfRows);
+
           valTablesColumns.put(tableName,
                                valColumnNames);
         }
       }
 
       if (errors == 0) {
+        Collections.sort(genTableNames);
+
+        for (String tableNameSorted : genTableNames) {
+          valTableNameForeignKeys.put(tableNameSorted,
+                                      new HashSet<String>());
+        }
+
         validateSchemaTableConstraints();
 
         validateSchemaColumnConstraints();
+
+        if (errors == 0) {
+          validateSchemaForeignKeys();
+        }
       }
     }
 
@@ -287,10 +1337,23 @@ public class GenerateSchema {
         columnName = column.getColumnName();
 
         for (ColumnConstraint columnConstraint : columnConstraints) {
-          constraintType  = columnConstraint.getConstraintType().toUpperCase();
+          constraintType = columnConstraint.getConstraintType();
+
+          if (constraintType != null) {
+            constraintType = constraintType.toUpperCase();
+          }
 
           referenceColumn = columnConstraint.getReferenceColumn();
-          referenceTable  = columnConstraint.getReferenceTable();
+
+          if (referenceColumn != null) {
+            referenceColumn = referenceColumn.toUpperCase();
+          }
+
+          referenceTable = columnConstraint.getReferenceTable();
+
+          if (referenceTable != null) {
+            referenceTable = referenceTable.toUpperCase();
+          }
 
           switch (constraintType) {
           case "FOREIGN" -> {
@@ -299,26 +1362,50 @@ public class GenerateSchema {
                   + "' requires a reference table");
               errors++;
             }
+
             if (tableName.equals(referenceTable)) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' constraint type: '" + constraintType
                   + "' - Reference table must be a different database table");
               errors++;
             }
+
             if (!(valTablesColumns.containsKey(referenceTable))) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' constraint type: '" + constraintType + "' - Reference table '"
                   + referenceTable + "' is not defined");
               errors++;
             }
+
             if (referenceColumn == null) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
                   + "' requires a reference column");
               errors++;
               continue;
             }
+
             valRefrenceColumnNames = valTablesColumns.get(referenceTable);
-            if (!valRefrenceColumnNames.contains(referenceColumn.toUpperCase())) {
+
+            if (!valRefrenceColumnNames.contains(referenceColumn)) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' constraint type: '" + constraintType + "' - Reference column '"
-                  + referenceColumn.toUpperCase() + "' is not defined in database table '" + referenceTable + "'");
+                  + referenceColumn + "' is not defined in database table '" + referenceTable + "'");
+              errors++;
+            }
+
+            if (errors == 0) {
+              HashSet<String> referenceTables = valTableNameForeignKeys.get(tableName);
+              referenceTables.add(referenceTable);
+              valTableNameForeignKeys.put(tableName,
+                                          referenceTables);
+            }
+          }
+          case "NOT NULL" -> {
+            if (referenceTable != null) {
+              logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
+                  + "' does not allow a reference table");
+              errors++;
+            }
+            if (referenceColumn != null) {
+              logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
+                  + "' does not allow a reference column");
               errors++;
             }
           }
@@ -361,15 +1448,20 @@ public class GenerateSchema {
       logger.debug("Start");
     }
 
-    HashSet<String> columnNames = new HashSet<>();
+    HashSet<String> columnNames      = new HashSet<>();
 
     String          columnName;
+    List<String>    tableColumnNames = new ArrayList<>();
     String          dataType;
-    Integer         precision;
-    Integer         size;
+    int             precision;
+    int             size;
 
     for (Column column : columns) {
-      columnName = column.getColumnName().toUpperCase();
+      columnName = column.getColumnName();
+
+      if (columnName != null) {
+        columnName = columnName.toUpperCase();
+      }
 
       if (!columnNames.add(columnName)) {
         logger.error("Database table: '" + tableName + "' column: '" + columnName
@@ -390,19 +1482,19 @@ public class GenerateSchema {
 
       switch (dataType) {
       case "BIGINT", "BLOB", "CLOB", "TIMESTAMP" -> {
-        if (size != null) {
+        if (size > 0) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type '" + dataType + "' does not allow a value for size ("
               + size + ")");
           errors++;
         }
-        if (precision != null) {
+        if (precision > 0) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type '" + dataType + "' does not allow a value for precision ("
               + precision + ")");
           errors++;
         }
       }
       case "VARCHAR" -> {
-        if (size == null) {
+        if (size == 0) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Size is missing (null)");
           errors++;
           continue;
@@ -411,7 +1503,7 @@ public class GenerateSchema {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Size must have a value between 1 and 4000");
           errors++;
         }
-        if (precision != null) {
+        if (precision != 0) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type '" + dataType + "' does not allow a value for precision ("
               + precision + ")");
           errors++;
@@ -422,13 +1514,68 @@ public class GenerateSchema {
         errors++;
       }
       }
+
+      if ("VARCHAR".equals(dataType)) {
+        genVarcharColumnNames.add(columnName);
+      }
+
+      tableColumnNames.add(columnName);
     }
+
+    genTableNameColumnNames.put(tableName,
+                                tableColumnNames);
 
     if (isDebug) {
       logger.debug("End");
     }
 
     return columnNames;
+  }
+
+  /**
+   * Validate foreign key hierarchy.
+   */
+  private void validateSchemaForeignKeys() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    while (valTableNameForeignKeys.size() > 0) {
+      List<String> currentLevel = new ArrayList<>();
+
+      for (String tableName : genTableNames) {
+        if (valTableNameForeignKeys.containsKey(tableName)) {
+          if (valTableNameForeignKeys.get(tableName).size() == 0) {
+            currentLevel.add(tableName);
+            genTableHierarchy.add(tableName);
+            valTableNameForeignKeys.remove(tableName);
+          }
+        }
+      }
+
+      if (currentLevel.size() == 0) {
+        logger.error("Foreign key hierarchy is wrong");
+        errors++;
+        break;
+      }
+
+      for (String referenceTable : currentLevel) {
+        for (String tableName : genTableNames) {
+          HashSet<String> referenceTables = valTableNameForeignKeys.get(tableName);
+          if (referenceTables != null) {
+            if (referenceTables.contains(referenceTable)) {
+              referenceTables.remove(referenceTable);
+              valTableNameForeignKeys.put(tableName,
+                                          referenceTables);
+            }
+          }
+        }
+      }
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   /**
@@ -444,7 +1591,6 @@ public class GenerateSchema {
 
     List<String>          referenceColumns;
     String                referenceTable;
-    String                referenceTableUpper;
     HashSet<String>       valRefrenceColumnNames;
 
     HashSet<String>       valColumnNames;
@@ -467,8 +1613,13 @@ public class GenerateSchema {
           continue;
         }
 
-        constraintType = tableConstraint.getConstraintType().toUpperCase();
-        columns        = tableConstraint.getColumns();
+        constraintType = tableConstraint.getConstraintType();
+
+        if (constraintType != null) {
+          constraintType = constraintType.toUpperCase();
+        }
+
+        columns = tableConstraint.getColumns();
 
         if (columns == null || columns.size() == 0) {
           logger.error("Database table: '" + tableName + "' - Columns missing (null)");
@@ -489,6 +1640,10 @@ public class GenerateSchema {
         referenceColumns = tableConstraint.getReferenceColumns();
         referenceTable   = tableConstraint.getReferenceTable();
 
+        if (referenceTable != null) {
+          referenceTable = referenceTable.toUpperCase();
+        }
+
         switch (constraintType) {
         case "FOREIGN" -> {
           if (referenceTable == null) {
@@ -496,28 +1651,39 @@ public class GenerateSchema {
             errors++;
             continue;
           }
-          referenceTableUpper = referenceTable.toUpperCase();
-          if (tableName.equals(referenceTableUpper.toUpperCase())) {
+
+          if (tableName.equals(referenceTable)) {
             logger.error("Database table: '" + tableName + "' constraint type: '" + constraintType + "' - Reference table must be a different database table");
             errors++;
           }
-          if (!(valTablesColumns.containsKey(referenceTableUpper))) {
-            logger.error("Database table: '" + tableName + "' constraint type: '" + constraintType + "' - Reference table '" + referenceTableUpper
+
+          if (!(valTablesColumns.containsKey(referenceTable))) {
+            logger.error("Database table: '" + tableName + "' constraint type: '" + constraintType + "' - Reference table '" + referenceTable
                 + "' is not defined");
             errors++;
           }
+
           if (referenceColumns == null || referenceColumns.size() == 0) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' requires reference column(s)");
             errors++;
             continue;
           }
-          valRefrenceColumnNames = valTablesColumns.get(referenceTableUpper);
+
+          valRefrenceColumnNames = valTablesColumns.get(referenceTable);
+
           for (String referenceColumn : referenceColumns) {
             if (!valRefrenceColumnNames.contains(referenceColumn.toUpperCase())) {
               logger.error("Database table: '" + tableName + "' constraint type: '" + constraintType + "' - Reference column '" + referenceColumn.toUpperCase()
-                  + "' is not defined in database table '" + referenceTableUpper + "'");
+                  + "' is not defined in database table '" + referenceTable + "'");
               errors++;
             }
+          }
+
+          if (errors == 0) {
+            HashSet<String> referenceTables = valTableNameForeignKeys.get(tableName);
+            referenceTables.add(referenceTable);
+            valTableNameForeignKeys.put(tableName,
+                                        referenceTables);
           }
         }
         case "PRIMARY", "UNIQUE" -> {

@@ -56,12 +56,16 @@ public class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
+  protected final String createDdlStmnt(String tableName) {
     return AbstractGenPostgresqlSchema.createTableStmnts.get(tableName);
   }
 
   @Override
-  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement,
+                                              final String tableName,
+                                              final String columnName,
+                                              final int columnPos,
+                                              int rowCount) {
     FileInputStream blobData = null;
 
     try {

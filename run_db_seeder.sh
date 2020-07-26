@@ -1,18 +1,18 @@
 #!/bin/bash
 
-export -e
+set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder.bat: Creation of dummy data in an empty databases, 
-#                    database users or schemas.
+# run_db_seeder.sh: Creation of dummy data in an empty databases, 
+#                   database users or schemas.
 #
 # ------------------------------------------------------------------------------
 
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=1.15.11
+export DB_SEEDER_RELEASE=2.0.0
 
 if [ -z "$1" ]; then
     echo "==========================================="
