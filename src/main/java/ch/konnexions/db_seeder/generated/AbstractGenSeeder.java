@@ -1,6 +1,7 @@
 package ch.konnexions.db_seeder.generated;
 
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +54,106 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
+  /**
+   * Creates a content value of type BIGINT.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param rowNo             the current row number
+   */
+  @Override
+  protected final int getContentBigint(String tableName, String columnName, int rowNo) {
+    return super.getContentBigint(tableName,
+                                  columnName,
+                                  rowNo);
+  }
+
+  /**
+   * Creates a content value of type BLOB.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param rowNo             the current row number
+   */
+  @Override
+  protected byte[] getContentBlob(String tableName, String columnName, int rowNo) {
+    return super.getContentBlob(tableName,
+                                columnName,
+                                rowNo);
+  }
+
+  /**
+   * Creates a content value of type CLOB.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param rowNo             the current row number
+   */
+  @Override
+  protected String getContentClob(String tableName, String columnName, int rowNo) {
+    return super.getContentClob(tableName,
+                                columnName,
+                                rowNo);
+  }
+
+  /**
+   * Creates a content value of type foreign key value.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param rowNo             the current row number
+   * @param fkList            the existing foreign keys
+   */
+  @Override
+  protected Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {
+    return super.getContentFk(tableName,
+                              columnName,
+                              rowNo,
+                              fkList);
+  }
+
+  /**
+   * Creates a content value of type TIMESTAMP.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param rowNo             the current row number
+   */
+  @Override
+  protected Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {
+    return super.getContentTimestamp(tableName,
+                                     columnName,
+                                     rowNo);
+  }
+
+  /**
+   * Creates a content value of type VARCHAR.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param rowNo             the current row number
+   * @param size              the column size
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
+   */
+  @Override
+  protected String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {
+    return super.getContentVarchar(tableName,
+                                   columnName,
+                                   rowNo,
+                                   size,
+                                   lowerRange,
+                                   upperRange,
+                                   validValues);
+  }
+
   protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final int rowNo, final ArrayList<Object> pkList) {
     if (isDebug) {
       logger.debug("Start");
@@ -79,6 +180,10 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   private void prepDmlStmntInsertCity(PreparedStatement preparedStatement, int rowNo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
@@ -116,9 +221,16 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                         null,
                         null,
                         null);
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   private void prepDmlStmntInsertCompany(PreparedStatement preparedStatement, int rowNo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
@@ -247,9 +359,16 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null,
                            null);
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   private void prepDmlStmntInsertCountry(PreparedStatement preparedStatement, int rowNo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
@@ -290,9 +409,16 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                         null,
                         null,
                         null);
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   private void prepDmlStmntInsertCountryState(PreparedStatement preparedStatement, int rowNo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
@@ -345,9 +471,16 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null,
                            null);
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   private void prepDmlStmntInsertTimezone(PreparedStatement preparedStatement, int rowNo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
@@ -392,131 +525,9 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null,
                            null);
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
-  /**
-   * Sets the designated column to a BIGINT value.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   */
-  @Override
-  protected void prepStmntColBigint(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
-    super.prepStmntColBigint(preparedStatement,
-                             tableName,
-                             columnName,
-                             columnPos,
-                             rowNo);
-  }
-
-  /**
-   * Sets the designated column to a BLOB value.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   */
-  @Override
-  protected void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
-    super.prepStmntColBlob(preparedStatement,
-                           tableName,
-                           columnName,
-                           columnPos,
-                           rowNo);
-  }
-
-  /**
-   * Sets the designated column to a CLOB value.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   */
-  @Override
-  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
-    super.prepStmntColClob(preparedStatement,
-                           tableName,
-                           columnName,
-                           columnPos,
-                           rowNo);
-  }
-
-  /**
-   * Sets the designated column to an existing foreign key value.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   * @param fkList            the existing foreign keys
-   */
-  @Override
-  protected void prepStmntColFk(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo, ArrayList<Object> fkList) {
-    super.prepStmntColFk(preparedStatement,
-                         tableName,
-                         columnName,
-                         columnPos,
-                         rowNo,
-                         fkList);
-  }
-
-  /**
-   * Sets the designated column to a TIMESTAMP value.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   */
-  @Override
-  protected void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
-    super.prepStmntColTimestamp(preparedStatement,
-                                tableName,
-                                columnName,
-                                columnPos,
-                                rowNo);
-  }
-
-  /**
-   * Sets the designated column to a VARCHAR value.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   * @param size              the column size
-   * @param lowerRange        the lower range
-   * @param upperRange        the upper range
-   * @param validValues       the valid values
-   */
-  @Override
-  protected void prepStmntColVarchar(PreparedStatement preparedStatement,
-                                     String tableName,
-                                     String columnName,
-                                     int columnPos,
-                                     int rowNo,
-                                     int size,
-                                     String lowerRange,
-                                     String upperRange,
-                                     List<String> validValues) {
-    super.prepStmntColVarchar(preparedStatement,
-                              tableName,
-                              columnName,
-                              columnPos,
-                              rowNo,
-                              size,
-                              lowerRange,
-                              upperRange,
-                              validValues);
-  }
 }

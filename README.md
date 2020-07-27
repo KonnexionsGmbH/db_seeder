@@ -320,7 +320,6 @@ db_seeder.user=
 | file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
 | file.statistics.header=<x...x> | FILE_STATISTICS_NAME | all DBMS | header line of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
 | file.statistics.name=<x...x> | FILE_STATISTICS_NAME | all DBMS | file name of the statistics file created in `run_db_seeder` and `run_db_seeder_complete` |
-| max.row.t...t=9...9 | MAX_ROW_T...T | Relational DB | number of rows to be generated (per database table t...t) |
 | password.sys=<x...x> | PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
 | password=<x...x> | PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
 | schema=kxn_schema | SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |

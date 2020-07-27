@@ -760,29 +760,37 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private final int getMaxRowSize(String tableName) {
-    int maxRowSize   = maxRowSizes.get(tableName);
+  protected int getContentBigint(String tableName, String columnName, int rowNo) {
 
-    int MAX_ROW_SIZE = Integer.MAX_VALUE;
-    if (maxRowSize > MAX_ROW_SIZE) {
-      return MAX_ROW_SIZE;
-    }
-
-    return maxRowSize;
+    return rowNo;
   }
 
-  private final Object getRandomFk(ArrayList<Object> fkList) {
+  protected byte[] getContentBlob(String tableName, String columnName, int rowNo) {
+
+    return BLOB_DATA_BYTES;
+  }
+
+  protected String getContentClob(String tableName, String columnName, int rowNo) {
+
+    return CLOB_DATA;
+  }
+
+  protected Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {
     Random random = new Random();
 
     return fkList.get(random.nextInt(fkList.size()));
   }
 
-  private final Timestamp getRandomTimestamp() {
+  protected Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {
 
     return new java.sql.Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
-  private final String getRandomVarchar(String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {
+  protected String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     String columnValue = "";
     Random random      = new Random();
 
@@ -793,9 +801,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                                                                                                rowNo);
     }
 
-    int length = columnValue.length();
+    int length = getLengthUTF_8(columnValue);
 
-    if (columnValue.length() > size) {
+    if (length > size) {
       columnValue = columnValue.substring(length - size);
     }
 
@@ -811,10 +819,45 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
     }
 
+    if (isDebug) {
+      logger.debug("End");
+    }
+
     return columnValue;
   }
 
-  //  private final double getRandomDouble( double lowerLimit,  double upperLimit) {
+  private final int getLengthUTF_8(String stringUTF_8) {
+    int count = 0;
+
+    for (int i = 0, len = stringUTF_8.length(); i < len; i++) {
+      char ch = stringUTF_8.charAt(i);
+      if (ch <= 0x7F) {
+        count++;
+      } else if (ch <= 0x7FF) {
+        count += 2;
+      } else if (Character.isHighSurrogate(ch)) {
+        count += 4;
+        ++i;
+      } else {
+        count += 3;
+      }
+    }
+
+    return count;
+  }
+
+  private final int getMaxRowSize(String tableName) {
+    int maxRowSize   = maxRowSizes.get(tableName);
+
+    int MAX_ROW_SIZE = Integer.MAX_VALUE;
+    if (maxRowSize > MAX_ROW_SIZE) {
+      return MAX_ROW_SIZE;
+    }
+
+    return maxRowSize;
+  }
+
+  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
 
@@ -830,12 +873,22 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    */
   protected void prepStmntColBigint(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     try {
       preparedStatement.setInt(1,
-                               rowNo);
+                               getContentBigint(tableName,
+                                                columnName,
+                                                rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 
@@ -849,7 +902,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    */
   @SuppressWarnings("ucd")
-  protected void prepStmntColBigintOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
         preparedStatement.setNull(columnPos,
@@ -880,7 +933,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       preparedStatement.setBytes(columnPos,
-                                 BLOB_DATA_BYTES);
+                                 getContentBlob(tableName,
+                                                columnName,
+                                                rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -896,7 +951,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       if (dbmsEnum == DbmsEnum.CRATEDB) {
         preparedStatement.setNull(columnPos,
@@ -936,10 +991,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       preparedStatement.setString(columnPos,
-                                  CLOB_DATA);
+                                  getContentClob(tableName,
+                                                 columnName,
+                                                 rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -955,7 +1012,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
         if (dbmsEnum == DbmsEnum.CRATEDB) {
@@ -993,7 +1050,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected void prepStmntColFk(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo, ArrayList<Object> fkList) {
     try {
       preparedStatement.setObject(columnPos,
-                                  getRandomFk(fkList));
+                                  getContentFk(tableName,
+                                               columnName,
+                                               rowNo,
+                                               fkList));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -1010,12 +1070,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    * @param fkList            the existing foreign keys
    */
-  protected void prepStmntColFkOpt(PreparedStatement preparedStatement,
-                                   String tableName,
-                                   String columnName,
-                                   int columnPos,
-                                   int rowNo,
-                                   ArrayList<Object> fkList) {
+  protected final void prepStmntColFkOpt(PreparedStatement preparedStatement,
+                                         String tableName,
+                                         String columnName,
+                                         int columnPos,
+                                         int rowNo,
+                                         ArrayList<Object> fkList) {
     try {
       if (rowNo % nullFactor == 0) {
         preparedStatement.setNull(columnPos,
@@ -1047,7 +1107,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       preparedStatement.setTimestamp(columnPos,
-                                     getRandomTimestamp());
+                                     getContentTimestamp(tableName,
+                                                         columnName,
+                                                         rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -1063,7 +1125,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
         preparedStatement.setNull(columnPos,
@@ -1104,28 +1166,38 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                      String lowerRange,
                                      String upperRange,
                                      List<String> validValues) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     try {
       if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
         preparedStatement.setNString(columnPos,
-                                     getRandomVarchar(columnName,
-                                                      rowNo,
-                                                      size,
-                                                      upperRange,
-                                                      upperRange,
-                                                      validValues));
+                                     getContentVarchar(tableName,
+                                                       columnName,
+                                                       rowNo,
+                                                       size,
+                                                       upperRange,
+                                                       upperRange,
+                                                       validValues));
         return;
       }
 
       preparedStatement.setString(columnPos,
-                                  getRandomVarchar(columnName,
-                                                   rowNo,
-                                                   size,
-                                                   upperRange,
-                                                   upperRange,
-                                                   validValues));
+                                  getContentVarchar(tableName,
+                                                    columnName,
+                                                    rowNo,
+                                                    size,
+                                                    upperRange,
+                                                    upperRange,
+                                                    validValues));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 
@@ -1142,15 +1214,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param upperRange        the upper range
    * @param validValues       the valid values
    */
-  protected void prepStmntColVarcharOpt(PreparedStatement preparedStatement,
-                                        String tableName,
-                                        String columnName,
-                                        int columnPos,
-                                        int rowNo,
-                                        int size,
-                                        String lowerRange,
-                                        String upperRange,
-                                        ArrayList<String> validValues) {
+  protected final void prepStmntColVarcharOpt(PreparedStatement preparedStatement,
+                                              String tableName,
+                                              String columnName,
+                                              int columnPos,
+                                              int rowNo,
+                                              int size,
+                                              String lowerRange,
+                                              String upperRange,
+                                              ArrayList<String> validValues) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     try {
       if (rowNo % nullFactor == 0) {
         preparedStatement.setNull(columnPos,
@@ -1169,6 +1245,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 

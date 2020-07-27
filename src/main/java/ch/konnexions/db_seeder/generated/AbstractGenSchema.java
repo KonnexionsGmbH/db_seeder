@@ -65,39 +65,43 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
   }
 
   protected final Properties createColumnNames() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     Properties columnName = new Properties();
 
     // Encoding ASCII
     columnName.setProperty("ABBREVIATION_0",
-                           "_");
+                           "");
     columnName.setProperty("ACTIVE_0",
-                           "_");
+                           "");
     columnName.setProperty("ADDRESS1_0",
-                           "_");
+                           "");
     columnName.setProperty("ADDRESS2_0",
-                           "_");
+                           "");
     columnName.setProperty("ADDRESS3_0",
-                           "_");
+                           "");
     columnName.setProperty("EMAIL_0",
-                           "_");
+                           "");
     columnName.setProperty("FAX_0",
-                           "_");
+                           "");
     columnName.setProperty("ISO3166_0",
-                           "_");
+                           "");
     columnName.setProperty("NAME_0",
-                           "_");
+                           "");
     columnName.setProperty("PHONE_0",
-                           "_");
+                           "");
     columnName.setProperty("POSTAL_CODE_0",
-                           "_");
+                           "");
     columnName.setProperty("SYMBOL_0",
-                           "_");
+                           "");
     columnName.setProperty("URL_0",
-                           "_");
+                           "");
     columnName.setProperty("VAT_ID_NUMBER_0",
-                           "_");
+                           "");
     columnName.setProperty("V_TIME_ZONE_0",
-                           "_");
+                           "");
 
     // Encoding ISO_8859_1
     boolean isIso_8859_1 = config.getEncodingIso_8859_1();
@@ -167,6 +171,10 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     columnName.setProperty("V_TIME_ZONE_2",
                            isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
 
+    if (isDebug) {
+      logger.debug("End");
+    }
+
     return columnName;
   }
 
@@ -175,6 +183,10 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
    */
   @SuppressWarnings("serial")
   private void initConstants() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     dmlStatements      = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
@@ -216,5 +228,9 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
                                        TABLE_NAME_COUNTRY_STATE,
                                        TABLE_NAME_TIMEZONE,
                                        TABLE_NAME_COUNTRY);
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 }

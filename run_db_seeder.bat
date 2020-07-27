@@ -418,12 +418,6 @@ echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------
-echo MAX_ROW_CITY                    : %DB_SEEDER_MAX_ROW_CITY%
-echo MAX_ROW_COMPANY                 : %DB_SEEDER_MAX_ROW_COMPANY%
-echo MAX_ROW_COUNTRY                 : %DB_SEEDER_MAX_ROW_COUNTRY%
-echo MAX_ROW_COUNTRY_STATE           : %DB_SEEDER_MAX_ROW_COUNTRY_STATE%
-echo MAX_ROW_TIMEZONE                : %DB_SEEDER_MAX_ROW_TIMEZONE%
-echo --------------------------------------------------------------------------------
 echo CONNECTION_HOST                 : %DB_SEEDER_CONNECTION_HOST%
 echo CONNECTION_PORT                 : %DB_SEEDER_CONNECTION_PORT%
 echo CONNECTION_PREFIX               : %DB_SEEDER_CONNECTION_PREFIX%
