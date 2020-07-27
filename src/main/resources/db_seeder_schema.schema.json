@@ -60,6 +60,40 @@
                 "precision": {
                   "type": "integer"
                 },
+                "defaultValueInteger": {
+                  "type": "integer"
+                },
+                "defaultValueString": {
+                  "type": "string"
+                },
+                "lowerRangeInteger": {
+                  "type": "integer"
+                },
+                "lowerRangeString": {
+                  "type": "string"
+                },
+                "upperRangeInteger": {
+                  "type": "integer"
+                },
+                "upperRangeString": {
+                  "type": "string"
+                },
+                "validValuesInteger": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "minItems": 1,
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "validValuesString": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "columnConstraints": {
                   "type": "array",
                   "uniqueItems": true,

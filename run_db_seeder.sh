@@ -74,6 +74,8 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 # Start Properties.
 # ------------------------------------------------------------------------------
 
+export DB_SEEDER_DEFAULT_ROW_SIZE=1000
+
 export DB_SEEDER_DBMS_EMBEDDED=no
 export DB_SEEDER_ENCODING_ISO_8859_1=true
 export DB_SEEDER_ENCODING_UTF_8=true
@@ -86,7 +88,7 @@ if [ -z "$DB_SEEDER_FILE_STATISTICS_NAME" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_local.tsv
 fi 
 
-export DB_SEEDER_DEFAULT_ROW_SIZE=1000
+unset -f DB_SEEDER_NULL_FACTOR=
 
 if [ "$DB_SEEDER_DBMS" = "cratedb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost

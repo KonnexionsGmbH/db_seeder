@@ -48,6 +48,12 @@ if %ERRORLEVEL% NEQ 0 (
     exit %ERRORLEVEL%
 )
 
+gradle copyJarToLib
+rem wwe
+rem if %ERRORLEVEL% NEQ 0 (
+rem     exit %ERRORLEVEL%
+rem )
+
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

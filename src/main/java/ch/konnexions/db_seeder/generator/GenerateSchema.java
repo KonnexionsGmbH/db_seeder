@@ -50,26 +50,26 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public class GenerateSchema {
 
-  private static final Logger              logger                  = Logger.getLogger(GenerateSchema.class);
+  private static final Logger                logger                  = Logger.getLogger(GenerateSchema.class);
 
-  private int                              errors                  = 0;
+  private int                                errors                  = 0;
 
-  private Map<String, List<String>>        genTableNameColumnNames = new HashMap<>();
-  private List<String>                     genTableHierarchy       = new ArrayList<>();
-  private HashMap<String, List<Column>>    genTablesColumns        = new HashMap<>();
-  private List<String>                     genTableNames           = new ArrayList<>();
-  private Map<String, Integer>             genTableNumberOfRows    = new HashMap<>();
-  private Set<String>                      genVarcharColumnNames   = new HashSet<>();
+  private Map<String, ArrayList<String>>     genTableNameColumnNames = new HashMap<>();
+  private List<String>                       genTableHierarchy       = new ArrayList<>();
+  private HashMap<String, ArrayList<Column>> genTablesColumns        = new HashMap<>();
+  private List<String>                       genTableNames           = new ArrayList<>();
+  private Map<String, Integer>               genTableNumberOfRows    = new HashMap<>();
+  private Set<String>                        genVarcharColumnNames   = new HashSet<>();
 
-  private final boolean                    isDebug                 = logger.isDebugEnabled();
+  private final boolean                      isDebug                 = logger.isDebugEnabled();
 
-  private String                           printDate;
-  private final String                     printDatePattern        = "yyyy-MM-dd";
+  private String                             printDate;
+  private final String                       printDatePattern        = "yyyy-MM-dd";
 
-  private int                              valDefaultNumberOfRows;
-  private Set<Table>                       valTables;
-  private HashMap<String, HashSet<String>> valTablesColumns;
-  private HashMap<String, HashSet<String>> valTableNameForeignKeys = new HashMap<>();
+  private int                                valDefaultNumberOfRows;
+  private Set<Table>                         valTables;
+  private HashMap<String, HashSet<String>>   valTablesColumns;
+  private HashMap<String, HashSet<String>>   valTableNameForeignKeys = new HashMap<>();
 
   /**
    * Instantiates a new GenerateSchema object.
@@ -611,7 +611,7 @@ public class GenerateSchema {
       for (String columnName : genVarcharColumnNamesSorted) {
         bw.append("    columnName.setProperty(\"" + columnName + "_1\",");
         bw.newLine();
-        bw.append("                           isIso_8859_1 ? \"" + columnName + "_ÁÇÉÍÑÓ_\" : \"NO_ISO_8859_1_\");");
+        bw.append("                           isIso_8859_1 ? \"ÁÇÉÍÑÓ_\" : \"NO_ISO_8859_1_\");");
         bw.newLine();
       }
 
@@ -623,9 +623,9 @@ public class GenerateSchema {
       bw.newLine();
 
       for (String columnName : genVarcharColumnNamesSorted) {
-        bw.append("    columnName.setProperty(\"" + columnName + "_1\",");
+        bw.append("    columnName.setProperty(\"" + columnName + "_2\",");
         bw.newLine();
-        bw.append("                           isUtf_8 ? \"" + columnName + "_缩略语地址电子邮件传真_\" : \"NO_UTF_8_\");");
+        bw.append("                           isUtf_8 ? \"缩略语地址电子邮件传真_\" : \"NO_UTF_8_\");");
         bw.newLine();
       }
 
@@ -764,6 +764,10 @@ public class GenerateSchema {
       bw.newLine();
       bw.append("import java.util.ArrayList;");
       bw.newLine();
+      bw.append("import java.util.Arrays;");
+      bw.newLine();
+      bw.append("import java.util.List;");
+      bw.newLine();
       bw.newLine();
       bw.append("import org.apache.log4j.Logger;");
       bw.newLine();
@@ -856,8 +860,6 @@ public class GenerateSchema {
       bw.newLine();
       bw.append("                                   final String tableName,");
       bw.newLine();
-      bw.append("                                   final int rowCount,");
-      bw.newLine();
       bw.append("                                   final int rowNo,");
       bw.newLine();
       bw.append("                                   final ArrayList<Object> pkList) {");
@@ -875,7 +877,7 @@ public class GenerateSchema {
       for (String tableName : genTableNames) {
         bw.append("    case TABLE_NAME_" + tableName + " -> prepDmlStmntInsert" + getTableNamePascalCase(tableName) + "(preparedStatement,");
         bw.newLine();
-        bw.append("                                                   rowCount);");
+        bw.append("                                                   rowNo);");
         bw.newLine();
       }
 
@@ -897,7 +899,7 @@ public class GenerateSchema {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        bw.append("  private void prepDmlStmntInsert" + getTableNamePascalCase(tableName) + "(PreparedStatement preparedStatement, int rowCount) {");
+        bw.append("  private void prepDmlStmntInsert" + getTableNamePascalCase(tableName) + "(PreparedStatement preparedStatement, int rowNo) {");
         bw.newLine();
         bw.append("    int i = 0;");
         bw.newLine();
@@ -922,7 +924,7 @@ public class GenerateSchema {
           switch (dataType) {
           case "BIGINT":
             if ("".equals(referenceTable)) {
-              bw.append("    prepStmntInsertColBigint" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+              bw.append("    prepStmntColBigint" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
               bw.newLine();
               bw.append("                              \"" + tableName + "\",");
               bw.newLine();
@@ -930,10 +932,10 @@ public class GenerateSchema {
               bw.newLine();
               bw.append("                              ++i,");
               bw.newLine();
-              bw.append("                              rowCount);");
+              bw.append("                              rowNo);");
               bw.newLine();
             } else {
-              bw.append("    prepStmntInsertColFK" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+              bw.append("    prepStmntColFk" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
               bw.newLine();
               bw.append("                            \"" + tableName + "\",");
               bw.newLine();
@@ -941,7 +943,7 @@ public class GenerateSchema {
               bw.newLine();
               bw.append("                            ++i,");
               bw.newLine();
-              bw.append("                            rowCount,");
+              bw.append("                            rowNo,");
               bw.newLine();
               bw.append("                            pkLists.get(TABLE_NAME_" + referenceTable + "));");
               bw.newLine();
@@ -949,7 +951,7 @@ public class GenerateSchema {
 
             break;
           case "BLOB":
-            bw.append("    prepStmntInsertColBlob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("    prepStmntColBlob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                              \"" + tableName + "\",");
             bw.newLine();
@@ -957,12 +959,12 @@ public class GenerateSchema {
             bw.newLine();
             bw.append("                              ++i,");
             bw.newLine();
-            bw.append("                              rowCount);");
+            bw.append("                              rowNo);");
             bw.newLine();
 
             break;
           case "CLOB":
-            bw.append("      prepStmntInsertColClob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("      prepStmntColClob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                                \"" + tableName + "\",");
             bw.newLine();
@@ -970,12 +972,12 @@ public class GenerateSchema {
             bw.newLine();
             bw.append("                                ++i,");
             bw.newLine();
-            bw.append("                                rowCount);");
+            bw.append("                                rowNo);");
             bw.newLine();
 
             break;
           case "TIMESTAMP":
-            bw.append("    prepStmntInsertColTimestamp" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("    prepStmntColTimestamp" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                               \"" + tableName + "\",");
             bw.newLine();
@@ -983,11 +985,11 @@ public class GenerateSchema {
             bw.newLine();
             bw.append("                               ++i,");
             bw.newLine();
-            bw.append("                               rowCount);");
+            bw.append("                               rowNo);");
             bw.newLine();
             break;
           case "VARCHAR":
-            bw.append("    prepStmntInsertColString" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("    prepStmntColVarchar" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                             \"" + tableName + "\",");
             bw.newLine();
@@ -995,17 +997,32 @@ public class GenerateSchema {
             bw.newLine();
             bw.append("                             ++i,");
             bw.newLine();
-            bw.append("                             rowCount,");
+            bw.append("                             rowNo,");
             bw.newLine();
-            bw.append("                             autoIncrement);");
+            bw.append("                             " + column.getSize() + ",");
             bw.newLine();
 
-            //            bw.append("      prepStmntInsertColFlagNY" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
-            //            bw.newLine();
-            //            bw.append("                               ++i,");
-            //            bw.newLine();
-            //            bw.append("                               rowCount);");
-            //            bw.newLine();
+            if (column.getLowerRangeString() == null && column.getUpperRangeString() == null) {
+              bw.append("                             null,");
+              bw.newLine();
+              bw.append("                             null,");
+              bw.newLine();
+            } else {
+              bw.append("                             \"" + column.getLowerRangeString() + "\",");
+              bw.newLine();
+              bw.append("                             \"" + column.getUpperRangeString() + "\",");
+              bw.newLine();
+            }
+
+            if (column.getValidValuesString() == null) {
+              bw.append("                             null);");
+              bw.newLine();
+            } else {
+              bw.append("                             Arrays.asList(\"" + String.join(",",
+                                                                                      column.getValidValuesString()).replace(",",
+                                                                                                                             "\",\"") + "\"));");
+              bw.newLine();
+            }
 
             break;
           default:
@@ -1018,6 +1035,262 @@ public class GenerateSchema {
         bw.newLine();
         bw.newLine();
       }
+
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Sets the designated column to a BIGINT value.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param preparedStatement the prepared statement");
+      bw.newLine();
+      bw.append("   * @param tableName         the table name");
+      bw.newLine();
+      bw.append("   * @param columnName        the column name");
+      bw.newLine();
+      bw.append("   * @param columnPos         the column position");
+      bw.newLine();
+      bw.append("   * @param rowNo             the current row number");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @Override");
+      bw.newLine();
+      bw.append("  protected void prepStmntColBigint(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {");
+      bw.newLine();
+      bw.append("    super.prepStmntColBigint(preparedStatement,");
+      bw.newLine();
+      bw.append("                             tableName,");
+      bw.newLine();
+      bw.append("                             columnName,");
+      bw.newLine();
+      bw.append("                             columnPos,");
+      bw.newLine();
+      bw.append("                             rowNo);");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Sets the designated column to a BLOB value.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param preparedStatement the prepared statement");
+      bw.newLine();
+      bw.append("   * @param tableName         the table name");
+      bw.newLine();
+      bw.append("   * @param columnName        the column name");
+      bw.newLine();
+      bw.append("   * @param columnPos         the column position");
+      bw.newLine();
+      bw.append("   * @param rowNo             the current row number");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @Override");
+      bw.newLine();
+      bw.append("  protected void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {");
+      bw.newLine();
+      bw.append("    super.prepStmntColBlob(preparedStatement,");
+      bw.newLine();
+      bw.append("                           tableName,");
+      bw.newLine();
+      bw.append("                           columnName,");
+      bw.newLine();
+      bw.append("                           columnPos,");
+      bw.newLine();
+      bw.append("                           rowNo);");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Sets the designated column to a CLOB value.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param preparedStatement the prepared statement");
+      bw.newLine();
+      bw.append("   * @param tableName         the table name");
+      bw.newLine();
+      bw.append("   * @param columnName        the column name");
+      bw.newLine();
+      bw.append("   * @param columnPos         the column position");
+      bw.newLine();
+      bw.append("   * @param rowNo             the current row number");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @Override");
+      bw.newLine();
+      bw.append("  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {");
+      bw.newLine();
+      bw.append("    super.prepStmntColClob(preparedStatement,");
+      bw.newLine();
+      bw.append("                           tableName,");
+      bw.newLine();
+      bw.append("                           columnName,");
+      bw.newLine();
+      bw.append("                           columnPos,");
+      bw.newLine();
+      bw.append("                           rowNo);");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Sets the designated column to an existing foreign key value.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param preparedStatement the prepared statement");
+      bw.newLine();
+      bw.append("   * @param tableName         the table name");
+      bw.newLine();
+      bw.append("   * @param columnName        the column name");
+      bw.newLine();
+      bw.append("   * @param columnPos         the column position");
+      bw.newLine();
+      bw.append("   * @param rowNo             the current row number");
+      bw.newLine();
+      bw.append("   * @param fkList            the existing foreign keys");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @Override");
+      bw.newLine();
+      bw.append("  protected void prepStmntColFk(PreparedStatement preparedStatement,");
+      bw.newLine();
+      bw.append("                                String tableName,");
+      bw.newLine();
+      bw.append("                                String columnName,");
+      bw.newLine();
+      bw.append("                                int columnPos,");
+      bw.newLine();
+      bw.append("                                int rowNo,");
+      bw.newLine();
+      bw.append("                                ArrayList<Object> fkList) {");
+      bw.newLine();
+      bw.append("    super.prepStmntColFk(preparedStatement,");
+      bw.newLine();
+      bw.append("                         tableName,");
+      bw.newLine();
+      bw.append("                         columnName,");
+      bw.newLine();
+      bw.append("                         columnPos,");
+      bw.newLine();
+      bw.append("                         rowNo,");
+      bw.newLine();
+      bw.append("                         fkList);");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Sets the designated column to a TIMESTAMP value.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param preparedStatement the prepared statement");
+      bw.newLine();
+      bw.append("   * @param tableName         the table name");
+      bw.newLine();
+      bw.append("   * @param columnName        the column name");
+      bw.newLine();
+      bw.append("   * @param columnPos         the column position");
+      bw.newLine();
+      bw.append("   * @param rowNo             the current row number");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @Override");
+      bw.newLine();
+      bw.append("  protected void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {");
+      bw.newLine();
+      bw.append("    super.prepStmntColTimestamp(preparedStatement,");
+      bw.newLine();
+      bw.append("                                tableName,");
+      bw.newLine();
+      bw.append("                                columnName,");
+      bw.newLine();
+      bw.append("                                columnPos,");
+      bw.newLine();
+      bw.append("                                rowNo);");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Sets the designated column to a VARCHAR value.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param preparedStatement the prepared statement");
+      bw.newLine();
+      bw.append("   * @param tableName         the table name");
+      bw.newLine();
+      bw.append("   * @param columnName        the column name");
+      bw.newLine();
+      bw.append("   * @param columnPos         the column position");
+      bw.newLine();
+      bw.append("   * @param rowNo             the current row number");
+      bw.newLine();
+      bw.append("   * @param size              the column size");
+      bw.newLine();
+      bw.append("   * @param lowerRange        the lower range");
+      bw.newLine();
+      bw.append("   * @param upperRange        the upper range");
+      bw.newLine();
+      bw.append("   * @param validValues       the valid values");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  @Override");
+      bw.newLine();
+      bw.append("  protected void prepStmntColVarchar(PreparedStatement preparedStatement,");
+      bw.newLine();
+      bw.append("                                     String tableName,");
+      bw.newLine();
+      bw.append("                                     String columnName,");
+      bw.newLine();
+      bw.append("                                     int columnPos,");
+      bw.newLine();
+      bw.append("                                     int rowNo,");
+      bw.newLine();
+      bw.append("                                     int size,");
+      bw.newLine();
+      bw.append("                                     String lowerRange,");
+      bw.newLine();
+      bw.append("                                     String upperRange,");
+      bw.newLine();
+      bw.append("                                     List<String> validValues) {");
+      bw.newLine();
+      bw.append("    super.prepStmntColVarchar(preparedStatement,");
+      bw.newLine();
+      bw.append("                              tableName,");
+      bw.newLine();
+      bw.append("                              columnName,");
+      bw.newLine();
+      bw.append("                              columnPos,");
+      bw.newLine();
+      bw.append("                              rowNo,");
+      bw.newLine();
+      bw.append("                              size,");
+      bw.newLine();
+      bw.append("                              lowerRange,");
+      bw.newLine();
+      bw.append("                              upperRange,");
+      bw.newLine();
+      bw.append("                              validValues);");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
       bw.append("}");
       bw.newLine();
     } catch (IOException e) {
@@ -1250,7 +1523,7 @@ public class GenerateSchema {
           numberOfRows = valDefaultNumberOfRows;
         }
 
-        List<Column> columns = table.getColumns();
+        ArrayList<Column> columns = table.getColumns();
 
         if (columns == null || columns.size() == 0) {
           logger.error("Database table: '" + tableName + "' - No definitions found for table columns");
@@ -1337,11 +1610,7 @@ public class GenerateSchema {
         columnName = column.getColumnName();
 
         for (ColumnConstraint columnConstraint : columnConstraints) {
-          constraintType = columnConstraint.getConstraintType();
-
-          if (constraintType != null) {
-            constraintType = constraintType.toUpperCase();
-          }
+          constraintType  = columnConstraint.getConstraintType().toUpperCase();
 
           referenceColumn = columnConstraint.getReferenceColumn();
 
@@ -1443,18 +1712,18 @@ public class GenerateSchema {
    * 
    * @return the hash set containing the column names
    */
-  private HashSet<String> validateSchemaColumns(String tableName, List<Column> columns) {
+  private HashSet<String> validateSchemaColumns(String tableName, ArrayList<Column> columns) {
     if (isDebug) {
       logger.debug("Start");
     }
 
-    HashSet<String> columnNames      = new HashSet<>();
+    HashSet<String>   columnNames      = new HashSet<>();
 
-    String          columnName;
-    List<String>    tableColumnNames = new ArrayList<>();
-    String          dataType;
-    int             precision;
-    int             size;
+    String            columnName;
+    ArrayList<String> tableColumnNames = new ArrayList<>();
+    String            dataType;
+    int               precision;
+    int               size;
 
     for (Column column : columns) {
       columnName = column.getColumnName();
@@ -1646,6 +1915,12 @@ public class GenerateSchema {
 
         switch (constraintType) {
         case "FOREIGN" -> {
+          if (columns.size() == 1) {
+            logger.error("Database table: '" + tableName + "' constraint type '" + constraintType
+                + "' - With a single rcolumn, a constraint must be defined as a column constraint");
+            errors++;
+          }
+
           if (referenceTable == null) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' requires a reference table");
             errors++;
@@ -1687,13 +1962,21 @@ public class GenerateSchema {
           }
         }
         case "PRIMARY", "UNIQUE" -> {
+          if (columns.size() == 1) {
+            logger.error("Database table: '" + tableName + "' constraint type '" + constraintType
+                + "' - With a single rcolumn, a constraint must be defined as a column constraint");
+            errors++;
+          }
+
           if (referenceTable != null) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' does not allow a reference table");
             errors++;
           }
+
           if (referenceColumns != null && referenceColumns.size() > 0) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' does not allow reference column(s)");
             errors++;
+            continue;
           }
         }
         default -> {

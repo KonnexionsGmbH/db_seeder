@@ -71,6 +71,8 @@ rem ----------------------------------------------------------------------------
 rem Start Properties.
 rem ------------------------------------------------------------------------------
 
+set DB_SEEDER_DEFAULT_ROW_SIZE=1000
+
 set DB_SEEDER_DBMS_EMBEDDED=no
 set DB_SEEDER_ENCODING_ISO_8859_1=true
 set DB_SEEDER_ENCODING_UTF_8=true
@@ -83,7 +85,7 @@ if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_STATISTICS_NAME=statistics\db_seeder_local.tsv
 )    
 
-set DB_SEEDER_DEFAULT_ROW_SIZE=1000
+set DB_SEEDER_NULL_FACTOR=
 
 set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS% 
 

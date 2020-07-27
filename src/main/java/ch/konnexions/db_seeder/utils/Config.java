@@ -52,6 +52,8 @@ public class Config {
 
   private ArrayList<String>       keysSorted = new ArrayList<>();
 
+  private int                     nullFactor;
+
   private String                  password;
   private String                  passwordSys;
   private PropertiesConfiguration propertiesConfiguration;
@@ -226,17 +228,30 @@ public class Config {
 
   // -------------------------------------------------------------------------
 
+  /**
+   * @return the factor to determine the proportion of NULLs with optional columns
+   */
+  public final int getNullFactor() {
+    if (nullFactor < 2) {
+      return 2;
+    }
+
+    if (nullFactor > 99) {
+      return 99;
+    }
+
+    return nullFactor;
+  }
+
+  // Proportion of NULLs ----------------------------------------------
+
   @SuppressWarnings("unused")
   private List<String> getNumericProperties() {
 
     List<String> list = new ArrayList<>();
 
     list.add("db_seeder.connection.port");
-    list.add("db_seeder.max.row.city");
-    list.add("db_seeder.max.row.company");
-    list.add("db_seeder.max.row.country");
-    list.add("db_seeder.max.row.country_state");
-    list.add("db_seeder.max.row.timezone");
+    list.add("db_seeder.null.factor");
 
     return list;
   }
@@ -303,6 +318,8 @@ public class Config {
     fileStatisticsDelimiter = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
     fileStatisticsHeader    = propertiesConfiguration.getString("db_seeder.file.statistics.header");
     fileStatisticsName      = propertiesConfiguration.getString("db_seeder.file.statistics.name");
+
+    nullFactor              = propertiesConfiguration.getInt("db_seeder.null.factor");
 
     password                = propertiesConfiguration.getString("db_seeder.password");
     passwordSys             = propertiesConfiguration.getString("db_seeder.password.sys");
@@ -411,6 +428,14 @@ public class Config {
       fileStatisticsName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.statistics.name",
                                           fileStatisticsName);
+    }
+
+    // Proportion of NULLs ----------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_NULL_FACTOR")) {
+      nullFactor = Integer.parseInt(environmentVariables.get("DB_SEEDER_NULL_FACTOR"));
+      propertiesConfiguration.setProperty("db_seeder.null.factor",
+                                          connectionPort);
     }
 
     // PASSWORD ---------------------------------------------------------

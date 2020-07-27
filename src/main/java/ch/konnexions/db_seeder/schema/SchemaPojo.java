@@ -1,5 +1,6 @@
 package ch.konnexions.db_seeder.schema;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class SchemaPojo {
   /*
    *  The globals object.
    */
+  @SuppressWarnings("ucd")
   public class Globals {
 
     private int defaultNumberOfRows;
@@ -79,9 +81,25 @@ public class SchemaPojo {
 
       private String                 dataType;
 
+      private int                    defaultValueInteger;
+
+      private String                 defaultValueString;
+
+      private int                    lowerRangeInteger;
+
+      private String                 lowerRangeString;
+
       private int                    precision;
 
       private int                    size;
+
+      private int                    upperRangeInteger;
+
+      private String                 upperRangeString;
+
+      private List<Integer>          validValuesInteger;
+
+      private List<String>           validValuesString;
 
       public List<ColumnConstraint> getColumnConstraints() {
         return columnConstraints;
@@ -95,12 +113,44 @@ public class SchemaPojo {
         return dataType;
       }
 
+      public int getDefaultValueInteger() {
+        return defaultValueInteger;
+      }
+
+      public String getDefaultValueString() {
+        return defaultValueString;
+      }
+
+      public int getLowerRangeInteger() {
+        return lowerRangeInteger;
+      }
+
+      public String getLowerRangeString() {
+        return lowerRangeString;
+      }
+
       public int getPrecision() {
         return precision;
       }
 
       public int getSize() {
         return size;
+      }
+
+      public int getUpperRangeInteger() {
+        return upperRangeInteger;
+      }
+
+      public String getUpperRangeString() {
+        return upperRangeString;
+      }
+
+      public List<Integer> getValidValuesInteger() {
+        return validValuesInteger;
+      }
+
+      public List<String> getValidValuesString() {
+        return validValuesString;
       }
 
       public void setColumnName(String columnName) {
@@ -115,6 +165,22 @@ public class SchemaPojo {
         this.dataType = dataType;
       }
 
+      public void setDefaultValueInteger(int defaultValueInteger) {
+        this.defaultValueInteger = defaultValueInteger;
+      }
+
+      public void setDefaultValueString(String defaultValueString) {
+        this.defaultValueString = defaultValueString;
+      }
+
+      public void setLowerRangeInteger(int lowerRangeInteger) {
+        this.lowerRangeInteger = lowerRangeInteger;
+      }
+
+      public void setLowerRangeString(String lowerRangeString) {
+        this.lowerRangeString = lowerRangeString;
+      }
+
       @SuppressWarnings("ucd")
       public void setPrecision(int precision) {
         this.precision = precision;
@@ -122,6 +188,22 @@ public class SchemaPojo {
 
       public void setSize(int size) {
         this.size = size;
+      }
+
+      public void setUpperRangeInteger(int upperRangeInteger) {
+        this.upperRangeInteger = upperRangeInteger;
+      }
+
+      public void setUpperRangeString(String upperRangeString) {
+        this.upperRangeString = upperRangeString;
+      }
+
+      public void setValidValuesInteger(List<Integer> validValuesInteger) {
+        this.validValuesInteger = validValuesInteger;
+      }
+
+      public void setValidValuesString(List<String> validValuesString) {
+        this.validValuesString = validValuesString;
       }
     }
 
@@ -169,13 +251,13 @@ public class SchemaPojo {
       }
     }
 
-    private List<Column>          columns          = null;
+    private ArrayList<Column>     columns          = null;
     private int                   numberOfRows;
 
     private List<TableConstraint> tableConstraints = null;
     private String                tableName;
 
-    public List<Column> getColumns() {
+    public ArrayList<Column> getColumns() {
       return columns;
     }
 
@@ -191,7 +273,7 @@ public class SchemaPojo {
       return tableName;
     }
 
-    public void setColumns(List<Column> columns) {
+    public void setColumns(ArrayList<Column> columns) {
       this.columns = columns;
     }
 

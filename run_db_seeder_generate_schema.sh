@@ -43,7 +43,7 @@ date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
 if ! [ -d "/eclipse" ]; then 
-    sudo wget https://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/${DB_SEEDER_ECLIPSE_VERSION_1}/${DB_SEEDER_ECLIPSE_VERSION_2}/eclipse-java-${DB_SEEDER_ECLIPSE_VERSION_1}-${DB_SEEDER_ECLIPSE_VERSION_2}-linux-gtk-x86_64.tar.gz
+    sudo wget --quiet https://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/${DB_SEEDER_ECLIPSE_VERSION_1}/${DB_SEEDER_ECLIPSE_VERSION_2}/eclipse-java-${DB_SEEDER_ECLIPSE_VERSION_1}-${DB_SEEDER_ECLIPSE_VERSION_2}-linux-gtk-x86_64.tar.gz
     sudo tar -xf eclipse-java-*-linux-gtk-x86_64.tar.gz
     sudo mv eclipse /
     sudo rm eclipse-java-*-linux-gtk-x86_64.tar.gz
@@ -61,6 +61,10 @@ fi
 mkdir eclipse_workspace
 
 if ! ($HOME_ECLIPSE/eclipse -nosplash -data eclipse_workspace -application org.eclipse.jdt.core.JavaCodeFormatter -config src/main/resources/org.eclipse.jdt.core.prefs -quiet src/main/java/ch/konnexions/db_seeder/generated/ -vmargs -Dfile.encoding=UTF-8); then
+    exit 255
+fi    
+
+if ! (gradle copyJarToLib); then
     exit 255
 fi    
 

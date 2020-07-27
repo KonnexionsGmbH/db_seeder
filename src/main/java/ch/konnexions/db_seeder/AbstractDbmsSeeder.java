@@ -81,8 +81,6 @@ public abstract class AbstractDbmsSeeder {
 
   private static final Logger     logger             = Logger.getLogger(AbstractDbmsSeeder.class);
 
-  protected int                   autoIncrement;
-
   protected Config                config;
 
   protected DbmsEnum              dbmsEnum;

@@ -87,6 +87,10 @@
           "columnName": "active",
           "dataType": "varchar",
           "size": 1,
+          "validValuesString": [
+            "N",
+            "Y"
+          ],
           "columnConstraints": [
             {
               "constraintType": "not null"
