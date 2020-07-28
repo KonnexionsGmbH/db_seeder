@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class CratedbSeeder extends AbstractGenCratedbSchema {
+public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
   private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
 

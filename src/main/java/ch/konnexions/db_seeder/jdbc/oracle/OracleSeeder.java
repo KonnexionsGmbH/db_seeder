@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenOracleSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class OracleSeeder extends AbstractGenOracleSchema {
+public final class OracleSeeder extends AbstractGenOracleSchema {
 
   private static final Logger logger = Logger.getLogger(OracleSeeder.class);
 

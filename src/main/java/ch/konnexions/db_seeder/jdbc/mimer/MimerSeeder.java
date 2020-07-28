@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MimerSeeder extends AbstractGenMimerSchema {
+public final class MimerSeeder extends AbstractGenMimerSchema {
 
   private static final Logger logger = Logger.getLogger(MimerSeeder.class);
 

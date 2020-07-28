@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class CubridSeeder extends AbstractGenCubridSchema {
+public final class CubridSeeder extends AbstractGenCubridSchema {
 
   private static final Logger logger = Logger.getLogger(CubridSeeder.class);
 

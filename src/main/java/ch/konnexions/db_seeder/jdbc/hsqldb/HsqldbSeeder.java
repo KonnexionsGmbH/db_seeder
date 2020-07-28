@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenHsqldbSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class HsqldbSeeder extends AbstractGenHsqldbSchema {
+public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
   private static final Logger logger = Logger.getLogger(HsqldbSeeder.class);
 

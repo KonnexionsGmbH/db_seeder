@@ -80,7 +80,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param rowNo             the current row number
    */
   @Override
-  protected byte[] getContentBlob(String tableName, String columnName, int rowNo) {
+  protected final byte[] getContentBlob(String tableName, String columnName, int rowNo) {
     byte[] result = super.getContentBlob(tableName,
                                          columnName,
                                          rowNo);
@@ -97,7 +97,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param rowNo             the current row number
    */
   @Override
-  protected String getContentClob(String tableName, String columnName, int rowNo) {
+  protected final String getContentClob(String tableName, String columnName, int rowNo) {
     String result = super.getContentClob(tableName,
                                          columnName,
                                          rowNo);
@@ -115,7 +115,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param fkList            the existing foreign keys
    */
   @Override
-  protected Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {
+  protected final Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {
     Object result = super.getContentFk(tableName,
                                        columnName,
                                        rowNo,
@@ -133,7 +133,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param rowNo             the current row number
    */
   @Override
-  protected Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {
+  protected final Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {
     Timestamp result = super.getContentTimestamp(tableName,
                                                  columnName,
                                                  rowNo);
@@ -154,7 +154,13 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param validValues       the valid values
    */
   @Override
-  protected String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {
+  protected final String getContentVarchar(String tableName,
+                                           String columnName,
+                                           int rowNo,
+                                           int size,
+                                           String lowerRange,
+                                           String upperRange,
+                                           List<String> validValues) {
     String result = super.getContentVarchar(tableName,
                                             columnName,
                                             rowNo,

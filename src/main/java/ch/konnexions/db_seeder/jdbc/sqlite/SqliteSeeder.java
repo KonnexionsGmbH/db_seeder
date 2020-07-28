@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class SqliteSeeder extends AbstractGenSqliteSchema {
+public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
   private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
 
@@ -57,7 +57,7 @@ public class SqliteSeeder extends AbstractGenSqliteSchema {
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
-  protected void setupDatabase() {
+  protected final void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

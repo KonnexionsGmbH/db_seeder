@@ -18,7 +18,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
+public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
   private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 

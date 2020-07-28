@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class FirebirdSeeder extends AbstractGenFirebirdSchema {
+public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
   private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
 

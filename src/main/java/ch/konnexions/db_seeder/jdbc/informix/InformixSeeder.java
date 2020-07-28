@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenInformixSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class InformixSeeder extends AbstractGenInformixSchema {
+public final class InformixSeeder extends AbstractGenInformixSchema {
 
   private static final Logger logger = Logger.getLogger(InformixSeeder.class);
 

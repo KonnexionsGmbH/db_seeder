@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
+public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
   private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
 

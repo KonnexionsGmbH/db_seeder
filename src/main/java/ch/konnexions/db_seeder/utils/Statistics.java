@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
 /**
  * This class is used to record the statisticss of the db_seeder runs.
  */
-public class Statistics {
+public final class Statistics {
   private static final Logger         logger    = Logger.getLogger(Statistics.class);
 
   private final Config                config;

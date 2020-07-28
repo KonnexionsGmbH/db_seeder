@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class H2Seeder extends AbstractGenH2Schema {
+public final class H2Seeder extends AbstractGenH2Schema {
 
   private static final Logger logger = Logger.getLogger(H2Seeder.class);
 

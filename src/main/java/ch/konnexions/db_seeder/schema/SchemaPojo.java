@@ -10,21 +10,21 @@ import java.util.Set;
  * @author  walter@konnexions.ch
  * @since   2020-07-15
  */
-public class SchemaPojo {
+public final class SchemaPojo {
 
   /*
    *  The globals object.
    */
   @SuppressWarnings("ucd")
-  public class Globals {
+  public final class Globals {
 
     private int defaultNumberOfRows;
 
-    public int getDefaultNumberOfRows() {
+    public final int getDefaultNumberOfRows() {
       return defaultNumberOfRows;
     }
 
-    public void setDefaultNumberOfRows(int defaultNumberOfRows) {
+    public final void setDefaultNumberOfRows(int defaultNumberOfRows) {
       this.defaultNumberOfRows = defaultNumberOfRows;
     }
   }
@@ -51,27 +51,27 @@ public class SchemaPojo {
         private String referenceColumn;
         private String referenceTable;
 
-        public String getConstraintType() {
+        public final String getConstraintType() {
           return constraintType;
         }
 
-        public String getReferenceColumn() {
+        public final String getReferenceColumn() {
           return referenceColumn;
         }
 
-        public String getReferenceTable() {
+        public final String getReferenceTable() {
           return referenceTable;
         }
 
-        public void setConstraintType(String constraintType) {
+        public final void setConstraintType(String constraintType) {
           this.constraintType = constraintType;
         }
 
-        public void setReferenceColumn(String referenceColumn) {
+        public final void setReferenceColumn(String referenceColumn) {
           this.referenceColumn = referenceColumn;
         }
 
-        public void setReferenceTable(String referenceTable) {
+        public final void setReferenceTable(String referenceTable) {
           this.referenceTable = referenceTable;
         }
       }
@@ -101,108 +101,108 @@ public class SchemaPojo {
 
       private List<String>           validValuesString;
 
-      public List<ColumnConstraint> getColumnConstraints() {
+      public final List<ColumnConstraint> getColumnConstraints() {
         return columnConstraints;
       }
 
-      public String getColumnName() {
+      public final String getColumnName() {
         return columnName;
       }
 
-      public String getDataType() {
+      public final String getDataType() {
         return dataType;
       }
 
-      public int getDefaultValueInteger() {
+      public final int getDefaultValueInteger() {
         return defaultValueInteger;
       }
 
-      public String getDefaultValueString() {
+      public final String getDefaultValueString() {
         return defaultValueString;
       }
 
-      public int getLowerRangeInteger() {
+      public final int getLowerRangeInteger() {
         return lowerRangeInteger;
       }
 
-      public String getLowerRangeString() {
+      public final String getLowerRangeString() {
         return lowerRangeString;
       }
 
-      public int getPrecision() {
+      public final int getPrecision() {
         return precision;
       }
 
-      public int getSize() {
+      public final int getSize() {
         return size;
       }
 
-      public int getUpperRangeInteger() {
+      public final int getUpperRangeInteger() {
         return upperRangeInteger;
       }
 
-      public String getUpperRangeString() {
+      public final String getUpperRangeString() {
         return upperRangeString;
       }
 
-      public List<Integer> getValidValuesInteger() {
+      public final List<Integer> getValidValuesInteger() {
         return validValuesInteger;
       }
 
-      public List<String> getValidValuesString() {
+      public final List<String> getValidValuesString() {
         return validValuesString;
       }
 
-      public void setColumnName(String columnName) {
+      public final void setColumnName(String columnName) {
         this.columnName = columnName;
       }
 
-      public void setConstraints(List<ColumnConstraint> columnConstraints) {
+      public final void setConstraints(List<ColumnConstraint> columnConstraints) {
         this.columnConstraints = columnConstraints;
       }
 
-      public void setDataType(String dataType) {
+      public final void setDataType(String dataType) {
         this.dataType = dataType;
       }
 
-      public void setDefaultValueInteger(int defaultValueInteger) {
+      public final void setDefaultValueInteger(int defaultValueInteger) {
         this.defaultValueInteger = defaultValueInteger;
       }
 
-      public void setDefaultValueString(String defaultValueString) {
+      public final void setDefaultValueString(String defaultValueString) {
         this.defaultValueString = defaultValueString;
       }
 
-      public void setLowerRangeInteger(int lowerRangeInteger) {
+      public final void setLowerRangeInteger(int lowerRangeInteger) {
         this.lowerRangeInteger = lowerRangeInteger;
       }
 
-      public void setLowerRangeString(String lowerRangeString) {
+      public final void setLowerRangeString(String lowerRangeString) {
         this.lowerRangeString = lowerRangeString;
       }
 
       @SuppressWarnings("ucd")
-      public void setPrecision(int precision) {
+      public final void setPrecision(int precision) {
         this.precision = precision;
       }
 
-      public void setSize(int size) {
+      public final void setSize(int size) {
         this.size = size;
       }
 
-      public void setUpperRangeInteger(int upperRangeInteger) {
+      public final void setUpperRangeInteger(int upperRangeInteger) {
         this.upperRangeInteger = upperRangeInteger;
       }
 
-      public void setUpperRangeString(String upperRangeString) {
+      public final void setUpperRangeString(String upperRangeString) {
         this.upperRangeString = upperRangeString;
       }
 
-      public void setValidValuesInteger(List<Integer> validValuesInteger) {
+      public final void setValidValuesInteger(List<Integer> validValuesInteger) {
         this.validValuesInteger = validValuesInteger;
       }
 
-      public void setValidValuesString(List<String> validValuesString) {
+      public final void setValidValuesString(List<String> validValuesString) {
         this.validValuesString = validValuesString;
       }
     }
@@ -218,35 +218,35 @@ public class SchemaPojo {
       private List<String> referenceColumns = null;
       private String       referenceTable;
 
-      public List<String> getColumns() {
+      public final List<String> getColumns() {
         return columns;
       }
 
-      public String getConstraintType() {
+      public final String getConstraintType() {
         return constraintType;
       }
 
-      public List<String> getReferenceColumns() {
+      public final List<String> getReferenceColumns() {
         return referenceColumns;
       }
 
-      public String getReferenceTable() {
+      public final String getReferenceTable() {
         return referenceTable;
       }
 
-      public void setColumns(List<String> columns) {
+      public final void setColumns(List<String> columns) {
         this.columns = columns;
       }
 
-      public void setConstraintType(String constraintType) {
+      public final void setConstraintType(String constraintType) {
         this.constraintType = constraintType;
       }
 
-      public void setReferenceColumns(List<String> referenceColumns) {
+      public final void setReferenceColumns(List<String> referenceColumns) {
         this.referenceColumns = referenceColumns;
       }
 
-      public void setReferenceTable(String referenceTable) {
+      public final void setReferenceTable(String referenceTable) {
         this.referenceTable = referenceTable;
       }
     }
@@ -257,35 +257,35 @@ public class SchemaPojo {
     private List<TableConstraint> tableConstraints = null;
     private String                tableName;
 
-    public ArrayList<Column> getColumns() {
+    public final ArrayList<Column> getColumns() {
       return columns;
     }
 
-    public int getNumberOfRows() {
+    public final int getNumberOfRows() {
       return numberOfRows;
     }
 
-    public List<TableConstraint> getTableConstraints() {
+    public final List<TableConstraint> getTableConstraints() {
       return tableConstraints;
     }
 
-    public String getTableName() {
+    public final String getTableName() {
       return tableName;
     }
 
-    public void setColumns(ArrayList<Column> columns) {
+    public final void setColumns(ArrayList<Column> columns) {
       this.columns = columns;
     }
 
-    public void setNumberOfRows(int numberOfRows) {
+    public final void setNumberOfRows(int numberOfRows) {
       this.numberOfRows = numberOfRows;
     }
 
-    public void setTableConstraints(List<TableConstraint> tableConstraints) {
+    public final void setTableConstraints(List<TableConstraint> tableConstraints) {
       this.tableConstraints = tableConstraints;
     }
 
-    public void setTableName(String tableName) {
+    public final void setTableName(String tableName) {
       this.tableName = tableName;
     }
   }
@@ -293,19 +293,19 @@ public class SchemaPojo {
   private Globals    globals;
   private Set<Table> tables = null;
 
-  public Globals getGlobals() {
+  public final Globals getGlobals() {
     return globals;
   }
 
-  public Set<Table> getTables() {
+  public final Set<Table> getTables() {
     return tables;
   }
 
-  public void setGlobals(Globals globals) {
+  public final void setGlobals(Globals globals) {
     this.globals = globals;
   }
 
-  public void setTables(Set<Table> tables) {
+  public final void setTables(Set<Table> tables) {
     this.tables = tables;
   }
 }

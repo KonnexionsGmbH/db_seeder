@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MessageHandling {
+public final class MessageHandling {
 
   private static final int LINE_SIZE = 74;
 
@@ -18,7 +18,7 @@ public class MessageHandling {
    * @param logger the logger
    * @param message the message
    */
-  public static void abortProgram(Logger logger, String message) {
+  public final static void abortProgram(Logger logger, String message) {
     logger.info("");
     logger.info("=".repeat(LINE_SIZE));
     logger.info("===> Error: " + message);
@@ -36,7 +36,7 @@ public class MessageHandling {
    * @param message the message
    * 
    */
-  public static void startProgress(Logger logger, String message) {
+  public final static void startProgress(Logger logger, String message) {
     logger.info("");
     logger.info("=".repeat(74));
     logger.info(message);

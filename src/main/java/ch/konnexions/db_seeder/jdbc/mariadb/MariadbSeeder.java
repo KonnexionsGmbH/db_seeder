@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMariadbSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MariadbSeeder extends AbstractGenMariadbSchema {
+public final class MariadbSeeder extends AbstractGenMariadbSchema {
 
   private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
 

@@ -872,7 +872,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColBigint(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColBigint(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1047,7 +1047,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    * @param fkList            the existing foreign keys
    */
-  protected void prepStmntColFk(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo, ArrayList<Object> fkList) {
+  protected final void prepStmntColFk(PreparedStatement preparedStatement,
+                                      String tableName,
+                                      String columnName,
+                                      int columnPos,
+                                      int rowNo,
+                                      ArrayList<Object> fkList) {
     try {
       preparedStatement.setObject(columnPos,
                                   getContentFk(tableName,
@@ -1104,7 +1109,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       preparedStatement.setTimestamp(columnPos,
                                      getContentTimestamp(tableName,
@@ -1157,15 +1162,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param upperRange        the upper range
    * @param validValues       the valid values
    */
-  protected void prepStmntColVarchar(PreparedStatement preparedStatement,
-                                     String tableName,
-                                     String columnName,
-                                     int columnPos,
-                                     int rowNo,
-                                     int size,
-                                     String lowerRange,
-                                     String upperRange,
-                                     List<String> validValues) {
+  protected final void prepStmntColVarchar(PreparedStatement preparedStatement,
+                                           String tableName,
+                                           String columnName,
+                                           int columnPos,
+                                           int rowNo,
+                                           int size,
+                                           String lowerRange,
+                                           String upperRange,
+                                           List<String> validValues) {
     if (isDebug) {
       logger.debug("Start");
     }

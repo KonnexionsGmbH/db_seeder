@@ -15,7 +15,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @since   2020-07-15
  */
 @SuppressWarnings("ucd")
-public class SchemaBuilder {
+public final class SchemaBuilder {
 
   @SuppressWarnings("ucd")
   private static final Logger logger = Logger.getLogger(SchemaBuilder.class);

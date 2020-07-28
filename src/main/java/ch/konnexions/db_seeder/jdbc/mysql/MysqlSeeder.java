@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMysqlSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MysqlSeeder extends AbstractGenMysqlSchema {
+public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
   private static final Logger logger = Logger.getLogger(MysqlSeeder.class);
 

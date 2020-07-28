@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenDerbySchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class DerbySeeder extends AbstractGenDerbySchema {
+public final class DerbySeeder extends AbstractGenDerbySchema {
 
   private static final Logger logger = Logger.getLogger(DerbySeeder.class);
 

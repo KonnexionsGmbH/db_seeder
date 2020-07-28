@@ -48,7 +48,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-07-15
  */
-public class GenerateSchema {
+public final class GenerateSchema {
 
   private static final Logger                logger                  = Logger.getLogger(GenerateSchema.class);
 
@@ -937,7 +937,7 @@ public class GenerateSchema {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected byte[] getContentBlob(String tableName, String columnName, int rowNo) {");
+      bw.append("  protected final byte[] getContentBlob(String tableName, String columnName, int rowNo) {");
       bw.newLine();
       bw.append("    byte[] result = super.getContentBlob(tableName,");
       bw.newLine();
@@ -969,7 +969,7 @@ public class GenerateSchema {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected String getContentClob(String tableName, String columnName, int rowNo) {");
+      bw.append("  protected final String getContentClob(String tableName, String columnName, int rowNo) {");
       bw.newLine();
       bw.append("    String result = super.getContentClob(tableName,");
       bw.newLine();
@@ -1003,7 +1003,7 @@ public class GenerateSchema {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {");
+      bw.append("  protected final Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {");
       bw.newLine();
       bw.append("    Object result = super.getContentFk(tableName,");
       bw.newLine();
@@ -1037,7 +1037,7 @@ public class GenerateSchema {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {");
+      bw.append("  protected final Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {");
       bw.newLine();
       bw.append("    Timestamp result = super.getContentTimestamp(tableName,");
       bw.newLine();
@@ -1077,7 +1077,7 @@ public class GenerateSchema {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {");
+      bw.append("  protected final String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {");
       bw.newLine();
       bw.append("    String result = super.getContentVarchar(tableName,");
       bw.newLine();
@@ -1307,7 +1307,7 @@ public class GenerateSchema {
    * @param release the release identification
    * @param fileJsonName the name of the db_seeder schema definition file
    */
-  public void generateSchema(String release, String fileJsonName) {
+  public final void generateSchema(String release, String fileJsonName) {
     if (isDebug) {
       logger.debug("Start");
     }

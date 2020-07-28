@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  * 
  * The parameter name and parameter value must be separated by an equal sign (=).
  */
-public class Config {
+public final class Config {
 
   @SuppressWarnings("unused")
   private static final Logger     logger     = Logger.getLogger(Config.class);

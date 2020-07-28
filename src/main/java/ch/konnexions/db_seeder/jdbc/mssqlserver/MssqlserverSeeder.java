@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMssqlserverSchema;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
+public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
 
   private static final Logger logger = Logger.getLogger(MssqlserverSeeder.class);
 

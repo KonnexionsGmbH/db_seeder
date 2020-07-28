@@ -28,7 +28,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @since   2020-05-01
  */
 @SuppressWarnings("ucd")
-public class DatabaseSeeder {
+public final class DatabaseSeeder {
 
   private static final Logger logger = Logger.getLogger(DatabaseSeeder.class);
 
