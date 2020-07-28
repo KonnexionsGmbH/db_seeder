@@ -18,7 +18,7 @@ public final class MessageHandling {
    * @param logger the logger
    * @param message the message
    */
-  public final static void abortProgram(Logger logger, String message) {
+  public static void abortProgram(Logger logger, String message) {
     logger.info("");
     logger.info("=".repeat(LINE_SIZE));
     logger.info("===> Error: " + message);
@@ -36,7 +36,7 @@ public final class MessageHandling {
    * @param message the message
    * 
    */
-  public final static void startProgress(Logger logger, String message) {
+  public static void startProgress(Logger logger, String message) {
     logger.info("");
     logger.info("=".repeat(74));
     logger.info(message);

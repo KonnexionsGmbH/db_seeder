@@ -166,7 +166,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     return result;
   }
 
-  protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final int rowNo, final ArrayList<Object> pkList) {
+  protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final int rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }

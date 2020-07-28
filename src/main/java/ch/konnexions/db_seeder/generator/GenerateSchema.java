@@ -123,36 +123,31 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         }
 
         switch (constraintType) {
-        case "FOREIGN":
-          editedConstraints.add(("derby".equals(tickerSymbolLower)
-              || "firebird".equals(tickerSymbolLower)
-              || "h2".equals(tickerSymbolLower)
-              || "ibmdb2".equals(tickerSymbolLower)
-              || "informix".equals(tickerSymbolLower)
-              || "mariadb".equals(tickerSymbolLower)
-              || "mimer".equals(tickerSymbolLower)
-              || "mysql".equals(tickerSymbolLower)
-              || "oracle".equals(tickerSymbolLower)
-              || "postgresql".equals(tickerSymbolLower)
-              || "sqlite".equals(tickerSymbolLower)
-                  ? ""
-                  : "FOREIGN KEY ") + "REFERENCES " + String.format("%-33s",
-                                                                    identifierDelimiter + columnConstraint.getReferenceTable().toUpperCase()
-                                                                        + identifierDelimiter) + " (" + identifierDelimiter + columnConstraint
-                                                                            .getReferenceColumn().toUpperCase() + identifierDelimiter + ")");
-          break;
-        case "PRIMARY":
+        case "FOREIGN" -> editedConstraints.add(("derby".equals(tickerSymbolLower)
+            || "firebird".equals(tickerSymbolLower)
+            || "h2".equals(tickerSymbolLower)
+            || "ibmdb2".equals(tickerSymbolLower)
+            || "informix".equals(tickerSymbolLower)
+            || "mariadb".equals(tickerSymbolLower)
+            || "mimer".equals(tickerSymbolLower)
+            || "mysql".equals(tickerSymbolLower)
+            || "oracle".equals(tickerSymbolLower)
+            || "postgresql".equals(tickerSymbolLower)
+            || "sqlite".equals(tickerSymbolLower)
+                ? ""
+                : "FOREIGN KEY ") + "REFERENCES " + String.format("%-33s",
+                                                                  identifierDelimiter + columnConstraint.getReferenceTable().toUpperCase()
+                                                                      + identifierDelimiter) + " (" + identifierDelimiter + columnConstraint
+                                                                          .getReferenceColumn().toUpperCase() + identifierDelimiter + ")");
+        case "PRIMARY" -> {
           if ("ibmdb2".equals(tickerSymbolLower)) {
             isNotNull = true;
           }
           editedConstraints.add("PRIMARY KEY");
-          break;
-        case "UNIQUE":
-          editedConstraints.add("UNIQUE");
-          break;
-        default:
-          MessageHandling.abortProgram(logger,
-                                       "Database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
+        }
+        case "UNIQUE" -> editedConstraints.add("UNIQUE");
+        default -> MessageHandling.abortProgram(logger,
+                                                "Database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
         }
       }
     }
@@ -167,34 +162,28 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     return switch (column.getDataType().toUpperCase()) {
     case "BIGINT" -> switch (tickerSymbolLower) {
       case "cubrid" -> "INT";
-      case "firebird" -> "INTEGER";
+      case "firebird", "sqlite" -> "INTEGER";
       case "oracle" -> "NUMBER";
-      case "sqlite" -> "INTEGER";
       default -> "BIGINT";
       };
     case "BLOB" -> switch (tickerSymbolLower) {
       case "cratedb" -> "OBJECT";
-      case "mariadb" -> "LONGBLOB";
+      case "mariadb", "mysql" -> "LONGBLOB";
       case "mssqlserver" -> "VARBINARY(MAX)";
-      case "mysql" -> "LONGBLOB";
       case "postgresql" -> "BYTEA";
       default -> "BLOB";
       };
     case "CLOB" -> switch (tickerSymbolLower) {
-      case "cratedb" -> "TEXT";
+      case "cratedb", "postgresql" -> "TEXT";
       case "firebird" -> "BLOB SUB_TYPE 1";
-      case "mariadb" -> "LONGTEXT";
+      case "mariadb", "mysql" -> "LONGTEXT";
       case "mssqlserver" -> "VARCHAR(MAX)";
-      case "mysql" -> "LONGTEXT";
-      case "postgresql" -> "TEXT";
       default -> "CLOB";
       };
     case "TIMESTAMP" -> switch (tickerSymbolLower) {
       case "informix" -> "DATETIME YEAR TO FRACTION";
-      case "mariadb" -> "DATETIME";
+      case "mariadb", "mysql", "sqlite" -> "DATETIME";
       case "mssqlserver" -> "DATETIME2";
-      case "mysql" -> "DATETIME";
-      case "sqlite" -> "DATETIME";
       default -> "TIMESTAMP";
       };
     case "VARCHAR" -> switch (tickerSymbolLower) {
@@ -203,8 +192,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           ? "LVARCHAR(" + column.getSize() + ")"
           : "VARCHAR(" + column.getSize() + ")";
       case "mimer" -> "NVARCHAR(" + column.getSize() + ")";
-      case "oracle" -> "VARCHAR2(" + column.getSize() + ")";
-      case "sqlite" -> "VARCHAR2(" + column.getSize() + ")";
+      case "oracle", "sqlite" -> "VARCHAR2(" + column.getSize() + ")";
       default -> "VARCHAR(" + column.getSize() + ")";
       };
     default -> "";
@@ -237,25 +225,26 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       constraintType = tableConstraint.getConstraintType().toUpperCase();
 
       switch (constraintType) {
-      case "FOREIGN" -> workArea.append("FOREIGN KEY (" + identifierDelimiter);
-      case "PRIMARY" -> workArea.append("PRIMARY KEY (" + identifierDelimiter);
-      case "UNIQUE" -> workArea.append("UNIQUE      (" + identifierDelimiter);
+      case "FOREIGN" -> workArea.append("FOREIGN KEY (").append(identifierDelimiter);
+      case "PRIMARY" -> workArea.append("PRIMARY KEY (").append(identifierDelimiter);
+      case "UNIQUE" -> workArea.append("UNIQUE      (").append(identifierDelimiter);
       default -> MessageHandling.abortProgram(logger,
                                               "Database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
       }
 
       workArea.append(String.join(identifierDelimiter + ", " + identifierDelimiter,
-                                  tableConstraint.getColumns()).toUpperCase()).append(identifierDelimiter + ")");
+                                  tableConstraint.getColumns()).toUpperCase()).append(identifierDelimiter).append(")");
 
       if ("FOREIGN".equals(constraintType)) {
         editedConstraints.add(workArea.toString());
         workArea = new StringBuilder(" ".repeat(46));
-        workArea.append("REFERENCES " + String.format("%-33s",
-                                                      identifierDelimiter + tableConstraint.getReferenceTable().toUpperCase() + identifierDelimiter));
+        workArea.append("REFERENCES ").append(String.format("%-33s",
+                                                            identifierDelimiter + tableConstraint.getReferenceTable().toUpperCase() + identifierDelimiter));
         editedConstraints.add(workArea.toString());
         workArea = new StringBuilder(" ".repeat(46));
-        workArea.append("(" + identifierDelimiter).append(String.join(identifierDelimiter + ", " + identifierDelimiter,
-                                                                      tableConstraint.getReferenceColumns()).toUpperCase()).append(identifierDelimiter + ")");
+        workArea.append("(").append(identifierDelimiter).append(String.join(identifierDelimiter + ", " + identifierDelimiter,
+                                                                            tableConstraint.getReferenceColumns()).toUpperCase()).append(identifierDelimiter)
+            .append(")");
       }
 
       if (i < tableConstraints.size() - 1) {
@@ -324,8 +313,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     MessageHandling.startProgress(logger,
                                   "Start generating Java classes");
 
-    generateClassSchema(release,
-                        schemaPojo);
+    generateClassSchema(release);
 
     logger.info("===> Generated class: AbstractGenSchema");
 
@@ -358,11 +346,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
   /**
    * Generate the Java class AbstractGenSchema.
+   *  @param release    the current release number
    *
-   * @param release    the current release number
-   * @param schemaPojo the schema POJO
    */
-  private void generateClassSchema(String release, SchemaPojo schemaPojo) {
+  private void generateClassSchema(String release) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -377,8 +364,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     }
 
     generateCodeSchema(bufferedWriter,
-                       release,
-                       schemaPojo);
+                       release);
 
     try {
       bufferedWriter.close();
@@ -413,8 +399,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     }
 
     generateCodeSeeder(bufferedWriter,
-                       release,
-                       schemaPojo);
+                       release);
 
     try {
       bufferedWriter.close();
@@ -472,25 +457,26 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("/**");
       bw.newLine();
-      bw.append(" * CREATE TABLE statements for a " + dbmsName + " DBMS. <br>");
+      bw.append(" * CREATE TABLE statements for a ").append(dbmsName).append(" DBMS. <br>");
       bw.newLine();
       bw.append(" * ");
       bw.newLine();
       bw.append(" * @author  GenerateSchema.class");
       bw.newLine();
-      bw.append(" * @version " + release);
+      bw.append(" * @version ").append(release);
       bw.newLine();
-      bw.append(" * @since   " + printDate);
+      bw.append(" * @since   ").append(printDate);
       bw.newLine();
       bw.append(" */");
       bw.newLine();
-      bw.append("public abstract class AbstractGen" + tickerSymbolPascal + "Schema extends AbstractGenSeeder {");
+      bw.append("public abstract class AbstractGen").append(tickerSymbolPascal).append("Schema extends AbstractGenSeeder {");
       bw.newLine();
       bw.newLine();
       bw.append("  public static final HashMap<String, String> createTableStmnts = createTableStmnts();");
       bw.newLine();
       bw.newLine();
-      bw.append("  private static final Logger                 logger            = Logger.getLogger(AbstractGen" + tickerSymbolPascal + "Schema.class);");
+      bw.append("  private static final Logger                 logger            = Logger.getLogger(AbstractGen").append(tickerSymbolPascal).append(
+                                                                                                                                                    "Schema.class);");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");
@@ -515,11 +501,11 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                                                       tableName,
                                                       genTablesTableConstraints.get(tableName));
 
-        bw.append("    statements.put(TABLE_NAME_" + tableName + ",");
+        bw.append("    statements.put(TABLE_NAME_").append(tableName).append(",");
         bw.newLine();
         bw.append("                   \"\"\"");
         bw.newLine();
-        bw.append("                   CREATE TABLE " + identifierDelimiter + tableName + identifierDelimiter + " (");
+        bw.append("                   CREATE TABLE ").append(identifierDelimiter).append(tableName).append(identifierDelimiter).append(" (");
         bw.newLine();
 
         for (Column column : columns) {
@@ -557,7 +543,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           if (editedTableConstraints.size() > 0 || editedColumnConstraints.size() > 1 || !columnNameLast.equals(editedColumnName)) {
             bw.append(StringUtils.stripEnd(workArea.toString(),
-                                           null) + ",");
+                                           null)).append(",");
           } else {
             bw.append(workArea.toString());
           }
@@ -566,7 +552,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           if (editedColumnConstraints.size() > 1) {
             for (int i = 1; i < editedColumnConstraints.size(); i++) {
-              bw.append(" ".repeat(79) + editedColumnConstraints.get(i));
+              bw.append(" ".repeat(79)).append(editedColumnConstraints.get(i));
 
               if (editedTableConstraints.size() > 0 || i < editedColumnConstraints.size() - 1 || !columnNameLast.equals(editedColumnName)) {
                 bw.append(",");
@@ -596,7 +582,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  /**");
       bw.newLine();
-      bw.append("   * Initialises a new abstract " + dbmsName + " schema object.");
+      bw.append("   * Initialises a new abstract ").append(dbmsName).append(" schema object.");
       bw.newLine();
       bw.append("   *");
       bw.newLine();
@@ -606,7 +592,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGen" + tickerSymbolPascal + "Schema(String dbmsTickerSymbol) {");
+      bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String dbmsTickerSymbol) {");
       bw.newLine();
       bw.append("    super(dbmsTickerSymbol);");
       bw.newLine();
@@ -631,7 +617,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         bw.newLine();
         bw.append("  /**");
         bw.newLine();
-        bw.append("   * Initialises a new abstract " + dbmsName + " schema object.");
+        bw.append("   * Initialises a new abstract ").append(dbmsName).append(" schema object.");
         bw.newLine();
         bw.append("   *");
         bw.newLine();
@@ -645,7 +631,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         bw.newLine();
         bw.append("   */");
         bw.newLine();
-        bw.append("  public AbstractGen" + tickerSymbolPascal + "Schema(String dbmsTickerSymbol, boolean isClient) {");
+        bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String dbmsTickerSymbol, boolean isClient) {");
         bw.newLine();
         bw.append("    super(dbmsTickerSymbol, isClient);");
         bw.newLine();
@@ -685,9 +671,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    *
    * @param bw         the buffered writer
    * @param release    the current release number
-   * @param schemaPojo the schema POJO
    */
-  private void generateCodeSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo) {
+  private void generateCodeSchema(BufferedWriter bw, String release) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -717,9 +702,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append(" * @author  GenerateSchema.class");
       bw.newLine();
-      bw.append(" * @version " + release);
+      bw.append(" * @version ").append(release);
       bw.newLine();
-      bw.append(" * @since   " + printDate);
+      bw.append(" * @since   ").append(printDate);
       bw.newLine();
       bw.append(" */");
       bw.newLine();
@@ -728,8 +713,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        bw.append("  protected static final String TABLE_NAME_" + String.format("%-30s",
-                                                                                tableName) + " = \"" + tableName + "\";");
+        bw.append("  protected static final String TABLE_NAME_").append(String.format("%-30s",
+                                                                                      tableName)).append(" = \"").append(tableName).append("\";");
         bw.newLine();
       }
 
@@ -825,7 +810,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       Set<String> genVarcharColumnNamesSorted = new TreeSet<>(genVarcharColumnNames);
 
       for (String columnName : genVarcharColumnNamesSorted) {
-        bw.append("    columnName.setProperty(\"" + columnName + "_0\",");
+        bw.append("    columnName.setProperty(\"").append(columnName).append("_0\",");
         bw.newLine();
         bw.append("                           \"\");");
         bw.newLine();
@@ -839,7 +824,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String columnName : genVarcharColumnNamesSorted) {
-        bw.append("    columnName.setProperty(\"" + columnName + "_1\",");
+        bw.append("    columnName.setProperty(\"").append(columnName).append("_1\",");
         bw.newLine();
         bw.append("                           isIso_8859_1 ? \"ÁÇÉÍÑÓ_\" : \"NO_ISO_8859_1_\");");
         bw.newLine();
@@ -853,7 +838,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String columnName : genVarcharColumnNamesSorted) {
-        bw.append("    columnName.setProperty(\"" + columnName + "_2\",");
+        bw.append("    columnName.setProperty(\"").append(columnName).append("_2\",");
         bw.newLine();
         bw.append("                           isUtf_8 ? \"缩略语地址电子邮件传真_\" : \"NO_UTF_8_\");");
         bw.newLine();
@@ -899,7 +884,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
         String            columnNamesWithComma = String.join(",",
                                                              columnNames);
-        StringBuffer      questionMarks        = new StringBuffer();
+        StringBuilder     questionMarks        = new StringBuilder();
 
         for (int i = 0; i < columnNames.size(); i++) {
           questionMarks.append(i == 0
@@ -907,9 +892,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               : ",?");
         }
 
-        bw.append("                           put(TABLE_NAME_" + tableName + ",");
+        bw.append("                           put(TABLE_NAME_").append(tableName).append(",");
         bw.newLine();
-        bw.append("                               \"" + columnNamesWithComma + ") VALUES (" + questionMarks.toString() + "\");");
+        bw.append("                               \"").append(columnNamesWithComma).append(") VALUES (").append(questionMarks.toString()).append("\");");
         bw.newLine();
       }
 
@@ -924,9 +909,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        bw.append("                           put(TABLE_NAME_" + tableName + ",");
+        bw.append("                           put(TABLE_NAME_").append(tableName).append(",");
         bw.newLine();
-        bw.append("                               " + genTableNumberOfRows.get(tableName).toString() + ");");
+        bw.append("                               ").append(genTableNumberOfRows.get(tableName).toString()).append(");");
         bw.newLine();
       }
 
@@ -1010,9 +995,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    *
    * @param bw         the buffered writer
    * @param release    the current release number
-   * @param schemaPojo the schema POJO
    */
-  private void generateCodeSeeder(BufferedWriter bw, String release, SchemaPojo schemaPojo) {
+  private void generateCodeSeeder(BufferedWriter bw, String release) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1043,9 +1027,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append(" * @author  GenerateSchema.class");
       bw.newLine();
-      bw.append(" * @version " + release);
+      bw.append(" * @version ").append(release);
       bw.newLine();
-      bw.append(" * @since   " + printDate);
+      bw.append(" * @since   ").append(printDate);
       bw.newLine();
       bw.append(" */");
       bw.newLine();
@@ -1338,7 +1322,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        bw.append("    case TABLE_NAME_" + tableName + " -> prepDmlStmntInsert" + getTableNamePascalCase(tableName) + "(preparedStatement,");
+        bw.append("    case TABLE_NAME_").append(tableName).append(" -> prepDmlStmntInsert").append(getTableNamePascalCase(tableName)).append(
+                                                                                                                                              "(preparedStatement,");
         bw.newLine();
         bw.append("                                                   rowNo);");
         bw.newLine();
@@ -1362,7 +1347,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        bw.append("  private void prepDmlStmntInsert" + getTableNamePascalCase(tableName) + "(PreparedStatement preparedStatement, int rowNo) {");
+        bw.append("  private void prepDmlStmntInsert").append(getTableNamePascalCase(tableName)).append("(PreparedStatement preparedStatement, int rowNo) {");
         bw.newLine();
         bw.append("    if (isDebug) {");
         bw.newLine();
@@ -1394,44 +1379,44 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           switch (dataType) {
           case "BIGINT":
             if ("".equals(referenceTable)) {
-              bw.append("    prepStmntColBigint" + (isNotNull
+              bw.append("    prepStmntColBigint").append(isNotNull
                   ? ""
-                  : "Opt") + "(preparedStatement,");
+                  : "Opt").append("(preparedStatement,");
               bw.newLine();
-              bw.append("                              \"" + tableName + "\",");
+              bw.append("                              \"").append(tableName).append("\",");
               bw.newLine();
-              bw.append("                              \"" + columnName + "\",");
+              bw.append("                              \"").append(columnName).append("\",");
               bw.newLine();
               bw.append("                              ++i,");
               bw.newLine();
               bw.append("                              rowNo);");
               bw.newLine();
             } else {
-              bw.append("    prepStmntColFk" + (isNotNull
+              bw.append("    prepStmntColFk").append(isNotNull
                   ? ""
-                  : "Opt") + "(preparedStatement,");
+                  : "Opt").append("(preparedStatement,");
               bw.newLine();
-              bw.append("                            \"" + tableName + "\",");
+              bw.append("                            \"").append(tableName).append("\",");
               bw.newLine();
-              bw.append("                            \"" + columnName + "\",");
+              bw.append("                            \"").append(columnName).append("\",");
               bw.newLine();
               bw.append("                            ++i,");
               bw.newLine();
               bw.append("                            rowNo,");
               bw.newLine();
-              bw.append("                            pkLists.get(TABLE_NAME_" + referenceTable + "));");
+              bw.append("                            pkLists.get(TABLE_NAME_").append(referenceTable).append("));");
               bw.newLine();
             }
 
             break;
           case "BLOB":
-            bw.append("    prepStmntColBlob" + (isNotNull
+            bw.append("    prepStmntColBlob").append(isNotNull
                 ? ""
-                : "Opt") + "(preparedStatement,");
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
-            bw.append("                              \"" + tableName + "\",");
+            bw.append("                              \"").append(tableName).append("\",");
             bw.newLine();
-            bw.append("                              \"" + columnName + "\",");
+            bw.append("                              \"").append(columnName).append("\",");
             bw.newLine();
             bw.append("                              ++i,");
             bw.newLine();
@@ -1440,13 +1425,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "CLOB":
-            bw.append("      prepStmntColClob" + (isNotNull
+            bw.append("      prepStmntColClob").append(isNotNull
                 ? ""
-                : "Opt") + "(preparedStatement,");
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
-            bw.append("                                \"" + tableName + "\",");
+            bw.append("                                \"").append(tableName).append("\",");
             bw.newLine();
-            bw.append("                                \"" + columnName + "\",");
+            bw.append("                                \"").append(columnName).append("\",");
             bw.newLine();
             bw.append("                                ++i,");
             bw.newLine();
@@ -1455,13 +1440,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "TIMESTAMP":
-            bw.append("    prepStmntColTimestamp" + (isNotNull
+            bw.append("    prepStmntColTimestamp").append(isNotNull
                 ? ""
-                : "Opt") + "(preparedStatement,");
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
-            bw.append("                               \"" + tableName + "\",");
+            bw.append("                               \"").append(tableName).append("\",");
             bw.newLine();
-            bw.append("                               \"" + columnName + "\",");
+            bw.append("                               \"").append(columnName).append("\",");
             bw.newLine();
             bw.append("                               ++i,");
             bw.newLine();
@@ -1469,19 +1454,19 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.newLine();
             break;
           case "VARCHAR":
-            bw.append("    prepStmntColVarchar" + (isNotNull
+            bw.append("    prepStmntColVarchar").append(isNotNull
                 ? ""
-                : "Opt") + "(preparedStatement,");
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
-            bw.append("                             \"" + tableName + "\",");
+            bw.append("                             \"").append(tableName).append("\",");
             bw.newLine();
-            bw.append("                             \"" + columnName + "\",");
+            bw.append("                             \"").append(columnName).append("\",");
             bw.newLine();
             bw.append("                             ++i,");
             bw.newLine();
             bw.append("                             rowNo,");
             bw.newLine();
-            bw.append("                             " + column.getSize() + ",");
+            bw.append("                             ").append(String.valueOf(column.getSize())).append(",");
             bw.newLine();
 
             if (column.getLowerRangeString() == null && column.getUpperRangeString() == null) {
@@ -1490,9 +1475,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.append("                             null,");
               bw.newLine();
             } else {
-              bw.append("                             \"" + column.getLowerRangeString() + "\",");
+              bw.append("                             \"").append(column.getLowerRangeString()).append("\",");
               bw.newLine();
-              bw.append("                             \"" + column.getUpperRangeString() + "\",");
+              bw.append("                             \"").append(column.getUpperRangeString()).append("\",");
               bw.newLine();
             }
 
@@ -1500,9 +1485,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.append("                             null);");
               bw.newLine();
             } else {
-              bw.append("                             Arrays.asList(\"" + String.join(",",
-                                                                                      column.getValidValuesString()).replace(",",
-                                                                                                                             "\",\"") + "\"));");
+              bw.append("                             Arrays.asList(\"").append(String.join(",",
+                                                                                            column.getValidValuesString()).replace(",",
+                                                                                                                                   "\",\"")).append("\"));");
               bw.newLine();
             }
 

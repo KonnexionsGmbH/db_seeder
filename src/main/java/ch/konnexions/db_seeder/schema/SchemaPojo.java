@@ -15,7 +15,7 @@ public final class SchemaPojo {
    *  The globals object.
    */
   @SuppressWarnings("ucd")
-  public final class Globals {
+  public static final class Globals {
 
     private Integer defaultNumberOfRows;
 

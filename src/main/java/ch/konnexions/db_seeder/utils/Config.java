@@ -47,8 +47,6 @@ public final class Config {
   private String                  fileStatisticsHeader;
   private String                  fileStatisticsName;
 
-  private final boolean           isDebug    = logger.isDebugEnabled();
-
   private ArrayList<String>       keysSorted = new ArrayList<>();
 
   private int                     nullFactor;
@@ -68,6 +66,7 @@ public final class Config {
   public Config() {
     super();
 
+    boolean isDebug = logger.isDebugEnabled();
     if (isDebug) {
       logger.debug("Start Constructor");
     }
@@ -176,13 +175,6 @@ public final class Config {
   // -------------------------------------------------------------------------
 
   /**
-   * @return the file configuration name
-   */
-  public final String getFileConfigurationName() {
-    return fileConfigurationName;
-  }
-
-  /**
    * @return the file JSON name
    */
   public final String getFileJsonName() {
@@ -237,11 +229,8 @@ public final class Config {
       return 2;
     }
 
-    if (nullFactor > 99) {
-      return 99;
-    }
-
-    return nullFactor;
+    return Math.min(nullFactor,
+                    99);
   }
 
   // Proportion of NULLs ----------------------------------------------

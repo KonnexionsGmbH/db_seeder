@@ -94,7 +94,7 @@ public abstract class AbstractDbmsSeeder {
    * @return the map containing the DBMSs descriptions
    */
   private static Map<String, String[]> initDbmsValues() {
-    Map<String, String[]> dbmsValues = new HashMap<String, String[]>();
+    Map<String, String[]> dbmsValues = new HashMap<>();
 
     dbmsValues.put("cratedb",
                    new String[] {

@@ -55,8 +55,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private final Properties    encodedColumnNames;
 
-  protected boolean           isClient        = true;
-  protected boolean           isEmbedded      = !(isClient);
+  protected final boolean     isClient;
+  protected final boolean     isEmbedded;
 
   private final int           nullFactor;
 
@@ -86,7 +86,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     encodedColumnNames = createColumnNames();
 
     isClient           = true;
-    isEmbedded         = !(this.isClient);
+    isEmbedded         = false;
 
     nullFactor         = config.getNullFactor();
 
@@ -430,8 +430,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     for (int rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
       insertTable(preparedStatement,
                   tableName,
-                  rowNo,
-                  pkList);
+                  rowNo);
 
       try {
         preparedStatement.executeUpdate();
@@ -802,8 +801,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    String columnValue = "";
-    Random random      = new Random();
+    String columnValue;
+    Random random = new Random();
 
     if (validValues != null) {
       columnValue = validValues.get(random.nextInt(validValues.size()));
@@ -837,7 +836,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return columnValue;
   }
 
-  private final int getLengthUTF_8(String stringUTF_8) {
+  private int getLengthUTF_8(String stringUTF_8) {
     int count = 0;
 
     for (int i = 0, len = stringUTF_8.length(); i < len; i++) {
@@ -857,22 +856,20 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return count;
   }
 
-  private final int getMaxRowSize(String tableName) {
+  private int getMaxRowSize(String tableName) {
     int maxRowSize   = maxRowSizes.get(tableName);
 
     int MAX_ROW_SIZE = Integer.MAX_VALUE;
-    if (maxRowSize > MAX_ROW_SIZE) {
-      return MAX_ROW_SIZE;
-    }
 
-    return maxRowSize;
+    return Math.min(maxRowSize,
+                    MAX_ROW_SIZE);
   }
 
   //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
 
-  protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, int rowNo, ArrayList<Object> pkList);
+  protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, int rowNo);
 
   /**
    * Sets the designated column to a BIGINT value.
@@ -889,7 +886,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      preparedStatement.setLong(1,
+      preparedStatement.setLong(columnPos,
                                 getContentBigint(tableName,
                                                  columnName,
                                                  rowNo));
@@ -1268,7 +1265,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private final byte[] readBlobFile2Bytes() {
+  private byte[] readBlobFile2Bytes() {
     if (isDebug) {
       logger.debug("Start");
 
@@ -1312,7 +1309,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return blobDataBytesArray;
   }
 
-  private final String readClobFile() {
+  private String readClobFile() {
     BufferedReader bufferedReader = null;
     try {
       bufferedReader = new BufferedReader(new FileReader(CLOB_FILE));
@@ -1349,7 +1346,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected abstract void setupDatabase();
 
-  private final void validateNumberRows(String tableName, int expectedRows) {
+  private void validateNumberRows(String tableName, int expectedRows) {
     if (isDebug) {
       logger.debug("Start");
     }
