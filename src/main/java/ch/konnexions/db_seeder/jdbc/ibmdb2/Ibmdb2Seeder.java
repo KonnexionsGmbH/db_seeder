@@ -31,8 +31,6 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     dbmsEnum              = DbmsEnum.IBMDB2;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter    = "";
-
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = 'schemaName' AND TABNAME = '?'";

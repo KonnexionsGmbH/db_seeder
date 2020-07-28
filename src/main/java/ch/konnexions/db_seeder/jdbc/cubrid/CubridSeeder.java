@@ -33,8 +33,6 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
 
     driver                = "cubrid.jdbc.driver.CUBRIDDriver";
 
-    tableNameDelimiter    = "\"";
-
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ":" + config.getDatabase() + ":";
     url                   = urlBase + config.getConnectionSuffix();
     urlSetup              = urlBase + config.getUserSys().toUpperCase() + config.getConnectionSuffix();

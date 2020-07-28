@@ -31,8 +31,6 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     dbmsEnum              = DbmsEnum.SQLITE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter    = "";
-
     url                   = config.getConnectionPrefix() + config.getDatabase();
 
     if (isDebug) {

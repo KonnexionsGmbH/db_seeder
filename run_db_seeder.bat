@@ -296,6 +296,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_CONTAINER_PORT=1360
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=mimerdb
+    set DB_SEEDER_ENCODING_UTF_8=false
     set DB_SEEDER_PASSWORD=mimer
     set DB_SEEDER_PASSWORD_SYS=mimer
     set DB_SEEDER_USER=kxn_user

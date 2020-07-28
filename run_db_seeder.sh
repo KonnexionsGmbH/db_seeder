@@ -245,6 +245,7 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONTAINER_PORT=1360
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=mimerdb
+    export DB_SEEDER_ENCODING_UTF_8=false
     export DB_SEEDER_PASSWORD=mimer
     export DB_SEEDER_PASSWORD_SYS=mimer
     export DB_SEEDER_USER=kxn_user

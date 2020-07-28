@@ -31,8 +31,6 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     dbmsEnum              = DbmsEnum.ORACLE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter    = "";
-
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
 
     if (isDebug) {

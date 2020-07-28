@@ -37,8 +37,6 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     dbmsEnum              = DbmsEnum.POSTGRESQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter    = "";
-
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase() + "?user=" + config.getUser() + "&password=" + config.getPassword();
     urlSetup              = urlBase + config.getDatabaseSys() + "?user=" + config.getUserSys() + "&password=" + config.getPasswordSys();

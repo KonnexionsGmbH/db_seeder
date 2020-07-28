@@ -57,7 +57,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Creates a content value of type BIGINT.
    *
-   * @param preparedStatement the prepared statement
    * @param tableName         the table name
    * @param columnName        the column name
    * @param rowNo             the current row number
@@ -74,7 +73,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Creates a content value of type BLOB.
    *
-   * @param preparedStatement the prepared statement
    * @param tableName         the table name
    * @param columnName        the column name
    * @param rowNo             the current row number
@@ -91,7 +89,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Creates a content value of type CLOB.
    *
-   * @param preparedStatement the prepared statement
    * @param tableName         the table name
    * @param columnName        the column name
    * @param rowNo             the current row number
@@ -108,7 +105,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Creates a content value of type foreign key value.
    *
-   * @param preparedStatement the prepared statement
    * @param tableName         the table name
    * @param columnName        the column name
    * @param rowNo             the current row number
@@ -127,7 +123,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Creates a content value of type TIMESTAMP.
    *
-   * @param preparedStatement the prepared statement
    * @param tableName         the table name
    * @param columnName        the column name
    * @param rowNo             the current row number
@@ -144,7 +139,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Creates a content value of type VARCHAR.
    *
-   * @param preparedStatement the prepared statement
    * @param tableName         the table name
    * @param columnName        the column name
    * @param rowNo             the current row number

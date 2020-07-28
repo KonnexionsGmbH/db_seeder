@@ -92,12 +92,10 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
       urlBase = config.getConnectionPrefix() + ";databaseName=" + config.getDatabase() + ";create=";
     }
 
-    tableNameDelimiter = "";
+    url            = urlBase + "false";
+    urlSetup       = urlBase + "true";
 
-    url                = urlBase + "false";
-    urlSetup           = urlBase + "true";
-
-    dropTableStmnt     = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
 
     if (isDebug) {
       logger.debug("End");

@@ -33,8 +33,6 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
 
     driver                = "com.informix.jdbc.IfxDriver";
 
-    tableNameDelimiter    = "";
-
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
     urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();

@@ -31,8 +31,6 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     dbmsEnum              = DbmsEnum.MARIADB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter    = "`";
-
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase();
     urlSetup              = urlBase + config.getDatabaseSys();

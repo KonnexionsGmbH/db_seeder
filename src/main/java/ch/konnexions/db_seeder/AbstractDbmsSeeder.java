@@ -63,33 +63,165 @@ public abstract class AbstractDbmsSeeder {
         "sqlite"
     );
 
-    private final String ticketSymbol;
+    private final String tickerSymbol;
 
-    DbmsEnum(String ticketSymbol) {
-      this.ticketSymbol = ticketSymbol;
+    DbmsEnum(String tickerSymbol) {
+      this.tickerSymbol = tickerSymbol;
     }
 
-    public String getTicketSymbol() {
-      return ticketSymbol;
+    public String getTickerSymbol() {
+      return tickerSymbol;
     }
   }
 
-  public static final String      FORMAT_IDENTIFIER  = "%-10d";
+  public static final Map<String, String[]> dbmsValues        = initDbmsValues();
+
+  public static final String                FORMAT_IDENTIFIER = "%-10d";
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
-  protected static final String   FORMAT_ROW_NO      = "%1$10d";
-  protected static final String   FORMAT_TABLE_NAME  = "%-17s";
+  protected static final String             FORMAT_ROW_NO     = "%1$10d";
+  protected static final String             FORMAT_TABLE_NAME = "%-17s";
 
-  private static final Logger     logger             = Logger.getLogger(AbstractDbmsSeeder.class);
+  private static final Logger               logger            = Logger.getLogger(AbstractDbmsSeeder.class);
 
-  protected Config                config;
+  /**
+   * Initialises the DBMSs descriptions.
+   * 
+   * Attributes: 0 - DBMS name long
+   *             1 - client / embedded
+   *             2 - DBMS name short
+   *             3 - identifier delimiter
+   *
+   * @return the map containing the DBMSs descriptions
+   */
+  private static Map<String, String[]> initDbmsValues() {
+    Map<String, String[]> dbmsValues = new HashMap<String, String[]>();
 
-  protected DbmsEnum              dbmsEnum;
-  protected String                dbmsTickerSymbol;
-  protected Map<String, String[]> dbmsValues         = new HashMap<String, String[]>();
+    dbmsValues.put("cratedb",
+                   new String[] {
+                       "CrateDB",
+                       "client",
+                       "CrateDB",
+                       "" });
+    dbmsValues.put("cubrid",
+                   new String[] {
+                       "CUBRID",
+                       "client",
+                       "CUBRID",
+                       "\"" });
+    dbmsValues.put("derby",
+                   new String[] {
+                       "Apache Derby [client]",
+                       "client",
+                       "Apache Derby",
+                       "" });
+    dbmsValues.put("derby_emb",
+                   new String[] {
+                       "Apache Derby [embedded]",
+                       "embedded",
+                       "Apache Derby",
+                       "" });
+    dbmsValues.put("firebird",
+                   new String[] {
+                       "Firebird",
+                       "client",
+                       "Firebird",
+                       "" });
+    dbmsValues.put("h2",
+                   new String[] {
+                       "H2 Database Engine [client]",
+                       "client",
+                       "H2",
+                       "" });
+    dbmsValues.put("h2_emb",
+                   new String[] {
+                       "H2 Database Engine [embedded]",
+                       "embedded",
+                       "H2",
+                       "" });
+    dbmsValues.put("hsqldb",
+                   new String[] {
+                       "HyperSQL Database [client]",
+                       "client",
+                       "HyperSQL",
+                       "" });
+    dbmsValues.put("hsqldb_emb",
+                   new String[] {
+                       "HyperSQL Database [embedded]",
+                       "embedded",
+                       "HyperSQL",
+                       "" });
+    dbmsValues.put("ibmdb2",
+                   new String[] {
+                       "IBM Db2 Database",
+                       "client",
+                       "IBM Db2",
+                       "" });
+    dbmsValues.put("informix",
+                   new String[] {
+                       "IBM Informix",
+                       "client",
+                       "IBM Informix",
+                       "" });
+    dbmsValues.put("mariadb",
+                   new String[] {
+                       "MariaDB Server",
+                       "client",
+                       "MariaDB",
+                       "`" });
+    dbmsValues.put("mimer",
+                   new String[] {
+                       "Mimer SQL",
+                       "client",
+                       "Mimer",
+                       "" });
+    dbmsValues.put("mssqlserver",
+                   new String[] {
+                       "MS SQL Server",
+                       "client",
+                       "MS SQL Server",
+                       "" });
+    dbmsValues.put("mysql",
+                   new String[] {
+                       "MySQL Database",
+                       "client",
+                       "MySQL",
+                       "`" });
+    dbmsValues.put("oracle",
+                   new String[] {
+                       "Oracle Database",
+                       "client",
+                       "Oracle",
+                       "" });
+    dbmsValues.put("postgresql",
+                   new String[] {
+                       "PostgreSQL Database",
+                       "client",
+                       "PostgreSQL",
+                       "" });
+    dbmsValues.put("sqlite",
+                   new String[] {
+                       "SQLite",
+                       "embedded",
+                       "SQLite",
+                       "" });
 
-  protected final boolean         isDebug            = logger.isDebugEnabled();
+    return dbmsValues;
+  }
 
-  protected String                tableNameDelimiter = "tbd";
+  protected Config        config;
+  protected DbmsEnum      dbmsEnum;
+
+  protected String        dbmsTickerSymbol;
+
+  protected String        identifierDelimiter;
+  protected final boolean isDebug = logger.isDebugEnabled();
+
+  /**
+   * Initialises a new abstract DBMS seeder object.
+   */
+  public AbstractDbmsSeeder() {
+    super();
+  }
 
   /**
    * Initialises a new abstract DBMS seeder object.
@@ -103,7 +235,7 @@ public abstract class AbstractDbmsSeeder {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
-    dbmsValues = initDbmsValues();
+    identifierDelimiter = dbmsValues.get(dbmsTickerSymbol)[3];
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -123,7 +255,7 @@ public abstract class AbstractDbmsSeeder {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
-    dbmsValues = initDbmsValues();
+    identifierDelimiter = dbmsValues.get(dbmsTickerSymbol)[3];
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -131,84 +263,24 @@ public abstract class AbstractDbmsSeeder {
   }
 
   /**
-   * Initialises the DBMSs descriptions.
+   * Gets the DBMS name.
    *
-   * @return the map containing the DBMSs descriptions
+   * @param tickerSymbolLower the lower case ticker symbol
+   *
+   * @return the DBMS name
    */
-  private Map<String, String[]> initDbmsValues() {
-    dbmsValues.put("cratedb",
-                   new String[] {
-                       "CrateDB",
-                       "client" });
-    dbmsValues.put("cubrid",
-                   new String[] {
-                       "CUBRID",
-                       "client" });
-    dbmsValues.put("derby",
-                   new String[] {
-                       "Apache Derby [client]",
-                       "client" });
-    dbmsValues.put("derby_emb",
-                   new String[] {
-                       "Apache Derby [embedded]",
-                       "embedded" });
-    dbmsValues.put("firebird",
-                   new String[] {
-                       "Firebird",
-                       "client" });
-    dbmsValues.put("h2",
-                   new String[] {
-                       "H2 Database Engine [client]",
-                       "client" });
-    dbmsValues.put("h2_emb",
-                   new String[] {
-                       "H2 Database Engine [embedded]",
-                       "embedded" });
-    dbmsValues.put("hsqldb",
-                   new String[] {
-                       "HyperSQL Database [client]",
-                       "client" });
-    dbmsValues.put("hsqldb_emb",
-                   new String[] {
-                       "HyperSQL Database [embedded]",
-                       "embedded" });
-    dbmsValues.put("ibmdb2",
-                   new String[] {
-                       "IBM Db2 Database",
-                       "client" });
-    dbmsValues.put("informix",
-                   new String[] {
-                       "IBM Informix",
-                       "client" });
-    dbmsValues.put("mariadb",
-                   new String[] {
-                       "MariaDB Server",
-                       "client" });
-    dbmsValues.put("mimer",
-                   new String[] {
-                       "Mimer SQL",
-                       "client" });
-    dbmsValues.put("mssqlserver",
-                   new String[] {
-                       "MS SQL Server",
-                       "client" });
-    dbmsValues.put("mysql",
-                   new String[] {
-                       "MySQL Database",
-                       "client" });
-    dbmsValues.put("oracle",
-                   new String[] {
-                       "Oracle Database",
-                       "client" });
-    dbmsValues.put("postgresql",
-                   new String[] {
-                       "PostgreSQL Database",
-                       "client" });
-    dbmsValues.put("sqlite",
-                   new String[] {
-                       "SQLite",
-                       "embedded" });
+  public final String getDbmsName(String tickerSymbolLower) {
+    return dbmsValues.get(tickerSymbolLower)[2];
+  }
 
-    return dbmsValues;
+  /**
+   * Gets the identifier delimiter.
+   *
+   * @param tickerSymbolLower the lower case ticker symbol
+   *
+   * @return the identifier delimiter
+   */
+  public final String getIdentifierDelimiter(String tickerSymbolLower) {
+    return dbmsValues.get(tickerSymbolLower)[3];
   }
 }

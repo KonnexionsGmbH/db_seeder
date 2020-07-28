@@ -33,8 +33,6 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
     driver                = "org.firebirdsql.jdbc.FBDriver";
 
-    tableNameDelimiter    = "";
-
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
         .getConnectionSuffix();
 

@@ -280,7 +280,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       statement = connection.createStatement();
 
-      String sqlStmnt = "SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter;
+      String sqlStmnt = "SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter;
 
       if (isDebug) {
         logger.debug("sql='" + sqlStmnt + "'");
@@ -412,7 +412,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    final String sqlStmnt = "INSERT INTO " + tableNameDelimiter + tableName + tableNameDelimiter + " (" + dmlStatements.get(tableName) + ")";
+    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + tableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
 
     if (isDebug) {
       logger.debug("sql='" + sqlStmnt + "'");
@@ -517,7 +517,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       for (String tableName : TABLE_NAMES_DROP) {
         String queryStmnt = sqlStmnt.replace("?",
-                                             dbmsEnum == DbmsEnum.CRATEDB ? tableName.toLowerCase() : tableName.toUpperCase());
+                                             dbmsEnum == DbmsEnum.CRATEDB
+                                                 ? tableName.toLowerCase()
+                                                 : tableName.toUpperCase());
 
         if (isDebug) {
           logger.debug("next SQL statement=" + queryStmnt);
@@ -607,8 +609,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       resultSet.close();
 
       if (count > 0) {
-        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER ? "DATABANK" : "DATABASE") + " " + databaseName + (cascadeRestrict != null ? " " + cascadeRestrict
-            : "");
+        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER
+            ? "DATABANK"
+            : "DATABASE") + " " + databaseName + (cascadeRestrict != null
+                ? " " + cascadeRestrict
+                : "");
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -657,7 +662,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       resultSet.close();
 
       if (count > 0) {
-        sqlStmnt = "DROP SCHEMA " + schemaName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
+        sqlStmnt = "DROP SCHEMA " + schemaName + (cascadeRestrict != null
+            ? " " + cascadeRestrict
+            : "");
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -706,7 +713,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       resultSet.close();
 
       if (count > 0) {
-        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER ? "IDENT" : "USER") + "  " + userName + (cascadeRestrict != null ? " " + cascadeRestrict : "");
+        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER
+            ? "IDENT"
+            : "USER") + "  " + userName + (cascadeRestrict != null
+                ? " " + cascadeRestrict
+                : "");
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -1227,7 +1238,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                               int size,
                                               String lowerRange,
                                               String upperRange,
-                                              ArrayList<String> validValues) {
+                                              List<String> validValues) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1348,7 +1359,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
+      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);

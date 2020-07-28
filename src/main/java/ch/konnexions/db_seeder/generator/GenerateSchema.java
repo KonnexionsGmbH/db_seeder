@@ -16,11 +16,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
@@ -34,7 +34,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import ch.konnexions.db_seeder.AbstractDbmsSeeder.DbmsEnum;
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import ch.konnexions.db_seeder.schema.SchemaPojo;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
@@ -48,28 +48,30 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-07-15
  */
-public final class GenerateSchema {
+public final class GenerateSchema extends AbstractDbmsSeeder {
 
-  private static final Logger                logger                  = Logger.getLogger(GenerateSchema.class);
+  private static final Logger                               logger                    = Logger.getLogger(GenerateSchema.class);
 
-  private int                                errors                  = 0;
+  private int                                               constraintNumber          = 0;
 
-  private Map<String, ArrayList<String>>     genTableNameColumnNames = new HashMap<>();
-  private List<String>                       genTableHierarchy       = new ArrayList<>();
-  private HashMap<String, ArrayList<Column>> genTablesColumns        = new HashMap<>();
-  private List<String>                       genTableNames           = new ArrayList<>();
-  private Map<String, Integer>               genTableNumberOfRows    = new HashMap<>();
-  private Set<String>                        genVarcharColumnNames   = new HashSet<>();
+  private int                                               errors                    = 0;
 
-  private final boolean                      isDebug                 = logger.isDebugEnabled();
+  private final ArrayList<String>                           genTableHierarchy         = new ArrayList<>();
+  private final Map<String, ArrayList<String>>              genTableNameColumnNames   = new HashMap<>();
+  private final ArrayList<String>                           genTableNames             = new ArrayList<>();
+  private final Map<String, Integer>                        genTableNumberOfRows      = new HashMap<>();
+  private final HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
+  private final HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
+  private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
 
-  private String                             printDate;
-  private final String                       printDatePattern        = "yyyy-MM-dd";
+  private final boolean                                     isDebug                   = logger.isDebugEnabled();
+  private boolean                                           isNotNull;
 
-  private int                                valDefaultNumberOfRows;
-  private Set<Table>                         valTables;
-  private HashMap<String, HashSet<String>>   valTablesColumns;
-  private HashMap<String, HashSet<String>>   valTableNameForeignKeys = new HashMap<>();
+  private final String                                      printDate;
+
+  private Set<Table>                                        valTables;
+  private HashMap<String, HashSet<String>>                  valTablesColumns;
+  private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
 
   /**
    * Instantiates a new GenerateSchema object.
@@ -77,22 +79,245 @@ public final class GenerateSchema {
   public GenerateSchema() {
     super();
 
+    String           printDatePattern = "yyyy-MM-dd";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(printDatePattern);
 
     printDate = simpleDateFormat.format(new Date());
   }
 
-  private void generateClassDbmsSchema(String release, SchemaPojo schemaPojo, DbmsEnum tickerSymbol) {
+  private ArrayList<String> editColumnConstraints(String tickerSymbolLower, String identifierDelimiter, String tableName, Column column) {
+    isNotNull = false;
+
+    ArrayList<ColumnConstraint> columnConstraints   = column.getColumnConstraints();
+
+    Integer                     defaultValueInteger = column.getDefaultValueInteger();
+    String                      defaultValueString  = column.getDefaultValueString();
+
+    ArrayList<String>           editedConstraints   = new ArrayList<>();
+
+    if (columnConstraints == null && defaultValueInteger == null && defaultValueString == null) {
+      return editedConstraints;
+    }
+
+    if (defaultValueInteger != null) {
+      editedConstraints.add("DEFAULT " + defaultValueInteger.toString());
+    }
+
+    if (defaultValueString != null) {
+      editedConstraints.add("DEFAULT \"" + defaultValueString + "\"");
+    }
+
+    if (columnConstraints != null) {
+      String constraintType;
+
+      for (ColumnConstraint columnConstraint : columnConstraints) {
+        constraintType = columnConstraint.getConstraintType().toUpperCase();
+
+        if ("NOT NULL".equals(constraintType)) {
+          isNotNull = true;
+          continue;
+        }
+
+        if ("cratedb".equals(tickerSymbolLower)) {
+          continue;
+        }
+
+        switch (constraintType) {
+        case "FOREIGN":
+          editedConstraints.add(("derby".equals(tickerSymbolLower)
+              || "firebird".equals(tickerSymbolLower)
+              || "h2".equals(tickerSymbolLower)
+              || "ibmdb2".equals(tickerSymbolLower)
+              || "informix".equals(tickerSymbolLower)
+              || "mariadb".equals(tickerSymbolLower)
+              || "mimer".equals(tickerSymbolLower)
+              || "mysql".equals(tickerSymbolLower)
+              || "oracle".equals(tickerSymbolLower)
+              || "postgresql".equals(tickerSymbolLower)
+              || "sqlite".equals(tickerSymbolLower)
+                  ? ""
+                  : "FOREIGN KEY ") + "REFERENCES " + String.format("%-33s",
+                                                                    identifierDelimiter + columnConstraint.getReferenceTable().toUpperCase()
+                                                                        + identifierDelimiter) + " (" + identifierDelimiter + columnConstraint
+                                                                            .getReferenceColumn().toUpperCase() + identifierDelimiter + ")");
+          break;
+        case "PRIMARY":
+          if ("ibmdb2".equals(tickerSymbolLower)) {
+            isNotNull = true;
+          }
+          editedConstraints.add("PRIMARY KEY");
+          break;
+        case "UNIQUE":
+          editedConstraints.add("UNIQUE");
+          break;
+        default:
+          MessageHandling.abortProgram(logger,
+                                       "Database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
+        }
+      }
+    }
+
+    Collections.sort(editedConstraints);
+
+    return editedConstraints;
+  }
+
+  private String editDataType(String tickerSymbolLower, Column column) {
+
+    return switch (column.getDataType().toUpperCase()) {
+    case "BIGINT" -> switch (tickerSymbolLower) {
+      case "cubrid" -> "INT";
+      case "firebird" -> "INTEGER";
+      case "oracle" -> "NUMBER";
+      case "sqlite" -> "INTEGER";
+      default -> "BIGINT";
+      };
+    case "BLOB" -> switch (tickerSymbolLower) {
+      case "cratedb" -> "OBJECT";
+      case "mariadb" -> "LONGBLOB";
+      case "mssqlserver" -> "VARBINARY(MAX)";
+      case "mysql" -> "LONGBLOB";
+      case "postgresql" -> "BYTEA";
+      default -> "BLOB";
+      };
+    case "CLOB" -> switch (tickerSymbolLower) {
+      case "cratedb" -> "TEXT";
+      case "firebird" -> "BLOB SUB_TYPE 1";
+      case "mariadb" -> "LONGTEXT";
+      case "mssqlserver" -> "VARCHAR(MAX)";
+      case "mysql" -> "LONGTEXT";
+      case "postgresql" -> "TEXT";
+      default -> "CLOB";
+      };
+    case "TIMESTAMP" -> switch (tickerSymbolLower) {
+      case "informix" -> "DATETIME YEAR TO FRACTION";
+      case "mariadb" -> "DATETIME";
+      case "mssqlserver" -> "DATETIME2";
+      case "mysql" -> "DATETIME";
+      case "sqlite" -> "DATETIME";
+      default -> "TIMESTAMP";
+      };
+    case "VARCHAR" -> switch (tickerSymbolLower) {
+      case "cratedb" -> "TEXT";
+      case "informix" -> column.getSize() > 254
+          ? "LVARCHAR(" + column.getSize() + ")"
+          : "VARCHAR(" + column.getSize() + ")";
+      case "mimer" -> "NVARCHAR(" + column.getSize() + ")";
+      case "oracle" -> "VARCHAR2(" + column.getSize() + ")";
+      case "sqlite" -> "VARCHAR2(" + column.getSize() + ")";
+      default -> "VARCHAR(" + column.getSize() + ")";
+      };
+    default -> "";
+    };
+  }
+
+  private ArrayList<String> editTableConstraints(String tickerSymbolLower,
+                                                 String identifierDelimiter,
+                                                 String tableName,
+                                                 ArrayList<TableConstraint> tableConstraints) {
+    ArrayList<String> editedConstraints = new ArrayList<>();
+
+    if ("cratedb".equals(tickerSymbolLower) || tableConstraints == null) {
+      return editedConstraints;
+    }
+
+    String        constraintType;
+
+    StringBuilder workArea;
+
+    for (int i = 0; i < tableConstraints.size(); i++) {
+      TableConstraint tableConstraint = tableConstraints.get(i);
+
+      workArea = new StringBuilder(" ".repeat(23));
+      if (!"informix".equals(tickerSymbolLower)) {
+        workArea.append(String.format("%-31s",
+                                      "CONSTRAINT CONSTRAINT_" + ++constraintNumber));
+      }
+
+      constraintType = tableConstraint.getConstraintType().toUpperCase();
+
+      switch (constraintType) {
+      case "FOREIGN" -> workArea.append("FOREIGN KEY (" + identifierDelimiter);
+      case "PRIMARY" -> workArea.append("PRIMARY KEY (" + identifierDelimiter);
+      case "UNIQUE" -> workArea.append("UNIQUE      (" + identifierDelimiter);
+      default -> MessageHandling.abortProgram(logger,
+                                              "Database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
+      }
+
+      workArea.append(String.join(identifierDelimiter + ", " + identifierDelimiter,
+                                  tableConstraint.getColumns()).toUpperCase()).append(identifierDelimiter + ")");
+
+      if ("FOREIGN".equals(constraintType)) {
+        editedConstraints.add(workArea.toString());
+        workArea = new StringBuilder(" ".repeat(46));
+        workArea.append("REFERENCES " + String.format("%-33s",
+                                                      identifierDelimiter + tableConstraint.getReferenceTable().toUpperCase() + identifierDelimiter));
+        editedConstraints.add(workArea.toString());
+        workArea = new StringBuilder(" ".repeat(46));
+        workArea.append("(" + identifierDelimiter).append(String.join(identifierDelimiter + ", " + identifierDelimiter,
+                                                                      tableConstraint.getReferenceColumns()).toUpperCase()).append(identifierDelimiter + ")");
+      }
+
+      if (i < tableConstraints.size() - 1) {
+        workArea.append(",");
+      }
+
+      editedConstraints.add(workArea.toString());
+    }
+
+    return editedConstraints;
+  }
+
+  /**
+   * Generate the code of the Java class AbstractGen<db_ticker>Schema.
+   *
+   * @param release            the current release number
+   * @param schemaPojo         the schema POJO
+   * @param tickerSymbolLower  the lower case ticker symbol
+   * @param tickerSymbolPascal the Pascal case ticker symbol
+   */
+  private void generateClassDbmsSchema(String release, SchemaPojo schemaPojo, String tickerSymbolLower, String tickerSymbolPascal) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    BufferedWriter bufferedWriter = null;
+    try {
+      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("src/main/java/ch/konnexions/db_seeder/generated/AbstractGen"
+          + tickerSymbolPascal + "Schema.java"), false), StandardCharsets.UTF_8));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    generateCodeDbmsSchema(bufferedWriter,
+                           release,
+                           schemaPojo,
+                           tickerSymbolLower,
+                           tickerSymbolPascal);
+
+    try {
+      bufferedWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   /**
    * Generate the Java classes.
    *
-   * @param release the current release number
+   * @param release    the current release number
    * @param schemaPojo the schema POJO
    */
   private void generateClasses(String release, SchemaPojo schemaPojo) {
-    if (isDebug) {
+    if (isDebug)
+
+    {
       logger.debug("Start");
     }
 
@@ -110,13 +335,14 @@ public final class GenerateSchema {
     logger.info("===> Generated class: AbstractGenSeeder");
 
     for (DbmsEnum tickerSymbol : DbmsEnum.values()) {
-      String tickerSymbolLower  = tickerSymbol.getTicketSymbol().toLowerCase();
+      String tickerSymbolLower  = tickerSymbol.getTickerSymbol();
       String tickerSymbolPascal = tickerSymbolLower.substring(0,
                                                               1).toUpperCase() + tickerSymbolLower.substring(1);
 
       generateClassDbmsSchema(release,
                               schemaPojo,
-                              tickerSymbol);
+                              tickerSymbolLower,
+                              tickerSymbolPascal);
 
       logger.info("===> Generated class: Abstract" + tickerSymbolPascal + "GenSchema");
     }
@@ -133,7 +359,7 @@ public final class GenerateSchema {
   /**
    * Generate the Java class AbstractGenSchema.
    *
-   * @param release the current release number
+   * @param release    the current release number
    * @param schemaPojo the schema POJO
    */
   private void generateClassSchema(String release, SchemaPojo schemaPojo) {
@@ -150,14 +376,9 @@ public final class GenerateSchema {
       System.exit(1);
     }
 
-    try {
-      generateCodeSchema(bufferedWriter,
-                         release,
-                         schemaPojo);
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    generateCodeSchema(bufferedWriter,
+                       release,
+                       schemaPojo);
 
     try {
       bufferedWriter.close();
@@ -174,7 +395,7 @@ public final class GenerateSchema {
   /**
    * Generate the Java class AbstractGenSeeder.
    *
-   * @param release the current release number
+   * @param release    the current release number
    * @param schemaPojo the schema POJO
    */
   private void generateClassSeeder(String release, SchemaPojo schemaPojo) {
@@ -191,14 +412,9 @@ public final class GenerateSchema {
       System.exit(1);
     }
 
-    try {
-      generateCodeSeeder(bufferedWriter,
-                         release,
-                         schemaPojo);
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    generateCodeSeeder(bufferedWriter,
+                       release,
+                       schemaPojo);
 
     try {
       bufferedWriter.close();
@@ -213,14 +429,37 @@ public final class GenerateSchema {
   }
 
   /**
-   * Generate the code of the Java class Abstract<db_ticker>Schema.
+   * Generate the code of the Java class AbstractGen<db_ticker>Schema.
    *
-   * @param bw the buffered writer
-   * @param release the current release number
-   * @param schemaPojo the schema POJO
+   * @param release            the current release number
+   * @param schemaPojo         the schema POJO
+   * @param tickerSymbolLower  the lower case ticker symbol
+   * @param tickerSymbolPascal the Pascal case ticker symbol
    */
   @SuppressWarnings("unused")
-  private void generateCodeDbmsSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo) throws IOException {
+  private void generateCodeDbmsSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo, String tickerSymbolLower, String tickerSymbolPascal) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    String            columnConstraint;
+    String            columnNameLast      = "";
+    ArrayList<Column> columns;
+
+    String            dataType;
+    String            dbmsName            = getDbmsName(tickerSymbolLower);
+
+    ArrayList<String> editedColumnConstraints;
+    String            editedColumnName;
+    String            editedDataType;
+    ArrayList<String> editedTableConstraints;
+
+    String            identifierDelimiter = getIdentifierDelimiter(tickerSymbolLower);
+    boolean           isColumnConstraints;
+    boolean           isTableConstraints;
+
+    StringBuffer      workArea;
+
     try {
       bw.append("package ch.konnexions.db_seeder.generated;");
       bw.newLine();
@@ -233,9 +472,9 @@ public final class GenerateSchema {
       bw.newLine();
       bw.append("/**");
       bw.newLine();
-      bw.append(" * CREATE TABLE statements for a ##DBMS_NAME## DBMS.");
+      bw.append(" * CREATE TABLE statements for a " + dbmsName + " DBMS. <br>");
       bw.newLine();
-      bw.append(" * <br>");
+      bw.append(" * ");
       bw.newLine();
       bw.append(" * @author  GenerateSchema.class");
       bw.newLine();
@@ -245,13 +484,13 @@ public final class GenerateSchema {
       bw.newLine();
       bw.append(" */");
       bw.newLine();
-      bw.append("public abstract class AbstractGen##DBMS_NAME_PASCAL##Schema extends AbstractGenSeeder {");
+      bw.append("public abstract class AbstractGen" + tickerSymbolPascal + "Schema extends AbstractGenSeeder {");
       bw.newLine();
       bw.newLine();
       bw.append("  public static final HashMap<String, String> createTableStmnts = createTableStmnts();");
       bw.newLine();
       bw.newLine();
-      bw.append("  private static final Logger                 logger            = Logger.getLogger(AbstractGen##DBMS_NAME_PASCAL##Schema.class);");
+      bw.append("  private static final Logger                 logger            = Logger.getLogger(AbstractGen" + tickerSymbolPascal + "Schema.class);");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");
@@ -267,158 +506,89 @@ public final class GenerateSchema {
       bw.append("    HashMap<String, String> statements = new HashMap<>();");
       bw.newLine();
       bw.newLine();
-      //
-      // <=== TBD ===>
-      //
-      bw.append("    statements.put(TABLE_NAME_CITY,");
-      bw.newLine();
-      bw.append("                   \"\"\"");
-      bw.newLine();
-      bw.append("                   CREATE TABLE `CITY` (");
-      bw.newLine();
-      bw.append("                      `PK_CITY_ID`          BIGINT       NOT NULL PRIMARY KEY,");
-      bw.newLine();
-      bw.append("                      `FK_COUNTRY_STATE_ID` BIGINT,");
-      bw.newLine();
-      bw.append("                      `CITY_MAP`            LONGBLOB,");
-      bw.newLine();
-      bw.append("                      `CREATED`             DATETIME     NOT NULL,");
-      bw.newLine();
-      bw.append("                      `MODIFIED`            DATETIME,");
-      bw.newLine();
-      bw.append("                      `NAME`                VARCHAR(100) NOT NULL,");
-      bw.newLine();
-      bw.append("                       CONSTRAINT `FK_CITY_COUNTRY_STATE` FOREIGN KEY `FK_CITY_COUNTRY_STATE` (`FK_COUNTRY_STATE_ID`) REFERENCES `COUNTRY_STATE` (`PK_COUNTRY_STATE_ID`)");
-      bw.newLine();
-      bw.append("                   )");
-      bw.newLine();
-      bw.append("                   \"\"\");");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    statements.put(TABLE_NAME_COMPANY,");
-      bw.newLine();
-      bw.append("                   \"\"\"");
-      bw.newLine();
-      bw.append("                   CREATE TABLE `COMPANY` (");
-      bw.newLine();
-      bw.append("                      `PK_COMPANY_ID` BIGINT       NOT NULL PRIMARY KEY,");
-      bw.newLine();
-      bw.append("                      `FK_CITY_ID`    BIGINT       NOT NULL,");
-      bw.newLine();
-      bw.append("                      `ACTIVE`        VARCHAR(1)   NOT NULL,");
-      bw.newLine();
-      bw.append("                      `ADDRESS1`      VARCHAR(50),");
-      bw.newLine();
-      bw.append("                      `ADDRESS2`      VARCHAR(50),");
-      bw.newLine();
-      bw.append("                      `ADDRESS3`      VARCHAR(50),");
-      bw.newLine();
-      bw.append("                      `CREATED`       DATETIME     NOT NULL,");
-      bw.newLine();
-      bw.append("                      `DIRECTIONS`    LONGTEXT,");
-      bw.newLine();
-      bw.append("                      `EMAIL`         VARCHAR(100),");
-      bw.newLine();
-      bw.append("                      `FAX`           VARCHAR(50),");
-      bw.newLine();
-      bw.append("                      `MODIFIED`      DATETIME,");
-      bw.newLine();
-      bw.append("                      `NAME`          VARCHAR(250) NOT NULL UNIQUE,");
-      bw.newLine();
-      bw.append("                      `PHONE`         VARCHAR(50),");
-      bw.newLine();
-      bw.append("                      `POSTAL_CODE`   VARCHAR(50),");
-      bw.newLine();
-      bw.append("                      `URL`           VARCHAR(250),");
-      bw.newLine();
-      bw.append("                      `VAT_ID_NUMBER` VARCHAR(100),");
-      bw.newLine();
-      bw.append("                       CONSTRAINT `FK_COMPANY_CITY` FOREIGN KEY `FK_COMPANY_CITY` (`FK_CITY_ID`) REFERENCES `CITY` (`PK_CITY_ID`)");
-      bw.newLine();
-      bw.append("                   )");
-      bw.newLine();
-      bw.append("                   \"\"\");");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    statements.put(TABLE_NAME_COUNTRY,");
-      bw.newLine();
-      bw.append("                   \"\"\"");
-      bw.newLine();
-      bw.append("                   CREATE TABLE `COUNTRY` (");
-      bw.newLine();
-      bw.append("                      `PK_COUNTRY_ID` BIGINT       NOT NULL PRIMARY KEY,");
-      bw.newLine();
-      bw.append("                      `COUNTRY_MAP`   LONGBLOB,");
-      bw.newLine();
-      bw.append("                      `CREATED`       DATETIME     NOT NULL,");
-      bw.newLine();
-      bw.append("                      `ISO3166`       VARCHAR(50),");
-      bw.newLine();
-      bw.append("                      `MODIFIED`      DATETIME,");
-      bw.newLine();
-      bw.append("                      `NAME`          VARCHAR(100) NOT NULL UNIQUE");
-      bw.newLine();
-      bw.append("                   )");
-      bw.newLine();
-      bw.append("                   \"\"\");");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    statements.put(TABLE_NAME_COUNTRY_STATE,");
-      bw.newLine();
-      bw.append("                   \"\"\"");
-      bw.newLine();
-      bw.append("                   CREATE TABLE `COUNTRY_STATE` (");
-      bw.newLine();
-      bw.append("                      `PK_COUNTRY_STATE_ID` BIGINT       NOT NULL PRIMARY KEY,");
-      bw.newLine();
-      bw.append("                      `FK_COUNTRY_ID`       BIGINT       NOT NULL,");
-      bw.newLine();
-      bw.append("                      `FK_TIMEZONE_ID`      BIGINT       NOT NULL,");
-      bw.newLine();
-      bw.append("                      `COUNTRY_STATE_MAP`   LONGBLOB,");
-      bw.newLine();
-      bw.append("                      `CREATED`             DATETIME     NOT NULL,");
-      bw.newLine();
-      bw.append("                      `MODIFIED`            DATETIME,");
-      bw.newLine();
-      bw.append("                      `NAME`                VARCHAR(100) NOT NULL,");
-      bw.newLine();
-      bw.append("                      `SYMBOL`              VARCHAR(50),");
-      bw.newLine();
-      bw.append("                       CONSTRAINT `FK_COUNTRY_STATE_COUNTRY`  FOREIGN KEY `FK_COUNTRY_STATE_COUNTRY`  (`FK_COUNTRY_ID`)  REFERENCES `COUNTRY`  (`PK_COUNTRY_ID`),");
-      bw.newLine();
-      bw.append("                       CONSTRAINT `FK_COUNTRY_STATE_TIMEZONE` FOREIGN KEY `FK_COUNTRY_STATE_TIMEZONE` (`FK_TIMEZONE_ID`) REFERENCES `TIMEZONE` (`PK_TIMEZONE_ID`),");
-      bw.newLine();
-      bw.append("                       CONSTRAINT `UQ_COUNTRY_STATE`          UNIQUE (`FK_COUNTRY_ID`,`NAME`)");
-      bw.newLine();
-      bw.append("                   )");
-      bw.newLine();
-      bw.append("                   \"\"\");");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    statements.put(TABLE_NAME_TIMEZONE,");
-      bw.newLine();
-      bw.append("                   \"\"\"");
-      bw.newLine();
-      bw.append("                   CREATE TABLE `TIMEZONE` (");
-      bw.newLine();
-      bw.append("                      `PK_TIMEZONE_ID` BIGINT        NOT NULL PRIMARY KEY,");
-      bw.newLine();
-      bw.append("                      `ABBREVIATION`   VARCHAR(50)   NOT NULL,");
-      bw.newLine();
-      bw.append("                      `CREATED`        DATETIME      NOT NULL,");
-      bw.newLine();
-      bw.append("                      `MODIFIED`       DATETIME,");
-      bw.newLine();
-      bw.append("                      `NAME`           VARCHAR(100)  NOT NULL UNIQUE,");
-      bw.newLine();
-      bw.append("                      `V_TIME_ZONE`    VARCHAR(4000)");
-      bw.newLine();
-      bw.append("                   )");
-      bw.newLine();
-      bw.append("                   \"\"\");");
-      bw.newLine();
-      bw.newLine();
+
+      for (String tableName : genTableNames) {
+        columns                = genTablesColumns.get(tableName);
+
+        editedTableConstraints = editTableConstraints(tickerSymbolLower,
+                                                      identifierDelimiter,
+                                                      tableName,
+                                                      genTablesTableConstraints.get(tableName));
+
+        bw.append("    statements.put(TABLE_NAME_" + tableName + ",");
+        bw.newLine();
+        bw.append("                   \"\"\"");
+        bw.newLine();
+        bw.append("                   CREATE TABLE " + identifierDelimiter + tableName + identifierDelimiter + " (");
+        bw.newLine();
+
+        for (Column column : columns) {
+          columnNameLast = column.getColumnName().toUpperCase();
+        }
+
+        for (Column column : columns) {
+          editedColumnName        = column.getColumnName().toUpperCase();
+
+          editedColumnConstraints = editColumnConstraints(tickerSymbolLower,
+                                                          identifierDelimiter,
+                                                          tableName,
+                                                          column);
+
+          editedDataType          = editDataType(tickerSymbolLower,
+                                                 column);
+
+          ArrayList<ColumnConstraint> columnConstraints = column.getColumnConstraints();
+
+          workArea = new StringBuffer(" ".repeat(23));
+          workArea.append(String.format("%-33s",
+                                        identifierDelimiter + editedColumnName + identifierDelimiter));
+          workArea.append(String.format("%-26s",
+                                        editedDataType));
+
+          if (isNotNull) {
+            workArea.append("NOT NULL ");
+          } else {
+            workArea.append(" ".repeat(9));
+          }
+
+          if (editedColumnConstraints.size() > 0) {
+            workArea.append(editedColumnConstraints.get(0));
+          }
+
+          if (editedTableConstraints.size() > 0 || editedColumnConstraints.size() > 1 || !columnNameLast.equals(editedColumnName)) {
+            bw.append(StringUtils.stripEnd(workArea.toString(),
+                                           null) + ",");
+          } else {
+            bw.append(workArea.toString());
+          }
+
+          bw.newLine();
+
+          if (editedColumnConstraints.size() > 1) {
+            for (int i = 1; i < editedColumnConstraints.size(); i++) {
+              bw.append(" ".repeat(79) + editedColumnConstraints.get(i));
+
+              if (editedTableConstraints.size() > 0 || i < editedColumnConstraints.size() - 1 || !columnNameLast.equals(editedColumnName)) {
+                bw.append(",");
+              }
+
+              bw.newLine();
+            }
+          }
+        }
+
+        for (String string : editedTableConstraints) {
+          bw.append(string);
+          bw.newLine();
+        }
+
+        bw.append("                   )");
+        bw.newLine();
+        bw.append("                   \"\"\");");
+        bw.newLine();
+        bw.newLine();
+      }
+
       bw.append("    return statements;");
       bw.newLine();
       bw.append("  }");
@@ -426,15 +596,17 @@ public final class GenerateSchema {
       bw.newLine();
       bw.append("  /**");
       bw.newLine();
-      bw.append("   * Instantiates a new abstract ##DBMS_NAME## schema object.");
+      bw.append("   * Initialises a new abstract " + dbmsName + " schema object.");
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
+      bw.append("   * @param dbmsTickerSymbol");
+      bw.newLine();
+      bw.append("   *            DBMS ticker symbol");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGen##DBMS_NAME_PASCAL##Schema(String dbmsTickerSymbol) {");
+      bw.append("  public AbstractGen" + tickerSymbolPascal + "Schema(String dbmsTickerSymbol) {");
       bw.newLine();
       bw.append("    super(dbmsTickerSymbol);");
       bw.newLine();
@@ -454,22 +626,72 @@ public final class GenerateSchema {
       bw.newLine();
       bw.append("  }");
       bw.newLine();
+
+      if ("derby".equals(tickerSymbolLower) || "hsqldb".equals(tickerSymbolLower) || "h2".equals(tickerSymbolLower)) {
+        bw.newLine();
+        bw.append("  /**");
+        bw.newLine();
+        bw.append("   * Initialises a new abstract " + dbmsName + " schema object.");
+        bw.newLine();
+        bw.append("   *");
+        bw.newLine();
+        bw.append("   * @param dbmsTickerSymbol");
+        bw.newLine();
+        bw.append("   *            DBMS ticker symbol");
+        bw.newLine();
+        bw.append("   * @param isClient");
+        bw.newLine();
+        bw.append("   *            client database version");
+        bw.newLine();
+        bw.append("   */");
+        bw.newLine();
+        bw.append("  public AbstractGen" + tickerSymbolPascal + "Schema(String dbmsTickerSymbol, boolean isClient) {");
+        bw.newLine();
+        bw.append("    super(dbmsTickerSymbol, isClient);");
+        bw.newLine();
+        bw.newLine();
+        bw.append("    if (isDebug) {");
+        bw.newLine();
+        bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - isClient=\" + isClient);");
+        bw.newLine();
+        bw.append("    }");
+        bw.newLine();
+        bw.newLine();
+        bw.append("    if (isDebug) {");
+        bw.newLine();
+        bw.append("      logger.debug(\"End   Constructor\");");
+        bw.newLine();
+        bw.append("    }");
+        bw.newLine();
+        bw.append("  }");
+        bw.newLine();
+      }
+
       bw.append("}");
+      bw.newLine();
       bw.newLine();
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 
   /**
    * Generate the code of the Java class AbstractGenSchema.
    *
-   * @param bw the buffered writer
-   * @param release the current release number
+   * @param bw         the buffered writer
+   * @param release    the current release number
    * @param schemaPojo the schema POJO
    */
-  private void generateCodeSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo) throws IOException {
+  private void generateCodeSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     try {
       bw.append("package ch.konnexions.db_seeder.generated;");
       bw.newLine();
@@ -600,7 +822,7 @@ public final class GenerateSchema {
       bw.append("    // Encoding ASCII");
       bw.newLine();
 
-      Set<String> genVarcharColumnNamesSorted = new TreeSet<String>(genVarcharColumnNames);
+      Set<String> genVarcharColumnNamesSorted = new TreeSet<>(genVarcharColumnNames);
 
       for (String columnName : genVarcharColumnNamesSorted) {
         bw.append("    columnName.setProperty(\"" + columnName + "_0\",");
@@ -673,19 +895,21 @@ public final class GenerateSchema {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        List<String> columnNames          = genTableNameColumnNames.get(tableName);
+        ArrayList<String> columnNames          = genTableNameColumnNames.get(tableName);
 
-        String       columnnamesWithComma = String.join(",",
-                                                        columnNames);
-        String       questionMarks        = "";
+        String            columnNamesWithComma = String.join(",",
+                                                             columnNames);
+        StringBuffer      questionMarks        = new StringBuffer();
 
         for (int i = 0; i < columnNames.size(); i++) {
-          questionMarks = questionMarks + (i == 0 ? "?" : ",?");
+          questionMarks.append(i == 0
+              ? "?"
+              : ",?");
         }
 
         bw.append("                           put(TABLE_NAME_" + tableName + ",");
         bw.newLine();
-        bw.append("                               \"" + columnnamesWithComma + ") VALUES (" + questionMarks + "\");");
+        bw.append("                               \"" + columnNamesWithComma + ") VALUES (" + questionMarks.toString() + "\");");
         bw.newLine();
       }
 
@@ -775,16 +999,24 @@ public final class GenerateSchema {
       e.printStackTrace();
       System.exit(1);
     }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   /**
    * Generate the code of the Java class AbstractGenSeeder.
    *
-   * @param bw the buffered writer
-   * @param release the current release number
+   * @param bw         the buffered writer
+   * @param release    the current release number
    * @param schemaPojo the schema POJO
    */
-  private void generateCodeSeeder(BufferedWriter bw, String release, SchemaPojo schemaPojo) throws IOException {
+  private void generateCodeSeeder(BufferedWriter bw, String release, SchemaPojo schemaPojo) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     try {
       bw.append("package ch.konnexions.db_seeder.generated;");
       bw.newLine();
@@ -893,8 +1125,6 @@ public final class GenerateSchema {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param preparedStatement the prepared statement");
-      bw.newLine();
       bw.append("   * @param tableName         the table name");
       bw.newLine();
       bw.append("   * @param columnName        the column name");
@@ -924,8 +1154,6 @@ public final class GenerateSchema {
       bw.append("   * Creates a content value of type BLOB.");
       bw.newLine();
       bw.append("   *");
-      bw.newLine();
-      bw.append("   * @param preparedStatement the prepared statement");
       bw.newLine();
       bw.append("   * @param tableName         the table name");
       bw.newLine();
@@ -957,8 +1185,6 @@ public final class GenerateSchema {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param preparedStatement the prepared statement");
-      bw.newLine();
       bw.append("   * @param tableName         the table name");
       bw.newLine();
       bw.append("   * @param columnName        the column name");
@@ -988,8 +1214,6 @@ public final class GenerateSchema {
       bw.append("   * Creates a content value of type foreign key value.");
       bw.newLine();
       bw.append("   *");
-      bw.newLine();
-      bw.append("   * @param preparedStatement the prepared statement");
       bw.newLine();
       bw.append("   * @param tableName         the table name");
       bw.newLine();
@@ -1025,8 +1249,6 @@ public final class GenerateSchema {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param preparedStatement the prepared statement");
-      bw.newLine();
       bw.append("   * @param tableName         the table name");
       bw.newLine();
       bw.append("   * @param columnName        the column name");
@@ -1056,8 +1278,6 @@ public final class GenerateSchema {
       bw.append("   * Creates a content value of type VARCHAR.");
       bw.newLine();
       bw.append("   *");
-      bw.newLine();
-      bw.append("   * @param preparedStatement the prepared statement");
       bw.newLine();
       bw.append("   * @param tableName         the table name");
       bw.newLine();
@@ -1155,17 +1375,17 @@ public final class GenerateSchema {
         bw.newLine();
         bw.newLine();
 
-        List<Column> columns = genTablesColumns.get(tableName);
+        ArrayList<Column> columns = genTablesColumns.get(tableName);
 
         for (Column column : columns) {
-          String                 columnName        = column.getColumnName().toUpperCase();
-          String                 dataType          = column.getDataType().toUpperCase();
+          String                      columnName        = column.getColumnName().toUpperCase();
+          String                      dataType          = column.getDataType().toUpperCase();
 
-          List<ColumnConstraint> columnConstraints = column.getColumnConstraints();
+          ArrayList<ColumnConstraint> columnConstraints = column.getColumnConstraints();
 
-          String                 referenceTable    = getColumnConstraintForeign(columnConstraints);
-          boolean                isNotNull         = getColumnConstraintNotNull(columnConstraints);
-          boolean                isPrimaryKey      = getColumnConstraintPrimary(columnConstraints);
+          String                      referenceTable    = getColumnConstraintForeign(columnConstraints);
+          boolean                     isNotNull         = getColumnConstraintNotNull(columnConstraints);
+          boolean                     isPrimaryKey      = getColumnConstraintPrimary(columnConstraints);
 
           if (isPrimaryKey) {
             isNotNull = true;
@@ -1174,7 +1394,9 @@ public final class GenerateSchema {
           switch (dataType) {
           case "BIGINT":
             if ("".equals(referenceTable)) {
-              bw.append("    prepStmntColBigint" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+              bw.append("    prepStmntColBigint" + (isNotNull
+                  ? ""
+                  : "Opt") + "(preparedStatement,");
               bw.newLine();
               bw.append("                              \"" + tableName + "\",");
               bw.newLine();
@@ -1185,7 +1407,9 @@ public final class GenerateSchema {
               bw.append("                              rowNo);");
               bw.newLine();
             } else {
-              bw.append("    prepStmntColFk" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+              bw.append("    prepStmntColFk" + (isNotNull
+                  ? ""
+                  : "Opt") + "(preparedStatement,");
               bw.newLine();
               bw.append("                            \"" + tableName + "\",");
               bw.newLine();
@@ -1201,7 +1425,9 @@ public final class GenerateSchema {
 
             break;
           case "BLOB":
-            bw.append("    prepStmntColBlob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("    prepStmntColBlob" + (isNotNull
+                ? ""
+                : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                              \"" + tableName + "\",");
             bw.newLine();
@@ -1214,7 +1440,9 @@ public final class GenerateSchema {
 
             break;
           case "CLOB":
-            bw.append("      prepStmntColClob" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("      prepStmntColClob" + (isNotNull
+                ? ""
+                : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                                \"" + tableName + "\",");
             bw.newLine();
@@ -1227,7 +1455,9 @@ public final class GenerateSchema {
 
             break;
           case "TIMESTAMP":
-            bw.append("    prepStmntColTimestamp" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("    prepStmntColTimestamp" + (isNotNull
+                ? ""
+                : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                               \"" + tableName + "\",");
             bw.newLine();
@@ -1239,7 +1469,9 @@ public final class GenerateSchema {
             bw.newLine();
             break;
           case "VARCHAR":
-            bw.append("    prepStmntColVarchar" + (isNotNull ? "" : "Opt") + "(preparedStatement,");
+            bw.append("    prepStmntColVarchar" + (isNotNull
+                ? ""
+                : "Opt") + "(preparedStatement,");
             bw.newLine();
             bw.append("                             \"" + tableName + "\",");
             bw.newLine();
@@ -1299,6 +1531,10 @@ public final class GenerateSchema {
       e.printStackTrace();
       System.exit(1);
     }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   /**
@@ -1347,7 +1583,7 @@ public final class GenerateSchema {
     }
   }
 
-  private String getColumnConstraintForeign(List<ColumnConstraint> columnConstraints) {
+  private String getColumnConstraintForeign(ArrayList<ColumnConstraint> columnConstraints) {
     if (columnConstraints != null) {
       for (ColumnConstraint columnConstraint : columnConstraints) {
         if ("FOREIGN".equals(columnConstraint.getConstraintType().toUpperCase())) {
@@ -1359,7 +1595,7 @@ public final class GenerateSchema {
     return "";
   }
 
-  private boolean getColumnConstraintNotNull(List<ColumnConstraint> columnConstraints) {
+  private boolean getColumnConstraintNotNull(ArrayList<ColumnConstraint> columnConstraints) {
     if (columnConstraints != null) {
       for (ColumnConstraint columnConstraint : columnConstraints) {
         if ("NOT NULL".equals(columnConstraint.getConstraintType().toUpperCase())) {
@@ -1371,7 +1607,7 @@ public final class GenerateSchema {
     return false;
   }
 
-  private boolean getColumnConstraintPrimary(List<ColumnConstraint> columnConstraints) {
+  private boolean getColumnConstraintPrimary(ArrayList<ColumnConstraint> columnConstraints) {
     if (columnConstraints != null) {
       for (ColumnConstraint columnConstraint : columnConstraints) {
         if ("PRIMARY".equals(columnConstraint.getConstraintType().toUpperCase())) {
@@ -1485,7 +1721,7 @@ public final class GenerateSchema {
     MessageHandling.startProgress(logger,
                                   "Start validating the schema definition");
 
-    valDefaultNumberOfRows = schemaPojo.getGlobals().getDefaultNumberOfRows();
+    int valDefaultNumberOfRows = schemaPojo.getGlobals().getDefaultNumberOfRows();
 
     if (valDefaultNumberOfRows <= 0) {
       logger.error("Default number of rows must be greater than zero");
@@ -1553,7 +1789,7 @@ public final class GenerateSchema {
 
         for (String tableNameSorted : genTableNames) {
           valTableNameForeignKeys.put(tableNameSorted,
-                                      new HashSet<String>());
+                                      new HashSet<>());
         }
 
         validateSchemaTableConstraints();
@@ -1587,15 +1823,15 @@ public final class GenerateSchema {
       logger.debug("Start");
     }
 
-    List<Column>           columns;
-    List<ColumnConstraint> columnConstraints;
-    String                 columnName;
-    String                 constraintType;
-    String                 referenceColumn;
-    String                 referenceTable;
-    String                 tableName;
+    ArrayList<Column>           columns;
+    ArrayList<ColumnConstraint> columnConstraints;
+    String                      columnName;
+    String                      constraintType;
+    String                      referenceColumn;
+    String                      referenceTable;
+    String                      tableName;
 
-    HashSet<String>        valRefrenceColumnNames;
+    HashSet<String>             valRefrenceColumnNames;
 
     for (Table table : valTables) {
       tableName = table.getTableName().toUpperCase();
@@ -1668,19 +1904,7 @@ public final class GenerateSchema {
                                           referenceTables);
             }
           }
-          case "NOT NULL" -> {
-            if (referenceTable != null) {
-              logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
-                  + "' does not allow a reference table");
-              errors++;
-            }
-            if (referenceColumn != null) {
-              logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
-                  + "' does not allow a reference column");
-              errors++;
-            }
-          }
-          case "PRIMARY", "UNIQUE" -> {
+          case "NOT NULL", "PRIMARY", "UNIQUE" -> {
             if (referenceTable != null) {
               logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Constraint type '" + constraintType
                   + "' does not allow a reference table");
@@ -1724,8 +1948,8 @@ public final class GenerateSchema {
     String            columnName;
     ArrayList<String> tableColumnNames = new ArrayList<>();
     String            dataType;
-    int               precision;
-    int               size;
+    Integer           precision;
+    Integer           size;
 
     for (Column column : columns) {
       columnName = column.getColumnName();
@@ -1753,19 +1977,19 @@ public final class GenerateSchema {
 
       switch (dataType) {
       case "BIGINT", "BLOB", "CLOB", "TIMESTAMP" -> {
-        if (size > 0) {
+        if (size != null) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type '" + dataType + "' does not allow a value for size ("
               + size + ")");
           errors++;
         }
-        if (precision > 0) {
+        if (precision != null) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type '" + dataType + "' does not allow a value for precision ("
               + precision + ")");
           errors++;
         }
       }
       case "VARCHAR" -> {
-        if (size == 0) {
+        if (size == null || size == 0) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Size is missing (null)");
           errors++;
           continue;
@@ -1774,7 +1998,7 @@ public final class GenerateSchema {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Size must have a value between 1 and 4000");
           errors++;
         }
-        if (precision != 0) {
+        if (precision != null) {
           logger.error("Database table: '" + tableName + "' column: '" + columnName + "' - Data type '" + dataType + "' does not allow a value for precision ("
               + precision + ")");
           errors++;
@@ -1812,7 +2036,7 @@ public final class GenerateSchema {
     }
 
     while (valTableNameForeignKeys.size() > 0) {
-      List<String> currentLevel = new ArrayList<>();
+      ArrayList<String> currentLevel = new ArrayList<>();
 
       for (String tableName : genTableNames) {
         if (valTableNameForeignKeys.containsKey(tableName)) {
@@ -1857,16 +2081,16 @@ public final class GenerateSchema {
       logger.debug("Start");
     }
 
-    List<String>          columns;
-    String                constraintType;
+    ArrayList<String>          columns;
+    String                     constraintType;
 
-    List<String>          referenceColumns;
-    String                referenceTable;
-    HashSet<String>       valRefrenceColumnNames;
+    ArrayList<String>          referenceColumns;
+    String                     referenceTable;
+    HashSet<String>            valRefrenceColumnNames;
 
-    HashSet<String>       valColumnNames;
-    List<TableConstraint> tableConstraints;
-    String                tableName;
+    HashSet<String>            valColumnNames;
+    ArrayList<TableConstraint> tableConstraints;
+    String                     tableName;
 
     for (Table table : valTables) {
       tableName        = table.getTableName().toUpperCase();
@@ -1879,18 +2103,14 @@ public final class GenerateSchema {
 
       for (TableConstraint tableConstraint : tableConstraints) {
         if (tableConstraint.getConstraintType() == null) {
-          logger.error("Database table: '" + tableName + "' - Data type is missing (null)");
+          logger.error("Database table: '" + tableName + "' - Constraint type is missing (null)");
           errors++;
           continue;
         }
 
-        constraintType = tableConstraint.getConstraintType();
+        constraintType = tableConstraint.getConstraintType().toUpperCase();
 
-        if (constraintType != null) {
-          constraintType = constraintType.toUpperCase();
-        }
-
-        columns = tableConstraint.getColumns();
+        columns        = tableConstraint.getColumns();
 
         if (columns == null || columns.size() == 0) {
           logger.error("Database table: '" + tableName + "' - Columns missing (null)");
@@ -1919,7 +2139,7 @@ public final class GenerateSchema {
         case "FOREIGN" -> {
           if (columns.size() == 1) {
             logger.error("Database table: '" + tableName + "' constraint type '" + constraintType
-                + "' - With a single rcolumn, a constraint must be defined as a column constraint");
+                + "' - With a single column, a constraint must be defined as a column constraint");
             errors++;
           }
 
@@ -1966,7 +2186,7 @@ public final class GenerateSchema {
         case "PRIMARY", "UNIQUE" -> {
           if (columns.size() == 1) {
             logger.error("Database table: '" + tableName + "' constraint type '" + constraintType
-                + "' - With a single rcolumn, a constraint must be defined as a column constraint");
+                + "' - With a single column, a constraint must be defined as a column constraint");
             errors++;
           }
 
@@ -1978,7 +2198,6 @@ public final class GenerateSchema {
           if (referenceColumns != null && referenceColumns.size() > 0) {
             logger.error("Database table: '" + tableName + "' - Constraint type '" + constraintType + "' does not allow reference column(s)");
             errors++;
-            continue;
           }
         }
         default -> {
@@ -1986,6 +2205,11 @@ public final class GenerateSchema {
           errors++;
         }
         }
+      }
+
+      if (errors == 0) {
+        genTablesTableConstraints.put(tableName,
+                                      tableConstraints);
       }
     }
 

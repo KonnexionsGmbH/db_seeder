@@ -1,7 +1,6 @@
 package ch.konnexions.db_seeder.schema;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,13 +17,13 @@ public final class SchemaPojo {
   @SuppressWarnings("ucd")
   public final class Globals {
 
-    private int defaultNumberOfRows;
+    private Integer defaultNumberOfRows;
 
-    public final int getDefaultNumberOfRows() {
+    public final Integer getDefaultNumberOfRows() {
       return defaultNumberOfRows;
     }
 
-    public final void setDefaultNumberOfRows(int defaultNumberOfRows) {
+    public final void setDefaultNumberOfRows(Integer defaultNumberOfRows) {
       this.defaultNumberOfRows = defaultNumberOfRows;
     }
   }
@@ -76,32 +75,32 @@ public final class SchemaPojo {
         }
       }
 
-      private List<ColumnConstraint> columnConstraints = null;
-      private String                 columnName;
+      private ArrayList<ColumnConstraint> columnConstraints = null;
+      private String                      columnName;
 
-      private String                 dataType;
+      private String                      dataType;
 
-      private int                    defaultValueInteger;
+      private Integer                     defaultValueInteger;
 
-      private String                 defaultValueString;
+      private String                      defaultValueString;
 
-      private int                    lowerRangeInteger;
+      private Integer                     lowerRangeInteger;
 
-      private String                 lowerRangeString;
+      private String                      lowerRangeString;
 
-      private int                    precision;
+      private Integer                     precision;
 
-      private int                    size;
+      private Integer                     size;
 
-      private int                    upperRangeInteger;
+      private Integer                     upperRangeInteger;
 
-      private String                 upperRangeString;
+      private String                      upperRangeString;
 
-      private List<Integer>          validValuesInteger;
+      private ArrayList<Integer>          validValuesInteger;
 
-      private List<String>           validValuesString;
+      private ArrayList<String>           validValuesString;
 
-      public final List<ColumnConstraint> getColumnConstraints() {
+      public final ArrayList<ColumnConstraint> getColumnConstraints() {
         return columnConstraints;
       }
 
@@ -113,7 +112,7 @@ public final class SchemaPojo {
         return dataType;
       }
 
-      public final int getDefaultValueInteger() {
+      public final Integer getDefaultValueInteger() {
         return defaultValueInteger;
       }
 
@@ -121,7 +120,7 @@ public final class SchemaPojo {
         return defaultValueString;
       }
 
-      public final int getLowerRangeInteger() {
+      public final Integer getLowerRangeInteger() {
         return lowerRangeInteger;
       }
 
@@ -129,15 +128,15 @@ public final class SchemaPojo {
         return lowerRangeString;
       }
 
-      public final int getPrecision() {
+      public final Integer getPrecision() {
         return precision;
       }
 
-      public final int getSize() {
+      public final Integer getSize() {
         return size;
       }
 
-      public final int getUpperRangeInteger() {
+      public final Integer getUpperRangeInteger() {
         return upperRangeInteger;
       }
 
@@ -145,11 +144,11 @@ public final class SchemaPojo {
         return upperRangeString;
       }
 
-      public final List<Integer> getValidValuesInteger() {
+      public final ArrayList<Integer> getValidValuesInteger() {
         return validValuesInteger;
       }
 
-      public final List<String> getValidValuesString() {
+      public final ArrayList<String> getValidValuesString() {
         return validValuesString;
       }
 
@@ -157,7 +156,7 @@ public final class SchemaPojo {
         this.columnName = columnName;
       }
 
-      public final void setConstraints(List<ColumnConstraint> columnConstraints) {
+      public final void setConstraints(ArrayList<ColumnConstraint> columnConstraints) {
         this.columnConstraints = columnConstraints;
       }
 
@@ -165,7 +164,7 @@ public final class SchemaPojo {
         this.dataType = dataType;
       }
 
-      public final void setDefaultValueInteger(int defaultValueInteger) {
+      public final void setDefaultValueInteger(Integer defaultValueInteger) {
         this.defaultValueInteger = defaultValueInteger;
       }
 
@@ -173,7 +172,7 @@ public final class SchemaPojo {
         this.defaultValueString = defaultValueString;
       }
 
-      public final void setLowerRangeInteger(int lowerRangeInteger) {
+      public final void setLowerRangeInteger(Integer lowerRangeInteger) {
         this.lowerRangeInteger = lowerRangeInteger;
       }
 
@@ -182,15 +181,15 @@ public final class SchemaPojo {
       }
 
       @SuppressWarnings("ucd")
-      public final void setPrecision(int precision) {
+      public final void setPrecision(Integer precision) {
         this.precision = precision;
       }
 
-      public final void setSize(int size) {
+      public final void setSize(Integer size) {
         this.size = size;
       }
 
-      public final void setUpperRangeInteger(int upperRangeInteger) {
+      public final void setUpperRangeInteger(Integer upperRangeInteger) {
         this.upperRangeInteger = upperRangeInteger;
       }
 
@@ -198,11 +197,11 @@ public final class SchemaPojo {
         this.upperRangeString = upperRangeString;
       }
 
-      public final void setValidValuesInteger(List<Integer> validValuesInteger) {
+      public final void setValidValuesInteger(ArrayList<Integer> validValuesInteger) {
         this.validValuesInteger = validValuesInteger;
       }
 
-      public final void setValidValuesString(List<String> validValuesString) {
+      public final void setValidValuesString(ArrayList<String> validValuesString) {
         this.validValuesString = validValuesString;
       }
     }
@@ -212,13 +211,13 @@ public final class SchemaPojo {
      */
     public static class TableConstraint {
 
-      private List<String> columns          = null;
-      private String       constraintType;
+      private ArrayList<String> columns          = null;
+      private String            constraintType;
 
-      private List<String> referenceColumns = null;
-      private String       referenceTable;
+      private ArrayList<String> referenceColumns = null;
+      private String            referenceTable;
 
-      public final List<String> getColumns() {
+      public final ArrayList<String> getColumns() {
         return columns;
       }
 
@@ -226,7 +225,7 @@ public final class SchemaPojo {
         return constraintType;
       }
 
-      public final List<String> getReferenceColumns() {
+      public final ArrayList<String> getReferenceColumns() {
         return referenceColumns;
       }
 
@@ -234,7 +233,7 @@ public final class SchemaPojo {
         return referenceTable;
       }
 
-      public final void setColumns(List<String> columns) {
+      public final void setColumns(ArrayList<String> columns) {
         this.columns = columns;
       }
 
@@ -242,7 +241,7 @@ public final class SchemaPojo {
         this.constraintType = constraintType;
       }
 
-      public final void setReferenceColumns(List<String> referenceColumns) {
+      public final void setReferenceColumns(ArrayList<String> referenceColumns) {
         this.referenceColumns = referenceColumns;
       }
 
@@ -251,21 +250,21 @@ public final class SchemaPojo {
       }
     }
 
-    private ArrayList<Column>     columns          = null;
-    private int                   numberOfRows;
+    private ArrayList<Column>          columns          = null;
+    private Integer                    numberOfRows;
 
-    private List<TableConstraint> tableConstraints = null;
-    private String                tableName;
+    private ArrayList<TableConstraint> tableConstraints = null;
+    private String                     tableName;
 
     public final ArrayList<Column> getColumns() {
       return columns;
     }
 
-    public final int getNumberOfRows() {
+    public final Integer getNumberOfRows() {
       return numberOfRows;
     }
 
-    public final List<TableConstraint> getTableConstraints() {
+    public final ArrayList<TableConstraint> getTableConstraints() {
       return tableConstraints;
     }
 
@@ -277,11 +276,11 @@ public final class SchemaPojo {
       this.columns = columns;
     }
 
-    public final void setNumberOfRows(int numberOfRows) {
+    public final void setNumberOfRows(Integer numberOfRows) {
       this.numberOfRows = numberOfRows;
     }
 
-    public final void setTableConstraints(List<TableConstraint> tableConstraints) {
+    public final void setTableConstraints(ArrayList<TableConstraint> tableConstraints) {
       this.tableConstraints = tableConstraints;
     }
 

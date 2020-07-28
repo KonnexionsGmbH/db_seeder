@@ -82,11 +82,9 @@ public final class H2Seeder extends AbstractGenH2Schema {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbmsEnum           = DbmsEnum.H2;
+    dbmsEnum = DbmsEnum.H2;
 
-    driver             = "org.h2.Driver";
-
-    tableNameDelimiter = "";
+    driver   = "org.h2.Driver";
 
     if (isClient) {
       url = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();

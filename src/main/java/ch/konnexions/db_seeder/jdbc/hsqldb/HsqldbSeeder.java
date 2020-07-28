@@ -82,11 +82,9 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbmsEnum           = DbmsEnum.HSQLDB;
+    dbmsEnum = DbmsEnum.HSQLDB;
 
-    driver             = "org.hsqldb.jdbc.JDBCDriver";
-
-    tableNameDelimiter = "";
+    driver   = "org.hsqldb.jdbc.JDBCDriver";
 
     if (isClient) {
       url = config.getConnectionPrefix() + "hsql://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config

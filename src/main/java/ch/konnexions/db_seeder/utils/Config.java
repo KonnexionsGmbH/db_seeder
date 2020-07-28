@@ -8,7 +8,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.configuration2.PropertiesConfiguration;
@@ -95,9 +94,9 @@ public final class Config {
   }
 
   @SuppressWarnings("unused")
-  private List<String> getBooleanProperties() {
+  private ArrayList<String> getBooleanProperties() {
 
-    List<String> list = new ArrayList<>();
+    ArrayList<String> list = new ArrayList<>();
 
     list.add("db_seeder.encoding.iso_8859_1");
     list.add("db_seeder.encoding.utf_8");
@@ -196,7 +195,9 @@ public final class Config {
    * @return the file statistics delimiter
    */
   public final String getFileStatisticsDelimiter() {
-    return "\\t".equals(fileStatisticsDelimiter) ? Character.toString('\t') : fileStatisticsDelimiter;
+    return "\\t".equals(fileStatisticsDelimiter)
+        ? Character.toString('\t')
+        : fileStatisticsDelimiter;
   }
 
   /**
@@ -246,9 +247,9 @@ public final class Config {
   // Proportion of NULLs ----------------------------------------------
 
   @SuppressWarnings("unused")
-  private List<String> getNumericProperties() {
+  private ArrayList<String> getNumericProperties() {
 
-    List<String> list = new ArrayList<>();
+    ArrayList<String> list = new ArrayList<>();
 
     list.add("db_seeder.connection.port");
     list.add("db_seeder.null.factor");

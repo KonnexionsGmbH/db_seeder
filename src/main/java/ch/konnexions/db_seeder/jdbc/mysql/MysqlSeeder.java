@@ -33,8 +33,6 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
     driver                = "com.mysql.cj.jdbc.Driver";
 
-    tableNameDelimiter    = "`";
-
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
     urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();

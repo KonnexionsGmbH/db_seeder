@@ -31,8 +31,6 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     dbmsEnum              = DbmsEnum.CRATEDB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    tableNameDelimiter    = "";
-
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/?strict=true&user=";
     url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
     urlSetup              = urlBase + config.getUserSys();

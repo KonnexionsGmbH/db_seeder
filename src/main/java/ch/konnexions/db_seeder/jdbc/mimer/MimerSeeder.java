@@ -33,8 +33,6 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
 
     driver                = "com.mimer.jdbc.Driver";
 
-    tableNameDelimiter    = "";
-
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
 
     if (isDebug) {
