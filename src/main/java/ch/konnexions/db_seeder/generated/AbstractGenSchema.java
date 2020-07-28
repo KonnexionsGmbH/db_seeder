@@ -13,7 +13,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * <br>
  * @author  GenerateSchema.class
  * @version 2.0.0
- * @since   2020-07-27
+ * @since   2020-07-28
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 

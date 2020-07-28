@@ -760,7 +760,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  protected int getContentBigint(String tableName, String columnName, int rowNo) {
+  protected long getContentBigint(String tableName, String columnName, long rowNo) {
 
     return rowNo;
   }
@@ -878,10 +878,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      preparedStatement.setInt(1,
-                               getContentBigint(tableName,
-                                                columnName,
-                                                rowNo));
+      preparedStatement.setLong(1,
+                                getContentBigint(tableName,
+                                                 columnName,
+                                                 rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);

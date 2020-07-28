@@ -4,9 +4,9 @@ import java.util.Objects;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.apache.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
+import ch.konnexions.db_seeder.jdbc.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
 import ch.konnexions.db_seeder.jdbc.h2.H2Seeder;
 import ch.konnexions.db_seeder.jdbc.hsqldb.HsqldbSeeder;

@@ -17,14 +17,14 @@ public abstract class AbstractDbmsSeeder {
 
   public enum DbmsEnum {
 
-    DERBY(
-        "derby"
-    ),
     CRATEDB(
         "cratedb"
     ),
     CUBRID(
         "cubrid"
+    ),
+    DERBY(
+        "derby"
     ),
     FIREBIRD(
         "firebird"

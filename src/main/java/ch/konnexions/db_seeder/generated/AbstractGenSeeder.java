@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
  * <br>
  * @author  GenerateSchema.class
  * @version 2.0.0
- * @since   2020-07-27
+ * @since   2020-07-28
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
@@ -63,10 +63,12 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param rowNo             the current row number
    */
   @Override
-  protected final int getContentBigint(String tableName, String columnName, int rowNo) {
-    return super.getContentBigint(tableName,
-                                  columnName,
-                                  rowNo);
+  protected final long getContentBigint(String tableName, String columnName, long rowNo) {
+    long result = super.getContentBigint(tableName,
+                                         columnName,
+                                         rowNo);
+
+    return result;
   }
 
   /**
@@ -79,9 +81,11 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected byte[] getContentBlob(String tableName, String columnName, int rowNo) {
-    return super.getContentBlob(tableName,
-                                columnName,
-                                rowNo);
+    byte[] result = super.getContentBlob(tableName,
+                                         columnName,
+                                         rowNo);
+
+    return result;
   }
 
   /**
@@ -94,9 +98,11 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected String getContentClob(String tableName, String columnName, int rowNo) {
-    return super.getContentClob(tableName,
-                                columnName,
-                                rowNo);
+    String result = super.getContentClob(tableName,
+                                         columnName,
+                                         rowNo);
+
+    return result;
   }
 
   /**
@@ -110,10 +116,12 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {
-    return super.getContentFk(tableName,
-                              columnName,
-                              rowNo,
-                              fkList);
+    Object result = super.getContentFk(tableName,
+                                       columnName,
+                                       rowNo,
+                                       fkList);
+
+    return result;
   }
 
   /**
@@ -126,9 +134,11 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {
-    return super.getContentTimestamp(tableName,
-                                     columnName,
-                                     rowNo);
+    Timestamp result = super.getContentTimestamp(tableName,
+                                                 columnName,
+                                                 rowNo);
+
+    return result;
   }
 
   /**
@@ -145,13 +155,15 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {
-    return super.getContentVarchar(tableName,
-                                   columnName,
-                                   rowNo,
-                                   size,
-                                   lowerRange,
-                                   upperRange,
-                                   validValues);
+    String result = super.getContentVarchar(tableName,
+                                            columnName,
+                                            rowNo,
+                                            size,
+                                            lowerRange,
+                                            upperRange,
+                                            validValues);
+
+    return result;
   }
 
   protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final int rowNo, final ArrayList<Object> pkList) {

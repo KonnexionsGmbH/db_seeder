@@ -1,4 +1,4 @@
-package ch.konnexions.db_seeder.jdbc.apache.derby;
+package ch.konnexions.db_seeder.jdbc.derby;
 
 import java.sql.SQLException;
 
