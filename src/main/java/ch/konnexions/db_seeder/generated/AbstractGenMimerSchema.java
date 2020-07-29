@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * 
  * @author  GenerateSchema.class
  * @version 2.0.0
- * @since   2020-07-28
+ * @since   2020-07-29
  */
 public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
 

@@ -1,368 +1,215 @@
 {
-  "globals": {
+  "globals"  : {
     "defaultNumberOfRows": 1000
-  },
-  "tables": [
+  }, "tables": [
+  {
+    "tableName": "city", "numberOfRows": 1800, "columns": [
     {
-      "tableName": "city",
-      "numberOfRows": 1800,
-      "columns": [
+      "columnName": "pk_city_id", "dataType": "bigint", "columnConstraints": [
+      {
+        "constraintType": "primary"
+      }
+    ]
+    }, {
+      "columnName": "fk_country_state_id", "dataType": "bigint", "columnConstraints": [
         {
-          "columnName": "pk_city_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "primary"
-            }
-          ]
-        },
-        {
-          "columnName": "fk_country_state_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "foreign",
-              "referenceTable": "country_state",
-              "referenceColumn": "pk_country_state_id"
-            }
-          ]
-        },
-        {
-          "columnName": "city_map",
-          "dataType": "blob"
-        },
-        {
-          "columnName": "created",
-          "dataType": "timestamp",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "modified",
-          "dataType": "timestamp"
-        },
-        {
-          "columnName": "name",
-          "dataType": "varchar",
-          "size": 100,
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
+          "constraintType": "foreign", "referenceTable": "country_state", "referenceColumn": "pk_country_state_id"
         }
       ]
-    },
-    {
-      "tableName": "company",
-      "numberOfRows": 5400,
-      "columns": [
+    }, {
+      "columnName": "city_map", "dataType": "blob"
+    }, {
+      "columnName": "created", "dataType": "timestamp", "columnConstraints": [
         {
-          "columnName": "pk_company_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "primary"
-            }
-          ]
-        },
-        {
-          "columnName": "fk_city_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            },
-            {
-              "constraintType": "foreign",
-              "referenceTable": "city",
-              "referenceColumn": "pk_city_id"
-            }
-          ]
-        },
-        {
-          "columnName": "active",
-          "dataType": "varchar",
-          "size": 1,
-          "validValuesString": [
-            "N",
-            "Y"
-          ],
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "address1",
-          "dataType": "varchar",
-          "size": 50
-        },
-        {
-          "columnName": "address2",
-          "dataType": "varchar",
-          "size": 50
-        },
-        {
-          "columnName": "address3",
-          "dataType": "varchar",
-          "size": 50
-        },
-        {
-          "columnName": "created",
-          "dataType": "timestamp",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "directions",
-          "dataType": "clob"
-        },
-        {
-          "columnName": "email",
-          "dataType": "varchar",
-          "size": 100
-        },
-        {
-          "columnName": "fax",
-          "dataType": "varchar",
-          "size": 50
-        },
-        {
-          "columnName": "modified",
-          "dataType": "timestamp"
-        },
-        {
-          "columnName": "name",
-          "dataType": "varchar",
-          "size": 100,
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            },
-            {
-              "constraintType": "unique"
-            }
-          ]
-        },
-        {
-          "columnName": "phone",
-          "dataType": "varchar",
-          "size": 50
-        },
-        {
-          "columnName": "postal_code",
-          "dataType": "varchar",
-          "size": 50
-        },
-        {
-          "columnName": "url",
-          "dataType": "varchar",
-          "size": 250
-        },
-        {
-          "columnName": "vat_id_number",
-          "dataType": "varchar",
-          "size": 100
+          "constraintType": "not null"
         }
       ]
-    },
-    {
-      "tableName": "country",
-      "numberOfRows": 200,
-      "columns": [
+    }, {
+      "columnName": "modified", "dataType": "timestamp"
+    }, {
+      "columnName": "name", "dataType": "varchar", "size": 100, "columnConstraints": [
         {
-          "columnName": "pk_country_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "primary"
-            }
-          ]
-        },
-        {
-          "columnName": "country_map",
-          "dataType": "blob"
-        },
-        {
-          "columnName": "created",
-          "dataType": "timestamp",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "iso3166",
-          "dataType": "varchar",
-          "size": 50
-        },
-        {
-          "columnName": "modified",
-          "dataType": "timestamp"
-        },
-        {
-          "columnName": "name",
-          "dataType": "varchar",
-          "size": 100,
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            },
-            {
-              "constraintType": "unique"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "tableName": "country_state",
-      "numberOfRows": 600,
-      "columns": [
-        {
-          "columnName": "pk_country_state_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "primary"
-            }
-          ]
-        },
-        {
-          "columnName": "fk_country_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            },
-            {
-              "constraintType": "foreign",
-              "referenceTable": "country",
-              "referenceColumn": "pk_country_id"
-            }
-          ]
-        },
-        {
-          "columnName": "fk_timezone_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            },
-            {
-              "constraintType": "foreign",
-              "referenceTable": "timezone",
-              "referenceColumn": "pk_timezone_id"
-            }
-          ]
-        },
-        {
-          "columnName": "country_state_map",
-          "dataType": "blob"
-        },
-        {
-          "columnName": "created",
-          "dataType": "timestamp",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "modified",
-          "dataType": "timestamp"
-        },
-        {
-          "columnName": "name",
-          "dataType": "varchar",
-          "size": 100,
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "symbol",
-          "dataType": "varchar",
-          "size": 50
-        }
-      ],
-      "tableConstraints": [
-        {
-          "constraintType": "unique",
-          "columns": [
-            "fk_country_id",
-            "name"
-          ]
-        }
-      ]
-    },
-    {
-      "tableName": "timezone",
-      "numberOfRows": 11,
-      "columns": [
-        {
-          "columnName": "pk_timezone_id",
-          "dataType": "bigint",
-          "columnConstraints": [
-            {
-              "constraintType": "primary"
-            }
-          ]
-        },
-        {
-          "columnName": "abbreviation",
-          "dataType": "varchar",
-          "size": 50,
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "created",
-          "dataType": "timestamp",
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            }
-          ]
-        },
-        {
-          "columnName": "modified",
-          "dataType": "timestamp"
-        },
-        {
-          "columnName": "name",
-          "dataType": "varchar",
-          "size": 100,
-          "columnConstraints": [
-            {
-              "constraintType": "not null"
-            },
-            {
-              "constraintType": "unique"
-            }
-          ]
-        },
-        {
-          "columnName": "v_time_zone",
-          "dataType": "varchar",
-          "size": 4000
+          "constraintType": "not null"
         }
       ]
     }
   ]
+  }, {
+    "tableName": "company", "numberOfRows": 5400, "columns": [
+      {
+        "columnName": "pk_company_id", "dataType": "bigint", "columnConstraints": [
+        {
+          "constraintType": "primary"
+        }
+      ]
+      }, {
+        "columnName": "fk_city_id", "dataType": "bigint", "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }, {
+            "constraintType": "foreign", "referenceTable": "city", "referenceColumn": "pk_city_id"
+          }
+        ]
+      }, {
+        "columnName"          : "active", "dataType": "varchar", "size": 1, "validValuesString": [
+          "N", "Y"
+        ], "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }
+        ]
+      }, {
+        "columnName": "address1", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "address2", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "address3", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "created", "dataType": "timestamp", "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }
+        ]
+      }, {
+        "columnName": "directions", "dataType": "clob"
+      }, {
+        "columnName": "email", "dataType": "varchar", "size": 100
+      }, {
+        "columnName": "fax", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }, {
+            "constraintType": "unique"
+          }
+        ]
+      }, {
+        "columnName": "phone", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "postal_code", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "url", "dataType": "varchar", "size": 250
+      }, {
+        "columnName": "vat_id_number", "dataType": "varchar", "size": 100
+      }
+    ]
+  }, {
+    "tableName": "country", "numberOfRows": 200, "columns": [
+      {
+        "columnName": "pk_country_id", "dataType": "bigint", "columnConstraints": [
+        {
+          "constraintType": "primary"
+        }
+      ]
+      }, {
+        "columnName": "country_map", "dataType": "blob"
+      }, {
+        "columnName": "created", "dataType": "timestamp", "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }
+        ]
+      }, {
+        "columnName": "iso3166", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }, {
+            "constraintType": "unique"
+          }
+        ]
+      }
+    ]
+  }, {
+    "tableName"          : "country_state", "numberOfRows": 600, "columns": [
+      {
+        "columnName": "pk_country_state_id", "dataType": "bigint", "columnConstraints": [
+        {
+          "constraintType": "primary"
+        }
+      ]
+      }, {
+        "columnName": "fk_country_id", "dataType": "bigint", "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }, {
+            "constraintType": "foreign", "referenceTable": "country", "referenceColumn": "pk_country_id"
+          }
+        ]
+      }, {
+        "columnName": "fk_timezone_id", "dataType": "bigint", "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }, {
+            "constraintType": "foreign", "referenceTable": "timezone", "referenceColumn": "pk_timezone_id"
+          }
+        ]
+      }, {
+        "columnName": "country_state_map", "dataType": "blob"
+      }, {
+        "columnName": "created", "dataType": "timestamp", "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }
+        ]
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }
+        ]
+      }, {
+        "columnName": "symbol", "dataType": "varchar", "size": 50
+      }
+    ], "tableConstraints": [
+      {
+        "constraintType": "unique", "columns": [
+        "fk_country_id", "name"
+      ]
+      }
+    ]
+  }, {
+    "tableName": "timezone", "numberOfRows": 11, "columns": [
+      {
+        "columnName": "pk_timezone_id", "dataType": "bigint", "columnConstraints": [
+        {
+          "constraintType": "primary"
+        }
+      ]
+      }, {
+        "columnName": "abbreviation", "dataType": "varchar", "size": 50, "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }
+        ]
+      }, {
+        "columnName": "created", "dataType": "timestamp", "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }
+        ]
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "columnConstraints": [
+          {
+            "constraintType": "not null"
+          }, {
+            "constraintType": "unique"
+          }
+        ]
+      }, {
+        "columnName": "v_time_zone", "dataType": "varchar", "size": 4000
+      }
+    ]
+  }
+]
 }

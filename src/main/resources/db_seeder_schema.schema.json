@@ -1,191 +1,102 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DB Seeder Schema",
-  "description": "The DB Seeder schema to verify the database table definitions",
-  "type": "object",
-  "properties": {
-    "globals": {
-      "type": "object",
-      "properties": {
-        "defaultNumberOfRows": {
-          "type": "integer",
-          "mimimum": 1
-        }
-      },
-      "required": [
-        "defaultNumberOfRows"
-      ]
-    },
-    "tables": {
-      "type": "array",
-      "uniqueItems": true,
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "properties": {
-          "tableName": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 30,
-            "pattern": "[a-zA-Z][a-zA-Z_]*"
-          },
-          "numberOfRows": {
-            "type": "integer"
-          },
-          "columns": {
-            "type": "array",
-            "uniqueItems": true,
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "properties": {
-                "columnName": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 30,
-                  "pattern": "[a-zA-Z][a-zA-Z_]*"
-                },
-                "dataType": {
-                  "enum": [
-                    "bigint",
-                    "blob",
-                    "clob",
-                    "timestamp",
-                    "varchar"
+  "$schema"    : "http://json-schema.org/draft-07/schema#", "title": "DB Seeder Schema",
+  "description": "The DB Seeder schema to verify the database table definitions", "type": "object", "properties": {
+  "globals"  : {
+    "type"       : "object", "properties": {
+      "defaultNumberOfRows": {
+        "type": "integer", "mimimum": 1
+      }
+    }, "required": [
+      "defaultNumberOfRows"
+    ]
+  }, "tables": {
+    "type": "array", "uniqueItems": true, "minItems": 1, "items": {
+      "type"       : "object", "properties": {
+        "tableName"      : {
+          "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+        }, "numberOfRows": {
+          "type": "integer"
+        }, "columns"     : {
+          "type"               : "array", "uniqueItems": true, "minItems": 1, "items": {
+            "type"       : "object", "properties": {
+              "columnName"            : {
+                "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+              }, "dataType"           : {
+                "enum": [
+                  "bigint", "blob", "clob", "timestamp", "varchar"
+                ]
+              }, "size"               : {
+                "type": "integer"
+              }, "precision"          : {
+                "type": "integer"
+              }, "defaultValueInteger": {
+                "type": "integer"
+              }, "defaultValueString" : {
+                "type": "string"
+              }, "lowerRangeInteger"  : {
+                "type": "integer"
+              }, "lowerRangeString"   : {
+                "type": "string"
+              }, "upperRangeInteger"  : {
+                "type": "integer"
+              }, "upperRangeString"   : {
+                "type": "string"
+              }, "validValuesInteger" : {
+                "type": "array", "uniqueItems": true, "minItems": 1, "items": {
+                  "type": "integer"
+                }
+              }, "validValuesString"  : {
+                "type": "array", "uniqueItems": true, "minItems": 1, "items": {
+                  "type": "string"
+                }
+              }, "columnConstraints"  : {
+                "type": "array", "uniqueItems": true, "items": {
+                  "type"       : "object", "properties": {
+                    "constraintType"    : {
+                      "enum": [
+                        "foreign", "primary", "not null", "unique"
+                      ]
+                    }, "referenceTable" : {
+                      "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+                    }, "referenceColumn": {
+                      "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+                    }
+                  }, "required": [
+                    "constraintType"
                   ]
-                },
-                "size": {
-                  "type": "integer"
-                },
-                "precision": {
-                  "type": "integer"
-                },
-                "defaultValueInteger": {
-                  "type": "integer"
-                },
-                "defaultValueString": {
-                  "type": "string"
-                },
-                "lowerRangeInteger": {
-                  "type": "integer"
-                },
-                "lowerRangeString": {
-                  "type": "string"
-                },
-                "upperRangeInteger": {
-                  "type": "integer"
-                },
-                "upperRangeString": {
-                  "type": "string"
-                },
-                "validValuesInteger": {
-                  "type": "array",
-                  "uniqueItems": true,
-                  "minItems": 1,
-                  "items": {
-                    "type": "integer"
+                }
+              }
+            }, "required": [
+              "columnName", "dataType"
+            ]
+          }, "tableConstraints": {
+            "type": "array", "uniqueItems": true, "items": {
+              "type"       : "object", "properties": {
+                "constraintType"     : {
+                  "enum": [
+                    "foreign", "primary", "not null", "unique"
+                  ]
+                }, "columns"         : {
+                  "type": "array", "uniqueItems": true, "minItems": 1, "items": {
+                    "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
                   }
-                },
-                "validValuesString": {
-                  "type": "array",
-                  "uniqueItems": true,
-                  "minItems": 1,
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "columnConstraints": {
-                  "type": "array",
-                  "uniqueItems": true,
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "constraintType": {
-                        "enum": [
-                          "foreign",
-                          "primary",
-                          "not null",
-                          "unique"
-                        ]
-                      },
-                      "referenceTable": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 30,
-                        "pattern": "[a-zA-Z][a-zA-Z_]*"
-                      },
-                      "referenceColumn": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 30,
-                        "pattern": "[a-zA-Z][a-zA-Z_]*"
-                      }
-                    },
-                    "required": [
-                      "constraintType"
-                    ]
+                }, "referenceTable"  : {
+                  "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+                }, "referenceColumns": {
+                  "type": "array", "uniqueItems": true, "minItems": 1, "items": {
+                    "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
                   }
                 }
-              },
-              "required": [
-                "columnName",
-                "dataType"
+              }, "required": [
+                "constraintType"
               ]
-            },
-            "tableConstraints": {
-              "type": "array",
-              "uniqueItems": true,
-              "items": {
-                "type": "object",
-                "properties": {
-                  "constraintType": {
-                    "enum": [
-                      "foreign",
-                      "primary",
-                      "not null",
-                      "unique"
-                    ]
-                  },
-                  "columns": {
-                    "type": "array",
-                    "uniqueItems": true,
-                    "minItems": 1,
-                    "items": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 30,
-                      "pattern": "[a-zA-Z][a-zA-Z_]*"
-                    }
-                  },
-                  "referenceTable": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 30,
-                    "pattern": "[a-zA-Z][a-zA-Z_]*"
-                  },
-                  "referenceColumns": {
-                    "type": "array",
-                    "uniqueItems": true,
-                    "minItems": 1,
-                    "items": {
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 30,
-                      "pattern": "[a-zA-Z][a-zA-Z_]*"
-                    }
-                  }
-                },
-                "required": [
-                  "constraintType"
-                ]
-              }
             }
           }
-        },
-        "required": [
-          "tableName"
-        ]
-      }
+        }
+      }, "required": [
+        "tableName"
+      ]
     }
   }
+}
 }
