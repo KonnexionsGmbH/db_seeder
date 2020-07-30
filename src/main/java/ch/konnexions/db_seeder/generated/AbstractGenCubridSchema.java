@@ -27,7 +27,8 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE "CITY" (
-                       PK_CITY_ID                       INT                       PRIMARY KEY,
+                       PK_CITY_ID                       INT                       NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_COUNTRY_STATE_ID              INT                       REFERENCES "COUNTRY_STATE"                  (PK_COUNTRY_STATE_ID),
                        CITY_MAP                         BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
@@ -39,7 +40,8 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COMPANY,
                    """
                    CREATE TABLE "COMPANY" (
-                       PK_COMPANY_ID                    INT                       PRIMARY KEY,
+                       PK_COMPANY_ID                    INT                       NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_CITY_ID                       INT                       NOT NULL
                                                                                   REFERENCES "CITY"                           (PK_CITY_ID),
                        FK_CITY_ID_DEFAULT               INT                       DEFAULT 1
@@ -65,7 +67,8 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE "COUNTRY" (
-                       PK_COUNTRY_ID                    INT                       PRIMARY KEY,
+                       PK_COUNTRY_ID                    INT                       NOT NULL
+                                                                                  PRIMARY KEY,
                        COUNTRY_MAP                      BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          VARCHAR(50),
@@ -95,7 +98,8 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE "TIMEZONE" (
-                       PK_TIMEZONE_ID                   INT                       PRIMARY KEY,
+                       PK_TIMEZONE_ID                   INT                       NOT NULL
+                                                                                  PRIMARY KEY,
                        ABBREVIATION                     VARCHAR(50)               NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,

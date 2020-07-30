@@ -27,7 +27,8 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE CITY (
-                       PK_CITY_ID                       NUMBER                    PRIMARY KEY,
+                       PK_CITY_ID                       NUMBER                    NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_COUNTRY_STATE_ID              NUMBER                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
                        CITY_MAP                         BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
@@ -39,7 +40,8 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COMPANY,
                    """
                    CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    NUMBER                    PRIMARY KEY,
+                       PK_COMPANY_ID                    NUMBER                    NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_CITY_ID                       NUMBER                    NOT NULL
                                                                                   REFERENCES CITY                             (PK_CITY_ID),
                        FK_CITY_ID_DEFAULT               NUMBER                    DEFAULT 1
@@ -65,7 +67,8 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    NUMBER                    PRIMARY KEY,
+                       PK_COUNTRY_ID                    NUMBER                    NOT NULL
+                                                                                  PRIMARY KEY,
                        COUNTRY_MAP                      BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          VARCHAR2(50),
@@ -95,7 +98,8 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   NUMBER                    PRIMARY KEY,
+                       PK_TIMEZONE_ID                   NUMBER                    NOT NULL
+                                                                                  PRIMARY KEY,
                        ABBREVIATION                     VARCHAR2(50)              NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,

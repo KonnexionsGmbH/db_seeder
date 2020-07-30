@@ -40,32 +40,56 @@ public final class SchemaPojo {
     @SuppressWarnings("ucd")
     public static class Column {
 
-      private String             columnName;
+      /*
+       *  The column constraint object.
+       */
+      public static class References {
 
-      private String             dataType;
-      private Integer            defaultValueInteger;
-      private String             defaultValueString;
+        private String referenceColumn;
+        private String referenceTable;
 
-      private Integer            lowerRangeInteger;
-      private String             lowerRangeText;
+        public final String getReferenceColumn() {
+          return referenceColumn;
+        }
 
-      private boolean            notNull;
+        public final String getReferenceTable() {
+          return referenceTable;
+        }
 
-      private Integer            precision;
-      private boolean            primaryKey;
+        public final void setReferenceColumn(String referenceColumn) {
+          this.referenceColumn = referenceColumn;
+        }
 
-      private String             referenceColumn;
-      private String             referenceTable;
+        public final void setReferenceTable(String referenceTable) {
+          this.referenceTable = referenceTable;
+        }
+      }
 
-      private Integer            size;
+      private String                columnName;
 
-      private boolean            unique;
-      private Integer            upperRangeInteger;
-      private String             upperRangeText;
+      private String                dataType;
+      private Integer               defaultValueInteger;
+      private String                defaultValueString;
 
-      private ArrayList<Integer> validValuesInteger;
+      private Integer               lowerRangeInteger;
+      private String                lowerRangeText;
 
-      private ArrayList<String> validValuesText;
+      private boolean               notNull;
+
+      private Integer               precision;
+      private boolean               primaryKey;
+
+      private ArrayList<References> references = null;
+
+      private Integer               size;
+
+      private boolean               unique;
+      private Integer               upperRangeInteger;
+      private String                upperRangeText;
+
+      private ArrayList<Integer>    validValuesInteger;
+
+      private ArrayList<String>     validValuesText;
 
       public final String getColumnName() {
         return columnName;
@@ -99,12 +123,8 @@ public final class SchemaPojo {
         return precision;
       }
 
-      public String getReferenceColumn() {
-        return referenceColumn;
-      }
-
-      public String getReferenceTable() {
-        return referenceTable;
+      public final ArrayList<References> getReferences() {
+        return references;
       }
 
       public final Integer getSize() {
@@ -180,12 +200,8 @@ public final class SchemaPojo {
         this.primaryKey = primaryKey;
       }
 
-      public void setReferenceColumn(String referenceColumn) {
-        this.referenceColumn = referenceColumn;
-      }
-
-      public void setReferenceTable(String referenceTable) {
-        this.referenceTable = referenceTable;
+      public final void setReferences(ArrayList<References> references) {
+        this.references = references;
       }
 
       public final void setSize(Integer size) {

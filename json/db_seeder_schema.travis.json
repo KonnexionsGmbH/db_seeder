@@ -5,7 +5,7 @@
   {
     "tableName": "test_table_1", "numberOfRows": 1800, "columns": [
     {
-      "columnName": "column_1_01", "dataType": "bigint", "notNull": true, "unique": true
+      "columnName": "column_1_01", "dataType": "bigint", "unique": true
     }, {
       "columnName": "column_1_02", "dataType": "bigint", "referenceTable": "test_table_4", "referenceColumn": "column_4_01"
     }, {
@@ -45,7 +45,7 @@
       }, {
         "columnName": "column_2_11", "dataType": "timestamp"
       }, {
-        "columnName": "column_2_12", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
+        "columnName": "column_2_12", "dataType": "varchar", "size": 100, "unique": true
       }, {
         "columnName": "column_2_13", "dataType": "varchar", "size": 50
       }, {
@@ -79,7 +79,7 @@
       }, {
         "columnName": "column_3_05", "dataType": "timestamp"
       }, {
-        "columnName": "column_3_06", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
+        "columnName": "column_3_06", "dataType": "varchar", "size": 100, "unique": true
       }
     ]
   }, {
@@ -97,7 +97,7 @@
       }, {
         "columnName": "column_4_06", "dataType": "timestamp"
       }, {
-        "columnName": "column_4_07", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
+        "columnName": "column_4_07", "dataType": "varchar", "size": 100, "unique": true
       }, {
         "columnName": "column_4_08", "dataType": "varchar", "size": 50
       }
@@ -113,13 +113,13 @@
       {
         "columnName": "column_5_01", "dataType": "bigint", "primaryKey": true
       }, {
-        "columnName": "column_5_02", "dataType": "varchar", "size": 50, "notNull": true, "unique": true
+        "columnName": "column_5_02", "dataType": "varchar", "size": 50, "unique": true
       }, {
         "columnName": "column_5_03", "dataType": "timestamp", "notNull": true
       }, {
         "columnName": "column_5_04", "dataType": "timestamp"
       }, {
-        "columnName": "column_5_05", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
+        "columnName": "column_5_05", "dataType": "varchar", "size": 100, "unique": true
       }, {
         "columnName": "column_5_06", "dataType": "varchar", "size": 4000
       }

@@ -27,7 +27,8 @@ public abstract class AbstractGenMariadbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE `CITY` (
-                       PK_CITY_ID                       BIGINT                    PRIMARY KEY,
+                       PK_CITY_ID                       BIGINT                    NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_COUNTRY_STATE_ID              BIGINT                    REFERENCES `COUNTRY_STATE`                  (PK_COUNTRY_STATE_ID),
                        CITY_MAP                         LONGBLOB,
                        CREATED                          DATETIME                  NOT NULL,
@@ -39,7 +40,8 @@ public abstract class AbstractGenMariadbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COMPANY,
                    """
                    CREATE TABLE `COMPANY` (
-                       PK_COMPANY_ID                    BIGINT                    PRIMARY KEY,
+                       PK_COMPANY_ID                    BIGINT                    NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_CITY_ID                       BIGINT                    NOT NULL
                                                                                   REFERENCES `CITY`                           (PK_CITY_ID),
                        FK_CITY_ID_DEFAULT               BIGINT                    DEFAULT 1
@@ -65,7 +67,8 @@ public abstract class AbstractGenMariadbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE `COUNTRY` (
-                       PK_COUNTRY_ID                    BIGINT                    PRIMARY KEY,
+                       PK_COUNTRY_ID                    BIGINT                    NOT NULL
+                                                                                  PRIMARY KEY,
                        COUNTRY_MAP                      LONGBLOB,
                        CREATED                          DATETIME                  NOT NULL,
                        ISO3166                          VARCHAR(50),
@@ -95,7 +98,8 @@ public abstract class AbstractGenMariadbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE `TIMEZONE` (
-                       PK_TIMEZONE_ID                   BIGINT                    PRIMARY KEY,
+                       PK_TIMEZONE_ID                   BIGINT                    NOT NULL
+                                                                                  PRIMARY KEY,
                        ABBREVIATION                     VARCHAR(50)               NOT NULL,
                        CREATED                          DATETIME                  NOT NULL,
                        MODIFIED                         DATETIME,

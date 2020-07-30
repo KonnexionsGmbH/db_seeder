@@ -27,7 +27,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE CITY (
-                       PK_CITY_ID                       INTEGER                   PRIMARY KEY,
+                       PK_CITY_ID                       INTEGER                   NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_COUNTRY_STATE_ID              INTEGER                   REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
                        CITY_MAP                         BLOB,
                        CREATED                          DATETIME                  NOT NULL,
@@ -39,7 +40,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COMPANY,
                    """
                    CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    INTEGER                   PRIMARY KEY,
+                       PK_COMPANY_ID                    INTEGER                   NOT NULL
+                                                                                  PRIMARY KEY,
                        FK_CITY_ID                       INTEGER                   NOT NULL
                                                                                   REFERENCES CITY                             (PK_CITY_ID),
                        FK_CITY_ID_DEFAULT               INTEGER                   DEFAULT 1
@@ -65,7 +67,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    INTEGER                   PRIMARY KEY,
+                       PK_COUNTRY_ID                    INTEGER                   NOT NULL
+                                                                                  PRIMARY KEY,
                        COUNTRY_MAP                      BLOB,
                        CREATED                          DATETIME                  NOT NULL,
                        ISO3166                          VARCHAR2(50),
@@ -95,7 +98,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   INTEGER                   PRIMARY KEY,
+                       PK_TIMEZONE_ID                   INTEGER                   NOT NULL
+                                                                                  PRIMARY KEY,
                        ABBREVIATION                     VARCHAR2(50)              NOT NULL,
                        CREATED                          DATETIME                  NOT NULL,
                        MODIFIED                         DATETIME,

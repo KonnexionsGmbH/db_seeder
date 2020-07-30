@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,6 +38,7 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import ch.konnexions.db_seeder.schema.SchemaPojo;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column.References;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
@@ -127,7 +129,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   private ArrayList<String> editTableConstraints(String tickerSymbolLower,
                                                  String identifierDelimiter,
                                                  String tableName,
-                                                 ArrayList<TableConstraint> tableConstraints) {
+                                                 List<TableConstraint> tableConstraints) {
     ArrayList<String> editedConstraints = new ArrayList<>();
 
     if ("cratedb".equals(tickerSymbolLower) || tableConstraints == null) {
@@ -137,6 +139,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     String        constraintType;
 
     StringBuilder workArea;
+
+    // Collections.sort(( tableConstraints);
 
     for (int i = 0; i < tableConstraints.size(); i++) {
       TableConstraint tableConstraint = tableConstraints.get(i);
@@ -469,7 +473,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // NOT NULL ..........................................................
 
-          if (column.isNotNull()) {
+          if (column.isNotNull() || column.isPrimaryKey() || column.isUnique()) {
             if (isNewLineRequired) {
               bw.append(workArea.toString());
               bw.newLine();
@@ -497,21 +501,23 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // REFERENCES .......................................................
 
-          if (column.getReferenceTable() != null) {
-            if (isNewLineRequired) {
-              bw.append(workArea.toString());
-              bw.newLine();
-              workArea = new StringBuffer(" ".repeat(82));
+          if (column.getReferences() != null && column.getReferences().size() > 0) {
+            for (References references : column.getReferences()) {
+              if (isNewLineRequired) {
+                bw.append(workArea.toString());
+                bw.newLine();
+                workArea = new StringBuffer(" ".repeat(82));
+              }
+
+              workArea.append("REFERENCES ");
+              workArea.append(String.format("%-33s",
+                                            identifierDelimiter + references.getReferenceTable().toUpperCase() + identifierDelimiter));
+              workArea.append("(");
+              workArea.append(references.getReferenceColumn().toUpperCase());
+              workArea.append(")");
+
+              isNewLineRequired = true;
             }
-
-            workArea.append("REFERENCES ");
-            workArea.append(String.format("%-33s",
-                                          identifierDelimiter + column.getReferenceTable().toUpperCase() + identifierDelimiter));
-            workArea.append("(");
-            workArea.append(column.getReferenceColumn().toUpperCase());
-            workArea.append(")");
-
-            isNewLineRequired = true;
           }
 
           // UNIQUE ............................................................
@@ -1372,10 +1378,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           switch (dataType) {
           case "BIGINT":
-            if (column.getReferenceTable() == null) {
-              bw.append("    prepStmntColBigint").append(column.isNotNull()
-                  ? "Opt"
-                  : "").append("(preparedStatement,");
+            if (column.getReferences() == null || column.getReferences().size() == 0) {
+              bw.append("    prepStmntColBigint").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
+                  ? ""
+                  : "Opt").append("(preparedStatement,");
               bw.newLine();
               bw.append("                              \"").append(tableName).append("\",");
               bw.newLine();
@@ -1385,9 +1391,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                              rowNo,");
             } else {
-              bw.append("    prepStmntColFk").append(column.isNotNull()
-                  ? "Opt"
-                  : "").append("(preparedStatement,");
+              bw.append("    prepStmntColFk").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
+                  ? ""
+                  : "Opt").append("(preparedStatement,");
               bw.newLine();
               bw.append("                            \"").append(tableName).append("\",");
               bw.newLine();
@@ -1397,7 +1403,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                            rowNo,");
               bw.newLine();
-              bw.append("                            pkLists.get(TABLE_NAME_").append(column.getReferenceTable().toUpperCase()).append("));");
+              bw.append("                            pkLists.get(TABLE_NAME_").append(column.getReferences().get(0).getReferenceTable().toUpperCase()).append(
+                                                                                                                                                              "));");
               bw.newLine();
               break;
             }
@@ -1437,9 +1444,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "BLOB":
-            bw.append("    prepStmntColBlob").append(column.isNotNull()
-                ? "Opt"
-                : "").append("(preparedStatement,");
+            bw.append("    prepStmntColBlob").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
+                ? ""
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
             bw.append("                              \"").append(tableName).append("\",");
             bw.newLine();
@@ -1452,9 +1459,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "CLOB":
-            bw.append("      prepStmntColClob").append(column.isNotNull()
-                ? "Opt"
-                : "").append("(preparedStatement,");
+            bw.append("      prepStmntColClob").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
+                ? ""
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
             bw.append("                                \"").append(tableName).append("\",");
             bw.newLine();
@@ -1467,9 +1474,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "TIMESTAMP":
-            bw.append("    prepStmntColTimestamp").append(column.isNotNull()
-                ? "Opt"
-                : "").append("(preparedStatement,");
+            bw.append("    prepStmntColTimestamp").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
+                ? ""
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
             bw.append("                               \"").append(tableName).append("\",");
             bw.newLine();
@@ -1481,9 +1488,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.newLine();
             break;
           case "VARCHAR":
-            bw.append("    prepStmntColVarchar").append(column.isNotNull()
-                ? "Opt"
-                : "").append("(preparedStatement,");
+            bw.append("    prepStmntColVarchar").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
+                ? ""
+                : "Opt").append("(preparedStatement,");
             bw.newLine();
             bw.append("                             \"").append(tableName).append("\",");
             bw.newLine();
@@ -1866,55 +1873,58 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       columns   = table.getColumns();
 
       for (Column column : columns) {
-        if (column.getReferenceTable() == null && column.getReferenceColumn() == null) {
+        if (column.getReferences() == null || column.getReferences().size() == 0) {
           continue;
         }
 
         columnName = column.getColumnName();
 
-        if (column.getReferenceTable() == null) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable' is missing");
-          errors++;
-          continue;
-        }
+        for (References references : column.getReferences()) {
 
-        referenceTable = column.getReferenceTable().toUpperCase();
+          if (references.getReferenceTable() == null) {
+            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable' is missing");
+            errors++;
+            continue;
+          }
 
-        if (tableName.equals(referenceTable)) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable': '" + referenceTable
-              + "' must be a different database table");
-          errors++;
-          continue;
-        }
+          referenceTable = references.getReferenceTable().toUpperCase();
 
-        if (!(valTablesColumns.containsKey(referenceTable))) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable': '" + referenceTable + "' is not defined");
-          errors++;
-          continue;
-        }
+          if (tableName.equals(referenceTable)) {
+            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable': '" + referenceTable
+                + "' must be a different database table");
+            errors++;
+            continue;
+          }
 
-        if (column.getReferenceColumn() == null) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceColumn' is missing");
-          errors++;
-          continue;
-        }
+          if (!(valTablesColumns.containsKey(referenceTable))) {
+            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable': '" + referenceTable + "' is not defined");
+            errors++;
+            continue;
+          }
 
-        referenceColumn        = column.getReferenceColumn().toUpperCase();
+          if (references.getReferenceColumn() == null) {
+            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceColumn' is missing");
+            errors++;
+            continue;
+          }
 
-        valRefrenceColumnNames = valTablesColumns.get(referenceTable);
+          referenceColumn        = references.getReferenceColumn().toUpperCase();
 
-        if (!valRefrenceColumnNames.contains(referenceColumn)) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceColumn': '" + referenceColumn
-              + "' is not defined in 'referenceTable': '" + referenceTable + "'");
-          errors++;
-          continue;
-        }
+          valRefrenceColumnNames = valTablesColumns.get(referenceTable);
 
-        if (errors == 0) {
-          HashSet<String> referenceTables = valTableNameForeignKeys.get(tableName);
-          referenceTables.add(referenceTable);
-          valTableNameForeignKeys.put(tableName,
-                                      referenceTables);
+          if (!valRefrenceColumnNames.contains(referenceColumn)) {
+            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceColumn': '" + referenceColumn
+                + "' is not defined in 'referenceTable': '" + referenceTable + "'");
+            errors++;
+            continue;
+          }
+
+          if (errors == 0) {
+            HashSet<String> referenceTables = valTableNameForeignKeys.get(tableName);
+            referenceTables.add(referenceTable);
+            valTableNameForeignKeys.put(tableName,
+                                        referenceTables);
+          }
         }
       }
     }
