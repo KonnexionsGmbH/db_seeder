@@ -116,7 +116,7 @@ public final class SchemaPojo {
         return defaultValueInteger;
       }
 
-      public final String getDefaultValueString() {
+      public final String getDefaultValueText() {
         return defaultValueString;
       }
 
@@ -168,7 +168,7 @@ public final class SchemaPojo {
         this.defaultValueInteger = defaultValueInteger;
       }
 
-      public final void setDefaultValueString(String defaultValueString) {
+      public final void setDefaultValueText(String defaultValueString) {
         this.defaultValueString = defaultValueString;
       }
 

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.utils.Config;
@@ -770,7 +771,18 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  protected long getContentBigint(String tableName, String columnName, long rowNo) {
+  protected long getContentBigint(String tableName,
+                                  String columnName,
+                                  long rowNo,
+                                  Integer defaultValue,
+                                  Integer lowerRange,
+                                  Integer upperRange,
+                                  List<Integer> validValues) {
+    if (validValues != null) {
+      return validValues.get(new Random().nextInt(validValues.size()));
+    } else if (lowerRange != null) {
+      return new Random().nextInt(upperRange - lowerRange + 1) + lowerRange - 1;
+    }
 
     return rowNo;
   }
@@ -796,41 +808,38 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return new java.sql.Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
-  protected String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {
+  protected String getContentVarchar(String tableName,
+                                     String columnName,
+                                     int rowNo,
+                                     int size,
+                                     String defaultValue,
+                                     String lowerRange,
+                                     String upperRange,
+                                     List<String> validValues) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     String columnValue;
-    Random random = new Random();
 
     if (validValues != null) {
-      columnValue = validValues.get(random.nextInt(validValues.size())).stripTrailing();
+      return validValues.get(new Random().nextInt(validValues.size())).stripTrailing();
+    } else if (lowerRange != null) {
+      columnValue = RandomStringUtils.randomGraph(1,
+                                                  size + 1);
+
+      if (columnValue.compareTo(lowerRange) < 0) {
+        return lowerRange;
+      }
+
+      if (columnValue.compareTo(upperRange) > 0) {
+        return upperRange;
+      }
     } else {
       columnValue = (columnName + "_" + encodedColumnNames.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
                                                                                                                                 rowNo)).stripTrailing();
-    }
-
-    int length = getLengthUTF_8(columnValue);
-
-    // wwe logger.info("wwe columnName=" + columnName + " columnValue=" + columnValue + " size=" + size + " length_1=" + length + " length_2=" + columnValue.length());
-
-    if (length > size) {
-      columnValue = columnValue.substring(columnValue.length() - size);
-      logger.info("wwe columnName=" + columnName + " columnValue=" + columnValue);
-    }
-
-    if (lowerRange != null) {
-      if (columnValue.compareTo(lowerRange) < 0) {
-        logger.info("wwe columnName=" + columnName + " lowerRange =" + lowerRange);
-        return lowerRange;
-      }
-    }
-
-    if (upperRange != null) {
-      if (columnValue.compareTo(upperRange) > 0) {
-        logger.info("wwe columnName=" + columnName + " upperRange =" + upperRange);
-        return upperRange;
+      if (getLengthUTF_8(columnValue) > size) {
+        return columnValue.substring(columnValue.length() - size);
       }
     }
 
@@ -884,8 +893,21 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnName        the column name
    * @param columnPos         the column position
    * @param rowNo             the current row number
+   * @param defaultValue      the default value
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
+   * @return 
    */
-  protected final void prepStmntColBigint(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected void prepStmntColBigint(PreparedStatement preparedStatement,
+                                  String tableName,
+                                  String columnName,
+                                  int columnPos,
+                                  int rowNo,
+                                  Integer defaultValue,
+                                  Integer lowerRange,
+                                  Integer upperRange,
+                                  List<Integer> validValues) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -894,7 +916,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       preparedStatement.setLong(columnPos,
                                 getContentBigint(tableName,
                                                  columnName,
-                                                 rowNo));
+                                                 rowNo,
+                                                 defaultValue,
+                                                 lowerRange,
+                                                 upperRange,
+                                                 validValues));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -913,13 +939,30 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnName        the column name
    * @param columnPos         the column position
    * @param rowNo             the current row number
+   * @param defaultValue      the lower value
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
    */
   @SuppressWarnings("ucd")
-  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
+                                             String tableName,
+                                             String columnName,
+                                             int columnPos,
+                                             int rowNo,
+                                             Integer defaultValue,
+                                             Integer lowerRange,
+                                             Integer upperRange,
+                                             List<Integer> validValues) {
     try {
       if (rowNo % nullFactor == 0) {
-        preparedStatement.setNull(columnPos,
-                                  java.sql.Types.INTEGER);
+        if (defaultValue == null) {
+          preparedStatement.setNull(columnPos,
+                                    java.sql.Types.INTEGER);
+        } else {
+          preparedStatement.setLong(columnPos,
+                                    defaultValue);
+        }
         return;
       }
 
@@ -927,7 +970,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                          tableName,
                          columnName,
                          columnPos,
-                         rowNo);
+                         rowNo,
+                         defaultValue,
+                         lowerRange,
+                         upperRange,
+                         validValues);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -964,6 +1011,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
+  @SuppressWarnings("ucd")
   protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       if (dbmsEnum == DbmsEnum.CRATEDB) {
@@ -1025,6 +1073,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
+  @SuppressWarnings("ucd")
   protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
@@ -1061,11 +1110,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param fkList            the existing foreign keys
    */
   protected final void prepStmntColFk(PreparedStatement preparedStatement,
-                                      String tableName,
-                                      String columnName,
-                                      int columnPos,
-                                      int rowNo,
-                                      ArrayList<Object> fkList) {
+                                    String tableName,
+                                    String columnName,
+                                    int columnPos,
+                                    int rowNo,
+                                    ArrayList<Object> fkList) {
     try {
       preparedStatement.setObject(columnPos,
                                   getContentFk(tableName,
@@ -1088,6 +1137,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    * @param fkList            the existing foreign keys
    */
+  @SuppressWarnings("ucd")
   protected final void prepStmntColFkOpt(PreparedStatement preparedStatement,
                                          String tableName,
                                          String columnName,
@@ -1143,6 +1193,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
+  @SuppressWarnings("ucd")
   protected final void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
@@ -1171,19 +1222,21 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    * @param size              the column size
+   * @param defaultValue      the default value
    * @param lowerRange        the lower range
    * @param upperRange        the upper range
    * @param validValues       the valid values
    */
   protected final void prepStmntColVarchar(PreparedStatement preparedStatement,
-                                           String tableName,
-                                           String columnName,
-                                           int columnPos,
-                                           int rowNo,
-                                           int size,
-                                           String lowerRange,
-                                           String upperRange,
-                                           List<String> validValues) {
+                                         String tableName,
+                                         String columnName,
+                                         int columnPos,
+                                         int rowNo,
+                                         int size,
+                                         String defaultValue,
+                                         String lowerRange,
+                                         String upperRange,
+                                         List<String> validValues) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1195,7 +1248,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                        columnName,
                                                        rowNo,
                                                        size,
-                                                       upperRange,
+                                                       defaultValue,
+                                                       lowerRange,
                                                        upperRange,
                                                        validValues));
         return;
@@ -1206,7 +1260,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                     columnName,
                                                     rowNo,
                                                     size,
-                                                    upperRange,
+                                                    defaultValue,
+                                                    lowerRange,
                                                     upperRange,
                                                     validValues));
     } catch (SQLException e) {
@@ -1228,6 +1283,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    * @param size              the column size
+   * @param defaultValue      the default value
    * @param lowerRange        the lower range
    * @param upperRange        the upper range
    * @param validValues       the valid values
@@ -1238,6 +1294,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                               int columnPos,
                                               int rowNo,
                                               int size,
+                                              String defaultValue,
                                               String lowerRange,
                                               String upperRange,
                                               List<String> validValues) {
@@ -1247,8 +1304,18 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       if (rowNo % nullFactor == 0) {
-        preparedStatement.setNull(columnPos,
-                                  java.sql.Types.VARCHAR);
+        if (defaultValue == null) {
+          preparedStatement.setNull(columnPos,
+                                    java.sql.Types.VARCHAR);
+        } else {
+          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+            preparedStatement.setNString(columnPos,
+                                         defaultValue);
+          } else {
+            preparedStatement.setString(columnPos,
+                                        defaultValue);
+          }
+        }
       } else {
         prepStmntColVarchar(preparedStatement,
                             tableName,
@@ -1256,6 +1323,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                             columnPos,
                             rowNo,
                             size,
+                            defaultValue,
                             lowerRange,
                             upperRange,
                             validValues);

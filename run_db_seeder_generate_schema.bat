@@ -10,9 +10,6 @@ setlocal EnableDelayedExpansion
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
-rem wwe
-set DB_SEEDER_FILE_JSON_NAME=json\db_seeder_schema.travis.json
-
 set DB_SEEDER_RELEASE=2.0.0
 
 set DB_SEEDER_IS_ECLIPSE_INSTALLED=true

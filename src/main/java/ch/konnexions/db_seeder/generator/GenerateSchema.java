@@ -91,7 +91,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     ArrayList<ColumnConstraint> columnConstraints   = column.getColumnConstraints();
 
     Integer                     defaultValueInteger = column.getDefaultValueInteger();
-    String                      defaultValueString  = column.getDefaultValueString();
+    String                      defaultValueString  = column.getDefaultValueText();
 
     ArrayList<String>           editedConstraints   = new ArrayList<>();
 
@@ -104,7 +104,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     }
 
     if (defaultValueString != null) {
-      editedConstraints.add("DEFAULT \"" + defaultValueString + "\"");
+      editedConstraints.add("DEFAULT '" + defaultValueString + "'");
     }
 
     if (columnConstraints != null) {
@@ -527,7 +527,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           workArea = new StringBuffer(" ".repeat(23));
           workArea.append(String.format("%-33s",
-                                        identifierDelimiter + editedColumnName + identifierDelimiter));
+                                        editedColumnName));
           workArea.append(String.format("%-26s",
                                         editedDataType));
 
@@ -1115,17 +1115,39 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   * @param rowNo             the current row number");
       bw.newLine();
+      bw.append("   * @param defaultValue      the defaultValue");
+      bw.newLine();
+      bw.append("   * @param lowerRange        the lower range");
+      bw.newLine();
+      bw.append("   * @param upperRange        the upper range");
+      bw.newLine();
+      bw.append("   * @param validValues       the valid values");
+      bw.newLine();
       bw.append("   */");
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected final long getContentBigint(String tableName, String columnName, long rowNo) {");
+      bw.append("  protected final long getContentBigint(String tableName,");
+      bw.append("                                        String columnName,");
+      bw.append("                                        long rowNo,");
+      bw.append("                                        Integer defaultValue,");
+      bw.append("                                        Integer lowerRange,");
+      bw.append("                                        Integer upperRange,");
+      bw.append("                                        List<Integer> validValues) {");
       bw.newLine();
       bw.append("    long result = super.getContentBigint(tableName,");
       bw.newLine();
       bw.append("                                         columnName,");
       bw.newLine();
-      bw.append("                                         rowNo);");
+      bw.append("                                         rowNo,");
+      bw.newLine();
+      bw.append("                                         defaultValue,");
+      bw.newLine();
+      bw.append("                                         lowerRange,");
+      bw.newLine();
+      bw.append("                                         upperRange,");
+      bw.newLine();
+      bw.append("                                         validValues);");
       bw.newLine();
       bw.newLine();
       bw.append("    return result;");
@@ -1271,6 +1293,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   * @param size              the column size");
       bw.newLine();
+      bw.append("   * @param defaultValue      the defaultValue");
+      bw.newLine();
       bw.append("   * @param lowerRange        the lower range");
       bw.newLine();
       bw.append("   * @param upperRange        the upper range");
@@ -1281,7 +1305,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected final String getContentVarchar(String tableName, String columnName, int rowNo, int size, String lowerRange, String upperRange, List<String> validValues) {");
+      bw.append("  protected final String getContentVarchar(String tableName,");
+      bw.append("                                           String columnName,");
+      bw.append("                                           int rowNo,");
+      bw.append("                                           int size,");
+      bw.append("                                           String defaultValue,");
+      bw.append("                                           String lowerRange,");
+      bw.append("                                           String upperRange,");
+      bw.append("                                           List<String> validValues) {");
       bw.newLine();
       bw.append("    String result = super.getContentVarchar(tableName,");
       bw.newLine();
@@ -1290,6 +1321,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("                                            rowNo,");
       bw.newLine();
       bw.append("                                            size,");
+      bw.newLine();
+      bw.append("                                            defaultValue,");
       bw.newLine();
       bw.append("                                            lowerRange,");
       bw.newLine();
@@ -1387,8 +1420,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                              ++i,");
               bw.newLine();
-              bw.append("                              rowNo);");
-              bw.newLine();
+              bw.append("                              rowNo,");
             } else {
               bw.append("    prepStmntColFk").append(isNotNull
                   ? ""
@@ -1404,7 +1436,41 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                            pkLists.get(TABLE_NAME_").append(referenceTable).append("));");
               bw.newLine();
+              break;
             }
+
+            bw.newLine();
+
+            if (column.getDefaultValueInteger() == null) {
+              bw.append("                             null,");
+            } else {
+              bw.append("                             ").append(column.getDefaultValueInteger().toString()).append(",");
+            }
+
+            bw.newLine();
+
+            if (column.getLowerRangeInteger() == null && column.getUpperRangeInteger() == null) {
+              bw.append("                             null,");
+              bw.newLine();
+              bw.append("                             null,");
+            } else {
+              bw.append("                             ").append(column.getLowerRangeInteger().toString()).append(",");
+              bw.newLine();
+              bw.append("                             ").append(column.getUpperRangeInteger().toString()).append(",");
+            }
+
+            bw.newLine();
+
+            if (column.getValidValuesInteger() == null) {
+              bw.append("                             null);");
+            } else {
+              ArrayList<String> liste = new ArrayList<>();
+              column.getValidValuesInteger().forEach(i -> liste.add(i.toString()));
+              bw.append("                             Arrays.asList(").append(String.join(",",
+                                                                                          liste)).append("));");
+            }
+
+            bw.newLine();
 
             break;
           case "BLOB":
@@ -1467,27 +1533,35 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.append("                             ").append(String.valueOf(column.getSize())).append(",");
             bw.newLine();
 
+            if (column.getDefaultValueText() == null) {
+              bw.append("                             null,");
+            } else {
+              bw.append("                             \"").append(column.getDefaultValueText()).append("\",");
+            }
+
+            bw.newLine();
+
             if (column.getLowerRangeText() == null && column.getUpperRangeText() == null) {
               bw.append("                             null,");
               bw.newLine();
               bw.append("                             null,");
-              bw.newLine();
             } else {
               bw.append("                             \"").append(column.getLowerRangeText()).append("\",");
               bw.newLine();
               bw.append("                             \"").append(column.getUpperRangeText()).append("\",");
-              bw.newLine();
             }
+
+            bw.newLine();
 
             if (column.getValidValuesText() == null) {
               bw.append("                             null);");
-              bw.newLine();
             } else {
               bw.append("                             Arrays.asList(\"").append(String.join(",",
                                                                                             column.getValidValuesText()).replace(",",
-                                                                                                                                   "\",\"")).append("\"));");
-              bw.newLine();
+                                                                                                                                 "\",\"")).append("\"));");
             }
+
+            bw.newLine();
 
             break;
           default:
@@ -2137,7 +2211,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       }
 
       if (!"VARCHAR".equals(dataType)) {
-        if (column.getDefaultValueString() != null) {
+        if (column.getDefaultValueText() != null) {
           logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType
               + "' - 'defaultValueString' is not allowed");
           errors++;
@@ -2154,8 +2228,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         }
 
         if (column.getValidValuesText() != null) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType
-              + "' - 'validValuesText' is not allowed");
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'validValuesText' is not allowed");
           errors++;
         }
       }
