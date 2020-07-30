@@ -189,18 +189,16 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
 
     switch (tableName) {
-    case TABLE_NAME_TEST_TABLE_1 -> prepDmlStmntInsertTestTable1(preparedStatement,
-                                                                 rowNo);
-    case TABLE_NAME_TEST_TABLE_2 -> prepDmlStmntInsertTestTable2(preparedStatement,
-                                                                 rowNo);
-    case TABLE_NAME_TEST_TABLE_3 -> prepDmlStmntInsertTestTable3(preparedStatement,
-                                                                 rowNo);
-    case TABLE_NAME_TEST_TABLE_4 -> prepDmlStmntInsertTestTable4(preparedStatement,
-                                                                 rowNo);
-    case TABLE_NAME_TEST_TABLE_5 -> prepDmlStmntInsertTestTable5(preparedStatement,
-                                                                 rowNo);
-    case TABLE_NAME_TEST_TABLE_6 -> prepDmlStmntInsertTestTable6(preparedStatement,
-                                                                 rowNo);
+    case TABLE_NAME_CITY -> prepDmlStmntInsertCity(preparedStatement,
+                                                   rowNo);
+    case TABLE_NAME_COMPANY -> prepDmlStmntInsertCompany(preparedStatement,
+                                                         rowNo);
+    case TABLE_NAME_COUNTRY -> prepDmlStmntInsertCountry(preparedStatement,
+                                                         rowNo);
+    case TABLE_NAME_COUNTRY_STATE -> prepDmlStmntInsertCountryState(preparedStatement,
+                                                                    rowNo);
+    case TABLE_NAME_TIMEZONE -> prepDmlStmntInsertTimezone(preparedStatement,
+                                                           rowNo);
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
                                                                                                     tableName));
     }
@@ -210,7 +208,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertTestTable1(PreparedStatement preparedStatement, long rowNo) {
+  private void prepDmlStmntInsertCity(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -218,41 +216,38 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_1",
-                       "COLUMN_1_01",
+                       "CITY",
+                       "PK_CITY_ID",
                        ++i,
                        rowNo,
                        null,
                        null,
                        null,
                        null);
-    prepStmntColBigintOpt(preparedStatement,
-                          "TEST_TABLE_1",
-                          "COLUMN_1_02",
-                          ++i,
-                          rowNo,
-                          null,
-                          null,
-                          null,
-                          null);
+    prepStmntColFkOpt(preparedStatement,
+                      "CITY",
+                      "FK_COUNTRY_STATE_ID",
+                      ++i,
+                      rowNo,
+                      pkLists.get(TABLE_NAME_COUNTRY_STATE));
     prepStmntColBlobOpt(preparedStatement,
-                        "TEST_TABLE_1",
-                        "COLUMN_1_03",
+                        "CITY",
+                        "CITY_MAP",
                         ++i,
                         rowNo);
     prepStmntColTimestamp(preparedStatement,
-                          "TEST_TABLE_1",
-                          "COLUMN_1_04",
+                          "CITY",
+                          "CREATED",
                           ++i,
                           rowNo);
     prepStmntColTimestampOpt(preparedStatement,
-                             "TEST_TABLE_1",
-                             "COLUMN_1_05",
+                             "CITY",
+                             "MODIFIED",
                              ++i,
                              rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "TEST_TABLE_1",
-                        "COLUMN_1_06",
+                        "CITY",
+                        "NAME",
                         ++i,
                         rowNo,
                         100,
@@ -265,7 +260,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertTestTable2(PreparedStatement preparedStatement, long rowNo) {
+  private void prepDmlStmntInsertCompany(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -273,26 +268,29 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_2",
-                       "COLUMN_2_01",
+                       "COMPANY",
+                       "PK_COMPANY_ID",
                        ++i,
                        rowNo,
                        null,
                        null,
                        null,
                        null);
-    prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_2",
-                       "COLUMN_2_02",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
+    prepStmntColFk(preparedStatement,
+                   "COMPANY",
+                   "FK_CITY_ID",
+                   ++i,
+                   rowNo,
+                   pkLists.get(TABLE_NAME_CITY));
+    prepStmntColFkOpt(preparedStatement,
+                      "COMPANY",
+                      "FK_CITY_ID_DEFAULT",
+                      ++i,
+                      rowNo,
+                      pkLists.get(TABLE_NAME_CITY));
     prepStmntColVarchar(preparedStatement,
-                        "TEST_TABLE_2",
-                        "COLUMN_2_03",
+                        "COMPANY",
+                        "ACTIVE",
                         ++i,
                         rowNo,
                         1,
@@ -302,8 +300,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                         Arrays.asList("N",
                                       "Y"));
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_04",
+                           "COMPANY",
+                           "ADDRESS1",
                            ++i,
                            rowNo,
                            50,
@@ -312,8 +310,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_05",
+                           "COMPANY",
+                           "ADDRESS2",
                            ++i,
                            rowNo,
                            50,
@@ -322,8 +320,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_06",
+                           "COMPANY",
+                           "ADDRESS3",
                            ++i,
                            rowNo,
                            50,
@@ -332,18 +330,18 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColTimestamp(preparedStatement,
-                          "TEST_TABLE_2",
-                          "COLUMN_2_07",
+                          "COMPANY",
+                          "CREATED",
                           ++i,
                           rowNo);
     prepStmntColClobOpt(preparedStatement,
-                        "TEST_TABLE_2",
-                        "COLUMN_2_08",
+                        "COMPANY",
+                        "DIRECTIONS",
                         ++i,
                         rowNo);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_09",
+                           "COMPANY",
+                           "EMAIL",
                            ++i,
                            rowNo,
                            100,
@@ -352,8 +350,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_10",
+                           "COMPANY",
+                           "FAX",
                            ++i,
                            rowNo,
                            50,
@@ -362,13 +360,13 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColTimestampOpt(preparedStatement,
-                             "TEST_TABLE_2",
-                             "COLUMN_2_11",
+                             "COMPANY",
+                             "MODIFIED",
                              ++i,
                              rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "TEST_TABLE_2",
-                        "COLUMN_2_12",
+                        "COMPANY",
+                        "NAME",
                         ++i,
                         rowNo,
                         100,
@@ -377,8 +375,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                         null,
                         null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_13",
+                           "COMPANY",
+                           "PHONE",
                            ++i,
                            rowNo,
                            50,
@@ -387,8 +385,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_14",
+                           "COMPANY",
+                           "POSTAL_CODE",
                            ++i,
                            rowNo,
                            50,
@@ -397,8 +395,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_15",
+                           "COMPANY",
+                           "URL",
                            ++i,
                            rowNo,
                            250,
@@ -407,8 +405,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_2",
-                           "COLUMN_2_16",
+                           "COMPANY",
+                           "VAT_ID_NUMBER",
                            ++i,
                            rowNo,
                            100,
@@ -421,7 +419,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertTestTable3(PreparedStatement preparedStatement, long rowNo) {
+  private void prepDmlStmntInsertCountry(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -429,8 +427,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_3",
-                       "COLUMN_3_01",
+                       "COUNTRY",
+                       "PK_COUNTRY_ID",
                        ++i,
                        rowNo,
                        null,
@@ -438,18 +436,18 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                        null,
                        null);
     prepStmntColBlobOpt(preparedStatement,
-                        "TEST_TABLE_3",
-                        "COLUMN_3_02",
+                        "COUNTRY",
+                        "COUNTRY_MAP",
                         ++i,
                         rowNo);
     prepStmntColTimestamp(preparedStatement,
-                          "TEST_TABLE_3",
-                          "COLUMN_3_03",
+                          "COUNTRY",
+                          "CREATED",
                           ++i,
                           rowNo);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_3",
-                           "COLUMN_3_04",
+                           "COUNTRY",
+                           "ISO3166",
                            ++i,
                            rowNo,
                            50,
@@ -458,13 +456,13 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null);
     prepStmntColTimestampOpt(preparedStatement,
-                             "TEST_TABLE_3",
-                             "COLUMN_3_05",
+                             "COUNTRY",
+                             "MODIFIED",
                              ++i,
                              rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "TEST_TABLE_3",
-                        "COLUMN_3_06",
+                        "COUNTRY",
+                        "NAME",
                         ++i,
                         rowNo,
                         100,
@@ -477,7 +475,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertTestTable4(PreparedStatement preparedStatement, long rowNo) {
+  private void prepDmlStmntInsertCountryState(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -485,50 +483,44 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_4",
-                       "COLUMN_4_01",
+                       "COUNTRY_STATE",
+                       "PK_COUNTRY_STATE_ID",
                        ++i,
                        rowNo,
                        null,
                        null,
                        null,
                        null);
-    prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_4",
-                       "COLUMN_4_02",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
-    prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_4",
-                       "COLUMN_4_03",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
+    prepStmntColFk(preparedStatement,
+                   "COUNTRY_STATE",
+                   "FK_COUNTRY_ID",
+                   ++i,
+                   rowNo,
+                   pkLists.get(TABLE_NAME_COUNTRY));
+    prepStmntColFk(preparedStatement,
+                   "COUNTRY_STATE",
+                   "FK_TIMEZONE_ID",
+                   ++i,
+                   rowNo,
+                   pkLists.get(TABLE_NAME_TIMEZONE));
     prepStmntColBlobOpt(preparedStatement,
-                        "TEST_TABLE_4",
-                        "COLUMN_4_04",
+                        "COUNTRY_STATE",
+                        "COUNTRY_STATE_MAP",
                         ++i,
                         rowNo);
     prepStmntColTimestamp(preparedStatement,
-                          "TEST_TABLE_4",
-                          "COLUMN_4_05",
+                          "COUNTRY_STATE",
+                          "CREATED",
                           ++i,
                           rowNo);
     prepStmntColTimestampOpt(preparedStatement,
-                             "TEST_TABLE_4",
-                             "COLUMN_4_06",
+                             "COUNTRY_STATE",
+                             "MODIFIED",
                              ++i,
                              rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "TEST_TABLE_4",
-                        "COLUMN_4_07",
+                        "COUNTRY_STATE",
+                        "NAME",
                         ++i,
                         rowNo,
                         100,
@@ -537,8 +529,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                         null,
                         null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_4",
-                           "COLUMN_4_08",
+                           "COUNTRY_STATE",
+                           "SYMBOL",
                            ++i,
                            rowNo,
                            50,
@@ -551,7 +543,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertTestTable5(PreparedStatement preparedStatement, long rowNo) {
+  private void prepDmlStmntInsertTimezone(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -559,8 +551,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "TEST_TABLE_5",
-                       "COLUMN_5_01",
+                       "TIMEZONE",
+                       "PK_TIMEZONE_ID",
                        ++i,
                        rowNo,
                        null,
@@ -568,8 +560,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                        null,
                        null);
     prepStmntColVarchar(preparedStatement,
-                        "TEST_TABLE_5",
-                        "COLUMN_5_02",
+                        "TIMEZONE",
+                        "ABBREVIATION",
                         ++i,
                         rowNo,
                         50,
@@ -578,18 +570,18 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                         null,
                         null);
     prepStmntColTimestamp(preparedStatement,
-                          "TEST_TABLE_5",
-                          "COLUMN_5_03",
+                          "TIMEZONE",
+                          "CREATED",
                           ++i,
                           rowNo);
     prepStmntColTimestampOpt(preparedStatement,
-                             "TEST_TABLE_5",
-                             "COLUMN_5_04",
+                             "TIMEZONE",
+                             "MODIFIED",
                              ++i,
                              rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "TEST_TABLE_5",
-                        "COLUMN_5_05",
+                        "TIMEZONE",
+                        "NAME",
                         ++i,
                         rowNo,
                         100,
@@ -598,8 +590,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                         null,
                         null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_5",
-                           "COLUMN_5_06",
+                           "TIMEZONE",
+                           "V_TIME_ZONE",
                            ++i,
                            rowNo,
                            4000,
@@ -607,68 +599,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                            null,
                            null,
                            null);
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  private void prepDmlStmntInsertTestTable6(PreparedStatement preparedStatement, long rowNo) {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    int i = 0;
-
-    prepStmntColBigintOpt(preparedStatement,
-                          "TEST_TABLE_6",
-                          "COLUMN_6_01",
-                          ++i,
-                          rowNo,
-                          4711,
-                          4,
-                          8,
-                          null);
-    prepStmntColBigintOpt(preparedStatement,
-                          "TEST_TABLE_6",
-                          "COLUMN_6_02",
-                          ++i,
-                          rowNo,
-                          5,
-                          null,
-                          null,
-                          Arrays.asList(0,
-                                        2,
-                                        4,
-                                        6,
-                                        8));
-    prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_6",
-                           "COLUMN_6_03",
-                           ++i,
-                           rowNo,
-                           10,
-                           "default",
-                           "A",
-                           "zzzzzzzzzz",
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "TEST_TABLE_6",
-                           "COLUMN_6_04",
-                           ++i,
-                           rowNo,
-                           5,
-                           "x",
-                           null,
-                           null,
-                           Arrays.asList("a",
-                                         "B",
-                                         "c",
-                                         "D",
-                                         "e",
-                                         "f",
-                                         "G",
-                                         "h",
-                                         "I"));
     if (isDebug) {
       logger.debug("End");
     }

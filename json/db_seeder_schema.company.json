@@ -78,7 +78,7 @@
   }, {
     "tableName"          : "country_state", "numberOfRows": 600, "columns": [
       {
-        "columnName": "pk_country_state_id", "dataType": "bigint", "primary": true
+        "columnName": "pk_country_state_id", "dataType": "bigint", "primaryKey": true
       }, {
         "columnName": "fk_country_id", "dataType": "bigint", "notNull": true, "references": [{"referenceTable": "country", "referenceColumn": "pk_country_id"}]
       }, {

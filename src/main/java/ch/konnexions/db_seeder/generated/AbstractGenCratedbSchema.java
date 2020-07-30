@@ -24,89 +24,81 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
   private static HashMap<String, String> createTableStmnts() {
     HashMap<String, String> statements = new HashMap<>();
 
-    statements.put(TABLE_NAME_TEST_TABLE_1,
+    statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE TEST_TABLE_1 (
-                       COLUMN_1_01                      BIGINT                    NOT NULL,
-                       COLUMN_1_02                      BIGINT,
-                       COLUMN_1_03                      OBJECT,
-                       COLUMN_1_04                      TIMESTAMP                 NOT NULL,
-                       COLUMN_1_05                      TIMESTAMP,
-                       COLUMN_1_06                      TEXT                      NOT NULL
-                                                                                  PRIMARY KEY
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_TEST_TABLE_2,
-                   """
-                   CREATE TABLE TEST_TABLE_2 (
-                       COLUMN_2_01                      BIGINT                    NOT NULL,
-                       COLUMN_2_02                      BIGINT                    NOT NULL,
-                       COLUMN_2_03                      TEXT                      NOT NULL,
-                       COLUMN_2_04                      TEXT,
-                       COLUMN_2_05                      TEXT,
-                       COLUMN_2_06                      TEXT,
-                       COLUMN_2_07                      TIMESTAMP                 NOT NULL,
-                       COLUMN_2_08                      TEXT,
-                       COLUMN_2_09                      TEXT,
-                       COLUMN_2_10                      TEXT,
-                       COLUMN_2_11                      TIMESTAMP,
-                       COLUMN_2_12                      TEXT                      NOT NULL,
-                       COLUMN_2_13                      TEXT,
-                       COLUMN_2_14                      TEXT,
-                       COLUMN_2_15                      TEXT,
-                       COLUMN_2_16                      TEXT
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_TEST_TABLE_3,
-                   """
-                   CREATE TABLE TEST_TABLE_3 (
-                       COLUMN_3_01                      BIGINT                    NOT NULL
+                   CREATE TABLE CITY (
+                       PK_CITY_ID                       BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COLUMN_3_02                      OBJECT,
-                       COLUMN_3_03                      TIMESTAMP                 NOT NULL,
-                       COLUMN_3_04                      TEXT,
-                       COLUMN_3_05                      TIMESTAMP,
-                       COLUMN_3_06                      TEXT                      NOT NULL
+                       FK_COUNTRY_STATE_ID              BIGINT,
+                       CITY_MAP                         OBJECT,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             TEXT                      NOT NULL
                    )
                    """);
 
-    statements.put(TABLE_NAME_TEST_TABLE_4,
+    statements.put(TABLE_NAME_COMPANY,
                    """
-                   CREATE TABLE TEST_TABLE_4 (
-                       COLUMN_4_01                      BIGINT                    NOT NULL
+                   CREATE TABLE COMPANY (
+                       PK_COMPANY_ID                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COLUMN_4_02                      BIGINT                    NOT NULL,
-                       COLUMN_4_03                      BIGINT                    NOT NULL,
-                       COLUMN_4_04                      OBJECT,
-                       COLUMN_4_05                      TIMESTAMP                 NOT NULL,
-                       COLUMN_4_06                      TIMESTAMP,
-                       COLUMN_4_07                      TEXT                      NOT NULL,
-                       COLUMN_4_08                      TEXT
+                       FK_CITY_ID                       BIGINT                    NOT NULL,
+                       FK_CITY_ID_DEFAULT               BIGINT                    DEFAULT 1,
+                       ACTIVE                           TEXT                      NOT NULL,
+                       ADDRESS1                         TEXT,
+                       ADDRESS2                         TEXT,
+                       ADDRESS3                         TEXT,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       DIRECTIONS                       TEXT,
+                       EMAIL                            TEXT,
+                       FAX                              TEXT,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             TEXT                      NOT NULL,
+                       PHONE                            TEXT,
+                       POSTAL_CODE                      TEXT,
+                       URL                              TEXT,
+                       VAT_ID_NUMBER                    TEXT
                    )
                    """);
 
-    statements.put(TABLE_NAME_TEST_TABLE_5,
+    statements.put(TABLE_NAME_COUNTRY,
                    """
-                   CREATE TABLE TEST_TABLE_5 (
-                       COLUMN_5_01                      BIGINT                    NOT NULL
+                   CREATE TABLE COUNTRY (
+                       PK_COUNTRY_ID                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COLUMN_5_02                      TEXT                      NOT NULL,
-                       COLUMN_5_03                      TIMESTAMP                 NOT NULL,
-                       COLUMN_5_04                      TIMESTAMP,
-                       COLUMN_5_05                      TEXT                      NOT NULL,
-                       COLUMN_5_06                      TEXT
+                       COUNTRY_MAP                      OBJECT,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       ISO3166                          TEXT,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             TEXT                      NOT NULL
                    )
                    """);
 
-    statements.put(TABLE_NAME_TEST_TABLE_6,
+    statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE TEST_TABLE_6 (
-                       COLUMN_6_01                      BIGINT                    DEFAULT 4711,
-                       COLUMN_6_02                      BIGINT                    DEFAULT 5,
-                       COLUMN_6_03                      TEXT                      DEFAULT 'default',
-                       COLUMN_6_04                      TEXT                      DEFAULT 'x'
+                   CREATE TABLE COUNTRY_STATE (
+                       PK_COUNTRY_STATE_ID              BIGINT                    NOT NULL
+                                                                                  PRIMARY KEY,
+                       FK_COUNTRY_ID                    BIGINT                    NOT NULL,
+                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL,
+                       COUNTRY_STATE_MAP                OBJECT,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             TEXT                      NOT NULL,
+                       SYMBOL                           TEXT
+                   )
+                   """);
+
+    statements.put(TABLE_NAME_TIMEZONE,
+                   """
+                   CREATE TABLE TIMEZONE (
+                       PK_TIMEZONE_ID                   BIGINT                    NOT NULL
+                                                                                  PRIMARY KEY,
+                       ABBREVIATION                     TEXT                      NOT NULL,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             TEXT                      NOT NULL,
+                       V_TIME_ZONE                      TEXT
                    )
                    """);
 

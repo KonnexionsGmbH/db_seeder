@@ -24,98 +24,89 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
   private static HashMap<String, String> createTableStmnts() {
     HashMap<String, String> statements = new HashMap<>();
 
-    statements.put(TABLE_NAME_TEST_TABLE_1,
+    statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE "TEST_TABLE_1" (
-                       COLUMN_1_01                      INT                       NOT NULL
-                                                                                  UNIQUE,
-                       COLUMN_1_02                      INT,
-                       COLUMN_1_03                      BLOB,
-                       COLUMN_1_04                      TIMESTAMP                 NOT NULL,
-                       COLUMN_1_05                      TIMESTAMP,
-                       COLUMN_1_06                      VARCHAR(100)              NOT NULL
-                                                                                  PRIMARY KEY
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_TEST_TABLE_2,
-                   """
-                   CREATE TABLE "TEST_TABLE_2" (
-                       COLUMN_2_01                      INT                       NOT NULL,
-                       COLUMN_2_02                      INT                       NOT NULL,
-                       COLUMN_2_03                      VARCHAR(1)                NOT NULL,
-                       COLUMN_2_04                      VARCHAR(50),
-                       COLUMN_2_05                      VARCHAR(50),
-                       COLUMN_2_06                      VARCHAR(50),
-                       COLUMN_2_07                      TIMESTAMP                 NOT NULL,
-                       COLUMN_2_08                      CLOB,
-                       COLUMN_2_09                      VARCHAR(100),
-                       COLUMN_2_10                      VARCHAR(50),
-                       COLUMN_2_11                      TIMESTAMP,
-                       COLUMN_2_12                      VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
-                       COLUMN_2_13                      VARCHAR(50),
-                       COLUMN_2_14                      VARCHAR(50),
-                       COLUMN_2_15                      VARCHAR(250),
-                       COLUMN_2_16                      VARCHAR(100),
-                       CONSTRAINT CONSTRAINT_1        UNIQUE      ("COLUMN_2_13", "COLUMN_2_14"),
-                       CONSTRAINT CONSTRAINT_2        PRIMARY KEY ("COLUMN_2_01", "COLUMN_2_02", "COLUMN_2_03")
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_TEST_TABLE_3,
-                   """
-                   CREATE TABLE "TEST_TABLE_3" (
-                       COLUMN_3_01                      INT                       NOT NULL
+                   CREATE TABLE "CITY" (
+                       PK_CITY_ID                       INT                       NOT NULL
                                                                                   PRIMARY KEY,
-                       COLUMN_3_02                      BLOB,
-                       COLUMN_3_03                      TIMESTAMP                 NOT NULL,
-                       COLUMN_3_04                      VARCHAR(50),
-                       COLUMN_3_05                      TIMESTAMP,
-                       COLUMN_3_06                      VARCHAR(100)              NOT NULL
+                       FK_COUNTRY_STATE_ID              INT                       REFERENCES "COUNTRY_STATE"                  (PK_COUNTRY_STATE_ID),
+                       CITY_MAP                         BLOB,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR(100)              NOT NULL
+                   )
+                   """);
+
+    statements.put(TABLE_NAME_COMPANY,
+                   """
+                   CREATE TABLE "COMPANY" (
+                       PK_COMPANY_ID                    INT                       NOT NULL
+                                                                                  PRIMARY KEY,
+                       FK_CITY_ID                       INT                       NOT NULL
+                                                                                  REFERENCES "CITY"                           (PK_CITY_ID),
+                       FK_CITY_ID_DEFAULT               INT                       DEFAULT 1
+                                                                                  REFERENCES "CITY"                           (PK_CITY_ID),
+                       ACTIVE                           VARCHAR(1)                NOT NULL,
+                       ADDRESS1                         VARCHAR(50),
+                       ADDRESS2                         VARCHAR(50),
+                       ADDRESS3                         VARCHAR(50),
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       DIRECTIONS                       CLOB,
+                       EMAIL                            VARCHAR(100),
+                       FAX                              VARCHAR(50),
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR(100)              NOT NULL
+                                                                                  UNIQUE,
+                       PHONE                            VARCHAR(50),
+                       POSTAL_CODE                      VARCHAR(50),
+                       URL                              VARCHAR(250),
+                       VAT_ID_NUMBER                    VARCHAR(100)
+                   )
+                   """);
+
+    statements.put(TABLE_NAME_COUNTRY,
+                   """
+                   CREATE TABLE "COUNTRY" (
+                       PK_COUNTRY_ID                    INT                       NOT NULL
+                                                                                  PRIMARY KEY,
+                       COUNTRY_MAP                      BLOB,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       ISO3166                          VARCHAR(50),
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR(100)              NOT NULL
                                                                                   UNIQUE
                    )
                    """);
 
-    statements.put(TABLE_NAME_TEST_TABLE_4,
+    statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE "TEST_TABLE_4" (
-                       COLUMN_4_01                      INT                       NOT NULL
+                   CREATE TABLE "COUNTRY_STATE" (
+                       PK_COUNTRY_STATE_ID              INT                       NOT NULL
                                                                                   PRIMARY KEY,
-                       COLUMN_4_02                      INT                       NOT NULL,
-                       COLUMN_4_03                      INT                       NOT NULL,
-                       COLUMN_4_04                      BLOB,
-                       COLUMN_4_05                      TIMESTAMP                 NOT NULL,
-                       COLUMN_4_06                      TIMESTAMP,
-                       COLUMN_4_07                      VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
-                       COLUMN_4_08                      VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_3        UNIQUE      ("COLUMN_4_02", "COLUMN_4_07")
+                       FK_COUNTRY_ID                    INT                       NOT NULL
+                                                                                  REFERENCES "COUNTRY"                        (PK_COUNTRY_ID),
+                       FK_TIMEZONE_ID                   INT                       NOT NULL
+                                                                                  REFERENCES "TIMEZONE"                       (PK_TIMEZONE_ID),
+                       COUNTRY_STATE_MAP                BLOB,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       SYMBOL                           VARCHAR(50),
+                       CONSTRAINT CONSTRAINT_1        UNIQUE      ("FK_COUNTRY_ID", "NAME")
                    )
                    """);
 
-    statements.put(TABLE_NAME_TEST_TABLE_5,
+    statements.put(TABLE_NAME_TIMEZONE,
                    """
-                   CREATE TABLE "TEST_TABLE_5" (
-                       COLUMN_5_01                      INT                       NOT NULL
+                   CREATE TABLE "TIMEZONE" (
+                       PK_TIMEZONE_ID                   INT                       NOT NULL
                                                                                   PRIMARY KEY,
-                       COLUMN_5_02                      VARCHAR(50)               NOT NULL
+                       ABBREVIATION                     VARCHAR(50)               NOT NULL,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR(100)              NOT NULL
                                                                                   UNIQUE,
-                       COLUMN_5_03                      TIMESTAMP                 NOT NULL,
-                       COLUMN_5_04                      TIMESTAMP,
-                       COLUMN_5_05                      VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
-                       COLUMN_5_06                      VARCHAR(4000)
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_TEST_TABLE_6,
-                   """
-                   CREATE TABLE "TEST_TABLE_6" (
-                       COLUMN_6_01                      INT                       DEFAULT 4711,
-                       COLUMN_6_02                      INT                       DEFAULT 5,
-                       COLUMN_6_03                      VARCHAR(10)               DEFAULT 'default',
-                       COLUMN_6_04                      VARCHAR(5)                DEFAULT 'x'
+                       V_TIME_ZONE                      VARCHAR(4000)
                    )
                    """);
 

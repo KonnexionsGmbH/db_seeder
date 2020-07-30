@@ -58,7 +58,7 @@
     ], "tableConstraints": [
       {
         "constraintType": "unique", "columns": [
-        "column_2_13", "column_2_14"
+        "column_2_07", "column_2_12"
       ]
       }, {
         "constraintType": "primary", "columns": [
