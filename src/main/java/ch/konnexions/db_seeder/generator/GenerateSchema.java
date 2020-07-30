@@ -501,35 +501,39 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // REFERENCES .......................................................
 
-          if (column.getReferences() != null && column.getReferences().size() > 0) {
-            for (References references : column.getReferences()) {
+          if (!("cratedb").equals(tickerSymbolLower)) {
+            if (column.getReferences() != null && column.getReferences().size() > 0) {
+              for (References references : column.getReferences()) {
+                if (isNewLineRequired) {
+                  bw.append(workArea.toString());
+                  bw.newLine();
+                  workArea = new StringBuffer(" ".repeat(82));
+                }
+
+                workArea.append("REFERENCES ");
+                workArea.append(String.format("%-33s",
+                                              identifierDelimiter + references.getReferenceTable().toUpperCase() + identifierDelimiter));
+                workArea.append("(");
+                workArea.append(references.getReferenceColumn().toUpperCase());
+                workArea.append(")");
+
+                isNewLineRequired = true;
+              }
+            }
+          }
+
+          // UNIQUE ............................................................
+
+          if (!("cratedb").equals(tickerSymbolLower)) {
+            if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
                 bw.newLine();
                 workArea = new StringBuffer(" ".repeat(82));
               }
 
-              workArea.append("REFERENCES ");
-              workArea.append(String.format("%-33s",
-                                            identifierDelimiter + references.getReferenceTable().toUpperCase() + identifierDelimiter));
-              workArea.append("(");
-              workArea.append(references.getReferenceColumn().toUpperCase());
-              workArea.append(")");
-
-              isNewLineRequired = true;
+              workArea.append("UNIQUE");
             }
-          }
-
-          // UNIQUE ............................................................
-
-          if (column.isUnique()) {
-            if (isNewLineRequired) {
-              bw.append(workArea.toString());
-              bw.newLine();
-              workArea = new StringBuffer(" ".repeat(82));
-            }
-
-            workArea.append("UNIQUE");
           }
 
           // Column end ........................................................

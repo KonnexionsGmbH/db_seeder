@@ -24,88 +24,98 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
   private static HashMap<String, String> createTableStmnts() {
     HashMap<String, String> statements = new HashMap<>();
 
-    statements.put(TABLE_NAME_CITY,
+    statements.put(TABLE_NAME_TEST_TABLE_1,
                    """
-                   CREATE TABLE CITY (
-                       PK_CITY_ID                       BIGINT                    NOT NULL
-                                                                                  PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              BIGINT                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
-                       CITY_MAP                         BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_COMPANY,
-                   """
-                   CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    BIGINT                    NOT NULL
-                                                                                  PRIMARY KEY,
-                       FK_CITY_ID                       BIGINT                    NOT NULL
-                                                                                  REFERENCES CITY                             (PK_CITY_ID),
-                       FK_CITY_ID_DEFAULT               BIGINT                    DEFAULT 1
-                                                                                  REFERENCES CITY                             (PK_CITY_ID),
-                       ACTIVE                           NVARCHAR(1)               NOT NULL,
-                       ADDRESS1                         NVARCHAR(50),
-                       ADDRESS2                         NVARCHAR(50),
-                       ADDRESS3                         NVARCHAR(50),
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       DIRECTIONS                       CLOB,
-                       EMAIL                            NVARCHAR(100),
-                       FAX                              NVARCHAR(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL
+                   CREATE TABLE TEST_TABLE_1 (
+                       COLUMN_1_01                      BIGINT                    NOT NULL
                                                                                   UNIQUE,
-                       PHONE                            NVARCHAR(50),
-                       POSTAL_CODE                      NVARCHAR(50),
-                       URL                              NVARCHAR(250),
-                       VAT_ID_NUMBER                    NVARCHAR(100)
+                       COLUMN_1_02                      BIGINT,
+                       COLUMN_1_03                      BLOB,
+                       COLUMN_1_04                      TIMESTAMP                 NOT NULL,
+                       COLUMN_1_05                      TIMESTAMP,
+                       COLUMN_1_06                      NVARCHAR(100)             NOT NULL
+                                                                                  PRIMARY KEY
                    )
                    """);
 
-    statements.put(TABLE_NAME_COUNTRY,
+    statements.put(TABLE_NAME_TEST_TABLE_2,
                    """
-                   CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    BIGINT                    NOT NULL
+                   CREATE TABLE TEST_TABLE_2 (
+                       COLUMN_2_01                      BIGINT                    NOT NULL,
+                       COLUMN_2_02                      BIGINT                    NOT NULL,
+                       COLUMN_2_03                      NVARCHAR(1)               NOT NULL,
+                       COLUMN_2_04                      NVARCHAR(50),
+                       COLUMN_2_05                      NVARCHAR(50),
+                       COLUMN_2_06                      NVARCHAR(50),
+                       COLUMN_2_07                      TIMESTAMP                 NOT NULL,
+                       COLUMN_2_08                      CLOB,
+                       COLUMN_2_09                      NVARCHAR(100),
+                       COLUMN_2_10                      NVARCHAR(50),
+                       COLUMN_2_11                      TIMESTAMP,
+                       COLUMN_2_12                      NVARCHAR(100)             NOT NULL
+                                                                                  UNIQUE,
+                       COLUMN_2_13                      NVARCHAR(50),
+                       COLUMN_2_14                      NVARCHAR(50),
+                       COLUMN_2_15                      NVARCHAR(250),
+                       COLUMN_2_16                      NVARCHAR(100),
+                       CONSTRAINT CONSTRAINT_22       UNIQUE      (COLUMN_2_13, COLUMN_2_14),
+                       CONSTRAINT CONSTRAINT_23       PRIMARY KEY (COLUMN_2_01, COLUMN_2_02, COLUMN_2_03)
+                   )
+                   """);
+
+    statements.put(TABLE_NAME_TEST_TABLE_3,
+                   """
+                   CREATE TABLE TEST_TABLE_3 (
+                       COLUMN_3_01                      BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COUNTRY_MAP                      BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       ISO3166                          NVARCHAR(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL
+                       COLUMN_3_02                      BLOB,
+                       COLUMN_3_03                      TIMESTAMP                 NOT NULL,
+                       COLUMN_3_04                      NVARCHAR(50),
+                       COLUMN_3_05                      TIMESTAMP,
+                       COLUMN_3_06                      NVARCHAR(100)             NOT NULL
                                                                                   UNIQUE
                    )
                    """);
 
-    statements.put(TABLE_NAME_COUNTRY_STATE,
+    statements.put(TABLE_NAME_TEST_TABLE_4,
                    """
-                   CREATE TABLE COUNTRY_STATE (
-                       PK_COUNTRY_STATE_ID              BIGINT,
-                       FK_COUNTRY_ID                    BIGINT                    NOT NULL
-                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
-                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL
-                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
-                       COUNTRY_STATE_MAP                BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL,
-                       SYMBOL                           NVARCHAR(50),
-                       CONSTRAINT CONSTRAINT_8        UNIQUE      (FK_COUNTRY_ID, NAME)
+                   CREATE TABLE TEST_TABLE_4 (
+                       COLUMN_4_01                      BIGINT                    NOT NULL
+                                                                                  PRIMARY KEY,
+                       COLUMN_4_02                      BIGINT                    NOT NULL,
+                       COLUMN_4_03                      BIGINT                    NOT NULL,
+                       COLUMN_4_04                      BLOB,
+                       COLUMN_4_05                      TIMESTAMP                 NOT NULL,
+                       COLUMN_4_06                      TIMESTAMP,
+                       COLUMN_4_07                      NVARCHAR(100)             NOT NULL
+                                                                                  UNIQUE,
+                       COLUMN_4_08                      NVARCHAR(50),
+                       CONSTRAINT CONSTRAINT_24       UNIQUE      (COLUMN_4_02, COLUMN_4_07)
                    )
                    """);
 
-    statements.put(TABLE_NAME_TIMEZONE,
+    statements.put(TABLE_NAME_TEST_TABLE_5,
                    """
-                   CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   BIGINT                    NOT NULL
+                   CREATE TABLE TEST_TABLE_5 (
+                       COLUMN_5_01                      BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       ABBREVIATION                     NVARCHAR(50)              NOT NULL,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL
+                       COLUMN_5_02                      NVARCHAR(50)              NOT NULL
                                                                                   UNIQUE,
-                       V_TIME_ZONE                      NVARCHAR(4000)
+                       COLUMN_5_03                      TIMESTAMP                 NOT NULL,
+                       COLUMN_5_04                      TIMESTAMP,
+                       COLUMN_5_05                      NVARCHAR(100)             NOT NULL
+                                                                                  UNIQUE,
+                       COLUMN_5_06                      NVARCHAR(4000)
+                   )
+                   """);
+
+    statements.put(TABLE_NAME_TEST_TABLE_6,
+                   """
+                   CREATE TABLE TEST_TABLE_6 (
+                       COLUMN_6_01                      BIGINT                    DEFAULT 4711,
+                       COLUMN_6_02                      BIGINT                    DEFAULT 5,
+                       COLUMN_6_03                      NVARCHAR(10)              DEFAULT 'default',
+                       COLUMN_6_04                      NVARCHAR(5)               DEFAULT 'x'
                    )
                    """);
 

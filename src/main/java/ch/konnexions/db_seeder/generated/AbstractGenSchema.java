@@ -17,13 +17,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
-  protected static final String TABLE_NAME_CITY          = "CITY";
-  protected static final String TABLE_NAME_COMPANY       = "COMPANY";
-  protected static final String TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected static final String TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected static final String TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  protected static final String TABLE_NAME_TEST_TABLE_1 = "TEST_TABLE_1";
+  protected static final String TABLE_NAME_TEST_TABLE_2 = "TEST_TABLE_2";
+  protected static final String TABLE_NAME_TEST_TABLE_3 = "TEST_TABLE_3";
+  protected static final String TABLE_NAME_TEST_TABLE_4 = "TEST_TABLE_4";
+  protected static final String TABLE_NAME_TEST_TABLE_5 = "TEST_TABLE_5";
+  protected static final String TABLE_NAME_TEST_TABLE_6 = "TEST_TABLE_6";
 
-  private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);
+  private static final Logger   logger                  = Logger.getLogger(AbstractGenSchema.class);
 
   /**
    * Initialises a new abstract generated schema object.
@@ -72,104 +73,224 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     Properties columnName = new Properties();
 
     // Encoding ASCII
-    columnName.setProperty("ABBREVIATION_0",
+    columnName.setProperty("COLUMN_1_06_0",
                            "");
-    columnName.setProperty("ACTIVE_0",
+    columnName.setProperty("COLUMN_2_03_0",
                            "");
-    columnName.setProperty("ADDRESS1_0",
+    columnName.setProperty("COLUMN_2_04_0",
                            "");
-    columnName.setProperty("ADDRESS2_0",
+    columnName.setProperty("COLUMN_2_05_0",
                            "");
-    columnName.setProperty("ADDRESS3_0",
+    columnName.setProperty("COLUMN_2_06_0",
                            "");
-    columnName.setProperty("EMAIL_0",
+    columnName.setProperty("COLUMN_2_09_0",
                            "");
-    columnName.setProperty("FAX_0",
+    columnName.setProperty("COLUMN_2_10_0",
                            "");
-    columnName.setProperty("ISO3166_0",
+    columnName.setProperty("COLUMN_2_12_0",
                            "");
-    columnName.setProperty("NAME_0",
+    columnName.setProperty("COLUMN_2_13_0",
                            "");
-    columnName.setProperty("PHONE_0",
+    columnName.setProperty("COLUMN_2_14_0",
                            "");
-    columnName.setProperty("POSTAL_CODE_0",
+    columnName.setProperty("COLUMN_2_15_0",
                            "");
-    columnName.setProperty("SYMBOL_0",
+    columnName.setProperty("COLUMN_2_16_0",
                            "");
-    columnName.setProperty("URL_0",
+    columnName.setProperty("COLUMN_3_04_0",
                            "");
-    columnName.setProperty("VAT_ID_NUMBER_0",
+    columnName.setProperty("COLUMN_3_06_0",
                            "");
-    columnName.setProperty("V_TIME_ZONE_0",
+    columnName.setProperty("COLUMN_4_07_0",
+                           "");
+    columnName.setProperty("COLUMN_4_08_0",
+                           "");
+    columnName.setProperty("COLUMN_5_02_0",
+                           "");
+    columnName.setProperty("COLUMN_5_05_0",
+                           "");
+    columnName.setProperty("COLUMN_5_06_0",
+                           "");
+    columnName.setProperty("COLUMN_6_03_0",
+                           "");
+    columnName.setProperty("COLUMN_6_04_0",
                            "");
 
     // Encoding ISO_8859_1
     boolean isIso_8859_1 = config.getEncodingIso_8859_1();
 
-    columnName.setProperty("ABBREVIATION_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ACTIVE_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS1_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS2_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS3_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("EMAIL_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("FAX_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ISO3166_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("NAME_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("PHONE_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("POSTAL_CODE_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("SYMBOL_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("URL_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("VAT_ID_NUMBER_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
-    columnName.setProperty("V_TIME_ZONE_1",
-                           isIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_1_06_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_03_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_04_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_05_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_06_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_09_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_10_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_12_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_13_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_14_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_15_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_2_16_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_3_04_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_3_06_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_4_07_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_4_08_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_5_02_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_5_05_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_5_06_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_6_03_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
+    columnName.setProperty("COLUMN_6_04_1",
+                           isIso_8859_1
+                               ? "ÁÇÉÍÑÓ_"
+                               : "NO_ISO_8859_1_");
 
     // Encoding UTF_8
     boolean isUtf_8 = config.getEncodingUtf_8();
 
-    columnName.setProperty("ABBREVIATION_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("ACTIVE_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS1_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS2_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS3_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("EMAIL_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("FAX_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("ISO3166_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("NAME_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("PHONE_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("POSTAL_CODE_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("SYMBOL_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("URL_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("VAT_ID_NUMBER_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
-    columnName.setProperty("V_TIME_ZONE_2",
-                           isUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_1_06_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_03_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_04_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_05_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_06_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_09_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_10_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_12_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_13_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_14_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_15_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_2_16_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_3_04_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_3_06_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_4_07_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_4_08_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_5_02_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_5_05_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_5_06_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_6_03_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
+    columnName.setProperty("COLUMN_6_04_2",
+                           isUtf_8
+                               ? "缩略语地址电子邮件传真_"
+                               : "NO_UTF_8_");
 
     if (isDebug) {
       logger.debug("End");
@@ -189,45 +310,51 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
     dmlStatements      = new HashMap<>() {
                          {
-                           put(TABLE_NAME_CITY,
-                               "PK_CITY_ID,FK_COUNTRY_STATE_ID,CITY_MAP,CREATED,MODIFIED,NAME) VALUES (?,?,?,?,?,?");
-                           put(TABLE_NAME_COMPANY,
-                               "PK_COMPANY_ID,FK_CITY_ID,FK_CITY_ID_DEFAULT,ACTIVE,ADDRESS1,ADDRESS2,ADDRESS3,CREATED,DIRECTIONS,EMAIL,FAX,MODIFIED,NAME,PHONE,POSTAL_CODE,URL,VAT_ID_NUMBER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?");
-                           put(TABLE_NAME_COUNTRY,
-                               "PK_COUNTRY_ID,COUNTRY_MAP,CREATED,ISO3166,MODIFIED,NAME) VALUES (?,?,?,?,?,?");
-                           put(TABLE_NAME_COUNTRY_STATE,
-                               "PK_COUNTRY_STATE_ID,FK_COUNTRY_ID,FK_TIMEZONE_ID,COUNTRY_STATE_MAP,CREATED,MODIFIED,NAME,SYMBOL) VALUES (?,?,?,?,?,?,?,?");
-                           put(TABLE_NAME_TIMEZONE,
-                               "PK_TIMEZONE_ID,ABBREVIATION,CREATED,MODIFIED,NAME,V_TIME_ZONE) VALUES (?,?,?,?,?,?");
+                           put(TABLE_NAME_TEST_TABLE_1,
+                               "COLUMN_1_01,COLUMN_1_02,COLUMN_1_03,COLUMN_1_04,COLUMN_1_05,COLUMN_1_06) VALUES (?,?,?,?,?,?");
+                           put(TABLE_NAME_TEST_TABLE_2,
+                               "COLUMN_2_01,COLUMN_2_02,COLUMN_2_03,COLUMN_2_04,COLUMN_2_05,COLUMN_2_06,COLUMN_2_07,COLUMN_2_08,COLUMN_2_09,COLUMN_2_10,COLUMN_2_11,COLUMN_2_12,COLUMN_2_13,COLUMN_2_14,COLUMN_2_15,COLUMN_2_16) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?");
+                           put(TABLE_NAME_TEST_TABLE_3,
+                               "COLUMN_3_01,COLUMN_3_02,COLUMN_3_03,COLUMN_3_04,COLUMN_3_05,COLUMN_3_06) VALUES (?,?,?,?,?,?");
+                           put(TABLE_NAME_TEST_TABLE_4,
+                               "COLUMN_4_01,COLUMN_4_02,COLUMN_4_03,COLUMN_4_04,COLUMN_4_05,COLUMN_4_06,COLUMN_4_07,COLUMN_4_08) VALUES (?,?,?,?,?,?,?,?");
+                           put(TABLE_NAME_TEST_TABLE_5,
+                               "COLUMN_5_01,COLUMN_5_02,COLUMN_5_03,COLUMN_5_04,COLUMN_5_05,COLUMN_5_06) VALUES (?,?,?,?,?,?");
+                           put(TABLE_NAME_TEST_TABLE_6,
+                               "COLUMN_6_01,COLUMN_6_02,COLUMN_6_03,COLUMN_6_04) VALUES (?,?,?,?");
                          }
                        };
 
     maxRowSizes        = new HashMap<>() {
                          {
-                           put(TABLE_NAME_CITY,
+                           put(TABLE_NAME_TEST_TABLE_1,
                                1800);
-                           put(TABLE_NAME_COMPANY,
+                           put(TABLE_NAME_TEST_TABLE_2,
                                5400);
-                           put(TABLE_NAME_COUNTRY,
+                           put(TABLE_NAME_TEST_TABLE_3,
                                200);
-                           put(TABLE_NAME_COUNTRY_STATE,
+                           put(TABLE_NAME_TEST_TABLE_4,
                                600);
-                           put(TABLE_NAME_TIMEZONE,
+                           put(TABLE_NAME_TEST_TABLE_5,
                                11);
+                           put(TABLE_NAME_TEST_TABLE_6,
+                               1000);
                          }
                        };
 
-    TABLE_NAMES_CREATE = Arrays.asList(TABLE_NAME_COUNTRY,
-                                       TABLE_NAME_TIMEZONE,
-                                       TABLE_NAME_COUNTRY_STATE,
-                                       TABLE_NAME_CITY,
-                                       TABLE_NAME_COMPANY);
+    TABLE_NAMES_CREATE = Arrays.asList(TABLE_NAME_TEST_TABLE_1,
+                                       TABLE_NAME_TEST_TABLE_2,
+                                       TABLE_NAME_TEST_TABLE_3,
+                                       TABLE_NAME_TEST_TABLE_4,
+                                       TABLE_NAME_TEST_TABLE_5,
+                                       TABLE_NAME_TEST_TABLE_6);
 
-    TABLE_NAMES_DROP   = Arrays.asList(TABLE_NAME_COMPANY,
-                                       TABLE_NAME_CITY,
-                                       TABLE_NAME_COUNTRY_STATE,
-                                       TABLE_NAME_TIMEZONE,
-                                       TABLE_NAME_COUNTRY);
+    TABLE_NAMES_DROP   = Arrays.asList(TABLE_NAME_TEST_TABLE_6,
+                                       TABLE_NAME_TEST_TABLE_5,
+                                       TABLE_NAME_TEST_TABLE_4,
+                                       TABLE_NAME_TEST_TABLE_3,
+                                       TABLE_NAME_TEST_TABLE_2,
+                                       TABLE_NAME_TEST_TABLE_1);
 
     if (isDebug) {
       logger.debug("End");
