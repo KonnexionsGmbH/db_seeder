@@ -5,63 +5,29 @@
   {
     "tableName": "test_table_1", "numberOfRows": 1800, "columns": [
     {
-      "columnName": "column_1_01", "dataType": "bigint", "columnConstraints": [
-      {
-        "constraintType": "unique"
-      }, {
-        "constraintType": "not null"
-      }
-    ]
+      "columnName": "column_1_01", "dataType": "bigint", "notNull": true, "unique": true
     }, {
-      "columnName": "column_1_02", "dataType": "bigint", "columnConstraints": [
-        {
-          "constraintType": "foreign", "referenceTable": "test_table_4", "referenceColumn": "column_4_01"
-        }
-      ]
+      "columnName": "column_1_02", "dataType": "bigint", "referenceTable": "test_table_4", "referenceColumn": "column_4_01"
     }, {
       "columnName": "column_1_03", "dataType": "blob"
     }, {
-      "columnName": "column_1_04", "dataType": "timestamp", "columnConstraints": [
-        {
-          "constraintType": "not null"
-        }
-      ]
+      "columnName": "column_1_04", "dataType": "timestamp", "notNull": true
     }, {
       "columnName": "column_1_05", "dataType": "timestamp"
     }, {
-      "columnName": "column_1_06", "dataType": "varchar", "size": 100, "columnConstraints": [
-        {
-          "constraintType": "primary"
-        }, {
-          "constraintType": "not null"
-        }
-      ]
+      "columnName": "column_1_06", "dataType": "varchar", "size": 100, "primaryKey": true
     }
   ]
   }, {
     "tableName"          : "test_table_2", "numberOfRows": 5400, "columns": [
       {
-        "columnName": "column_2_01", "dataType": "bigint", "columnConstraints": [
-        {
-          "constraintType": "not null"
-        }
-      ]
+        "columnName": "column_2_01", "dataType": "bigint", "notNull": true
       }, {
-        "columnName": "column_2_02", "dataType": "bigint", "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }, {
-            "constraintType": "foreign", "referenceTable": "test_table_1", "referenceColumn": "column_1_01"
-          }
-        ]
+        "columnName": "column_2_02", "dataType": "bigint", "notNull": true, "referenceTable": "test_table_1", "referenceColumn": "column_1_01"
       }, {
-        "columnName"          : "column_2_03", "dataType": "varchar", "size": 1, "validValuesText": [
+        "columnName": "column_2_03", "dataType": "varchar", "size": 1, "validValuesText": [
           "N", "Y"
-        ], "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }
-        ]
+        ], "notNull": true
       }, {
         "columnName": "column_2_04", "dataType": "varchar", "size": 50
       }, {
@@ -69,11 +35,7 @@
       }, {
         "columnName": "column_2_06", "dataType": "varchar", "size": 50
       }, {
-        "columnName": "column_2_07", "dataType": "timestamp", "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_2_07", "dataType": "timestamp", "notNull": true
       }, {
         "columnName": "column_2_08", "dataType": "clob"
       }, {
@@ -83,13 +45,7 @@
       }, {
         "columnName": "column_2_11", "dataType": "timestamp"
       }, {
-        "columnName": "column_2_12", "dataType": "varchar", "size": 100, "columnConstraints": [
-          {
-            "constraintType": "unique"
-          }, {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_2_12", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
       }, {
         "columnName": "column_2_13", "dataType": "varchar", "size": 50
       }, {
@@ -113,79 +69,35 @@
   }, {
     "tableName": "test_table_3", "numberOfRows": 200, "columns": [
       {
-        "columnName": "column_3_01", "dataType": "bigint", "columnConstraints": [
-        {
-          "constraintType": "primary"
-        }, {
-          "constraintType": "not null"
-        }
-      ]
+        "columnName": "column_3_01", "dataType": "bigint", "primaryKey": true
       }, {
         "columnName": "column_3_02", "dataType": "blob"
       }, {
-        "columnName": "column_3_03", "dataType": "timestamp", "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_3_03", "dataType": "timestamp", "notNull": true
       }, {
         "columnName": "column_3_04", "dataType": "varchar", "size": 50
       }, {
         "columnName": "column_3_05", "dataType": "timestamp"
       }, {
-        "columnName": "column_3_06", "dataType": "varchar", "size": 100, "columnConstraints": [
-          {
-            "constraintType": "unique"
-          }, {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_3_06", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
       }
     ]
   }, {
     "tableName"          : "test_table_4", "numberOfRows": 600, "columns": [
       {
-        "columnName": "column_4_01", "dataType": "bigint", "columnConstraints": [
-        {
-          "constraintType": "primary"
-        }, {
-          "constraintType": "not null"
-        }
-      ]
+        "columnName": "column_4_01", "dataType": "bigint", "primaryKey": true
       }, {
-        "columnName": "column_4_02", "dataType": "bigint", "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }, {
-            "constraintType": "foreign", "referenceTable": "test_table_3", "referenceColumn": "column_3_01"
-          }
-        ]
+        "columnName": "column_4_02", "dataType": "bigint", "notNull": true, "referenceTable": "test_table_3", "referenceColumn": "column_3_01"
       }, {
-        "columnName": "column_4_03", "dataType": "bigint", "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }, {
-            "constraintType": "foreign", "referenceTable": "test_table_5", "referenceColumn": "column_5_01"
-          }
-        ]
+        "columnName": "column_4_03", "dataType": "bigint", "notNull": true, "referenceTable": "test_table_5", "referenceColumn": "column_5_01"
       }, {
         "columnName": "column_4_04", "dataType": "blob"
       }, {
-        "columnName": "column_4_05", "dataType": "timestamp", "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_4_05", "dataType": "timestamp", "notNull": true
       }, {
         "columnName": "column_4_06", "dataType": "timestamp"
       }, {
-        "columnName": "column_4_07", "dataType": "varchar", "size": 100, "columnConstraints": [
-          {
-            "constraintType": "unique"
-          }, {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_4_07", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
       }, {
         "columnName": "column_4_08", "dataType": "varchar", "size": 50
       }
@@ -199,37 +111,15 @@
   }, {
     "tableName": "test_table_5", "numberOfRows": 11, "columns": [
       {
-        "columnName": "column_5_01", "dataType": "bigint", "columnConstraints": [
-        {
-          "constraintType": "primary"
-        }, {
-          "constraintType": "not null"
-        }
-      ]
+        "columnName": "column_5_01", "dataType": "bigint", "primaryKey": true
       }, {
-        "columnName": "column_5_02", "dataType": "varchar", "size": 50, "columnConstraints": [
-          {
-            "constraintType": "unique"
-          }, {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_5_02", "dataType": "varchar", "size": 50, "notNull": true, "unique": true
       }, {
-        "columnName": "column_5_03", "dataType": "timestamp", "columnConstraints": [
-          {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_5_03", "dataType": "timestamp", "notNull": true
       }, {
         "columnName": "column_5_04", "dataType": "timestamp"
       }, {
-        "columnName": "column_5_05", "dataType": "varchar", "size": 100, "columnConstraints": [
-          {
-            "constraintType": "unique"
-          }, {
-            "constraintType": "not null"
-          }
-        ]
+        "columnName": "column_5_05", "dataType": "varchar", "size": 100, "notNull": true, "unique": true
       }, {
         "columnName": "column_5_06", "dataType": "varchar", "size": 4000
       }

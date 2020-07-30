@@ -27,8 +27,8 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE CITY (
-                       PK_CITY_ID                       BIGINT                             PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              BIGINT                             FOREIGN KEY REFERENCES COUNTRY_STATE                     (PK_COUNTRY_STATE_ID),
+                       PK_CITY_ID                       BIGINT                    PRIMARY KEY,
+                       FK_COUNTRY_STATE_ID              BIGINT                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
                        CITY_MAP                         BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
@@ -39,8 +39,11 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COMPANY,
                    """
                    CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    BIGINT                             PRIMARY KEY,
-                       FK_CITY_ID                       BIGINT                    NOT NULL FOREIGN KEY REFERENCES CITY                              (PK_CITY_ID),
+                       PK_COMPANY_ID                    BIGINT                    PRIMARY KEY,
+                       FK_CITY_ID                       BIGINT                    NOT NULL
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
+                       FK_CITY_ID_DEFAULT               BIGINT                    DEFAULT 1
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
                        ACTIVE                           VARCHAR(1)                NOT NULL,
                        ADDRESS1                         VARCHAR(50),
                        ADDRESS2                         VARCHAR(50),
@@ -50,7 +53,8 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        EMAIL                            VARCHAR(100),
                        FAX                              VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL UNIQUE,
+                       NAME                             VARCHAR(100)              NOT NULL
+                                                                                  UNIQUE,
                        PHONE                            VARCHAR(50),
                        POSTAL_CODE                      VARCHAR(50),
                        URL                              VARCHAR(250),
@@ -61,21 +65,24 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    BIGINT                             PRIMARY KEY,
+                       PK_COUNTRY_ID                    BIGINT                    PRIMARY KEY,
                        COUNTRY_MAP                      BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL UNIQUE
+                       NAME                             VARCHAR(100)              NOT NULL
+                                                                                  UNIQUE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
                    CREATE TABLE COUNTRY_STATE (
-                       PK_COUNTRY_STATE_ID              BIGINT                             PRIMARY KEY,
-                       FK_COUNTRY_ID                    BIGINT                    NOT NULL FOREIGN KEY REFERENCES COUNTRY                           (PK_COUNTRY_ID),
-                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL FOREIGN KEY REFERENCES TIMEZONE                          (PK_TIMEZONE_ID),
+                       PK_COUNTRY_STATE_ID              BIGINT,
+                       FK_COUNTRY_ID                    BIGINT                    NOT NULL
+                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
+                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL
+                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
                        COUNTRY_STATE_MAP                BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
@@ -88,11 +95,12 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   BIGINT                             PRIMARY KEY,
+                       PK_TIMEZONE_ID                   BIGINT                    PRIMARY KEY,
                        ABBREVIATION                     VARCHAR(50)               NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL UNIQUE,
+                       NAME                             VARCHAR(100)              NOT NULL
+                                                                                  UNIQUE,
                        V_TIME_ZONE                      VARCHAR(4000)
                    )
                    """);

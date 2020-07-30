@@ -27,8 +27,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE CITY (
-                       PK_CITY_ID                       INTEGER                            PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              INTEGER                            REFERENCES COUNTRY_STATE                     (PK_COUNTRY_STATE_ID),
+                       PK_CITY_ID                       INTEGER                   PRIMARY KEY,
+                       FK_COUNTRY_STATE_ID              INTEGER                   REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
                        CITY_MAP                         BLOB,
                        CREATED                          DATETIME                  NOT NULL,
                        MODIFIED                         DATETIME,
@@ -39,8 +39,11 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COMPANY,
                    """
                    CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    INTEGER                            PRIMARY KEY,
-                       FK_CITY_ID                       INTEGER                   NOT NULL REFERENCES CITY                              (PK_CITY_ID),
+                       PK_COMPANY_ID                    INTEGER                   PRIMARY KEY,
+                       FK_CITY_ID                       INTEGER                   NOT NULL
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
+                       FK_CITY_ID_DEFAULT               INTEGER                   DEFAULT 1
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
                        ACTIVE                           VARCHAR2(1)               NOT NULL,
                        ADDRESS1                         VARCHAR2(50),
                        ADDRESS2                         VARCHAR2(50),
@@ -50,7 +53,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        EMAIL                            VARCHAR2(100),
                        FAX                              VARCHAR2(50),
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR2(100)             NOT NULL UNIQUE,
+                       NAME                             VARCHAR2(100)             NOT NULL
+                                                                                  UNIQUE,
                        PHONE                            VARCHAR2(50),
                        POSTAL_CODE                      VARCHAR2(50),
                        URL                              VARCHAR2(250),
@@ -61,21 +65,24 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    INTEGER                            PRIMARY KEY,
+                       PK_COUNTRY_ID                    INTEGER                   PRIMARY KEY,
                        COUNTRY_MAP                      BLOB,
                        CREATED                          DATETIME                  NOT NULL,
                        ISO3166                          VARCHAR2(50),
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR2(100)             NOT NULL UNIQUE
+                       NAME                             VARCHAR2(100)             NOT NULL
+                                                                                  UNIQUE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
                    CREATE TABLE COUNTRY_STATE (
-                       PK_COUNTRY_STATE_ID              INTEGER                            PRIMARY KEY,
-                       FK_COUNTRY_ID                    INTEGER                   NOT NULL REFERENCES COUNTRY                           (PK_COUNTRY_ID),
-                       FK_TIMEZONE_ID                   INTEGER                   NOT NULL REFERENCES TIMEZONE                          (PK_TIMEZONE_ID),
+                       PK_COUNTRY_STATE_ID              INTEGER,
+                       FK_COUNTRY_ID                    INTEGER                   NOT NULL
+                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
+                       FK_TIMEZONE_ID                   INTEGER                   NOT NULL
+                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
                        COUNTRY_STATE_MAP                BLOB,
                        CREATED                          DATETIME                  NOT NULL,
                        MODIFIED                         DATETIME,
@@ -88,11 +95,12 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   INTEGER                            PRIMARY KEY,
+                       PK_TIMEZONE_ID                   INTEGER                   PRIMARY KEY,
                        ABBREVIATION                     VARCHAR2(50)              NOT NULL,
                        CREATED                          DATETIME                  NOT NULL,
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR2(100)             NOT NULL UNIQUE,
+                       NAME                             VARCHAR2(100)             NOT NULL
+                                                                                  UNIQUE,
                        V_TIME_ZONE                      VARCHAR2(4000)
                    )
                    """);

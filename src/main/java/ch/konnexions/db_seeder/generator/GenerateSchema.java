@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
@@ -38,7 +37,6 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import ch.konnexions.db_seeder.schema.SchemaPojo;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column.ColumnConstraint;
 import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
@@ -65,7 +63,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
 
   private final boolean                                     isDebug                   = logger.isDebugEnabled();
-  private boolean                                           isNotNull;
 
   private final String                                      printDate;
 
@@ -83,78 +80,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(printDatePattern);
 
     printDate = simpleDateFormat.format(new Date());
-  }
-
-  private ArrayList<String> editColumnConstraints(String tickerSymbolLower, String identifierDelimiter, String tableName, Column column) {
-    isNotNull = false;
-
-    ArrayList<ColumnConstraint> columnConstraints   = column.getColumnConstraints();
-
-    Integer                     defaultValueInteger = column.getDefaultValueInteger();
-    String                      defaultValueString  = column.getDefaultValueText();
-
-    ArrayList<String>           editedConstraints   = new ArrayList<>();
-
-    if (columnConstraints == null && defaultValueInteger == null && defaultValueString == null) {
-      return editedConstraints;
-    }
-
-    if (defaultValueInteger != null) {
-      editedConstraints.add("DEFAULT " + defaultValueInteger.toString());
-    }
-
-    if (defaultValueString != null) {
-      editedConstraints.add("DEFAULT '" + defaultValueString + "'");
-    }
-
-    if (columnConstraints != null) {
-      String constraintType;
-
-      for (ColumnConstraint columnConstraint : columnConstraints) {
-        constraintType = columnConstraint.getConstraintType().toUpperCase();
-
-        if ("NOT NULL".equals(constraintType)) {
-          isNotNull = true;
-          continue;
-        }
-
-        if ("cratedb".equals(tickerSymbolLower)) {
-          continue;
-        }
-
-        switch (constraintType) {
-        case "FOREIGN" -> editedConstraints.add(("derby".equals(tickerSymbolLower)
-            || "firebird".equals(tickerSymbolLower)
-            || "h2".equals(tickerSymbolLower)
-            || "ibmdb2".equals(tickerSymbolLower)
-            || "informix".equals(tickerSymbolLower)
-            || "mariadb".equals(tickerSymbolLower)
-            || "mimer".equals(tickerSymbolLower)
-            || "mysql".equals(tickerSymbolLower)
-            || "oracle".equals(tickerSymbolLower)
-            || "postgresql".equals(tickerSymbolLower)
-            || "sqlite".equals(tickerSymbolLower)
-                ? ""
-                : "FOREIGN KEY ") + "REFERENCES " + String.format("%-33s",
-                                                                  identifierDelimiter + columnConstraint.getReferenceTable().toUpperCase()
-                                                                      + identifierDelimiter) + " (" + identifierDelimiter + columnConstraint
-                                                                          .getReferenceColumn().toUpperCase() + identifierDelimiter + ")");
-        case "PRIMARY" -> {
-          if ("ibmdb2".equals(tickerSymbolLower)) {
-            isNotNull = true;
-          }
-          editedConstraints.add("PRIMARY KEY");
-        }
-        case "UNIQUE" -> editedConstraints.add("UNIQUE");
-        default -> MessageHandling.abortProgram(logger,
-                                                "Database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
-        }
-      }
-    }
-
-    Collections.sort(editedConstraints);
-
-    return editedConstraints;
   }
 
   private String editDataType(String tickerSymbolLower, Column column) {
@@ -513,17 +438,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         }
 
         for (Column column : columns) {
-          editedColumnName        = column.getColumnName().toUpperCase();
+          editedColumnName = column.getColumnName().toUpperCase();
 
-          editedColumnConstraints = editColumnConstraints(tickerSymbolLower,
-                                                          identifierDelimiter,
-                                                          tableName,
-                                                          column);
+          editedDataType   = editDataType(tickerSymbolLower,
+                                          column);
 
-          editedDataType          = editDataType(tickerSymbolLower,
-                                                 column);
+          // Column start ......................................................
 
-          ArrayList<ColumnConstraint> columnConstraints = column.getColumnConstraints();
+          boolean isNewLineRequired = false;
 
           workArea = new StringBuffer(" ".repeat(23));
           workArea.append(String.format("%-33s",
@@ -531,36 +453,85 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           workArea.append(String.format("%-26s",
                                         editedDataType));
 
-          if (isNotNull) {
-            workArea.append("NOT NULL ");
-          } else {
-            workArea.append(" ".repeat(9));
-          }
+          // DEFAULT ...........................................................
 
-          if (editedColumnConstraints.size() > 0) {
-            workArea.append(editedColumnConstraints.get(0));
-          }
+          if (column.getDefaultValueInteger() != null || column.getDefaultValueText() != null) {
+            workArea.append("DEFAULT ");
 
-          if (editedTableConstraints.size() > 0 || editedColumnConstraints.size() > 1 || !columnNameLast.equals(editedColumnName)) {
-            bw.append(StringUtils.stripEnd(workArea.toString(),
-                                           null)).append(",");
-          } else {
-            bw.append(workArea.toString());
-          }
-
-          bw.newLine();
-
-          if (editedColumnConstraints.size() > 1) {
-            for (int i = 1; i < editedColumnConstraints.size(); i++) {
-              bw.append(" ".repeat(91)).append(editedColumnConstraints.get(i));
-
-              if (editedTableConstraints.size() > 0 || i < editedColumnConstraints.size() - 1 || !columnNameLast.equals(editedColumnName)) {
-                bw.append(",");
-              }
-
-              bw.newLine();
+            if (column.getDefaultValueInteger() != null) {
+              workArea.append(column.getDefaultValueInteger());
+            } else {
+              workArea.append("'").append(column.getDefaultValueText()).append("'");
             }
+
+            isNewLineRequired = true;
           }
+
+          // NOT NULL ..........................................................
+
+          if (column.isNotNull()) {
+            if (isNewLineRequired) {
+              bw.append(workArea.toString());
+              bw.newLine();
+              workArea = new StringBuffer(" ".repeat(82));
+            }
+
+            workArea.append("NOT NULL");
+
+            isNewLineRequired = true;
+          }
+
+          // PRIMARY KEY .......................................................
+
+          if (column.isPrimaryKey()) {
+            if (isNewLineRequired) {
+              bw.append(workArea.toString());
+              bw.newLine();
+              workArea = new StringBuffer(" ".repeat(82));
+            }
+
+            workArea.append("PRIMARY KEY");
+
+            isNewLineRequired = true;
+          }
+
+          // REFERENCES .......................................................
+
+          if (column.getReferenceTable() != null) {
+            if (isNewLineRequired) {
+              bw.append(workArea.toString());
+              bw.newLine();
+              workArea = new StringBuffer(" ".repeat(82));
+            }
+
+            workArea.append("REFERENCES ");
+            workArea.append(String.format("%-33s",
+                                          identifierDelimiter + column.getReferenceTable().toUpperCase() + identifierDelimiter));
+            workArea.append("(");
+            workArea.append(column.getReferenceColumn().toUpperCase());
+            workArea.append(")");
+
+            isNewLineRequired = true;
+          }
+
+          // UNIQUE ............................................................
+
+          if (column.isUnique()) {
+            if (isNewLineRequired) {
+              bw.append(workArea.toString());
+              bw.newLine();
+              workArea = new StringBuffer(" ".repeat(82));
+            }
+
+            workArea.append("UNIQUE");
+          }
+
+          // Column end ........................................................
+
+          bw.append(workArea.toString().stripTrailing() + ((!(columnNameLast.equals(editedColumnName) && editedTableConstraints.size() == 0))
+              ? ","
+              : ""));
+          bw.newLine();
         }
 
         for (String string : editedTableConstraints) {
@@ -613,7 +584,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("  }");
       bw.newLine();
 
-      if ("derby".equals(tickerSymbolLower) || "hsqldb".equals(tickerSymbolLower) || "h2".equals(tickerSymbolLower)) {
+      if ("derby".equals(tickerSymbolLower) || "hsqldb".equals(tickerSymbolLower) || "h2".equals(tickerSymbolLower))
+
+      {
         bw.newLine();
         bw.append("  /**");
         bw.newLine();
@@ -1394,25 +1367,15 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         ArrayList<Column> columns = genTablesColumns.get(tableName);
 
         for (Column column : columns) {
-          String                      columnName        = column.getColumnName().toUpperCase();
-          String                      dataType          = column.getDataType().toUpperCase();
-
-          ArrayList<ColumnConstraint> columnConstraints = column.getColumnConstraints();
-
-          String                      referenceTable    = getColumnConstraintForeign(columnConstraints);
-          boolean                     isNotNull         = getColumnConstraintNotNull(columnConstraints);
-          boolean                     isPrimaryKey      = getColumnConstraintPrimary(columnConstraints);
-
-          if (isPrimaryKey) {
-            isNotNull = true;
-          }
+          String columnName = column.getColumnName().toUpperCase();
+          String dataType   = column.getDataType().toUpperCase();
 
           switch (dataType) {
           case "BIGINT":
-            if ("".equals(referenceTable)) {
-              bw.append("    prepStmntColBigint").append(isNotNull
-                  ? ""
-                  : "Opt").append("(preparedStatement,");
+            if (column.getReferenceTable() == null) {
+              bw.append("    prepStmntColBigint").append(column.isNotNull()
+                  ? "Opt"
+                  : "").append("(preparedStatement,");
               bw.newLine();
               bw.append("                              \"").append(tableName).append("\",");
               bw.newLine();
@@ -1422,9 +1385,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                              rowNo,");
             } else {
-              bw.append("    prepStmntColFk").append(isNotNull
-                  ? ""
-                  : "Opt").append("(preparedStatement,");
+              bw.append("    prepStmntColFk").append(column.isNotNull()
+                  ? "Opt"
+                  : "").append("(preparedStatement,");
               bw.newLine();
               bw.append("                            \"").append(tableName).append("\",");
               bw.newLine();
@@ -1434,7 +1397,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                            rowNo,");
               bw.newLine();
-              bw.append("                            pkLists.get(TABLE_NAME_").append(referenceTable).append("));");
+              bw.append("                            pkLists.get(TABLE_NAME_").append(column.getReferenceTable().toUpperCase()).append("));");
               bw.newLine();
               break;
             }
@@ -1474,9 +1437,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "BLOB":
-            bw.append("    prepStmntColBlob").append(isNotNull
-                ? ""
-                : "Opt").append("(preparedStatement,");
+            bw.append("    prepStmntColBlob").append(column.isNotNull()
+                ? "Opt"
+                : "").append("(preparedStatement,");
             bw.newLine();
             bw.append("                              \"").append(tableName).append("\",");
             bw.newLine();
@@ -1489,9 +1452,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "CLOB":
-            bw.append("      prepStmntColClob").append(isNotNull
-                ? ""
-                : "Opt").append("(preparedStatement,");
+            bw.append("      prepStmntColClob").append(column.isNotNull()
+                ? "Opt"
+                : "").append("(preparedStatement,");
             bw.newLine();
             bw.append("                                \"").append(tableName).append("\",");
             bw.newLine();
@@ -1504,9 +1467,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             break;
           case "TIMESTAMP":
-            bw.append("    prepStmntColTimestamp").append(isNotNull
-                ? ""
-                : "Opt").append("(preparedStatement,");
+            bw.append("    prepStmntColTimestamp").append(column.isNotNull()
+                ? "Opt"
+                : "").append("(preparedStatement,");
             bw.newLine();
             bw.append("                               \"").append(tableName).append("\",");
             bw.newLine();
@@ -1518,9 +1481,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.newLine();
             break;
           case "VARCHAR":
-            bw.append("    prepStmntColVarchar").append(isNotNull
-                ? ""
-                : "Opt").append("(preparedStatement,");
+            bw.append("    prepStmntColVarchar").append(column.isNotNull()
+                ? "Opt"
+                : "").append("(preparedStatement,");
             bw.newLine();
             bw.append("                             \"").append(tableName).append("\",");
             bw.newLine();
@@ -1638,42 +1601,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     if (isDebug) {
       logger.debug("End");
     }
-  }
-
-  private String getColumnConstraintForeign(ArrayList<ColumnConstraint> columnConstraints) {
-    if (columnConstraints != null) {
-      for (ColumnConstraint columnConstraint : columnConstraints) {
-        if ("FOREIGN".equals(columnConstraint.getConstraintType().toUpperCase())) {
-          return columnConstraint.getReferenceTable().toUpperCase();
-        }
-      }
-    }
-
-    return "";
-  }
-
-  private boolean getColumnConstraintNotNull(ArrayList<ColumnConstraint> columnConstraints) {
-    if (columnConstraints != null) {
-      for (ColumnConstraint columnConstraint : columnConstraints) {
-        if ("NOT NULL".equals(columnConstraint.getConstraintType().toUpperCase())) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  private boolean getColumnConstraintPrimary(ArrayList<ColumnConstraint> columnConstraints) {
-    if (columnConstraints != null) {
-      for (ColumnConstraint columnConstraint : columnConstraints) {
-        if ("PRIMARY".equals(columnConstraint.getConstraintType().toUpperCase())) {
-          return true;
-        }
-      }
-    }
-
-    return false;
   }
 
   private String getTableNamePascalCase(String tableName) {
@@ -1895,7 +1822,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           validateSchemaTableConstraints();
 
-          validateSchemaColumnConstraints();
+          validateSchemaColumnReferences();
 
           if (errors == 0) {
             validateSchemaForeignKeys();
@@ -1918,22 +1845,20 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   }
 
   /**
-   * Validate the column constraint definitions.
+   * Validate the column references definitions.
    */
-  private void validateSchemaColumnConstraints() {
+  private void validateSchemaColumnReferences() {
     if (isDebug) {
       logger.debug("Start");
     }
 
-    ArrayList<Column>           columns;
-    ArrayList<ColumnConstraint> columnConstraints;
-    String                      columnName;
-    String                      constraintType;
-    String                      referenceColumn;
-    String                      referenceTable;
-    String                      tableName;
+    ArrayList<Column> columns;
+    String            columnName;
+    String            referenceColumn;
+    String            referenceTable;
+    String            tableName;
 
-    HashSet<String>             valRefrenceColumnNames;
+    HashSet<String>   valRefrenceColumnNames;
 
     for (Table table : valTables) {
       tableName = table.getTableName().toUpperCase();
@@ -1941,90 +1866,55 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       columns   = table.getColumns();
 
       for (Column column : columns) {
-        columnConstraints = column.getColumnConstraints();
-
-        if (columnConstraints == null || columnConstraints.size() == 0) {
+        if (column.getReferenceTable() == null && column.getReferenceColumn() == null) {
           continue;
         }
 
         columnName = column.getColumnName();
 
-        for (ColumnConstraint columnConstraint : columnConstraints) {
-          if (columnConstraint.getConstraintType() == null) {
-            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + " - 'constraintType' missing (null)");
-            errors++;
-            continue;
-          }
+        if (column.getReferenceTable() == null) {
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable' is missing");
+          errors++;
+          continue;
+        }
 
-          constraintType = columnConstraint.getConstraintType().toUpperCase();
+        referenceTable = column.getReferenceTable().toUpperCase();
 
-          switch (constraintType) {
-          case "FOREIGN" -> {
-            if (columnConstraint.getReferenceTable() == null) {
-              logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'constraintType': '" + constraintType
-                  + "' - 'referenceTable' is missing");
-              errors++;
-              continue;
-            }
+        if (tableName.equals(referenceTable)) {
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable': '" + referenceTable
+              + "' must be a different database table");
+          errors++;
+          continue;
+        }
 
-            referenceTable = columnConstraint.getReferenceTable().toUpperCase();
+        if (!(valTablesColumns.containsKey(referenceTable))) {
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceTable': '" + referenceTable + "' is not defined");
+          errors++;
+          continue;
+        }
 
-            if (tableName.equals(referenceTable)) {
-              logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'constraintType': '" + constraintType + "' - 'referenceTable': '"
-                  + referenceTable + "' must be a different database table");
-              errors++;
-              continue;
-            }
+        if (column.getReferenceColumn() == null) {
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceColumn' is missing");
+          errors++;
+          continue;
+        }
 
-            if (!(valTablesColumns.containsKey(referenceTable))) {
-              logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'constraintType': '" + constraintType + "' - 'referenceTable': '"
-                  + referenceTable + "' is not defined");
-              errors++;
-              continue;
-            }
+        referenceColumn        = column.getReferenceColumn().toUpperCase();
 
-            if (columnConstraint.getReferenceColumn() == null) {
-              logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'constraintType': '" + constraintType
-                  + "' - 'referenceColumn' is missing");
-              errors++;
-              continue;
-            }
+        valRefrenceColumnNames = valTablesColumns.get(referenceTable);
 
-            referenceColumn        = columnConstraint.getReferenceColumn().toUpperCase();
+        if (!valRefrenceColumnNames.contains(referenceColumn)) {
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - 'referenceColumn': '" + referenceColumn
+              + "' is not defined in 'referenceTable': '" + referenceTable + "'");
+          errors++;
+          continue;
+        }
 
-            valRefrenceColumnNames = valTablesColumns.get(referenceTable);
-
-            if (!valRefrenceColumnNames.contains(referenceColumn)) {
-              logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'constraintType': '" + constraintType
-                  + "' - 'referenceColumn': '" + referenceColumn + "' is not defined in 'referenceTable': '" + referenceTable + "'");
-              errors++;
-              continue;
-            }
-
-            if (errors == 0) {
-              HashSet<String> referenceTables = valTableNameForeignKeys.get(tableName);
-              referenceTables.add(referenceTable);
-              valTableNameForeignKeys.put(tableName,
-                                          referenceTables);
-            }
-          }
-          case "NOT NULL", "PRIMARY", "UNIQUE" -> {
-            if (columnConstraint.getReferenceTable() != null) {
-              logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'constraintType': '" + constraintType
-                  + "' - 'referenceTable' not allowed");
-              errors++;
-            }
-            if (columnConstraint.getReferenceColumn() != null) {
-              logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'constraintType': '" + constraintType
-                  + "' - 'referenceColumn' not allowed");
-              errors++;
-            }
-          }
-          default -> {
-            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' - unknown 'constraintType': '" + constraintType + "'");
-            errors++;
-          }
-          }
+        if (errors == 0) {
+          HashSet<String> referenceTables = valTableNameForeignKeys.get(tableName);
+          referenceTables.add(referenceTable);
+          valTableNameForeignKeys.put(tableName,
+                                      referenceTables);
         }
       }
     }

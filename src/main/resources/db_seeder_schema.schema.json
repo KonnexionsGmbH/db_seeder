@@ -10,15 +10,15 @@
       "defaultNumberOfRows"
     ]
   }, "tables": {
-    "type": "array", "uniqueItems": true, "minItems": 1, "items": {
-      "type"       : "object", "properties": {
-        "tableName"      : {
+    "type"       : "array", "uniqueItems": true, "minItems": 1, "items": {
+      "type": "object", "properties": {
+        "tableName"          : {
           "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
-        }, "numberOfRows": {
+        }, "numberOfRows"    : {
           "type": "integer"
-        }, "columns"     : {
-          "type"               : "array", "uniqueItems": true, "minItems": 1, "items": {
-            "type"       : "object", "properties": {
+        }, "columns"         : {
+          "type"       : "array", "uniqueItems": true, "minItems": 1, "items": {
+            "type": "object", "properties": {
               "columnName"            : {
                 "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
               }, "dataType"           : {
@@ -29,74 +29,69 @@
                 "type": "integer"
               }, "precision"          : {
                 "type": "integer"
+              }, "notNull"            : {
+                "type": "boolean"
+              }, "primaryKey"         : {
+                "type": "boolean"
+              }, "referenceTable"     : {
+                "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+              }, "referenceColumn"    : {
+                "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+              }, "unique"             : {
+                "type": "boolean"
               }, "defaultValueInteger": {
                 "type": "integer"
               }, "defaultValueString" : {
                 "type": "string"
               }, "lowerRangeInteger"  : {
                 "type": "integer"
-              }, "lowerRangeText"   : {
+              }, "lowerRangeText"     : {
                 "type": "string"
               }, "upperRangeInteger"  : {
                 "type": "integer"
-              }, "upperRangeText"   : {
+              }, "upperRangeText"     : {
                 "type": "string"
               }, "validValuesInteger" : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "integer"
                 }
-              }, "validValuesText"  : {
+              }, "validValuesText"    : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "string"
                 }
-              }, "columnConstraints"  : {
-                "type": "array", "uniqueItems": true, "items": {
-                  "type"       : "object", "properties": {
-                    "constraintType"    : {
-                      "enum": [
-                        "foreign", "primary", "not null", "unique"
-                      ]
-                    }, "referenceTable" : {
-                      "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
-                    }, "referenceColumn": {
-                      "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
-                    }
-                  }, "required": [
-                    "constraintType"
-                  ]
+              }
+            }
+          }, "required": [
+            "columnName", "dataType"
+          ]
+        }, "tableConstraints": {
+          "type": "array", "uniqueItems": true, "items": {
+            "type"       : "object", "properties": {
+              "constraintType"     : {
+                "enum": [
+                  "foreign", "primary", "not null", "unique"
+                ]
+              }, "columns"         : {
+                "type": "array", "uniqueItems": true, "minItems": 1, "items": {
+                  "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+                }
+              }, "referenceTable"  : {
+                "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
+              }, "referenceColumns": {
+                "type": "array", "uniqueItems": true, "minItems": 1, "items": {
+                  "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
                 }
               }
             }, "required": [
-              "columnName", "dataType"
+              "constraintType"
             ]
-          }, "tableConstraints": {
-            "type": "array", "uniqueItems": true, "items": {
-              "type"       : "object", "properties": {
-                "constraintType"     : {
-                  "enum": [
-                    "foreign", "primary", "not null", "unique"
-                  ]
-                }, "columns"         : {
-                  "type": "array", "uniqueItems": true, "minItems": 1, "items": {
-                    "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
-                  }
-                }, "referenceTable"  : {
-                  "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
-                }, "referenceColumns": {
-                  "type": "array", "uniqueItems": true, "minItems": 1, "items": {
-                    "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
-                  }
-                }
-              }, "required": [
-                "constraintType"
-              ]
-            }
           }
         }
-      }, "required": [
-        "tableName"
-      ]
-    }
+      }
+    }, "required": [
+      "tableName"
+    ]
   }
+}
 }
 }

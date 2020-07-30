@@ -27,8 +27,8 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_CITY,
                    """
                    CREATE TABLE CITY (
-                       PK_CITY_ID                       BIGINT,
-                       FK_COUNTRY_STATE_ID              BIGINT,
+                       PK_CITY_ID                       BIGINT                    PRIMARY KEY,
+                       FK_COUNTRY_STATE_ID              BIGINT                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
                        CITY_MAP                         OBJECT,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
@@ -39,8 +39,11 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COMPANY,
                    """
                    CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    BIGINT,
-                       FK_CITY_ID                       BIGINT                    NOT NULL,
+                       PK_COMPANY_ID                    BIGINT                    PRIMARY KEY,
+                       FK_CITY_ID                       BIGINT                    NOT NULL
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
+                       FK_CITY_ID_DEFAULT               BIGINT                    DEFAULT 1
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
                        ACTIVE                           TEXT                      NOT NULL,
                        ADDRESS1                         TEXT,
                        ADDRESS2                         TEXT,
@@ -50,7 +53,8 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                        EMAIL                            TEXT,
                        FAX                              TEXT,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             TEXT                      NOT NULL,
+                       NAME                             TEXT                      NOT NULL
+                                                                                  UNIQUE,
                        PHONE                            TEXT,
                        POSTAL_CODE                      TEXT,
                        URL                              TEXT,
@@ -61,12 +65,13 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_COUNTRY,
                    """
                    CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    BIGINT,
+                       PK_COUNTRY_ID                    BIGINT                    PRIMARY KEY,
                        COUNTRY_MAP                      OBJECT,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          TEXT,
                        MODIFIED                         TIMESTAMP,
                        NAME                             TEXT                      NOT NULL
+                                                                                  UNIQUE
                    )
                    """);
 
@@ -74,8 +79,10 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                    """
                    CREATE TABLE COUNTRY_STATE (
                        PK_COUNTRY_STATE_ID              BIGINT,
-                       FK_COUNTRY_ID                    BIGINT                    NOT NULL,
-                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL,
+                       FK_COUNTRY_ID                    BIGINT                    NOT NULL
+                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
+                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL
+                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
                        COUNTRY_STATE_MAP                OBJECT,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
@@ -87,11 +94,12 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
     statements.put(TABLE_NAME_TIMEZONE,
                    """
                    CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   BIGINT,
+                       PK_TIMEZONE_ID                   BIGINT                    PRIMARY KEY,
                        ABBREVIATION                     TEXT                      NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             TEXT                      NOT NULL,
+                       NAME                             TEXT                      NOT NULL
+                                                                                  UNIQUE,
                        V_TIME_ZONE                      TEXT
                    )
                    """);
