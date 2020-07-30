@@ -805,26 +805,31 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     Random random = new Random();
 
     if (validValues != null) {
-      columnValue = validValues.get(random.nextInt(validValues.size()));
+      columnValue = validValues.get(random.nextInt(validValues.size())).stripTrailing();
     } else {
-      columnValue = columnName + "_" + encodedColumnNames.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
-                                                                                                                               rowNo);
+      columnValue = (columnName + "_" + encodedColumnNames.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
+                                                                                                                                rowNo)).stripTrailing();
     }
 
     int length = getLengthUTF_8(columnValue);
 
+    // wwe logger.info("wwe columnName=" + columnName + " columnValue=" + columnValue + " size=" + size + " length_1=" + length + " length_2=" + columnValue.length());
+
     if (length > size) {
-      columnValue = columnValue.substring(length - size);
+      columnValue = columnValue.substring(columnValue.length() - size);
+      logger.info("wwe columnName=" + columnName + " columnValue=" + columnValue);
     }
 
     if (lowerRange != null) {
       if (columnValue.compareTo(lowerRange) < 0) {
+        logger.info("wwe columnName=" + columnName + " lowerRange =" + lowerRange);
         return lowerRange;
       }
     }
 
     if (upperRange != null) {
       if (columnValue.compareTo(upperRange) > 0) {
+        logger.info("wwe columnName=" + columnName + " upperRange =" + upperRange);
         return upperRange;
       }
     }

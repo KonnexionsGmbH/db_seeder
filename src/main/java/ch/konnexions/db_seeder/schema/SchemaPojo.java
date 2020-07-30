@@ -86,7 +86,7 @@ public final class SchemaPojo {
 
       private Integer                     lowerRangeInteger;
 
-      private String                      lowerRangeString;
+      private String                      lowerRangeText;
 
       private Integer                     precision;
 
@@ -94,11 +94,11 @@ public final class SchemaPojo {
 
       private Integer                     upperRangeInteger;
 
-      private String                      upperRangeString;
+      private String                      upperRangeText;
 
       private ArrayList<Integer>          validValuesInteger;
 
-      private ArrayList<String>           validValuesString;
+      private ArrayList<String>           validValuesText;
 
       public final ArrayList<ColumnConstraint> getColumnConstraints() {
         return columnConstraints;
@@ -124,8 +124,8 @@ public final class SchemaPojo {
         return lowerRangeInteger;
       }
 
-      public final String getLowerRangeString() {
-        return lowerRangeString;
+      public final String getLowerRangeText() {
+        return lowerRangeText;
       }
 
       public final Integer getPrecision() {
@@ -140,16 +140,16 @@ public final class SchemaPojo {
         return upperRangeInteger;
       }
 
-      public final String getUpperRangeString() {
-        return upperRangeString;
+      public final String getUpperRangeText() {
+        return upperRangeText;
       }
 
       public final ArrayList<Integer> getValidValuesInteger() {
         return validValuesInteger;
       }
 
-      public final ArrayList<String> getValidValuesString() {
-        return validValuesString;
+      public final ArrayList<String> getValidValuesText() {
+        return validValuesText;
       }
 
       public final void setColumnName(String columnName) {
@@ -176,8 +176,8 @@ public final class SchemaPojo {
         this.lowerRangeInteger = lowerRangeInteger;
       }
 
-      public final void setLowerRangeString(String lowerRangeString) {
-        this.lowerRangeString = lowerRangeString;
+      public final void setLowerRangeText(String lowerRangeText) {
+        this.lowerRangeText = lowerRangeText;
       }
 
       @SuppressWarnings("ucd")
@@ -193,16 +193,16 @@ public final class SchemaPojo {
         this.upperRangeInteger = upperRangeInteger;
       }
 
-      public final void setUpperRangeString(String upperRangeString) {
-        this.upperRangeString = upperRangeString;
+      public final void setUpperRangeText(String upperRangeText) {
+        this.upperRangeText = upperRangeText;
       }
 
       public final void setValidValuesInteger(ArrayList<Integer> validValuesInteger) {
         this.validValuesInteger = validValuesInteger;
       }
 
-      public final void setValidValuesString(ArrayList<String> validValuesString) {
-        this.validValuesString = validValuesString;
+      public final void setValidValuesText(ArrayList<String> validValuesText) {
+        this.validValuesText = validValuesText;
       }
     }
 

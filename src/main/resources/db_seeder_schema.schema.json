@@ -35,17 +35,17 @@
                 "type": "string"
               }, "lowerRangeInteger"  : {
                 "type": "integer"
-              }, "lowerRangeString"   : {
+              }, "lowerRangeText"   : {
                 "type": "string"
               }, "upperRangeInteger"  : {
                 "type": "integer"
-              }, "upperRangeString"   : {
+              }, "upperRangeText"   : {
                 "type": "string"
               }, "validValuesInteger" : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "integer"
                 }
-              }, "validValuesString"  : {
+              }, "validValuesText"  : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "string"
                 }

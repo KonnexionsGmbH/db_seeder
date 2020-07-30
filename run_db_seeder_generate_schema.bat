@@ -10,6 +10,9 @@ setlocal EnableDelayedExpansion
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
+rem wwe
+set DB_SEEDER_FILE_JSON_NAME=json\db_seeder_schema.travis.json
+
 set DB_SEEDER_RELEASE=2.0.0
 
 set DB_SEEDER_IS_ECLIPSE_INSTALLED=true
@@ -34,10 +37,9 @@ echo:| TIME
 echo ================================================================================
 
 java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
-rem wwe
-rem if %ERRORLEVEL% NEQ 0 (
-rem     exit %ERRORLEVEL%
-rem )
+if %ERRORLEVEL% NEQ 0 (
+    exit %ERRORLEVEL%
+)
 
 if exist eclipse_workspace\ rmdir /q /s eclipse_workspace
 
@@ -49,10 +51,9 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 gradle copyJarToLib
-rem wwe
-rem if %ERRORLEVEL% NEQ 0 (
-rem     exit %ERRORLEVEL%
-rem )
+if %ERRORLEVEL% NEQ 0 (
+    exit %ERRORLEVEL%
+)
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

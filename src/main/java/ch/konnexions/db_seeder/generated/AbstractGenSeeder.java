@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
  * <br>
  * @author  GenerateSchema.class
  * @version 2.0.0
- * @since   2020-07-29
+ * @since   2020-07-30
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
@@ -172,16 +172,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
 
     switch (tableName) {
-    case TABLE_NAME_CITY -> prepDmlStmntInsertCity(preparedStatement,
-                                                   rowNo);
-    case TABLE_NAME_COMPANY -> prepDmlStmntInsertCompany(preparedStatement,
-                                                         rowNo);
-    case TABLE_NAME_COUNTRY -> prepDmlStmntInsertCountry(preparedStatement,
-                                                         rowNo);
-    case TABLE_NAME_COUNTRY_STATE -> prepDmlStmntInsertCountryState(preparedStatement,
-                                                                    rowNo);
-    case TABLE_NAME_TIMEZONE -> prepDmlStmntInsertTimezone(preparedStatement,
-                                                           rowNo);
+    case TABLE_NAME_TEST_TABLE_6 -> prepDmlStmntInsertTestTable6(preparedStatement,
+                                                                 rowNo);
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
                                                                                                     tableName));
     }
@@ -191,352 +183,49 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertCity(PreparedStatement preparedStatement, int rowNo) {
+  private void prepDmlStmntInsertTestTable6(PreparedStatement preparedStatement, int rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     int i = 0;
 
-    prepStmntColBigint(preparedStatement,
-                       "CITY",
-                       "PK_CITY_ID",
-                       ++i,
-                       rowNo);
-    prepStmntColFkOpt(preparedStatement,
-                      "CITY",
-                      "FK_COUNTRY_STATE_ID",
-                      ++i,
-                      rowNo,
-                      pkLists.get(TABLE_NAME_COUNTRY_STATE));
-    prepStmntColBlobOpt(preparedStatement,
-                        "CITY",
-                        "CITY_MAP",
-                        ++i,
-                        rowNo);
-    prepStmntColTimestamp(preparedStatement,
-                          "CITY",
-                          "CREATED",
+    prepStmntColBigintOpt(preparedStatement,
+                          "TEST_TABLE_6",
+                          "COLUMN_6_01",
                           ++i,
                           rowNo);
-    prepStmntColTimestampOpt(preparedStatement,
-                             "CITY",
-                             "MODIFIED",
-                             ++i,
-                             rowNo);
-    prepStmntColVarchar(preparedStatement,
-                        "CITY",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null);
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  private void prepDmlStmntInsertCompany(PreparedStatement preparedStatement, int rowNo) {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    int i = 0;
-
-    prepStmntColBigint(preparedStatement,
-                       "COMPANY",
-                       "PK_COMPANY_ID",
-                       ++i,
-                       rowNo);
-    prepStmntColFk(preparedStatement,
-                   "COMPANY",
-                   "FK_CITY_ID",
-                   ++i,
-                   rowNo,
-                   pkLists.get(TABLE_NAME_CITY));
-    prepStmntColVarchar(preparedStatement,
-                        "COMPANY",
-                        "ACTIVE",
-                        ++i,
-                        rowNo,
-                        1,
-                        null,
-                        null,
-                        Arrays.asList("N",
-                                      "Y"));
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "ADDRESS1",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "ADDRESS2",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "ADDRESS3",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null);
-    prepStmntColTimestamp(preparedStatement,
-                          "COMPANY",
-                          "CREATED",
-                          ++i,
-                          rowNo);
-    prepStmntColClobOpt(preparedStatement,
-                        "COMPANY",
-                        "DIRECTIONS",
-                        ++i,
-                        rowNo);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "EMAIL",
-                           ++i,
-                           rowNo,
-                           100,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "FAX",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null);
-    prepStmntColTimestampOpt(preparedStatement,
-                             "COMPANY",
-                             "MODIFIED",
-                             ++i,
-                             rowNo);
-    prepStmntColVarchar(preparedStatement,
-                        "COMPANY",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "PHONE",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "POSTAL_CODE",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "URL",
-                           ++i,
-                           rowNo,
-                           250,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "VAT_ID_NUMBER",
-                           ++i,
-                           rowNo,
-                           100,
-                           null,
-                           null,
-                           null);
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  private void prepDmlStmntInsertCountry(PreparedStatement preparedStatement, int rowNo) {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    int i = 0;
-
-    prepStmntColBigint(preparedStatement,
-                       "COUNTRY",
-                       "PK_COUNTRY_ID",
-                       ++i,
-                       rowNo);
-    prepStmntColBlobOpt(preparedStatement,
-                        "COUNTRY",
-                        "COUNTRY_MAP",
-                        ++i,
-                        rowNo);
-    prepStmntColTimestamp(preparedStatement,
-                          "COUNTRY",
-                          "CREATED",
+    prepStmntColBigintOpt(preparedStatement,
+                          "TEST_TABLE_6",
+                          "COLUMN_6_02",
                           ++i,
                           rowNo);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COUNTRY",
-                           "ISO3166",
+                           "TEST_TABLE_6",
+                           "COLUMN_6_03",
                            ++i,
                            rowNo,
-                           50,
-                           null,
-                           null,
+                           1,
+                           "3",
+                           "6",
                            null);
-    prepStmntColTimestampOpt(preparedStatement,
-                             "COUNTRY",
-                             "MODIFIED",
-                             ++i,
-                             rowNo);
-    prepStmntColVarchar(preparedStatement,
-                        "COUNTRY",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null);
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  private void prepDmlStmntInsertCountryState(PreparedStatement preparedStatement, int rowNo) {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    int i = 0;
-
-    prepStmntColBigint(preparedStatement,
-                       "COUNTRY_STATE",
-                       "PK_COUNTRY_STATE_ID",
-                       ++i,
-                       rowNo);
-    prepStmntColFk(preparedStatement,
-                   "COUNTRY_STATE",
-                   "FK_COUNTRY_ID",
-                   ++i,
-                   rowNo,
-                   pkLists.get(TABLE_NAME_COUNTRY));
-    prepStmntColFk(preparedStatement,
-                   "COUNTRY_STATE",
-                   "FK_TIMEZONE_ID",
-                   ++i,
-                   rowNo,
-                   pkLists.get(TABLE_NAME_TIMEZONE));
-    prepStmntColBlobOpt(preparedStatement,
-                        "COUNTRY_STATE",
-                        "COUNTRY_STATE_MAP",
-                        ++i,
-                        rowNo);
-    prepStmntColTimestamp(preparedStatement,
-                          "COUNTRY_STATE",
-                          "CREATED",
-                          ++i,
-                          rowNo);
-    prepStmntColTimestampOpt(preparedStatement,
-                             "COUNTRY_STATE",
-                             "MODIFIED",
-                             ++i,
-                             rowNo);
-    prepStmntColVarchar(preparedStatement,
-                        "COUNTRY_STATE",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COUNTRY_STATE",
-                           "SYMBOL",
+                           "TEST_TABLE_6",
+                           "COLUMN_6_04",
                            ++i,
                            rowNo,
-                           50,
+                           5,
                            null,
                            null,
-                           null);
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  private void prepDmlStmntInsertTimezone(PreparedStatement preparedStatement, int rowNo) {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    int i = 0;
-
-    prepStmntColBigint(preparedStatement,
-                       "TIMEZONE",
-                       "PK_TIMEZONE_ID",
-                       ++i,
-                       rowNo);
-    prepStmntColVarchar(preparedStatement,
-                        "TIMEZONE",
-                        "ABBREVIATION",
-                        ++i,
-                        rowNo,
-                        50,
-                        null,
-                        null,
-                        null);
-    prepStmntColTimestamp(preparedStatement,
-                          "TIMEZONE",
-                          "CREATED",
-                          ++i,
-                          rowNo);
-    prepStmntColTimestampOpt(preparedStatement,
-                             "TIMEZONE",
-                             "MODIFIED",
-                             ++i,
-                             rowNo);
-    prepStmntColVarchar(preparedStatement,
-                        "TIMEZONE",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "TIMEZONE",
-                           "V_TIME_ZONE",
-                           ++i,
-                           rowNo,
-                           4000,
-                           null,
-                           null,
-                           null);
+                           Arrays.asList("a",
+                                         "B",
+                                         "c",
+                                         "D",
+                                         "e",
+                                         "f",
+                                         "G",
+                                         "h",
+                                         "I"));
     if (isDebug) {
       logger.debug("End");
     }

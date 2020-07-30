@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * 
  * @author  GenerateSchema.class
  * @version 2.0.0
- * @since   2020-07-29
+ * @since   2020-07-30
  */
 public abstract class AbstractGenFirebirdSchema extends AbstractGenSeeder {
 
@@ -24,76 +24,13 @@ public abstract class AbstractGenFirebirdSchema extends AbstractGenSeeder {
   private static HashMap<String, String> createTableStmnts() {
     HashMap<String, String> statements = new HashMap<>();
 
-    statements.put(TABLE_NAME_CITY,
+    statements.put(TABLE_NAME_TEST_TABLE_6,
                    """
-                   CREATE TABLE CITY (
-                       PK_CITY_ID                       INTEGER                            PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              INTEGER                            REFERENCES COUNTRY_STATE                     (PK_COUNTRY_STATE_ID),
-                       CITY_MAP                         BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_COMPANY,
-                   """
-                   CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    INTEGER                            PRIMARY KEY,
-                       FK_CITY_ID                       INTEGER                   NOT NULL REFERENCES CITY                              (PK_CITY_ID),
-                       ACTIVE                           VARCHAR(1)                NOT NULL,
-                       ADDRESS1                         VARCHAR(50),
-                       ADDRESS2                         VARCHAR(50),
-                       ADDRESS3                         VARCHAR(50),
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       DIRECTIONS                       BLOB SUB_TYPE 1,
-                       EMAIL                            VARCHAR(100),
-                       FAX                              VARCHAR(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL UNIQUE,
-                       PHONE                            VARCHAR(50),
-                       POSTAL_CODE                      VARCHAR(50),
-                       URL                              VARCHAR(250),
-                       VAT_ID_NUMBER                    VARCHAR(100)
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_COUNTRY,
-                   """
-                   CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    INTEGER                            PRIMARY KEY,
-                       COUNTRY_MAP                      BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       ISO3166                          VARCHAR(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL UNIQUE
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_COUNTRY_STATE,
-                   """
-                   CREATE TABLE COUNTRY_STATE (
-                       PK_COUNTRY_STATE_ID              INTEGER                            PRIMARY KEY,
-                       FK_COUNTRY_ID                    INTEGER                   NOT NULL REFERENCES COUNTRY                           (PK_COUNTRY_ID),
-                       FK_TIMEZONE_ID                   INTEGER                   NOT NULL REFERENCES TIMEZONE                          (PK_TIMEZONE_ID),
-                       COUNTRY_STATE_MAP                BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL,
-                       SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_3        UNIQUE      (FK_COUNTRY_ID, NAME)
-                   )
-                   """);
-
-    statements.put(TABLE_NAME_TIMEZONE,
-                   """
-                   CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   INTEGER                            PRIMARY KEY,
-                       ABBREVIATION                     VARCHAR(50)               NOT NULL,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL UNIQUE,
-                       V_TIME_ZONE                      VARCHAR(4000)
+                   CREATE TABLE TEST_TABLE_6 (
+                       COLUMN_6_01                      INTEGER                            DEFAULT 4711,
+                       COLUMN_6_02                      INTEGER                            DEFAULT 5,
+                       COLUMN_6_03                      VARCHAR(1)                         DEFAULT "x",
+                       COLUMN_6_04                      VARCHAR(5)                         DEFAULT "x"
                    )
                    """);
 

@@ -552,7 +552,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           if (editedColumnConstraints.size() > 1) {
             for (int i = 1; i < editedColumnConstraints.size(); i++) {
-              bw.append(" ".repeat(79)).append(editedColumnConstraints.get(i));
+              bw.append(" ".repeat(91)).append(editedColumnConstraints.get(i));
 
               if (editedTableConstraints.size() > 0 || i < editedColumnConstraints.size() - 1 || !columnNameLast.equals(editedColumnName)) {
                 bw.append(",");
@@ -1467,24 +1467,24 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.append("                             ").append(String.valueOf(column.getSize())).append(",");
             bw.newLine();
 
-            if (column.getLowerRangeString() == null && column.getUpperRangeString() == null) {
+            if (column.getLowerRangeText() == null && column.getUpperRangeText() == null) {
               bw.append("                             null,");
               bw.newLine();
               bw.append("                             null,");
               bw.newLine();
             } else {
-              bw.append("                             \"").append(column.getLowerRangeString()).append("\",");
+              bw.append("                             \"").append(column.getLowerRangeText()).append("\",");
               bw.newLine();
-              bw.append("                             \"").append(column.getUpperRangeString()).append("\",");
+              bw.append("                             \"").append(column.getUpperRangeText()).append("\",");
               bw.newLine();
             }
 
-            if (column.getValidValuesString() == null) {
+            if (column.getValidValuesText() == null) {
               bw.append("                             null);");
               bw.newLine();
             } else {
               bw.append("                             Arrays.asList(\"").append(String.join(",",
-                                                                                            column.getValidValuesString()).replace(",",
+                                                                                            column.getValidValuesText()).replace(",",
                                                                                                                                    "\",\"")).append("\"));");
               bw.newLine();
             }
@@ -2109,28 +2109,28 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       }
 
       if ("VARCHAR".equals(dataType)) {
-        if (column.getLowerRangeString() != null || column.getUpperRangeString() != null) {
-          if (column.getLowerRangeString() == null) {
-            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'lowerRangeString' is missing");
+        if (column.getLowerRangeText() != null || column.getUpperRangeText() != null) {
+          if (column.getLowerRangeText() == null) {
+            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'lowerRangeText' is missing");
             errors++;
           }
 
-          if (column.getUpperRangeString() == null) {
-            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'upperRangeString' is missing");
+          if (column.getUpperRangeText() == null) {
+            logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'upperRangeText' is missing");
             errors++;
           }
 
-          if (column.getLowerRangeString() != null && column.getUpperRangeString() != null) {
-            if (column.getLowerRangeString().compareTo(column.getUpperRangeString()) > 0) {
+          if (column.getLowerRangeText() != null && column.getUpperRangeText() != null) {
+            if (column.getLowerRangeText().compareTo(column.getUpperRangeText()) > 0) {
               logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType
-                  + "' - 'lowerRangeString' greater 'upperRangeString'");
+                  + "' - 'lowerRangeText' greater 'upperRangeText'");
               errors++;
             }
           }
 
-          if (column.getValidValuesString() != null) {
+          if (column.getValidValuesText() != null) {
             logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType
-                + "' - 'lowerRangeString', 'upperRangeString' and 'validValuesString' are not allowed at the same time");
+                + "' - 'lowerRangeText', 'upperRangeText' and 'validValuesText' are not allowed at the same time");
             errors++;
           }
         }
@@ -2143,19 +2143,19 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           errors++;
         }
 
-        if (column.getLowerRangeString() != null) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'lowerRangeString' is not allowed");
+        if (column.getLowerRangeText() != null) {
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'lowerRangeText' is not allowed");
           errors++;
         }
 
-        if (column.getUpperRangeString() != null) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'upperRangeString' is not allowed");
+        if (column.getUpperRangeText() != null) {
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'upperRangeText' is not allowed");
           errors++;
         }
 
-        if (column.getValidValuesString() != null) {
+        if (column.getValidValuesText() != null) {
           logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType
-              + "' - 'validValuesString' is not allowed");
+              + "' - 'validValuesText' is not allowed");
           errors++;
         }
       }

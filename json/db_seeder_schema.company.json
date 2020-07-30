@@ -51,7 +51,7 @@
           }
         ]
       }, {
-        "columnName"          : "active", "dataType": "varchar", "size": 1, "validValuesString": [
+        "columnName"          : "active", "dataType": "varchar", "size": 1, "validValuesText": [
           "N", "Y"
         ], "columnConstraints": [
           {
