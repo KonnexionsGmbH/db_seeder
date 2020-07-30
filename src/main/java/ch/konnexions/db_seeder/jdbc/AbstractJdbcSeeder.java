@@ -428,7 +428,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       System.exit(1);
     }
 
-    for (int rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
+    for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
       insertTable(preparedStatement,
                   tableName,
                   rowNo);
@@ -787,30 +787,30 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return rowNo;
   }
 
-  protected byte[] getContentBlob(String tableName, String columnName, int rowNo) {
+  protected byte[] getContentBlob(String tableName, String columnName, long rowNo) {
 
     return BLOB_DATA_BYTES;
   }
 
-  protected String getContentClob(String tableName, String columnName, int rowNo) {
+  protected String getContentClob(String tableName, String columnName, long rowNo) {
 
     return CLOB_DATA;
   }
 
-  protected Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {
+  protected Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
     Random random = new Random();
 
     return fkList.get(random.nextInt(fkList.size()));
   }
 
-  protected Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {
+  protected Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
 
     return new java.sql.Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
   protected String getContentVarchar(String tableName,
                                      String columnName,
-                                     int rowNo,
+                                     long rowNo,
                                      int size,
                                      String defaultValue,
                                      String lowerRange,
@@ -883,7 +883,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
 
-  protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, int rowNo);
+  protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, long rowNo);
 
   /**
    * Sets the designated column to a BIGINT value.
@@ -903,7 +903,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                   String tableName,
                                   String columnName,
                                   int columnPos,
-                                  int rowNo,
+                                  long rowNo,
                                   Integer defaultValue,
                                   Integer lowerRange,
                                   Integer upperRange,
@@ -949,7 +949,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                              String tableName,
                                              String columnName,
                                              int columnPos,
-                                             int rowNo,
+                                             long rowNo,
                                              Integer defaultValue,
                                              Integer lowerRange,
                                              Integer upperRange,
@@ -990,7 +990,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setBytes(columnPos,
                                  getContentBlob(tableName,
@@ -1012,7 +1012,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    */
   @SuppressWarnings("ucd")
-  protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (dbmsEnum == DbmsEnum.CRATEDB) {
         preparedStatement.setNull(columnPos,
@@ -1052,7 +1052,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setString(columnPos,
                                   getContentClob(tableName,
@@ -1074,7 +1074,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    */
   @SuppressWarnings("ucd")
-  protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
         if (dbmsEnum == DbmsEnum.CRATEDB) {
@@ -1113,7 +1113,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                     String tableName,
                                     String columnName,
                                     int columnPos,
-                                    int rowNo,
+                                    long rowNo,
                                     ArrayList<Object> fkList) {
     try {
       preparedStatement.setObject(columnPos,
@@ -1142,7 +1142,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                          String tableName,
                                          String columnName,
                                          int columnPos,
-                                         int rowNo,
+                                         long rowNo,
                                          ArrayList<Object> fkList) {
     try {
       if (rowNo % nullFactor == 0) {
@@ -1172,7 +1172,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected final void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setTimestamp(columnPos,
                                      getContentTimestamp(tableName,
@@ -1194,7 +1194,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    */
   @SuppressWarnings("ucd")
-  protected final void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, int rowNo) {
+  protected final void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
         preparedStatement.setNull(columnPos,
@@ -1231,7 +1231,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                          String tableName,
                                          String columnName,
                                          int columnPos,
-                                         int rowNo,
+                                         long rowNo,
                                          int size,
                                          String defaultValue,
                                          String lowerRange,
@@ -1292,7 +1292,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                               String tableName,
                                               String columnName,
                                               int columnPos,
-                                              int rowNo,
+                                              long rowNo,
                                               int size,
                                               String defaultValue,
                                               String lowerRange,

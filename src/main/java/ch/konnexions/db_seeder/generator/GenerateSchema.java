@@ -1171,7 +1171,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected final byte[] getContentBlob(String tableName, String columnName, int rowNo) {");
+      bw.append("  protected final byte[] getContentBlob(String tableName, String columnName, long rowNo) {");
       bw.newLine();
       bw.append("    byte[] result = super.getContentBlob(tableName,");
       bw.newLine();
@@ -1201,7 +1201,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected final String getContentClob(String tableName, String columnName, int rowNo) {");
+      bw.append("  protected final String getContentClob(String tableName, String columnName, long rowNo) {");
       bw.newLine();
       bw.append("    String result = super.getContentClob(tableName,");
       bw.newLine();
@@ -1233,7 +1233,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected final Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {");
+      bw.append("  protected final Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {");
       bw.newLine();
       bw.append("    Object result = super.getContentFk(tableName,");
       bw.newLine();
@@ -1265,7 +1265,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  @Override");
       bw.newLine();
-      bw.append("  protected final Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {");
+      bw.append("  protected final Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {");
       bw.newLine();
       bw.append("    Timestamp result = super.getContentTimestamp(tableName,");
       bw.newLine();
@@ -1307,7 +1307,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  protected final String getContentVarchar(String tableName,");
       bw.append("                                           String columnName,");
-      bw.append("                                           int rowNo,");
+      bw.append("                                           long rowNo,");
       bw.append("                                           int size,");
       bw.append("                                           String defaultValue,");
       bw.append("                                           String lowerRange,");
@@ -1340,7 +1340,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("                                   final String tableName,");
       bw.newLine();
-      bw.append("                                   final int rowNo) {");
+      bw.append("                                   final long rowNo) {");
       bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
@@ -1378,7 +1378,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        bw.append("  private void prepDmlStmntInsert").append(getTableNamePascalCase(tableName)).append("(PreparedStatement preparedStatement, int rowNo) {");
+        bw.append("  private void prepDmlStmntInsert").append(getTableNamePascalCase(tableName)).append("(PreparedStatement preparedStatement, long rowNo) {");
         bw.newLine();
         bw.append("    if (isDebug) {");
         bw.newLine();

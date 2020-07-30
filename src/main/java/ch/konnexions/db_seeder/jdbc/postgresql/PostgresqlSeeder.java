@@ -59,7 +59,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
   }
 
   @Override
-  protected final void prepStmntColBlob(PreparedStatement preparedStatement, final String tableName, final String columnName, final int columnPos, int rowNo) {
+  protected final void prepStmntColBlob(PreparedStatement preparedStatement, final String tableName, final String columnName, final int columnPos, long rowNo) {
     FileInputStream blobData = null;
 
     try {

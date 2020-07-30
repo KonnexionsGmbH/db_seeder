@@ -92,7 +92,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param rowNo             the current row number
    */
   @Override
-  protected final byte[] getContentBlob(String tableName, String columnName, int rowNo) {
+  protected final byte[] getContentBlob(String tableName, String columnName, long rowNo) {
     byte[] result = super.getContentBlob(tableName,
                                          columnName,
                                          rowNo);
@@ -108,7 +108,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param rowNo             the current row number
    */
   @Override
-  protected final String getContentClob(String tableName, String columnName, int rowNo) {
+  protected final String getContentClob(String tableName, String columnName, long rowNo) {
     String result = super.getContentClob(tableName,
                                          columnName,
                                          rowNo);
@@ -125,7 +125,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param fkList            the existing foreign keys
    */
   @Override
-  protected final Object getContentFk(String tableName, String columnName, int rowNo, ArrayList<Object> fkList) {
+  protected final Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
     Object result = super.getContentFk(tableName,
                                        columnName,
                                        rowNo,
@@ -142,7 +142,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param rowNo             the current row number
    */
   @Override
-  protected final Timestamp getContentTimestamp(String tableName, String columnName, int rowNo) {
+  protected final Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
     Timestamp result = super.getContentTimestamp(tableName,
                                                  columnName,
                                                  rowNo);
@@ -165,7 +165,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   @Override
   protected final String getContentVarchar(String tableName,
                                            String columnName,
-                                           int rowNo,
+                                           long rowNo,
                                            int size,
                                            String defaultValue,
                                            String lowerRange,
@@ -183,7 +183,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     return result;
   }
 
-  protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final int rowNo) {
+  protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -208,7 +208,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertCity(PreparedStatement preparedStatement, int rowNo) {
+  private void prepDmlStmntInsertCity(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -260,7 +260,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertCompany(PreparedStatement preparedStatement, int rowNo) {
+  private void prepDmlStmntInsertCompany(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -413,7 +413,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertCountry(PreparedStatement preparedStatement, int rowNo) {
+  private void prepDmlStmntInsertCountry(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -469,7 +469,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertCountryState(PreparedStatement preparedStatement, int rowNo) {
+  private void prepDmlStmntInsertCountryState(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -537,7 +537,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     }
   }
 
-  private void prepDmlStmntInsertTimezone(PreparedStatement preparedStatement, int rowNo) {
+  private void prepDmlStmntInsertTimezone(PreparedStatement preparedStatement, long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
