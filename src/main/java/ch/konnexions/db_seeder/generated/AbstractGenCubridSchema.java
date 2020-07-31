@@ -44,8 +44,6 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
                                                                                   PRIMARY KEY,
                        FK_CITY_ID                       INT                       NOT NULL
                                                                                   REFERENCES "CITY"                           (PK_CITY_ID),
-                       FK_CITY_ID_DEFAULT               INT                       DEFAULT 1
-                                                                                  REFERENCES "CITY"                           (PK_CITY_ID),
                        ACTIVE                           VARCHAR(1)                NOT NULL,
                        ADDRESS1                         VARCHAR(50),
                        ADDRESS2                         VARCHAR(50),

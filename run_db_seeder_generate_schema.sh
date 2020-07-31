@@ -10,11 +10,7 @@ set -e
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
-if [ -z "$DB_SEEDER_FILE_JSON_NAME" ]; then
-    if [ -f "json/db_seeder_schema.travis.json" ]; then 
-        export DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.travis.json
-    fi
-fi
+# export DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.syntax.json
 
 export DB_SEEDER_RELEASE=2.0.0
 

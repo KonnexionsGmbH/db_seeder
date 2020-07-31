@@ -1,9 +1,9 @@
 {
   "globals"  : {
-    "defaultNumberOfRows": 1000
+    "defaultNumberOfRows": 100
   }, "tables": [
   {
-    "tableName": "test_table_1", "numberOfRows": 1800, "columns": [
+    "tableName": "test_table_1", "columns": [
     {
       "columnName": "column_1_01", "dataType": "bigint", "unique": true
     }, {
@@ -19,46 +19,48 @@
     }
   ]
   }, {
-    "tableName"          : "test_table_2", "numberOfRows": 5400, "columns": [
+    "tableName"          : "test_table_2", "columns": [
       {
         "columnName": "column_2_01", "dataType": "bigint", "notNull": true
       }, {
         "columnName": "column_2_02", "dataType": "bigint", "notNull": true, "referenceTable": "test_table_1", "referenceColumn": "column_1_01"
       }, {
-        "columnName": "column_2_03", "dataType": "varchar", "size": 1, "validValuesText": [
+        "columnName": "column_2_03", "dataType": "bigint", "defaultValueInteger": 1, "referenceTable": "test_table_1", "referenceColumn": "column_1_01"
+      }, {
+        "columnName": "column_2_04", "dataType": "varchar", "size": 1, "validValuesText": [
           "N", "Y"
         ], "notNull": true
-      }, {
-        "columnName": "column_2_04", "dataType": "varchar", "size": 50
       }, {
         "columnName": "column_2_05", "dataType": "varchar", "size": 50
       }, {
         "columnName": "column_2_06", "dataType": "varchar", "size": 50
       }, {
-        "columnName": "column_2_07", "dataType": "timestamp", "notNull": true
+        "columnName": "column_2_07", "dataType": "varchar", "size": 50
       }, {
-        "columnName": "column_2_08", "dataType": "clob"
+        "columnName": "column_2_08", "dataType": "timestamp", "notNull": true
       }, {
-        "columnName": "column_2_09", "dataType": "varchar", "size": 100
+        "columnName": "column_2_09", "dataType": "clob"
       }, {
-        "columnName": "column_2_10", "dataType": "varchar", "size": 50
+        "columnName": "column_2_10", "dataType": "varchar", "size": 100
       }, {
-        "columnName": "column_2_11", "dataType": "timestamp"
+        "columnName": "column_2_11", "dataType": "varchar", "size": 50
       }, {
-        "columnName": "column_2_12", "dataType": "varchar", "size": 100, "unique": true
+        "columnName": "column_2_12", "dataType": "timestamp"
       }, {
-        "columnName": "column_2_13", "dataType": "varchar", "size": 50
+        "columnName": "column_2_13", "dataType": "varchar", "size": 100, "unique": true
       }, {
         "columnName": "column_2_14", "dataType": "varchar", "size": 50
       }, {
-        "columnName": "column_2_15", "dataType": "varchar", "size": 250
+        "columnName": "column_2_15", "dataType": "varchar", "size": 50
       }, {
-        "columnName": "column_2_16", "dataType": "varchar", "size": 100
+        "columnName": "column_2_16", "dataType": "varchar", "size": 250
+      }, {
+        "columnName": "column_2_17", "dataType": "varchar", "size": 100
       }
     ], "tableConstraints": [
       {
         "constraintType": "unique", "columns": [
-        "column_2_07", "column_2_12"
+        "column_2_08", "column_2_13"
       ]
       }, {
         "constraintType": "primary", "columns": [
@@ -67,7 +69,7 @@
       }
     ]
   }, {
-    "tableName": "test_table_3", "numberOfRows": 200, "columns": [
+    "tableName": "test_table_3", "columns": [
       {
         "columnName": "column_3_01", "dataType": "bigint", "primaryKey": true
       }, {
@@ -83,7 +85,7 @@
       }
     ]
   }, {
-    "tableName"          : "test_table_4", "numberOfRows": 600, "columns": [
+    "tableName"          : "test_table_4", "columns": [
       {
         "columnName": "column_4_01", "dataType": "bigint", "primaryKey": true
       }, {
@@ -109,7 +111,7 @@
       }
     ]
   }, {
-    "tableName": "test_table_5", "numberOfRows": 11, "columns": [
+    "tableName": "test_table_5", "columns": [
       {
         "columnName": "column_5_01", "dataType": "bigint", "primaryKey": true
       }, {
@@ -125,7 +127,7 @@
       }
     ]
   }, {
-    "tableName": "test_table_6", "numberOfRows": 1000, "columns": [
+    "tableName": "test_table_6", "columns": [
       {
         "columnName": "column_6_01", "dataType": "bigint", "defaultValueInteger": 4711, "lowerRangeInteger": 4, "upperRangeInteger": 8
       }, {

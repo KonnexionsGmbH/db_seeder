@@ -44,8 +44,6 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
                                                                                   PRIMARY KEY,
                        FK_CITY_ID                       BIGINT                    NOT NULL
                                                                                   REFERENCES CITY                             (PK_CITY_ID),
-                       FK_CITY_ID_DEFAULT               BIGINT                    DEFAULT 1
-                                                                                  REFERENCES CITY                             (PK_CITY_ID),
                        ACTIVE                           NVARCHAR(1)               NOT NULL,
                        ADDRESS1                         NVARCHAR(50),
                        ADDRESS2                         NVARCHAR(50),

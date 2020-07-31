@@ -25,9 +25,6 @@
       }, {
         "columnName": "fk_city_id", "dataType": "bigint", "notNull": true, "references": [{"referenceTable": "city", "referenceColumn": "pk_city_id"}]
       }, {
-        "columnName"         : "fk_city_id_default", "dataType": "bigint", "references": [{"referenceTable": "city", "referenceColumn": "pk_city_id"}],
-        "defaultValueInteger": 1
-      }, {
         "columnName": "active", "dataType": "varchar", "size": 1, "notNull": true, "validValuesText": [
           "N", "Y"
         ]

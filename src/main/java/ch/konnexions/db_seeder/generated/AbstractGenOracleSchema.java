@@ -44,8 +44,6 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
                                                                                   PRIMARY KEY,
                        FK_CITY_ID                       NUMBER                    NOT NULL
                                                                                   REFERENCES CITY                             (PK_CITY_ID),
-                       FK_CITY_ID_DEFAULT               NUMBER                    DEFAULT 1
-                                                                                  REFERENCES CITY                             (PK_CITY_ID),
                        ACTIVE                           VARCHAR2(1)               NOT NULL,
                        ADDRESS1                         VARCHAR2(50),
                        ADDRESS2                         VARCHAR2(50),

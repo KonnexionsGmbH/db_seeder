@@ -43,7 +43,6 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                        PK_COMPANY_ID                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
                        FK_CITY_ID                       BIGINT                    NOT NULL,
-                       FK_CITY_ID_DEFAULT               BIGINT                    DEFAULT 1,
                        ACTIVE                           TEXT                      NOT NULL,
                        ADDRESS1                         TEXT,
                        ADDRESS2                         TEXT,

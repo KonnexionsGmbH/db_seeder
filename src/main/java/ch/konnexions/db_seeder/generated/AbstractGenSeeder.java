@@ -282,12 +282,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                    ++i,
                    rowNo,
                    pkLists.get(TABLE_NAME_CITY));
-    prepStmntColFkOpt(preparedStatement,
-                      "COMPANY",
-                      "FK_CITY_ID_DEFAULT",
-                      ++i,
-                      rowNo,
-                      pkLists.get(TABLE_NAME_CITY));
     prepStmntColVarchar(preparedStatement,
                         "COMPANY",
                         "ACTIVE",

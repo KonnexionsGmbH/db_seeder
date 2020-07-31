@@ -10,8 +10,7 @@ setlocal EnableDelayedExpansion
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
-rem wwe
-rem set DB_SEEDER_FILE_JSON_NAME=json\db_seeder_schema.travis.json
+rem set DB_SEEDER_FILE_JSON_NAME=json\db_seeder_schema.syntax.json
 
 set DB_SEEDER_RELEASE=2.0.0
 

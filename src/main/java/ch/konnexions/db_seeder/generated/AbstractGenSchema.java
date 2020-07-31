@@ -192,7 +192,7 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
                            put(TABLE_NAME_CITY,
                                "PK_CITY_ID,FK_COUNTRY_STATE_ID,CITY_MAP,CREATED,MODIFIED,NAME) VALUES (?,?,?,?,?,?");
                            put(TABLE_NAME_COMPANY,
-                               "PK_COMPANY_ID,FK_CITY_ID,FK_CITY_ID_DEFAULT,ACTIVE,ADDRESS1,ADDRESS2,ADDRESS3,CREATED,DIRECTIONS,EMAIL,FAX,MODIFIED,NAME,PHONE,POSTAL_CODE,URL,VAT_ID_NUMBER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?");
+                               "PK_COMPANY_ID,FK_CITY_ID,ACTIVE,ADDRESS1,ADDRESS2,ADDRESS3,CREATED,DIRECTIONS,EMAIL,FAX,MODIFIED,NAME,PHONE,POSTAL_CODE,URL,VAT_ID_NUMBER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?");
                            put(TABLE_NAME_COUNTRY,
                                "PK_COUNTRY_ID,COUNTRY_MAP,CREATED,ISO3166,MODIFIED,NAME) VALUES (?,?,?,?,?,?");
                            put(TABLE_NAME_COUNTRY_STATE,

@@ -44,8 +44,6 @@ public abstract class AbstractGenDerbySchema extends AbstractGenSeeder {
                                                                                   PRIMARY KEY,
                        FK_CITY_ID                       BIGINT                    NOT NULL
                                                                                   REFERENCES CITY                             (PK_CITY_ID),
-                       FK_CITY_ID_DEFAULT               BIGINT                    REFERENCES CITY                             (PK_CITY_ID)
-                                                                                  DEFAULT 1,
                        ACTIVE                           VARCHAR(1)                NOT NULL,
                        ADDRESS1                         VARCHAR(50),
                        ADDRESS2                         VARCHAR(50),
