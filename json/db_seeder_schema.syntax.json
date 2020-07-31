@@ -25,7 +25,8 @@
       }, {
         "columnName": "column_2_02", "dataType": "bigint", "notNull": true, "referenceTable": "test_table_1", "referenceColumn": "column_1_01"
       }, {
-        "columnName": "column_2_03", "dataType": "bigint", "defaultValueInteger": 1, "referenceTable": "test_table_1", "referenceColumn": "column_1_01"
+        "columnName"     : "column_2_03", "dataType": "bigint", "notNull": true, "defaultValueInteger": 1, "referenceTable": "test_table_1",
+        "referenceColumn": "column_1_01"
       }, {
         "columnName": "column_2_04", "dataType": "varchar", "size": 1, "validValuesText": [
           "N", "Y"
@@ -56,6 +57,8 @@
         "columnName": "column_2_16", "dataType": "varchar", "size": 250
       }, {
         "columnName": "column_2_17", "dataType": "varchar", "size": 100
+      }, {
+        "columnName": "column_2_18", "dataType": "bigint", "defaultValueInteger": 1, "referenceTable": "test_table_1", "referenceColumn": "column_1_01"
       }
     ], "tableConstraints": [
       {

@@ -30,7 +30,7 @@ docker create --name db_seeder_db -e DBNAME=%DB_SEEDER_DATABASE% -e DB2INST1_PAS
 echo Docker start db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
 docker start db_seeder_db
  
-ping -n 120 127.0.0.1>nul
+ping -n 180 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER IBM Db2 Database was ready in %CONSUMED%
