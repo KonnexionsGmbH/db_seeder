@@ -459,16 +459,18 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // DEFAULT ...........................................................
 
-          if (column.getDefaultValueInteger() != null || column.getDefaultValueText() != null) {
-            workArea.append("DEFAULT ");
+          if (!("derby".equals(tickerSymbolLower))) {
+            if (column.getDefaultValueInteger() != null || column.getDefaultValueText() != null) {
+              workArea.append("DEFAULT ");
 
-            if (column.getDefaultValueInteger() != null) {
-              workArea.append(column.getDefaultValueInteger());
-            } else {
-              workArea.append("'").append(column.getDefaultValueText()).append("'");
+              if (column.getDefaultValueInteger() != null) {
+                workArea.append(column.getDefaultValueInteger());
+              } else {
+                workArea.append("'").append(column.getDefaultValueText()).append("'");
+              }
+
+              isNewLineRequired = true;
             }
-
-            isNewLineRequired = true;
           }
 
           // NOT NULL ..........................................................
@@ -501,7 +503,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // REFERENCES .......................................................
 
-          if (!("cratedb").equals(tickerSymbolLower)) {
+          if (!("cratedb".equals(tickerSymbolLower))) {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               for (References references : column.getReferences()) {
                 if (isNewLineRequired) {
@@ -524,7 +526,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // UNIQUE ............................................................
 
-          if (!("cratedb").equals(tickerSymbolLower)) {
+          if (!("cratedb".equals(tickerSymbolLower))) {
             if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -533,6 +535,22 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               }
 
               workArea.append("UNIQUE");
+            }
+          }
+
+          // DEFAULT ...........................................................
+
+          if ("derby".equals(tickerSymbolLower)) {
+            if (column.getDefaultValueInteger() != null || column.getDefaultValueText() != null) {
+              workArea.append("DEFAULT ");
+
+              if (column.getDefaultValueInteger() != null) {
+                workArea.append(column.getDefaultValueInteger());
+              } else {
+                workArea.append("'").append(column.getDefaultValueText()).append("'");
+              }
+
+              isNewLineRequired = true;
             }
           }
 
