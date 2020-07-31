@@ -100,6 +100,7 @@ if [ "$DB_SEEDER_DBMS" = "cratedb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_USER_SYS=crate
     export DB_SEEDER_VERSION=4.1.6
     export DB_SEEDER_VERSION=4.1.8
+    export DB_SEEDER_VERSION=4.2.2
 fi
 
 if [ "$DB_SEEDER_DBMS" = "cubrid" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
@@ -220,6 +221,7 @@ if [ "$DB_SEEDER_DBMS" = "informix" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; the
     export DB_SEEDER_PASSWORD_SYS=in4mix
     export DB_SEEDER_USER_SYS=informix
     export DB_SEEDER_VERSION=14.10.FC3DE
+    export DB_SEEDER_VERSION=14.10.FC4DE
 fi
 
 if [ "$DB_SEEDER_DBMS" = "mariadb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then

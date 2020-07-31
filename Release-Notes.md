@@ -33,7 +33,11 @@ n/a
 
 #### Modified Features
 
+- CrateDB: DBMS 4.1.8
+
 - Hide the knoweledge about the schema (issue #50)
+
+- SQLite: JDBC 3.32.3.2
 
 #### Deleted Features
 
