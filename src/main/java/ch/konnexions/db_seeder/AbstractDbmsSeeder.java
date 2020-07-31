@@ -74,138 +74,162 @@ public abstract class AbstractDbmsSeeder {
     }
   }
 
-  public static final Map<String, String[]> dbmsValues        = initDbmsValues();
+  public static final Map<String, String[]> dbmsDetails                       = initDbmsDetails();
 
-  public static final String                FORMAT_IDENTIFIER = "%-10d";
+  public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
+  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
+  public static final int                   DBMS_DETAILS_NAME                 = 3;
+  public static final int                   DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
+  public static final int                   DBMS_DETAILS_TICKER_SYMBOL        = 0;
+
+  public static final String                FORMAT_IDENTIFIER                 = "%-10d";
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
-  protected static final String             FORMAT_ROW_NO     = "%1$10d";
-  protected static final String             FORMAT_TABLE_NAME = "%-17s";
+  protected static final String             FORMAT_ROW_NO                     = "%1$10d";
+  protected static final String             FORMAT_TABLE_NAME                 = "%-17s";
 
-  private static final Logger               logger            = Logger.getLogger(AbstractDbmsSeeder.class);
+  private static final Logger               logger                            = Logger.getLogger(AbstractDbmsSeeder.class);
 
   /**
-   * Initialises the DBMSs descriptions.
+   * Initialises the DBMS details.
    * 
    * Attributes: 0 - DBMS name long
    *             1 - client / embedded
    *             2 - DBMS name short
    *             3 - identifier delimiter
    *
-   * @return the map containing the DBMSs descriptions
+   * @return the map containing the DBMS details
    */
-  private static Map<String, String[]> initDbmsValues() {
-    Map<String, String[]> dbmsValues = new HashMap<>();
+  private static Map<String, String[]> initDbmsDetails() {
+    Map<String, String[]> dbmsDetails = new HashMap<>();
 
-    dbmsValues.put("cratedb",
-                   new String[] {
-                       "CrateDB",
-                       "client",
-                       "CrateDB",
-                       "" });
-    dbmsValues.put("cubrid",
-                   new String[] {
-                       "CUBRID",
-                       "client",
-                       "CUBRID",
-                       "\"" });
-    dbmsValues.put("derby",
-                   new String[] {
-                       "Apache Derby [client]",
-                       "client",
-                       "Apache Derby",
-                       "" });
-    dbmsValues.put("derby_emb",
-                   new String[] {
-                       "Apache Derby [embedded]",
-                       "embedded",
-                       "Apache Derby",
-                       "" });
-    dbmsValues.put("firebird",
-                   new String[] {
-                       "Firebird",
-                       "client",
-                       "Firebird",
-                       "" });
-    dbmsValues.put("h2",
-                   new String[] {
-                       "H2 Database Engine [client]",
-                       "client",
-                       "H2",
-                       "" });
-    dbmsValues.put("h2_emb",
-                   new String[] {
-                       "H2 Database Engine [embedded]",
-                       "embedded",
-                       "H2",
-                       "" });
-    dbmsValues.put("hsqldb",
-                   new String[] {
-                       "HyperSQL Database [client]",
-                       "client",
-                       "HyperSQL",
-                       "" });
-    dbmsValues.put("hsqldb_emb",
-                   new String[] {
-                       "HyperSQL Database [embedded]",
-                       "embedded",
-                       "HyperSQL",
-                       "" });
-    dbmsValues.put("ibmdb2",
-                   new String[] {
-                       "IBM Db2 Database",
-                       "client",
-                       "IBM Db2",
-                       "" });
-    dbmsValues.put("informix",
-                   new String[] {
-                       "IBM Informix",
-                       "client",
-                       "IBM Informix",
-                       "" });
-    dbmsValues.put("mariadb",
-                   new String[] {
-                       "MariaDB Server",
-                       "client",
-                       "MariaDB",
-                       "`" });
-    dbmsValues.put("mimer",
-                   new String[] {
-                       "Mimer SQL",
-                       "client",
-                       "Mimer",
-                       "" });
-    dbmsValues.put("mssqlserver",
-                   new String[] {
-                       "MS SQL Server",
-                       "client",
-                       "MS SQL Server",
-                       "" });
-    dbmsValues.put("mysql",
-                   new String[] {
-                       "MySQL Database",
-                       "client",
-                       "MySQL",
-                       "`" });
-    dbmsValues.put("oracle",
-                   new String[] {
-                       "Oracle Database",
-                       "client",
-                       "Oracle",
-                       "" });
-    dbmsValues.put("postgresql",
-                   new String[] {
-                       "PostgreSQL Database",
-                       "client",
-                       "PostgreSQL",
-                       "" });
-    dbmsValues.put("sqlite",
-                   new String[] {
-                       "SQLite",
-                       "embedded",
-                       "SQLite",
-                       "" });
+    dbmsDetails.put("cratedb",
+                    new String[] {
+                        "cratedb",
+                        "CrateDB",
+                        "client",
+                        "CrateDB",
+                        "" });
+    dbmsDetails.put("cubrid",
+                    new String[] {
+                        "cubrid",
+                        "CUBRID",
+                        "client",
+                        "CUBRID",
+                        "\"" });
+    dbmsDetails.put("derby",
+                    new String[] {
+                        "derby",
+                        "Apache Derby [client]",
+                        "client",
+                        "Apache Derby",
+                        "" });
+    dbmsDetails.put("derby_emb",
+                    new String[] {
+                        "derby",
+                        "Apache Derby [embedded]",
+                        "embedded",
+                        "Apache Derby",
+                        "" });
+    dbmsDetails.put("firebird",
+                    new String[] {
+                        "firebird",
+                        "Firebird",
+                        "client",
+                        "Firebird",
+                        "" });
+    dbmsDetails.put("h2",
+                    new String[] {
+                        "h2",
+                        "H2 Database Engine [client]",
+                        "client",
+                        "H2",
+                        "" });
+    dbmsDetails.put("h2_emb",
+                    new String[] {
+                        "h2",
+                        "H2 Database Engine [embedded]",
+                        "embedded",
+                        "H2",
+                        "" });
+    dbmsDetails.put("hsqldb",
+                    new String[] {
+                        "hsqldb",
+                        "HyperSQL Database [client]",
+                        "client",
+                        "HyperSQL",
+                        "" });
+    dbmsDetails.put("hsqldb_emb",
+                    new String[] {
+                        "hsqldb",
+                        "HyperSQL Database [embedded]",
+                        "embedded",
+                        "HyperSQL",
+                        "" });
+    dbmsDetails.put("ibmdb2",
+                    new String[] {
+                        "ibmdb2",
+                        "IBM Db2 Database",
+                        "client",
+                        "IBM Db2",
+                        "" });
+    dbmsDetails.put("informix",
+                    new String[] {
+                        "informix",
+                        "IBM Informix",
+                        "client",
+                        "IBM Informix",
+                        "" });
+    dbmsDetails.put("mariadb",
+                    new String[] {
+                        "mariadb",
+                        "MariaDB Server",
+                        "client",
+                        "MariaDB",
+                        "`" });
+    dbmsDetails.put("mimer",
+                    new String[] {
+                        "mimer",
+                        "Mimer SQL",
+                        "client",
+                        "Mimer",
+                        "" });
+    dbmsDetails.put("mssqlserver",
+                    new String[] {
+                        "mssqlserver",
+                        "MS SQL Server",
+                        "client",
+                        "MS SQL Server",
+                        "" });
+    dbmsDetails.put("mysql",
+                    new String[] {
+                        "mysql",
+                        "MySQL Database",
+                        "client",
+                        "MySQL",
+                        "`" });
+    dbmsDetails.put("oracle",
+                    new String[] {
+                        "oracle",
+                        "Oracle Database",
+                        "client",
+                        "Oracle",
+                        "" });
+    dbmsDetails.put("postgresql",
+                    new String[] {
+                        "postgresql",
+                        "PostgreSQL Database",
+                        "client",
+                        "PostgreSQL",
+                        "" });
+    dbmsDetails.put("sqlite",
+                    new String[] {
+                        "sqlite",
+                        "SQLite",
+                        "embedded",
+                        "SQLite",
+                        "" });
 
-    return dbmsValues;
+    return dbmsDetails;
   }
 
   protected Config        config;
@@ -235,7 +259,7 @@ public abstract class AbstractDbmsSeeder {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
-    identifierDelimiter = dbmsValues.get(dbmsTickerSymbol)[3];
+    identifierDelimiter = dbmsDetails.get(dbmsTickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -255,7 +279,7 @@ public abstract class AbstractDbmsSeeder {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
-    identifierDelimiter = dbmsValues.get(dbmsTickerSymbol)[3];
+    identifierDelimiter = dbmsDetails.get(dbmsTickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -270,7 +294,7 @@ public abstract class AbstractDbmsSeeder {
    * @return the DBMS name
    */
   public final String getDbmsName(String tickerSymbolLower) {
-    return dbmsValues.get(tickerSymbolLower)[2];
+    return dbmsDetails.get(tickerSymbolLower)[DBMS_DETAILS_NAME];
   }
 
   /**
@@ -281,6 +305,6 @@ public abstract class AbstractDbmsSeeder {
    * @return the identifier delimiter
    */
   public final String getIdentifierDelimiter(String tickerSymbolLower) {
-    return dbmsValues.get(tickerSymbolLower)[3];
+    return dbmsDetails.get(tickerSymbolLower)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
   }
 }

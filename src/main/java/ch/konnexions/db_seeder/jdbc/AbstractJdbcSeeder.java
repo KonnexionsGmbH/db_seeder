@@ -323,7 +323,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, dbmsTickerSymbol, dbmsValues);
+    Statistics statistics = new Statistics(config, dbmsTickerSymbol, dbmsDetails);
 
     setupDatabase();
 
