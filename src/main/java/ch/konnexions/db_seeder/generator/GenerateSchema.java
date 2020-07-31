@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -144,6 +145,25 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     StringBuilder workArea;
 
     // Collections.sort(( tableConstraints);
+
+    tableConstraints.sort(new Comparator<TableConstraint>() {
+      @Override
+      public int compare(TableConstraint tableConstraint1, TableConstraint tableConstraint2) {
+        int result = tableConstraint1.getConstraintType().compareTo(tableConstraint2.getConstraintType());
+
+        if (result != 0) {
+          return result;
+        }
+
+        result = tableConstraint1.getColumns().get(0).compareTo(tableConstraint2.getColumns().get(0));
+
+        if (result != 0) {
+          return result;
+        }
+
+        return tableConstraint1.getColumns().get(1).compareTo(tableConstraint2.getColumns().get(1));
+      }
+    });
 
     for (int i = 0; i < tableConstraints.size(); i++) {
       TableConstraint tableConstraint = tableConstraints.get(i);
@@ -508,7 +528,22 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           if (!("cratedb".equals(tickerSymbolLower))) {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
-              for (References references : column.getReferences()) {
+              ArrayList<References> references = column.getReferences();
+
+              references.sort(new Comparator<References>() {
+                @Override
+                public int compare(References reference1, References reference2) {
+                  int result = reference1.getReferenceTable().compareTo(reference2.getReferenceTable());
+
+                  if (result != 0) {
+                    return result;
+                  }
+
+                  return reference1.getReferenceColumn().compareTo(reference2.getReferenceColumn());
+                }
+              });
+
+              for (References reference : references) {
                 if (isNewLineRequired) {
                   bw.append(workArea.toString());
                   bw.newLine();
@@ -517,9 +552,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
                 workArea.append("REFERENCES ");
                 workArea.append(String.format("%-33s",
-                                              identifierDelimiter + references.getReferenceTable().toUpperCase() + identifierDelimiter));
+                                              identifierDelimiter + reference.getReferenceTable().toUpperCase() + identifierDelimiter));
                 workArea.append("(");
-                workArea.append(references.getReferenceColumn().toUpperCase());
+                workArea.append(reference.getReferenceColumn().toUpperCase());
                 workArea.append(")");
 
                 isNewLineRequired = true;
