@@ -542,6 +542,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           if ("derby".equals(tickerSymbolLower)) {
             if (column.getDefaultValueInteger() != null || column.getDefaultValueText() != null) {
+              if (isNewLineRequired) {
+                bw.append(workArea.toString());
+                bw.newLine();
+                workArea = new StringBuffer(" ".repeat(82));
+              }
+
               workArea.append("DEFAULT ");
 
               if (column.getDefaultValueInteger() != null) {
