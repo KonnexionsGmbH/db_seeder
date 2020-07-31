@@ -1,36 +1,36 @@
 ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
-cratedb	CrateDB	client	10	2020-07-31 11:18:36.751992000	2020-07-31 11:18:46.807597000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-cratedb	CrateDB	client	6	2020-07-31 11:18:47.273036000	2020-07-31 11:18:53.978567000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-cubrid	CUBRID	client	1	2020-07-31 11:19:34.622610000	2020-07-31 11:19:36.062782000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-cubrid	CUBRID	client	1	2020-07-31 11:19:36.544679000	2020-07-31 11:19:38.520620000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-derby	Apache Derby [client]	client	4	2020-07-31 11:20:32.871030000	2020-07-31 11:20:37.462933000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-derby	Apache Derby [client]	client	2	2020-07-31 11:20:37.963126000	2020-07-31 11:20:40.677960000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-derby_emb	Apache Derby [embedded]	embedded	3	2020-07-31 11:20:41.233415000	2020-07-31 11:20:44.636050000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-firebird	Firebird	client	6	2020-07-31 11:21:23.519739000	2020-07-31 11:21:30.038421000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-firebird	Firebird	client	7	2020-07-31 11:21:30.532054000	2020-07-31 11:21:37.967185000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-h2	H2 Database Engine [client]	client	1	2020-07-31 11:22:11.700247000	2020-07-31 11:22:13.247991000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-h2	H2 Database Engine [client]	client	1	2020-07-31 11:22:13.734103000	2020-07-31 11:22:15.468658000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-h2_emb	H2 Database Engine [embedded]	embedded	1	2020-07-31 11:22:16.101246000	2020-07-31 11:22:17.331241000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-h2_emb	H2 Database Engine [embedded]	embedded	1	2020-07-31 11:22:17.793889000	2020-07-31 11:22:19.250301000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb	HyperSQL Database [client]	client	2	2020-07-31 11:22:54.244395000	2020-07-31 11:22:57.038700000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb	HyperSQL Database [client]	client	2	2020-07-31 11:22:57.547117000	2020-07-31 11:23:00.426683000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb_emb	HyperSQL Database [embedded]	embedded	2	2020-07-31 11:23:01.263734000	2020-07-31 11:23:03.300011000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb_emb	HyperSQL Database [embedded]	embedded	2	2020-07-31 11:23:03.839898000	2020-07-31 11:23:06.230328000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-ibmdb2	IBM Db2 Database	client	4	2020-07-31 11:27:29.078925000	2020-07-31 11:27:33.707609000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-ibmdb2	IBM Db2 Database	client	4	2020-07-31 11:27:34.221611000	2020-07-31 11:27:38.606196000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-informix	IBM Informix	client	2	2020-07-31 11:31:49.330578000	2020-07-31 11:31:51.666179000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-informix	IBM Informix	client	2	2020-07-31 11:31:52.158529000	2020-07-31 11:31:54.683896000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mariadb	MariaDB Server	client	1	2020-07-31 11:32:35.921986000	2020-07-31 11:32:37.464900000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mariadb	MariaDB Server	client	1	2020-07-31 11:32:37.949061000	2020-07-31 11:32:39.588892000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mssqlserver	MS SQL Server	client	3	2020-07-31 11:33:33.905689000	2020-07-31 11:33:36.981036000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mssqlserver	MS SQL Server	client	2	2020-07-31 11:33:37.464860000	2020-07-31 11:33:40.297503000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mimer	Mimer SQL	client	4	2020-07-31 11:34:22.662507000	2020-07-31 11:34:27.217535000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mimer	Mimer SQL	client	4	2020-07-31 11:34:27.680091000	2020-07-31 11:34:32.091629000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mysql	MySQL Database	client	3	2020-07-31 11:35:11.150110000	2020-07-31 11:35:14.528747000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-mysql	MySQL Database	client	3	2020-07-31 11:35:15.011412000	2020-07-31 11:35:18.374362000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-oracle	Oracle Database	client	4	2020-07-31 11:44:58.563889000	2020-07-31 11:45:02.904892000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-oracle	Oracle Database	client	3	2020-07-31 11:45:03.386551000	2020-07-31 11:45:07.312877000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-postgresql	PostgreSQL Database	client	1	2020-07-31 11:45:44.702810000	2020-07-31 11:45:46.146463000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-postgresql	PostgreSQL Database	client	1	2020-07-31 11:45:46.651260000	2020-07-31 11:45:48.105808000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-sqlite	SQLite	embedded	0	2020-07-31 11:45:48.659918000	2020-07-31 11:45:49.521665000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
-sqlite	SQLite	embedded	0	2020-07-31 11:45:50.041963000	2020-07-31 11:45:50.879482000	travis-job-a4915d0b-c57d-490e-ad32-991243ee5416	2	amd64 / Linux / 5.3.0-1029-gcp
+cratedb	CrateDB	client	40	2020-07-31 11:18:29.168071000	2020-07-31 11:19:10.092039000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+cratedb	CrateDB	client	33	2020-07-31 11:19:10.973434000	2020-07-31 11:19:44.403235000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+cubrid	CUBRID	client	10	2020-07-31 11:20:25.384228000	2020-07-31 11:20:35.889270000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+cubrid	CUBRID	client	10	2020-07-31 11:20:36.400036000	2020-07-31 11:20:46.941372000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+derby	Apache Derby [client]	client	19	2020-07-31 11:21:42.213979000	2020-07-31 11:22:01.741234000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+derby	Apache Derby [client]	client	15	2020-07-31 11:22:02.228311000	2020-07-31 11:22:18.031041000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+derby_emb	Apache Derby [embedded]	embedded	13	2020-07-31 11:22:18.572983000	2020-07-31 11:22:31.689042000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+firebird	Firebird	client	55	2020-07-31 11:23:10.395236000	2020-07-31 11:24:06.246058000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+firebird	Firebird	client	55	2020-07-31 11:24:06.684554000	2020-07-31 11:25:01.851855000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+h2	H2 Database Engine [client]	client	8	2020-07-31 11:25:35.783573000	2020-07-31 11:25:44.510593000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+h2	H2 Database Engine [client]	client	8	2020-07-31 11:25:44.965898000	2020-07-31 11:25:53.843963000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+h2_emb	H2 Database Engine [embedded]	embedded	3	2020-07-31 11:25:54.850945000	2020-07-31 11:25:58.560757000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+h2_emb	H2 Database Engine [embedded]	embedded	4	2020-07-31 11:25:59.032284000	2020-07-31 11:26:03.887968000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb	HyperSQL Database [client]	client	20	2020-07-31 11:26:38.882718000	2020-07-31 11:26:58.915383000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb	HyperSQL Database [client]	client	18	2020-07-31 11:26:59.818273000	2020-07-31 11:27:18.367499000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb_emb	HyperSQL Database [embedded]	embedded	13	2020-07-31 11:27:18.877570000	2020-07-31 11:27:32.555558000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb_emb	HyperSQL Database [embedded]	embedded	15	2020-07-31 11:27:33.044997000	2020-07-31 11:27:48.946794000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+ibmdb2	IBM Db2 Database	client	17	2020-07-31 11:32:12.113921000	2020-07-31 11:32:29.618824000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+ibmdb2	IBM Db2 Database	client	13	2020-07-31 11:32:30.330399000	2020-07-31 11:32:43.365150000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+informix	IBM Informix	client	15	2020-07-31 11:36:43.987347000	2020-07-31 11:36:59.514183000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+informix	IBM Informix	client	30	2020-07-31 11:36:59.946814000	2020-07-31 11:37:30.543991000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mariadb	MariaDB Server	client	7	2020-07-31 11:38:12.301531000	2020-07-31 11:38:19.901790000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mariadb	MariaDB Server	client	7	2020-07-31 11:38:20.350219000	2020-07-31 11:38:27.760500000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mssqlserver	MS SQL Server	client	11	2020-07-31 11:40:04.522108000	2020-07-31 11:40:15.567713000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mssqlserver	MS SQL Server	client	10	2020-07-31 11:40:16.050278000	2020-07-31 11:40:26.577120000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mimer	Mimer SQL	client	42	2020-07-31 11:41:00.985130000	2020-07-31 11:41:43.593368000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mimer	Mimer SQL	client	43	2020-07-31 11:41:44.036214000	2020-07-31 11:42:27.286462000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mysql	MySQL Database	client	12	2020-07-31 11:43:06.248615000	2020-07-31 11:43:19.113920000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+mysql	MySQL Database	client	12	2020-07-31 11:43:19.599573000	2020-07-31 11:43:31.694830000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+oracle	Oracle Database	client	13	2020-07-31 11:53:20.659997000	2020-07-31 11:53:34.542282000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+oracle	Oracle Database	client	12	2020-07-31 11:53:35.010554000	2020-07-31 11:53:47.179722000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+postgresql	PostgreSQL Database	client	8	2020-07-31 11:54:24.662286000	2020-07-31 11:54:32.866163000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+postgresql	PostgreSQL Database	client	8	2020-07-31 11:54:33.376703000	2020-07-31 11:54:41.410874000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+sqlite	SQLite	embedded	1	2020-07-31 11:54:41.912655000	2020-07-31 11:54:43.543575000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
+sqlite	SQLite	embedded	1	2020-07-31 11:54:44.013411000	2020-07-31 11:54:45.682052000	travis-job-810855c6-c870-4ccd-ae5f-962b074dd146	2	amd64 / Linux / 5.3.0-1029-gcp
