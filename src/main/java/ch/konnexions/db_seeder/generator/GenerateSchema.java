@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.everit.json.schema.Schema;
@@ -1674,17 +1677,38 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     MessageHandling.startProgress(logger,
                                   "Start transforming JSON to a POJO");
 
-    Gson       gson       = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+    Gson   gson       = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+
+    String jsonString = "";
+
+    try {
+      jsonString = Files.newBufferedReader(Paths.get(fileJsonName)).lines().collect(Collectors.joining());
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    JSONObject jsonObject = null;
+
+    try {
+      jsonObject = new JSONObject(jsonString);
+    } catch (JSONException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     SchemaPojo schemaPojo = null;
 
     try {
-      schemaPojo = gson.fromJson(Files.newBufferedReader(Paths.get(fileJsonName)),
+      schemaPojo = gson.fromJson(jsonString,
                                  SchemaPojo.class);
-    } catch (JsonSyntaxException | IOException | JsonIOException e) {
+    } catch (JsonSyntaxException | JsonIOException e) {
       MessageHandling.abortProgram(logger,
                                    e.getMessage());
     }
+
+    validateJsonNames(jsonObject,
+                      SchemaPojo.class);
 
     logger.info("===> The JSON to POJO transformation was successful.");
     logger.info("-".repeat(74));
@@ -1719,11 +1743,49 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                                    e.getMessage());
     }
 
+    if (errors > 0) {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: " + errors + " error(s) occurred during the JSON validation.");
+    }
+
     logger.info("===> The JSON validation was successful.");
     logger.info("-".repeat(74));
 
     if (isDebug) {
       logger.debug("End");
+    }
+  }
+
+  /**
+   * Validate the JSON names.
+   *
+   * @param jsonObject the JSON object
+   * @param classPojo the POJO class
+   */
+  private void validateJsonNames(JSONObject jsonObject, Class<?> classPojo) {
+    Set<String> classFields = new HashSet<>();
+
+    for (Field field : classPojo.getDeclaredFields()) {
+      if (!Modifier.isPublic(field.getModifiers())) {
+        if (!("private ch.konnexions.db_seeder.schema.SchemaPojo$Globals ch.konnexions.db_seeder.schema.SchemaPojo.globals".equals(field.toString())
+            || "private java.util.Set ch.konnexions.db_seeder.schema.SchemaPojo.tables".equals(field.toString()))) {
+          logger.error("Field '" + field + "' - this field is not public, please correct");
+          errors++;
+        }
+      }
+    }
+
+    for (Field field : classPojo.getFields()) {
+      classFields.add(field.getName());
+    }
+
+    for (String name : JSONObject.getNames(jsonObject)) {
+      if (!classFields.contains(name)) {
+        if (!("globals".equals(name) || "tables".equals(name))) {
+          logger.error("Name '" + name + "' - this name is not defined in the JSON schema'");
+          errors++;
+        }
+      }
     }
   }
 
