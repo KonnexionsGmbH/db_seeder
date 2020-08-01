@@ -37,38 +37,38 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX    = 3;
-  private static final Logger logger          = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final int    ENCODING_MAX       = 3;
+  private static final Logger logger             = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  private final String        BLOB_FILE       = Paths.get("src",
-                                                          "main",
-                                                          "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]        BLOB_DATA_BYTES = readBlobFile2Bytes();
-  private final String        CLOB_FILE       = Paths.get("src",
-                                                          "main",
-                                                          "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String        BLOB_FILE          = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]        BLOB_DATA_BYTES    = readBlobFile2Bytes();
+  private final String        CLOB_FILE          = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
 
-  private final String        CLOB_DATA       = readClobFile();
-  protected Connection        connection      = null;
+  private final String        CLOB_DATA          = readClobFile();
+  protected Connection        connection         = null;
 
-  protected String            driver          = "";
-  protected String            dropTableStmnt  = "";
+  protected String            driver             = "";
+  protected String            dropTableStmnt     = "";
 
-  private final Properties    encodedColumnNames;
+  protected Properties        encodedColumnNames = new Properties();
 
   protected final boolean     isClient;
   protected final boolean     isEmbedded;
 
-  private final int           nullFactor;
+  protected int               nullFactor;
 
-  private final Random        randomInt       = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  private ResultSet           resultSet       = null;
+  private final Random        randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private ResultSet           resultSet          = null;
 
-  protected Statement         statement       = null;
+  protected Statement         statement          = null;
 
-  protected String            url             = "";
-  protected String            urlBase         = "";
-  protected String            urlSetup        = "";
+  protected String            url                = "";
+  protected String            urlBase            = "";
+  protected String            urlSetup           = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
@@ -82,14 +82,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
-    config             = new Config();
+    config     = new Config();
 
-    encodedColumnNames = createColumnNames();
-
-    isClient           = true;
-    isEmbedded         = false;
-
-    nullFactor         = config.getNullFactor();
+    isClient   = true;
+    isEmbedded = false;
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
@@ -112,14 +108,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
-    config             = new Config();
+    config        = new Config();
 
-    encodedColumnNames = createColumnNames();
-
-    this.isClient      = isClient;
-    isEmbedded         = !(this.isClient);
-
-    nullFactor         = config.getNullFactor();
+    this.isClient = isClient;
+    isEmbedded    = !(this.isClient);
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
@@ -311,9 +303,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Creates the column names with encoding variations.
    *
+   * @param isEncodingIso_8859_1 the is encoding ISO_8859_1 8859 1
+   * @param isEncodingUtf_8 the is encoding UTF_8 required
    * @return the properties
    */
-  protected abstract Properties createColumnNames();
+  protected abstract void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8);
 
   /**
    * Create the test data for all database valTableNames.
@@ -931,55 +925,55 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  /**
-   * Sets the designated optional column to a BIGINT value or to NULL.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   * @param defaultValue      the lower value
-   * @param lowerRange        the lower range
-   * @param upperRange        the upper range
-   * @param validValues       the valid values
-   */
-  @SuppressWarnings("ucd")
-  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
-                                             String tableName,
-                                             String columnName,
-                                             int columnPos,
-                                             long rowNo,
-                                             Integer defaultValue,
-                                             Integer lowerRange,
-                                             Integer upperRange,
-                                             List<Integer> validValues) {
-    try {
-      if (rowNo % nullFactor == 0) {
-        if (defaultValue == null) {
-          preparedStatement.setNull(columnPos,
-                                    java.sql.Types.INTEGER);
-        } else {
-          preparedStatement.setLong(columnPos,
-                                    defaultValue);
-        }
-        return;
-      }
-
-      prepStmntColBigint(preparedStatement,
-                         tableName,
-                         columnName,
-                         columnPos,
-                         rowNo,
-                         defaultValue,
-                         lowerRange,
-                         upperRange,
-                         validValues);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
+  //  /**
+  //   * Sets the designated optional column to a BIGINT value or to NULL.
+  //   *
+  //   * @param preparedStatement the prepared statement
+  //   * @param tableName         the table name
+  //   * @param columnName        the column name
+  //   * @param columnPos         the column position
+  //   * @param rowNo             the current row number
+  //   * @param defaultValue      the lower value
+  //   * @param lowerRange        the lower range
+  //   * @param upperRange        the upper range
+  //   * @param validValues       the valid values
+  //   */
+  //  @SuppressWarnings("ucd")
+  //  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
+  //                                             String tableName,
+  //                                             String columnName,
+  //                                             int columnPos,
+  //                                             long rowNo,
+  //                                             Integer defaultValue,
+  //                                             Integer lowerRange,
+  //                                             Integer upperRange,
+  //                                             List<Integer> validValues) {
+  //    try {
+  //      if (rowNo % nullFactor == 0) {
+  //        if (defaultValue == null) {
+  //          preparedStatement.setNull(columnPos,
+  //                                    java.sql.Types.INTEGER);
+  //        } else {
+  //          preparedStatement.setLong(columnPos,
+  //                                    defaultValue);
+  //        }
+  //        return;
+  //      }
+  //
+  //      prepStmntColBigint(preparedStatement,
+  //                         tableName,
+  //                         columnName,
+  //                         columnPos,
+  //                         rowNo,
+  //                         defaultValue,
+  //                         lowerRange,
+  //                         upperRange,
+  //                         validValues);
+  //    } catch (SQLException e) {
+  //      e.printStackTrace();
+  //      System.exit(1);
+  //    }
+  //  }
 
   /**
    * Sets the designated column to a BLOB value.
@@ -1052,7 +1046,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setString(columnPos,
                                   getContentClob(tableName,

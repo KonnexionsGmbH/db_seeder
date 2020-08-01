@@ -1,6 +1,6 @@
 {
   "globals"  : {
-    "defaultNumberOfRows": 100
+    "defaultNumberOfRows": 1000, "encodingISO_8859_1": true, "encodingUTF_8": true, "nullFactor": 4
   }, "tables": [
   {
     "tableName": "test_table_1", "columns": [
@@ -136,9 +136,10 @@
       }, {
         "columnName": "column_6_02", "dataType": "bigint", "defaultValueInteger": 5, "validValuesInteger": [0, 2, 4, 6, 8]
       }, {
-        "columnName": "column_6_03", "dataType": "varchar", "size": 10, "defaultValueString": "default", "lowerRangeString": "A", "upperRangeString": "zzzzzzzzzz"
+        "columnName"      : "column_6_03", "dataType": "varchar", "size": 10, "defaultValueString": "default", "lowerRangeString": "A",
+        "upperRangeString": "zzzzzzzzzz"
       }, {
-        "columnName"     : "column_6_04", "dataType": "varchar", "size": 5, "defaultValueString": "x",
+        "columnName"       : "column_6_04", "dataType": "varchar", "size": 5, "defaultValueString": "x",
         "validValuesString": ["a", "B", "c", "D", "e", "f", "G", "h", "I"]
       }
     ]

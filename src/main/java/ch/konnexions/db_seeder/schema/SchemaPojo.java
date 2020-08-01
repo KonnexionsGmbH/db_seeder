@@ -18,13 +18,42 @@ public final class SchemaPojo {
   public static final class Globals {
 
     private Integer defaultNumberOfRows;
+    private boolean encodingISO_8859_1;
+
+    private boolean encodingUTF_8;
+
+    private Integer nullFactor;
 
     public final Integer getDefaultNumberOfRows() {
       return defaultNumberOfRows;
     }
 
+    public Integer getNullFactor() {
+      return nullFactor;
+    }
+
+    public boolean isEncodingISO_8859_1() {
+      return encodingISO_8859_1;
+    }
+
+    public boolean isEncodingUTF_8() {
+      return encodingUTF_8;
+    }
+
     public final void setDefaultNumberOfRows(Integer defaultNumberOfRows) {
       this.defaultNumberOfRows = defaultNumberOfRows;
+    }
+
+    public void setEncodingISO_8859_1(boolean encodingISO_8859_1) {
+      this.encodingISO_8859_1 = encodingISO_8859_1;
+    }
+
+    public void setEncodingUTF_8(boolean encodingUTF_8) {
+      this.encodingUTF_8 = encodingUTF_8;
+    }
+
+    public void setNullFactor(Integer nullFactor) {
+      this.nullFactor = nullFactor;
     }
   }
 

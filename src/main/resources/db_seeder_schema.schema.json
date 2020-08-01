@@ -2,22 +2,26 @@
   "$schema"    : "http://json-schema.org/draft-07/schema#", "title": "DB Seeder Schema",
   "description": "The DB Seeder schema to verify the database table definitions", "type": "object", "properties": {
   "globals"  : {
-    "type"       : "object", "properties": {
-      "defaultNumberOfRows": {
-        "type": "integer", "mimimum": 1
+    "type": "object", "properties": {
+      "defaultNumberOfRows"  : {
+        "type": "integer"
+      }, "encodingISO_8859_1": {
+        "type": "boolean"
+      }, "encodingUTF_8"     : {
+        "type": "boolean"
+      }, "nullFactor"        : {
+        "type": "integer"
       }
-    }, "required": [
-      "defaultNumberOfRows"
-    ]
+    }
   }, "tables": {
-    "type"       : "array", "uniqueItems": true, "minItems": 1, "items": {
+    "type": "array", "uniqueItems": true, "minItems": 1, "items": {
       "type": "object", "properties": {
         "tableName"          : {
           "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
         }, "numberOfRows"    : {
           "type": "integer"
         }, "columns"         : {
-          "type"       : "array", "uniqueItems": true, "minItems": 1, "items": {
+          "type": "array", "uniqueItems": true, "minItems": 1, "items": {
             "type": "object", "properties": {
               "columnName"            : {
                 "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
@@ -33,7 +37,7 @@
                 "type": "boolean"
               }, "primaryKey"         : {
                 "type": "boolean"
-              }, "references"          : {
+              }, "references"         : {
                 "type": "array", "uniqueItems": true, "items": {
                   "type": "object", "properties": {
                     "referenceTable"    : {
@@ -51,28 +55,26 @@
                 "type": "string"
               }, "lowerRangeInteger"  : {
                 "type": "integer"
-              }, "lowerRangeString"     : {
+              }, "lowerRangeString"   : {
                 "type": "string"
               }, "upperRangeInteger"  : {
                 "type": "integer"
-              }, "upperRangeString"     : {
+              }, "upperRangeString"   : {
                 "type": "string"
               }, "validValuesInteger" : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "integer"
                 }
-              }, "validValuesString"    : {
+              }, "validValuesString"  : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "string"
                 }
               }
             }
-          }, "required": [
-            "columnName", "dataType"
-          ]
+          }
         }, "tableConstraints": {
           "type": "array", "uniqueItems": true, "items": {
-            "type"       : "object", "properties": {
+            "type": "object", "properties": {
               "constraintType"     : {
                 "enum": [
                   "foreign", "primary", "not null", "unique"
@@ -88,15 +90,11 @@
                   "type": "string", "minLength": 1, "maxLength": 30, "pattern": "[a-zA-Z][a-zA-Z_]*"
                 }
               }
-            }, "required": [
-              "constraintType"
-            ]
+            }
           }
         }
       }
-    }, "required": [
-      "tableName"
-    ]
+    }
   }
 }
 }

@@ -77,8 +77,6 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 export DB_SEEDER_DEFAULT_ROW_SIZE=1000
 
 export DB_SEEDER_DBMS_EMBEDDED=no
-export DB_SEEDER_ENCODING_ISO_8859_1=true
-export DB_SEEDER_ENCODING_UTF_8=true
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
@@ -104,7 +102,6 @@ if [ "$DB_SEEDER_DBMS" = "cratedb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
 fi
 
 if [ "$DB_SEEDER_DBMS" = "cubrid" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
-    export DB_SEEDER_ENCODING_UTF_8=false
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=33000
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
@@ -247,7 +244,6 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONTAINER_PORT=1360
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=mimerdb
-    export DB_SEEDER_ENCODING_UTF_8=false
     export DB_SEEDER_PASSWORD=mimer
     export DB_SEEDER_PASSWORD_SYS=mimer
     export DB_SEEDER_USER=kxn_user
@@ -256,7 +252,6 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
 fi
 
 if [ "$DB_SEEDER_DBMS" = "mssqlserver" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
-    export DB_SEEDER_ENCODING_UTF_8=false
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
@@ -338,8 +333,6 @@ echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
 echo "RELEASE                           : $DB_SEEDER_RELEASE"
 echo "SETUP_DBMS                        : $DB_SEEDER_SETUP_DBMS"
 echo "--------------------------------------------------------------------------------"
-echo "ENCODING_ISO_8859_1               : $DB_SEEDER_ENCODING_ISO_8859_1"
-echo "ENCODING_UTF_8                    : $DB_SEEDER_ENCODING_UTF_8"
 echo "FILE_CONFIGURATION_NAME           : $DB_SEEDER_FILE_CONFIGURATION_NAME"
 echo "FILE_STATISTICS_DELIMITER         : $DB_SEEDER_FILE_STATISTICS_DELIMITER"
 echo "FILE_STATISTICS_HEADER            : $DB_SEEDER_FILE_STATISTICS_HEADER"

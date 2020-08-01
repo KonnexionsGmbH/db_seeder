@@ -30,6 +30,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
+    nullFactor = 4;
+
     if (isDebug) {
       logger.debug("End   Constructor");
     }
@@ -47,6 +49,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     if (isDebug) {
       logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
+
+    nullFactor = 4;
 
     if (isDebug) {
       logger.debug("End   Constructor");

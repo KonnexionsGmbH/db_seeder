@@ -38,9 +38,6 @@ public final class Config {
   private String                  database;
   private String                  databaseSys;
 
-  private boolean                 encodingIso_8859_1;
-  private boolean                 encodingUtf_8;
-
   private String                  fileConfigurationName;
   private String                  fileJsonName;
   private String                  fileStatisticsDelimiter;
@@ -48,8 +45,6 @@ public final class Config {
   private String                  fileStatisticsName;
 
   private ArrayList<String>       keysSorted = new ArrayList<>();
-
-  private int                     nullFactor;
 
   private String                  password;
   private String                  passwordSys;
@@ -156,22 +151,6 @@ public final class Config {
     return databaseSys;
   }
 
-  // Encoding ----------------------------------------------------------------
-
-  /**
-   * @return the encoding option for ISO-8859-1
-   */
-  public final boolean getEncodingIso_8859_1() {
-    return encodingIso_8859_1;
-  }
-
-  /**
-   * @return the encoding option for UTF-8
-   */
-  public final boolean getEncodingUtf_8() {
-    return encodingUtf_8;
-  }
-
   // -------------------------------------------------------------------------
 
   /**
@@ -220,20 +199,6 @@ public final class Config {
   }
 
   // -------------------------------------------------------------------------
-
-  /**
-   * @return the factor to determine the proportion of NULLs with optional columns
-   */
-  public final int getNullFactor() {
-    if (nullFactor < 2) {
-      return 2;
-    }
-
-    return Math.min(nullFactor,
-                    99);
-  }
-
-  // Proportion of NULLs ----------------------------------------------
 
   @SuppressWarnings("unused")
   private ArrayList<String> getNumericProperties() {
@@ -300,16 +265,11 @@ public final class Config {
     database                = propertiesConfiguration.getString("db_seeder.database");
     databaseSys             = propertiesConfiguration.getString("db_seeder.database.sys");
 
-    encodingIso_8859_1      = propertiesConfiguration.getBoolean("db_seeder.encoding.iso_8859_1");
-    encodingUtf_8           = propertiesConfiguration.getBoolean("db_seeder.encoding.utf_8");
-
     fileConfigurationName   = propertiesConfiguration.getString("db_seeder.file.configuration.name");
     fileJsonName            = propertiesConfiguration.getString("db_seeder.file.json.name");
     fileStatisticsDelimiter = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
     fileStatisticsHeader    = propertiesConfiguration.getString("db_seeder.file.statistics.header");
     fileStatisticsName      = propertiesConfiguration.getString("db_seeder.file.statistics.name");
-
-    nullFactor              = propertiesConfiguration.getInt("db_seeder.null.factor");
 
     password                = propertiesConfiguration.getString("db_seeder.password");
     passwordSys             = propertiesConfiguration.getString("db_seeder.password.sys");
@@ -370,20 +330,6 @@ public final class Config {
                                           databaseSys);
     }
 
-    // Encoding ----------------------------------------------------------------
-
-    if (environmentVariables.containsKey("DB_SEEDER_ENCODING_ISO_8859_1")) {
-      String encodingIso_8859_1Helper = environmentVariables.get("DB_SEEDER_ENCODING_ISO_8859_1");
-      propertiesConfiguration.setProperty("db_seeder.encoding.is_8859_1",
-                                          "true".equals(encodingIso_8859_1Helper.toLowerCase()));
-    }
-
-    if (environmentVariables.containsKey("DB_SEEDER_ENCODING_UTF_8")) {
-      String encodingUtf_8Helper = environmentVariables.get("DB_SEEDER_ENCODING_UTF_8");
-      propertiesConfiguration.setProperty("db_seeder.encoding.utf_8",
-                                          "true".equals(encodingUtf_8Helper.toLowerCase()));
-    }
-
     // File Configuration -------------------------------------------------------
 
     if (environmentVariables.containsKey("DB_SEEDER_FILE_CONFIGURATION_NAME")) {
@@ -418,14 +364,6 @@ public final class Config {
       fileStatisticsName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.statistics.name",
                                           fileStatisticsName);
-    }
-
-    // Proportion of NULLs ----------------------------------------------
-
-    if (environmentVariables.containsKey("DB_SEEDER_NULL_FACTOR")) {
-      nullFactor = Integer.parseInt(environmentVariables.get("DB_SEEDER_NULL_FACTOR"));
-      propertiesConfiguration.setProperty("db_seeder.null.factor",
-                                          connectionPort);
     }
 
     // PASSWORD ---------------------------------------------------------

@@ -74,8 +74,6 @@ rem ----------------------------------------------------------------------------
 set DB_SEEDER_DEFAULT_ROW_SIZE=1000
 
 set DB_SEEDER_DBMS_EMBEDDED=no
-set DB_SEEDER_ENCODING_ISO_8859_1=true
-set DB_SEEDER_ENCODING_UTF_8=true
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
@@ -111,7 +109,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
-    set DB_SEEDER_ENCODING_UTF_8=false
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=33000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
@@ -298,7 +295,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_CONTAINER_PORT=1360
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=mimerdb
-    set DB_SEEDER_ENCODING_UTF_8=false
     set DB_SEEDER_PASSWORD=mimer
     set DB_SEEDER_PASSWORD_SYS=mimer
     set DB_SEEDER_USER=kxn_user
@@ -311,7 +307,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
-    set DB_SEEDER_ENCODING_UTF_8=false
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1433
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
@@ -413,8 +408,6 @@ echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
 echo --------------------------------------------------------------------------------
-echo ENCODING_ISO_8859_1             : %DB_SEEDER_ENCODING_ISO_8859_1%
-echo ENCODING_UTF_8                  : %DB_SEEDER_ENCODING_UTF_8%
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
 echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%

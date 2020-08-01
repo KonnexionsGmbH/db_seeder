@@ -76,11 +76,11 @@ public abstract class AbstractDbmsSeeder {
 
   public static final Map<String, String[]> dbmsDetails                       = initDbmsDetails();
 
-  public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
-  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
-  public static final int                   DBMS_DETAILS_NAME                 = 3;
-  public static final int                   DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
-  public static final int                   DBMS_DETAILS_TICKER_SYMBOL        = 0;
+  //  public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
+  //  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
+  private static final int                  DBMS_DETAILS_NAME                 = 3;
+  private static final int                  DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
+  //  public static final int                   DBMS_DETAILS_TICKER_SYMBOL        = 0;
 
   public static final String                FORMAT_IDENTIFIER                 = "%-10d";
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";

@@ -12,11 +12,9 @@ import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -60,6 +58,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
   private int                                               errors                    = 0;
 
+  private int                                               genDefaultNumberOfRows;
+  private boolean                                           genIsEncodingISO_8859_1;
+  private boolean                                           genIsEncodingUTF_8;
+  private int                                               genNullFactor;
   private final ArrayList<String>                           genTableHierarchy         = new ArrayList<>();
   private final Map<String, ArrayList<String>>              genTableNameColumnNames   = new HashMap<>();
   private final ArrayList<String>                           genTableNames             = new ArrayList<>();
@@ -70,8 +72,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
   private final boolean                                     isDebug                   = logger.isDebugEnabled();
 
-  private final String                                      printDate;
-
   private Set<Table>                                        valTables;
   private HashMap<String, HashSet<String>>                  valTablesColumns;
   private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
@@ -81,11 +81,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    */
   public GenerateSchema() {
     super();
-
-    String           printDatePattern = "yyyy-MM-dd";
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(printDatePattern);
-
-    printDate = simpleDateFormat.format(new Date());
   }
 
   private String editDataType(String tickerSymbolLower, Column column) {
@@ -402,6 +397,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.newLine();
       bw.append("import java.util.HashMap;");
+      bw.append("import java.util.Properties;");
       bw.newLine();
       bw.newLine();
       bw.append("import org.apache.log4j.Logger;");
@@ -645,6 +641,21 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("    }");
       bw.newLine();
       bw.newLine();
+
+      if ("cubrid".equals(tickerSymbolLower) || "mimer".equals(tickerSymbolLower) || "mssqlserver".equals(tickerSymbolLower)) {
+        bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
+            ? "true"
+            : "false").append(", false);");
+      } else {
+        bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
+            ? "true"
+            : "false").append(", ").append(genIsEncodingUTF_8
+                ? "true"
+                : "false").append(");");
+      }
+
+      bw.newLine();
+      bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
       bw.append("      logger.debug(\"End   Constructor\");");
@@ -654,9 +665,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("  }");
       bw.newLine();
 
-      if ("derby".equals(tickerSymbolLower) || "hsqldb".equals(tickerSymbolLower) || "h2".equals(tickerSymbolLower))
-
-      {
+      if ("derby".equals(tickerSymbolLower) || "hsqldb".equals(tickerSymbolLower) || "h2".equals(tickerSymbolLower)) {
         bw.newLine();
         bw.append("  /**");
         bw.newLine();
@@ -686,6 +695,21 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         bw.append("    }");
         bw.newLine();
         bw.newLine();
+
+        if ("cubrid".equals(tickerSymbolLower) || "mimer".equals(tickerSymbolLower) || "mssqlserver".equals(tickerSymbolLower)) {
+          bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
+              ? "true"
+              : "false").append(", false);");
+        } else {
+          bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
+              ? "true"
+              : "false").append(", ").append(genIsEncodingUTF_8
+                  ? "true"
+                  : "false").append(");");
+        }
+
+        bw.newLine();
+        bw.newLine();
         bw.append("    if (isDebug) {");
         bw.newLine();
         bw.append("      logger.debug(\"End   Constructor\");");
@@ -695,6 +719,65 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         bw.append("  }");
         bw.newLine();
       }
+
+      bw.newLine();
+      bw.newLine();
+      bw.append("  protected final void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8) {");
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"Start\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    encodedColumnNames = new Properties();");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    // Encoding ASCII");
+      bw.newLine();
+
+      Set<String> genVarcharColumnNamesSorted = new TreeSet<>(genVarcharColumnNames);
+
+      for (String columnName : genVarcharColumnNamesSorted) {
+        bw.append("    encodedColumnNames.setProperty(\"").append(columnName).append("_0\",");
+        bw.newLine();
+        bw.append("                           \"\");");
+        bw.newLine();
+      }
+
+      bw.newLine();
+      bw.append("    // Encoding ISO_8859_1");
+      bw.newLine();
+      bw.newLine();
+
+      for (String columnName : genVarcharColumnNamesSorted) {
+        bw.append("    encodedColumnNames.setProperty(\"").append(columnName).append("_1\",");
+        bw.newLine();
+        bw.append("                           isEncodingIso_8859_1 ? \"ÁÇÉÍÑÓ_\" : \"NO_ISO_8859_1_\");");
+        bw.newLine();
+      }
+
+      bw.newLine();
+      bw.append("    // Encoding UTF_8");
+      bw.newLine();
+      bw.newLine();
+
+      for (String columnName : genVarcharColumnNamesSorted) {
+        bw.append("    encodedColumnNames.setProperty(\"").append(columnName).append("_2\",");
+        bw.newLine();
+        bw.append("                           isEncodingUtf_8 ? \"缩略语地址电子邮件传真_\" : \"NO_UTF_8_\");");
+        bw.newLine();
+      }
+
+      bw.newLine();
+      bw.append("    if (isDebug) {");
+      bw.newLine();
+      bw.append("      logger.debug(\"End\");");
+      bw.newLine();
+      bw.append("    }");
+      bw.append("  }");
+      bw.newLine();
 
       bw.append("}");
       bw.newLine();
@@ -829,71 +912,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("      logger.debug(\"End   Constructor\");");
       bw.newLine();
       bw.append("    }");
-      bw.newLine();
-      bw.append("  }");
-      bw.newLine();
-      bw.newLine();
-      bw.append("  protected final Properties createColumnNames() {");
-      bw.newLine();
-      bw.append("    if (isDebug) {");
-      bw.newLine();
-      bw.append("      logger.debug(\"Start\");");
-      bw.newLine();
-      bw.append("    }");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    Properties columnName = new Properties();");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    // Encoding ASCII");
-      bw.newLine();
-
-      Set<String> genVarcharColumnNamesSorted = new TreeSet<>(genVarcharColumnNames);
-
-      for (String columnName : genVarcharColumnNamesSorted) {
-        bw.append("    columnName.setProperty(\"").append(columnName).append("_0\",");
-        bw.newLine();
-        bw.append("                           \"\");");
-        bw.newLine();
-      }
-
-      bw.newLine();
-      bw.append("    // Encoding ISO_8859_1");
-      bw.newLine();
-      bw.append("    boolean isIso_8859_1 = config.getEncodingIso_8859_1();");
-      bw.newLine();
-      bw.newLine();
-
-      for (String columnName : genVarcharColumnNamesSorted) {
-        bw.append("    columnName.setProperty(\"").append(columnName).append("_1\",");
-        bw.newLine();
-        bw.append("                           isIso_8859_1 ? \"ÁÇÉÍÑÓ_\" : \"NO_ISO_8859_1_\");");
-        bw.newLine();
-      }
-
-      bw.newLine();
-      bw.append("    // Encoding UTF_8");
-      bw.newLine();
-      bw.append("    boolean isUtf_8 = config.getEncodingUtf_8();");
-      bw.newLine();
-      bw.newLine();
-
-      for (String columnName : genVarcharColumnNamesSorted) {
-        bw.append("    columnName.setProperty(\"").append(columnName).append("_2\",");
-        bw.newLine();
-        bw.append("                           isUtf_8 ? \"缩略语地址电子邮件传真_\" : \"NO_UTF_8_\");");
-        bw.newLine();
-      }
-
-      bw.newLine();
-      bw.append("    if (isDebug) {");
-      bw.newLine();
-      bw.append("      logger.debug(\"End\");");
-      bw.newLine();
-      bw.append("    }");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    return columnName;");
       bw.newLine();
       bw.append("  }");
       bw.newLine();
@@ -1100,6 +1118,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("    }");
       bw.newLine();
       bw.newLine();
+      bw.append("    nullFactor = ").append(Integer.toString(genNullFactor)).append(";");
+      bw.newLine();
+      bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
       bw.append("      logger.debug(\"End   Constructor\");");
@@ -1131,6 +1152,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - isClient=\" + isClient);");
       bw.newLine();
       bw.append("    }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("    nullFactor = ").append(Integer.toString(genNullFactor)).append(";");
       bw.newLine();
       bw.newLine();
       bw.append("    if (isDebug) {");
@@ -1588,7 +1612,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             } else {
               bw.append("                             Arrays.asList(\"").append(String.join(",",
                                                                                             column.getValidValuesString()).replace(",",
-                                                                                                                                 "\",\"")).append("\"));");
+                                                                                                                                   "\",\"")).append("\"));");
             }
 
             bw.newLine();
@@ -1835,16 +1859,42 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     // defaultNumberOfRows
     // -------------------------------------------------------------------------
 
-    int valDefaultNumberOfRows = 0;
-
     if (schemaPojo.getGlobals().getDefaultNumberOfRows() == null) {
       logger.error("'defaultNumberOfRows' missing (null)");
       errors++;
     } else {
-      valDefaultNumberOfRows = schemaPojo.getGlobals().getDefaultNumberOfRows();
+      genDefaultNumberOfRows = schemaPojo.getGlobals().getDefaultNumberOfRows();
 
-      if (valDefaultNumberOfRows <= 0) {
+      if (genDefaultNumberOfRows <= 0) {
         logger.error("'defaultNumberOfRows' must be greater than zero");
+        errors++;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // isEncodingISO_8859_1
+    // -------------------------------------------------------------------------
+
+    genIsEncodingISO_8859_1 = schemaPojo.getGlobals().isEncodingISO_8859_1();
+
+    // -------------------------------------------------------------------------
+    // isEncodingUTF_8
+    // -------------------------------------------------------------------------
+
+    genIsEncodingUTF_8      = schemaPojo.getGlobals().isEncodingUTF_8();
+
+    // -------------------------------------------------------------------------
+    // nullFactor
+    // -------------------------------------------------------------------------
+
+    if (schemaPojo.getGlobals().getNullFactor() == null) {
+      genNullFactor = 4;
+      errors++;
+    } else {
+      genNullFactor = schemaPojo.getGlobals().getNullFactor();
+
+      if (genNullFactor < 2 || genNullFactor > 99) {
+        logger.error("'nullFactor' must be between 2 and 99 (inclusive)");
         errors++;
       }
     }
@@ -1889,7 +1939,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           }
 
           if (table.getNumberOfRows() == null) {
-            numberOfRows = valDefaultNumberOfRows;
+            numberOfRows = genDefaultNumberOfRows;
           } else {
             numberOfRows = table.getNumberOfRows();
 
@@ -1897,7 +1947,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               logger.error("'tableName': '" + tableName + " - 'numberOfRows' must not be negative");
               errors++;
             } else if (numberOfRows == 0) {
-              numberOfRows = valDefaultNumberOfRows;
+              numberOfRows = genDefaultNumberOfRows;
             }
           }
 
@@ -2247,7 +2297,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         }
 
         if (column.getValidValuesString() != null) {
-          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType + "' - 'validValuesString' is not allowed");
+          logger.error("'tableName': '" + tableName + " 'columnName': '" + columnName + "' 'dataType': '" + dataType
+              + "' - 'validValuesString' is not allowed");
           errors++;
         }
       }

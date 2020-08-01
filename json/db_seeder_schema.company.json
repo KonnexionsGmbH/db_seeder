@@ -1,6 +1,6 @@
 {
   "globals"  : {
-    "defaultNumberOfRows": 1000
+    "defaultNumberOfRows": 1000, "encodingISO_8859_1": true, "encodingUTF_8": true, "nullFactor": 4
   }, "tables": [
   {
     "tableName": "city", "numberOfRows": 1800, "columns": [
