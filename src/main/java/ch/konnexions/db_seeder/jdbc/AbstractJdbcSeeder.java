@@ -1046,7 +1046,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setString(columnPos,
                                   getContentClob(tableName,
