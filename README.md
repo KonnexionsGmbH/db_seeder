@@ -147,51 +147,51 @@ The definition of a database schema consists of the object 'global' with global 
 
 - `columns` - an array of column definitions
 
--- `columnName` - column name
+  - `columnName` - column name
 
--- `dataType` - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR
+  - `dataType` - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR
 
--- `size` - for data type VARCHAR the maximum size of the column value 
+  - `size` - for data type VARCHAR the maximum size of the column value 
 
--- `precision` - currently not used
+  - `precision` - currently not used
 
--- `notNull` - is a NULL value allowed ?
+  - `notNull` - is a NULL value allowed ?
 
--- `primaryKey` - is this the primary key column ?
+  - `primaryKey` - is this the primary key column ?
 
--- `references` - an array of foreign key definitions
+  - `references` - an array of foreign key definitions
 
---- `referenceTable` - name of the reference database table
+    - `referenceTable` - name of the reference database table
 
---- `referenceColumn` - name of the reference column 
+    - `referenceColumn` - name of the reference column 
 
--- `defaultValueInteger` - default value for integer columns
+  - `defaultValueInteger` - default value for integer columns
 
--- `defaultValueString` - default value for alphanumeric columns
+  - `defaultValueString` - default value for alphanumeric columns
 
--- `lowerRangeInteger` - lower limit for an integer column, requires also an upper limit
+  - `lowerRangeInteger` - lower limit for an integer column, requires also an upper limit
 
--- `lowerRangeString` - lower limit for an alphanumeric column, requires also an upper limit
+  - `lowerRangeString` - lower limit for an alphanumeric column, requires also an upper limit
 
--- `upperRangeInteger` - upper limit for an integer column
+  - `upperRangeInteger` - upper limit for an integer column
 
--- `upperRangeString` - upper limit for an alphanumeric column
+  - `upperRangeString` - upper limit for an alphanumeric column
 
--- `validValuesInteger` - valid values for an integer column
+  - `validValuesInteger` - valid values for an integer column
 
--- `validValuesString` - valid values for an alphanumeric column
+  - `validValuesString` - valid values for an alphanumeric column
 
 - `tableConstraints` - an array of table constraint definitions
 
--- `constraintType` - constraint type, is one of FOREIGN, PRIMARY or UNIQUE
+  - `constraintType` - constraint type, is one of FOREIGN, PRIMARY or UNIQUE
 
--- `columns` - an arry with the names of the affected columns
+  - `columns` - an arry with the names of the affected columns
 
--- `referenceTable` - name of the reference database table, only for foreign keys
+  - `referenceTable` - name of the reference database table, only for foreign keys
 
--- `referenceColumns` - an arry with the names of the affected reference columns, only for foreign keys
+  - `referenceColumns` - an arry with the names of the affected reference columns, only for foreign keys
 
-Only either a range restriction or a value restriction may be specified for each column.
+Only either a range restriction (lowerRange, upperRange) or a value restriction (validValues) may be specified for each column.
 
 #### 2.1.2 Mapping of data types in the JDBC driver 
 
@@ -223,34 +223,34 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 
 25% of columns that can contain the value `NULL` are randomly assigned the value `NULL`.
 
-#### 2.2.1 Binary Large Objects
-
-Examples: BLOB, BYTEA, LONGBLOB, VARBINARY (MAX)
-
-- The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.
-This file contains the company logo of Konnexions GmBH.
-
-#### 2.2.2 Character Large Objects
-
-Examples: CLOB, LONGTEXT, TEXT, VARCHAR (MAX)
-
-- The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns.
-This file contains the text of the Konnexions Public License (KX-PL).
-
-#### 2.2.3 Decimal Numbers
-
-Examples: NUMBER
-
-- All decimal number columns are filled with random numbers.
-
-#### 2.2.4 Integers
+#### 2.2.1 BIGINT
 
 Examples: BIGINT, INTEGER, NUMBER
 
 - If possible, primary key columns are filled by the autoincrement functionality of the respective DBMS - otherwise `autoincrement` is simulated..
 - All other integer columns are filled with random numbers.
 
-#### 2.2.5 String Data
+#### 2.2.2 BLOB
+
+Examples: BLOB, BYTEA, LONGBLOB, VARBINARY (MAX)
+
+- The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.
+This file contains the company logo of Konnexions GmBH.
+
+#### 2.2.3 CLOB
+
+Examples: CLOB, LONGTEXT, TEXT, VARCHAR (MAX)
+
+- The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns.
+This file contains the text of the Konnexions Public License (KX-PL).
+
+#### 2.2.4 TIMESTAMP
+
+Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
+
+- A randomly generated timestamp is assigned to all columns that can contain temporal data.
+
+#### 2.2.5 VARCHAR
 
 Examples: TEXT, VARCHAR, VARCHAR2
 
@@ -275,13 +275,7 @@ Examples: TEXT, VARCHAR, VARCHAR2
     - content of the primary key left-justified
   - the UTF-8 version can be prevented by choosing `db_seeder.encoding.utf_8=false`  
 
-#### 2.2.6 Temporal Data
-
-Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
-
-- A randomly generated timestamp is assigned to all columns that can contain temporal data.
-
-#### 2.2.7 Examples
+#### 2.2.6 Examples
 
 ##### 1. Table CITY
 
