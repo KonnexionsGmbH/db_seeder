@@ -51,17 +51,17 @@
                 "type": "string"
               }, "lowerRangeInteger"  : {
                 "type": "integer"
-              }, "lowerRangeText"     : {
+              }, "lowerRangeString"     : {
                 "type": "string"
               }, "upperRangeInteger"  : {
                 "type": "integer"
-              }, "upperRangeText"     : {
+              }, "upperRangeString"     : {
                 "type": "string"
               }, "validValuesInteger" : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "integer"
                 }
-              }, "validValuesText"    : {
+              }, "validValuesString"    : {
                 "type": "array", "uniqueItems": true, "minItems": 1, "items": {
                   "type": "string"
                 }

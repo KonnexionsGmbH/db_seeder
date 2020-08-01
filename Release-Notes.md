@@ -29,13 +29,11 @@ Release Date: xx.07.2020
 
 #### New Features
 
-n/a
+- The underlying database schema can now be freely defined using a JSON-based parameter file (Issues [37](https://github.com/KonnexionsGmbH/db_seeder/issues/37), [38](https://github.com/KonnexionsGmbH/db_seeder/issues/38), [39](https://github.com/KonnexionsGmbH/db_seeder/issues/39) and [50](https://github.com/KonnexionsGmbH/db_seeder/issues/50)).
 
 #### Modified Features
 
 - CrateDB: DBMS 4.1.8
-
-- Hide the knoweledge about the schema (issue #50)
 
 - SQLite: JDBC 3.32.3.2
 

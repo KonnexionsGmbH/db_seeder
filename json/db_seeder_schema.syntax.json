@@ -28,7 +28,7 @@
         "columnName"     : "column_2_03", "dataType": "bigint", "notNull": true, "defaultValueInteger": 1, "referenceTable": "test_table_1",
         "referenceColumn": "column_1_01"
       }, {
-        "columnName": "column_2_04", "dataType": "varchar", "size": 1, "validValuesText": [
+        "columnName": "column_2_04", "dataType": "varchar", "size": 1, "validValuesString": [
           "N", "Y"
         ], "notNull": true
       }, {
@@ -136,10 +136,10 @@
       }, {
         "columnName": "column_6_02", "dataType": "bigint", "defaultValueInteger": 5, "validValuesInteger": [0, 2, 4, 6, 8]
       }, {
-        "columnName": "column_6_03", "dataType": "varchar", "size": 10, "defaultValueString": "default", "lowerRangeText": "A", "upperRangeText": "zzzzzzzzzz"
+        "columnName": "column_6_03", "dataType": "varchar", "size": 10, "defaultValueString": "default", "lowerRangeString": "A", "upperRangeString": "zzzzzzzzzz"
       }, {
         "columnName"     : "column_6_04", "dataType": "varchar", "size": 5, "defaultValueString": "x",
-        "validValuesText": ["a", "B", "c", "D", "e", "f", "G", "h", "I"]
+        "validValuesString": ["a", "B", "c", "D", "e", "f", "G", "h", "I"]
       }
     ]
   }

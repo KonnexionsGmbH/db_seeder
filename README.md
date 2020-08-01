@@ -10,7 +10,7 @@
 
 **[1. Introduction](#introduction)**<br>
 **[2. Data](#data)**<br>
-**[2.1 Logical Schema](#data_logical)**<br>
+**[2.1 Database Schema](#database_schema)**<br>
 **[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
@@ -107,30 +107,106 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | DBMS | Ticker Symbol(s) | DBMS Versions | Latest JDBC |
 |---|---|---|---|
 | Apache Derby | derby, derby_emb | 10.15.2.0 | 10.15.2.0 |
-| CrateDB | cratedb | 4.1.6 - 4.1.8 | 2.6.0 |
+| CrateDB | cratedb | 4.1.6 - 4.2.2 | 2.6.0 |
 | CUBRID | cubrid | 10.2 | 10.2.1.8849 |
 | Firebird | firebird | 3.0.5 - 3.0.6 | 4.0.0.java11 | 
 | H2 Database Engine | h2, h2_emb | 1.4.200 | 1.4.200 | 
 | HyperSQL Database | hsqldb, hsqldb_emb | 2.5.1 | 2.5.1 | 
 | IBM Db2 Database | ibmdb2 | 11.5.1.0 - 11.5.4.0 | 11.5.4.0 | 
-| IBM Informix | informix | 14.10 FC3DE | 4.50.4.1 | 
+| IBM Informix | informix | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1 | 
 | MariaDB Server | mariadb | 10.4.13 - 10.5.4 | 2.6.1 | 
 | Microsoft SQL Server | mssqlserver | 2019-latest| 8.3.1.jre14-preview | 
 | Mimer SQL | mimer | 11.0.3C | 3.40 | 
 | MySQL Database | mysql | 8.0.20 - 8.0.21 | 8.0.21 | 
 | Oracle Database | oracle | 12c - 19c | 19.7.0.0 |
 | PostgreSQL Database | postgresql | 12.3 | 42.2.14 |
-| SQLite | sqlite | 3.32.3 | 3.32.3 |
+| SQLite | sqlite | 3.32.3 | 3.32.3.2 |
 
 [//]: # (===========================================================================================)
 
 ## <a name="data"></a> 2. Data 
 
-The underlying data model is quite simple and is shown here in the relational version.
-The 5 database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE, 
-and TIMEZONE form a simple hierarchical structure and are therefore connected in the relational model via corresponding foreign keys.  
+### <a name="database_schema"></a> 2.1 Database Schema
 
-### <a name="data_logical"></a> 2.1 Logical Schema
+The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the 'run_db_seeder_generate_schema' script.
+To validate the database schema in the JSON parameter file, the JSON schema file 'db_seeder_schema.schema.json' in the 'rc/main/resources' directory is used.
+
+#### 2.1.1 Structure of the database schema definition file 
+
+The definition of a database schema consists of the object 'global' with global parameters and the array 'tables', which contains the definition of the database tables.
+
+##### 2.1.1.1 `globals` - global parameters
+
+- `defaultNumberOfRows` - default value for the number of table rows to be generated, if no value was specified in the table definition
+
+##### 2.1.1.2 `tables` - database table definitions
+
+- `tableName` - database table name
+
+- `numberOfRows` - number of table rows to be generated
+
+- `columns` - an array of column definitions
+
+-- `columnName` - column name
+
+-- `dataType` - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR
+
+-- `size` - for data type VARCHAR the maximum size of the column value 
+
+-- `precision` - currently not used
+
+-- `notNull` - is a NULL value allowed ?
+
+-- `primaryKey` - is this the primary key column ?
+
+-- `references` - an array of foreign key definitions
+
+--- `referenceTable` - name of the reference database table
+
+--- `referenceColumn` - name of the reference column 
+
+-- `defaultValueInteger` - default value for integer columns
+
+-- `defaultValueString` - default value for alphanumeric columns
+
+-- `lowerRangeInteger` - lower limit for an integer column, requires also an upper limit
+
+-- `lowerRangeString` - lower limit for an alphanumeric column, requires also an upper limit
+
+-- `upperRangeInteger` - upper limit for an integer column
+
+-- `upperRangeString` - upper limit for an alphanumeric column
+
+-- `validValuesInteger` - valid values for an integer column
+
+-- `validValuesString` - valid values for an alphanumeric column
+
+- `tableConstraints` - an array of table constraint definitions
+
+-- `constraintType` - constraint type, is one of FOREIGN, PRIMARY or UNIQUE
+
+-- `columns` - an arry with the names of the affected columns
+
+-- `referenceTable` - name of the reference database table, only for foreign keys
+
+-- `referenceColumns` - an arry with the names of the affected reference columns, only for foreign keys
+
+Only either a range restriction or a value restriction may be specified for each column.
+
+#### 2.1.2 Mapping of data types in the JDBC driver 
+
+| Data Type | JDBC Method                                             |
+| ---       | ---                                                     |
+| BIGINT    | setLong                                                 |
+| BLOB      | setBytes                                                |
+| CLOB      | setString                                               |
+| TIMESTAMP | setTimestamp                                            |
+| VARCHAR   | setNString (Firebird, MariaDB, MS SQL SERVER and Oracle |
+|           | setString (else)                                        |
+
+#### 2.1.3 Example file `db_seeder_schema.company.json` in the directory `json` 
+
+This file contains the definition of a simple database schema consisting of the database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE.  
 
 The abbreviations in the following illustration (created with Toad Data Modeler) mean:
 
@@ -285,15 +361,12 @@ db_seeder.encoding.iso_8859_1=true
 db_seeder.encoding.utf_8=true
 
 db_seeder.file.configuration.name=
-db_seeder.file.statistics.delimiter=
+db_seeder.file.json.name=json/db_seeder_schema.company.json
+db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
-db_seeder.file.statistics.name=statistics\db_seeder_local.tsv
+db_seeder.file.statistics.name=statistics/db_seeder_local.tsv
 
-db_seeder.max.row.city=
-db_seeder.max.row.company=
-db_seeder.max.row.country=
-db_seeder.max.row.country_state=
-db_seeder.max.row.timezone=
+db_seeder.null.factor=4
 
 db_seeder.password.sys=
 db_seeder.password=
@@ -302,6 +375,7 @@ db_seeder.schema=
 
 db_seeder.user.sys=
 db_seeder.user=
+
 ```
 
 #### 4.2.2 Explanation and Cross-reference
@@ -414,7 +488,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.1.8`
+  - pull command: `docker pull crate:4.2.2`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -680,7 +754,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC3DE`
+  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC4DE`
   - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
 
 - **encoding**:
@@ -965,7 +1039,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [SQLite Forum](https://www.sqlite.org/forum/about)
 
 - **JDBC driver (latest)**:
-  - version 3.32.3
+  - version 3.32.3.2
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
 
 - **restrictions**:

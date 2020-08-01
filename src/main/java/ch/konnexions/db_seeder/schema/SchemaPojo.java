@@ -72,7 +72,7 @@ public final class SchemaPojo {
       private String                defaultValueString;
 
       private Integer               lowerRangeInteger;
-      private String                lowerRangeText;
+      private String                lowerRangeString;
 
       private boolean               notNull;
 
@@ -85,11 +85,11 @@ public final class SchemaPojo {
 
       private boolean               unique;
       private Integer               upperRangeInteger;
-      private String                upperRangeText;
+      private String                upperRangeString;
 
       private ArrayList<Integer>    validValuesInteger;
 
-      private ArrayList<String>     validValuesText;
+      private ArrayList<String>     validValuesString;
 
       public final String getColumnName() {
         return columnName;
@@ -103,11 +103,7 @@ public final class SchemaPojo {
         return defaultValueInteger;
       }
 
-      public String getDefaultValueString() {
-        return defaultValueString;
-      }
-
-      public final String getDefaultValueText() {
+      public final String getDefaultValueString() {
         return defaultValueString;
       }
 
@@ -115,8 +111,8 @@ public final class SchemaPojo {
         return lowerRangeInteger;
       }
 
-      public final String getLowerRangeText() {
-        return lowerRangeText;
+      public final String getLowerRangeString() {
+        return lowerRangeString;
       }
 
       public final Integer getPrecision() {
@@ -135,16 +131,16 @@ public final class SchemaPojo {
         return upperRangeInteger;
       }
 
-      public final String getUpperRangeText() {
-        return upperRangeText;
+      public final String getUpperRangeString() {
+        return upperRangeString;
       }
 
       public final ArrayList<Integer> getValidValuesInteger() {
         return validValuesInteger;
       }
 
-      public final ArrayList<String> getValidValuesText() {
-        return validValuesText;
+      public final ArrayList<String> getValidValuesString() {
+        return validValuesString;
       }
 
       public boolean isNotNull() {
@@ -171,11 +167,7 @@ public final class SchemaPojo {
         this.defaultValueInteger = defaultValueInteger;
       }
 
-      public void setDefaultValueString(String defaultValueString) {
-        this.defaultValueString = defaultValueString;
-      }
-
-      public final void setDefaultValueText(String defaultValueString) {
+      public final void setDefaultValueString(String defaultValueString) {
         this.defaultValueString = defaultValueString;
       }
 
@@ -183,8 +175,8 @@ public final class SchemaPojo {
         this.lowerRangeInteger = lowerRangeInteger;
       }
 
-      public final void setLowerRangeText(String lowerRangeText) {
-        this.lowerRangeText = lowerRangeText;
+      public final void setLowerRangeString(String lowerRangeString) {
+        this.lowerRangeString = lowerRangeString;
       }
 
       public void setNotNull(boolean notNull) {
@@ -216,16 +208,16 @@ public final class SchemaPojo {
         this.upperRangeInteger = upperRangeInteger;
       }
 
-      public final void setUpperRangeText(String upperRangeText) {
-        this.upperRangeText = upperRangeText;
+      public final void setUpperRangeString(String upperRangeString) {
+        this.upperRangeString = upperRangeString;
       }
 
       public final void setValidValuesInteger(ArrayList<Integer> validValuesInteger) {
         this.validValuesInteger = validValuesInteger;
       }
 
-      public final void setValidValuesText(ArrayList<String> validValuesText) {
-        this.validValuesText = validValuesText;
+      public final void setValidValuesString(ArrayList<String> validValuesString) {
+        this.validValuesString = validValuesString;
       }
     }
 

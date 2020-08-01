@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
  * <br>
  * @author  GenerateSchema.class
  * @version 2.0.0
- * @since   2020-07-31
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
