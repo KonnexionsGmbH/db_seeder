@@ -925,55 +925,55 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  //  /**
-  //   * Sets the designated optional column to a BIGINT value or to NULL.
-  //   *
-  //   * @param preparedStatement the prepared statement
-  //   * @param tableName         the table name
-  //   * @param columnName        the column name
-  //   * @param columnPos         the column position
-  //   * @param rowNo             the current row number
-  //   * @param defaultValue      the lower value
-  //   * @param lowerRange        the lower range
-  //   * @param upperRange        the upper range
-  //   * @param validValues       the valid values
-  //   */
-  //  @SuppressWarnings("ucd")
-  //  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
-  //                                             String tableName,
-  //                                             String columnName,
-  //                                             int columnPos,
-  //                                             long rowNo,
-  //                                             Integer defaultValue,
-  //                                             Integer lowerRange,
-  //                                             Integer upperRange,
-  //                                             List<Integer> validValues) {
-  //    try {
-  //      if (rowNo % nullFactor == 0) {
-  //        if (defaultValue == null) {
-  //          preparedStatement.setNull(columnPos,
-  //                                    java.sql.Types.INTEGER);
-  //        } else {
-  //          preparedStatement.setLong(columnPos,
-  //                                    defaultValue);
-  //        }
-  //        return;
-  //      }
-  //
-  //      prepStmntColBigint(preparedStatement,
-  //                         tableName,
-  //                         columnName,
-  //                         columnPos,
-  //                         rowNo,
-  //                         defaultValue,
-  //                         lowerRange,
-  //                         upperRange,
-  //                         validValues);
-  //    } catch (SQLException e) {
-  //      e.printStackTrace();
-  //      System.exit(1);
-  //    }
-  //  }
+  /**
+   * Sets the designated optional column to a BIGINT value or to NULL.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   * @param defaultValue      the lower value
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
+   */
+  @SuppressWarnings("ucd")
+  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
+                                             String tableName,
+                                             String columnName,
+                                             int columnPos,
+                                             long rowNo,
+                                             Integer defaultValue,
+                                             Integer lowerRange,
+                                             Integer upperRange,
+                                             List<Integer> validValues) {
+    try {
+      if (rowNo % nullFactor == 0) {
+        if (defaultValue == null) {
+          preparedStatement.setNull(columnPos,
+                                    java.sql.Types.INTEGER);
+        } else {
+          preparedStatement.setLong(columnPos,
+                                    defaultValue);
+        }
+        return;
+      }
+
+      prepStmntColBigint(preparedStatement,
+                         tableName,
+                         columnName,
+                         columnPos,
+                         rowNo,
+                         defaultValue,
+                         lowerRange,
+                         upperRange,
+                         validValues);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
 
   /**
    * Sets the designated column to a BLOB value.
