@@ -9,7 +9,7 @@
 
 ## Version 2.0.0
 
-Release Date: xx.07.2020
+Release Date: 02.08.2020
 
 #### System Requirements
 

@@ -121,7 +121,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | MySQL Database       | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database      | oracle             | 12c - 19c                 | 19.7.0.0            |
 | PostgreSQL Database  | postgresql         | 12.3                      | 42.2.14             |
-| SQLite               | sqlite             | 3.32.3                    | 3.3 2.3.2           |
+| SQLite               | sqlite             | 3.32.3                    | 3.32.3.2            |
 
 [//]: # (===========================================================================================)
 
@@ -132,11 +132,11 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script `run_db_seeder_generate_schema`.
 To validate the database schema in the JSON parameter file, the JSON schema file `db_seeder_schema.schema.json` in the directory `src/main/resources` is used.
 
-#### 2.1.1 Structure of the database schema definition file 
+#### 2.1.1 Structure of the Database Schema Definition File 
 
 The definition of a database schema consists of the object `global` with the global parameters and the array `tables`, which contains the definition of the database tables.
 
-##### 2.1.1.1 `globals` - global parameters
+##### 2.1.1.1 `globals` - Global Parameters
 
 - `defaultNumberOfRows` - default value for the number of table rows to be generated, if no value is specified in the table definition
 - `encodingISO_8859_1` - a string with Western Latin characters is inserted into generated character columns
@@ -144,7 +144,7 @@ The definition of a database schema consists of the object `global` with the glo
  specified in the table definition
 - `nullFactor` - determines the proportion of NULL values in optional columns and must be between 2 and 99 (inclusive): 2 means 50%, 4 means 25%, 10 means 10%, etc., default value is 4
 
-##### 2.1.1.2 `tables` - database table definitions
+##### 2.1.1.2 `tables` - Database Table Definitions
 
 - `tableName` - database table name
 
@@ -198,7 +198,7 @@ The definition of a database schema consists of the object `global` with the glo
 
 Only either a range restriction (`lowerRange...`, `upperRange...`) or a value restriction (`validValues...`) may be specified for each column.
 
-#### 2.1.2 Mapping of data types in the JDBC driver 
+#### 2.1.2 Mapping of Data Types in the JDBC Driver 
 
 | Data Typ  e | JDBC Method                                                |
 | ---         | ---                                                        |
@@ -209,7 +209,7 @@ Only either a range restriction (`lowerRange...`, `upperRange...`) or a value re
 | `VARCHAR`   | `setNString` (Firebird, MariaDB, MS SQL SERVER and Oracle) |
 |             | `setString` (else)                                         |
 
-#### 2.1.3 Example file `db_seeder_schema.company.json` in the directory `json` 
+#### 2.1.3 Example File `db_seeder_schema.company.json` in the Directory `json` 
 
 This file contains the definition of a simple database schema consisting of the database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE.  
 
@@ -228,57 +228,60 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 
 The proportion of `NULL` values in optional columns is defined by the global parameter `nullFactor`.
 
-#### 2.2.1 BIGINT
+All methods for generating column contents can be overwritten if necessary.
 
-Examples: BIGINT, INTEGER, NUMBER
+#### 2.2.1 BIGINT 
 
-- If possible, primary key columns are filled by the autoincrement functionality of the respective DBMS - otherwise `autoincrement` is simulated..
-- All other integer columns are filled with random numbers.
+Java method: `getContentBigint`
+
+- If the column parameter `validValuesInteger` is defined in the database schema, a random value is taken from it. 
+- If the column parameters `lowerRangeInteger` and `upperRangeInteger` are defined in the database schema, a random value is taken from this interval. 
+- Otherwise the counter for the current row (row number) is used. 
 
 #### 2.2.2 BLOB
 
-Examples: BLOB, BYTEA, LONGBLOB, VARBINARY (MAX)
+Java method: `getContentBlob`
 
-- The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.
-This file contains the company logo of Konnexions GmBH.
+- The content of the file `blob.png` from the resource directory (`src/main/resources`) is loaded into these columns.This file contains the company logo of Konnexions GmBH.
 
 #### 2.2.3 CLOB
 
-Examples: CLOB, LONGTEXT, TEXT, VARCHAR (MAX)
+Java method: `getContentClob`
 
-- The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns.
-This file contains the text of the Konnexions Public License (KX-PL).
+- The content of the file `clob.md` from the resource directory (`src/main/resources`) is loaded into these columns. This file contains the text of the Konnexions Public License (KX-PL).
 
 #### 2.2.4 TIMESTAMP
 
-Examples: DATETIME, DATETIME2, INTEGER, REAL, TEXT, TIMESTAMP
+Java method: `getContentTimestamp`
 
 - A randomly generated timestamp is assigned to all columns that can contain temporal data.
 
 #### 2.2.5 VARCHAR
 
-Examples: TEXT, VARCHAR, VARCHAR2
+Java method: `getContentVarchar`
 
-- 25% of the `Y` / `N` flag column (`COMPANY.ACTIVE`) is randomly assigned the value `N`.
-- the content of the column is constructed depending on the row number and the encoding flags as follows:
+- If the column parameter `validValuesString` is defined in the database schema, a random value is taken from it. 
+- If the column parameters `lowerRangeString` and `upperRangeString` are defined in the database schema, a random value is taken from this interval. 
+- Otherwise content of the column is constructed depending on the row number and the encoding flags as follows:
   - ASCII (all rows where the index modulo 3 is 0):
     - column name in capital letters
     - underscore `_`
-    - content of the primary key left-justified
+    - current row number left-justified
   - ISO 8859 1 (all rows where the index modulo 3 is 1) :
     - column name in capital letters
     - underscore `_`
-    - the column name translated into a Western European word with accent (e.g. French, Portugues)e or Spanish)
+    - a string containing specific Western European characters with accent (e.g. French, Portuguese or Spanish)
     - underscore `_`
-    - content of the primary key left-justified
-  - the ISO 8859 1 version can be prevented by choosing `db_seeder.encoding.iso_8859_1=false`  
+    - current row number left-justified
+  - the ISO 8859 1 version can be prevented by choosing `encodingISO_8859_1` `false` in the database schema definition  
   - UTF-8 (all rows where the index modulo 3 is 2):
     - column name in capital letters
     - underscore `_`
-    - the column name translated into a simplified Chinese word
+    - a string containing simplified Chinese characters
     - underscore `_`
-    - content of the primary key left-justified
-  - the UTF-8 version can be prevented by choosing `db_seeder.encoding.utf_8=false`  
+    - current row number left-justified
+  - the UTF-8 version can be prevented by choosing `encodingUTF_8` `false` in the database schema definition
+  - If the resulting value exceeds the permissible column size, the value is shortened accordingly from the left
 
 #### 2.2.6 Examples
 
@@ -468,7 +471,7 @@ Below are also DBeaver based connection parameter examples for each database man
 | db seeder Type | CreateDB Type |
 | ---            | ---           |
 | BIGINT         | BIGINT        |
-| BLOB           | BYTE[]        |
+| BLOB           | OBJECT        |
 | CLOB           | TEXT          |
 | TIMESTAMP      | TIMESTAMP     |
 | VARCHAR        | TEXT          |
@@ -513,7 +516,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 | db seeder Type | CUBRID Type |
 | ---            | ---         |
-| BIGINT         | BIGINT      |
+| BIGINT         | INT         |
 | BLOB           | BLOB        |
 | CLOB           | CLOB        |
 | TIMESTAMP      | TIMESTAMP   |
@@ -555,13 +558,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Firebird Type |
-| ---            | ---           |
-| BIGINT         | BIGINT        |
-| BLOB           | BLOB          |
-| CLOB           | CLOB          |
-| TIMESTAMP      | TIMESTAMP     |
-| VARCHAR        | VARCHAR       |
+| db seeder Type | Firebird Type   |
+| ---            | ---             |
+| BIGINT         | INTEGER         |
+| BLOB           | BLOB            |
+| CLOB           | BLOB SUB_TYPE 1 |
+| TIMESTAMP      | TIMESTAMP       |
+| VARCHAR        | VARCHAR         |
 
 - **DDL syntax**:
   - [CREATE DATABASE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create) 
@@ -703,7 +706,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/db2:11.5.0.0a`
+  - pull command: `docker pull ibmcom/db2:11.5.4.0`
   - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
 - **encoding**:
@@ -734,10 +737,10 @@ Below are also DBeaver based connection parameter examples for each database man
 | db seeder Type | IBM Informix Database Type |
 | ---            | ---                        |
 | BIGINT         | BIGINT                     |
-| BLOB           | BYTE                       |
-| CLOB           | TEXT                       |
-| TIMESTAMP      | DATETIME                   |
-| VARCHAR        | LVARCHAR                   |
+| BLOB           | BLOB                       |
+| CLOB           | CLOB                       |
+| TIMESTAMP      | DATETIME YEAR TO FRACTION  |
+| VARCHAR        | VARCHAR (1-254) / LVARCHAR |
 
 - **DDL syntax**:
   - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0368.htm) 
@@ -863,10 +866,10 @@ Below are also DBeaver based connection parameter examples for each database man
 | db seeder Type | MimerSQL Type |
 | ---            | ---           |
 | BIGINT         | BIGINT        |
-| BLOB           | LONGBLOB      |
-| CLOB           | LONGTEXT      |
+| BLOB           | BLOB          |
+| CLOB           | CLOB          |
 | TIMESTAMP      | TIMESTAMP     |
-| VARCHAR        | VARCHAR       |
+| VARCHAR        | NVARCHAR      |
 
 - **DDL syntax**:
   - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
@@ -1012,13 +1015,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | SQLite Type           |
-| ---            | ---                   |
-| BIGINT         | INTEGER               |
-| BLOB           | BLOB                  |
-| CLOB           | TEXT                  |
-| TIMESTAMP      | INTEGER / REAL / TEXT |
-| VARCHAR        | TEXT                  |
+| db seeder Type | SQLite Type |
+| ---            | ---         |
+| BIGINT         | INTEGER     |
+| BLOB           | BLOB        |
+| CLOB           | TEXT        |
+| TIMESTAMP      | DATETIME    |
+| VARCHAR        | VARCHAR2    |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a

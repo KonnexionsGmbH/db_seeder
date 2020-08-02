@@ -2,7 +2,6 @@ package ch.konnexions.db_seeder.generated;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -115,24 +114,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     String result = super.getContentClob(tableName,
                                          columnName,
                                          rowNo);
-
-    return result;
-  }
-
-  /**
-   * Creates a content value of type foreign key value.
-   *
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param rowNo             the current row number
-   * @param fkList            the existing foreign keys
-   */
-  @Override
-  protected final Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
-    Object result = super.getContentFk(tableName,
-                                       columnName,
-                                       rowNo,
-                                       fkList);
 
     return result;
   }

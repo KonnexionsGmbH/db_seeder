@@ -791,7 +791,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return CLOB_DATA;
   }
 
-  protected Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
+  private final Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
     Random random = new Random();
 
     return fkList.get(random.nextInt(fkList.size()));

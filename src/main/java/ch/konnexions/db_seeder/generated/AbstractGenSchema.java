@@ -2,7 +2,6 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
