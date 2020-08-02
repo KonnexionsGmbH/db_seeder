@@ -8,5 +8,6 @@
 /statistics/db_seeder_local*
 bin
 build
+eclipse_workspace/
 timer.txt
 tmp

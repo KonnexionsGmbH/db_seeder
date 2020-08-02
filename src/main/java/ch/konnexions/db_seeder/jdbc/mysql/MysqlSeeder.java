@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mysql;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.MysqlSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMysqlSchema;
 
 /**
  * Test Data Generator for a MySQL DBMS.
@@ -16,28 +12,26 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MysqlSeeder extends AbstractJdbcSeeder {
+public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
-  private static Logger logger = Logger.getLogger(MysqlSeeder.class);
+  private static final Logger logger = Logger.getLogger(MysqlSeeder.class);
 
   /**
-   * Instantiates a new MySQL seeder.
+   * Instantiates a new MySQL seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MysqlSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.MYSQL;
+    dbmsEnum              = DbmsEnum.MYSQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.mysql.cj.jdbc.Driver";
-
-    tableNameDelimiter    = "`";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
@@ -56,13 +50,13 @@ public class MysqlSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return MysqlSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenMysqlSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

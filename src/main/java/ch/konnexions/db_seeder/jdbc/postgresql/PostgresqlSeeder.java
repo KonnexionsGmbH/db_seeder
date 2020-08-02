@@ -1,6 +1,3 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.postgresql;
 
 import java.io.File;
@@ -13,8 +10,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.PostgresqlSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
 
 /**
  * Test Data Generator for a PostgreSQL DBMS.
@@ -22,26 +18,24 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class PostgresqlSeeder extends AbstractJdbcSeeder {
+public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
-  private static Logger logger = Logger.getLogger(PostgresqlSeeder.class);
+  private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 
   /**
-   * Instantiates a new PostgreSQL Database seeder.
+   * Instantiates a new PostgreSQL seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public PostgresqlSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.POSTGRESQL;
+    dbmsEnum              = DbmsEnum.POSTGRESQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase() + "?user=" + config.getUser() + "&password=" + config.getPassword();
@@ -60,12 +54,12 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return PostgresqlSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenPostgresqlSchema.createTableStmnts.get(tableName);
   }
 
   @Override
-  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  protected final void prepStmntColBlob(PreparedStatement preparedStatement, final String tableName, final String columnName, final int columnPos, long rowNo) {
     FileInputStream blobData = null;
 
     try {

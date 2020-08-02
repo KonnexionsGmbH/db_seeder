@@ -1,13 +1,12 @@
-/**
- * 
- */
 package ch.konnexions.db_seeder;
+
+import java.util.Objects;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.apache.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
+import ch.konnexions.db_seeder.jdbc.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
 import ch.konnexions.db_seeder.jdbc.h2.H2Seeder;
 import ch.konnexions.db_seeder.jdbc.hsqldb.HsqldbSeeder;
@@ -20,6 +19,7 @@ import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
+import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
  * Test Data Generator for a Database - Application.
@@ -27,9 +27,10 @@ import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class DatabaseSeeder {
+@SuppressWarnings("ucd")
+public final class DatabaseSeeder {
 
-  private final static Logger logger = Logger.getLogger(DatabaseSeeder.class);
+  private static final Logger logger = Logger.getLogger(DatabaseSeeder.class);
 
   /**
    * The main method.
@@ -47,11 +48,11 @@ public class DatabaseSeeder {
     logger.info("args[0]='" + args0 + "'");
 
     if (null == args0) {
-      logger.error("Command line argument missing (null)");
-      System.exit(1);
+      MessageHandling.abortProgram(logger,
+                                   "Command line argument missing (null)");
     }
 
-    switch (args0) {
+    switch (Objects.requireNonNull(args0)) {
     case "cratedb":
       logger.info("Start CrateDB");
       CratedbSeeder cratedbSeeder = new CratedbSeeder(args0);
@@ -161,11 +162,11 @@ public class DatabaseSeeder {
       logger.info("End   SQLite");
       break;
     case "":
-      logger.error("Command line argument missing");
-      System.exit(1);
+      MessageHandling.abortProgram(logger,
+                                   "Command line argument missing");
     default:
-      logger.error("Unknown command line argument");
-      System.exit(1);
+      MessageHandling.abortProgram(logger,
+                                   "Unknown command line argument");
     }
 
     logger.info("End");

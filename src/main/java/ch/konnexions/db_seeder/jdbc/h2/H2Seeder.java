@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.h2;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.H2Schema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
 
 /**
  * Test Data Generator for a H2 Database Engine DBMS.
@@ -16,19 +12,20 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class H2Seeder extends AbstractJdbcSeeder {
+public final class H2Seeder extends AbstractGenH2Schema {
 
-  private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(H2Seeder.class);
 
   /**
-   * Instantiates a new H2 Database Engine seeder.
-   * @param dbmsTickerSymbol 
+   * Instantiates a new H2 seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public H2Seeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -41,16 +38,16 @@ public class H2Seeder extends AbstractJdbcSeeder {
   }
 
   /**
-   * Instantiates a new H2 Database Engine seeder.
-   * @param dbmsTickerSymbol 
+   * Instantiates a new H2 seeder object.
    *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    * @param isClient client database version
    */
   public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
-    super(isClient);
+    super(dbmsTickerSymbol, isClient);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -70,14 +67,14 @@ public class H2Seeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return H2Schema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenH2Schema.createTableStmnts.get(tableName);
   }
 
   /**
    * The common initialisation part.
    */
-  private final void init() {
+  private void init() {
     if (isDebug) {
       logger.debug("Start");
 
@@ -85,11 +82,9 @@ public class H2Seeder extends AbstractJdbcSeeder {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbms               = Dbms.H2;
+    dbmsEnum = DbmsEnum.H2;
 
-    driver             = "org.h2.Driver";
-
-    tableNameDelimiter = "";
+    driver   = "org.h2.Driver";
 
     if (isClient) {
       url = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
@@ -104,7 +99,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

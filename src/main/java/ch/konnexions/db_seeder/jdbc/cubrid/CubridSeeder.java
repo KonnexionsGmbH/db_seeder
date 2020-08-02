@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.cubrid;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.CubridSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
 
 /**
  * Test Data Generator for a CUBRID DBMS.
@@ -16,28 +12,26 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class CubridSeeder extends AbstractJdbcSeeder {
+public final class CubridSeeder extends AbstractGenCubridSchema {
 
-  private static Logger logger = Logger.getLogger(CubridSeeder.class);
+  private static final Logger logger = Logger.getLogger(CubridSeeder.class);
 
   /**
-   * Instantiates a new CUBRID seeder.
+   * Instantiates a new CUBRID seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public CubridSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.CUBRID;
+    dbmsEnum              = DbmsEnum.CUBRID;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "cubrid.jdbc.driver.CUBRIDDriver";
-
-    tableNameDelimiter    = "\"";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ":" + config.getDatabase() + ":";
     url                   = urlBase + config.getConnectionSuffix();
@@ -56,13 +50,13 @@ public class CubridSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return CubridSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenCubridSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

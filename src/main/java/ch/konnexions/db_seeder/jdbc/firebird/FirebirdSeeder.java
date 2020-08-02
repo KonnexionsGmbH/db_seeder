@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.firebird;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.FirebirdSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
 
 /**
  * Test Data Generator for a Firebird DBMS.
@@ -16,28 +12,26 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class FirebirdSeeder extends AbstractJdbcSeeder {
+public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
-  private static Logger logger = Logger.getLogger(FirebirdSeeder.class);
+  private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
 
   /**
-   * Instantiates a new Firebird Server seeder.
+   * Instantiates a new Firebird seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public FirebirdSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.FIREBIRD;
+    dbmsEnum              = DbmsEnum.FIREBIRD;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "org.firebirdsql.jdbc.FBDriver";
-
-    tableNameDelimiter    = "";
 
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
         .getConnectionSuffix();
@@ -57,13 +51,13 @@ public class FirebirdSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return FirebirdSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenFirebirdSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

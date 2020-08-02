@@ -195,7 +195,7 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
         exit 255
     fi
 
-    sleep 120
+    sleep 180
 
     end=$(date +%s)
     echo "DOCKER IBM Db2 Database was ready in $((end - start)) seconds"
@@ -244,7 +244,7 @@ if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
         exit 255
     fi
 
-    sleep 20
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER MariaDB Server was ready in $((end - start)) seconds"

@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.ibmdb2;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.Ibmdb2Schema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
 
 /**
  * Test Data Generator for an IBM Db2 DBMS.
@@ -16,26 +12,24 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class Ibmdb2Seeder extends AbstractJdbcSeeder {
+public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
-  private static Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
+  private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
 
   /**
-   * Instantiates a new IBM Db2 Database seeder.
+   * Instantiates a new IBM Db2 seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public Ibmdb2Seeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.IBMDB2;
+    dbmsEnum              = DbmsEnum.IBMDB2;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
 
@@ -54,13 +48,13 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return Ibmdb2Schema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenIbmdb2Schema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

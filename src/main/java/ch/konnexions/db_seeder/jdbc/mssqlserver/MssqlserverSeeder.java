@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mssqlserver;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.MssqlserverSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMssqlserverSchema;
 
 /**
  * Test Data Generator for a Microsoft SQL Server DBMS.
@@ -16,26 +12,24 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MssqlserverSeeder extends AbstractJdbcSeeder {
+public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
 
-  private static Logger logger = Logger.getLogger(MssqlserverSeeder.class);
+  private static final Logger logger = Logger.getLogger(MssqlserverSeeder.class);
 
   /**
-   * Instantiates a new Microsoft SQL Server seeder.
+   * Instantiates a new Microsoft SQL Server seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MssqlserverSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.MSSQLSERVER;
+    dbmsEnum              = DbmsEnum.MSSQLSERVER;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ";databaseName=";
     url                   = urlBase + config.getDatabase() + ";user=" + config.getUser() + ";password=" + config.getPassword();
@@ -54,13 +48,13 @@ public class MssqlserverSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return MssqlserverSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenMssqlserverSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

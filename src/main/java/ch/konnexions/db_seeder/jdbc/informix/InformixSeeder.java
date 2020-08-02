@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.informix;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.InformixSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenInformixSchema;
 
 /**
  * Test Data Generator for an IBM Informix DBMS.
@@ -16,28 +12,26 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class InformixSeeder extends AbstractJdbcSeeder {
+public final class InformixSeeder extends AbstractGenInformixSchema {
 
-  private static Logger logger = Logger.getLogger(InformixSeeder.class);
+  private static final Logger logger = Logger.getLogger(InformixSeeder.class);
 
   /**
-   * Instantiates a new IBM Informix seeder.
+   * Instantiates a new IBM Informix seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public InformixSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.INFORMIX;
+    dbmsEnum              = DbmsEnum.INFORMIX;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.informix.jdbc.IfxDriver";
-
-    tableNameDelimiter    = "";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
@@ -58,13 +52,13 @@ public class InformixSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return InformixSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenInformixSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

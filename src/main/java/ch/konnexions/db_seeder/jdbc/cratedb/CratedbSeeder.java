@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.cratedb;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.CratedbSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
 
 /**
  * Test Data Generator for a CrateDB DBMS.
@@ -16,26 +12,24 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class CratedbSeeder extends AbstractJdbcSeeder {
+public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
-  private static Logger logger = Logger.getLogger(CratedbSeeder.class);
+  private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
-   * Instantiates a new CrateDB seeder.
-   * 
-   * @param dbmsTickerSymbol 
+   * Instantiates a new CrateDB seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public CratedbSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
-    dbms                  = Dbms.CRATEDB;
+    dbmsEnum              = DbmsEnum.CRATEDB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/?strict=true&user=";
     url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
@@ -56,13 +50,13 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return CratedbSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenCratedbSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

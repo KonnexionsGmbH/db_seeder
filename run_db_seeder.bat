@@ -12,7 +12,7 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=1.15.11
+set DB_SEEDER_RELEASE=2.0.0
 
 if ["%1"] EQU [""] (
     echo ===========================================
@@ -71,9 +71,9 @@ rem ----------------------------------------------------------------------------
 rem Start Properties.
 rem ------------------------------------------------------------------------------
 
+set DB_SEEDER_DEFAULT_ROW_SIZE=1000
+
 set DB_SEEDER_DBMS_EMBEDDED=no
-set DB_SEEDER_ENCODING_ISO_8859_1=true
-set DB_SEEDER_ENCODING_UTF_8=true
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
@@ -83,11 +83,7 @@ if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_STATISTICS_NAME=statistics\db_seeder_local.tsv
 )    
 
-set DB_SEEDER_MAX_ROW_CITY=1800
-set DB_SEEDER_MAX_ROW_COMPANY=5400
-set DB_SEEDER_MAX_ROW_COUNTRY=200
-set DB_SEEDER_MAX_ROW_COUNTRY_STATE=600
-set DB_SEEDER_MAX_ROW_TIMEZONE=11
+set DB_SEEDER_NULL_FACTOR=
 
 set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS% 
 
@@ -105,6 +101,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_USER_SYS=crate
     set DB_SEEDER_VERSION=4.1.6
     set DB_SEEDER_VERSION=4.1.8
+    set DB_SEEDER_VERSION=4.2.2
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
@@ -112,7 +109,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
-    set DB_SEEDER_ENCODING_UTF_8=false
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=33000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
@@ -265,6 +261,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_PASSWORD_SYS=in4mix
     set DB_SEEDER_USER_SYS=informix
     set DB_SEEDER_VERSION=14.10.FC3DE
+    set DB_SEEDER_VERSION=14.10.FC4DE
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
@@ -310,7 +307,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
-    set DB_SEEDER_ENCODING_UTF_8=false
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1433
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
@@ -412,19 +408,11 @@ echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
 echo --------------------------------------------------------------------------------
-echo ENCODING_ISO_8859_1             : %DB_SEEDER_ENCODING_ISO_8859_1%
-echo ENCODING_UTF_8                  : %DB_SEEDER_ENCODING_UTF_8%
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
 echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
-echo --------------------------------------------------------------------------------
-echo MAX_ROW_CITY                    : %DB_SEEDER_MAX_ROW_CITY%
-echo MAX_ROW_COMPANY                 : %DB_SEEDER_MAX_ROW_COMPANY%
-echo MAX_ROW_COUNTRY                 : %DB_SEEDER_MAX_ROW_COUNTRY%
-echo MAX_ROW_COUNTRY_STATE           : %DB_SEEDER_MAX_ROW_COUNTRY_STATE%
-echo MAX_ROW_TIMEZONE                : %DB_SEEDER_MAX_ROW_TIMEZONE%
 echo --------------------------------------------------------------------------------
 echo CONNECTION_HOST                 : %DB_SEEDER_CONNECTION_HOST%
 echo CONNECTION_PORT                 : %DB_SEEDER_CONNECTION_PORT%

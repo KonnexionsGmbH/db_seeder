@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mimer;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.MimerSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
 
 /**
  * Test Data Generator for a Mimer SQL DBMS.
@@ -16,28 +12,26 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MimerSeeder extends AbstractJdbcSeeder {
+public final class MimerSeeder extends AbstractGenMimerSchema {
 
-  private static Logger logger = Logger.getLogger(MimerSeeder.class);
+  private static final Logger logger = Logger.getLogger(MimerSeeder.class);
 
   /**
-   * Instantiates a new Mimer SQL seeder.
+   * Instantiates a new Mimer SQL seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MimerSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.MIMER;
+    dbmsEnum              = DbmsEnum.MIMER;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.mimer.jdbc.Driver";
-
-    tableNameDelimiter    = "";
 
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
 
@@ -54,13 +48,13 @@ public class MimerSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return MimerSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenMimerSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

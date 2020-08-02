@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.sqlite;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.SqliteSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
 
 /**
  * Test Data Generator for am SQLite DBMS.
@@ -16,26 +12,24 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class SqliteSeeder extends AbstractJdbcSeeder {
+public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
-  private static Logger logger = Logger.getLogger(SqliteSeeder.class);
+  private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
 
   /**
-   * Instantiates a new SQLite seeder.
+   * Instantiates a new SQLite seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public SqliteSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.SQLITE;
+    dbmsEnum              = DbmsEnum.SQLITE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     url                   = config.getConnectionPrefix() + config.getDatabase();
 
@@ -52,16 +46,16 @@ public class SqliteSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return SqliteSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenSqliteSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
-  protected void setupDatabase() {
+  protected final void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

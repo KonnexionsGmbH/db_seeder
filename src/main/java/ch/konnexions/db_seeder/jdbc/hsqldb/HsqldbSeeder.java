@@ -1,14 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.hsqldb;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.HsqldbSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenHsqldbSchema;
 
 /**
  * Test Data Generator for a HyperQL Database DBMS.
@@ -16,20 +12,20 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class HsqldbSeeder extends AbstractJdbcSeeder {
+public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
-  private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(HsqldbSeeder.class);
 
   /**
-   * Instantiates a new HyperQL Database seeder.
-   * 
-   * @param dbmsTickerSymbol 
+   * Initialises a new HyperSQL seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public HsqldbSeeder(String dbmsTickerSymbol) {
-    super();
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -42,16 +38,16 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
   }
 
   /**
-   * Instantiates a new HyperQL Database seeder.
-   * @param dbmsTickerSymbol 
+   * Initialises a new HyperSQL seeder object.
    *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    * @param isClient client database version
    */
   public HsqldbSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(isClient);
+    super(dbmsTickerSymbol, isClient);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -71,14 +67,14 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    return HsqldbSchema.createTableStmnts.get(tableName);
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenHsqldbSchema.createTableStmnts.get(tableName);
   }
 
   /**
    * The common initialisation part.
    */
-  private final void init() {
+  private void init() {
     if (isDebug) {
       logger.debug("Start");
 
@@ -86,11 +82,9 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
       logger.debug("embedded=" + isEmbedded);
     }
 
-    dbms               = Dbms.HSQLDB;
+    dbmsEnum = DbmsEnum.HSQLDB;
 
-    driver             = "org.hsqldb.jdbc.JDBCDriver";
-
-    tableNameDelimiter = "";
+    driver   = "org.hsqldb.jdbc.JDBCDriver";
 
     if (isClient) {
       url = config.getConnectionPrefix() + "hsql://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
@@ -106,7 +100,7 @@ public class HsqldbSeeder extends AbstractJdbcSeeder {
 
   /**
    * Delete any existing relevant database schema objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
   protected final void setupDatabase() {

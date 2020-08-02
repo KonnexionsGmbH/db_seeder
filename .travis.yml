@@ -8,7 +8,8 @@ jdk:
 
 env:
   matrix:
-    - DB_SEEDER_DBMS=complete
+    - DB_SEEDER_DBMS=complete DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
+    - DB_SEEDER_DBMS=complete DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.syntax.json
     - DB_SEEDER_DBMS=cratedb
     - DB_SEEDER_DBMS=cubrid
     - DB_SEEDER_DBMS=derby
@@ -46,6 +47,10 @@ script:
   - export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}
   - export PATH=${GRADLE_HOME}/bin:${PATH}
   - travis_fold end   "Install_Gradle"
+
+  # Check ports in use -----------------------------------------------------------
+  - sudo apt install net-tools
+  - netstat -tulpn | grep LISTEN
 
   # Pull and Compile the Repository ----------------------------------------------
   - gradle --version

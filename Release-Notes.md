@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.11.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.0.0.svg)
 
 ----------
 
-## Version 1.15.11
+## Version 2.0.0
 
-Release Date: xx.07.2020
+Release Date: 02.08.2020
 
 #### System Requirements
 
@@ -29,11 +29,13 @@ Release Date: xx.07.2020
 
 #### New Features
 
-n/a
+- The underlying database schema can now be freely defined using a JSON-based parameter file (Issues [37](https://github.com/KonnexionsGmbH/db_seeder/issues/37), [38](https://github.com/KonnexionsGmbH/db_seeder/issues/38), [39](https://github.com/KonnexionsGmbH/db_seeder/issues/39) and [50](https://github.com/KonnexionsGmbH/db_seeder/issues/50)).
 
 #### Modified Features
 
-- Hide the knoweledge about the schema (issue #50)
+- CrateDB: DBMS 4.1.8
+
+- SQLite: JDBC 3.32.3.2
 
 #### Deleted Features
 
