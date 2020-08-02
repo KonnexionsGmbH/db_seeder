@@ -1,13 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.oracle;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenOracleSchema;
 
 /**
  * Test Data Generator for an Oracle DBMS.
@@ -15,193 +12,92 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class OracleSeeder extends AbstractJdbcSeeder {
+public final class OracleSeeder extends AbstractGenOracleSchema {
 
-  private static Logger logger = Logger.getLogger(OracleSeeder.class);
+  private static final Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
-   * Instantiates a new Oracle Database seeder.
+   * Instantiates a new Oracle seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public OracleSeeder(String dbmsTickerSymbol) {
-    super();
-
-    String methodName = null;
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.ORACLE;
+    dbmsEnum              = DbmsEnum.ORACLE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY
-             (
-                 PK_CITY_ID          NUMBER         NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID NUMBER,
-                 CITY_MAP            BLOB,
-                 CREATED             TIMESTAMP      NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                VARCHAR2 (100) NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE   FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
-             )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY
-             (
-                 PK_COMPANY_ID       NUMBER         NOT NULL PRIMARY KEY,
-                 FK_CITY_ID          NUMBER         NOT NULL,
-                 ACTIVE              VARCHAR2 (1)   NOT NULL,
-                 ADDRESS1            VARCHAR2 (50),
-                 ADDRESS2            VARCHAR2 (50),
-                 ADDRESS3            VARCHAR2 (50),
-                 CREATED             TIMESTAMP      NOT NULL,
-                 DIRECTIONS          CLOB,
-                 EMAIL               VARCHAR2 (100),
-                 FAX                 VARCHAR2 (50),
-                 MODIFIED            TIMESTAMP,
-                 NAME                VARCHAR2 (250) NOT NULL UNIQUE,
-                 PHONE               VARCHAR2 (50),
-                 POSTAL_CODE         VARCHAR2 (50),
-                 URL                 VARCHAR2 (250),
-                 VAT_ID_NUMBER       VARCHAR2 (100),
-                 CONSTRAINT FK_COMPANY_CITY         FOREIGN KEY (FK_CITY_ID)          REFERENCES CITY (PK_CITY_ID)
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY
-             (
-                 PK_COUNTRY_ID NUMBER         NOT NULL PRIMARY KEY,
-                 COUNTRY_MAP   BLOB,
-                 CREATED       TIMESTAMP      NOT NULL,
-                 ISO3166       VARCHAR2 (50),
-                 MODIFIED      TIMESTAMP,
-                 NAME          VARCHAR2 (100) NOT NULL UNIQUE
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE
-             (
-                 PK_COUNTRY_STATE_ID NUMBER         NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_ID       NUMBER         NOT NULL,
-                 FK_TIMEZONE_ID      NUMBER         NOT NULL,
-                 COUNTRY_STATE_MAP   BLOB,
-                 CREATED             TIMESTAMP      NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                VARCHAR2 (100) NOT NULL,
-                 SYMBOL              VARCHAR2 (50),
-                 CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                 CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
-                 CONSTRAINT UQ_COUNTRY_STATE          UNIQUE (FK_COUNTRY_ID, NAME)
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE
-             (
-                 PK_TIMEZONE_ID NUMBER          NOT NULL PRIMARY KEY,
-                 ABBREVIATION   VARCHAR2 (50)   NOT NULL,
-                 CREATED        TIMESTAMP       NOT NULL,
-                 MODIFIED       TIMESTAMP,
-                 NAME           VARCHAR2 (100)  NOT NULL UNIQUE,
-                 V_TIME_ZONE    VARCHAR2 (4000)
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenOracleSchema.createTableStmnts.get(tableName);
   }
 
-  private final void dropUser(String user) {
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM ALL_USERS WHERE username = ?");
-      preparedStatement.setString(1, user);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP USER " + user + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
+   */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys());
+    connection = connect(url,
+                         null,
+                         config.getUserSys().toUpperCase(),
+                         config.getPasswordSys());
+
+    String userName = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Drop the database user if already existing.
-    // -----------------------------------------------------------------------
-
-    String user = config.getUser().toUpperCase();
-
-    dropUser(user);
-
-    // -----------------------------------------------------------------------
-    // Create the database user and grant the necessary rights.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE USER " + user + " IDENTIFIED BY \"" + config.getPassword() + "\"");
+    dropUser(userName,
+             "CASCADE",
+             "ALL_USERS",
+             "username");
 
-      statement.execute("ALTER USER " + user + " QUOTA UNLIMITED ON users");
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
 
-      statement.execute("GRANT CREATE SEQUENCE TO " + user);
-
-      statement.execute("GRANT CREATE SESSION TO " + user);
-
-      statement.execute("GRANT CREATE TABLE TO " + user);
-
-      statement.execute("GRANT UNLIMITED TABLESPACE TO " + user);
+    try {
+      executeDdlStmnts("CREATE USER " + userName + " IDENTIFIED BY \"" + config.getPassword() + "\"",
+                       "ALTER USER " + userName + " QUOTA UNLIMITED ON users",
+                       "GRANT CREATE SEQUENCE TO " + userName,
+                       "GRANT CREATE SESSION TO " + userName,
+                       "GRANT CREATE TABLE TO " + userName,
+                       "GRANT UNLIMITED TABLESPACE TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -215,10 +111,13 @@ public class OracleSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, config.getPassword());
+    connection = connect(url,
+                         null,
+                         userName,
+                         config.getPassword());
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

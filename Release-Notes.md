@@ -3,7 +3,43 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/1.15.10.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.0.0.svg)
+
+----------
+
+## Version 2.0.0
+
+Release Date: 02.08.2020
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
+#### Current Issues
+
+- Apache Derby
+
+  - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
+
+- Mimer SQL & DBeaver
+
+  - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
+
+#### New Features
+
+- The underlying database schema can now be freely defined using a JSON-based parameter file (Issues [37](https://github.com/KonnexionsGmbH/db_seeder/issues/37), [38](https://github.com/KonnexionsGmbH/db_seeder/issues/38), [39](https://github.com/KonnexionsGmbH/db_seeder/issues/39) and [50](https://github.com/KonnexionsGmbH/db_seeder/issues/50)).
+
+#### Modified Features
+
+- CrateDB: DBMS 4.1.8
+
+- SQLite: JDBC 3.32.3.2
+
+#### Deleted Features
+
+n/a
 
 ----------
 
@@ -27,19 +63,10 @@ Release Date: 14.07.2020
 
   - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-#### New Features
-
-n/a
-
 #### Modified Features
 
 - Config.java: reduce number of properties (issue #36)
 - MySQL Database: DBMS & JDBC 8.0.21
-
-#### Deleted Features
-
-n/a
-
 
 ----------
 

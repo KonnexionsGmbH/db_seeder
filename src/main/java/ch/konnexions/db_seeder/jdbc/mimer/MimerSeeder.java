@@ -1,13 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.mimer;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
 
 /**
  * Test Data Generator for a Mimer SQL DBMS.
@@ -15,216 +12,98 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class MimerSeeder extends AbstractJdbcSeeder {
+public final class MimerSeeder extends AbstractGenMimerSchema {
 
-  private static Logger logger = Logger.getLogger(MimerSeeder.class);
+  private static final Logger logger = Logger.getLogger(MimerSeeder.class);
 
   /**
-   * Instantiates a new Mimer SQL seeder.
+   * Instantiates a new Mimer SQL seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public MimerSeeder(String dbmsTickerSymbol) {
-    super();
-
-    String methodName = null;
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.MIMER;
+    dbmsEnum              = DbmsEnum.MIMER;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     driver                = "com.mimer.jdbc.Driver";
 
-    tableNameDelimiter    = "";
-
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT        NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT,
-                 CITY_MAP            BLOB,
-                 CREATED             TIMESTAMP     NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                NVARCHAR(100) NOT NULL,
-                 FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
-              )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT        NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    BIGINT        NOT NULL,
-                 ACTIVE        NVARCHAR(1)   NOT NULL,
-                 ADDRESS1      NVARCHAR(50),
-                 ADDRESS2      NVARCHAR(50),
-                 ADDRESS3      NVARCHAR(50),
-                 CREATED       TIMESTAMP     NOT NULL,
-                 DIRECTIONS    CLOB,
-                 EMAIL         NVARCHAR(100),
-                 FAX           NVARCHAR(50),
-                 MODIFIED      TIMESTAMP,
-                 NAME          NVARCHAR(250) NOT NULL UNIQUE,
-                 PHONE         NVARCHAR(50),
-                 POSTAL_CODE   NVARCHAR(50),
-                 URL           NVARCHAR(250),
-                 VAT_ID_NUMBER NVARCHAR(100),
-                 FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT        NOT NULL PRIMARY KEY,
-                COUNTRY_MAP   BLOB,
-                CREATED       TIMESTAMP     NOT NULL,
-                ISO3166       NVARCHAR(50),
-                MODIFIED      TIMESTAMP,
-                NAME          NVARCHAR(100) NOT NULL UNIQUE
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT        NOT NULL PRIMARY KEY,
-                FK_COUNTRY_ID       BIGINT        NOT NULL,
-                FK_TIMEZONE_ID      BIGINT        NOT NULL,
-                COUNTRY_STATE_MAP   BLOB,
-                CREATED             TIMESTAMP     NOT NULL,
-                MODIFIED            TIMESTAMP,
-                NAME                NVARCHAR(100) NOT NULL,
-                SYMBOL              NVARCHAR(50),
-                FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
-                UNIQUE      (FK_COUNTRY_ID,NAME)
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT         NOT NULL PRIMARY KEY,
-                ABBREVIATION   NVARCHAR(50)   NOT NULL,
-                CREATED        TIMESTAMP      NOT NULL,
-                MODIFIED       TIMESTAMP,
-                NAME           NVARCHAR(100)  NOT NULL UNIQUE,
-                V_TIME_ZONE    NVARCHAR(4000)
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenMimerSchema.createTableStmnts.get(tableName);
   }
 
-  private final void dropDatabase(String database) {
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSTEM.DATABANKS WHERE databank_name = ?");
-      preparedStatement.setString(1, database);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP DATABANK " + database + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  private final void dropUser(String user) {
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSTEM.USERS WHERE user_name = ?");
-      preparedStatement.setString(1, user);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP IDENT " + user + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
+   */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, config.getUserSys(), config.getPasswordSys(), true);
+    connection = connect(url,
+                         driver,
+                         config.getUserSys(),
+                         config.getPasswordSys(),
+                         true);
+
+    String databaseName = config.getDatabase();
+    String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
-    // Drop the database and database user if already existing.
-    // -----------------------------------------------------------------------
-
-    String database = config.getDatabase();
-    String user     = config.getUser();
-
-    dropDatabase(database);
-    dropUser(user);
-
-    // -----------------------------------------------------------------------
-    // Create the database user and grant the necessary rights.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE DATABANK " + database + " SET OPTION TRANSACTION");
+    dropDatabase(databaseName,
+                 "CASCADE",
+                 "SYSTEM.DATABANKS",
+                 "databank_name");
 
-      statement.execute("CREATE IDENT " + user + " AS USER USING '" + config.getPassword() + "'");
+    dropUser(userName,
+             "CASCADE",
+             "SYSTEM.USERS",
+             "user_name");
 
-      statement.execute("GRANT TABLE ON DATABANK " + database + " TO " + user);
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE DATABANK " + databaseName + " SET OPTION TRANSACTION",
+                       "CREATE IDENT " + userName + " AS USER USING '" + config.getPassword() + "'",
+                       "GRANT TABLE ON DATABANK " + databaseName + " TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -238,10 +117,14 @@ public class MimerSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, config.getPassword(), true);
+    connection = connect(url,
+                         null,
+                         userName,
+                         config.getPassword(),
+                         true);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

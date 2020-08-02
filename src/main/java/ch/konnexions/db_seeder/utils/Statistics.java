@@ -20,13 +20,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
-
 /**
  * This class is used to record the statisticss of the db_seeder runs.
  */
-public class Statistics {
-  private static Logger               logger    = Logger.getLogger(Statistics.class);
+public final class Statistics {
+  private static final Logger         logger    = Logger.getLogger(Statistics.class);
 
   private final Config                config;
 
@@ -43,7 +41,7 @@ public class Statistics {
   /**
    * Constructs a Statistics object using the given {@link Config} object.
    * @param config the {@link Config} object
-   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param dbmsTickerSymbol DBMS ticker symbol the DBMS ticker symbol
    * @param dbmsValues the DBMS related values DBMS name and client / embedded remark
    */
   public Statistics(Config config, String dbmsTickerSymbol, Map<String, String[]> dbmsValues) {
@@ -58,13 +56,8 @@ public class Statistics {
   }
 
   public final void createMeasuringEntry() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     try {
@@ -73,7 +66,8 @@ public class Statistics {
       statisticsFile.printRecord(dbmsTickerSymbol,
                                  dbmsValues.get(dbmsTickerSymbol)[0],
                                  dbmsValues.get(dbmsTickerSymbol)[1],
-                                 Duration.between(startDateTime, endDateTime).toSeconds(),
+                                 Duration.between(startDateTime,
+                                                  endDateTime).toSeconds(),
                                  startDateTime.format(formatter),
                                  endDateTime.format(formatter),
                                  InetAddress.getLocalHost().getHostName(),
@@ -87,7 +81,7 @@ public class Statistics {
     }
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 
@@ -95,16 +89,13 @@ public class Statistics {
    * Creates a new statistics file if none exists yet.
    */
   @SuppressWarnings("resource")
-  private final void createStatisticsFile() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
+  private void createStatisticsFile() {
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
-    String statisticsName = config.getFileStatisticsName();
+    String statisticsName      = config.getFileStatisticsName();
 
     try {
       Path statisticsPath = Paths.get(statisticsName);
@@ -118,13 +109,13 @@ public class Statistics {
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, false));
 
-        new CSVPrinter(bufferedWriter,
-            CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)).withHeader(config.getFileStatisticsHeader().replace(";", statisticsDelimiter).split(statisticsDelimiter)));
+        new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)).withHeader(config.getFileStatisticsHeader().replace(";",
+                                                                                                                                                        statisticsDelimiter)
+            .split(statisticsDelimiter)));
 
         bufferedWriter.close();
 
-        logger.info(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  missing statistics file created: file name="
-            + config.getFileStatisticsName());
+        logger.info("missing statistics file created: file name=" + config.getFileStatisticsName());
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -132,11 +123,11 @@ public class Statistics {
     }
 
     if (isDebug) {
-      logger.debug(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 
-  private final void openStatisticsFile() {
+  private void openStatisticsFile() {
     String statisticsDelimiter = config.getFileStatisticsDelimiter();
     String statisticsName      = config.getFileStatisticsName();
 
@@ -144,11 +135,8 @@ public class Statistics {
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 
       if (!(isFileExisting)) {
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        logger.error(String.format(AbstractDatabaseSeeder.FORMAT_METHOD_NAME, methodName) + "  fatal error: program abort =====> statistics file \""
-            + statisticsName + "\" is missing <=====");
-        System.exit(1);
+        MessageHandling.abortProgram(logger,
+                                     "Statistics file \"" + statisticsName + "\" is missing");
       }
 
       BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, true));

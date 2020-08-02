@@ -1,13 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.cratedb;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
 
 /**
  * Test Data Generator for a CrateDB DBMS.
@@ -15,180 +12,89 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class CratedbSeeder extends AbstractJdbcSeeder {
+public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
-  private static Logger logger = Logger.getLogger(CratedbSeeder.class);
+  private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
-   * Instantiates a new CrateDB seeder.
-   * 
-   * @param dbmsTickerSymbol 
+   * Instantiates a new CrateDB seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public CratedbSeeder(String dbmsTickerSymbol) {
-    super();
-
-    String methodName = null;
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
-    dbms                  = Dbms.CRATEDB;
+    dbmsEnum              = DbmsEnum.CRATEDB;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/?strict=true&user=";
     url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
     urlSetup              = urlBase + config.getUserSys();
 
-    dropTableStmnt        = "SELECT table_name, 'DROP TABLE \"' || table_name || '\"' FROM information_schema.tables WHERE table_name = ? AND table_schema = 'doc'";
+    dropTableStmnt        = "SELECT 'DROP TABLE ' || table_name FROM information_schema.tables WHERE table_schema = 'doc' AND table_name = '?'";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT    NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT,
-                 CITY_MAP            OBJECT,
-                 CREATED             TIMESTAMP NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                TEXT      NOT NULL
-              )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT    NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    BIGINT    NOT NULL,
-                 ACTIVE        TEXT      NOT NULL,
-                 ADDRESS1      TEXT,
-                 ADDRESS2      TEXT,
-                 ADDRESS3      TEXT,
-                 CREATED       TIMESTAMP NOT NULL,
-                 DIRECTIONS    TEXT,
-                 EMAIL         TEXT,
-                 FAX           TEXT,
-                 MODIFIED      TIMESTAMP,
-                 NAME          TEXT      NOT NULL,
-                 PHONE         TEXT,
-                 POSTAL_CODE   TEXT,
-                 URL           TEXT,
-                 VAT_ID_NUMBER TEXT
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT    NOT NULL PRIMARY KEY,
-                COUNTRY_MAP   OBJECT,
-                CREATED       TIMESTAMP NOT NULL,
-                ISO3166       TEXT,
-                MODIFIED      TIMESTAMP,
-                NAME          TEXT      NOT NULL
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT    NOT NULL PRIMARY KEY,
-                FK_COUNTRY_ID       BIGINT    NOT NULL,
-                FK_TIMEZONE_ID      BIGINT    NOT NULL,
-                COUNTRY_STATE_MAP   OBJECT,
-                CREATED             TIMESTAMP NOT NULL,
-                MODIFIED            TIMESTAMP,
-                NAME                TEXT      NOT NULL,
-                SYMBOL              TEXT
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT     NOT NULL PRIMARY KEY,
-                ABBREVIATION   TEXT       NOT NULL,
-                CREATED        TIMESTAMP  NOT NULL,
-                MODIFIED       TIMESTAMP,
-                NAME           TEXT       NOT NULL,
-                V_TIME_ZONE    TEXT
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenCratedbSchema.createTableStmnts.get(tableName);
   }
 
-  private final void dropAllTables() throws SQLException {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    for (String tableName : TABLE_NAMES_DROP) {
-      String sqlStmntLocal = "DROP TABLE IF EXISTS " + tableName;
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
-      statement.execute(sqlStmntLocal);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
+   */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, true);
+    connection = connect(urlSetup,
+                         true);
+
+    String userName = config.getUser();
 
     // -----------------------------------------------------------------------
-    // Drop the database user and tables if already existing.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
-    // java.sql.ParameterMetaData as returned by e.g. java.sql.PreparedStatement
-    // DataSource is not implemented
-    // -----------------------------------------------------------------------
-
-    String user = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP USER IF EXISTS " + user);
+      executeDdlStmnts("DROP USER IF EXISTS " + userName);
 
-      dropAllTables();
+      dropAllTables(dropTableStmnt);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Create the database user and grant the necessary rights.
+    // Setup the database.
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE USER " + user + " WITH (PASSWORD = '" + config.getPassword() + "')");
-
-      statement.execute("GRANT ALL PRIVILEGES TO " + user);
+      executeDdlStmnts("CREATE USER " + userName + " WITH (PASSWORD = '" + config.getPassword() + "')",
+                       "GRANT ALL PRIVILEGES TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -202,10 +108,11 @@ public class CratedbSeeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, true);
+    connection = connect(url,
+                         true);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

@@ -4,17 +4,22 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '1.15.10'
+version '2.0.0'
 
 repositories {
     jcenter()
     mavenCentral()
+    maven { 
+        url 'https://jitpack.io' 
+    }
     maven {
-        url "http://maven.cubrid.org/"
+        url "http://maven.cubrid.org"
     }
 }
 
 dependencies {
+    implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.12.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.h2database:h2:1.4.200'
     implementation 'com.ibm.db2:jcc:11.5.4.0'
     implementation 'com.ibm.informix:jdbc:4.50.4.1'
@@ -33,11 +38,12 @@ dependencies {
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.1'
     implementation 'org.postgresql:postgresql:42.2.14'
     implementation 'org.slf4j:slf4j-log4j12:1.7.25'
-    implementation 'org.xerial:sqlite-jdbc:3.31.1'
+    implementation 'org.xerial:sqlite-jdbc:3.32.3.2'
 }
 
 jar {
     archivesBaseName = project.name
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     manifest {
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.DatabaseSeeder'
@@ -47,6 +53,7 @@ jar {
 task fatJar(type: Jar) {
     group = "Konnexions"
     description = 'Create a jar file including all dependencies'
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE // allow duplicates
 
     manifest.from jar.manifest
     archiveClassifier  = 'all'
@@ -70,6 +77,6 @@ task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
 }
 
 tasks.withType(JavaCompile).each {
+    it.options.compilerArgs.add('-deprecation')
     it.options.compilerArgs.add('--enable-preview')
-    it.options.encoding = 'UTF-8'
 }

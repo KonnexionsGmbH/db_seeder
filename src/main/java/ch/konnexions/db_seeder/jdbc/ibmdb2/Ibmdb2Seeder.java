@@ -1,15 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.ibmdb2;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
 
 /**
  * Test Data Generator for an IBM Db2 DBMS.
@@ -17,244 +12,93 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class Ibmdb2Seeder extends AbstractJdbcSeeder {
+public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
-  private static Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
+  private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
 
   /**
-   * Instantiates a new IBM Db2 Database seeder.
+   * Instantiates a new IBM Db2 seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public Ibmdb2Seeder(String dbmsTickerSymbol) {
-    super();
-
-    String methodName = null;
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.IBMDB2;
+    dbmsEnum              = DbmsEnum.IBMDB2;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
 
-    dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABSCHEMA = ?";
+    dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = 'schemaName' AND TABNAME = '?'";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT       NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT,
-                 CITY_MAP            BLOB,
-                 CREATED             TIMESTAMP    NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                VARCHAR(100) NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID) ON DELETE CASCADE
-              )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT       NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    BIGINT       NOT NULL,
-                 ACTIVE        VARCHAR(1)   NOT NULL,
-                 ADDRESS1      VARCHAR(50),
-                 ADDRESS2      VARCHAR(50),
-                 ADDRESS3      VARCHAR(50),
-                 CREATED       TIMESTAMP    NOT NULL,
-                 DIRECTIONS    CLOB,
-                 EMAIL         VARCHAR(100),
-                 FAX           VARCHAR(50),
-                 MODIFIED      TIMESTAMP,
-                 NAME          VARCHAR(250) NOT NULL UNIQUE,
-                 PHONE         VARCHAR(50),
-                 POSTAL_CODE   VARCHAR(50),
-                 URL           VARCHAR(250),
-                 VAT_ID_NUMBER VARCHAR(100),
-                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID) ON DELETE CASCADE
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT       NOT NULL PRIMARY KEY,
-                COUNTRY_MAP   BLOB,
-                CREATED       TIMESTAMP    NOT NULL,
-                ISO3166       VARCHAR(50),
-                MODIFIED      TIMESTAMP,
-                NAME          VARCHAR(100) NOT NULL UNIQUE
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT       NOT NULL PRIMARY KEY,
-                FK_COUNTRY_ID       BIGINT       NOT NULL,
-                FK_TIMEZONE_ID      BIGINT       NOT NULL,
-                COUNTRY_STATE_MAP   BLOB,
-                CREATED             TIMESTAMP    NOT NULL,
-                MODIFIED            TIMESTAMP,
-                NAME                VARCHAR(100) NOT NULL,
-                SYMBOL              VARCHAR(50),
-                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID)  ON DELETE CASCADE,
-                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID) ON DELETE CASCADE,
-                CONSTRAINT UQ_COUNTRY_STATE          UNIQUE (FK_COUNTRY_ID,NAME)
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
-                ABBREVIATION   VARCHAR(50)   NOT NULL,
-                CREATED        TIMESTAMP     NOT NULL,
-                MODIFIED       TIMESTAMP,
-                NAME           VARCHAR(100)  NOT NULL UNIQUE,
-                V_TIME_ZONE    VARCHAR(4000)
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenIbmdb2Schema.createTableStmnts.get(tableName);
   }
 
-  private final void dropAllTables(String schema) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    Connection connectionLocal = connect(url, null, config.getUserSys().toUpperCase(), config.getPasswordSys(), true);
-
-    try {
-      Statement statementLocal = connectionLocal.createStatement();
-
-      preparedStatement = connection.prepareStatement(dropTableStmnt);
-      preparedStatement.setString(2, schema);
-
-      for (String tableName : TABLE_NAMES_DROP) {
-        preparedStatement.setString(1, tableName);
-
-        resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-          String sqlStmntLocal = resultSet.getString(1);
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sqlStmnt='" + sqlStmntLocal + "'");
-          statementLocal.execute(sqlStmntLocal);
-        }
-      }
-
-      resultSet.close();
-
-      statementLocal.close();
-
-      preparedStatement.close();
-
-      disconnect(connectionLocal);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private final void dropSchema(String schema) {
-    String methodName = null;
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM SYSIBM.SYSSCHEMATA WHERE name = ?");
-      preparedStatement.setString(1, schema);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        dropAllTables(schema);
-
-        statement = connection.createStatement();
-
-        statement.execute("DROP SCHEMA " + schema + " RESTRICT");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
+   */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, null, config.getUserSys(), config.getPasswordSys());
+    connection = connect(url,
+                         null,
+                         config.getUserSys(),
+                         config.getPasswordSys());
 
-    String schema = config.getSchema().toUpperCase();
-
-    // -----------------------------------------------------------------------
-    // Drop the schema if already existing
-    // -----------------------------------------------------------------------
-
-    dropSchema(schema);
+    String schemaName = config.getSchema().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Create the schema.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE SCHEMA " + schema);
+    dropAllTables(dropTableStmnt.replace("schemaName",
+                                         schemaName));
 
-      statement.execute("SET CURRENT SCHEMA " + schema + ";");
+    dropSchema(schemaName,
+               "RESTRICT",
+               "SYSIBM.SYSSCHEMATA",
+               "name");
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE SCHEMA " + schemaName,
+                       "SET CURRENT SCHEMA " + schemaName + ";");
 
       statement.close();
     } catch (SQLException e) {
@@ -263,7 +107,7 @@ public class Ibmdb2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

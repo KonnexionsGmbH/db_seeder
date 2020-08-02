@@ -1,6 +1,3 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.postgresql;
 
 import java.io.File;
@@ -13,7 +10,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
 
 /**
  * Test Data Generator for a PostgreSQL DBMS.
@@ -21,130 +18,62 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class PostgresqlSeeder extends AbstractJdbcSeeder {
+public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
-  private static Logger logger = Logger.getLogger(PostgresqlSeeder.class);
+  private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 
   /**
-   * Instantiates a new PostgreSQL Database seeder.
+   * Instantiates a new PostgreSQL seeder object.
    * 
-   * @param dbmsTickerSymbol 
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public PostgresqlSeeder(String dbmsTickerSymbol) {
-    super();
-
-    String methodName = null;
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor");
     }
 
-    dbms                  = Dbms.POSTGRESQL;
+    dbmsEnum              = DbmsEnum.POSTGRESQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    tableNameDelimiter    = "";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
     url                   = urlBase + config.getDatabase() + "?user=" + config.getUser() + "&password=" + config.getPassword();
     urlSetup              = urlBase + config.getDatabaseSys() + "?user=" + config.getUserSys() + "&password=" + config.getPasswordSys();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT         NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT,
-                 CITY_MAP            BYTEA,
-                 CREATED             TIMESTAMP      NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                VARCHAR(100)   NOT NULL,
-                 FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
-              )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT       NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    BIGINT       NOT NULL,
-                 ACTIVE        VARCHAR(1)   NOT NULL,
-                 ADDRESS1      VARCHAR(50),
-                 ADDRESS2      VARCHAR(50),
-                 ADDRESS3      VARCHAR(50),
-                 CREATED       TIMESTAMP    NOT NULL,
-                 DIRECTIONS    TEXT,
-                 EMAIL         VARCHAR(100),
-                 FAX           VARCHAR(50),
-                 MODIFIED      TIMESTAMP,
-                 NAME          VARCHAR(250) NOT NULL UNIQUE,
-                 PHONE         VARCHAR(50),
-                 POSTAL_CODE   VARCHAR(50),
-                 URL           VARCHAR(250),
-                 VAT_ID_NUMBER VARCHAR(100),
-                 FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
-                COUNTRY_MAP   BYTEA,
-                CREATED       TIMESTAMP      NOT NULL,
-                ISO3166       VARCHAR(50),
-                MODIFIED      TIMESTAMP,
-                NAME          VARCHAR(100)   NOT NULL UNIQUE
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
-                FK_COUNTRY_ID       BIGINT         NOT NULL,
-                FK_TIMEZONE_ID      BIGINT         NOT NULL,
-                COUNTRY_STATE_MAP   BYTEA,
-                CREATED             TIMESTAMP      NOT NULL,
-                MODIFIED            TIMESTAMP,
-                NAME                VARCHAR(100)   NOT NULL,
-                SYMBOL              VARCHAR(50),
-                FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
-                UNIQUE      (FK_COUNTRY_ID,NAME)
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
-                ABBREVIATION   VARCHAR(50)   NOT NULL,
-                CREATED        TIMESTAMP     NOT NULL,
-                MODIFIED       TIMESTAMP,
-                NAME           VARCHAR(100)  NOT NULL UNIQUE,
-                V_TIME_ZONE    VARCHAR(4000)
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenPostgresqlSchema.createTableStmnts.get(tableName);
   }
 
   @Override
-  protected final void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  protected final void prepStmntColBlob(PreparedStatement preparedStatement, final String tableName, final String columnName, final int columnPos, long rowNo) {
     FileInputStream blobData = null;
 
     try {
-      blobData = new FileInputStream(new File(Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png"));
+      blobData = new FileInputStream(new File(Paths.get("src",
+                                                        "main",
+                                                        "resources").toAbsolutePath().toString() + File.separator + "blob.png"));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     try {
-      preparedStatement.setBinaryStream(columnPos, blobData);
+      preparedStatement.setBinaryStream(columnPos,
+                                        blobData);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -160,49 +89,42 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
 
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup, true);
+    connection = connect(urlSetup,
+                         true);
+
+    String databaseName = config.getDatabase();
+    String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
-    // Drop the database and the database user.
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
-
-    String database = config.getDatabase();
-    String user     = config.getUser();
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("DROP DATABASE IF EXISTS " + database);
-
-      statement.execute("DROP USER IF EXISTS " + user);
+      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName,
+                       "DROP USER IF EXISTS " + userName);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     // -----------------------------------------------------------------------
-    // Create the database, the database user and grant the necessary rights.
+    // Setup the database.
     // -----------------------------------------------------------------------
 
     try {
-      statement.execute("CREATE DATABASE " + database);
-
-      statement.execute("CREATE USER " + user + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'");
-
-      statement.execute("GRANT ALL PRIVILEGES ON DATABASE " + database + " TO " + user);
+      executeDdlStmnts("CREATE DATABASE " + databaseName,
+                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+                       "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -219,7 +141,7 @@ public class PostgresqlSeeder extends AbstractJdbcSeeder {
     connection = connect(url);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 

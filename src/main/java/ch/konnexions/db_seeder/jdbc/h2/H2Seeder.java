@@ -1,13 +1,10 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc.h2;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
 
 /**
  * Test Data Generator for a H2 Database Engine DBMS.
@@ -15,24 +12,20 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public class H2Seeder extends AbstractJdbcSeeder {
+public final class H2Seeder extends AbstractGenH2Schema {
 
-  private static Logger logger = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger = Logger.getLogger(H2Seeder.class);
 
   /**
-   * Instantiates a new H2 Database Engine seeder.
-   * @param dbmsTickerSymbol 
+   * Instantiates a new H2 seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public H2Seeder(String dbmsTickerSymbol) {
-    super();
-
-    String methodName = null;
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -40,26 +33,21 @@ public class H2Seeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
   /**
-   * Instantiates a new H2 Database Engine seeder.
-   * @param dbmsTickerSymbol 
+   * Instantiates a new H2 seeder object.
    *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    * @param isClient client database version
    */
   public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
-    super(isClient);
-
-    String methodName = null;
+    super(dbmsTickerSymbol, isClient);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
@@ -67,190 +55,36 @@ public class H2Seeder extends AbstractJdbcSeeder {
     init();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("End   Constructor");
     }
   }
 
-  @SuppressWarnings("preview")
+  /**
+   * Create the DDL statement: CREATE TABLE.
+   *
+   * @param tableName the database table name
+   *
+   * @return the 'CREATE TABLE' statement
+   */
   @Override
-  protected final String createDdlStmnt(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return """
-             CREATE TABLE CITY (
-                 PK_CITY_ID          BIGINT         NOT NULL PRIMARY KEY,
-                 FK_COUNTRY_STATE_ID BIGINT,
-                 CITY_MAP            BLOB,
-                 CREATED             TIMESTAMP      NOT NULL,
-                 MODIFIED            TIMESTAMP,
-                 NAME                VARCHAR(100)   NOT NULL,
-                 CONSTRAINT FK_CITY_COUNTRY_STATE FOREIGN KEY (FK_COUNTRY_STATE_ID) REFERENCES COUNTRY_STATE (PK_COUNTRY_STATE_ID)
-              )""";
-    case TABLE_NAME_COMPANY:
-      return """
-             CREATE TABLE COMPANY (
-                 PK_COMPANY_ID BIGINT       NOT NULL PRIMARY KEY,
-                 FK_CITY_ID    BIGINT       NOT NULL,
-                 ACTIVE        VARCHAR(1)   NOT NULL,
-                 ADDRESS1      VARCHAR(50),
-                 ADDRESS2      VARCHAR(50),
-                 ADDRESS3      VARCHAR(50),
-                 CREATED       TIMESTAMP    NOT NULL,
-                 DIRECTIONS    CLOB,
-                 EMAIL         VARCHAR(100),
-                 FAX           VARCHAR(50),
-                 MODIFIED      TIMESTAMP,
-                 NAME          VARCHAR(250) NOT NULL UNIQUE,
-                 PHONE         VARCHAR(50),
-                 POSTAL_CODE   VARCHAR(50),
-                 URL           VARCHAR(250),
-                 VAT_ID_NUMBER VARCHAR(100),
-                 CONSTRAINT FK_COMPANY_CITY FOREIGN KEY (FK_CITY_ID) REFERENCES CITY (PK_CITY_ID)
-             )""";
-    case TABLE_NAME_COUNTRY:
-      return """
-             CREATE TABLE COUNTRY (
-                PK_COUNTRY_ID BIGINT         NOT NULL PRIMARY KEY,
-                COUNTRY_MAP   BLOB,
-                CREATED       TIMESTAMP      NOT NULL,
-                ISO3166       VARCHAR(50),
-                MODIFIED      TIMESTAMP,
-                NAME          VARCHAR(100)   NOT NULL UNIQUE
-             )""";
-    case TABLE_NAME_COUNTRY_STATE:
-      return """
-             CREATE TABLE COUNTRY_STATE (
-                PK_COUNTRY_STATE_ID BIGINT         NOT NULL PRIMARY KEY,
-                FK_COUNTRY_ID       BIGINT         NOT NULL,
-                FK_TIMEZONE_ID      BIGINT         NOT NULL,
-                COUNTRY_STATE_MAP   BLOB,
-                CREATED             TIMESTAMP      NOT NULL,
-                MODIFIED            TIMESTAMP,
-                NAME                VARCHAR(100)   NOT NULL,
-                SYMBOL              VARCHAR(50),
-                CONSTRAINT FK_COUNTRY_STATE_COUNTRY  FOREIGN KEY (FK_COUNTRY_ID)  REFERENCES COUNTRY  (PK_COUNTRY_ID),
-                CONSTRAINT FK_COUNTRY_STATE_TIMEZONE FOREIGN KEY (FK_TIMEZONE_ID) REFERENCES TIMEZONE (PK_TIMEZONE_ID),
-                CONSTRAINT UQ_COUNTRY_STATE          UNIQUE      (FK_COUNTRY_ID,NAME)
-             )""";
-    case TABLE_NAME_TIMEZONE:
-      return """
-             CREATE TABLE TIMEZONE (
-                PK_TIMEZONE_ID BIGINT        NOT NULL PRIMARY KEY,
-                ABBREVIATION   VARCHAR(50)   NOT NULL,
-                CREATED        TIMESTAMP     NOT NULL,
-                MODIFIED       TIMESTAMP,
-                NAME           VARCHAR(100)  NOT NULL UNIQUE,
-                V_TIME_ZONE    VARCHAR(4000)
-             )""";
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
+  protected final String createDdlStmnt(String tableName) {
+    return AbstractGenH2Schema.createTableStmnts.get(tableName);
   }
 
-  private final void dropSchema(String schemaName) {
-    String methodName = null;
-
+  /**
+   * The common initialisation part.
+   */
+  private void init() {
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
+      logger.debug("Start");
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("client  =" + isClient);
+      logger.debug("embedded=" + isEmbedded);
     }
 
-    try {
-      int count = 0;
+    dbmsEnum = DbmsEnum.H2;
 
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE schema_name = ?");
-      preparedStatement.setString(1, schemaName);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP SCHEMA " + schemaName + " CASCADE");
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private final void dropUser(String userName) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    try {
-      int count = 0;
-
-      preparedStatement = connection.prepareStatement("SELECT count(*) FROM INFORMATION_SCHEMA.USERS WHERE name = ?");
-      preparedStatement.setString(1, userName);
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-
-      if (count > 0) {
-        statement = connection.createStatement();
-
-        statement.execute("DROP USER " + userName);
-
-        statement.close();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private final void init() {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- client  =" + isClient);
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- embedded=" + isEmbedded);
-    }
-
-    dbms               = Dbms.H2;
-
-    driver             = "org.h2.Driver";
-
-    tableNameDelimiter = "";
+    driver   = "org.h2.Driver";
 
     if (isClient) {
       url = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
@@ -259,49 +93,62 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
+   */
   @Override
   protected final void setupDatabase() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     // -----------------------------------------------------------------------
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url, driver, "sa", "", true);
+    connection = connect(url,
+                         driver,
+                         "sa",
+                         "",
+                         true);
 
-    String password = config.getPassword();
-    String schema   = config.getSchema().toUpperCase();
-    String user     = config.getUser().toUpperCase();
-
-    // -----------------------------------------------------------------------
-    // Drop the schema and the user if already existing
-    // -----------------------------------------------------------------------
-
-    dropSchema(schema);
-
-    dropUser(user);
+    String password   = config.getPassword();
+    String schemaName = config.getSchema().toUpperCase();
+    String userName   = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
-    // Create the user and the schema
+    // Tear down an existing schema.
     // -----------------------------------------------------------------------
 
     try {
       statement = connection.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      statement.execute("CREATE USER " + user + " PASSWORD '" + password + "' ADMIN");
+    dropSchema(schemaName,
+               "CASCADE",
+               "INFORMATION_SCHEMA.SCHEMATA",
+               "schema_name");
 
-      statement.execute("CREATE SCHEMA " + schema + " AUTHORIZATION " + user);
+    dropUser(userName,
+             "",
+             "INFORMATION_SCHEMA.USERS",
+             "name");
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts("CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
+                       "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
 
       statement.close();
     } catch (SQLException e) {
@@ -315,12 +162,15 @@ public class H2Seeder extends AbstractJdbcSeeder {
 
     disconnect(connection);
 
-    connection = connect(url, null, user, password);
+    connection = connect(url,
+                         null,
+                         userName,
+                         password);
 
     try {
       statement = connection.createStatement();
 
-      statement.execute("SET SCHEMA " + schema);
+      executeDdlStmnts("SET SCHEMA " + schemaName);
 
       statement.close();
     } catch (SQLException e) {
@@ -329,7 +179,7 @@ public class H2Seeder extends AbstractJdbcSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 }

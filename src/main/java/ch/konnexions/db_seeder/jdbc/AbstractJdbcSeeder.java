@@ -1,6 +1,3 @@
-/**
- *
- */
 package ch.konnexions.db_seeder.jdbc;
 
 import java.io.BufferedReader;
@@ -21,160 +18,106 @@ import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
-//import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.AbstractDatabaseSeeder;
 import ch.konnexions.db_seeder.utils.Config;
+import ch.konnexions.db_seeder.utils.MessageHandling;
 import ch.konnexions.db_seeder.utils.Statistics;
 
 /**
- * Test Data Generator for a Database.
+ * Test Data Generator for a Database - Abstract JDBC Seeder.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
+public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX      = 3;
+  private static final int    ENCODING_MAX       = 3;
+  private static final Logger logger             = Logger.getLogger(AbstractJdbcSeeder.class);
 
-  private static Logger       logger            = Logger.getLogger(AbstractJdbcSeeder.class);
+  private final String        BLOB_FILE          = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]        BLOB_DATA_BYTES    = readBlobFile2Bytes();
+  private final String        CLOB_FILE          = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
 
-  private final String        BLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]        BLOB_DATA_BYTES   = readBlobFile2Bytes();
+  private final String        CLOB_DATA          = readClobFile();
+  protected Connection        connection         = null;
 
-  private final String        CLOB_FILE         = Paths.get("src", "main", "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final String        CLOB_DATA         = readClobFile();
-  private final Properties    COLUMN_NAME;
-  protected Connection        connection        = null;
+  protected String            driver             = "";
+  protected String            dropTableStmnt     = "";
 
-  protected String            driver            = "";
-  protected String            dropTableStmnt    = "";
+  protected Properties        encodedColumnNames = new Properties();
 
-  private final int           MAX_ROW_SIZE      = Integer.MAX_VALUE;
+  protected final boolean     isClient;
+  protected final boolean     isEmbedded;
 
-  protected PreparedStatement preparedStatement = null;
+  protected int               nullFactor;
 
-  private final int           RANDOM_NUMBER     = 4;
-  private Random              randomInt         = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  protected ResultSet         resultSet         = null;
+  private final Random        randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private ResultSet           resultSet          = null;
 
-  protected Statement         statement         = null;
+  protected Statement         statement          = null;
 
-  protected String            url               = "";
-  protected String            urlBase           = "";
-  protected String            urlSetup          = "";
-
-  /**
-   * Instantiates a new abstract JDBC seeder.
-   */
-  public AbstractJdbcSeeder() {
-    super();
-
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
-    }
-
-    config      = new Config();
-
-    COLUMN_NAME = createColumnNames();
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
-    }
-  }
+  protected String            url                = "";
+  protected String            urlBase            = "";
+  protected String            urlSetup           = "";
 
   /**
-   * Instantiates a new abstract JDBC seeder.
+   * Initialises a new abstract JDBC seeder object.
    *
-   * @param isClient is a client database version ?
+   * @param dbmsTickerSymbol DBMS ticker symbol 
    */
-  public AbstractJdbcSeeder(boolean isClient) {
-    super(isClient);
-
-    String methodName = null;
+  public AbstractJdbcSeeder(String dbmsTickerSymbol) {
+    super(dbmsTickerSymbol);
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start Constructor");
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
     }
 
-    config      = new Config();
+    config     = new Config();
 
-    COLUMN_NAME = createColumnNames();
+    isClient   = true;
+    isEmbedded = false;
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   Constructor");
+      logger.debug("client  =" + isClient);
+      logger.debug("embedded=" + isEmbedded);
+
+      logger.debug("End   Constructor");
     }
   }
 
-  private final void addOptionalFk(final String tableName, final ArrayList<Object> fKList) {
-    switch (tableName) {
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCity == null) {
-        recreatePkList(TABLE_NAME_CITY);
-      }
+  /**
+   * Initialises a new abstract JDBC seeder object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param isClient client database version
+   */
+  public AbstractJdbcSeeder(String dbmsTickerSymbol, boolean isClient) {
+    super(dbmsTickerSymbol, isClient);
 
-      addOptionalFk(TABLE_NAME_CITY, "PK_CITY_ID", pkListCity, "FK_COUNTRY_STATE_ID", fKList);
-      break;
-    }
-  }
-
-  private final void addOptionalFk(final String tableName,
-                                   final String pkcolumnName,
-                                   final ArrayList<Object> pkList,
-                                   final String fkColumnName,
-                                   final ArrayList<Object> fkList) {
-    int pkListSize = pkList.size();
-    if (pkListSize == 0) {
-      return;
+    if (isDebug) {
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
     }
 
-    int fkListSize = fkList.size();
-    if (fkListSize == 0) {
-      return;
-    }
+    config        = new Config();
 
-    pkListSize++;
+    this.isClient = isClient;
+    isEmbedded    = !(this.isClient);
 
-    try {
-      preparedStatement = connection.prepareStatement("UPDATE " + tableName + " SET " + fkColumnName + " = ? WHERE " + pkcolumnName + " = ?");
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    if (isDebug) {
+      logger.debug("client  =" + isClient);
+      logger.debug("embedded=" + isEmbedded);
 
-    for (Object pkIndex : pkList) {
-      if (getRandomIntExcluded(pkListSize) % RANDOM_NUMBER == 0) {
-        continue;
-      }
-
-      try {
-        preparedStatement.setObject(1, fkList.get(getRandomIntExcluded(fkListSize)));
-        preparedStatement.setObject(2, pkIndex);
-
-        preparedStatement.executeUpdate();
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-    }
-
-    try {
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
+      logger.debug("End   Constructor");
     }
   }
 
@@ -182,11 +125,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * Create a database connection.
    *
    * @param url the URL
-   * 
+   *
    * @return the database connection
    */
   protected final Connection connect(String url) {
-    return connect(url, null, null, null, false);
+    return connect(url,
+                   null,
+                   null,
+                   null,
+                   false);
   }
 
   /**
@@ -194,11 +141,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param url the URL
    * @param autoCommit the auto commit option
-   * 
+   *
    * @return the database connection
    */
   protected final Connection connect(String url, boolean autoCommit) {
-    return connect(url, null, null, null, autoCommit);
+    return connect(url,
+                   null,
+                   null,
+                   null,
+                   autoCommit);
   }
 
   /**
@@ -206,11 +157,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    *
    * @param url the URL
    * @param driver the database driver
-   * 
+   *
    * @return the database connection
    */
   protected final Connection connect(String url, String driver) {
-    return connect(url, driver, null, null, false);
+    return connect(url,
+                   driver,
+                   null,
+                   null,
+                   false);
   }
 
   /**
@@ -219,11 +174,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param url the URL
    * @param driver the database driver
    * @param autoCommit the auto commit option
-   * 
+   *
    * @return the database connection
    */
   protected final Connection connect(String url, String driver, boolean autoCommit) {
-    return connect(url, driver, null, null, autoCommit);
+    return connect(url,
+                   driver,
+                   null,
+                   null,
+                   autoCommit);
   }
 
   /**
@@ -233,11 +192,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param driver the database driver
    * @param user the user name
    * @param password the password
-   *   
+   *
    * @return the database connection
    */
   protected final Connection connect(String url, String driver, String user, String password) {
-    return connect(url, driver, user, password, false);
+    return connect(url,
+                   driver,
+                   user,
+                   password,
+                   false);
   }
 
   /**
@@ -248,20 +211,17 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    * @param user the user name
    * @param password the password
    * @param autoCommit the auto commit option
-   * 
+   *
    * @return the database connection
    */
   protected final Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     if (driver != null) {
       try {
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- driver='" + driver + "'");
+        logger.debug("driver='" + driver + "'");
         Class.forName(driver);
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -273,21 +233,23 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     try {
       if (isDebug) {
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- url   ='" + url + "'");
+        logger.debug("url   ='" + url + "'");
       }
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);
       } else {
         if (isDebug) {
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- user  ='" + user + "' password='" + password + "'");
+          logger.debug("user  ='" + user + "' password='" + password + "'");
         }
-        connection = DriverManager.getConnection(url, user, password);
+        connection = DriverManager.getConnection(url,
+                                                 user,
+                                                 password);
       }
 
       connection.setAutoCommit(autoCommit);
 
       if (isDebug) {
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- auto  =" + connection.getAutoCommit());
+        logger.debug("auto  =" + connection.getAutoCommit());
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -295,18 +257,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End   [" + connection.toString() + "]");
+      logger.debug("End   [" + connection.toString() + "]");
     }
 
     return connection;
   }
 
-  private final int countData(final String tableName) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
+  private int countData(String tableName) {
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     int count = 0;
@@ -314,10 +273,10 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      String sqlStmnt = "SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter;
+      String sqlStmnt = "SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter;
 
       if (isDebug) {
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
+        logger.debug("sql='" + sqlStmnt + "'");
       }
 
       resultSet = statement.executeQuery(sqlStmnt);
@@ -335,89 +294,35 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
 
     return count;
   }
 
-  private final Properties createColumnNames() {
-    Properties columnName = new Properties();
-
-    // Encoding ASCII
-    columnName.setProperty("ABBREVIATION_0", "");
-    columnName.setProperty("ADDRESS1_0", "");
-    columnName.setProperty("ADDRESS2_0", "");
-    columnName.setProperty("ADDRESS3_0", "");
-    columnName.setProperty("EMAIL_0", "");
-    columnName.setProperty("FAX_0", "");
-    columnName.setProperty("ISO3166_0", "");
-    columnName.setProperty("NAME_0", "");
-    columnName.setProperty("PHONE_0", "");
-    columnName.setProperty("POSTAL CODE_0", "");
-    columnName.setProperty("SYMBOL_0", "");
-    columnName.setProperty("URL_0", "");
-    columnName.setProperty("VAT_ID_NUMBER_0", "");
-    columnName.setProperty("V_TIME_ZONE_0", "");
-
-    // Encoding ISO_8859_1
-    boolean isIso_8859_1 = config.getEncodingIso_8859_1();
-
-    columnName.setProperty("ABBREVIATION_1", isIso_8859_1 ? "ABRÉVIATION_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS1_1", isIso_8859_1 ? "DIRECCIÓN1_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS2_1", isIso_8859_1 ? "DIRECCIÓN2_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ADDRESS3_1", isIso_8859_1 ? "DIRECCIÓN3_" : "NO_ISO_8859_1_");
-    columnName.setProperty("EMAIL_1", isIso_8859_1 ? "CORREO_ELECTRÓNICO_" : "NO_ISO_8859_1_");
-    columnName.setProperty("FAX_1", isIso_8859_1 ? "TÉLÉCOPIE_" : "NO_ISO_8859_1_");
-    columnName.setProperty("ISO3166_1", isIso_8859_1 ? "CÓDIGO 3166_" : "NO_ISO_8859_1_");
-    columnName.setProperty("NAME_1", isIso_8859_1 ? "COMPAÑÍA_" : "NO_ISO_8859_1_");
-    columnName.setProperty("PHONE_1", isIso_8859_1 ? "TÉLÉPHONE_" : "NO_ISO_8859_1_");
-    columnName.setProperty("POSTAL CODE_1", isIso_8859_1 ? "CÓDIGO_POSTAL_" : "NO_ISO_8859_1_");
-    columnName.setProperty("SYMBOL_1", isIso_8859_1 ? "SÍMBOLO_" : "NO_ISO_8859_1_");
-    columnName.setProperty("URL_1", isIso_8859_1 ? "ENDEREÇO_" : "NO_ISO_8859_1_");
-    columnName.setProperty("VAT_ID_NUMBER_1", isIso_8859_1 ? "NUMÉRO_D'IDENTIFICATION_DE_LA_TVA_" : "NO_ISO_8859_1_");
-    columnName.setProperty("V_TIME_ZONE_1", isIso_8859_1 ? "FUSO_HORÁRIO_" : "NO_ISO_8859_1_");
-
-    // Encoding UTF_8
-    boolean isUtf_8 = config.getEncodingUtf_8();
-
-    columnName.setProperty("ABBREVIATION_2", isUtf_8 ? "缩略语_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS1_2", isUtf_8 ? "地址1_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS2_2", isUtf_8 ? "地址2_" : "NO_UTF_8_");
-    columnName.setProperty("ADDRESS3_2", isUtf_8 ? "地址3_" : "NO_UTF_8_");
-    columnName.setProperty("EMAIL_2", isUtf_8 ? "电子邮件_" : "NO_UTF_8_");
-    columnName.setProperty("FAX_2", isUtf_8 ? "传真_" : "NO_UTF_8_");
-    columnName.setProperty("ISO3166_2", isUtf_8 ? "ISO 3166标准_" : "NO_UTF_8_");
-    columnName.setProperty("NAME_2", isUtf_8 ? "名称_" : "NO_UTF_8_");
-    columnName.setProperty("PHONE_2", isUtf_8 ? "电话_" : "NO_UTF_8_");
-    columnName.setProperty("POSTAL CODE_2", isUtf_8 ? "邮政编码_" : "NO_UTF_8_");
-    columnName.setProperty("SYMBOL_2", isUtf_8 ? "符号_" : "NO_UTF_8_");
-    columnName.setProperty("URL_2", isUtf_8 ? "网址_" : "NO_UTF_8_");
-    columnName.setProperty("VAT_ID_NUMBER_2", isUtf_8 ? "增值税号_" : "NO_UTF_8_");
-    columnName.setProperty("V_TIME_ZONE_2", isUtf_8 ? "时区_" : "NO_UTF_8_");
-
-    return columnName;
-  }
+  /**
+   * Creates the column names with encoding variations.
+   *
+   * @param isEncodingIso_8859_1 the is encoding ISO_8859_1 8859 1
+   * @param isEncodingUtf_8 the is encoding UTF_8 required
+   * @return the properties
+   */
+  protected abstract void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8);
 
   /**
-   * Create the test data for all database tables.
+   * Create the test data for all database valTableNames.
    */
   public final void createData() {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, dbmsTickerSymbol, dbmsValues);
+    Statistics statistics = new Statistics(config, dbmsTickerSymbol, dbmsDetails);
 
     setupDatabase();
 
     for (String tableName : TABLE_NAMES_CREATE) {
-      createData(tableName, getMaxRowSize(tableName));
+      createData(tableName);
     }
 
     disconnect(connection);
@@ -425,26 +330,21 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     statistics.createMeasuringEntry();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 
-  private final void createData(String tableName, int rowCount) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+  private void createData(String tableName) {
+
+    int rowMaxSize = getMaxRowSize(tableName);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start - database table " + String.format(FORMAT_TABLE_NAME, tableName) + " - "
-          + String.format(FORMAT_ROW_NO, rowCount) + " rows to be created");
+      logger.debug("Start - database table " + String.format(FORMAT_TABLE_NAME,
+                                                             tableName) + " - " + String.format(FORMAT_ROW_NO,
+                                                                                                rowMaxSize) + " rows to be created");
     }
 
     tableName = tableName.toUpperCase();
-
-    if (rowCount < 1) {
-      rowCount = getDefaultRowSize(tableName);
-    } else if (rowCount > MAX_ROW_SIZE) {
-      rowCount = MAX_ROW_SIZE;
-    }
 
     try {
       statement = connection.createStatement();
@@ -452,7 +352,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       String sqlStmnt = createDdlStmnt(tableName);
 
       if (isDebug) {
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
+        logger.debug("next SQL statement=" + sqlStmnt);
       }
 
       statement.execute(sqlStmnt);
@@ -467,25 +367,20 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
     if (countExisting != 0) {
       if (isDebug) {
-        logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + " - found existing test data in database table "
-            + String.format(FORMAT_TABLE_NAME, tableName));
+        logger.debug("found existing test data in database table " + String.format(FORMAT_TABLE_NAME,
+                                                                                   tableName));
       }
 
       return;
     }
 
-    ArrayList<Object> pkList = new ArrayList<Object>();
+    ArrayList<Object> pkList = new ArrayList<>();
 
-    retrieveFkList(tableName);
-    createFkList(tableName);
+    createDataInsert(tableName,
+                     rowMaxSize,
+                     pkList);
 
-    autoIncrement = 0;
-
-    createDataInsert(tableName, rowCount, pkList);
-
-    addOptionalFk(tableName, pkList);
-
-    if (!(dbms == Dbms.CRATEDB || dbms == Dbms.FIREBIRD)) {
+    if (!(dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.FIREBIRD)) {
       try {
         connection.commit();
       } catch (SQLException e) {
@@ -494,29 +389,28 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       }
     }
 
-    savePkList(tableName, pkList);
+    pkLists.put(tableName,
+                pkList);
+    pkListSizes.put(tableName,
+                    pkList.size());
 
-    validateNumberRows(tableName, rowCount);
-
-    validateEncoding(tableName, "NAME", rowCount);
+    validateNumberRows(tableName,
+                       rowMaxSize);
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 
-  private final void createDataInsert(String tableName, int rowCount, ArrayList<Object> pkList) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
+  private void createDataInsert(String tableName, int rowMaxSize, ArrayList<Object> pkList) {
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
-    final String sqlStmnt = "INSERT INTO " + tableNameDelimiter + tableName + tableNameDelimiter + " (" + createDmlStmnt(tableName) + ")";
+    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + tableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- sql='" + sqlStmnt + "'");
+      logger.debug("sql='" + sqlStmnt + "'");
     }
 
     PreparedStatement preparedStatement = null;
@@ -528,22 +422,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       System.exit(1);
     }
 
-    for (int rowNo = 1; rowNo <= rowCount; rowNo++) {
-      try {
-        preparedStatement.setInt(1, autoIncrement);
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-
-      insertTable(preparedStatement, tableName, rowCount, rowNo, pkList);
+    for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
+      insertTable(preparedStatement,
+                  tableName,
+                  rowNo);
 
       try {
         preparedStatement.executeUpdate();
 
-        pkList.add(autoIncrement);
-
-        autoIncrement++;
+        pkList.add(rowNo);
       } catch (SQLException e) {
         e.printStackTrace();
         System.exit(1);
@@ -557,7 +444,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
       System.exit(1);
     }
 
-    if (dbms == Dbms.CRATEDB) {
+    if (dbmsEnum == DbmsEnum.CRATEDB) {
       try {
         statement = connection.createStatement();
 
@@ -571,7 +458,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 
@@ -584,92 +471,14 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
    */
   protected abstract String createDdlStmnt(String tableName);
 
-  private final String createDmlStmnt(final String tableName) {
-    return "pk_" + tableName.toLowerCase() + "_id," + switch (tableName) {
-    case TABLE_NAME_CITY -> "fk_country_state_id,city_map,created,modified,name) VALUES (?,?,?,?,?,?";
-    case TABLE_NAME_COMPANY -> "fk_city_id,active,address1,address2,address3,created,directions,email,fax,modified,name,phone,postal_code,url,vat_id_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
-    case TABLE_NAME_COUNTRY -> "country_map,created,iso3166,modified,name) VALUES (?,?,?,?,?,?";
-    case TABLE_NAME_COUNTRY_STATE -> "fk_country_id,fk_timezone_id,country_state_map,created,modified,name,symbol) VALUES (?,?,?,?,?,?,?,?";
-    case TABLE_NAME_TIMEZONE -> "abbreviation,created,modified,name,v_time_zone) VALUES (?,?,?,?,?,?";
-    default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    };
-  }
-
-  private final void createFkList(final String tableName) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start [" + connection.toString() + "]");
-    }
-
-    switch (tableName) {
-    case TABLE_NAME_COMPANY:
-      if (pkListCity.size() == 0) {
-        createData(TABLE_NAME_CITY, config.getMaxRowCity());
-      }
-
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCountry.size() == 0) {
-        createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-      }
-
-      if (pkListTimezone.size() == 0) {
-        createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
-      }
-
-      break;
-    }
-
-    if (TABLE_NAME_COMPANY.equals(tableName)) {
-      if (pkListCity.size() == 0) {
-        if (countData(TABLE_NAME_CITY) == 0) {
-          createData(TABLE_NAME_CITY, config.getMaxRowCity());
-        } else {
-          recreatePkList(TABLE_NAME_CITY);
-        }
-      }
-    }
-
-    if (TABLE_NAME_COUNTRY_STATE.equals(tableName)) {
-      if (pkListCountry.size() == 0) {
-        if (countData(TABLE_NAME_COUNTRY) == 0) {
-          createData(TABLE_NAME_COUNTRY, config.getMaxRowCountry());
-        } else {
-          recreatePkList(TABLE_NAME_COUNTRY);
-        }
-      }
-
-      if (pkListTimezone.size() == 0) {
-        if (countData(TABLE_NAME_TIMEZONE) == 0) {
-          createData(TABLE_NAME_TIMEZONE, config.getMaxRowTimezone());
-        } else {
-          recreatePkList(TABLE_NAME_TIMEZONE);
-        }
-      }
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
   /**
    * Close the database connection.
    *
    * @param connection the database connection
    */
   protected final void disconnect(Connection connection) {
-    String methodName = null;
-
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start [" + connection.toString() + "]");
+      logger.debug("Start [" + connection.toString() + "]");
     }
 
     try {
@@ -679,341 +488,855 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
 
       connection.close();
 
-      connection = null;
     } catch (SQLException ec) {
       ec.printStackTrace();
       System.exit(1);
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 
-  private final String getColumnContent(String columnName, int rowNo) {
-    return columnName + COLUMN_NAME.getProperty(columnName + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER, rowNo);
-  }
+  /**
+   * Drop all valTableNames based on q metadata query.
+   *
+   * @param sqlStmnt the SQL statement
+   */
+  protected final void dropAllTables(String sqlStmnt) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
 
-  private final int getDefaultRowSize(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return 1200;
-    case TABLE_NAME_COMPANY:
-      return 6000;
-    case TABLE_NAME_COUNTRY:
-      return 100;
-    case TABLE_NAME_COUNTRY_STATE:
-      return 400;
-    case TABLE_NAME_TIMEZONE:
-      return 11;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+    try {
+      for (String tableName : TABLE_NAMES_DROP) {
+        String queryStmnt = sqlStmnt.replace("?",
+                                             dbmsEnum == DbmsEnum.CRATEDB
+                                                 ? tableName.toLowerCase()
+                                                 : tableName.toUpperCase());
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + queryStmnt);
+        }
+
+        resultSet = statement.executeQuery(queryStmnt);
+
+        if (resultSet.next()) {
+          String dropStmnt = resultSet.getString(1);
+
+          if (isDebug) {
+            logger.debug("next SQL statement=" + dropStmnt);
+          }
+
+          statement.execute(dropStmnt);
+        }
+
+        resultSet.close();
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 
-  private final int getMaxRowSize(final String tableName) {
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      return config.getMaxRowCity();
-    case TABLE_NAME_COMPANY:
-      return config.getMaxRowCompany();
-    case TABLE_NAME_COUNTRY:
-      return config.getMaxRowCountry();
-    case TABLE_NAME_COUNTRY_STATE:
-      return config.getMaxRowCountryState();
-    case TABLE_NAME_TIMEZONE:
-      return config.getMaxRowTimezone();
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+  /**
+   * Drop all existing valTableNames.
+   */
+  protected final void dropAllTablesIfExists() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      for (String tableName : TABLE_NAMES_DROP) {
+        String sqlStmnt = "DROP TABLE IF EXISTS \"" + tableName + "\"";
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 
-  private final int getRandomIntExcluded(final int upperLimit) {
-    return randomInt.nextInt(upperLimit);
+  /**
+   * Drop the database.
+   *
+   * @param databaseName the database name
+   * @param cascadeRestrict "CASCADE" or "RESTRICT"
+   * @param tableName the table name
+   * @param columnName the column name
+   */
+  protected final void dropDatabase(String databaseName, String cascadeRestrict, String tableName, String columnName) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      int    count    = 0;
+
+      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + databaseName + "'";
+
+      if (isDebug) {
+        logger.debug("next SQL statement=" + sqlStmnt);
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      resultSet.close();
+
+      if (count > 0) {
+        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER
+            ? "DATABANK"
+            : "DATABASE") + " " + databaseName + (cascadeRestrict != null
+                ? " " + cascadeRestrict
+                : "");
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
-  private final int getRandomIntIncluded(final int upperLimit) {
-    return randomInt.nextInt(upperLimit) + 1;
+  /**
+   * Drop the database schema.
+   *
+   * @param schemaName the schema name
+   * @param cascadeRestrict "CASCADE" or "RESTRICT"
+   * @param tableName the table name
+   * @param columnName the column name
+   */
+  protected final void dropSchema(String schemaName, String cascadeRestrict, String tableName, String columnName) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      int    count    = 0;
+
+      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + schemaName + "'";
+
+      if (isDebug) {
+        logger.debug("next SQL statement=" + sqlStmnt);
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      resultSet.close();
+
+      if (count > 0) {
+        sqlStmnt = "DROP SCHEMA " + schemaName + (cascadeRestrict != null
+            ? " " + cascadeRestrict
+            : "");
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
-  //  private final double getRandomDouble(final double lowerLimit, final double upperLimit) {
-  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
-  //  }
+  /**
+   * Drop the database user.
+   *
+   * @param userName the user name
+   * @param cascadeRestrict "CASCADE" or "RESTRICT"
+   * @param tableName the table name
+   * @param columnName the column name
+   */
+  protected final void dropUser(String userName, String cascadeRestrict, String tableName, String columnName) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
 
-  private final Timestamp getRandomTimestamp() {
+    try {
+      int    count    = 0;
+
+      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + userName + "'";
+
+      if (isDebug) {
+        logger.debug("next SQL statement=" + sqlStmnt);
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      resultSet.close();
+
+      if (count > 0) {
+        sqlStmnt = "DROP " + (dbmsEnum == DbmsEnum.MIMER
+            ? "IDENT"
+            : "USER") + "  " + userName + (cascadeRestrict != null
+                ? " " + cascadeRestrict
+                : "");
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Execute DDL statements.
+   *
+   * @param firstDdlStmnt the first DDL statement
+   * @param remainingDdlStmnts the remaining DDL statements
+   */
+  protected final void executeDdlStmnts(String firstDdlStmnt, String... remainingDdlStmnts) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      if (isDebug) {
+        logger.debug("next SQL statement=" + firstDdlStmnt);
+      }
+
+      statement.execute(firstDdlStmnt);
+
+      for (String sqlStmnt : remainingDdlStmnts) {
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  protected long getContentBigint(String tableName,
+                                  String columnName,
+                                  long rowNo,
+                                  Integer defaultValue,
+                                  Integer lowerRange,
+                                  Integer upperRange,
+                                  List<Integer> validValues) {
+    if (validValues != null) {
+      return validValues.get(new Random().nextInt(validValues.size()));
+    } else if (lowerRange != null) {
+      return new Random().nextInt(upperRange - lowerRange + 1) + lowerRange - 1;
+    }
+
+    return rowNo;
+  }
+
+  protected byte[] getContentBlob(String tableName, String columnName, long rowNo) {
+
+    return BLOB_DATA_BYTES;
+  }
+
+  protected String getContentClob(String tableName, String columnName, long rowNo) {
+
+    return CLOB_DATA;
+  }
+
+  private final Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
+    Random random = new Random();
+
+    return fkList.get(random.nextInt(fkList.size()));
+  }
+
+  protected Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
 
     return new java.sql.Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
   }
 
-  private final void
-          insertTable(final PreparedStatement preparedStatement, final String tableName, final int rowCount, final int rowNo, final ArrayList<Object> pkList) {
-    String methodName = null;
+  protected String getContentVarchar(String tableName,
+                                     String columnName,
+                                     long rowNo,
+                                     int size,
+                                     String defaultValue,
+                                     String lowerRange,
+                                     String upperRange,
+                                     List<String> validValues) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    String columnValue;
+
+    if (validValues != null) {
+      return validValues.get(new Random().nextInt(validValues.size())).stripTrailing();
+    } else if (lowerRange != null) {
+      columnValue = RandomStringUtils.randomGraph(1,
+                                                  size + 1);
+
+      if (columnValue.compareTo(lowerRange) < 0) {
+        return lowerRange;
+      }
+
+      if (columnValue.compareTo(upperRange) > 0) {
+        return upperRange;
+      }
+    } else {
+      columnValue = (columnName + "_" + encodedColumnNames.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
+                                                                                                                                rowNo)).stripTrailing();
+      if (getLengthUTF_8(columnValue) > size) {
+        return columnValue.substring(columnValue.length() - size);
+      }
+    }
 
     if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("End");
     }
 
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      prepDmlStmntInsertCity(preparedStatement, rowCount);
-      break;
-    case TABLE_NAME_COMPANY:
-      prepDmlStmntInsertCompany(preparedStatement, rowCount);
-      break;
-    case TABLE_NAME_COUNTRY:
-      prepDmlStmntInsertCountry(preparedStatement, rowCount);
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      prepDmlStmntInsertCountryState(preparedStatement, rowCount);
-      break;
-    case TABLE_NAME_TIMEZONE:
-      prepDmlStmntInsertTimezone(preparedStatement, rowCount);
-      break;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
+    return columnValue;
+  }
+
+  private int getLengthUTF_8(String stringUTF_8) {
+    int count = 0;
+
+    for (int i = 0, len = stringUTF_8.length(); i < len; i++) {
+      char ch = stringUTF_8.charAt(i);
+      if (ch <= 0x7F) {
+        count++;
+      } else if (ch <= 0x7FF) {
+        count += 2;
+      } else if (Character.isHighSurrogate(ch)) {
+        count += 4;
+        ++i;
+      } else {
+        count += 3;
+      }
     }
 
+    return count;
+  }
+
+  private int getMaxRowSize(String tableName) {
+    int maxRowSize   = maxRowSizes.get(tableName);
+
+    int MAX_ROW_SIZE = Integer.MAX_VALUE;
+
+    return Math.min(maxRowSize,
+                    MAX_ROW_SIZE);
+  }
+
+  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
+  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
+  //  }
+
+  protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, long rowNo);
+
+  /**
+   * Sets the designated column to a BIGINT value.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   * @param defaultValue      the default value
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
+   * @return 
+   */
+  protected void prepStmntColBigint(PreparedStatement preparedStatement,
+                                    String tableName,
+                                    String columnName,
+                                    int columnPos,
+                                    long rowNo,
+                                    Integer defaultValue,
+                                    Integer lowerRange,
+                                    Integer upperRange,
+                                    List<Integer> validValues) {
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("Start");
     }
-  }
 
-  private final void prepDmlStmntInsertCity(final PreparedStatement preparedStatement, final int rowCount) {
-    int i = 2;
-
-    prepStmntInsertColFKOpt(i++, preparedStatement, pkListCountryState, rowCount);
-    prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-    prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-    prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-    prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
-  }
-
-  private final void prepDmlStmntInsertCompany(final PreparedStatement preparedStatement, final int rowCount) {
     try {
-      int i = 2;
-
-      preparedStatement.setObject(i++, pkListCity.get(getRandomIntExcluded(pkListCity.size())));
-      prepStmntInsertColFlagNY(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS1_", rowCount, autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS2_", rowCount, autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "ADDRESS3_", rowCount, autoIncrement);
-      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-      prepStmntInsertColClobOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "EMAIL_", rowCount, autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "FAX_", rowCount, autoIncrement);
-      prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "PHONE_", rowCount, autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "POSTAL_CODE_", rowCount, autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i++, "URL_", rowCount, autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i, "VAT_ID_NUMBER_", rowCount, autoIncrement);
+      preparedStatement.setLong(columnPos,
+                                getContentBigint(tableName,
+                                                 columnName,
+                                                 rowNo,
+                                                 defaultValue,
+                                                 lowerRange,
+                                                 upperRange,
+                                                 validValues));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
-  }
 
-  private final void prepDmlStmntInsertCountry(final PreparedStatement preparedStatement, final int rowCount) {
-    int i = 2;
-
-    prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-    prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-    prepStmntInsertColStringOpt(preparedStatement, i++, "ISO3166_", rowCount, autoIncrement);
-    prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-    prepStmntInsertColString(preparedStatement, i, "NAME_", autoIncrement);
-  }
-
-  private final void prepDmlStmntInsertCountryState(final PreparedStatement preparedStatement, final int rowCount) {
-    try {
-      int i = 2;
-
-      preparedStatement.setObject(i++, pkListCountry.get(getRandomIntExcluded(pkListCountry.size())));
-      preparedStatement.setObject(i++, pkListTimezone.get(getRandomIntExcluded(pkListTimezone.size())));
-      prepStmntInsertColBlobOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-      prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-      prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
-      prepStmntInsertColStringOpt(preparedStatement, i, "SYMBOL_", rowCount, autoIncrement);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
+    if (isDebug) {
+      logger.debug("End");
     }
-  }
-
-  private final void prepDmlStmntInsertTimezone(final PreparedStatement preparedStatement, final int rowCount) {
-    int i = 2;
-
-    prepStmntInsertColString(preparedStatement, i++, "ABBREVIATION_", autoIncrement);
-    prepStmntInsertColDatetime(preparedStatement, i++, rowCount);
-    prepStmntInsertColDatetimeOpt(preparedStatement, i++, rowCount);
-    prepStmntInsertColString(preparedStatement, i++, "NAME_", autoIncrement);
-    prepStmntInsertColStringOpt(preparedStatement, i, "V_TIME_ZONE_", rowCount, autoIncrement);
   }
 
   /**
-   * Sets the designated optional parameter to a BLOB value.
-   * 
+   * Sets the designated optional column to a BIGINT value or to NULL.
+   *
    * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
    * @param columnPos         the column position
-   * @param rowCount          the row count
+   * @param rowNo             the current row number
+   * @param defaultValue      the lower value
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
    */
-  protected void prepStmntInsertColBlob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  @SuppressWarnings("ucd")
+  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
+                                             String tableName,
+                                             String columnName,
+                                             int columnPos,
+                                             long rowNo,
+                                             Integer defaultValue,
+                                             Integer lowerRange,
+                                             Integer upperRange,
+                                             List<Integer> validValues) {
     try {
-      preparedStatement.setBytes(columnPos, BLOB_DATA_BYTES);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  private final void prepStmntInsertColBlobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
-    try {
-      if (dbms == Dbms.CRATEDB) {
-        preparedStatement.setNull(columnPos, Types.NULL);
-      } else if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        if (dbms == Dbms.POSTGRESQL) {
-          preparedStatement.setNull(columnPos, Types.NULL);
+      if (rowNo % nullFactor == 0) {
+        if (defaultValue == null) {
+          preparedStatement.setNull(columnPos,
+                                    java.sql.Types.INTEGER);
         } else {
-          preparedStatement.setNull(columnPos, Types.BLOB);
+          preparedStatement.setLong(columnPos,
+                                    defaultValue);
         }
-      } else {
-        prepStmntInsertColBlob(preparedStatement, columnPos, rowCount);
+        return;
       }
+
+      prepStmntColBigint(preparedStatement,
+                         tableName,
+                         columnName,
+                         columnPos,
+                         rowNo,
+                         defaultValue,
+                         lowerRange,
+                         upperRange,
+                         validValues);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void prepStmntInsertColClob(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  /**
+   * Sets the designated column to a BLOB value.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   */
+  protected void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      preparedStatement.setString(columnPos, CLOB_DATA);
+      preparedStatement.setBytes(columnPos,
+                                 getContentBlob(tableName,
+                                                columnName,
+                                                rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void prepStmntInsertColClobOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  /**
+   * Sets the designated optional column to a BLOB value or to NULL.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   */
+  @SuppressWarnings("ucd")
+  protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        if (dbms == Dbms.CRATEDB) {
-          preparedStatement.setNull(columnPos, Types.VARCHAR);
+      if (dbmsEnum == DbmsEnum.CRATEDB) {
+        preparedStatement.setNull(columnPos,
+                                  Types.NULL);
+        return;
+      }
+
+      if (rowNo % nullFactor == 0) {
+        if (dbmsEnum == DbmsEnum.POSTGRESQL) {
+          preparedStatement.setNull(columnPos,
+                                    Types.NULL);
+          return;
         } else {
-          preparedStatement.setNull(columnPos, java.sql.Types.CLOB);
+          preparedStatement.setNull(columnPos,
+                                    Types.BLOB);
+          return;
         }
-      } else {
-        prepStmntInsertColClob(preparedStatement, columnPos, rowCount);
       }
+
+      prepStmntColBlob(preparedStatement,
+                       tableName,
+                       columnName,
+                       columnPos,
+                       rowNo);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void prepStmntInsertColDatetime(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  /**
+   * Sets the designated column to a CLOB value.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   */
+  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      preparedStatement.setTimestamp(columnPos, getRandomTimestamp());
+      preparedStatement.setString(columnPos,
+                                  getContentClob(tableName,
+                                                 columnName,
+                                                 rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void prepStmntInsertColDatetimeOpt(PreparedStatement preparedStatement, final int columnPos, int rowCount) {
+  /**
+   * Sets the designated optional column to a CLOB value or to NULL.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   */
+  @SuppressWarnings("ucd")
+  protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.TIMESTAMP);
-      } else {
-        prepStmntInsertColDatetime(preparedStatement, columnPos, rowCount);
+      if (rowNo % nullFactor == 0) {
+        if (dbmsEnum == DbmsEnum.CRATEDB) {
+          preparedStatement.setNull(columnPos,
+                                    Types.VARCHAR);
+          return;
+        } else {
+          preparedStatement.setNull(columnPos,
+                                    java.sql.Types.CLOB);
+          return;
+        }
       }
+
+      prepStmntColClob(preparedStatement,
+                       tableName,
+                       columnName,
+                       columnPos,
+                       rowNo);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void prepStmntInsertColFKOpt(final int columnPos, PreparedStatement preparedStatement, final ArrayList<Object> fkList, final int rowCount) {
+  /**
+   * Sets the designated column to an existing foreign key value.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   * @param fkList            the existing foreign keys
+   */
+  protected final void prepStmntColFk(PreparedStatement preparedStatement,
+                                      String tableName,
+                                      String columnName,
+                                      int columnPos,
+                                      long rowNo,
+                                      ArrayList<Object> fkList) {
     try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.INTEGER);
-      } else {
-        preparedStatement.setObject(columnPos, fkList.get(getRandomIntExcluded(fkList.size())));
-      }
+      preparedStatement.setObject(columnPos,
+                                  getContentFk(tableName,
+                                               columnName,
+                                               rowNo,
+                                               fkList));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void prepStmntInsertColFlagNY(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
+  /**
+   * Sets the designated optional column to an existing foreign key value or to NULL.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   * @param fkList            the existing foreign keys
+   */
+  @SuppressWarnings("ucd")
+  protected final void prepStmntColFkOpt(PreparedStatement preparedStatement,
+                                         String tableName,
+                                         String columnName,
+                                         int columnPos,
+                                         long rowNo,
+                                         ArrayList<Object> fkList) {
     try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setString(columnPos, "N");
-      } else {
-        preparedStatement.setString(columnPos, "Y");
+      if (rowNo % nullFactor == 0) {
+        preparedStatement.setNull(columnPos,
+                                  java.sql.Types.INTEGER);
+        return;
       }
+
+      prepStmntColFk(preparedStatement,
+                     tableName,
+                     columnName,
+                     columnPos,
+                     rowNo,
+                     fkList);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final void prepStmntInsertColString(final PreparedStatement preparedStatement, final int columnPos, final String columnName, final int rowNo) {
+  /**
+   * Sets the designated column to a TIMESTAMP value.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   */
+  protected final void prepStmntColTimestamp(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (dbms == Dbms.FIREBIRD || dbms == Dbms.MARIADB || dbms == Dbms.MSSQLSERVER || dbms == Dbms.ORACLE) {
-        preparedStatement.setNString(columnPos, getColumnContent(columnName, rowNo));
-      } else {
-        preparedStatement.setString(columnPos, getColumnContent(columnName, rowNo));
-      }
+      preparedStatement.setTimestamp(columnPos,
+                                     getContentTimestamp(tableName,
+                                                         columnName,
+                                                         rowNo));
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  //  private final void
-  //            prepStmntInsertColDoubleOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount, double lowerLimit, double upperLimit) {
-  //    try {
-  //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-  //        preparedStatement.setNull(columnPos, java.sql.Types.DECIMAL);
-  //      } else {
-  //        preparedStatement.setBigDecimal(columnPos, BigDecimal.valueOf(getRandomDouble(lowerLimit, upperLimit)));
-  //      }
-  //    } catch (SQLException e) {
-  //      e.printStackTrace();
-  //      System.exit(1);
-  //    }
-  //  }
-
-  private final void prepStmntInsertColStringOpt(final PreparedStatement preparedStatement,
-                                                 final int columnPos,
-                                                 final String columnName,
-                                                 final int rowCount,
-                                                 final int rowNo) {
+  /**
+   * Sets the designated optional column to a TIMESTAMP value or to NULL.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   */
+  @SuppressWarnings("ucd")
+  protected final void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-        preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
-      } else {
-        prepStmntInsertColString(preparedStatement, columnPos, columnName, rowNo);
+      if (rowNo % nullFactor == 0) {
+        preparedStatement.setNull(columnPos,
+                                  java.sql.Types.TIMESTAMP);
+        return;
       }
+
+      prepStmntColTimestamp(preparedStatement,
+                            tableName,
+                            columnName,
+                            columnPos,
+                            rowNo);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  private final byte[] readBlobFile2Bytes() {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
+  /**
+   * Sets the designated column to a VARCHAR value.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   * @param size              the column size
+   * @param defaultValue      the default value
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
+   */
+  protected final void prepStmntColVarchar(PreparedStatement preparedStatement,
+                                           String tableName,
+                                           String columnName,
+                                           int columnPos,
+                                           long rowNo,
+                                           int size,
+                                           String defaultValue,
+                                           String lowerRange,
+                                           String upperRange,
+                                           List<String> validValues) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+        preparedStatement.setNString(columnPos,
+                                     getContentVarchar(tableName,
+                                                       columnName,
+                                                       rowNo,
+                                                       size,
+                                                       defaultValue,
+                                                       lowerRange,
+                                                       upperRange,
+                                                       validValues));
+        return;
+      }
+
+      preparedStatement.setString(columnPos,
+                                  getContentVarchar(tableName,
+                                                    columnName,
+                                                    rowNo,
+                                                    size,
+                                                    defaultValue,
+                                                    lowerRange,
+                                                    upperRange,
+                                                    validValues));
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("End");
+    }
+  }
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- BLOB_FILE ='" + BLOB_FILE + "'");
+  /**
+   * Sets the designated optional column to a VARCHAR value or to NULL.
+   *
+   * @param preparedStatement the prepared statement
+   * @param tableName         the table name
+   * @param columnName        the column name
+   * @param columnPos         the column position
+   * @param rowNo             the current row number
+   * @param size              the column size
+   * @param defaultValue      the default value
+   * @param lowerRange        the lower range
+   * @param upperRange        the upper range
+   * @param validValues       the valid values
+   */
+  protected final void prepStmntColVarcharOpt(PreparedStatement preparedStatement,
+                                              String tableName,
+                                              String columnName,
+                                              int columnPos,
+                                              long rowNo,
+                                              int size,
+                                              String defaultValue,
+                                              String lowerRange,
+                                              String upperRange,
+                                              List<String> validValues) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      if (rowNo % nullFactor == 0) {
+        if (defaultValue == null) {
+          preparedStatement.setNull(columnPos,
+                                    java.sql.Types.VARCHAR);
+        } else {
+          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+            preparedStatement.setNString(columnPos,
+                                         defaultValue);
+          } else {
+            preparedStatement.setString(columnPos,
+                                        defaultValue);
+          }
+        }
+      } else {
+        prepStmntColVarchar(preparedStatement,
+                            tableName,
+                            columnName,
+                            columnPos,
+                            rowNo,
+                            size,
+                            defaultValue,
+                            lowerRange,
+                            upperRange,
+                            validValues);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  private byte[] readBlobFile2Bytes() {
+    if (isDebug) {
+      logger.debug("Start");
+
+      logger.debug("BLOB_FILE ='" + BLOB_FILE + "'");
     }
 
     File      file       = new File(BLOB_FILE);
@@ -1021,17 +1344,22 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     final int fileLength = (int) file.length();
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- fileLength=" + fileLength);
+      logger.debug("fileLength=" + fileLength);
     }
 
     byte[]          blobDataBytesArray = new byte[(int) file.length()];
 
-    FileInputStream fileInputStream    = null;
+    FileInputStream fileInputStream;
 
     try {
       fileInputStream = new FileInputStream(file);
 
-      fileInputStream.read(blobDataBytesArray);
+      int size = fileInputStream.read(blobDataBytesArray);
+
+      if (size == 0) {
+        MessageHandling.abortProgram(logger,
+                                     "No BLOB data found");
+      }
 
       fileInputStream.close();
     } catch (IOException e) {
@@ -1040,25 +1368,25 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- byteLength=" + blobDataBytesArray.length);
+      logger.debug("byteLength=" + blobDataBytesArray.length);
 
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
 
     return blobDataBytesArray;
   }
 
-  private final String readClobFile() {
+  private String readClobFile() {
     BufferedReader bufferedReader = null;
     try {
       bufferedReader = new BufferedReader(new FileReader(CLOB_FILE));
-    } catch (FileNotFoundException e1) {
-      e1.printStackTrace();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
       System.exit(1);
     }
 
-    StringBuffer clobData = new StringBuffer();
-    String       nextLine = "";
+    StringBuilder clobData = new StringBuilder();
+    String        nextLine;
 
     try {
       while ((nextLine = bufferedReader.readLine()) != null) {
@@ -1079,241 +1407,15 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     return clobData.toString();
   }
 
-  //  private final void prepStmntInsertColFlagNYOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount) {
-  //    try {
-  //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-  //        preparedStatement.setNull(columnPos, java.sql.Types.VARCHAR);
-  //      } else {
-  //        prepStmntInsertColFlagNY(preparedStatement, columnPos, rowCount);
-  //      }
-  //    } catch (SQLException e) {
-  //      e.printStackTrace();
-  //      System.exit(1);
-  //    }
-  //  }
-
-  //  private final void prepStmntInsertColIntOpt(PreparedStatement preparedStatement, final int columnPos, final int rowCount, final int upperLimit) {
-  //    try {
-  //      if (getRandomIntIncluded(rowCount) % RANDOM_NUMBER == 0) {
-  //        preparedStatement.setNull(columnPos, java.sql.Types.INTEGER);
-  //      } else {
-  //        preparedStatement.setInt(columnPos, getRandomIntIncluded(upperLimit));
-  //      }
-  //    } catch (SQLException e) {
-  //      e.printStackTrace();
-  //      System.exit(1);
-  //    }
-  //  }
-
-  private final void recreatePkList(final String tableName) {
-    ArrayList<Object> pkList    = new ArrayList<Object>();
-
-    Statement         statement = null;
-
-    try {
-      statement = connection.createStatement();
-
-      resultSet = statement.executeQuery("SELECT PK_" + tableName + "_ID FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
-
-      while (resultSet.next()) {
-        pkList.add(resultSet.getInt(1));
-      }
-
-      resultSet.close();
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    savePkList(tableName, pkList);
-  }
-
-  private final void retrieveFkList(final String tableName) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      if (pkListCountryState.size() == 0) {
-        recreatePkList(TABLE_NAME_COUNTRY_STATE);
-      }
-
-      break;
-    case TABLE_NAME_COMPANY:
-      if (pkListCity.size() == 0) {
-        recreatePkList(TABLE_NAME_CITY);
-      }
-
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      if (pkListCountry.size() == 0) {
-        recreatePkList(TABLE_NAME_COUNTRY);
-      }
-
-      if (pkListTimezone.size() == 0) {
-        recreatePkList(TABLE_NAME_TIMEZONE);
-      }
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private final void savePkList(final String tableName, final ArrayList<Object> pkList) {
-    String methodName = null;
-
-    if (isDebug) {
-      methodName = new Object() {
-      }.getClass().getEnclosingMethod().getName();
-
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    switch (tableName) {
-    case TABLE_NAME_CITY:
-      pkListCity = pkList;
-      break;
-    case TABLE_NAME_COMPANY:
-      break;
-    case TABLE_NAME_COUNTRY:
-      pkListCountry = pkList;
-      break;
-    case TABLE_NAME_COUNTRY_STATE:
-      pkListCountryState = pkList;
-      break;
-    case TABLE_NAME_TIMEZONE:
-      pkListTimezone = pkList;
-      break;
-    default:
-      throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME, tableName));
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
   /**
-   * Delete any existing relevant database objects (database, user, 
-   * schema or tables)and initialise the database for a new run.
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
    */
-
   protected abstract void setupDatabase();
 
-  private void validateEncoding(String tableName, String columnName, int rowCount) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
+  private void validateNumberRows(String tableName, int expectedRows) {
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    switch (rowCount) {
-    case 0:
-      logger.info(String.format(FORMAT_METHOD_NAME, methodName) + "- database table " + String.format(FORMAT_TABLE_NAME, tableName) + " - no rows generated");
-      break;
-    case 1:
-      validateEncodingType(tableName, columnName, 0);
-      break;
-    case 2:
-      validateEncodingType(tableName, columnName, 0);
-      validateEncodingType(tableName, columnName, 1);
-      break;
-    default:
-      validateEncodingType(tableName, columnName, 0);
-      validateEncodingType(tableName, columnName, 1);
-      validateEncodingType(tableName, columnName, 2);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private void validateEncodingType(String tableName, String columnName, int rowNo) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
-    }
-
-    int    count        = 0;
-
-    String encodingType = "";
-
-    switch (rowNo) {
-    case 0:
-      encodingType = "ASCII";
-      break;
-    case 1:
-      encodingType = "ISO_8859_1";
-      break;
-    case 2:
-      encodingType = "UTF_8";
-      break;
-    default:
-      logger.error(String.format(FORMAT_METHOD_NAME, methodName) + "- database table " + String.format(FORMAT_TABLE_NAME, tableName)
-          + " - wrong encoding key : " + rowNo);
-      System.exit(1);
-    }
-
-    try {
-      preparedStatement = connection
-          .prepareStatement("SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter + " WHERE " + columnName + " = ?");
-      preparedStatement.setString(1, getColumnContent(columnName + "_", rowNo));
-
-      resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next()) {
-        count = resultSet.getInt(1);
-      }
-
-      switch (count) {
-      case 0:
-        logger.error(String.format(FORMAT_METHOD_NAME, methodName) + "- database table " + String.format(FORMAT_TABLE_NAME, tableName)
-            + " - no rows generated - comparison value='" + getColumnContent(columnName + "_", rowNo) + "'");
-        System.exit(1);
-      case 1:
-        if (isDebug) {
-          logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- database table " + String.format(FORMAT_TABLE_NAME, tableName) + " - encoding "
-              + encodingType + " ok");
-        }
-        break;
-      default:
-        logger.error(String.format(FORMAT_METHOD_NAME, methodName) + "- database table " + String.format(FORMAT_TABLE_NAME, tableName) + " - too many hits: "
-            + count);
-        System.exit(1);
-      }
-
-      resultSet.close();
-
-      preparedStatement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
-    }
-  }
-
-  private final void validateNumberRows(String tableName, int expectedRows) {
-    String methodName = new Object() {
-    }.getClass().getEnclosingMethod().getName();
-
-    if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- Start");
+      logger.debug("Start");
     }
 
     int count = 0;
@@ -1321,7 +1423,7 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + tableNameDelimiter + tableName + tableNameDelimiter);
+      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -1336,16 +1438,21 @@ public abstract class AbstractJdbcSeeder extends AbstractDatabaseSeeder {
     }
 
     if (expectedRows == count) {
-      logger.info(String.format(FORMAT_METHOD_NAME, methodName) + "- database table " + String.format(FORMAT_TABLE_NAME, tableName) + " - "
-          + String.format(FORMAT_ROW_NO, count) + " rows created");
+      logger.info("database table " + String.format(FORMAT_TABLE_NAME,
+                                                    tableName) + " - " + String.format(FORMAT_ROW_NO,
+                                                                                       count) + " rows created");
     } else {
-      logger.fatal(String.format(FORMAT_METHOD_NAME, methodName) + "- database table " + String.format(FORMAT_TABLE_NAME, tableName)
-          + " is incomplete - expected" + String.format(FORMAT_ROW_NO, expectedRows) + " rows - found " + String.format(FORMAT_ROW_NO, count) + " rows");
+      logger.fatal("database table " + String.format(FORMAT_TABLE_NAME,
+                                                     tableName) + " is incomplete - expected" + String.format(FORMAT_ROW_NO,
+                                                                                                              expectedRows) + " rows - found " + String.format(
+                                                                                                                                                               FORMAT_ROW_NO,
+                                                                                                                                                               count)
+          + " rows");
       System.exit(1);
     }
 
     if (isDebug) {
-      logger.debug(String.format(FORMAT_METHOD_NAME, methodName) + "- End");
+      logger.debug("End");
     }
   }
 }
