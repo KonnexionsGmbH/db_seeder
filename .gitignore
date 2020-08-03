@@ -2,7 +2,6 @@
 *.log
 .classpath
 .idea
-.project
 .settings
 /.gradle/
 /statistics/db_seeder_local*
