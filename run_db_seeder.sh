@@ -12,7 +12,7 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.0.0
+export DB_SEEDER_RELEASE=2.1.0
 
 if [ -z "$1" ]; then
     echo "==========================================="
@@ -36,7 +36,7 @@ if [ -z "$1" ]; then
     echo "postgresql  - PostgreSQL Database"
     echo "sqlite      - SQLite [embedded]"
     echo "-------------------------------------------"
-    read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
+    read -p -r "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
 
     if [ -z "$DB_SEEDER_DBMS" ]; then
@@ -47,7 +47,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
+    read -p -r "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
     export DB_SEEDER_SETUP_DBMS=$DB_SEEDER_SETUP_DBMS
 
     if [ -z "$DB_SEEDER_SETUP_DBMS" ]; then
@@ -58,7 +58,7 @@ else
 fi
 
 if [ -z "$3" ]; then
-    read -p "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
+    read -p -r "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=$DB_SEEDER_NO_CREATE_RUNS
 
     if [ -z "$DB_SEEDER_NO_CREATE_RUNS" ]; then
@@ -137,7 +137,7 @@ if [ "$DB_SEEDER_DBMS" = "firebird" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; the
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3050
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:firebirdsql://
-    export DB_SEEDER_CONNECTION_SUFFIX=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
+    export DB_SEEDER_CONNECTION_SUFFIX="?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true"
     export DB_SEEDER_CONTAINER_PORT=3050
     export DB_SEEDER_DATABASE=firebird_kxn_db
     export DB_SEEDER_PASSWORD=firebird
@@ -173,7 +173,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9001
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
-    export DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
+    export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
     export DB_SEEDER_CONTAINER_PORT=9001
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD=hsqldb
@@ -185,7 +185,7 @@ fi
 
 if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
-    export DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
+    export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
     export DB_SEEDER_DATABASE=./tmp/hsqldb_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
     export DB_SEEDER_PASSWORD=hsqldb
@@ -270,7 +270,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
-    export DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC
+    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys
@@ -362,7 +362,7 @@ if [ "$DB_SEEDER_DBMS" = "complete" ]; then
         exit 255
     fi    
 else
-    if ! ( ./scripts/run_db_seeder_single.sh $DB_SEEDER_DBMS ); then
+    if ! ( ./scripts/run_db_seeder_single.sh "${DB_SEEDER_DBMS}" ); then
         exit 255
     fi    
 fi  

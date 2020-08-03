@@ -12,7 +12,7 @@ export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
 # export DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.syntax.json
 
-export DB_SEEDER_RELEASE=2.0.0
+export DB_SEEDER_RELEASE=2.1.0
 
 export DB_SEEDER_IS_ECLIPSE_INSTALLED=true
 export DB_SEEDER_ECLIPSE_VERSION_1=2020-06
@@ -46,7 +46,7 @@ if ! [ -d "/eclipse" ]; then
     export HOME_ECLIPSE=/eclipse
 fi
 
-if ! (java --enable-preview -cp $DB_SEEDER_JAVA_CLASSPATH ch.konnexions.db_seeder.SchemaBuilder $DB_SEEDER_RELEASE); then
+if ! (java --enable-preview -cp "{$DB_SEEDER_JAVA_CLASSPATH}" ch.konnexions.db_seeder.SchemaBuilder "${DB_SEEDER_RELEASE}"); then
     exit 255
 fi    
 
