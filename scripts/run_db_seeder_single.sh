@@ -43,22 +43,22 @@ date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
 if [ "$DB_SEEDER_SETUP_DBMS" = "yes" ]; then
-    if ! ( ./scripts/run_db_seeder_setup_dbms.sh $DB_SEEDER_SETUP_DBMS ); then
+    if ! ( ./scripts/run_db_seeder_setup_dbms.sh "${DB_SEEDER_SETUP_DBMS}" ); then
         exit 255
     fi    
 fi
 
-if [ "$DB_SEEDER_NO_CREATE_RUNS" = "1" ]; then
-    if ! ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "1" ]; then
+    if ! ( ./scripts/run_db_seeder_create_data.sh "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    
 fi
 
-if [ "$DB_SEEDER_NO_CREATE_RUNS" = "2" ]; then
-    if ! ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
+    if ! ( ./scripts/run_db_seeder_create_data.sh "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    
-    if ! ( ./scripts/run_db_seeder_create_data.sh $DB_SEEDER_NO_CREATE_RUNS ); then
+    if ! ( ./scripts/run_db_seeder_create_data.sh "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    
 fi

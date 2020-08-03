@@ -41,26 +41,26 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
     export DB_SEEDER_DATABASE_INTERN=$DB_SEEDER_DATABASE
 fi
 
-if [ ! -z "$DB_SEEDER_DATABASE_INTERN" ]; then
-    if [ -d $DB_SEEDER_DATABASE ]; then 
+if [ -n "$DB_SEEDER_DATABASE_INTERN" ]; then
+    if [ -d "${DB_SEEDER_DATABASE}" ]; then 
         echo ""
         echo "............................................................ before:"
-        ls -ll $DB_SEEDER_DATABASE
-        rm -rf $DB_SEEDER_DATABASE
+        ls -ll "${DB_SEEDER_DATABASE}"
+        rm -rf "${DB_SEEDER_DATABASE}"
     fi    
 
-    if [ -f $DB_SEEDER_DATABASE ] || [ -f ${DB_SEEDER_DATABASE}.lobs ]; then 
+    if [ -f "${DB_SEEDER_DATABASE}" ] || [ -f "${DB_SEEDER_DATABASE}".lobs ]; then 
         echo ""
         echo "............................................................ before:"
-        ls -ll ${DB_SEEDER_DATABASE}*
-        rm -f ${DB_SEEDER_DATABASE}*
+        ls -ll "${DB_SEEDER_DATABASE}"*
+        rm -f "${DB_SEEDER_DATABASE}"*
     fi    
     
     if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
-        mkdir -p $DB_SEEDER_DATABASE
+        mkdir -p "${DB_SEEDER_DATABASE}"
     else
         fileDirectory=$DB_SEEDER_DATABASE
-        mkdir -p ${fileDirectory%/*}
+        mkdir -p "${fileDirectory%/*}"
     fi
 fi    
 

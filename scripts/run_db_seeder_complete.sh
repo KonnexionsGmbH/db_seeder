@@ -81,7 +81,7 @@ if ! ( ./run_db_seeder_generate_schema.sh ); then
     exit 255
 fi    
 
-unset -f $DB_SEEDER_DBMS=
+unset -f "${DB_SEEDER_DBMS}"=
 
 # ------------------------------------------------------------------------------
 # CrateDB.

@@ -24,7 +24,7 @@ echo "==========================================================================
 
 rm -f db_seeder.log
 
-if ! (java --enable-preview -cp $DB_SEEDER_JAVA_CLASSPATH ch.konnexions.db_seeder.DatabaseSeeder $DB_SEEDER_DBMS); then
+if ! (java --enable-preview -cp "${DB_SEEDER_JAVA_CLASSPATH}" ch.konnexions.db_seeder.DatabaseSeeder "${DB_SEEDER_DBMS}"); then
     exit 255
 fi    
 

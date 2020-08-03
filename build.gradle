@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '2.0.0'
+version '2.1.0'
 
 repositories {
     jcenter()
@@ -28,6 +28,7 @@ dependencies {
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
     implementation 'cubrid:cubrid-jdbc:10.2.1.8849'
     implementation 'io.crate:crate-jdbc:2.6.0'
+    implementation 'io.prestosql:presto-jdbc:339'
     implementation 'mysql:mysql-connector-java:8.0.21'
     implementation 'org.apache.commons:commons-configuration2:2.7'
     implementation 'org.apache.commons:commons-csv:1.8'
@@ -37,7 +38,7 @@ dependencies {
     implementation 'org.hsqldb:hsqldb:2.5.1'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.1'
     implementation 'org.postgresql:postgresql:42.2.14'
-    implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.30'
     implementation 'org.xerial:sqlite-jdbc:3.32.3.2'
 }
 
@@ -47,6 +48,7 @@ jar {
 
     manifest {
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.DatabaseSeeder'
+        attributes 'Main-Class' : 'ch.konnexions.db_seeder.GenerateSchema'
     }
 }
 
@@ -56,7 +58,7 @@ task fatJar(type: Jar) {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE // allow duplicates
 
     manifest.from jar.manifest
-    archiveClassifier  = 'all'
+    archiveClassifier.set("all")
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     } {
