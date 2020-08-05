@@ -111,17 +111,28 @@ public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract IBM Db2 schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param dbmsTickerSymbol DBMS ticker symbol
    */
   public AbstractGenIbmdb2Schema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+    this(dbmsTickerSymbol, "client");
+  }
+
+  /**
+   * Initialises a new abstract IBM Db2 schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
+   */
+  public AbstractGenIbmdb2Schema(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

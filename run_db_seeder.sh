@@ -16,25 +16,26 @@ export DB_SEEDER_RELEASE=2.1.0
 
 if [ -z "$1" ]; then
     echo "==========================================="
-    echo "complete    - All implemented DBMSs"
-    echo "derby       - Apache Derby [client]"
-    echo "derby_emb   - Apache Derby [embedded]"
-    echo "cratedb     - CrateDB"
-    echo "cubrid      - CUBRID"
-    echo "firebird    - Firebird"
-    echo "h2          - H2 Database Engine [client]"
-    echo "h2_emb      - H2 Database Engine [embedded]"
-    echo "hsqldb      - HyperSQL Database [client]"
-    echo "hsqldb_emb  - HyperSQL Database [embedded]"
-    echo "ibmdb2      - IBM Db2 Database"
-    echo "informix    - IBM Informix"
-    echo "mariadb     - MariaDB Server"
-    echo "mimer       - Mimer SQL"
-    echo "mssqlserver - Microsoft SQL Server"
-    echo "mysql       - MySQL"
-    echo "oracle      - Oracle Database"
-    echo "postgresql  - PostgreSQL Database"
-    echo "sqlite      - SQLite [embedded]"
+    echo "complete     - All implemented DBMSs"
+    echo "derby        - Apache Derby [client]"
+    echo "derby_emb    - Apache Derby [embedded]"
+    echo "cratedb      - CrateDB"
+    echo "cubrid       - CUBRID"
+    echo "firebird     - Firebird"
+    echo "h2           - H2 Database Engine [client]"
+    echo "h2_emb       - H2 Database Engine [embedded]"
+    echo "hsqldb       - HyperSQL Database [client]"
+    echo "hsqldb_emb   - HyperSQL Database [embedded]"
+    echo "ibmdb2       - IBM Db2 Database"
+    echo "informix     - IBM Informix"
+    echo "mariadb      - MariaDB Server"
+    echo "mimer        - Mimer SQL"
+    echo "mssqlserver  - Microsoft SQL Server"
+    echo "mysql        - MySQL"
+    echo "mysql_presto - MySQL via Presto"
+    echo "oracle       - Oracle Database"
+    echo "postgresql   - PostgreSQL Database"
+    echo "sqlite       - SQLite [embedded]"
     echo "-------------------------------------------"
     read -p -r "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
@@ -77,6 +78,7 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 export DB_SEEDER_DEFAULT_ROW_SIZE=1000
 
 export DB_SEEDER_DBMS_EMBEDDED=no
+export DB_SEEDER_DBMS_PRESTO=no
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
@@ -282,6 +284,18 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_VERSION=8.0.21
 fi
 
+if [ "$DB_SEEDER_DBMS" = "mysql_presto" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
+    export DB_SEEDER_CATALOG=db_seeder.mysql.user
+    export DB_SEEDER_CATALOG_SYS=db_seeder.mysql.system
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=8080
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:presto://
+    export DB_SEEDER_CONTAINER_PORT=8080
+    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_PASSWORD=presto
+    export DB_SEEDER_USER=presto
+fi
+
 if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1521
@@ -328,6 +342,7 @@ echo "DB Seeder - Creation of dummy data in an empty database schema / user."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                              : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
+echo "DBMS_PRESTO                       : $DB_SEEDER_DBMS_PRESTO"
 echo "IS_TRAVIS                         : $DB_SEEDER_IS_TRAVIS"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
 echo "RELEASE                           : $DB_SEEDER_RELEASE"
@@ -339,6 +354,8 @@ echo "FILE_STATISTICS_HEADER            : $DB_SEEDER_FILE_STATISTICS_HEADER"
 echo "FILE_STATISTICS_NAME              : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "JAVA_CLASSPATH                    : $DB_SEEDER_JAVA_CLASSPATH"
 echo "--------------------------------------------------------------------------------"
+echo "CATALOG                           : $DB_SEEDER_CATALOG"
+echo "CATALOG_SYS                       : $DB_SEEDER_CATALOG_SYS"
 echo "CONNECTION_HOST                   : $DB_SEEDER_CONNECTION_HOST"
 echo "CONNECTION_PORT                   : $DB_SEEDER_CONNECTION_PORT"
 echo "CONNECTION_PREFIX                 : $DB_SEEDER_CONNECTION_PREFIX"

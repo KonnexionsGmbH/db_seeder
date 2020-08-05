@@ -2,6 +2,7 @@ package ch.konnexions.db_seeder.generated;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import org.apache.log4j.Logger;
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
-  private static final Logger logger = Logger.getLogger(AbstractGenSeeder.class);
+  private static final Logger logger  = Logger.getLogger(AbstractGenSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated seeder object.
@@ -23,30 +25,20 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public AbstractGenSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    nullFactor = 4;
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Initialises a new abstract generated seeder object.
    *
    * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public AbstractGenSeeder(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     nullFactor = 4;

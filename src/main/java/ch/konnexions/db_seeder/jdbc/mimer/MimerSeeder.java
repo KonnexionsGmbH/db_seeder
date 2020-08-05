@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
  */
 public final class MimerSeeder extends AbstractGenMimerSchema {
 
-  private static final Logger logger = Logger.getLogger(MimerSeeder.class);
+  private static final Logger logger  = Logger.getLogger(MimerSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Mimer SQL seeder object.
@@ -33,7 +34,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
 
     driver                = "com.mimer.jdbc.Driver";
 
-    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
+    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -66,7 +67,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          driver,
                          config.getUserSys(),
                          config.getPasswordSys(),
@@ -117,7 +118,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword(),

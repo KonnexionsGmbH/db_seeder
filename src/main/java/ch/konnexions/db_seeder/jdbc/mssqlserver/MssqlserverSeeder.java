@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenMssqlserverSchema;
  */
 public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
 
-  private static final Logger logger = Logger.getLogger(MssqlserverSeeder.class);
+  private static final Logger logger  = Logger.getLogger(MssqlserverSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Microsoft SQL Server seeder object.
@@ -32,8 +33,8 @@ public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ";databaseName=";
-    url                   = urlBase + config.getDatabase() + ";user=" + config.getUser() + ";password=" + config.getPassword();
-    urlSetup              = urlBase + config.getDatabaseSys() + ";user=" + config.getUserSys() + ";password=" + config.getPasswordSys();
+    urlUser               = urlBase + config.getDatabase() + ";user=" + config.getUser() + ";password=" + config.getPassword();
+    urlSys                = urlBase + config.getDatabaseSys() + ";user=" + config.getUserSys() + ";password=" + config.getPasswordSys();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -66,7 +67,7 @@ public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          true);
 
     final String databaseNmame = config.getDatabase();
@@ -114,7 +115,7 @@ public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
 
     disconnect(connection);
 
-    connection = connect(url);
+    connection = connect(urlUser);
 
     if (isDebug) {
       logger.debug("End");

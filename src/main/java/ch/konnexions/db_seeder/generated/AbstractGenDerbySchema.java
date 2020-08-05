@@ -111,40 +111,28 @@ public abstract class AbstractGenDerbySchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract Apache Derby schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param dbmsTickerSymbol DBMS ticker symbol
    */
   public AbstractGenDerbySchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    createColumnNames(true,
-                      true);
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Initialises a new abstract Apache Derby schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
-   * @param isClient
-   *            client database version
+   * @param dbmsTickerSymbol DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenDerbySchema(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public AbstractGenDerbySchema(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

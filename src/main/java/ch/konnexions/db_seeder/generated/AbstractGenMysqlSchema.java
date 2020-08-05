@@ -111,17 +111,28 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract MySQL schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param dbmsTickerSymbol DBMS ticker symbol
    */
   public AbstractGenMysqlSchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+    this(dbmsTickerSymbol, "client");
+  }
+
+  /**
+   * Initialises a new abstract MySQL schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
+   */
+  public AbstractGenMysqlSchema(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

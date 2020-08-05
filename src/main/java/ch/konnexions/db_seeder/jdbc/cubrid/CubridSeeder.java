@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
  */
 public final class CubridSeeder extends AbstractGenCubridSchema {
 
-  private static final Logger logger = Logger.getLogger(CubridSeeder.class);
+  private static final Logger logger  = Logger.getLogger(CubridSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new CUBRID seeder object.
@@ -34,8 +35,8 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     driver                = "cubrid.jdbc.driver.CUBRIDDriver";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ":" + config.getDatabase() + ":";
-    url                   = urlBase + config.getConnectionSuffix();
-    urlSetup              = urlBase + config.getUserSys().toUpperCase() + config.getConnectionSuffix();
+    urlUser               = urlBase + config.getConnectionSuffix();
+    urlSys                = urlBase + config.getUserSys().toUpperCase() + config.getConnectionSuffix();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -68,7 +69,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          driver);
 
     String userName = config.getUser().toUpperCase();
@@ -110,7 +111,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword());

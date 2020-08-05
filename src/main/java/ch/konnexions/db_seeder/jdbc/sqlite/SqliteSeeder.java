@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
  */
 public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
-  private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
+  private static final Logger logger  = Logger.getLogger(SqliteSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new SQLite seeder object.
@@ -31,7 +32,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     dbmsEnum              = DbmsEnum.SQLITE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    url                   = config.getConnectionPrefix() + config.getDatabase();
+    urlUser               = config.getConnectionPrefix() + config.getDatabase();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -64,7 +65,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url);
+    connection = connect(urlUser);
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.

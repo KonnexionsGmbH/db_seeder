@@ -20,7 +20,6 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
   protected static Map<String, String>                      dmlStatements;
 
   private static final Logger                               logger      = Logger.getLogger(AbstractJdbcSchema.class);
-
   protected static Map<String, Integer>                     maxRowSizes;
 
   protected static final HashMap<String, ArrayList<Object>> pkLists     = new HashMap<>();
@@ -28,7 +27,9 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
   protected static final HashMap<String, Integer>           pkListSizes = new HashMap<>();
 
   protected static List<String>                             TABLE_NAMES_CREATE;
+
   protected static List<String>                             TABLE_NAMES_DROP;
+  private final boolean                                     isDebug     = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract JDBC schema object.
@@ -36,28 +37,20 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public AbstractJdbcSchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Initialises a new abstract JDBC schema object.
    *
    * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractJdbcSchema(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public AbstractJdbcSchema(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     if (isDebug) {

@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
  */
 public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
-  private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
+  private static final Logger logger  = Logger.getLogger(Ibmdb2Seeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new IBM Db2 seeder object.
@@ -31,7 +32,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     dbmsEnum              = DbmsEnum.IBMDB2;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
+    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = 'schemaName' AND TABNAME = '?'";
 
@@ -66,7 +67,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          config.getUserSys(),
                          config.getPasswordSys());

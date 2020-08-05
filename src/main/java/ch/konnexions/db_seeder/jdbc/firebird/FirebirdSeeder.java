@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
  */
 public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
-  private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
+  private static final Logger logger  = Logger.getLogger(FirebirdSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Firebird seeder object.
@@ -33,7 +34,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
     driver                = "org.firebirdsql.jdbc.FBDriver";
 
-    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
+    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
         .getConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$OWNER_NAME = 'userName' AND RDB$RELATION_NAME = '?'";
@@ -69,7 +70,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          driver,
                          config.getUserSys().toUpperCase(),
                          config.getPasswordSys(),
@@ -116,7 +117,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword(),

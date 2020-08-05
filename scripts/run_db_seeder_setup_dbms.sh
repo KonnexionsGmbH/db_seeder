@@ -312,7 +312,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
         exit 255
     fi
 
-    sleep 30
+    sleep 60
 
     end=$(date +%s)
 fi

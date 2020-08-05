@@ -37,38 +37,69 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX       = 3;
-  private static final Logger logger             = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final int    ENCODING_MAX = 3;
 
-  private final String        BLOB_FILE          = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]        BLOB_DATA_BYTES    = readBlobFile2Bytes();
-  private final String        CLOB_FILE          = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private static final Logger logger       = Logger.getLogger(AbstractJdbcSeeder.class);
+  /**
+   * Gets the catalog name.
+   *
+   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param catalogType the catalog type
+   * 
+   * @return the catalog name
+   */
+  public static String getCatalogName(String dbmsTickerSymbol, String catalogType) {
+    return "db_seeder." + dbmsTickerSymbol + "." + catalogType + ".properties";
+  }
 
-  private final String        CLOB_DATA          = readClobFile();
-  protected Connection        connection         = null;
+  /**
+   * Gets the Presto URL string.
+   *
+   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param catalogType the catalog type
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port
+   * 
+   * @return the Presto URL string
+   */
+  public static String getUrlPresto(String dbmsTickerSymbol, String catalogType, String connectionHost, int connectionPort) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(dbmsTickerSymbol,
+                                                                                           catalogType);
+  }
 
-  protected String            driver             = "";
-  protected String            dropTableStmnt     = "";
+  private final boolean       isDebug      = logger.isDebugEnabled();
 
-  protected Properties        encodedColumnNames = new Properties();
+  private final String    BLOB_FILE          = Paths.get("src",
+                                                         "main",
+                                                         "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]    BLOB_DATA_BYTES    = readBlobFile2Bytes();
 
-  protected final boolean     isClient;
-  protected final boolean     isEmbedded;
+  private final String    CLOB_FILE          = Paths.get("src",
+                                                         "main",
+                                                         "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String    CLOB_DATA          = readClobFile();
 
-  protected int               nullFactor;
+  protected Connection    connection         = null;
+  protected String        driver             = "";
 
-  private final Random        randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  private ResultSet           resultSet          = null;
+  protected String        dropTableStmnt     = "";
 
-  protected Statement         statement          = null;
+  protected Properties    encodedColumnNames = new Properties();
+  protected final boolean isClient;
+  protected final boolean isEmbedded;
 
-  protected String            url                = "";
-  protected String            urlBase            = "";
-  protected String            urlSetup           = "";
+  protected final boolean isPresto;
+
+  protected int           nullFactor;
+  private final Random    randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+
+  private ResultSet       resultSet          = null;
+
+  protected Statement     statement          = null;
+  protected String        urlBase            = "";
+  protected String        urlSys             = "";
+
+  protected String        urlUser            = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
@@ -76,46 +107,42 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public AbstractJdbcSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    config     = new Config();
-
-    isClient   = true;
-    isEmbedded = false;
-
-    if (isDebug) {
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Initialises a new abstract JDBC seeder object.
    *
    * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public AbstractJdbcSeeder(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
-    config        = new Config();
+    config = new Config();
 
-    this.isClient = isClient;
-    isEmbedded    = !(this.isClient);
+    if ("embedded".equals(dbmsOption)) {
+      isClient   = false;
+      isEmbedded = true;
+      isPresto   = false;
+    } else if ("presto".equals(dbmsOption)) {
+      isClient   = false;
+      isEmbedded = false;
+      isPresto   = true;
+    } else {
+      isClient   = true;
+      isEmbedded = false;
+      isPresto   = false;
+    }
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
       logger.debug("embedded=" + isEmbedded);
+      logger.debug("presto  =" + isPresto);
 
       logger.debug("End   Constructor");
     }
@@ -124,7 +151,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    *
    * @return the database connection
    */
@@ -139,7 +166,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param autoCommit the auto commit option
    *
    * @return the database connection
@@ -155,7 +182,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    *
    * @return the database connection
@@ -171,7 +198,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    * @param autoCommit the auto commit option
    *
@@ -188,7 +215,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    * @param user the user name
    * @param password the password
@@ -206,7 +233,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    * @param user the user name
    * @param password the password
@@ -233,7 +260,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       if (isDebug) {
-        logger.debug("url   ='" + url + "'");
+        logger.debug("urlUser   ='" + url + "'");
       }
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);
@@ -864,6 +891,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return count;
   }
 
+  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
+  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
+  //  }
+
   private int getMaxRowSize(String tableName) {
     int maxRowSize   = maxRowSizes.get(tableName);
 
@@ -872,10 +903,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return Math.min(maxRowSize,
                     MAX_ROW_SIZE);
   }
-
-  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
-  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
-  //  }
 
   protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, long rowNo);
 

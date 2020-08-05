@@ -111,17 +111,28 @@ public abstract class AbstractGenInformixSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract IBM Informix schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param dbmsTickerSymbol DBMS ticker symbol
    */
   public AbstractGenInformixSchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+    this(dbmsTickerSymbol, "client");
+  }
+
+  /**
+   * Initialises a new abstract IBM Informix schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
+   */
+  public AbstractGenInformixSchema(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

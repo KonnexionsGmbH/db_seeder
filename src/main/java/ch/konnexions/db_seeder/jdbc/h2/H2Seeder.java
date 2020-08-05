@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
  */
 public final class H2Seeder extends AbstractGenH2Schema {
 
-  private static final Logger logger = Logger.getLogger(H2Seeder.class);
+  private static final Logger logger  = Logger.getLogger(H2Seeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new H2 seeder object.
@@ -22,37 +23,33 @@ public final class H2Seeder extends AbstractGenH2Schema {
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public H2Seeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    init();
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Instantiates a new H2 seeder object.
    *
    * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsOption client, embedded or presto
    */
-  public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public H2Seeder(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    init();
+    dbmsEnum              = DbmsEnum.H2;
+
+    driver                = "org.h2.Driver";
+
+    if (isClient) {
+      urlUser = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
+    } else {
+      urlUser = config.getConnectionPrefix() + "file:" + config.getDatabase();
+    }
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -72,32 +69,6 @@ public final class H2Seeder extends AbstractGenH2Schema {
   }
 
   /**
-   * The common initialisation part.
-   */
-  private void init() {
-    if (isDebug) {
-      logger.debug("Start");
-
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-    }
-
-    dbmsEnum = DbmsEnum.H2;
-
-    driver   = "org.h2.Driver";
-
-    if (isClient) {
-      url = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
-    } else {
-      url = config.getConnectionPrefix() + "file:" + config.getDatabase();
-    }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  /**
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    */
@@ -111,7 +82,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          driver,
                          "sa",
                          "",
@@ -162,7 +133,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          password);

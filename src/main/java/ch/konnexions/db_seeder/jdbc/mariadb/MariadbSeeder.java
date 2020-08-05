@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenMariadbSchema;
  */
 public final class MariadbSeeder extends AbstractGenMariadbSchema {
 
-  private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
+  private static final Logger logger  = Logger.getLogger(MariadbSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new MariaDB seeder object.
@@ -32,8 +33,8 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
-    url                   = urlBase + config.getDatabase();
-    urlSetup              = urlBase + config.getDatabaseSys();
+    urlUser               = urlBase + config.getDatabase();
+    urlSys                = urlBase + config.getDatabaseSys();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -66,7 +67,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          null,
                          config.getUserSys(),
                          config.getPasswordSys());
@@ -111,7 +112,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword());
