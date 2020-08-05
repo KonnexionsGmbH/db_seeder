@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
  */
 public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
-  private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
+  private static final Logger logger  = Logger.getLogger(Ibmdb2Seeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new IBM Db2 seeder object.

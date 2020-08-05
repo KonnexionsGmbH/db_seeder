@@ -111,6 +111,8 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract Oracle schema object.
    *

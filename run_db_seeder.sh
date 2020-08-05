@@ -269,18 +269,6 @@ if [ "$DB_SEEDER_DBMS" = "mssqlserver" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; 
 fi
 
 if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
-    export DB_SEEDER_CATALOG=db_seeder.mysql.user
-    export DB_SEEDER_CATALOG_SYS=db_seeder.mysql.system
-    export DB_SEEDER_CONNECTION_HOST=localhost
-    export DB_SEEDER_CONNECTION_PORT=8080
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:presto://
-    export DB_SEEDER_CONTAINER_PORT=8080
-    export DB_SEEDER_DBMS_PRESTO=yes
-    export DB_SEEDER_PASSWORD=presto
-    export DB_SEEDER_USER=presto
-fi
-
-if [ "$DB_SEEDER_DBMS" = "mysql_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
@@ -294,6 +282,18 @@ if [ "$DB_SEEDER_DBMS" = "mysql_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; th
     export DB_SEEDER_USER_SYS=root
     export DB_SEEDER_VERSION=8.0.20
     export DB_SEEDER_VERSION=8.0.21
+fi
+
+if [ "$DB_SEEDER_DBMS" = "mysql_presto" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
+    export DB_SEEDER_CATALOG=db_seeder.mysql.user
+    export DB_SEEDER_CATALOG_SYS=db_seeder.mysql.system
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=8080
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:presto://
+    export DB_SEEDER_CONTAINER_PORT=8080
+    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_PASSWORD=presto
+    export DB_SEEDER_USER=presto
 fi
 
 if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then

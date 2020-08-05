@@ -348,15 +348,11 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
-    set DB_SEEDER_CATALOG=db_seeder.mysql.user
-    set DB_SEEDER_CATALOG_SYS=db_seeder.mysql.system
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=8080
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:presto://
-    set DB_SEEDER_CONTAINER_PORT=8080
     set DB_SEEDER_DBMS_PRESTO=yes
-    set DB_SEEDER_PASSWORD=presto
-    set DB_SEEDER_USER=presto
+    set DB_SEEDER_PASSWORD=mysql
+    set DB_SEEDER_USER=kxn_user
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (

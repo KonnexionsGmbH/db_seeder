@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
  */
 public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
-  private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
+  private static final Logger logger  = Logger.getLogger(CratedbSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new CrateDB seeder object.

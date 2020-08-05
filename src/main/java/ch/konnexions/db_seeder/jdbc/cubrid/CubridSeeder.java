@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
  */
 public final class CubridSeeder extends AbstractGenCubridSchema {
 
-  private static final Logger logger = Logger.getLogger(CubridSeeder.class);
+  private static final Logger logger  = Logger.getLogger(CubridSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new CUBRID seeder object.

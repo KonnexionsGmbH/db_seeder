@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenMariadbSchema;
  */
 public final class MariadbSeeder extends AbstractGenMariadbSchema {
 
-  private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
+  private static final Logger logger  = Logger.getLogger(MariadbSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new MariaDB seeder object.

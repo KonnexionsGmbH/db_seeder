@@ -111,6 +111,8 @@ public abstract class AbstractGenMariadbSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract MariaDB schema object.
    *

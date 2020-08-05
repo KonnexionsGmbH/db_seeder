@@ -20,7 +20,6 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
   protected static Map<String, String>                      dmlStatements;
 
   private static final Logger                               logger      = Logger.getLogger(AbstractJdbcSchema.class);
-
   protected static Map<String, Integer>                     maxRowSizes;
 
   protected static final HashMap<String, ArrayList<Object>> pkLists     = new HashMap<>();
@@ -28,7 +27,9 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
   protected static final HashMap<String, Integer>           pkListSizes = new HashMap<>();
 
   protected static List<String>                             TABLE_NAMES_CREATE;
+
   protected static List<String>                             TABLE_NAMES_DROP;
+  private final boolean                                     isDebug     = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract JDBC schema object.

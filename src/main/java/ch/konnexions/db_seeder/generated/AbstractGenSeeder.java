@@ -16,7 +16,8 @@ import org.apache.log4j.Logger;
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
-  private static final Logger logger = Logger.getLogger(AbstractGenSeeder.class);
+  private static final Logger logger  = Logger.getLogger(AbstractGenSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated seeder object.

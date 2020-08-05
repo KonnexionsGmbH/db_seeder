@@ -88,7 +88,6 @@ public abstract class AbstractDbmsSeeder {
   protected static final String             FORMAT_TABLE_NAME                 = "%-17s";
 
   private static final Logger               logger                            = Logger.getLogger(AbstractDbmsSeeder.class);
-
   /**
    * Initialises the DBMS details.
    * 
@@ -207,6 +206,13 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "MySQL",
                         "`" });
+    dbmsDetails.put("mysql_presto",
+                    new String[] {
+                        "mysql",
+                        "MySQL Database",
+                        "presto",
+                        "MySQL",
+                        "`" });
     dbmsDetails.put("oracle",
                     new String[] {
                         "oracle",
@@ -232,13 +238,14 @@ public abstract class AbstractDbmsSeeder {
     return dbmsDetails;
   }
 
-  protected Config        config;
-  protected DbmsEnum      dbmsEnum;
+  protected final boolean                   isDebug                           = logger.isDebugEnabled();
 
-  protected String        dbmsTickerSymbol;
+  protected Config   config;
+  protected DbmsEnum dbmsEnum;
 
-  protected String        identifierDelimiter;
-  protected final boolean isDebug = logger.isDebugEnabled();
+  protected String   dbmsTickerSymbol;
+
+  protected String   identifierDelimiter;
 
   /**
    * Initialises a new abstract DBMS seeder object.

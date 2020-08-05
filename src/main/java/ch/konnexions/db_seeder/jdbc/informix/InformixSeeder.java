@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenInformixSchema;
  */
 public final class InformixSeeder extends AbstractGenInformixSchema {
 
-  private static final Logger logger = Logger.getLogger(InformixSeeder.class);
+  private static final Logger logger  = Logger.getLogger(InformixSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new IBM Informix seeder object.

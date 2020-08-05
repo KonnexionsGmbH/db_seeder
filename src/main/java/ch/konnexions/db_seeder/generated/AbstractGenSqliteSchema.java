@@ -111,6 +111,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract SQLite schema object.
    *

@@ -37,39 +37,69 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX       = 3;
-  private static final Logger logger             = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final int    ENCODING_MAX = 3;
 
-  private final String        BLOB_FILE          = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]        BLOB_DATA_BYTES    = readBlobFile2Bytes();
-  private final String        CLOB_FILE          = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private static final Logger logger       = Logger.getLogger(AbstractJdbcSeeder.class);
+  /**
+   * Gets the catalog name.
+   *
+   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param catalogType the catalog type
+   * 
+   * @return the catalog name
+   */
+  public static String getCatalogName(String dbmsTickerSymbol, String catalogType) {
+    return "db_seeder." + dbmsTickerSymbol + "." + catalogType + ".properties";
+  }
 
-  private final String        CLOB_DATA          = readClobFile();
-  protected Connection        connection         = null;
+  /**
+   * Gets the Presto URL string.
+   *
+   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param catalogType the catalog type
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port
+   * 
+   * @return the Presto URL string
+   */
+  public static String getUrlPresto(String dbmsTickerSymbol, String catalogType, String connectionHost, int connectionPort) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(dbmsTickerSymbol,
+                                                                                           catalogType);
+  }
 
-  protected String            driver             = "";
-  protected String            dropTableStmnt     = "";
+  private final boolean       isDebug      = logger.isDebugEnabled();
 
-  protected Properties        encodedColumnNames = new Properties();
+  private final String    BLOB_FILE          = Paths.get("src",
+                                                         "main",
+                                                         "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]    BLOB_DATA_BYTES    = readBlobFile2Bytes();
 
-  protected final boolean     isClient;
-  protected final boolean     isEmbedded;
-  protected final boolean     isPresto;
+  private final String    CLOB_FILE          = Paths.get("src",
+                                                         "main",
+                                                         "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String    CLOB_DATA          = readClobFile();
 
-  protected int               nullFactor;
+  protected Connection    connection         = null;
+  protected String        driver             = "";
 
-  private final Random        randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  private ResultSet           resultSet          = null;
+  protected String        dropTableStmnt     = "";
 
-  protected Statement         statement          = null;
+  protected Properties    encodedColumnNames = new Properties();
+  protected final boolean isClient;
+  protected final boolean isEmbedded;
 
-  protected String            urlBase            = "";
-  protected String            urlSys             = "";
-  protected String            urlUser            = "";
+  protected final boolean isPresto;
+
+  protected int           nullFactor;
+  private final Random    randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+
+  private ResultSet       resultSet          = null;
+
+  protected Statement     statement          = null;
+  protected String        urlBase            = "";
+  protected String        urlSys             = "";
+
+  protected String        urlUser            = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
@@ -861,6 +891,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return count;
   }
 
+  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
+  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
+  //  }
+
   private int getMaxRowSize(String tableName) {
     int maxRowSize   = maxRowSizes.get(tableName);
 
@@ -869,10 +903,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return Math.min(maxRowSize,
                     MAX_ROW_SIZE);
   }
-
-  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
-  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
-  //  }
 
   protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, long rowNo);
 

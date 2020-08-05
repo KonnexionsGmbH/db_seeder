@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenOracleSchema;
  */
 public final class OracleSeeder extends AbstractGenOracleSchema {
 
-  private static final Logger logger = Logger.getLogger(OracleSeeder.class);
+  private static final Logger logger  = Logger.getLogger(OracleSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Oracle seeder object.

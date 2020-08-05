@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
  */
 public final class H2Seeder extends AbstractGenH2Schema {
 
-  private static final Logger logger = Logger.getLogger(H2Seeder.class);
+  private static final Logger logger  = Logger.getLogger(H2Seeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new H2 seeder object.

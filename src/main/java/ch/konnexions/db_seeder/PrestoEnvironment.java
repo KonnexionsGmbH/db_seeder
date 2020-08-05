@@ -5,11 +5,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
@@ -22,35 +27,106 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 @SuppressWarnings("ucd")
 public final class PrestoEnvironment {
 
-  private static final Logger  logger  = Logger.getLogger(PrestoEnvironment.class);
+  private static String              connectionHost   = "";
+  private static int                 connectionPort   = 0;
+  private static String              connectionPrefix = "";
+  private static String              connectionSuffix = "";
 
-  private static final boolean isDebug = logger.isDebugEnabled();
+  private static String              database         = "";
+  private static String              directoryCatalogProperty;
 
-  private static void createCatalogPropertiesMysql() {
+  private static ArrayList<String>   entries          = new ArrayList<>();
+
+  private static final Logger        logger           = Logger.getLogger(PrestoEnvironment.class);
+  private static final boolean       isDebug          = logger.isDebugEnabled();
+
+  private static Map<String, String> osEnvironment    = System.getenv();
+
+  private static String              password         = "";
+
+  private static String              url              = "";
+  private static String              user             = "";
+
+  /**
+   * Creates the catalog data and the catalog file.
+   *
+   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param catalogType the catalog type
+   */
+  private static void createCatalog(String dbmsTickerSymbol, String catalogType) {
     if (isDebug) {
       logger.debug("Start");
     }
 
-    String              connectionHost           = "";
-    int                 connectionPort           = 0;
-    String              connectionPrefix         = "";
-    String              connectionSuffix         = "";
-    String              database                 = "";
-    String              databaseSys              = "";
-    String              directoryCatalogProperty = "";
-    String              password                 = "";
-    String              passwordSys              = "";
-    String              user                     = "";
-    String              userSys                  = "";
+    entries.clear();
 
-    Map<String, String> osEnvironment            = System.getenv();
+    entries.add("connector.name=" + dbmsTickerSymbol);
+    entries.add("connection-url=" + url);
+    entries.add("connection-user=" + user);
+    entries.add("connection-password=" + password);
 
-    if (osEnvironment.containsKey("DB_SEEDER_DIRECTORY_CATALOG_PROPERTY")) {
-      directoryCatalogProperty = osEnvironment.get("DB_SEEDER_DIRECTORY_CATALOG_PROPERTY");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Parameter missing (null): DB_SEEDER_DIRECTORY_CATALOG_PROPERTY");
+    createCatalogFile(dbmsTickerSymbol,
+                      catalogType,
+                      entries);
+
+    if (isDebug) {
+      logger.debug("End");
     }
+  }
+
+  /**
+   * Creates a catalog file.
+   *
+   * @param dbmsTickerSymbol the DBMS ticker symbol
+   * @param catalogType the catalog type
+   * @param entries the catalog entries
+   */
+  private static void createCatalogFile(String dbmsTickerSymbol, String catalogType, ArrayList<String> entries) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      String fileName = directoryCatalogProperty + "/" + AbstractJdbcSeeder.getCatalogName(dbmsTickerSymbol,
+                                                                                           catalogType);
+
+      if (isDebug) {
+        logger.debug("fileName='" + fileName + "'");
+      }
+
+      BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(fileName), false)));
+
+      for (String entry : entries) {
+        bufferedWriter.append(entry);
+        bufferedWriter.newLine();
+      }
+
+      bufferedWriter.close();
+
+      logger.info("Catalog file created: '" + fileName + "'");
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Creates the MySQL catalog file.
+   *
+   * @param dbmsTickerSymbol the DBMS ticker symbol
+   */
+  private static void createCatalogFileMysql(String dbmsTickerSymbol) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    // =========================================================================
+    // Common variables.
+    // -------------------------------------------------------------------------
 
     if (osEnvironment.containsKey("DB_SEEDER_MYSQL_CONNECTION_HOST")) {
       connectionHost = osEnvironment.get("DB_SEEDER_MYSQL_CONNECTION_HOST");
@@ -86,52 +162,47 @@ public final class PrestoEnvironment {
                                    "Parameter missing (null): DB_SEEDER_MYSQL_CONNECTION_SUFFIX");
     }
 
+    // =========================================================================
+    // Privileged access variables.
+    // -------------------------------------------------------------------------
+
     if (osEnvironment.containsKey("DB_SEEDER_MYSQL_DATABASE_SYS")) {
-      databaseSys = osEnvironment.get("DB_SEEDER_MYSQL_DATABASE_SYS");
+      database = osEnvironment.get("DB_SEEDER_MYSQL_DATABASE_SYS");
     } else {
       MessageHandling.abortProgram(logger,
                                    "Parameter missing (null): DB_SEEDER_MYSQL_DATABASE_SYS");
     }
 
     if (osEnvironment.containsKey("DB_SEEDER_MYSQL_PASSWORD_SYS")) {
-      passwordSys = osEnvironment.get("DB_SEEDER_MYSQL_PASSWORD_SYS");
+      password = osEnvironment.get("DB_SEEDER_MYSQL_PASSWORD_SYS");
     } else {
       MessageHandling.abortProgram(logger,
                                    "Parameter missing (null): DB_SEEDER_MYSQL_PASSWORD_SYS");
     }
 
     if (osEnvironment.containsKey("DB_SEEDER_MYSQL_USER_SYS")) {
-      userSys = osEnvironment.get("DB_SEEDER_MYSQL_USER_SYS");
+      user = osEnvironment.get("DB_SEEDER_MYSQL_USER_SYS");
     } else {
       MessageHandling.abortProgram(logger,
                                    "Parameter missing (null): DB_SEEDER_MYSQL_USER_SYS");
     }
 
-    try {
-      BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(directoryCatalogProperty
-          + "/db_seeder_mysql_sys.properties"), false)));
+    // =========================================================================
+    // Privileged catalog creation.
+    // -------------------------------------------------------------------------
 
-      bufferedWriter.append("connector.name=mysql");
-      bufferedWriter.newLine();
+    url = MysqlSeeder.getUrlSys(connectionHost,
+                                connectionPort,
+                                connectionPrefix,
+                                connectionSuffix,
+                                database);
 
-      bufferedWriter.append("connection-url=" + MysqlSeeder.getUrlSys(connectionHost,
-                                                                      connectionPort,
-                                                                      connectionPrefix,
-                                                                      connectionSuffix,
-                                                                      databaseSys));
-      bufferedWriter.newLine();
+    createCatalog(dbmsTickerSymbol,
+                  "system");
 
-      bufferedWriter.append("connection-user=" + userSys);
-      bufferedWriter.newLine();
-
-      bufferedWriter.append("connection-password=" + passwordSys);
-      bufferedWriter.newLine();
-
-      bufferedWriter.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    // =========================================================================
+    // Non-Privileged access variables.
+    // -------------------------------------------------------------------------
 
     if (osEnvironment.containsKey("DB_SEEDER_MYSQL_DATABASE")) {
       database = osEnvironment.get("DB_SEEDER_MYSQL_DATABASE");
@@ -154,31 +225,18 @@ public final class PrestoEnvironment {
                                    "Parameter missing (null): DB_SEEDER_MYSQL_USER");
     }
 
-    try {
-      BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(directoryCatalogProperty
-          + "/db_seeder_mysql_user.properties"), false)));
+    // =========================================================================
+    // Non-Privileged catalog creation.
+    // -------------------------------------------------------------------------
 
-      bufferedWriter.append("connector.name=mysql");
-      bufferedWriter.newLine();
+    url = MysqlSeeder.getUrlSys(connectionHost,
+                                connectionPort,
+                                connectionPrefix,
+                                connectionSuffix,
+                                database);
 
-      bufferedWriter.append("connection-url=" + MysqlSeeder.getUrlUser(connectionHost,
-                                                                       connectionPort,
-                                                                       connectionPrefix,
-                                                                       connectionSuffix,
-                                                                       database));
-      bufferedWriter.newLine();
-
-      bufferedWriter.append("connection-user=" + user);
-      bufferedWriter.newLine();
-
-      bufferedWriter.append("connection-password=" + password);
-      bufferedWriter.newLine();
-
-      bufferedWriter.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    createCatalog(dbmsTickerSymbol,
+                  "user");
 
     if (isDebug) {
       logger.debug("End");
@@ -193,31 +251,38 @@ public final class PrestoEnvironment {
   public static void main(String[] args) {
     logger.info("Start");
 
-    String dbmsTickerSymbol = null;
-
-    if (args.length > 0) {
-      dbmsTickerSymbol = args[0];
+    if (args.length == 0) {
+      MessageHandling.abortProgram(logger,
+                                   "No command line arguments found");
     }
 
-    logger.info("args[0]='" + dbmsTickerSymbol + "'");
-
-    if (null == dbmsTickerSymbol) {
+    if (osEnvironment.containsKey("DB_SEEDER_DIRECTORY_CATALOG_PROPERTY")) {
+      directoryCatalogProperty = osEnvironment.get("DB_SEEDER_DIRECTORY_CATALOG_PROPERTY");
+    } else {
       MessageHandling.abortProgram(logger,
-                                   "Command line argument missing (null)");
+                                   "Parameter missing (null): DB_SEEDER_DIRECTORY_CATALOG_PROPERTY");
     }
 
-    switch (Objects.requireNonNull(dbmsTickerSymbol)) {
-    case "mysql":
-      logger.info("Start MySQL Database");
-      createCatalogPropertiesMysql();
-      logger.info("End   MySQL Database");
-      break;
-    case "":
-      MessageHandling.abortProgram(logger,
-                                   "Command line argument missing");
-    default:
-      MessageHandling.abortProgram(logger,
-                                   "Unknown command line argument");
+    List<String> dbmsTickerSymbols = Arrays.asList(args);
+
+    Collections.sort(dbmsTickerSymbols);
+
+    for (String dbmsTickerSymbol : dbmsTickerSymbols) {
+      logger.info("dbmsTickerSymbol='" + dbmsTickerSymbol + "'");
+
+      switch (Objects.requireNonNull(dbmsTickerSymbol)) {
+      case "mysql":
+        logger.info("Start MySQL Database");
+        createCatalogFileMysql(dbmsTickerSymbol);
+        logger.info("End   MySQL Database");
+        break;
+      case "":
+        MessageHandling.abortProgram(logger,
+                                     "dbmsTickerSymbol is null");
+      default:
+        MessageHandling.abortProgram(logger,
+                                     "Unknown dbmsTickerSymbol, e.g. not yet implemented");
+      }
     }
 
     logger.info("End");

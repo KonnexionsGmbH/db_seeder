@@ -23,6 +23,7 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
   protected static final String TABLE_NAME_TIMEZONE      = "TIMEZONE";
 
   private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);
+  private final boolean         isDebug                  = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated schema object.

@@ -20,7 +20,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
  */
 public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
-  private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
+  private static final Logger logger  = Logger.getLogger(PostgresqlSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new PostgreSQL seeder object.

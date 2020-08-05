@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
  */
 public final class Statistics {
   private static final Logger         logger    = Logger.getLogger(Statistics.class);
+  private final boolean               isDebug   = logger.isDebugEnabled();
 
   private final Config                config;
 
@@ -32,8 +33,6 @@ public final class Statistics {
   private final Map<String, String[]> dbmsValues;
 
   private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
-
-  private final boolean               isDebug   = logger.isDebugEnabled();
 
   private final LocalDateTime         startDateTime;
   private CSVPrinter                  statisticsFile;

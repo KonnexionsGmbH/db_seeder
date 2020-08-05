@@ -28,6 +28,7 @@ public final class Config {
 
   @SuppressWarnings("unused")
   private static final Logger     logger     = Logger.getLogger(Config.class);
+  private final boolean           isDebug    = logger.isDebugEnabled();
 
   private String                  connectionHost;
   private int                     connectionPort;

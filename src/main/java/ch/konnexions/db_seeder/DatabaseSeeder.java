@@ -146,7 +146,7 @@ public final class DatabaseSeeder {
       break;
     case "mysql_presto":
       logger.info("Start MySQL Database");
-      MysqlSeeder mysqlSeederPresto = new MysqlSeeder(dbmsTickerSymbol,"presto");
+      MysqlSeeder mysqlSeederPresto = new MysqlSeeder(dbmsTickerSymbol, "presto");
       mysqlSeederPresto.createData();
       logger.info("End   MySQL Database");
       break;
@@ -180,4 +180,6 @@ public final class DatabaseSeeder {
 
     System.exit(0);
   }
+
+  protected final boolean isDebug = logger.isDebugEnabled();
 }

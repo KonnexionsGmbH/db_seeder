@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenDerbySchema;
  */
 public final class DerbySeeder extends AbstractGenDerbySchema {
 
-  private static final Logger logger = Logger.getLogger(DerbySeeder.class);
+  private static final Logger logger  = Logger.getLogger(DerbySeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Apache Derby seeder object.

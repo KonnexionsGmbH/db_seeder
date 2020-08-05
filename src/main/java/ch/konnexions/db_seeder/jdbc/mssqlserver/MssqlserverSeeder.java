@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenMssqlserverSchema;
  */
 public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
 
-  private static final Logger logger = Logger.getLogger(MssqlserverSeeder.class);
+  private static final Logger logger  = Logger.getLogger(MssqlserverSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Microsoft SQL Server seeder object.

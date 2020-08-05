@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.AbstractDbmsSeeder.DbmsEnum;
 import ch.konnexions.db_seeder.generated.AbstractGenMysqlSchema;
+import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
  * Test Data Generator for a MySQL DBMS.
@@ -47,6 +47,8 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Instantiates a new MySQL seeder object.
    * 
@@ -72,19 +74,33 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     dbmsEnum              = DbmsEnum.MYSQL;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    driver                = "com.mysql.cj.jdbc.Driver";
+    if (isPresto) {
+      driver  = "io.prestosql.jdbc.PrestoDriver";
 
-    urlSys                = getUrlSys(config.getConnectionHost(),
-                                      config.getConnectionPort(),
-                                      config.getConnectionPrefix(),
-                                      config.getConnectionSuffix(),
-                                      config.getDatabaseSys());
+      urlSys  = AbstractJdbcSeeder.getUrlPresto(dbmsTickerSymbol,
+                                                "system",
+                                                config.getConnectionHost(),
+                                                config.getConnectionPort());
 
-    urlUser               = getUrlUser(config.getConnectionHost(),
-                                       config.getConnectionPort(),
-                                       config.getConnectionPrefix(),
-                                       config.getConnectionSuffix(),
-                                       config.getDatabase());
+      urlUser = AbstractJdbcSeeder.getUrlPresto(dbmsTickerSymbol,
+                                                "user",
+                                                config.getConnectionHost(),
+                                                config.getConnectionPort());
+    } else {
+      driver  = "com.mysql.cj.jdbc.Driver";
+
+      urlSys  = getUrlSys(config.getConnectionHost(),
+                          config.getConnectionPort(),
+                          config.getConnectionPrefix(),
+                          config.getConnectionSuffix(),
+                          config.getDatabaseSys());
+
+      urlUser = getUrlUser(config.getConnectionHost(),
+                           config.getConnectionPort(),
+                           config.getConnectionPrefix(),
+                           config.getConnectionSuffix(),
+                           config.getDatabase());
+    }
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -117,10 +133,15 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSys,
-                         driver,
-                         config.getUserSys(),
-                         config.getPasswordSys());
+    connection = isPresto
+        ? connect(urlSys,
+                  driver,
+                  "presto",
+                  null)
+        : connect(urlSys,
+                  driver,
+                  config.getUserSys(),
+                  config.getPasswordSys());
 
     String databaseName = config.getDatabase();
     String userName     = config.getUser();
@@ -161,10 +182,15 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         userName,
-                         config.getPassword());
+    connection = isPresto
+        ? connect(urlUser,
+                  null,
+                  "presto",
+                  "presto")
+        : connect(urlUser,
+                  null,
+                  userName,
+                  config.getPassword());
 
     if (isDebug) {
       logger.debug("End");

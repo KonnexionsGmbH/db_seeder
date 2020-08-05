@@ -111,6 +111,8 @@ public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract IBM Db2 schema object.
    *

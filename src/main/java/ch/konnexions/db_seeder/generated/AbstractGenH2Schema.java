@@ -111,6 +111,8 @@ public abstract class AbstractGenH2Schema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract H2 schema object.
    *

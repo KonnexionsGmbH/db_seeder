@@ -111,6 +111,8 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract Mimer schema object.
    *

@@ -53,6 +53,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 public final class GenerateSchema extends AbstractDbmsSeeder {
 
   private static final Logger                               logger                    = Logger.getLogger(GenerateSchema.class);
+  private final boolean                                     isDebug                   = logger.isDebugEnabled();
 
   private int                                               constraintNumber          = 0;
 
@@ -69,8 +70,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   private final HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
   private final HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
   private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
-
-  private final boolean                                     isDebug                   = logger.isDebugEnabled();
 
   private Set<Table>                                        valTables;
   private HashMap<String, HashSet<String>>                  valTablesColumns;
@@ -617,6 +616,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("  }");
       bw.newLine();
       bw.newLine();
+      bw.append("  private final boolean                       isDebug           = logger.isDebugEnabled();");
+      bw.newLine();
+      bw.newLine();
       bw.append("  /**");
       bw.newLine();
       bw.append("   * Initialises a new abstract ").append(dbmsName).append(" schema object.");
@@ -805,6 +807,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       bw.newLine();
       bw.append("  private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);");
+      bw.newLine();
+      bw.append("  private final boolean         isDebug                  = logger.isDebugEnabled();");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");
@@ -1038,6 +1042,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.newLine();
       bw.append("  private static final Logger logger = Logger.getLogger(AbstractGenSeeder.class);");
+      bw.newLine();
+      bw.append("  private final boolean isDebug      = logger.isDebugEnabled();");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");

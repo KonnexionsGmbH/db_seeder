@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenHsqldbSchema;
  */
 public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
-  private static final Logger logger = Logger.getLogger(HsqldbSeeder.class);
+  private static final Logger logger  = Logger.getLogger(HsqldbSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Initialises a new HyperSQL seeder object.

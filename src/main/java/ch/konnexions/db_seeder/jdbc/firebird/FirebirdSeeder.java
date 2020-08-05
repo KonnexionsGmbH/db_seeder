@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
  */
 public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
-  private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
+  private static final Logger logger  = Logger.getLogger(FirebirdSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Firebird seeder object.

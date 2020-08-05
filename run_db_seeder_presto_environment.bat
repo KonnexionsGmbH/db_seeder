@@ -10,7 +10,7 @@ setlocal EnableDelayedExpansion
 
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
-set DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=docker\presto\catalog
+set DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=docker/presto/catalog
 set DB_SEEDER_RELEASE=2.1.0
 set DB_SEEDER_VERSION_PRESTO=339
 
@@ -35,7 +35,7 @@ echo.
 echo Please wait ...
 echo.
 
-> %LOG_FILE% 2>&1 (
+rem wwe > %LOG_FILE% 2>&1 (
 
     echo ================================================================================
     echo Start %0
@@ -45,6 +45,9 @@ echo.
     echo DIRECTORY_CATALOG_PROPERTY : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
     echo RELEASE                    : %DB_SEEDER_RELEASE%
     echo VERSION_PRESTO             : %DB_SEEDER_VERSION_PRESTO%
+    echo --------------------------------------------------------------------------------
+    echo CONNECTION_HOST_PRESTO      : %DB_SEEDER_CONNECTION_HOST_PRESTO%
+    echo CONNECTION_PORT_PRESTO      : %DB_SEEDER_CONNECTION_PORT_PRESTO%
     echo --------------------------------------------------------------------------------
     echo MYSQL_CONNECTION_HOST      : %DB_SEEDER_MYSQL_CONNECTION_HOST%
     echo MYSQL_CONNECTION_PORT      : %DB_SEEDER_MYSQL_CONNECTION_PORT%
@@ -63,11 +66,6 @@ echo.
     echo ================================================================================
     echo Compile and generate catalog property files.
     echo --------------------------------------------------------------------------------
-
-    gradle copyJarToLib
-    if %ERRORLEVEL% NEQ 0 (
-        exit %ERRORLEVEL%
-    )
 
     java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.PrestoEnvironment mysql
     if %ERRORLEVEL% NEQ 0 (
@@ -99,4 +97,4 @@ echo.
     echo --------------------------------------------------------------------------------
     echo End   %0
     echo ================================================================================
-)
+rem wwe )

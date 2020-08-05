@@ -17,9 +17,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 @SuppressWarnings("ucd")
 public final class SchemaBuilder {
 
-  @SuppressWarnings("ucd")
-  private static final Logger logger = Logger.getLogger(SchemaBuilder.class);
-
+  private static final Logger logger  = Logger.getLogger(SchemaBuilder.class);
   /**
    * The main method.
    *
@@ -62,4 +60,6 @@ public final class SchemaBuilder {
 
     System.exit(0);
   }
+
+  protected final boolean     isDebug = logger.isDebugEnabled();
 }

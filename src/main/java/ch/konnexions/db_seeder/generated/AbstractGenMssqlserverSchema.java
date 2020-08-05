@@ -111,6 +111,8 @@ public abstract class AbstractGenMssqlserverSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract MS SQL Server schema object.
    *

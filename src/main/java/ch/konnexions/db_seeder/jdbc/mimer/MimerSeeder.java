@@ -14,7 +14,8 @@ import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
  */
 public final class MimerSeeder extends AbstractGenMimerSchema {
 
-  private static final Logger logger = Logger.getLogger(MimerSeeder.class);
+  private static final Logger logger  = Logger.getLogger(MimerSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Mimer SQL seeder object.
