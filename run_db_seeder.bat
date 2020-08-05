@@ -16,25 +16,26 @@ set DB_SEEDER_RELEASE=2.1.0
 
 if ["%1"] EQU [""] (
     echo ===========================================
-    echo complete    - All implemented DBMSs
-    echo derby       - Apache Derby [client]
-    echo derby_emb   - Apache Derby [embedded]
-    echo cratedb     - CrateDB
-    echo cubrid      - CUBRID
-    echo firebird    - Firebird
-    echo h2          - H2 Database Engine [client]
-    echo h2_emb      - H2 Database Engine [embedded]
-    echo hsqldb      - HyperSQL Database [client]
-    echo hsqldb_emb  - HyperSQL Database [embedded]
-    echo ibmdb2      - IBM Db2 Database
-    echo informix    - IBM Informix
-    echo mariadb     - MariaDB Server
-    echo mimer       - Mimer SQL
-    echo mssqlserver - Microsoft SQL Server
-    echo mysql       - MySQL
-    echo oracle      - Oracle Database
-    echo postgresql  - PostgreSQL Database
-    echo sqlite      - SQLite [embedded]
+    echo complete     - All implemented DBMSs
+    echo derby        - Apache Derby [client]
+    echo derby_emb    - Apache Derby [embedded]
+    echo cratedb      - CrateDB
+    echo cubrid       - CUBRID
+    echo firebird     - Firebird
+    echo h2           - H2 Database Engine [client]
+    echo h2_emb       - H2 Database Engine [embedded]
+    echo hsqldb       - HyperSQL Database [client]
+    echo hsqldb_emb   - HyperSQL Database [embedded]
+    echo ibmdb2       - IBM Db2 Database
+    echo informix     - IBM Informix
+    echo mariadb      - MariaDB Server
+    echo mimer        - Mimer SQL
+    echo mssqlserver  - Microsoft SQL Server
+    echo mysql        - MySQL
+    echo mysql_presto - MySQL via Presto
+    echo oracle       - Oracle Database
+    echo postgresql   - PostgreSQL Database
+    echo sqlite       - SQLite [embedded]
     echo -------------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 
@@ -74,6 +75,7 @@ rem ----------------------------------------------------------------------------
 set DB_SEEDER_DEFAULT_ROW_SIZE=1000
 
 set DB_SEEDER_DBMS_EMBEDDED=no
+set DB_SEEDER_DBMS_PRESTO=no
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
@@ -342,6 +344,22 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+    set DB_SEEDER_DBMS=mysql_presto
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
+    set DB_SEEDER_CATALOG=db_seeder.mysql.user
+    set DB_SEEDER_CATALOG_SYS=db_seeder.mysql.system
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=8080
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:presto://
+    set DB_SEEDER_CONTAINER_PORT=8080
+    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_PASSWORD=presto
+    set DB_SEEDER_USER=presto
+)
+
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
     set DB_SEEDER_DBMS=oracle
 )
 
@@ -404,6 +422,7 @@ echo             schemas.
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
+echo DBMS_PRESTO                     : %DB_SEEDER_DBMS_PRESTO%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
@@ -414,6 +433,8 @@ echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------
+echo CATALOG                         : %DB_SEEDER_CATALOG%
+echo CATALOG_SYS                     : %DB_SEEDER_CATALOG_SYS%
 echo CONNECTION_HOST                 : %DB_SEEDER_CONNECTION_HOST%
 echo CONNECTION_PORT                 : %DB_SEEDER_CONNECTION_PORT%
 echo CONNECTION_PREFIX               : %DB_SEEDER_CONNECTION_PREFIX%

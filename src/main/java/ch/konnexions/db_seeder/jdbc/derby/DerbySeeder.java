@@ -22,37 +22,38 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public DerbySeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    init();
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Instantiates a new Apache Derby seeder object.
    *
    * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsOption client, embedded or presto
    */
-  public DerbySeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public DerbySeeder(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    init();
+    dbmsEnum              = DbmsEnum.DERBY;
+
+    if (isClient) {
+      driver  = "org.apache.derby.jdbc.ClientDriver";
+      urlBase = config.getConnectionPrefix() + "//" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + ";create=";
+    } else {
+      driver  = "org.apache.derby.jdbc.EmbeddedDriver";
+      urlBase = config.getConnectionPrefix() + ";databaseName=" + config.getDatabase() + ";create=";
+    }
+
+    urlUser        = urlBase + "false";
+    urlSys         = urlBase + "true";
+
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -72,37 +73,6 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   }
 
   /**
-   * The common initialisation part.
-   */
-  private void init() {
-    if (isDebug) {
-      logger.debug("Start");
-
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-    }
-
-    dbmsEnum = DbmsEnum.DERBY;
-
-    if (isClient) {
-      driver  = "org.apache.derby.jdbc.ClientDriver";
-      urlBase = config.getConnectionPrefix() + "//" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + ";create=";
-    } else {
-      driver  = "org.apache.derby.jdbc.EmbeddedDriver";
-      urlBase = config.getConnectionPrefix() + ";databaseName=" + config.getDatabase() + ";create=";
-    }
-
-    url            = urlBase + "false";
-    urlSetup       = urlBase + "true";
-
-    dropTableStmnt = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  /**
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    */
@@ -116,7 +86,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          driver,
                          true);
 
@@ -146,7 +116,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
 
     disconnect(connection);
 
-    connection = connect(url);
+    connection = connect(urlUser);
 
     if (isDebug) {
       logger.debug("End");

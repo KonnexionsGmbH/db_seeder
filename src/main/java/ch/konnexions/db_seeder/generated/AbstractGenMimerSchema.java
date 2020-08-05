@@ -114,14 +114,23 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
   /**
    * Initialises a new abstract Mimer schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param dbmsTickerSymbol DBMS ticker symbol
    */
   public AbstractGenMimerSchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+    this(dbmsTickerSymbol, "client");
+  }
+
+  /**
+   * Initialises a new abstract Mimer schema object.
+   *
+   * @param dbmsTickerSymbol DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
+   */
+  public AbstractGenMimerSchema(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

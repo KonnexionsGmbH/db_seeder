@@ -623,20 +623,37 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param dbmsTickerSymbol");
-      bw.newLine();
-      bw.append("   *            DBMS ticker symbol");
+      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
       bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String dbmsTickerSymbol) {");
       bw.newLine();
-      bw.append("    super(dbmsTickerSymbol);");
+      bw.append("    this(dbmsTickerSymbol, \"client\");");
+      bw.newLine();
+      bw.append("  }");
+      bw.newLine();
+      bw.newLine();
+      bw.append("  /**");
+      bw.newLine();
+      bw.append("   * Initialises a new abstract ").append(dbmsName).append(" schema object.");
+      bw.newLine();
+      bw.append("   *");
+      bw.newLine();
+      bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol");
+      bw.newLine();
+      bw.append("   * @param dbmsOption client, embedded or presto");
+      bw.newLine();
+      bw.append("   */");
+      bw.newLine();
+      bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String dbmsTickerSymbol, String dbmsOption) {");
+      bw.newLine();
+      bw.append("    super(dbmsTickerSymbol, dbmsOption);");
       bw.newLine();
       bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol);");
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - dbmsOption=\" + dbmsOption);");
       bw.newLine();
       bw.append("    }");
       bw.newLine();
@@ -664,62 +681,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  }");
       bw.newLine();
-
-      if ("derby".equals(tickerSymbolLower) || "hsqldb".equals(tickerSymbolLower) || "h2".equals(tickerSymbolLower)) {
-        bw.newLine();
-        bw.append("  /**");
-        bw.newLine();
-        bw.append("   * Initialises a new abstract ").append(dbmsName).append(" schema object.");
-        bw.newLine();
-        bw.append("   *");
-        bw.newLine();
-        bw.append("   * @param dbmsTickerSymbol");
-        bw.newLine();
-        bw.append("   *            DBMS ticker symbol");
-        bw.newLine();
-        bw.append("   * @param isClient");
-        bw.newLine();
-        bw.append("   *            client database version");
-        bw.newLine();
-        bw.append("   */");
-        bw.newLine();
-        bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String dbmsTickerSymbol, boolean isClient) {");
-        bw.newLine();
-        bw.append("    super(dbmsTickerSymbol, isClient);");
-        bw.newLine();
-        bw.newLine();
-        bw.append("    if (isDebug) {");
-        bw.newLine();
-        bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - isClient=\" + isClient);");
-        bw.newLine();
-        bw.append("    }");
-        bw.newLine();
-        bw.newLine();
-
-        if ("cubrid".equals(tickerSymbolLower) || "mimer".equals(tickerSymbolLower) || "mssqlserver".equals(tickerSymbolLower)) {
-          bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
-              ? "true"
-              : "false").append(", false);");
-        } else {
-          bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
-              ? "true"
-              : "false").append(", ").append(genIsEncodingUTF_8
-                  ? "true"
-                  : "false").append(");");
-        }
-
-        bw.newLine();
-        bw.newLine();
-        bw.append("    if (isDebug) {");
-        bw.newLine();
-        bw.append("      logger.debug(\"End   Constructor\");");
-        bw.newLine();
-        bw.append("    }");
-        bw.newLine();
-        bw.append("  }");
-        bw.newLine();
-      }
-
       bw.newLine();
       bw.newLine();
       bw.append("  protected final void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8) {");
@@ -858,24 +819,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  public AbstractGenSchema(String dbmsTickerSymbol) {");
       bw.newLine();
-      bw.append("    super(dbmsTickerSymbol);");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    if (isDebug) {");
-      bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol);");
-      bw.newLine();
-      bw.append("    }");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    initConstants();");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    if (isDebug) {");
-      bw.newLine();
-      bw.append("      logger.debug(\"End   Constructor\");");
-      bw.newLine();
-      bw.append("    }");
+      bw.append("    this(dbmsTickerSymbol, \"client\");");
       bw.newLine();
       bw.append("  }");
       bw.newLine();
@@ -888,18 +832,18 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
       bw.newLine();
-      bw.append("   * @param isClient client database version");
+      bw.append("   * @param dbmsOption client, embedded or presto");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGenSchema(String dbmsTickerSymbol, boolean isClient) {");
+      bw.append("  public AbstractGenSchema(String dbmsTickerSymbol, String dbmsOption) {");
       bw.newLine();
-      bw.append("    super(dbmsTickerSymbol, isClient);");
+      bw.append("    super(dbmsTickerSymbol, dbmsOption);");
       bw.newLine();
       bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - isClient=\" + isClient);");
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - dbmsOption=\" + dbmsOption);");
       bw.newLine();
       bw.append("    }");
       bw.newLine();
@@ -1108,24 +1052,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  public AbstractGenSeeder(String dbmsTickerSymbol) {");
       bw.newLine();
-      bw.append("    super(dbmsTickerSymbol);");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    if (isDebug) {");
-      bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol);");
-      bw.newLine();
-      bw.append("    }");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    nullFactor = ").append(Integer.toString(genNullFactor)).append(";");
-      bw.newLine();
-      bw.newLine();
-      bw.append("    if (isDebug) {");
-      bw.newLine();
-      bw.append("      logger.debug(\"End   Constructor\");");
-      bw.newLine();
-      bw.append("    }");
+      bw.append("    this(dbmsTickerSymbol, \"client\");");
       bw.newLine();
       bw.append("  }");
       bw.newLine();
@@ -1138,18 +1065,18 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   * @param dbmsTickerSymbol DBMS ticker symbol ");
       bw.newLine();
-      bw.append("   * @param isClient client database version");
+      bw.append("   * @param dbmsOption client, embedded or presto");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGenSeeder(String dbmsTickerSymbol, boolean isClient) {");
+      bw.append("  public AbstractGenSeeder(String dbmsTickerSymbol, String dbmsOption) {");
       bw.newLine();
-      bw.append("    super(dbmsTickerSymbol, isClient);");
+      bw.append("    super(dbmsTickerSymbol, dbmsOption);");
       bw.newLine();
       bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - isClient=\" + isClient);");
+      bw.append("      logger.debug(\"Start Constructor - dbmsTickerSymbol=\" + dbmsTickerSymbol + \" - dbmsOption=\" + dbmsOption);");
       bw.newLine();
       bw.append("    }");
       bw.newLine();

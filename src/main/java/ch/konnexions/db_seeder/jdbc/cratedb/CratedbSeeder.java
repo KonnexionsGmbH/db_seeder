@@ -32,8 +32,8 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/?strict=true&user=";
-    url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
-    urlSetup              = urlBase + config.getUserSys();
+    urlUser               = urlBase + config.getUser() + "&password=" + config.getPassword();
+    urlSys                = urlBase + config.getUserSys();
 
     dropTableStmnt        = "SELECT 'DROP TABLE ' || table_name FROM information_schema.tables WHERE table_schema = 'doc' AND table_name = '?'";
 
@@ -68,7 +68,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          true);
 
     String userName = config.getUser();
@@ -108,7 +108,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          true);
 
     if (isDebug) {

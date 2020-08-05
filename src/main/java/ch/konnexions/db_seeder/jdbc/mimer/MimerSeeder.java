@@ -33,7 +33,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
 
     driver                = "com.mimer.jdbc.Driver";
 
-    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
+    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -66,7 +66,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          driver,
                          config.getUserSys(),
                          config.getPasswordSys(),
@@ -117,7 +117,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword(),

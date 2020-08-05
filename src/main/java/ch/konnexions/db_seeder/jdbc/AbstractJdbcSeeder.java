@@ -58,6 +58,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected final boolean     isClient;
   protected final boolean     isEmbedded;
+  protected final boolean     isPresto;
 
   protected int               nullFactor;
 
@@ -66,9 +67,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Statement         statement          = null;
 
-  protected String            url                = "";
   protected String            urlBase            = "";
-  protected String            urlSetup           = "";
+  protected String            urlSys             = "";
+  protected String            urlUser            = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
@@ -76,46 +77,42 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public AbstractJdbcSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    config     = new Config();
-
-    isClient   = true;
-    isEmbedded = false;
-
-    if (isDebug) {
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Initialises a new abstract JDBC seeder object.
    *
    * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public AbstractJdbcSeeder(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
-    config        = new Config();
+    config = new Config();
 
-    this.isClient = isClient;
-    isEmbedded    = !(this.isClient);
+    if ("embedded".equals(dbmsOption)) {
+      isClient   = false;
+      isEmbedded = true;
+      isPresto   = false;
+    } else if ("presto".equals(dbmsOption)) {
+      isClient   = false;
+      isEmbedded = false;
+      isPresto   = true;
+    } else {
+      isClient   = true;
+      isEmbedded = false;
+      isPresto   = false;
+    }
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
       logger.debug("embedded=" + isEmbedded);
+      logger.debug("presto  =" + isPresto);
 
       logger.debug("End   Constructor");
     }
@@ -124,7 +121,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    *
    * @return the database connection
    */
@@ -139,7 +136,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param autoCommit the auto commit option
    *
    * @return the database connection
@@ -155,7 +152,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    *
    * @return the database connection
@@ -171,7 +168,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    * @param autoCommit the auto commit option
    *
@@ -188,7 +185,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    * @param user the user name
    * @param password the password
@@ -206,7 +203,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlUser the URL
    * @param driver the database driver
    * @param user the user name
    * @param password the password
@@ -233,7 +230,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       if (isDebug) {
-        logger.debug("url   ='" + url + "'");
+        logger.debug("urlUser   ='" + url + "'");
       }
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);

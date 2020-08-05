@@ -31,7 +31,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     dbmsEnum              = DbmsEnum.SQLITE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    url                   = config.getConnectionPrefix() + config.getDatabase();
+    urlUser               = config.getConnectionPrefix() + config.getDatabase();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -64,7 +64,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url);
+    connection = connect(urlUser);
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.

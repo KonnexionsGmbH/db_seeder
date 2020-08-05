@@ -31,7 +31,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     dbmsEnum              = DbmsEnum.ORACLE;
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
+    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -64,7 +64,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          config.getUserSys().toUpperCase(),
                          config.getPasswordSys());
@@ -111,7 +111,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword());

@@ -34,8 +34,8 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     driver                = "com.informix.jdbc.IfxDriver";
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
-    url                   = urlBase + config.getDatabase() + config.getConnectionSuffix();
-    urlSetup              = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();
+    urlUser               = urlBase + config.getDatabase() + config.getConnectionSuffix();
+    urlSys                = urlBase + config.getDatabaseSys() + config.getConnectionSuffix();
 
     dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
 
@@ -70,7 +70,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          driver,
                          config.getUserSys(),
                          config.getPasswordSys(),
@@ -112,7 +112,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          config.getUserSys(),
                          config.getPasswordSys());

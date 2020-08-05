@@ -38,8 +38,8 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
     urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
-    url                   = urlBase + config.getDatabase() + "?user=" + config.getUser() + "&password=" + config.getPassword();
-    urlSetup              = urlBase + config.getDatabaseSys() + "?user=" + config.getUserSys() + "&password=" + config.getPasswordSys();
+    urlUser               = urlBase + config.getDatabase() + "?user=" + config.getUser() + "&password=" + config.getPassword();
+    urlSys                = urlBase + config.getDatabaseSys() + "?user=" + config.getUserSys() + "&password=" + config.getPasswordSys();
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -97,7 +97,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          true);
 
     String databaseName = config.getDatabase();
@@ -138,7 +138,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
     disconnect(connection);
 
-    connection = connect(url);
+    connection = connect(urlUser);
 
     if (isDebug) {
       logger.debug("End");

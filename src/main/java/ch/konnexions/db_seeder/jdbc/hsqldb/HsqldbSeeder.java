@@ -22,37 +22,34 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
    * @param dbmsTickerSymbol DBMS ticker symbol 
    */
   public HsqldbSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    init();
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+    this(dbmsTickerSymbol, "client");
   }
 
   /**
    * Initialises a new HyperSQL seeder object.
    *
    * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param dbmsOption client, embedded or presto
    */
-  public HsqldbSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public HsqldbSeeder(String dbmsTickerSymbol, String dbmsOption) {
+    super(dbmsTickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     this.dbmsTickerSymbol = dbmsTickerSymbol;
 
-    init();
+    dbmsEnum              = DbmsEnum.HSQLDB;
+
+    driver                = "org.hsqldb.jdbc.JDBCDriver";
+
+    if (isClient) {
+      urlUser = config.getConnectionPrefix() + "hsql://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
+          .getConnectionSuffix();
+    } else {
+      urlUser = config.getConnectionPrefix() + "file:" + config.getDatabase() + config.getConnectionSuffix();
+    }
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -72,33 +69,6 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   }
 
   /**
-   * The common initialisation part.
-   */
-  private void init() {
-    if (isDebug) {
-      logger.debug("Start");
-
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-    }
-
-    dbmsEnum = DbmsEnum.HSQLDB;
-
-    driver   = "org.hsqldb.jdbc.JDBCDriver";
-
-    if (isClient) {
-      url = config.getConnectionPrefix() + "hsql://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
-          .getConnectionSuffix();
-    } else {
-      url = config.getConnectionPrefix() + "file:" + config.getDatabase() + config.getConnectionSuffix();
-    }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  /**
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    */
@@ -112,7 +82,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          driver,
                          config.getUserSys().toUpperCase(),
                          "",
@@ -163,7 +133,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          password);
