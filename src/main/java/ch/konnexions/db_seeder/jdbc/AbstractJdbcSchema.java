@@ -34,23 +34,23 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
   /**
    * Initialises a new abstract JDBC schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbolInput DBMS ticker symbol 
    */
-  public AbstractJdbcSchema(String dbmsTickerSymbol) {
-    this(dbmsTickerSymbol, "client");
+  public AbstractJdbcSchema(String dbmsTickerSymbolInput) {
+    this(dbmsTickerSymbolInput, "client");
   }
 
   /**
    * Initialises a new abstract JDBC schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbolInput DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractJdbcSchema(String dbmsTickerSymbol, String dbmsOption) {
-    super(dbmsTickerSymbol, dbmsOption);
+  public AbstractJdbcSchema(String dbmsTickerSymbolInput, String dbmsOption) {
+    super(dbmsTickerSymbolInput, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - dbmsTickerSymbolInput=" + dbmsTickerSymbolInput + " - dbmsOption=" + dbmsOption);
     }
 
     if (isDebug) {

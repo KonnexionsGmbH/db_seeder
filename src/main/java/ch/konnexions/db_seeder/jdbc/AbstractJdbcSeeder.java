@@ -40,34 +40,46 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   private static final int    ENCODING_MAX = 3;
 
   private static final Logger logger       = Logger.getLogger(AbstractJdbcSeeder.class);
+
   /**
    * Gets the catalog name.
    *
-   * @param dbmsTickerSymbol the DBMS ticker symbol
-   * @param catalogType the catalog type
+   * @param dbmsTickerSymbolInput the DBMS ticker symbol
    * 
    * @return the catalog name
    */
-  public static String getCatalogName(String dbmsTickerSymbol, String catalogType) {
-    return "db_seeder." + dbmsTickerSymbol + "." + catalogType + ".properties";
+  public static String getCatalogName(String dbmsTickerSymbolInput) {
+    return "db_seeder_" + dbmsTickerSymbolInput + ".properties";
   }
 
   /**
    * Gets the Presto URL string.
    *
-   * @param dbmsTickerSymbol the DBMS ticker symbol
-   * @param catalogType the catalog type
+   * @param dbmsTickerSymbolInput the DBMS ticker symbol
    * @param connectionHost the connection host name
    * @param connectionPort the connection port
    * 
    * @return the Presto URL string
    */
-  public static String getUrlPresto(String dbmsTickerSymbol, String catalogType, String connectionHost, int connectionPort) {
-    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(dbmsTickerSymbol,
-                                                                                           catalogType);
+  public static String getUrlPresto(String dbmsTickerSymbolInput, String connectionHost, int connectionPort) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(dbmsTickerSymbolInput) + "?user=presto";
   }
 
-  private final boolean       isDebug      = logger.isDebugEnabled();
+  /**
+   * Gets the Presto URL string.
+   *
+   * @param dbmsTickerSymbolInput the DBMS ticker symbol
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port
+   * @param databaseSchema the database schema
+   * 
+   * @return the Presto URL string
+   */
+  public static String getUrlPresto(String dbmsTickerSymbolInput, String connectionHost, int connectionPort, String databaseSchema) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(dbmsTickerSymbolInput) + "/" + databaseSchema + "?user=presto";
+  }
+
+  private final boolean   isDebug            = logger.isDebugEnabled();
 
   private final String    BLOB_FILE          = Paths.get("src",
                                                          "main",
@@ -81,6 +93,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Connection    connection         = null;
   protected String        driver             = "";
+  protected final String  driver_presto      = "io.prestosql.jdbc.PrestoDriver";
 
   protected String        dropTableStmnt     = "";
 
@@ -104,23 +117,23 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbolInput DBMS ticker symbol 
    */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol) {
-    this(dbmsTickerSymbol, "client");
+  public AbstractJdbcSeeder(String dbmsTickerSymbolInput) {
+    this(dbmsTickerSymbolInput, "client");
   }
 
   /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param dbmsTickerSymbolInput DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol, String dbmsOption) {
-    super(dbmsTickerSymbol, dbmsOption);
+  public AbstractJdbcSeeder(String dbmsTickerSymbolInput, String dbmsOption) {
+    super(dbmsTickerSymbolInput, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - dbmsTickerSymbolInput=" + dbmsTickerSymbolInput + " - dbmsOption=" + dbmsOption);
     }
 
     config = new Config();
@@ -1450,7 +1463,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter);
+      String sqlStmnt = "SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter;
+
+      if (isDebug) {
+        logger.debug("sqlStmnt='" + sqlStmnt + "'");
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);

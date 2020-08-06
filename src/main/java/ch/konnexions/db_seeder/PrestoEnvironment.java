@@ -32,7 +32,6 @@ public final class PrestoEnvironment {
   private static String              connectionPrefix = "";
   private static String              connectionSuffix = "";
 
-  private static String              database         = "";
   private static String              directoryCatalogProperty;
 
   private static ArrayList<String>   entries          = new ArrayList<>();
@@ -53,7 +52,7 @@ public final class PrestoEnvironment {
    * @param dbmsTickerSymbol the DBMS ticker symbol
    * @param catalogType the catalog type
    */
-  private static void createCatalog(String dbmsTickerSymbol, String catalogType) {
+  private static void createCatalog(String dbmsTickerSymbol) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -66,7 +65,6 @@ public final class PrestoEnvironment {
     entries.add("connection-password=" + password);
 
     createCatalogFile(dbmsTickerSymbol,
-                      catalogType,
                       entries);
 
     if (isDebug) {
@@ -78,17 +76,15 @@ public final class PrestoEnvironment {
    * Creates a catalog file.
    *
    * @param dbmsTickerSymbol the DBMS ticker symbol
-   * @param catalogType the catalog type
    * @param entries the catalog entries
    */
-  private static void createCatalogFile(String dbmsTickerSymbol, String catalogType, ArrayList<String> entries) {
+  private static void createCatalogFile(String dbmsTickerSymbol, ArrayList<String> entries) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     try {
-      String fileName = directoryCatalogProperty + "/" + AbstractJdbcSeeder.getCatalogName(dbmsTickerSymbol,
-                                                                                           catalogType);
+      String fileName = directoryCatalogProperty + "/" + AbstractJdbcSeeder.getCatalogName(dbmsTickerSymbol);
 
       if (isDebug) {
         logger.debug("fileName='" + fileName + "'");
@@ -163,53 +159,8 @@ public final class PrestoEnvironment {
     }
 
     // =========================================================================
-    // Privileged access variables.
-    // -------------------------------------------------------------------------
-
-    if (osEnvironment.containsKey("DB_SEEDER_MYSQL_DATABASE_SYS")) {
-      database = osEnvironment.get("DB_SEEDER_MYSQL_DATABASE_SYS");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Parameter missing (null): DB_SEEDER_MYSQL_DATABASE_SYS");
-    }
-
-    if (osEnvironment.containsKey("DB_SEEDER_MYSQL_PASSWORD_SYS")) {
-      password = osEnvironment.get("DB_SEEDER_MYSQL_PASSWORD_SYS");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Parameter missing (null): DB_SEEDER_MYSQL_PASSWORD_SYS");
-    }
-
-    if (osEnvironment.containsKey("DB_SEEDER_MYSQL_USER_SYS")) {
-      user = osEnvironment.get("DB_SEEDER_MYSQL_USER_SYS");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Parameter missing (null): DB_SEEDER_MYSQL_USER_SYS");
-    }
-
-    // =========================================================================
-    // Privileged catalog creation.
-    // -------------------------------------------------------------------------
-
-    url = MysqlSeeder.getUrlSys(connectionHost,
-                                connectionPort,
-                                connectionPrefix,
-                                connectionSuffix,
-                                database);
-
-    createCatalog(dbmsTickerSymbol,
-                  "system");
-
-    // =========================================================================
     // Non-Privileged access variables.
     // -------------------------------------------------------------------------
-
-    if (osEnvironment.containsKey("DB_SEEDER_MYSQL_DATABASE")) {
-      database = osEnvironment.get("DB_SEEDER_MYSQL_DATABASE");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Parameter missing (null): DB_SEEDER_MYSQL_DATABASE");
-    }
 
     if (osEnvironment.containsKey("DB_SEEDER_MYSQL_PASSWORD")) {
       password = osEnvironment.get("DB_SEEDER_MYSQL_PASSWORD");
@@ -229,14 +180,12 @@ public final class PrestoEnvironment {
     // Non-Privileged catalog creation.
     // -------------------------------------------------------------------------
 
-    url = MysqlSeeder.getUrlSys(connectionHost,
-                                connectionPort,
-                                connectionPrefix,
-                                connectionSuffix,
-                                database);
+    url = MysqlSeeder.getUrlPresto(connectionHost,
+                                   connectionPort,
+                                   connectionPrefix,
+                                   connectionSuffix);
 
-    createCatalog(dbmsTickerSymbol,
-                  "user");
+    createCatalog(dbmsTickerSymbol);
 
     if (isDebug) {
       logger.debug("End");

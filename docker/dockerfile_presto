@@ -48,18 +48,17 @@ RUN wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-server/${VER
  && mv presto-server-${VERSION_PRESTO} presto-server \
  && mkdir presto-server/etc \
  && mkdir presto-server/etc/catalog
-
-COPY presto/base/* presto-server/etc/
-COPY presto/catalog/* presto-server/etc/catalog/
+ 
+COPY presto/base/* /presto-server/etc/
+COPY presto/catalog/* /presto-server/etc/catalog/
 
 # presto - Command-Line Interface ----------------------------------------------
 RUN wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-cli/${VERSION_PRESTO}/presto-cli-${VERSION_PRESTO}-executable.jar \
  && mv presto-cli-${VERSION_PRESTO}-executable.jar /presto-server/bin/presto \
- && chmod +x /presto-server/bin/presto \
- && groupadd presto --gid 1000 \
- && useradd presto --uid 1000 --gid 1000 \
- && chown -R "presto:presto" /presto-server 
- 
+ && chmod +x /presto-server/bin/presto
+
+ENV PATH=/presto-server/bin/:${PATH}
+
 # Python -----------------------------------------------------------------------
 RUN apt-get install -qy python3 \
  && apt-get install -qy python3-venv \
@@ -67,8 +66,6 @@ RUN apt-get install -qy python3 \
  && wget --quiet https://bootstrap.pypa.io/get-pip.py
  
 ENV PATH=/presto-server/bin/:${PATH}
-   
-RUN presto-server/bin/launcher start
 
 # Cleanup ----------------------------------------------------------------------
 RUN rm -f *.gz
@@ -89,16 +86,11 @@ RUN echo "=====================================================================>
  && lsb_release -a \
  && echo "=====================================================================> Version  java: " \
  && java -version \
- && echo "=====================================================================> Version  presto: " \
- && presto --version \
  && echo "=====================================================================> Version  python3: " \
  && python3 --version \
  && echo "=====================================================================> Version  wget: " \
  && wget --version 
 
 EXPOSE 8080
-USER presto:presto
 
-HEALTHCHECK CMD nc -z localhost 8080 || exit 1
-
-CMD ["./presto-server/bin/launcher", "run"] 
+CMD ["presto-server/bin/launcher", "run"] 
