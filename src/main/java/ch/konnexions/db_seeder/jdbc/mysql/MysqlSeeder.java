@@ -18,7 +18,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   private static final Logger logger = Logger.getLogger(MysqlSeeder.class);
 
   /**
-   * Gets the connection URL for Presto.
+   * Gets the connection URL for Presto (used by PrestoEnvironment).
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
@@ -42,7 +42,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * 
    * @return the connection URL for privileged access
    */
-  public final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String databaseSys) {
+  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String databaseSys) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + connectionSuffix;
   }
 
@@ -53,11 +53,11 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param databaseSys the database with non-privileged access
+   * @param database the database with non-privileged access
    * 
    * @return the connection URL for non-privileged access
    */
-  public final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
   }
 
@@ -66,49 +66,47 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   /**
    * Instantiates a new MySQL seeder object.
    * 
-   * @param dbmsTickerSymbolInput DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public MysqlSeeder(String dbmsTickerSymbolInput) {
-    this(dbmsTickerSymbolInput, "client");
+  public MysqlSeeder(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
   }
 
   /**
    * Instantiates a new MySQL seeder object.
    * 
-   * @param dbmsTickerSymbolInput DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public MysqlSeeder(String dbmsTickerSymbolInput, String dbmsOption) {
-    super(dbmsTickerSymbolInput, dbmsOption);
+  public MysqlSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbolInput=" + dbmsTickerSymbolInput + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    dbmsEnum         = DbmsEnum.MYSQL;
-    dbmsTickerSymbol = dbmsEnum.getTickerSymbol();
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.MYSQL;
 
-    driver           = "com.mysql.cj.jdbc.Driver";
-
-    urlSys           = getUrlSys(config.getConnectionHost(),
-                                 config.getConnectionPort(),
-                                 config.getConnectionPrefix(),
-                                 config.getConnectionSuffix(),
-                                 config.getDatabaseSys());
+    driver   = "com.mysql.cj.jdbc.Driver";
 
     if (isPresto) {
-      urlUser = AbstractJdbcSeeder.getUrlPresto(dbmsTickerSymbolInput,
-                                                config.getConnectionHostPresto(),
-                                                config.getConnectionPortPresto(),
-                                                config.getDatabase());
-    } else {
-      urlUser = getUrlUser(config.getConnectionHost(),
-                           config.getConnectionPort(),
-                           config.getConnectionPrefix(),
-                           config.getConnectionSuffix(),
-                           config.getDatabase());
+      urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
+                                                  config.getConnectionHostPresto(),
+                                                  config.getConnectionPortPresto(),
+                                                  config.getDatabase());
     }
+
+    urlSys  = getUrlSys(config.getConnectionHost(),
+                        config.getConnectionPort(),
+                        config.getConnectionPrefix(),
+                        config.getConnectionSuffix(),
+                        config.getDatabaseSys());
+
+    urlUser = getUrlUser(config.getConnectionHost(),
+                         config.getConnectionPort(),
+                         config.getConnectionPrefix(),
+                         config.getConnectionSuffix(),
+                         config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -180,18 +178,50 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
 
-    connection = isPresto
-        ? connect(urlUser,
-                  driver_presto)
-        : connect(urlUser,
-                  null,
-                  userName,
-                  config.getPassword());
+    connection = connect(urlUser,
+                         null,
+                         userName,
+                         config.getPassword());
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect - Presto.
+    // -----------------------------------------------------------------------
+
+    if (isPresto) {
+      disconnect(connection);
+
+      connection = connect(urlPresto,
+                           driver_presto,
+                           true);
+
+      try {
+        statement = connection.createStatement();
+
+        executeDdlStmnts("USE " + getCatalogName(tickerSymbolLower) + "." + databaseName);
+
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+
+    }
 
     if (isDebug) {
       logger.debug("End");

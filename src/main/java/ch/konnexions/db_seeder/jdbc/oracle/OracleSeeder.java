@@ -14,25 +14,42 @@ import ch.konnexions.db_seeder.generated.AbstractGenOracleSchema;
  */
 public final class OracleSeeder extends AbstractGenOracleSchema {
 
-  private static final Logger logger  = Logger.getLogger(OracleSeeder.class);
-  private final boolean       isDebug = logger.isDebugEnabled();
+  private static final Logger logger = Logger.getLogger(OracleSeeder.class);
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionService the connection service
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Oracle seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public OracleSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public OracleSeeder(String tickerSymbolExtern) {
+    super(tickerSymbolExtern);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum              = DbmsEnum.ORACLE;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.ORACLE;
 
-    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
+    urlUser  = getUrlUser(config.getConnectionHost(),
+                          config.getConnectionPort(),
+                          config.getConnectionPrefix(),
+                          config.getConnectionService());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -107,7 +124,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
@@ -116,6 +133,17 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
                          null,
                          userName,
                          config.getPassword());
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
       logger.debug("End");

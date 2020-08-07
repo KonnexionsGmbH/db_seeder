@@ -24,14 +24,14 @@ rem ----------------------------------------------------------------------------
 rem Presto Distributed Query Engine      https://hub.docker.com/r/prestosql/presto
 rem ------------------------------------------------------------------------------
 
-echo Docker stop presto ......................................... before:
-docker ps    --filter "name=db_seeder_presto" | grep -q . && docker stop db_seeder_presto
-set DB_SEEDER_PRESTO_RUNNING=false
-docker ps -a --filter "name=db_seeder_presto" | grep -q . && docker rm db_seeder_presto
-echo ............................................................. after:
+docker ps    | grep -r "db_seeder_presto" && goto CONTAINER_RUNNING
+docker ps -a | grep -r "db_seeder_presto" && goto CONTAINER_START
+
+:IMAGE_PULL
 
 lib\Gammadyne\timer.exe
-echo Start Presto Distributed Query Engine
+echo --------------------------------------------------------------------------------
+echo Start Presto Distributed Query Engine - creating and starting the container
 echo --------------------------------------------------------------------------------
 echo Docker create presto (Presto Distributed Query Engine %DB_SEEDER_RELEASE%)
 docker create --name db_seeder_presto -p 8080%:8080/tcp konnexionsgmbh/db_seeder_presto:%DB_SEEDER_RELEASE%
@@ -42,6 +42,27 @@ ping -n 30 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo Docker Presto Distributed Query Engine was ready in %CONSUMED%
+
+GOTO EXIT
+
+:CONTAINER_RUNNING
+
+echo --------------------------------------------------------------------------------
+echo Start Presto Distributed Query Engine - the container is already running
+echo --------------------------------------------------------------------------------
+docker ps
+
+GOTO EXIT
+
+:CONTAINER_START
+
+echo --------------------------------------------------------------------------------
+echo Start Presto Distributed Query Engine - starting the container
+echo --------------------------------------------------------------------------------
+docker start db_seeder_presto
+docker ps
+
+:EXIT
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

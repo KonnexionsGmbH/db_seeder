@@ -76,11 +76,11 @@ public abstract class AbstractDbmsSeeder {
 
   public static final Map<String, String[]> dbmsDetails                       = initDbmsDetails();
 
-  //  public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
+  public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
   //  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
-  private static final int                  DBMS_DETAILS_NAME                 = 3;
-  private static final int                  DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
-  //  public static final int                   DBMS_DETAILS_TICKER_SYMBOL        = 0;
+  private static final int                   DBMS_DETAILS_NAME                 = 3;
+  private static final int                   DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
+  public static final int                   DBMS_DETAILS_TICKER_SYMBOL_LOWER  = 0;
 
   public static final String                FORMAT_IDENTIFIER                 = "%-10d";
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
@@ -239,14 +239,16 @@ public abstract class AbstractDbmsSeeder {
     return dbmsDetails;
   }
 
-  protected final boolean isDebug = logger.isDebugEnabled();
+  private final boolean isDebug = logger.isDebugEnabled();
 
   protected Config        config;
 
   protected DbmsEnum      dbmsEnum;
-  protected String        dbmsTickerSymbol;
 
   protected String        identifierDelimiter;
+
+  protected String        tickerSymbolExtern;
+  protected String        tickerSymbolLower;
 
   /**
    * Initialises a new abstract DBMS seeder object.
@@ -258,26 +260,20 @@ public abstract class AbstractDbmsSeeder {
   /**
    * Initialises a new abstract DBMS seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   */
-  public AbstractDbmsSeeder(String dbmsTickerSymbol) {
-    this(dbmsTickerSymbol, "client");
-  }
-
-  /**
-   * Initialises a new abstract DBMS seeder object.
-   *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractDbmsSeeder(String dbmsTickerSymbol, String dbmsOption) {
+  public AbstractDbmsSeeder(String tickerSymbolExtern, String dbmsOption) {
     super();
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    identifierDelimiter = dbmsDetails.get(dbmsTickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    this.tickerSymbolExtern = tickerSymbolExtern;
+
+    identifierDelimiter     = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    tickerSymbolLower       = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
 
     if (isDebug) {
       logger.debug("End   Constructor");

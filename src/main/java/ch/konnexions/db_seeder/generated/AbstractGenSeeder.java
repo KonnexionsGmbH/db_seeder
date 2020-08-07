@@ -2,7 +2,6 @@ package ch.konnexions.db_seeder.generated;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,23 +21,14 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Initialises a new abstract generated seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   */
-  public AbstractGenSeeder(String dbmsTickerSymbol) {
-    this(dbmsTickerSymbol, "client");
-  }
-
-  /**
-   * Initialises a new abstract generated seeder object.
-   *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenSeeder(String dbmsTickerSymbol, String dbmsOption) {
-    super(dbmsTickerSymbol, dbmsOption);
+  public AbstractGenSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     nullFactor = 4;
@@ -49,7 +39,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type BIGINT.
+   * Create a content value of type BIGINT.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -79,7 +69,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type BLOB.
+   * Create a content value of type BLOB.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -95,7 +85,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type CLOB.
+   * Create a content value of type CLOB.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -111,7 +101,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type TIMESTAMP.
+   * Create a content value of type TIMESTAMP.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -127,7 +117,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type VARCHAR.
+   * Create a content value of type VARCHAR.
    *
    * @param tableName         the table name
    * @param columnName        the column name

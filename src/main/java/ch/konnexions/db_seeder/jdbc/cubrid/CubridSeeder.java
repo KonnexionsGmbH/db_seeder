@@ -14,29 +14,74 @@ import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
  */
 public final class CubridSeeder extends AbstractGenCubridSchema {
 
-  private static final Logger logger  = Logger.getLogger(CubridSeeder.class);
-  private final boolean       isDebug = logger.isDebugEnabled();
+  private static final Logger logger = Logger.getLogger(CubridSeeder.class);
+
+  /**
+   * Gets the connection URL for privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionSuffix the connection suffix
+   * @param database the database 
+   * @param userSys the user with privileged access
+   * 
+   * @return the connection URL for privileged access
+   */
+  private final static String getUrlSys(String connectionHost,
+                                       int connectionPort,
+                                       String connectionPrefix,
+                                       String connectionSuffix,
+                                       String database,
+                                       String userSys) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + userSys.toUpperCase() + connectionSuffix;
+  }
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionSuffix the connection suffix
+   * @param database the database
+   * 
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + connectionSuffix;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new CUBRID seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public CubridSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public CubridSeeder(String tickerSymbolExtern) {
+    super(tickerSymbolExtern);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum              = DbmsEnum.CUBRID;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.CUBRID;
 
-    driver                = "cubrid.jdbc.driver.CUBRIDDriver";
+    driver   = "cubrid.jdbc.driver.CUBRIDDriver";
 
-    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + ":" + config.getDatabase() + ":";
-    urlUser               = urlBase + config.getConnectionSuffix();
-    urlSys                = urlBase + config.getUserSys().toUpperCase() + config.getConnectionSuffix();
+    urlSys   = getUrlSys(config.getConnectionHost(),
+                         config.getConnectionPort(),
+                         config.getConnectionPrefix(),
+                         config.getConnectionSuffix(),
+                         config.getDatabase(),
+                         config.getUserSys());
+
+    urlUser  = getUrlUser(config.getConnectionHost(),
+                          config.getConnectionPort(),
+                          config.getConnectionPrefix(),
+                          config.getConnectionSuffix(),
+                          config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -106,7 +151,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
@@ -115,6 +160,17 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
                          null,
                          userName,
                          config.getPassword());
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
       logger.debug("End");

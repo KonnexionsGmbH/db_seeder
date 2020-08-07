@@ -20,6 +20,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+
 /**
  * This class is used to record the statisticss of the db_seeder runs.
  */
@@ -29,7 +31,6 @@ public final class Statistics {
 
   private final Config                config;
 
-  private final String                dbmsTickerSymbol;
   private final Map<String, String[]> dbmsValues;
 
   private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
@@ -37,17 +38,19 @@ public final class Statistics {
   private final LocalDateTime         startDateTime;
   private CSVPrinter                  statisticsFile;
 
+  private final String                tickerSymbolExtern;
+
   /**
    * Constructs a Statistics object using the given {@link Config} object.
    * @param config the {@link Config} object
-   * @param dbmsTickerSymbol DBMS ticker symbol the DBMS ticker symbol
    * @param dbmsValues the DBMS related values DBMS name and client / embedded remark
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public Statistics(Config config, String dbmsTickerSymbol, Map<String, String[]> dbmsValues) {
-    this.config           = config;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
-    this.dbmsValues       = dbmsValues;
-    this.startDateTime    = LocalDateTime.now();
+  public Statistics(Config config, String tickerSymbolExtern, Map<String, String[]> dbmsValues) {
+    this.config             = config;
+    this.dbmsValues         = dbmsValues;
+    this.startDateTime      = LocalDateTime.now();
+    this.tickerSymbolExtern = tickerSymbolExtern;
 
     createStatisticsFile();
 
@@ -62,9 +65,9 @@ public final class Statistics {
     try {
       LocalDateTime endDateTime = LocalDateTime.now();
 
-      statisticsFile.printRecord(dbmsTickerSymbol,
-                                 dbmsValues.get(dbmsTickerSymbol)[0],
-                                 dbmsValues.get(dbmsTickerSymbol)[1],
+      statisticsFile.printRecord(tickerSymbolExtern,
+                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER],
+                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
                                  Duration.between(startDateTime,
                                                   endDateTime).toSeconds(),
                                  startDateTime.format(formatter),
@@ -85,7 +88,7 @@ public final class Statistics {
   }
 
   /**
-   * Creates a new statistics file if none exists yet.
+   * Create a new statistics file if none exists yet.
    */
   @SuppressWarnings("resource")
   private void createStatisticsFile() {
@@ -135,7 +138,7 @@ public final class Statistics {
 
       if (!(isFileExisting)) {
         MessageHandling.abortProgram(logger,
-                                     "Statistics file \"" + statisticsName + "\" is missing");
+                                     "Program abort: statistics file \"" + statisticsName + "\" is missing");
       }
 
       BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, true));

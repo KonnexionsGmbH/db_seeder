@@ -14,30 +14,48 @@ import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
  */
 public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
-  private static final Logger logger  = Logger.getLogger(FirebirdSeeder.class);
-  private final boolean       isDebug = logger.isDebugEnabled();
+  private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionSuffix the connection suffix
+   * @param database the database with non-privileged access
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Firebird seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public FirebirdSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public FirebirdSeeder(String tickerSymbolExtern) {
+    super(tickerSymbolExtern);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum              = DbmsEnum.FIREBIRD;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum       = DbmsEnum.FIREBIRD;
 
-    driver                = "org.firebirdsql.jdbc.FBDriver";
+    driver         = "org.firebirdsql.jdbc.FBDriver";
 
-    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + config
-        .getConnectionSuffix();
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$OWNER_NAME = 'userName' AND RDB$RELATION_NAME = '?'";
 
-    dropTableStmnt        = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$OWNER_NAME = 'userName' AND RDB$RELATION_NAME = '?'";
+    urlUser        = getUrlUser(config.getConnectionHost(),
+                                config.getConnectionPort(),
+                                config.getConnectionPrefix(),
+                                config.getConnectionSuffix(),
+                                config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -112,7 +130,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
@@ -122,6 +140,17 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
                          userName,
                          config.getPassword(),
                          true);
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
       logger.debug("End");

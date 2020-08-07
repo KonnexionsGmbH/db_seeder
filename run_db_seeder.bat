@@ -113,7 +113,7 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=33000
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:cubrid:
     set DB_SEEDER_CONNECTION_SUFFIX=::
     set DB_SEEDER_CONTAINER_PORT=33000
     set DB_SEEDER_DATABASE=kxn_db
@@ -331,7 +331,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
-    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC
+    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC&failOverReadOnly=false
     set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys
@@ -351,7 +351,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
-    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC
+    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false
     set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys

@@ -48,7 +48,7 @@ if [ "$DB_SEEDER_DBMS" = "cratedb" ]; then
         exit 255
     fi
 
-    sleep 10
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER CrateDB was ready in $((end - start)) seconds"
@@ -93,7 +93,7 @@ if [ "$DB_SEEDER_DBMS" = "derby" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -118,7 +118,7 @@ if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -144,7 +144,7 @@ if [ "$DB_SEEDER_DBMS" = "h2" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -170,7 +170,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -195,7 +195,7 @@ if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
         exit 255
     fi
 
-    sleep 240
+    sleep 300
 
     end=$(date +%s)
     echo "DOCKER IBM Db2 Database was ready in $((end - start)) seconds"
@@ -217,7 +217,7 @@ if [ "$DB_SEEDER_DBMS" = "informix" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 10; done
+    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -266,7 +266,7 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
         exit 255
     fi
 
-    sleep 20
+    sleep 30
 
     docker exec -i db_seeder_db bash < scripts/run_db_seeder_setup_mimer.input
 
@@ -290,7 +290,7 @@ if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
         exit 255
     fi
 
-    sleep 20
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
@@ -358,7 +358,7 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
         exit 255
     fi
 
-    sleep 20
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"

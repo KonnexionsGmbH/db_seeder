@@ -2,7 +2,6 @@ package ch.konnexions.db_seeder.generated;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -28,23 +27,14 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
   /**
    * Initialises a new abstract generated schema object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   */
-  public AbstractGenSchema(String dbmsTickerSymbol) {
-    this(dbmsTickerSymbol, "client");
-  }
-
-  /**
-   * Initialises a new abstract generated schema object.
-   *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenSchema(String dbmsTickerSymbol, String dbmsOption) {
-    super(dbmsTickerSymbol, dbmsOption);
+  public AbstractGenSchema(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     initConstants();
@@ -81,15 +71,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     maxRowSizes        = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
-                               1800);
+                               10);
                            put(TABLE_NAME_COMPANY,
-                               5400);
+                               10);
                            put(TABLE_NAME_COUNTRY,
-                               200);
+                               10);
                            put(TABLE_NAME_COUNTRY_STATE,
-                               600);
+                               10);
                            put(TABLE_NAME_TIMEZONE,
-                               11);
+                               10);
                          }
                        };
 
