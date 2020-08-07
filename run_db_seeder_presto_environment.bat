@@ -15,15 +15,12 @@ set DB_SEEDER_RELEASE=2.1.0
 set DB_SEEDER_VERSION_PRESTO=339
 
 set DB_SEEDER_MYSQL_CONNECTION_HOST=localhost
+set DB_SEEDER_MYSQL_CONNECTION_HOST=192.168.1.109
 set DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 set DB_SEEDER_MYSQL_CONNECTION_PREFIX=jdbc:mysql://
-set DB_SEEDER_MYSQL_CONNECTION_SUFFIX=?serverTimezone=UTC
-set DB_SEEDER_MYSQL_DATABASE=kxn_db
-set DB_SEEDER_MYSQL_DATABASE_SYS=sys
+set DB_SEEDER_MYSQL_CONNECTION_SUFFIX=?serverTimezone=UTC&failOverReadOnly=false
 set DB_SEEDER_MYSQL_PASSWORD=mysql
-set DB_SEEDER_MYSQL_PASSWORD_SYS=mysql
 set DB_SEEDER_MYSQL_USER=kxn_user
-set DB_SEEDER_MYSQL_USER_SYS=root
 
 set LOG_FILE=run_db_seeder_presto_environment.log
 
@@ -35,7 +32,7 @@ echo.
 echo Please wait ...
 echo.
 
-rem wwe > %LOG_FILE% 2>&1 (
+> %LOG_FILE% 2>&1 (
 
     echo ================================================================================
     echo Start %0
@@ -53,12 +50,8 @@ rem wwe > %LOG_FILE% 2>&1 (
     echo MYSQL_CONNECTION_PORT      : %DB_SEEDER_MYSQL_CONNECTION_PORT%
     echo MYSQL_CONNECTION_PREFIX    : %DB_SEEDER_MYSQL_CONNECTION_PREFIX%
     echo MYSQL_CONNECTION_SUFFIX    : %DB_SEEDER_MYSQL_CONNECTION_SUFFIX%
-    echo MYSQL_DATABASE             : %DB_SEEDER_MYSQL_DATABASE%
-    echo MYSQL_DATABASE_SYS         : %DB_SEEDER_MYSQL_DATABASE_SYS%
     echo MYSQL_PASSWORD             : %DB_SEEDER_MYSQL_PASSWORD%
-    echo MYSQL_PASSWORD_SYS         : %DB_SEEDER_MYSQL_PASSWORD_SYS%
     echo MYSQL_USER                 : %DB_SEEDER_MYSQL_USER%
-    echo MYSQL_USER_SYS             : %DB_SEEDER_MYSQL_USER_SYS%
     echo --------------------------------------------------------------------------------
     echo JAVA_CLASSPATH             : %DB_SEEDER_JAVA_CLASSPATH%
     echo --------------------------------------------------------------------------------
@@ -97,4 +90,4 @@ rem wwe > %LOG_FILE% 2>&1 (
     echo --------------------------------------------------------------------------------
     echo End   %0
     echo ================================================================================
-rem wwe )
+)

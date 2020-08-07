@@ -31,7 +31,7 @@ docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=mssqlserver
 echo Docker start db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
-ping -n 20 127.0.0.1>nul
+ping -n 30 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER Microsoft SQL Server was ready in %CONSUMED%

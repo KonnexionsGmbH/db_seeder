@@ -14,27 +14,44 @@ import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
  */
 public final class MimerSeeder extends AbstractGenMimerSchema {
 
-  private static final Logger logger  = Logger.getLogger(MimerSeeder.class);
-  private final boolean       isDebug = logger.isDebugEnabled();
+  private static final Logger logger = Logger.getLogger(MimerSeeder.class);
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param databaseSys the database with privileged access
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String databaseSys) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Mimer SQL seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public MimerSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public MimerSeeder(String tickerSymbolExtern) {
+    super(tickerSymbolExtern);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum              = DbmsEnum.MIMER;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.MIMER;
 
-    driver                = "com.mimer.jdbc.Driver";
+    driver   = "com.mimer.jdbc.Driver";
 
-    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabaseSys();
+    urlUser  = getUrlUser(config.getConnectionHost(),
+                          config.getConnectionPort(),
+                          config.getConnectionPrefix(),
+                          config.getDatabaseSys());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -113,7 +130,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
@@ -123,6 +140,17 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
                          userName,
                          config.getPassword(),
                          true);
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
       logger.debug("End");

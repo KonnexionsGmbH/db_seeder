@@ -18,7 +18,7 @@ export DB_SEEDER_IS_ECLIPSE_INSTALLED=true
 export DB_SEEDER_ECLIPSE_VERSION_1=2020-06
 export DB_SEEDER_ECLIPSE_VERSION_2=R
 
-export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
+export DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
 echo "================================================================================"
 echo "Start $0"

@@ -106,7 +106,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "cubrid" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=33000
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:cubrid:
     export DB_SEEDER_CONNECTION_SUFFIX=::
     export DB_SEEDER_CONTAINER_PORT=33000
     export DB_SEEDER_DATABASE=kxn_db

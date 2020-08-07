@@ -40,34 +40,46 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   private static final int    ENCODING_MAX = 3;
 
   private static final Logger logger       = Logger.getLogger(AbstractJdbcSeeder.class);
+
   /**
    * Gets the catalog name.
    *
-   * @param dbmsTickerSymbol the DBMS ticker symbol
-   * @param catalogType the catalog type
+   * @param tickerSymbolLower the lower case DBMS ticker symbol
    * 
    * @return the catalog name
    */
-  public static String getCatalogName(String dbmsTickerSymbol, String catalogType) {
-    return "db_seeder." + dbmsTickerSymbol + "." + catalogType + ".properties";
+  public static String getCatalogName(String tickerSymbolLower) {
+    return "db_seeder_" + tickerSymbolLower;
   }
 
   /**
    * Gets the Presto URL string.
    *
-   * @param dbmsTickerSymbol the DBMS ticker symbol
-   * @param catalogType the catalog type
+   * @param tickerSymbolLower the lower case DBMS ticker symbol
    * @param connectionHost the connection host name
    * @param connectionPort the connection port
    * 
    * @return the Presto URL string
    */
-  public static String getUrlPresto(String dbmsTickerSymbol, String catalogType, String connectionHost, int connectionPort) {
-    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(dbmsTickerSymbol,
-                                                                                           catalogType);
+  public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "?user=presto";
   }
 
-  private final boolean       isDebug      = logger.isDebugEnabled();
+  /**
+   * Gets the Presto URL string.
+   *
+   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port
+   * @param databaseSchema the database schema
+   * 
+   * @return the Presto URL string
+   */
+  public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=presto";
+  }
+
+  private final boolean   isDebug            = logger.isDebugEnabled();
 
   private final String    BLOB_FILE          = Paths.get("src",
                                                          "main",
@@ -78,49 +90,40 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                          "main",
                                                          "resources").toAbsolutePath().toString() + File.separator + "clob.md";
   private final String    CLOB_DATA          = readClobFile();
-
   protected Connection    connection         = null;
-  protected String        driver             = "";
 
+  protected String        driver             = "";
+  protected final String  driver_presto      = "io.prestosql.jdbc.PrestoDriver";
   protected String        dropTableStmnt     = "";
 
   protected Properties    encodedColumnNames = new Properties();
-  protected final boolean isClient;
-  protected final boolean isEmbedded;
 
+  protected final boolean isClient;
+  private final boolean isEmbedded;
   protected final boolean isPresto;
 
   protected int           nullFactor;
-  private final Random    randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
+  private final Random    randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
   private ResultSet       resultSet          = null;
 
   protected Statement     statement          = null;
-  protected String        urlBase            = "";
-  protected String        urlSys             = "";
 
+  protected String        urlPresto          = "";
+  protected String        urlSys             = "";
   protected String        urlUser            = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol) {
-    this(dbmsTickerSymbol, "client");
-  }
-
-  /**
-   * Initialises a new abstract JDBC seeder object.
-   *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol, String dbmsOption) {
-    super(dbmsTickerSymbol, dbmsOption);
+  public AbstractJdbcSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     config = new Config();
@@ -151,7 +154,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param urlUser the URL
+   * @param url the URL
    *
    * @return the database connection
    */
@@ -166,7 +169,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param urlUser the URL
+   * @param url the URL
    * @param autoCommit the auto commit option
    *
    * @return the database connection
@@ -182,7 +185,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param urlUser the URL
+   * @param url the URL
    * @param driver the database driver
    *
    * @return the database connection
@@ -198,7 +201,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param urlUser the URL
+   * @param url the URL
    * @param driver the database driver
    * @param autoCommit the auto commit option
    *
@@ -215,7 +218,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param urlUser the URL
+   * @param url the URL
    * @param driver the database driver
    * @param user the user name
    * @param password the password
@@ -233,7 +236,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param urlUser the URL
+   * @param url the URL
    * @param driver the database driver
    * @param user the user name
    * @param password the password
@@ -260,8 +263,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       if (isDebug) {
-        logger.debug("urlUser   ='" + url + "'");
+        logger.debug("url   ='" + url + "'");
       }
+
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);
       } else {
@@ -328,11 +332,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Creates the column names with encoding variations.
+   * Create the column names with encoding variations.
    *
    * @param isEncodingIso_8859_1 the is encoding ISO_8859_1 8859 1
    * @param isEncodingUtf_8 the is encoding UTF_8 required
-   * @return the properties
    */
   protected abstract void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8);
 
@@ -344,7 +347,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, dbmsTickerSymbol, dbmsDetails);
+    Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
 
     setupDatabase();
 
@@ -362,7 +365,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   private void createData(String tableName) {
-
     int rowMaxSize = getMaxRowSize(tableName);
 
     if (isDebug) {
@@ -371,26 +373,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                                                                 rowMaxSize) + " rows to be created");
     }
 
-    tableName = tableName.toUpperCase();
+    String editedTableName;
 
-    try {
-      statement = connection.createStatement();
-
-      String sqlStmnt = createDdlStmnt(tableName);
-
-      if (isDebug) {
-        logger.debug("next SQL statement=" + sqlStmnt);
-      }
-
-      statement.execute(sqlStmnt);
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
+    if ("mysql".equals(tickerSymbolLower)) {
+      editedTableName = tableName.toLowerCase();
+    } else {
+      editedTableName = tableName.toUpperCase();
     }
 
-    final int countExisting = countData(tableName);
+    final int countExisting = countData(editedTableName);
 
     if (countExisting != 0) {
       if (isDebug) {
@@ -407,13 +398,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                      rowMaxSize,
                      pkList);
 
-    if (!(dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.FIREBIRD)) {
-      try {
+    try {
+      if (!(connection.getAutoCommit())) {
         connection.commit();
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
     }
 
     pkLists.put(tableName,
@@ -421,7 +412,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     pkListSizes.put(tableName,
                     pkList.size());
 
-    validateNumberRows(tableName,
+    validateNumberRows(editedTableName,
                        rowMaxSize);
 
     if (isDebug) {
@@ -434,7 +425,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + tableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
+    String editedTableName;
+
+    if ("mysql".equals(tickerSymbolLower)) {
+      editedTableName = tableName.toLowerCase();
+    } else {
+      editedTableName = tableName.toUpperCase();
+    }
+
+    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
 
     if (isDebug) {
       logger.debug("sql='" + sqlStmnt + "'");
@@ -455,7 +454,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
-        preparedStatement.executeUpdate();
+        int count = preparedStatement.executeUpdate();
+
+        if (count != 1) {
+          MessageHandling.abortProgram(logger,
+                                       "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
+        }
 
         pkList.add(rowNo);
       } catch (SQLException e) {
@@ -475,7 +479,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       try {
         statement = connection.createStatement();
 
-        statement.execute("REFRESH TABLE " + tableName);
+        statement.execute("REFRESH TABLE " + editedTableName);
 
         statement.close();
       } catch (SQLException e) {
@@ -497,6 +501,38 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @return the 'CREATE TABLE' statement
    */
   protected abstract String createDdlStmnt(String tableName);
+
+  /**
+   * Create the all database tables.
+   */
+  protected final void createSchema() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    for (String tableName : TABLE_NAMES_CREATE) {
+      try {
+        statement = connection.createStatement();
+
+        String sqlStmnt = createDdlStmnt(tableName);
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
+
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
 
   /**
    * Close the database connection.
@@ -918,7 +954,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param lowerRange        the lower range
    * @param upperRange        the upper range
    * @param validValues       the valid values
-   * @return 
    */
   protected void prepStmntColBigint(PreparedStatement preparedStatement,
                                     String tableName,
@@ -1073,7 +1108,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setString(columnPos,
                                   getContentClob(tableName,
@@ -1385,7 +1420,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       if (size == 0) {
         MessageHandling.abortProgram(logger,
-                                     "No BLOB data found");
+                                     "Program abort: no BLOB data found");
       }
 
       fileInputStream.close();
@@ -1450,7 +1485,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter);
+      String sqlStmnt = "SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter;
+
+      if (isDebug) {
+        logger.debug("sqlStmnt='" + sqlStmnt + "'");
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);

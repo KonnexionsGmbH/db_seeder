@@ -14,27 +14,44 @@ import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
  */
 public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
-  private static final Logger logger  = Logger.getLogger(Ibmdb2Seeder.class);
-  private final boolean       isDebug = logger.isDebugEnabled();
+  private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param database the database 
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new IBM Db2 seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public Ibmdb2Seeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public Ibmdb2Seeder(String tickerSymbolExtern) {
+    super(tickerSymbolExtern);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum              = DbmsEnum.IBMDB2;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum       = DbmsEnum.IBMDB2;
 
-    urlUser               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = 'schemaName' AND TABNAME = '?'";
 
-    dropTableStmnt        = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = 'schemaName' AND TABNAME = '?'";
+    urlUser        = getUrlUser(config.getConnectionHost(),
+                                config.getConnectionPort(),
+                                config.getConnectionPrefix(),
+                                config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -100,6 +117,19 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     try {
       executeDdlStmnts("CREATE SCHEMA " + schemaName,
                        "SET CURRENT SCHEMA " + schemaName + ";");
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Create database schema.
+    // -----------------------------------------------------------------------
+
+    try {
+      createSchema();
 
       statement.close();
     } catch (SQLException e) {

@@ -113,7 +113,7 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=33000
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:CUBRID:
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:cubrid:
     set DB_SEEDER_CONNECTION_SUFFIX=::
     set DB_SEEDER_CONTAINER_PORT=33000
     set DB_SEEDER_DATABASE=kxn_db
@@ -331,7 +331,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
-    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC
+    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC&failOverReadOnly=false
     set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys
@@ -349,10 +349,17 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
-    set DB_SEEDER_CONNECTION_PORT=8080
+    set DB_SEEDER_CONNECTION_PORT=3306
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
+    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false
+    set DB_SEEDER_CONTAINER_PORT=3306
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=sys
     set DB_SEEDER_DBMS_PRESTO=yes
     set DB_SEEDER_PASSWORD=mysql
+    set DB_SEEDER_PASSWORD_SYS=mysql
     set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=root
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
@@ -406,6 +413,11 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
     set DB_SEEDER_DBMS=complete
 )
 
+if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
+    set DB_SEEDER_CONNECTION_HOST_PRESTO=localhost
+    set DB_SEEDER_CONNECTION_PORT_PRESTO=8080
+)
+
 rem ------------------------------------------------------------------------------
 rem End   Properties.
 rem ------------------------------------------------------------------------------
@@ -428,6 +440,9 @@ echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
 echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
+echo --------------------------------------------------------------------------------
+echo CONNECTION_HOST_PRESTO          : %DB_SEEDER_CONNECTION_HOST_PRESTO%
+echo CONNECTION_PORT_PRESTO          : %DB_SEEDER_CONNECTION_PORT_PRESTO%
 echo --------------------------------------------------------------------------------
 echo CATALOG                         : %DB_SEEDER_CATALOG%
 echo CATALOG_SYS                     : %DB_SEEDER_CATALOG_SYS%
