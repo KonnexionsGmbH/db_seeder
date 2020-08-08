@@ -8,8 +8,8 @@ jdk:
 
 env:
   matrix:
-    - DB_SEEDER_DBMS=complete DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
-    - DB_SEEDER_DBMS=complete DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.syntax.json
+    - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.syntax.json
+    - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
     - DB_SEEDER_DBMS=complete_emb DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
     - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
     - DB_SEEDER_DBMS=cratedb
