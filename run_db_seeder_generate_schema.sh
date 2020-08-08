@@ -18,9 +18,9 @@ export DB_SEEDER_IS_ECLIPSE_INSTALLED=true
 export DB_SEEDER_ECLIPSE_VERSION_1=2020-06
 export DB_SEEDER_ECLIPSE_VERSION_2=R
 
-export DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
+export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
-echo "================================================================================"
+echo "================================================================================"./run_db_seeder_presto_environment.sh
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Generation of database schema."

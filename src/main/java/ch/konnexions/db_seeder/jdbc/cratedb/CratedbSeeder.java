@@ -44,11 +44,11 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
    * @return the connection URL for non-privileged access
    */
   private final static String getUrlUser(String connectionHost,
-                                        int connectionPort,
-                                        String connectionPrefix,
-                                        String connectionSuffix,
-                                        String user,
-                                        String password) {
+                                         int connectionPort,
+                                         String connectionPrefix,
+                                         String connectionSuffix,
+                                         String user,
+                                         String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/?strict=true&user=" + user + "&password=" + password;
   }
 

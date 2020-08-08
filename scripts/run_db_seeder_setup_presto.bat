@@ -34,7 +34,7 @@ echo ---------------------------------------------------------------------------
 echo Start Presto Distributed Query Engine - creating and starting the container
 echo --------------------------------------------------------------------------------
 echo Docker create presto (Presto Distributed Query Engine %DB_SEEDER_RELEASE%)
-docker create --name db_seeder_presto -p 8080%:8080/tcp konnexionsgmbh/db_seeder_presto:%DB_SEEDER_RELEASE%
+docker create --name db_seeder_presto -p 8080:8080/tcp konnexionsgmbh/db_seeder_presto:%DB_SEEDER_RELEASE%
 echo Docker start presto (Presto Distributed Query Engine %DB_SEEDER_RELEASE%) ...
 docker start db_seeder_presto
 

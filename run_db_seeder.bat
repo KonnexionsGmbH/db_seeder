@@ -113,8 +113,8 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=33000
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:cubrid:
-    set DB_SEEDER_CONNECTION_SUFFIX=::
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:cubrid:"
+    set DB_SEEDER_CONNECTION_SUFFIX="::"
     set DB_SEEDER_CONTAINER_PORT=33000
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_PASSWORD=cubrid
@@ -157,8 +157,8 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3050
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:firebirdsql://
-    set DB_SEEDER_CONNECTION_SUFFIX=?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:firebirdsql://"
+    set DB_SEEDER_CONNECTION_SUFFIX="?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true"
     set DB_SEEDER_CONTAINER_PORT=3050
     set DB_SEEDER_DATABASE=firebird_kxn_db
     set DB_SEEDER_PASSWORD=firebird
@@ -205,8 +205,8 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=9001
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
-    set DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
+    set DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
     set DB_SEEDER_CONTAINER_PORT=9001
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_PASSWORD=hsqldb
@@ -221,8 +221,8 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
-    set DB_SEEDER_CONNECTION_SUFFIX=;ifexists=false;shutdown=true
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
+    set DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
     set DB_SEEDER_DATABASE=.\tmp\hsqldb_kxn_db
     set DB_SEEDER_DBMS_EMBEDDED=yes
     set DB_SEEDER_PASSWORD=hsqldb
@@ -255,8 +255,8 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=9088
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:informix-sqli://
-    set DB_SEEDER_CONNECTION_SUFFIX=:INFORMIXSERVER=informix
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:informix-sqli://"
+    set DB_SEEDER_CONNECTION_SUFFIX=":INFORMIXSERVER=informix"
     set DB_SEEDER_CONTAINER_PORT=9088
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sysmaster
@@ -330,8 +330,8 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
-    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC&failOverReadOnly=false
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
+    set DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&failOverReadOnly=false"
     set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys
@@ -350,8 +350,8 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
-    set DB_SEEDER_CONNECTION_SUFFIX=?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
+    set DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
     set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys
@@ -470,6 +470,13 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
         exit %ERRORLEVEL%
     )
 ) else (
+    if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
+        call scripts\run_db_seeder_setup_presto
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
+    )
+    
     call scripts\run_db_seeder_single %DB_SEEDER_DBMS%
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%

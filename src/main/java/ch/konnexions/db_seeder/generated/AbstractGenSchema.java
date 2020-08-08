@@ -28,6 +28,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
    * Initialises a new abstract generated schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol 
+   */
+  public AbstractGenSchema(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
+
+  /**
+   * Initialises a new abstract generated schema object.
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
   public AbstractGenSchema(String tickerSymbolExtern, String dbmsOption) {
@@ -71,15 +80,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     maxRowSizes        = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
-                               10);
+                               1800);
                            put(TABLE_NAME_COMPANY,
-                               10);
+                               5400);
                            put(TABLE_NAME_COUNTRY,
-                               10);
+                               200);
                            put(TABLE_NAME_COUNTRY_STATE,
-                               10);
+                               600);
                            put(TABLE_NAME_TIMEZONE,
-                               10);
+                               11);
                          }
                        };
 

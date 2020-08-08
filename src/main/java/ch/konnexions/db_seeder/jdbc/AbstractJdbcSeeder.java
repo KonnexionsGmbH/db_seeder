@@ -99,7 +99,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected Properties    encodedColumnNames = new Properties();
 
   protected final boolean isClient;
-  private final boolean isEmbedded;
+  private final boolean   isEmbedded;
   protected final boolean isPresto;
 
   protected int           nullFactor;
