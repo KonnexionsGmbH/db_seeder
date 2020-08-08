@@ -285,15 +285,18 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
 fi
 
 if [ "$DB_SEEDER_DBMS" = "mysql_presto" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
-    export DB_SEEDER_CATALOG=db_seeder.mysql.user
-    export DB_SEEDER_CATALOG_SYS=db_seeder.mysql.system
     export DB_SEEDER_CONNECTION_HOST=localhost
-    export DB_SEEDER_CONNECTION_PORT=8080
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:presto://
-    export DB_SEEDER_CONTAINER_PORT=8080
+    export DB_SEEDER_CONNECTION_PORT=3306
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
+    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
+    export DB_SEEDER_CONTAINER_PORT=3306
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=sys
     export DB_SEEDER_DBMS_PRESTO=yes
-    export DB_SEEDER_PASSWORD=presto
-    export DB_SEEDER_USER=presto
+    export DB_SEEDER_PASSWORD=mysql
+    export DB_SEEDER_PASSWORD_SYS=mysql
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=root
 fi
 
 if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
@@ -331,6 +334,11 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 
+if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
+    export DB_SEEDER_CONNECTION_HOST_PRESTO=localhost
+    export DB_SEEDER_CONNECTION_PORT_PRESTO=8080
+fi
+
 # ------------------------------------------------------------------------------
 # End   Properties.
 # ------------------------------------------------------------------------------
@@ -353,6 +361,9 @@ echo "FILE_STATISTICS_DELIMITER         : $DB_SEEDER_FILE_STATISTICS_DELIMITER"
 echo "FILE_STATISTICS_HEADER            : $DB_SEEDER_FILE_STATISTICS_HEADER"
 echo "FILE_STATISTICS_NAME              : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "JAVA_CLASSPATH                    : $DB_SEEDER_JAVA_CLASSPATH"
+echo --------------------------------------------------------------------------------
+echo "CONNECTION_HOST_PRESTO            : $DB_SEEDER_CONNECTION_HOST_PRESTO"
+echo "CONNECTION_PORT_PRESTO            : $DB_SEEDER_CONNECTION_PORT_PRESTO"
 echo "--------------------------------------------------------------------------------"
 echo "CATALOG                           : $DB_SEEDER_CATALOG"
 echo "CATALOG_SYS                       : $DB_SEEDER_CATALOG_SYS"
