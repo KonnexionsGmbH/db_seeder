@@ -72,8 +72,6 @@ docker build -t konnexionsgmbh/db_seeder_presto tmp
 
 docker tag konnexionsgmbh/db_seeder_presto konnexionsgmbh/db_seeder_presto:$DB_SEEDER_RELEASE
 
-docker push konnexionsgmbh/db_seeder_presto:$DB_SEEDER_RELEASE
-
 docker images -q -f "dangling=true" -f "label=autodelete=true"
 
 for IMAGE in $(docker images -q -f "dangling=true" -f "label=autodelete=true")
