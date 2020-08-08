@@ -17,8 +17,8 @@ set DB_SEEDER_VERSION_PRESTO=339
 set DB_SEEDER_MYSQL_CONNECTION_HOST=localhost
 set DB_SEEDER_MYSQL_CONNECTION_HOST=192.168.1.109
 set DB_SEEDER_MYSQL_CONNECTION_PORT=3306
-set DB_SEEDER_MYSQL_CONNECTION_PREFIX=jdbc:mysql://
-set DB_SEEDER_MYSQL_CONNECTION_SUFFIX=?serverTimezone=UTC&failOverReadOnly=false
+set DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
+set DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&failOverReadOnly=false"
 set DB_SEEDER_MYSQL_PASSWORD=mysql
 set DB_SEEDER_MYSQL_USER=kxn_user
 
@@ -43,8 +43,8 @@ echo.
     echo RELEASE                    : %DB_SEEDER_RELEASE%
     echo VERSION_PRESTO             : %DB_SEEDER_VERSION_PRESTO%
     echo --------------------------------------------------------------------------------
-    echo CONNECTION_HOST_PRESTO      : %DB_SEEDER_CONNECTION_HOST_PRESTO%
-    echo CONNECTION_PORT_PRESTO      : %DB_SEEDER_CONNECTION_PORT_PRESTO%
+    echo CONNECTION_HOST_PRESTO     : %DB_SEEDER_CONNECTION_HOST_PRESTO%
+    echo CONNECTION_PORT_PRESTO     : %DB_SEEDER_CONNECTION_PORT_PRESTO%
     echo --------------------------------------------------------------------------------
     echo MYSQL_CONNECTION_HOST      : %DB_SEEDER_MYSQL_CONNECTION_HOST%
     echo MYSQL_CONNECTION_PORT      : %DB_SEEDER_MYSQL_CONNECTION_PORT%

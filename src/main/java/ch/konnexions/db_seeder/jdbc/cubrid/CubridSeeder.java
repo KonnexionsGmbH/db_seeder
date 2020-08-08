@@ -29,11 +29,11 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
    * @return the connection URL for privileged access
    */
   private final static String getUrlSys(String connectionHost,
-                                       int connectionPort,
-                                       String connectionPrefix,
-                                       String connectionSuffix,
-                                       String database,
-                                       String userSys) {
+                                        int connectionPort,
+                                        String connectionPrefix,
+                                        String connectionSuffix,
+                                        String database,
+                                        String userSys) {
     return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + userSys.toUpperCase() + connectionSuffix;
   }
 

@@ -106,8 +106,8 @@ fi
 if [ "$DB_SEEDER_DBMS" = "cubrid" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=33000
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:cubrid:
-    export DB_SEEDER_CONNECTION_SUFFIX=::
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:cubrid:"
+    export DB_SEEDER_CONNECTION_SUFFIX="::"
     export DB_SEEDER_CONTAINER_PORT=33000
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD=cubrid
@@ -138,7 +138,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "firebird" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3050
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:firebirdsql://
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:firebirdsql://"
     export DB_SEEDER_CONNECTION_SUFFIX="?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true"
     export DB_SEEDER_CONTAINER_PORT=3050
     export DB_SEEDER_DATABASE=firebird_kxn_db
@@ -174,7 +174,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "hsqldb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9001
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
     export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
     export DB_SEEDER_CONTAINER_PORT=9001
     export DB_SEEDER_DATABASE=kxn_db
@@ -186,7 +186,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
 fi
 
 if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:hsqldb:
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
     export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
     export DB_SEEDER_DATABASE=./tmp/hsqldb_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
@@ -212,8 +212,8 @@ fi
 if [ "$DB_SEEDER_DBMS" = "informix" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9088
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:informix-sqli://
-    export DB_SEEDER_CONNECTION_SUFFIX=:INFORMIXSERVER=informix
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:informix-sqli://"
+    export DB_SEEDER_CONNECTION_SUFFIX=":INFORMIXSERVER=informix"
     export DB_SEEDER_CONTAINER_PORT=9088
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sysmaster
@@ -271,7 +271,7 @@ fi
 if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:mysql://
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
@@ -379,6 +379,12 @@ if [ "$DB_SEEDER_DBMS" = "complete" ]; then
         exit 255
     fi    
 else
+    if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
+        if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+            exit 255
+        fi    
+    fi
+
     if ! ( ./scripts/run_db_seeder_single.sh "${DB_SEEDER_DBMS}" ); then
         exit 255
     fi    

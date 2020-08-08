@@ -29,11 +29,11 @@ public final class MssqlserverSeeder extends AbstractGenMssqlserverSchema {
    * @return the connection URL for privileged access
    */
   private final static String getUrlSys(String connectionHost,
-                                       int connectionPort,
-                                       String connectionPrefix,
-                                       String databaseSys,
-                                       String userSys,
-                                       String passwordSys) {
+                                        int connectionPort,
+                                        String connectionPrefix,
+                                        String databaseSys,
+                                        String userSys,
+                                        String passwordSys) {
     return connectionPrefix + connectionHost + ":" + connectionPort + ";databaseName=" + databaseSys + ";user=" + userSys + ";password=" + passwordSys;
   }
 

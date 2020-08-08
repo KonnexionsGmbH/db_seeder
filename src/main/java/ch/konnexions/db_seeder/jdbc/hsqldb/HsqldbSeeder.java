@@ -29,11 +29,11 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
    * @return the connection URL for non-privileged access
    */
   private final static String getUrlUser(boolean isClient,
-                                        String connectionHost,
-                                        int connectionPort,
-                                        String connectionPrefix,
-                                        String connectionSuffix,
-                                        String database) {
+                                         String connectionHost,
+                                         int connectionPort,
+                                         String connectionPrefix,
+                                         String connectionSuffix,
+                                         String database) {
     if (isClient) {
       return connectionPrefix + "hsql://" + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
     } else {
