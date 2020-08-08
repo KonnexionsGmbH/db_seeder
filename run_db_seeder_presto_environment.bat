@@ -79,8 +79,6 @@ echo.
     
     docker tag konnexionsgmbh/db_seeder_presto konnexionsgmbh/db_seeder_presto:%DB_SEEDER_RELEASE%
 
-    docker push konnexionsgmbh/db_seeder_presto:%DB_SEEDER_RELEASE%
-
     docker images -q -f "dangling=true" -f "label=autodelete=true"
 
     for /F %%I in ('docker images -q -f "dangling=true" -f "label=autodelete=true"') do (docker rmi -f %%I)

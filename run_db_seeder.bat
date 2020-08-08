@@ -16,9 +16,9 @@ set DB_SEEDER_RELEASE=2.1.0
 
 if ["%1"] EQU [""] (
     echo =========================================================
-    echo complete        - All implemented client DBMSs
-    echo complete_presto - All implemented client DBMSs via Presto
+    echo complete_client - All implemented client DBMSs
     echo complete_emb    - All implemented embedded DBMSs
+    echo complete_presto - All implemented Presto enabled DBMSs
     echo derby           - Apache Derby [client]
     echo derby_emb       - Apache Derby [embedded]
     echo cratedb         - CrateDB
@@ -91,7 +91,7 @@ set DB_SEEDER_NULL_FACTOR=
 
 set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS% 
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=cratedb
 )
 
@@ -108,7 +108,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.2.2
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=cubrid
 )
 
@@ -125,7 +125,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_VERSION=10.2
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=derby
 )
 
@@ -152,7 +152,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     set DB_SEEDER_DBMS_EMBEDDED=yes
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=firebird
 )
 
@@ -171,7 +171,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_VERSION=3.0.6
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=h2
 )
 
@@ -200,7 +200,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
     set DB_SEEDER_USER=kxn_user
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=hsqld
 )
 
@@ -233,7 +233,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
     set DB_SEEDER_USER_SYS=SA
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=ibmdb2
 )
 
@@ -250,7 +250,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.4.0
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=informix
 )
 
@@ -268,7 +268,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_VERSION=14.10.FC4DE
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=mariadb
 )
 
@@ -288,7 +288,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.4
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=mimer
 )
 
@@ -306,7 +306,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_VERSION=v11.0.3c
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=mssqlserver
 )
 
@@ -325,7 +325,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
     set DB_SEEDER_VERSION=2019-latest
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=mysql
 )
 
@@ -364,7 +364,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_USER_SYS=root
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=oracle
 )
 
@@ -383,7 +383,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_VERSION=db_19_3_ee
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=postgresql
 )
 
@@ -401,7 +401,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=12.3-alpine
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=sqlite
 )
 
@@ -411,7 +411,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
     set DB_SEEDER_DBMS_EMBEDDED=yes
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=complete
 )
 
@@ -466,8 +466,8 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
-if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
-    call scripts\run_db_seeder_complete
+if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
+    call scripts\run_db_seeder_complete_client
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
