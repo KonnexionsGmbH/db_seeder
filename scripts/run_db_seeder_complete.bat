@@ -11,12 +11,9 @@ setlocal EnableDelayedExpansion
 set DB_SEEDER_DBMS_CRATEDB=yes
 set DB_SEEDER_DBMS_CUBRID=yes
 set DB_SEEDER_DBMS_DERBY=yes
-set DB_SEEDER_DBMS_DERBY_EMB=yes
 set DB_SEEDER_DBMS_FIREBIRD=yes
 set DB_SEEDER_DBMS_H2=yes
-set DB_SEEDER_DBMS_H2_EMB=yes
 set DB_SEEDER_DBMS_HSQLDB=yes
-set DB_SEEDER_DBMS_HSQLDB_EMB=yes
 set DB_SEEDER_DBMS_IBMDB2=yes
 set DB_SEEDER_DBMS_INFORMIX=yes
 set DB_SEEDER_DBMS_MARIADB=yes
@@ -25,7 +22,6 @@ set DB_SEEDER_DBMS_MSSQLSERVER=yes
 set DB_SEEDER_DBMS_MYSQL=yes
 set DB_SEEDER_DBMS_ORACLE=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
-set DB_SEEDER_DBMS_SQLITE=yes
 
 echo.
 echo Script %0 is now running
@@ -49,12 +45,9 @@ echo.
     echo DBMS_CRATEDB                    : %DB_SEEDER_DBMS_CRATEDB%
     echo DBMS_CUBRID                     : %DB_SEEDER_DBMS_CUBRID%
     echo DBMS_DERBY                      : %DB_SEEDER_DBMS_DERBY%
-    echo DBMS_DERBY_EMB                  : %DB_SEEDER_DBMS_DERBY_EMB%
     echo DBMS_FIREBIRD                   : %DB_SEEDER_DBMS_FIREBIRD%
     echo DBMS_H2                         : %DB_SEEDER_DBMS_H2%
-    echo DBMS_H2_EMB                     : %DB_SEEDER_DBMS_H2_EMB%
     echo DBMS_HSQLDB                     : %DB_SEEDER_DBMS_HSQLDB%
-    echo DBMS_HSQLDB_EMB                 : %DB_SEEDER_DBMS_HSQLDB_EMB%
     echo DBMS_IBMDB2                     : %DB_SEEDER_DBMS_IBMDB2%
     echo DBMS_INFORMIX                   : %DB_SEEDER_DBMS_INFORMIX%
     echo DBMS_MARIADB                    : %DB_SEEDER_DBMS_MARIADB%
@@ -63,7 +56,6 @@ echo.
     echo DBMS_MYSQL                      : %DB_SEEDER_DBMS_MYSQL%
     echo DBMS_ORACLE                     : %DB_SEEDER_DBMS_ORACLE%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
-    echo DBMS_SQLITE                     : %DB_SEEDER_DBMS_SQLITE%
     echo --------------------------------------------------------------------------------
     echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
@@ -104,17 +96,6 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Apache Derby - embedded version.
-    rem ------------------------------------------------------------------------------
-    
-    if ["%DB_SEEDER_DBMS_DERBY_EMB%"] EQU ["yes"] (
-        call run_db_seeder.bat derby_emb yes 2
-        if %ERRORLEVEL% NEQ 0 (
-            exit %ERRORLEVEL%
-        )
-    )
-    
-    rem ------------------------------------------------------------------------------
     rem Firebird - client version.
     rem ------------------------------------------------------------------------------
     
@@ -137,33 +118,11 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem H2 Database Engine - embedded version.
-    rem ------------------------------------------------------------------------------
-    
-    if ["%DB_SEEDER_DBMS_H2_EMB%"] EQU ["yes"] (
-        call run_db_seeder.bat h2_emb yes 2
-        if %ERRORLEVEL% NEQ 0 (
-            exit %ERRORLEVEL%
-        )
-    )
-    
-    rem ------------------------------------------------------------------------------
     rem HyperSQL Database - client version.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
         call run_db_seeder.bat hsqldb yes 2
-        if %ERRORLEVEL% NEQ 0 (
-            exit %ERRORLEVEL%
-        )
-    )
-    
-    rem ------------------------------------------------------------------------------
-    rem HyperSQL Database - embedded version.
-    rem ------------------------------------------------------------------------------
-    
-    if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
-        call run_db_seeder.bat hsqldb_emb yes 2
         if %ERRORLEVEL% NEQ 0 (
             exit %ERRORLEVEL%
         )
@@ -252,17 +211,6 @@ echo.
     
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
         call run_db_seeder.bat postgresql yes 2
-        if %ERRORLEVEL% NEQ 0 (
-            exit %ERRORLEVEL%
-        )
-    )
-    
-    rem ------------------------------------------------------------------------------
-    rem SQLite.
-    rem ------------------------------------------------------------------------------
-    
-    if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
-        call run_db_seeder.bat sqlite yes 2
         if %ERRORLEVEL% NEQ 0 (
             exit %ERRORLEVEL%
         )

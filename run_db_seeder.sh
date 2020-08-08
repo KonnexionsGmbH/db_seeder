@@ -125,7 +125,7 @@ if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_VERSION=10.15.2.0
 fi
 
-if [ "$DB_SEEDER_DBMS" = "derby_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
+if [ "$DB_SEEDER_DBMS" = "derby_emb" ] || [ "$DB_SEEDER_DBMS" = "complete_emb" ]; then
     # TODO Bug in Apache Derby
     if [ "$DB_SEEDER_NO_CREATE_RUNS" = "2" ]; then
         export DB_SEEDER_NO_CREATE_RUNS=1
@@ -162,7 +162,7 @@ if [ "$DB_SEEDER_DBMS" = "h2" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_VERSION=1.4.200
 fi
 
-if [ "$DB_SEEDER_DBMS" = "h2_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
+if [ "$DB_SEEDER_DBMS" = "h2_emb" ] || [ "$DB_SEEDER_DBMS" = "complete_emb" ]; then
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
     export DB_SEEDER_DATABASE=./tmp/h2_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
@@ -185,7 +185,7 @@ if [ "$DB_SEEDER_DBMS" = "hsqldb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_VERSION=2.5.1
 fi
 
-if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
+if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ] || [ "$DB_SEEDER_DBMS" = "complete_emb" ]; then
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
     export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
     export DB_SEEDER_DATABASE=./tmp/hsqldb_kxn_db
@@ -284,7 +284,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
     export DB_SEEDER_VERSION=8.0.21
 fi
 
-if [ "$DB_SEEDER_DBMS" = "mysql_presto" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
+if [ "$DB_SEEDER_DBMS" = "mysql_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
@@ -328,7 +328,7 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; t
     export DB_SEEDER_VERSION=12.3-alpine
 fi
 
-if [ "$DB_SEEDER_DBMS" = "sqlite" ] || [ "$DB_SEEDER_DBMS" = "complete" ]; then
+if [ "$DB_SEEDER_DBMS" = "sqlite" ] || [ "$DB_SEEDER_DBMS" = "complete_emb" ]; then
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlite:
     export DB_SEEDER_DATABASE=./tmp/sqlite_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
@@ -387,6 +387,14 @@ echo "==========================================================================
 
 if [ "$DB_SEEDER_DBMS" = "complete" ]; then
     if ! ( ./scripts/run_db_seeder_complete.sh ); then
+        exit 255
+    fi    
+elif [ "$DB_SEEDER_DBMS" = "complete_emb" ]; then
+    if ! ( ./scripts/run_db_seeder_complete_emb.sh ); then
+        exit 255
+    fi    
+elif [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
+    if ! ( ./scripts/run_db_seeder_complete_presto.sh ); then
         exit 255
     fi    
 else

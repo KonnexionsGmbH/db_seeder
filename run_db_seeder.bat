@@ -15,28 +15,30 @@ set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=2.1.0
 
 if ["%1"] EQU [""] (
-    echo ===========================================
-    echo complete     - All implemented DBMSs
-    echo derby        - Apache Derby [client]
-    echo derby_emb    - Apache Derby [embedded]
-    echo cratedb      - CrateDB
-    echo cubrid       - CUBRID
-    echo firebird     - Firebird
-    echo h2           - H2 Database Engine [client]
-    echo h2_emb       - H2 Database Engine [embedded]
-    echo hsqldb       - HyperSQL Database [client]
-    echo hsqldb_emb   - HyperSQL Database [embedded]
-    echo ibmdb2       - IBM Db2 Database
-    echo informix     - IBM Informix
-    echo mariadb      - MariaDB Server
-    echo mimer        - Mimer SQL
-    echo mssqlserver  - Microsoft SQL Server
-    echo mysql        - MySQL
-    echo mysql_presto - MySQL via Presto
-    echo oracle       - Oracle Database
-    echo postgresql   - PostgreSQL Database
-    echo sqlite       - SQLite [embedded]
-    echo -------------------------------------------
+    echo =========================================================
+    echo complete        - All implemented client DBMSs
+    echo complete_presto - All implemented client DBMSs via Presto
+    echo complete_emb    - All implemented embedded DBMSs
+    echo derby           - Apache Derby [client]
+    echo derby_emb       - Apache Derby [embedded]
+    echo cratedb         - CrateDB
+    echo cubrid          - CUBRID
+    echo firebird        - Firebird
+    echo h2              - H2 Database Engine [client]
+    echo h2_emb          - H2 Database Engine [embedded]
+    echo hsqldb          - HyperSQL Database [client]
+    echo hsqldb_emb      - HyperSQL Database [embedded]
+    echo ibmdb2          - IBM Db2 Database
+    echo informix        - IBM Informix
+    echo mariadb         - MariaDB Server
+    echo mimer           - Mimer SQL
+    echo mssqlserver     - Microsoft SQL Server
+    echo mysql           - MySQL
+    echo mysql_presto    - MySQL via Presto
+    echo oracle          - Oracle Database
+    echo postgresql      - PostgreSQL Database
+    echo sqlite          - SQLite [embedded]
+    echo ---------------------------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 
     if ["!DB_SEEDER_DBMS!"] EQU [""] (
@@ -136,7 +138,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
     set DB_SEEDER_VERSION=10.15.2.0
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_emb"] (
     set DB_SEEDER_DBMS=derby_emb
 )
 
@@ -185,7 +187,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_VERSION=1.4.200
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_emb"] (
     set DB_SEEDER_DBMS=h2_emb
 )
 
@@ -216,7 +218,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_VERSION=2.5.1
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_emb"] (
     set DB_SEEDER_DBMS=hsqld_emb
 )
 
@@ -343,7 +345,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.21
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete"] (
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
     set DB_SEEDER_DBMS=mysql_presto
 )
 
@@ -469,20 +471,29 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
-) else (
-    if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
-        call scripts\run_db_seeder_setup_presto
-        if %ERRORLEVEL% NEQ 0 (
-            exit %ERRORLEVEL%
-        )
-    )
     
-    call scripts\run_db_seeder_single %DB_SEEDER_DBMS%
+    goto EXIT
+)    
+
+if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
+    call scripts\run_db_seeder_complete_emb
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
-)
+    
+    goto EXIT
+)    
 
+if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
+    call scripts\run_db_seeder_complete_presto
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
+    
+    goto EXIT
+)    
+
+EXIT:
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

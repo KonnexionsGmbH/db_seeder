@@ -10,6 +10,8 @@ env:
   matrix:
     - DB_SEEDER_DBMS=complete DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
     - DB_SEEDER_DBMS=complete DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.syntax.json
+    - DB_SEEDER_DBMS=complete_emb DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
+    - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=json/db_seeder_schema.company.json
     - DB_SEEDER_DBMS=cratedb
     - DB_SEEDER_DBMS=cubrid
     - DB_SEEDER_DBMS=derby
@@ -25,6 +27,7 @@ env:
     - DB_SEEDER_DBMS=mimer
     - DB_SEEDER_DBMS=mssqlserver
     - DB_SEEDER_DBMS=mysql
+    - DB_SEEDER_DBMS=mysql_presto
     - DB_SEEDER_DBMS=oracle
     - DB_SEEDER_DBMS=postgresql
     - DB_SEEDER_DBMS=sqlite
