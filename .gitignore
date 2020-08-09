@@ -7,7 +7,6 @@
 /lib/db_seeder.jar
 /resources/docker/presto/catalog/db_seeder_*
 /resources/statistics/db_seeder_local*
-/src/main/java/ch/konnexions/db_seeder/generated/*
 bin
 build
 eclipse_workspace/

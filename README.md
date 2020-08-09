@@ -1021,13 +1021,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | PostgreSQL Database Type |
-| ---            | ---                      |
-| BIGINT         | BIGINT                   |
-| BLOB           | VARBINARY                |
-| CLOB           | VARCHAR                  |
-| TIMESTAMP      | TIMESTAMP                |
-| VARCHAR        | VARCHAR                  |
+| db seeder Type | Presto Database Type |
+| ---            | ---                  |
+| BIGINT         | BIGINT               |
+| BLOB           | VARBINARY            |
+| CLOB           | VARCHAR              |
+| TIMESTAMP      | TIMESTAMP            |
+| VARCHAR        | VARCHAR              |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a 
@@ -1039,7 +1039,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - pull command: `docker pull prestosql/presto:340`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
-- **encoding**: full support of UTF-8 [see](https://prestodb.io/docs/current/release/release-0.102.html)
+- **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
   
 - **issue tracking**: [GitHub](https://github.com/prestosql/presto/issues)
 
