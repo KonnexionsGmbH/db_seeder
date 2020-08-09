@@ -1,9 +1,6 @@
 dist: bionic
 
 env:
-  global:
-  - DOCKER_USERNAME=walter.weinmann@gmail.com
-  - DOCKER_PASSWORD=$DOCKER_HUB_PASSWORD
   matrix:
   - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
   - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
@@ -73,7 +70,7 @@ script:
   - travis_fold end   "Pull_And_Compile_Repository"
 
   - travis_fold start "Generate_Dummy_Data"
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "walter.weinmann@gmail.com" --password-stdin
   - export DB_SEEDER_IS_TRAVIS=yes
   - "./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2"
   - travis_fold end   "Generate_Dummy_Data"

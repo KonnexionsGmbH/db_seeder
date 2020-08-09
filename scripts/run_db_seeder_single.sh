@@ -71,6 +71,12 @@ if [ "$DB_SEEDER_SETUP_DBMS" = "yes" ]; then
     if ! ( ./scripts/run_db_seeder_setup_dbms.sh ); then
         exit 255
     fi    
+
+    if [ "$$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
+        if ! ( ./run_db_seeder_presto_environment.sh ); then
+            exit 255
+        fi    
+    fi
 fi
 
 if [ "$$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
