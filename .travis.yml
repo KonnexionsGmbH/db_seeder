@@ -1,67 +1,69 @@
----
 dist: bionic
 
-sudo: true
+env:
+  global:
+  - DOCKER_USERNAME=walter.weinmann@gmail.com
+  - DOCKER_PASSWORD=$DOCKER_HUB_PASSWORD
+  matrix:
+  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
+  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
+  - DB_SEEDER_DBMS=complete_emb DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
+  - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
+  - DB_SEEDER_DBMS=cratedb
+  - DB_SEEDER_DBMS=cubrid
+  - DB_SEEDER_DBMS=derby
+  - DB_SEEDER_DBMS=derby_emb
+  - DB_SEEDER_DBMS=firebird
+  - DB_SEEDER_DBMS=h2
+  - DB_SEEDER_DBMS=h2_emb
+  - DB_SEEDER_DBMS=hsqldb
+  - DB_SEEDER_DBMS=hsqldb_emb
+  - DB_SEEDER_DBMS=ibmdb2
+  - DB_SEEDER_DBMS=informix
+  - DB_SEEDER_DBMS=mariadb
+  - DB_SEEDER_DBMS=mimer
+  - DB_SEEDER_DBMS=mysql
+  - DB_SEEDER_DBMS=mysql_presto
+  - DB_SEEDER_DBMS=oracle
+  - DB_SEEDER_DBMS=oracle_presto
+  - DB_SEEDER_DBMS=postgresql
+  - DB_SEEDER_DBMS=postgresql_presto
+  - DB_SEEDER_DBMS=sqlite
+  - DB_SEEDER_DBMS=sqlserver
+  - DB_SEEDER_DBMS=sqlserver_presto
 
 jdk:
   - oraclejdk14
 
-env:
-  matrix:
-    - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
-    - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
-    - DB_SEEDER_DBMS=complete_emb DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
-    - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
-    - DB_SEEDER_DBMS=cratedb
-    - DB_SEEDER_DBMS=cubrid
-    - DB_SEEDER_DBMS=derby
-    - DB_SEEDER_DBMS=derby_emb
-    - DB_SEEDER_DBMS=firebird
-    - DB_SEEDER_DBMS=h2
-    - DB_SEEDER_DBMS=h2_emb
-    - DB_SEEDER_DBMS=hsqldb
-    - DB_SEEDER_DBMS=hsqldb_emb
-    - DB_SEEDER_DBMS=ibmdb2
-    - DB_SEEDER_DBMS=informix
-    - DB_SEEDER_DBMS=mariadb
-    - DB_SEEDER_DBMS=mimer
-    - DB_SEEDER_DBMS=mysql
-    - DB_SEEDER_DBMS=mysql_presto
-    - DB_SEEDER_DBMS=oracle
-    - DB_SEEDER_DBMS=oracle_presto
-    - DB_SEEDER_DBMS=postgresql
-    - DB_SEEDER_DBMS=postgresql_presto
-    - DB_SEEDER_DBMS=sqlite
-    - DB_SEEDER_DBMS=sqlserver
-    - DB_SEEDER_DBMS=sqlserver_presto
+services:
+  - docker
+
+sudo: true
 
 before_script:
   - echo 'Europe/Zurich' | sudo tee /etc/timezone
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 script:
-  # Prepare Installation Process -------------------------------------------------
   - travis_fold start "Prepare_Installation_Process"
   - export VERSION_GRADLE=6.4.1
   - sudo apt update -q
   - sudo apt-get install -y hostname
   - travis_fold end   "Prepare_Installation_Process"
 
-  # Install Gradle ---------------------------------------------------------------
   - travis_fold start "Install_Gradle"
-  - wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip -P /tmp
+  - wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip
+    -P /tmp
   - sudo unzip -d /opt/gradle /tmp/gradle-*.zip
   - export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}
   - export PATH=${GRADLE_HOME}/bin:${PATH}
   - travis_fold end   "Install_Gradle"
 
-  # Check ports in use -----------------------------------------------------------
   - sudo apt install net-tools
   - netstat -tulpn | grep LISTEN
-
-  # Pull and Compile the Repository ----------------------------------------------
   - gradle --version
   - java -version
+
   - travis_fold start "Pull_And_Compile_Repository"
   - git pull
   - sudo chmod +x *.sh
@@ -70,8 +72,8 @@ script:
   - gradle copyJarToLib
   - travis_fold end   "Pull_And_Compile_Repository"
 
-  # Generate Dummy ---------------------------------------------------------------
   - travis_fold start "Generate_Dummy_Data"
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - export DB_SEEDER_IS_TRAVIS=yes
-  - ./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2
+  - "./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2"
   - travis_fold end   "Generate_Dummy_Data"
