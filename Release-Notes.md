@@ -42,7 +42,9 @@ Release Date: 11.08.2020
 
 #### Modified Features
 
-n/a
+- MariaDB Server: JDBC 2.6.2
+
+- Microsoft SQL Server: JDBC 8.4.0.jre14
 
 #### Deleted Features
 

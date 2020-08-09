@@ -119,13 +119,13 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.4          | 2.6.1               | 
-| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.3.1.jre14-preview | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.4          | 2.6.2               | 
+| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.0.jre14         | 
 | Mimer SQL                       | mimer              | 11.0.3C                   | 3.40                | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | PostgreSQL Database             | postgresql         | 12.3                      | 42.2.14             |
-| Presto Distributed query Engine | n/a                | 340                       | 339                 |
+| Presto Distributed query Engine | n/a                | 339 - 340                 | 339                 |
 | SQLite                          | sqlite             | 3.32.3                    | 3.32.3.2            |
 
 [//]: # (===========================================================================================)
