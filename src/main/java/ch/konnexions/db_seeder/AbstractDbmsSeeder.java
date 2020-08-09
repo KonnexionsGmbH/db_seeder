@@ -200,6 +200,13 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "MS SQL Server",
                         "" });
+    dbmsDetails.put("mssqlserver_presto",
+                    new String[] {
+                        "mssqlserver",
+                        "MS SQL Server",
+                        "presto",
+                        "MS SQL Server",
+                        "" });
     dbmsDetails.put("mysql",
                     new String[] {
                         "mysql",
@@ -221,11 +228,25 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "Oracle",
                         "" });
+    dbmsDetails.put("oracle_presto",
+                    new String[] {
+                        "oracle",
+                        "Oracle Database",
+                        "presto",
+                        "Oracle",
+                        "" });
     dbmsDetails.put("postgresql",
                     new String[] {
                         "postgresql",
                         "PostgreSQL Database",
                         "client",
+                        "PostgreSQL",
+                        "" });
+    dbmsDetails.put("postgresql_presto",
+                    new String[] {
+                        "postgresql",
+                        "PostgreSQL Database",
+                        "presto",
                         "PostgreSQL",
                         "" });
     dbmsDetails.put("sqlite",

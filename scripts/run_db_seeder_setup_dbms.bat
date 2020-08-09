@@ -16,6 +16,7 @@ echo DB Seeder - setting up the DBMS.
 echo --------------------------------------------------------------------------------
 echo DBMS                      : %DB_SEEDER_DBMS%
 echo DBMS_EMBEDDED             : %DB_SEEDER_DBMS_EMBEDDED%
+echo DBMS_PRESTO               : %DB_SEEDER_DBMS_PRESTO%
    
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     echo Docker stop/rm db_seeder_db ................................ before:

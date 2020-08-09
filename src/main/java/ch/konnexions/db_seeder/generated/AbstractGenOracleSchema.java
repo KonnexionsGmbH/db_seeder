@@ -26,85 +26,85 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
 
     statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE CITY (
-                       PK_CITY_ID                       NUMBER                    NOT NULL
+                   CREATE TABLE city (
+                       pk_city_id                       NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              NUMBER                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
-                       CITY_MAP                         BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL
+                       fk_country_state_id              NUMBER                    REFERENCES country_state                    (pk_country_state_id),
+                       city_map                         BLOB,
+                       created                          TIMESTAMP                 NOT NULL,
+                       modified                         TIMESTAMP,
+                       name                             VARCHAR2(100)             NOT NULL
                    )
                    """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
-                   CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    NUMBER                    NOT NULL
+                   CREATE TABLE company (
+                       pk_company_id                    NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_CITY_ID                       NUMBER                    NOT NULL
-                                                                                  REFERENCES CITY                             (PK_CITY_ID),
-                       ACTIVE                           VARCHAR2(1)               NOT NULL,
-                       ADDRESS1                         VARCHAR2(50),
-                       ADDRESS2                         VARCHAR2(50),
-                       ADDRESS3                         VARCHAR2(50),
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       DIRECTIONS                       CLOB,
-                       EMAIL                            VARCHAR2(100),
-                       FAX                              VARCHAR2(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL
+                       fk_city_id                       NUMBER                    NOT NULL
+                                                                                  REFERENCES city                             (pk_city_id),
+                       active                           VARCHAR2(1)               NOT NULL,
+                       address1                         VARCHAR2(50),
+                       address2                         VARCHAR2(50),
+                       address3                         VARCHAR2(50),
+                       created                          TIMESTAMP                 NOT NULL,
+                       directions                       CLOB,
+                       email                            VARCHAR2(100),
+                       fax                              VARCHAR2(50),
+                       modified                         TIMESTAMP,
+                       name                             VARCHAR2(100)             NOT NULL
                                                                                   UNIQUE,
-                       PHONE                            VARCHAR2(50),
-                       POSTAL_CODE                      VARCHAR2(50),
-                       URL                              VARCHAR2(250),
-                       VAT_ID_NUMBER                    VARCHAR2(100)
+                       phone                            VARCHAR2(50),
+                       postal_code                      VARCHAR2(50),
+                       url                              VARCHAR2(250),
+                       vat_id_number                    VARCHAR2(100)
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
-                   CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    NUMBER                    NOT NULL
+                   CREATE TABLE country (
+                       pk_country_id                    NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COUNTRY_MAP                      BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       ISO3166                          VARCHAR2(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL
+                       country_map                      BLOB,
+                       created                          TIMESTAMP                 NOT NULL,
+                       iso3166                          VARCHAR2(50),
+                       modified                         TIMESTAMP,
+                       name                             VARCHAR2(100)             NOT NULL
                                                                                   UNIQUE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE COUNTRY_STATE (
-                       PK_COUNTRY_STATE_ID              NUMBER                    NOT NULL
+                   CREATE TABLE country_state (
+                       pk_country_state_id              NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_COUNTRY_ID                    NUMBER                    NOT NULL
-                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
-                       FK_TIMEZONE_ID                   NUMBER                    NOT NULL
-                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
-                       COUNTRY_STATE_MAP                BLOB,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL,
-                       SYMBOL                           VARCHAR2(50),
+                       fk_country_id                    NUMBER                    NOT NULL
+                                                                                  REFERENCES country                          (pk_country_id),
+                       fk_timezone_id                   NUMBER                    NOT NULL
+                                                                                  REFERENCES timezone                         (pk_timezone_id),
+                       country_state_map                BLOB,
+                       created                          TIMESTAMP                 NOT NULL,
+                       modified                         TIMESTAMP,
+                       name                             VARCHAR2(100)             NOT NULL,
+                       symbol                           VARCHAR2(50),
                        CONSTRAINT CONSTRAINT_11       UNIQUE      (fk_country_id, name)
                    )
                    """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
-                   CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   NUMBER                    NOT NULL
+                   CREATE TABLE timezone (
+                       pk_timezone_id                   NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       ABBREVIATION                     VARCHAR2(50)              NOT NULL,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL
+                       abbreviation                     VARCHAR2(50)              NOT NULL,
+                       created                          TIMESTAMP                 NOT NULL,
+                       modified                         TIMESTAMP,
+                       name                             VARCHAR2(100)             NOT NULL
                                                                                   UNIQUE,
-                       V_TIME_ZONE                      VARCHAR2(4000)
+                       v_time_zone                      VARCHAR2(4000)
                    )
                    """);
 
@@ -185,128 +185,68 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
     // Encoding ISO_8859_1
 
     encodedColumnNames.setProperty("ABBREVIATION_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ACTIVE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ADDRESS1_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ADDRESS2_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ADDRESS3_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("EMAIL_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("FAX_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ISO3166_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("NAME_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("PHONE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("POSTAL_CODE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("SYMBOL_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("URL_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("VAT_ID_NUMBER_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("V_TIME_ZONE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                                   isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
 
     // Encoding UTF_8
 
     encodedColumnNames.setProperty("ABBREVIATION_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ACTIVE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ADDRESS1_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ADDRESS2_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ADDRESS3_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("EMAIL_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("FAX_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ISO3166_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("NAME_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("PHONE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("POSTAL_CODE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("SYMBOL_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("URL_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("VAT_ID_NUMBER_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("V_TIME_ZONE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                                   isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
 
     if (isDebug) {
       logger.debug("End");

@@ -15,6 +15,7 @@ echo "DB Seeder - setting up the DBMS."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                      : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED             : $DB_SEEDER_DBMS_EMBEDDED"
+echo "DBMS_PRESTO               : $DB_SEEDER_DBMS_PRESTO"
 echo --------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then

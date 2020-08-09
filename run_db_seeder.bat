@@ -15,30 +15,33 @@ set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=2.1.0
 
 if ["%1"] EQU [""] (
-    echo =========================================================
-    echo complete_client - All implemented client DBMSs
-    echo complete_emb    - All implemented embedded DBMSs
-    echo complete_presto - All implemented Presto enabled DBMSs
-    echo derby           - Apache Derby [client]
-    echo derby_emb       - Apache Derby [embedded]
-    echo cratedb         - CrateDB
-    echo cubrid          - CUBRID
-    echo firebird        - Firebird
-    echo h2              - H2 Database Engine [client]
-    echo h2_emb          - H2 Database Engine [embedded]
-    echo hsqldb          - HyperSQL Database [client]
-    echo hsqldb_emb      - HyperSQL Database [embedded]
-    echo ibmdb2          - IBM Db2 Database
-    echo informix        - IBM Informix
-    echo mariadb         - MariaDB Server
-    echo mimer           - Mimer SQL
-    echo mssqlserver     - Microsoft SQL Server
-    echo mysql           - MySQL
-    echo mysql_presto    - MySQL via Presto
-    echo oracle          - Oracle Database
-    echo postgresql      - PostgreSQL Database
-    echo sqlite          - SQLite [embedded]
-    echo ---------------------------------------------------------
+    echo ============================================================
+    echo complete_client    - All implemented client DBMSs
+    echo complete_emb       - All implemented embedded DBMSs
+    echo complete_presto    - All implemented Presto enabled DBMSs
+    echo derby              - Apache Derby [client]
+    echo derby_emb          - Apache Derby [embedded]
+    echo cratedb            - CrateDB
+    echo cubrid             - CUBRID
+    echo firebird           - Firebird
+    echo h2                 - H2 Database Engine [client]
+    echo h2_emb             - H2 Database Engine [embedded]
+    echo hsqldb             - HyperSQL Database [client]
+    echo hsqldb_emb         - HyperSQL Database [embedded]
+    echo ibmdb2             - IBM Db2 Database
+    echo informix           - IBM Informix
+    echo mariadb            - MariaDB Server
+    echo mimer              - Mimer SQL
+    echo mssqlserver        - Microsoft SQL Server
+    echo mssqlserver_presto - Microsoft SQL Server via Presto
+    echo mysql              - MySQL
+    echo mysql_presto       - MySQL via Presto
+    echo oracle             - Oracle Database
+    echo oracle_presto      - Oracle Database via Presto
+    echo postgresql         - PostgreSQL Database
+    echo postgresql_presto  - PostgreSQL Database via Presto
+    echo sqlite             - SQLite [embedded]
+    echo -----------------------------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 
     if ["!DB_SEEDER_DBMS!"] EQU [""] (
@@ -325,6 +328,26 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
     set DB_SEEDER_VERSION=2019-latest
 )
 
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
+    set DB_SEEDER_DBMS=mssqlserver_presto
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver_presto"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=1433
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    set DB_SEEDER_CONTAINER_PORT=1433
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=master
+    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_PASSWORD=mssqlserver_2019
+    set DB_SEEDER_PASSWORD_SYS=mssqlserver_2019
+    set DB_SEEDER_SCHEMA=kxn_schema
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=sa
+    set DB_SEEDER_VERSION=2019-latest
+)
+
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=mysql
 )
@@ -383,6 +406,26 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_VERSION=db_19_3_ee
 )
 
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
+    set DB_SEEDER_DBMS=oracle_presto
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=1521
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
+    set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
+    set DB_SEEDER_CONTAINER_PORT=1521
+    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_PASSWORD=oracle
+    set DB_SEEDER_PASSWORD_SYS=oracle
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=SYS AS SYSDBA
+    set DB_SEEDER_VERSION=db_12_2_ee
+    set DB_SEEDER_VERSION=db_18_3_ee
+    set DB_SEEDER_VERSION=db_19_3_ee
+)
+
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=postgresql
 )
@@ -396,6 +439,26 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_DATABASE_SYS=kxn_db_sys
     set DB_SEEDER_PASSWORD=postgresql
     set DB_SEEDER_PASSWORD_SYS=postgresql
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=kxn_user_sys
+    set DB_SEEDER_VERSION=12.3-alpine
+)
+
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
+    set DB_SEEDER_DBMS=postgresql_presto
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=5432
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    set DB_SEEDER_CONTAINER_PORT=5432
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_PASSWORD=postgresql
+    set DB_SEEDER_PASSWORD_SYS=postgresql
+    set DB_SEEDER_SCHEMA=public
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.3-alpine
@@ -492,6 +555,11 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
     
     goto EXIT
 )    
+
+call scripts\run_db_seeder_single %DB_SEEDER_DBMS%
+if %ERRORLEVEL% NEQ 0 (
+    exit %ERRORLEVEL%
+)
 
 EXIT:
 echo --------------------------------------------------------------------------------

@@ -15,30 +15,33 @@ export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.1.0
 
 if [ -z "$1" ]; then
-    echo "======================================================"
-    echo "complete_client - All implemented client DBMSs"
-    echo "complete_emb    - All implemented embedded DBMSs"
-    echo "complete_presto - All implemented Presto enabled DBMSs"
-    echo "derby           - Apache Derby [client]"
-    echo "derby_emb       - Apache Derby [embedded]"
-    echo "cratedb         - CrateDB"
-    echo "cubrid          - CUBRID"
-    echo "firebird        - Firebird"
-    echo "h2              - H2 Database Engine [client]"
-    echo "h2_emb          - H2 Database Engine [embedded]"
-    echo "hsqldb          - HyperSQL Database [client]"
-    echo "hsqldb_emb      - HyperSQL Database [embedded]"
-    echo "ibmdb2          - IBM Db2 Database"
-    echo "informix        - IBM Informix"
-    echo "mariadb         - MariaDB Server"
-    echo "mimer           - Mimer SQL"
-    echo "mssqlserver     - Microsoft SQL Server"
-    echo "mysql           - MySQL"
-    echo "mysql_presto    - MySQL via Presto"
-    echo "oracle          - Oracle Database"
-    echo "postgresql      - PostgreSQL Database"
-    echo "sqlite          - SQLite [embedded]"
-    echo "-------------------------------------------"
+    echo "========================================================="
+    echo "complete_client    - All implemented client DBMSs"
+    echo "complete_emb       - All implemented embedded DBMSs"
+    echo "complete_presto    - All implemented Presto enabled DBMSs"
+    echo "derby              - Apache Derby [client]"
+    echo "derby_emb          - Apache Derby [embedded]"
+    echo "cratedb            - CrateDB"
+    echo "cubrid             - CUBRID"
+    echo "firebird           - Firebird"
+    echo "h2                 - H2 Database Engine [client]"
+    echo "h2_emb             - H2 Database Engine [embedded]"
+    echo "hsqldb             - HyperSQL Database [client]"
+    echo "hsqldb_emb         - HyperSQL Database [embedded]"
+    echo "ibmdb2             - IBM Db2 Database"
+    echo "informix           - IBM Informix"
+    echo "mariadb            - MariaDB Server"
+    echo "mimer              - Mimer SQL"
+    echo "mssqlserver        - Microsoft SQL Server"
+    echo "mssqlserver_presto - Microsoft SQL Server via Presto"
+    echo "mysql              - MySQL"
+    echo "mysql_presto       - MySQL via Presto"
+    echo "oracle             - Oracle Database"
+    echo "oracle_presto      - Oracle Database via Presto"
+    echo "postgresql         - PostgreSQL Database"
+    echo "postgresql_presto  - PostgreSQL Database via Presto"
+    echo "sqlite             - SQLite [embedded]"
+    echo "---------------------------------------------------------"
     read -p -r "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
 
@@ -270,6 +273,22 @@ if [ "$DB_SEEDER_DBMS" = "mssqlserver" ] || [ "$DB_SEEDER_DBMS" = "complete_clie
     export DB_SEEDER_VERSION=2019-latest
 fi
 
+if [ "$DB_SEEDER_DBMS" = "mssqlserver_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=1433
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    export DB_SEEDER_CONTAINER_PORT=1433
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=master
+    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_PASSWORD=mssqlserver_2019
+    export DB_SEEDER_PASSWORD_SYS=mssqlserver_2019
+    export DB_SEEDER_SCHEMA=kxn_schema
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=sa
+    export DB_SEEDER_VERSION=2019-latest
+fi
+
 if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
@@ -316,6 +335,22 @@ if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ]
     export DB_SEEDER_VERSION=db_19_3_ee
 fi
 
+if [ "$DB_SEEDER_DBMS" = "oracle_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=1521
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
+    export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
+    export DB_SEEDER_CONTAINER_PORT=1521
+    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_PASSWORD=oracle
+    export DB_SEEDER_PASSWORD_SYS=oracle
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS="SYS AS SYSDBA"
+    export DB_SEEDER_VERSION=db_12_2_ee
+    export DB_SEEDER_VERSION=db_18_3_ee
+    export DB_SEEDER_VERSION=db_19_3_ee
+fi
+
 if [ "$DB_SEEDER_DBMS" = "postgresql" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
@@ -325,6 +360,22 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ] || [ "$DB_SEEDER_DBMS" = "complete_clien
     export DB_SEEDER_DATABASE_SYS=kxn_db_sys
     export DB_SEEDER_PASSWORD=postgresql
     export DB_SEEDER_PASSWORD_SYS=postgresql
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=kxn_user_sys
+    export DB_SEEDER_VERSION=12.3-alpine
+fi
+
+if [ "$DB_SEEDER_DBMS" = "postgresql_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=5432
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    export DB_SEEDER_CONTAINER_PORT=5432
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_PASSWORD=postgresql
+    export DB_SEEDER_PASSWORD_SYS=postgresql
+    export DB_SEEDER_SCHEMA=public
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.3-alpine

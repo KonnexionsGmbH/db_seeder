@@ -43,7 +43,7 @@ ping -n 30 127.0.0.1>nul
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo Docker Presto Distributed Query Engine was ready in %CONSUMED%
 
-GOTO EXIT
+GOTO END_OF_SCRIPT
 
 :CONTAINER_RUNNING
 
@@ -52,7 +52,7 @@ echo Start Presto Distributed Query Engine - the container is already running
 echo --------------------------------------------------------------------------------
 docker ps
 
-GOTO EXIT
+GOTO END_OF_SCRIPT
 
 :CONTAINER_START
 
@@ -62,7 +62,7 @@ echo ---------------------------------------------------------------------------
 docker start db_seeder_presto
 docker ps
 
-:EXIT
+:END_OF_SCRIPT
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

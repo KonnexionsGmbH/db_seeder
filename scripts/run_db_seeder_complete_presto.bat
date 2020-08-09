@@ -10,7 +10,7 @@ setlocal EnableDelayedExpansion
 
 set DB_SEEDER_DBMS_MSSQLSERVER=yes
 set DB_SEEDER_DBMS_MYSQL_PRESTO=yes
-set DB_SEEDER_DBMS_ORACLE=yes
+set DB_SEEDER_DBMS_ORACLE_PRESTO=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
 
 echo.
@@ -34,7 +34,7 @@ echo.
     echo --------------------------------------------------------------------------------
     echo DBMS_MSSQLSERVER                : %DB_SEEDER_DBMS_MSSQLSERVER%
     echo DBMS_MYSQL_PRESTO               : %DB_SEEDER_DBMS_MYSQL_PRESTO%
-    echo DBMS_ORACLE                     : %DB_SEEDER_DBMS_ORACLE%
+    echo DBMS_ORACLE_PRESTO              : %DB_SEEDER_DBMS_ORACLE_PRESTO%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
     echo --------------------------------------------------------------------------------
     echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
@@ -42,6 +42,16 @@ echo.
     echo:| TIME
     echo ================================================================================
     
+    call run_db_seeder_generate_schema.bat
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
+    
+    call run_db_seeder_presto_environment.bat
+    if %ERRORLEVEL% NEQ 0 (
+        exit %ERRORLEVEL%
+    )
+
     rem ------------------------------------------------------------------------------
     rem Microsoft SQL Server.
     rem ------------------------------------------------------------------------------
@@ -65,11 +75,11 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Oracle Database.
+    rem Oracle Database - via Presto.
     rem ------------------------------------------------------------------------------
     
-    if ["%DB_SEEDER_DBMS_ORACLE%"] EQU ["yes"] (
-        call run_db_seeder.bat oracle yes 2
+    if ["%DB_SEEDER_DBMS_ORACLE_PRESTO%"] EQU ["yes"] (
+        call run_db_seeder.bat oracle_presto yes 2
         if %ERRORLEVEL% NEQ 0 (
             exit %ERRORLEVEL%
         )

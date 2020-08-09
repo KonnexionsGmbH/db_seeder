@@ -61,6 +61,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * 
    * @return the Presto URL string
    */
+  @SuppressWarnings("ucd")
   public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort) {
     return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "?user=presto";
   }
@@ -375,7 +376,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("mysql".equals(tickerSymbolLower)) {
+    if ("mssqlserver".equals(tickerSymbolLower) || "mysql".equals(tickerSymbolLower) || "oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower)) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -427,7 +428,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("mysql".equals(tickerSymbolLower)) {
+    if ("mssqlserver".equals(tickerSymbolLower) || "mysql".equals(tickerSymbolLower) || "oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower)) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();

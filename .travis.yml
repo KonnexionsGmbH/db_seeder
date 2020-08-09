@@ -29,7 +29,9 @@ env:
     - DB_SEEDER_DBMS=mysql
     - DB_SEEDER_DBMS=mysql_presto
     - DB_SEEDER_DBMS=oracle
+    - DB_SEEDER_DBMS=oracle_presto
     - DB_SEEDER_DBMS=postgresql
+    - DB_SEEDER_DBMS=postgresql_presto
     - DB_SEEDER_DBMS=sqlite
 
 before_script:

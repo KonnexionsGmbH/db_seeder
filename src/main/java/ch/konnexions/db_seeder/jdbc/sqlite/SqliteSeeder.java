@@ -34,12 +34,13 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
    * Instantiates a new SQLite seeder object.
    * 
    * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
    */
-  public SqliteSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public SqliteSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.SQLITE;

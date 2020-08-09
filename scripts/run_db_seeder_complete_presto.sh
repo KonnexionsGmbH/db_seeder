@@ -13,7 +13,7 @@ sleep .1
 
 export DB_SEEDER_DBMS_MSSQLSERVER=yes
 export DB_SEEDER_DBMS_MYSQL_PRESTO=yes
-export DB_SEEDER_DBMS_ORACLE=yes
+export DB_SEEDER_DBMS_ORACLE_PRESTO=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
 
 # ------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ echo "DB Seeder - Run all DBMS variations."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_MSSQLSERVER                : $DB_SEEDER_DBMS_MSSQLSERVER"
 echo "DBMS_MYSQL_PRESTO               : $DB_SEEDER_DBMS_MYSQL_PRESTO"
-echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
+echo "DBMS_ORACLE_PRESTO              : $DB_SEEDER_DBMS_ORACLE_PRESTO"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
 echo "--------------------------------------------------------------------------------"
 echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
@@ -80,11 +80,11 @@ if [ "$DB_SEEDER_DBMS_MYSQL_PRESTO" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Oracle Database.
+# Oracle Database - via Presto.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh oracle yes 2 ); then
+if [ "$DB_SEEDER_DBMS_ORACLE_PRESTO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh oracle_presto yes 2 ); then
         exit 255
     fi    
 fi
