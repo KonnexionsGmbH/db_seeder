@@ -16,6 +16,7 @@ echo "--------------------------------------------------------------------------
 echo "DBMS_DB                   : $DB_SEEDER_DBMS_DB"
 echo "DBMS_EMBEDDED             : $DB_SEEDER_DBMS_EMBEDDED"
 echo "DBMS_PRESTO               : $DB_SEEDER_DBMS_PRESTO"
+echo "VERSION                   : $DB_SEEDER_VERSION"
 echo --------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
