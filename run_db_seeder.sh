@@ -32,8 +32,8 @@ if [ -z "$1" ]; then
     echo "informix           - IBM Informix"
     echo "mariadb            - MariaDB Server"
     echo "mimer              - Mimer SQL"
-    echo "mssqlserver        - Microsoft SQL Server"
-    echo "mssqlserver_presto - Microsoft SQL Server via Presto"
+    echo "sqlserver          - Microsoft SQL Server"
+    echo "sqlserver_presto   - Microsoft SQL Server via Presto"
     echo "mysql              - MySQL"
     echo "mysql_presto       - MySQL via Presto"
     echo "oracle             - Oracle Database"
@@ -258,22 +258,7 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ];
     export DB_SEEDER_VERSION=v11.0.3c
 fi
 
-if [ "$DB_SEEDER_DBMS" = "mssqlserver" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
-    export DB_SEEDER_CONNECTION_PORT=1433
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
-    export DB_SEEDER_CONTAINER_PORT=1433
-    export DB_SEEDER_DATABASE=kxn_db
-    export DB_SEEDER_DATABASE_SYS=master
-    export DB_SEEDER_PASSWORD=mssqlserver_2019
-    export DB_SEEDER_PASSWORD_SYS=mssqlserver_2019
-    export DB_SEEDER_SCHEMA=kxn_schema
-    export DB_SEEDER_USER=kxn_user
-    export DB_SEEDER_USER_SYS=sa
-    export DB_SEEDER_VERSION=2019-latest
-fi
-
-if [ "$DB_SEEDER_DBMS" = "mssqlserver_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
+if [ "$DB_SEEDER_DBMS" = "sqlserver_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
@@ -281,8 +266,8 @@ if [ "$DB_SEEDER_DBMS" = "mssqlserver_presto" ] || [ "$DB_SEEDER_DBMS" = "comple
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=master
     export DB_SEEDER_DBMS_PRESTO=yes
-    export DB_SEEDER_PASSWORD=mssqlserver_2019
-    export DB_SEEDER_PASSWORD_SYS=mssqlserver_2019
+    export DB_SEEDER_PASSWORD=sqlserver_2019
+    export DB_SEEDER_PASSWORD_SYS=sqlserver_2019
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
@@ -385,6 +370,21 @@ if [ "$DB_SEEDER_DBMS" = "sqlite" ] || [ "$DB_SEEDER_DBMS" = "complete_emb" ]; t
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlite:
     export DB_SEEDER_DATABASE=./tmp/sqlite_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
+fi
+
+if [ "$DB_SEEDER_DBMS" = "sqlserver" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=1433
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    export DB_SEEDER_CONTAINER_PORT=1433
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=master
+    export DB_SEEDER_PASSWORD=sqlserver_2019
+    export DB_SEEDER_PASSWORD_SYS=sqlserver_2019
+    export DB_SEEDER_SCHEMA=kxn_schema
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=sa
+    export DB_SEEDER_VERSION=2019-latest
 fi
 
 if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then

@@ -94,7 +94,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     case "BLOB" -> switch (tickerSymbolLower) {
       case "cratedb" -> "OBJECT";
       case "mariadb", "mysql" -> "LONGBLOB";
-      case "mssqlserver" -> "VARBINARY(MAX)";
+      case "sqlserver" -> "VARBINARY(MAX)";
       case "postgresql" -> "BYTEA";
       default -> "BLOB";
       };
@@ -102,13 +102,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "cratedb", "postgresql" -> "TEXT";
       case "firebird" -> "BLOB SUB_TYPE 1";
       case "mariadb", "mysql" -> "LONGTEXT";
-      case "mssqlserver" -> "VARCHAR(MAX)";
+      case "sqlserver" -> "VARCHAR(MAX)";
       default -> "CLOB";
       };
     case "TIMESTAMP" -> switch (tickerSymbolLower) {
       case "informix" -> "DATETIME YEAR TO FRACTION";
       case "mariadb", "mysql", "sqlite" -> "DATETIME";
-      case "mssqlserver" -> "DATETIME2";
+      case "sqlserver" -> "DATETIME2";
       default -> "TIMESTAMP";
       };
     case "VARCHAR" -> switch (tickerSymbolLower) {
@@ -182,7 +182,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       columns = tableConstraint.getColumns();
 
-      if ("mssqlserver".equals(tickerSymbolLower)
+      if ("sqlserver".equals(tickerSymbolLower)
           || "mysql".equals(tickerSymbolLower)
           || "oracle".equals(tickerSymbolLower)
           || "postgresql".equals(tickerSymbolLower)) {
@@ -200,7 +200,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
         columns  = tableConstraint.getReferenceColumns();
 
-        if ("mssqlserver".equals(tickerSymbolLower)
+        if ("sqlserver".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
             || "postgresql".equals(tickerSymbolLower)) {
@@ -469,7 +469,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        if ("mssqlserver".equals(tickerSymbolLower)
+        if ("sqlserver".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
             || "postgresql".equals(tickerSymbolLower)) {
@@ -499,7 +499,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         for (Column column : columns) {
           columnNameUpper = column.getColumnName().toUpperCase();
 
-          if ("mssqlserver".equals(tickerSymbolLower)
+          if ("sqlserver".equals(tickerSymbolLower)
               || "mysql".equals(tickerSymbolLower)
               || "oracle".equals(tickerSymbolLower)
               || "postgresql".equals(tickerSymbolLower)) {
@@ -591,7 +591,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                   workArea = new StringBuffer(" ".repeat(82));
                 }
 
-                if ("mssqlserver".equals(tickerSymbolLower)
+                if ("sqlserver".equals(tickerSymbolLower)
                     || "mysql".equals(tickerSymbolLower)
                     || "oracle".equals(tickerSymbolLower)
                     || "postgresql".equals(tickerSymbolLower)) {
@@ -720,7 +720,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.newLine();
 
-      if ("cubrid".equals(tickerSymbolLower) || "mimer".equals(tickerSymbolLower) || "mssqlserver".equals(tickerSymbolLower)) {
+      if ("cubrid".equals(tickerSymbolLower) || "mimer".equals(tickerSymbolLower) || "sqlserver".equals(tickerSymbolLower)) {
         bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
             ? "true"
             : "false").append(", false);");

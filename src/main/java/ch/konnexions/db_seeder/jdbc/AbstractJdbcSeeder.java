@@ -376,7 +376,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("mssqlserver".equals(tickerSymbolLower) || "mysql".equals(tickerSymbolLower) || "oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower)) {
+    if ("sqlserver".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -428,7 +431,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("mssqlserver".equals(tickerSymbolLower) || "mysql".equals(tickerSymbolLower) || "oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower)) {
+    if ("sqlserver".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -1299,7 +1305,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.SQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
         preparedStatement.setNString(columnPos,
                                      getContentVarchar(tableName,
                                                        columnName,
@@ -1365,7 +1371,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           preparedStatement.setNull(columnPos,
                                     java.sql.Types.VARCHAR);
         } else {
-          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.SQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
             preparedStatement.setNString(columnPos,
                                          defaultValue);
           } else {

@@ -11,7 +11,7 @@ sleep .1
 #
 # ------------------------------------------------------------------------------
 
-export DB_SEEDER_DBMS_MSSQLSERVER=yes
+export DB_SEEDER_DBMS_SQLSERVER=yes
 export DB_SEEDER_DBMS_MYSQL_PRESTO=yes
 export DB_SEEDER_DBMS_ORACLE_PRESTO=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
@@ -37,10 +37,10 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Run all DBMS variations."
 echo "--------------------------------------------------------------------------------"
-echo "DBMS_MSSQLSERVER                : $DB_SEEDER_DBMS_MSSQLSERVER"
 echo "DBMS_MYSQL_PRESTO               : $DB_SEEDER_DBMS_MYSQL_PRESTO"
 echo "DBMS_ORACLE_PRESTO              : $DB_SEEDER_DBMS_ORACLE_PRESTO"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
+echo "DBMS_SQLSERVER                  : $DB_SEEDER_DBMS_SQLSERVER"
 echo "--------------------------------------------------------------------------------"
 echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "--------------------------------------------------------------------------------"
@@ -58,16 +58,6 @@ if ! ( ./run_db_seeder_presto_environment.sh ); then
 fi    
 
 unset -f "${DB_SEEDER_DBMS}"=
-
-# ------------------------------------------------------------------------------
-# Microsoft SQL Server.
-# ------------------------------------------------------------------------------
-
-if [ "$DB_SEEDER_DBMS_MSSQLSERVER" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh mssqlserver yes 2 ); then
-        exit 255
-    fi    
-fi
 
 # ------------------------------------------------------------------------------
 # MySQL Database - via Presto.
@@ -95,6 +85,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
     if ! ( ./run_db_seeder.sh postgresql yes 2 ); then
+        exit 255
+    fi    
+fi
+
+# ------------------------------------------------------------------------------
+# Microsoft SQL Server.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlserver yes 2 ); then
         exit 255
     fi    
 fi

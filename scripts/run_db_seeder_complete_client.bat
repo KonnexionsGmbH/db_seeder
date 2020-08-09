@@ -18,7 +18,7 @@ set DB_SEEDER_DBMS_IBMDB2=yes
 set DB_SEEDER_DBMS_INFORMIX=yes
 set DB_SEEDER_DBMS_MARIADB=yes
 set DB_SEEDER_DBMS_MIMER=yes
-set DB_SEEDER_DBMS_MSSQLSERVER=yes
+set DB_SEEDER_DBMS_SQLSERVER=yes
 set DB_SEEDER_DBMS_MYSQL=yes
 set DB_SEEDER_DBMS_ORACLE=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
@@ -52,10 +52,10 @@ echo.
     echo DBMS_INFORMIX                   : %DB_SEEDER_DBMS_INFORMIX%
     echo DBMS_MARIADB                    : %DB_SEEDER_DBMS_MARIADB%
     echo DBMS_MIMER                      : %DB_SEEDER_DBMS_MIMER%
-    echo DBMS_MSSQLSERVER                : %DB_SEEDER_DBMS_MSSQLSERVER%
     echo DBMS_MYSQL                      : %DB_SEEDER_DBMS_MYSQL%
     echo DBMS_ORACLE                     : %DB_SEEDER_DBMS_ORACLE%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
+    echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
     echo --------------------------------------------------------------------------------
     echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
@@ -162,17 +162,6 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Microsoft SQL Server.
-    rem ------------------------------------------------------------------------------
-    
-    if ["%DB_SEEDER_DBMS_MSSQLSERVER%"] EQU ["yes"] (
-        call run_db_seeder.bat mssqlserver yes 2
-        if %ERRORLEVEL% NEQ 0 (
-            exit %ERRORLEVEL%
-        )
-    )
-    
-    rem ------------------------------------------------------------------------------
     rem Mimer SQL.
     rem ------------------------------------------------------------------------------
     
@@ -211,6 +200,17 @@ echo.
     
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
         call run_db_seeder.bat postgresql yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            exit %ERRORLEVEL%
+        )
+    )
+    
+    rem ------------------------------------------------------------------------------
+    rem Microsoft SQL Server.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
+        call run_db_seeder.bat sqlserver yes 2
         if %ERRORLEVEL% NEQ 0 (
             exit %ERRORLEVEL%
         )

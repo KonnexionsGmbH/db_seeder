@@ -276,28 +276,6 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server Database  https://hub.docker.com/_/microsoft-mssql-server
-# ------------------------------------------------------------------------------
-
-if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
-    start=$(date +%s)
-    echo "Microsoft SQL Server."
-    echo "--------------------------------------------------------------------------------"
-    echo "Docker create db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=mssqlserver_2019" -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
-
-    echo "Docker start db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION) ..."
-    if ! docker start db_seeder_db; then
-        exit 255
-    fi
-
-    sleep 30
-
-    end=$(date +%s)
-    echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
-fi
-
-# ------------------------------------------------------------------------------
 # MySQL Database                                  https://hub.docker.com/_/mysql
 # ------------------------------------------------------------------------------
 
@@ -363,6 +341,28 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
 
     end=$(date +%s)
     echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
+# Microsoft SQL Server Database  https://hub.docker.com/_/microsoft-mssql-server
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS" = "sqlserver" ]; then
+    start=$(date +%s)
+    echo "Microsoft SQL Server."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION)"
+    docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sqlserver_2019" -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
+
+    echo "Docker start db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 30
+
+    end=$(date +%s)
+    echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
 fi
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" == "no" ]; then

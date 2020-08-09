@@ -15,10 +15,10 @@ import java.util.Objects;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
-import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
+import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
@@ -65,11 +65,7 @@ public final class PrestoEnvironment {
 
     entries.clear();
 
-    String connectorName = "mssqlserver".equals(tickerSymbolLower)
-        ? "sqlserver"
-        : tickerSymbolLower;
-
-    entries.add("connector.name=" + connectorName);
+    entries.add("connector.name=" + tickerSymbolLower);
     entries.add("connection-url=" + url.replace("\"",
                                                 ""));
     entries.add("connection-user=" + user);
@@ -119,80 +115,6 @@ public final class PrestoEnvironment {
       e.printStackTrace();
       System.exit(1);
     }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  /**
-   * Create the Microsoft SQL Server catalog file.
-   *
-   * @param tickerSymbolExtern the DBMS ticker symbol
-   */
-  private static void createCatalogFileMssqlserver(String tickerSymbolExtern) {
-    if (isDebug) {
-      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
-    }
-
-    // =========================================================================
-    // Common variables.
-    // -------------------------------------------------------------------------
-
-    if (osEnvironment.containsKey("DB_SEEDER_MSSQLSERVER_CONNECTION_HOST")) {
-      connectionHost = osEnvironment.get("DB_SEEDER_MSSQLSERVER_CONNECTION_HOST");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_MSSQLSERVER_CONNECTION_HOST");
-    }
-
-    if (osEnvironment.containsKey("DB_SEEDER_MSSQLSERVER_CONNECTION_PORT")) {
-      String connectionPortString = osEnvironment.get("DB_SEEDER_MSSQLSERVER_CONNECTION_PORT");
-      try {
-        connectionPort = Integer.parseInt(connectionPortString);
-      } catch (NumberFormatException e) {
-        MessageHandling.abortProgram(logger,
-                                     "Program abort: parameter is not an integer: DB_SEEDER_MSSQLSERVER_CONNECTION_PORT");
-      }
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_MSSQLSERVER_CONNECTION_PORT");
-    }
-
-    if (osEnvironment.containsKey("DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX")) {
-      connectionPrefix = osEnvironment.get("DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_MSSQLSERVER_CONNECTION_PREFIX");
-    }
-
-    // =========================================================================
-    // Non-Privileged access variables.
-    // -------------------------------------------------------------------------
-
-    if (osEnvironment.containsKey("DB_SEEDER_MSSQLSERVER_PASSWORD")) {
-      password = osEnvironment.get("DB_SEEDER_MSSQLSERVER_PASSWORD");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_MSSQLSERVER_PASSWORD");
-    }
-
-    if (osEnvironment.containsKey("DB_SEEDER_MSSQLSERVER_USER")) {
-      user = osEnvironment.get("DB_SEEDER_MSSQLSERVER_USER");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_MSSQLSERVER_USER");
-    }
-
-    // =========================================================================
-    // Non-Privileged catalog creation.
-    // -------------------------------------------------------------------------
-
-    url = MssqlserverSeeder.getUrlPresto(connectionHost,
-                                         connectionPort,
-                                         connectionPrefix);
-
-    createCatalog(tickerSymbolLower);
 
     if (isDebug) {
       logger.debug("End");
@@ -446,6 +368,80 @@ public final class PrestoEnvironment {
   }
 
   /**
+   * Create the Microsoft SQL Server catalog file.
+   *
+   * @param tickerSymbolExtern the DBMS ticker symbol
+   */
+  private static void createCatalogFileSqlserver(String tickerSymbolExtern) {
+    if (isDebug) {
+      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+    }
+
+    // =========================================================================
+    // Common variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_CONNECTION_HOST")) {
+      connectionHost = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_HOST");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_HOST");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_CONNECTION_PORT")) {
+      String connectionPortString = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_PORT");
+      try {
+        connectionPort = Integer.parseInt(connectionPortString);
+      } catch (NumberFormatException e) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: parameter is not an integer: DB_SEEDER_SQLSERVER_CONNECTION_PORT");
+      }
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PORT");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_CONNECTION_PREFIX")) {
+      connectionPrefix = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
+    }
+
+    // =========================================================================
+    // Non-Privileged access variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_PASSWORD")) {
+      password = osEnvironment.get("DB_SEEDER_SQLSERVER_PASSWORD");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_PASSWORD");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_USER")) {
+      user = osEnvironment.get("DB_SEEDER_SQLSERVER_USER");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_USER");
+    }
+
+    // =========================================================================
+    // Non-Privileged catalog creation.
+    // -------------------------------------------------------------------------
+
+    url = SqlserverSeeder.getUrlPresto(connectionHost,
+                                       connectionPort,
+                                       connectionPrefix);
+
+    createCatalog(tickerSymbolLower);
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
    * The main method.
    *
    * @param args the arguments
@@ -475,11 +471,6 @@ public final class PrestoEnvironment {
       tickerSymbolLower = AbstractDbmsSeeder.dbmsDetails.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER];
 
       switch (Objects.requireNonNull(tickerSymbolExtern)) {
-      case "mssqlserver":
-        logger.info("Start MS SQL Server");
-        createCatalogFileMssqlserver(tickerSymbolExtern);
-        logger.info("End   MS SQL Server");
-        break;
       case "mysql":
         logger.info("Start MySQL Database");
         createCatalogFileMysql(tickerSymbolExtern);
@@ -494,6 +485,11 @@ public final class PrestoEnvironment {
         logger.info("Start PostgreSQL Database");
         createCatalogFilePostgresql(tickerSymbolExtern);
         logger.info("End   PostgreSQL Database");
+        break;
+      case "sqlserver":
+        logger.info("Start Microsoft SQL Server");
+        createCatalogFileSqlserver(tickerSymbolExtern);
+        logger.info("End   Microsoft SQL Server");
         break;
       case "":
         MessageHandling.abortProgram(logger,

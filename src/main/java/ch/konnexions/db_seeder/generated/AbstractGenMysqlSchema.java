@@ -90,7 +90,7 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
                        modified                         DATETIME,
                        name                             VARCHAR(100)              NOT NULL,
                        symbol                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_10       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_9        UNIQUE      (fk_country_id, name)
                    )
                    """);
 

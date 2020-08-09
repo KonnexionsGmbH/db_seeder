@@ -70,7 +70,7 @@ Currently the following database management systems are supported:
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
   - relational database management system (RDBMS)
   - client only version
-  - **[see technical details here](#details_mssqlserver)**
+  - **[see technical details here](#details_sqlserver)**
 - [Mimer SQL](https://www.mimer.com) 
   - relational database management system (RDBMS)
   - client only version
@@ -108,15 +108,15 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 | DBMS                 | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
 |---                   |---                 |---                        |---                  |
 | Apache Derby         | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
-| CrateDB              | cratedb            | 4.1.6 - 4.2.2             | 2.6.0               |
 | CUBRID               | cubrid             | 10.2                      | 10.2.1.8849         |
+| CrateDB              | cratedb            | 4.1.6 - 4.2.2             | 2.6.0               |
 | Firebird             | firebird           | 3.0.5 - 3.0.6             | 4.0.0.java11        | 
 | H2 Database Engine   | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
 | HyperSQL Database    | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
 | IBM Db2 Database     | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
 | IBM Informix         | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
 | MariaDB Server       | mariadb            | 10.4.13 - 10.5.4          | 2.6.1               | 
-| Microsoft SQL Server | mssqlserver        | 2019-latest               | 8.3.1.jre14-preview | 
+| Microsoft SQL Server | sqlserver          | 2019-latest               | 8.3.1.jre14-preview | 
 | Mimer SQL            | mimer              | 11.0.3C                   | 3.40                | 
 | MySQL Database       | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database      | oracle             | 12c - 19c                 | 19.7.0.0            |
@@ -384,16 +384,16 @@ db_seeder.user=
 | connection.prefix=<x...x> | CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
 | connection.service=<x...x> | CONNECTION_SERVICE | oracle | service name of the database connection string |
 | connection.suffix=<x...x> | CONNECTION_SUFFIX | cubrid, firebird, hsqldb, informix, mysql | suffix of the database connection string |
-| database.sys=<x...x> | DATABASE | informix, mariadb, mimer, mssqlserver, mysql, postgresql | privileged database name |
-| database=<x...x> | DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, postgresql, sqlite | database name |
+| database.sys=<x...x> | DATABASE | informix, mariadb, mimer, mysql, postgresql, sqlserver | privileged database name |
+| database=<x...x> | DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, postgresql, sqlite, sqlserver | database name |
 | file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x> | FILE_STATISTICS_NAME | all DBMS | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x> | FILE_STATISTICS_NAME | all DBMS | file name of the statistics file created in `run_db_seeder` |
-| password.sys=<x...x> | PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
-| password=<x...x> | PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
-| schema=kxn_schema | SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |
-| user.sys=<x...x>> | USER.SYS | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the privileged user |
-| user=kxn_user | USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the normal user |
+| password.sys=<x...x> | PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mysql, oracle, postgresql, sqlserver | password of the privileged user |
+| password=<x...x> | PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, postgresql, sqlserver | password of the normal user |
+| schema=kxn_schema | SCHEMA | h2, hsqldb, ibmdb2, sqlserver | schema name |
+| user.sys=<x...x>> | USER.SYS | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, oracle, postgresql, sqlserver | name of the privileged user |
+| user=kxn_user | USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, postgresql, sqlserver | name of the normal user |
 |     |     |     |     |
 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
@@ -410,8 +410,8 @@ Below are also DBeaver based connection parameter examples for each database man
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
+**[Microsoft SQL Server](#details_sqlserver)** / 
 **[Mimer SQL](#details_mimer)** / 
-**[Microsoft SQL Server](#details_mssqlserver)** / 
 **[MySQL Database](#details_mysql)** / 
 **[Oracle Database](#details_oracle)** / 
 **[PostgreSQL Database](#details_postgresql)** / 
@@ -819,7 +819,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_mssqlserver"></a> 5.10 Microsoft SQL Server
+###  <a name="details_sqlserver"></a> 5.10 Microsoft SQL Server
 
 - **data types**:
 
@@ -855,7 +855,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MSSQLSERVER.png)
+![](.README_images/DBeaver_SQLSERVER.png)
 
 [//]: # (===========================================================================================)
 

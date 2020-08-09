@@ -17,8 +17,8 @@ informix	informix	IBM Informix	22	2020-08-08 08:21:45.279697000	2020-08-08 08:22
 informix	informix	IBM Informix	41	2020-08-08 08:22:08.054678000	2020-08-08 08:22:49.373016000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
 mariadb	mariadb	MariaDB Server	11	2020-08-08 08:23:31.013043000	2020-08-08 08:23:42.691922000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
 mariadb	mariadb	MariaDB Server	11	2020-08-08 08:23:43.153983000	2020-08-08 08:23:55.020229000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
-mssqlserver	mssqlserver	MS SQL Server	16	2020-08-08 08:25:03.767028000	2020-08-08 08:25:19.922146000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
-mssqlserver	mssqlserver	MS SQL Server	14	2020-08-08 08:25:20.387877000	2020-08-08 08:25:35.358331000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
+sqlserver	sqlserver	MS SQL Server	16	2020-08-08 08:25:03.767028000	2020-08-08 08:25:19.922146000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
+sqlserver	sqlserver	MS SQL Server	14	2020-08-08 08:25:20.387877000	2020-08-08 08:25:35.358331000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
 mimer	mimer	Mimer SQL	56	2020-08-08 08:26:18.982703000	2020-08-08 08:27:15.851847000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
 mimer	mimer	Mimer SQL	55	2020-08-08 08:27:16.325817000	2020-08-08 08:28:11.487498000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp
 mysql	mysql	MySQL Database	20	2020-08-08 08:29:30.302647000	2020-08-08 08:29:50.783397000	travis-job-aa8177e1-b37b-41ff-b31d-278f4a4e2306	2	amd64 / Linux / 5.3.0-1029-gcp

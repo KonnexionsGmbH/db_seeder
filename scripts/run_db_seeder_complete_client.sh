@@ -21,7 +21,7 @@ export DB_SEEDER_DBMS_IBMDB2=yes
 export DB_SEEDER_DBMS_INFORMIX=yes
 export DB_SEEDER_DBMS_MARIADB=yes
 export DB_SEEDER_DBMS_MIMER=yes
-export DB_SEEDER_DBMS_MSSQLSERVER=yes
+export DB_SEEDER_DBMS_SQLSERVER=yes
 export DB_SEEDER_DBMS_MYSQL=yes
 export DB_SEEDER_DBMS_ORACLE=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
@@ -57,10 +57,10 @@ echo "DBMS_IBMDB2                     : $DB_SEEDER_DBMS_IBMDB2"
 echo "DBMS_INFORMIX                   : $DB_SEEDER_DBMS_INFORMIX"
 echo "DBMS_MARIADB                    : $DB_SEEDER_DBMS_MARIADB"
 echo "DBMS_MIMER                      : $DB_SEEDER_DBMS_MIMER"
-echo "DBMS_MSSQLSERVER                : $DB_SEEDER_DBMS_MSSQLSERVER"
 echo "DBMS_MYSQL                      : $DB_SEEDER_DBMS_MYSQL"
 echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
+echo "DBMS_SQLSERVER                  : $DB_SEEDER_DBMS_SQLSERVER"
 echo "--------------------------------------------------------------------------------"
 echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "--------------------------------------------------------------------------------"
@@ -166,16 +166,6 @@ if [ "$DB_SEEDER_DBMS_MARIADB" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
-# ------------------------------------------------------------------------------
-
-if [ "$DB_SEEDER_DBMS_MSSQLSERVER" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh mssqlserver yes 2 ); then
-        exit 255
-    fi    
-fi
-
-# ------------------------------------------------------------------------------
 # Mimer SQL.
 # ------------------------------------------------------------------------------
 
@@ -211,6 +201,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
     if ! ( ./run_db_seeder.sh postgresql yes 2 ); then
+        exit 255
+    fi    
+fi
+
+# ------------------------------------------------------------------------------
+# Microsoft SQL Server.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlserver yes 2 ); then
         exit 255
     fi    
 fi

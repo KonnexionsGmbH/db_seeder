@@ -17,11 +17,11 @@ import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.informix.InformixSeeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mimer.MimerSeeder;
-import ch.konnexions.db_seeder.jdbc.mssqlserver.MssqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
+import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
@@ -134,18 +134,6 @@ public final class DatabaseSeeder {
         mimerSeeder.createData();
         logger.info("End   Mimer SQL");
         break;
-      case "mssqlserver":
-        logger.info("Start Microsoft SQL Server");
-        MssqlserverSeeder mssqlserverSeeder = new MssqlserverSeeder(tickerSymbolExtern);
-        mssqlserverSeeder.createData();
-        logger.info("End   Microsoft SQL Server");
-        break;
-      case "mssqlserver_presto":
-        logger.info("Start Microsoft SQL Server via Presto");
-        MssqlserverSeeder mssqlserverSeederPresto = new MssqlserverSeeder(tickerSymbolExtern, "presto");
-        mssqlserverSeederPresto.createData();
-        logger.info("End   Microsoft SQL Server via Presto");
-        break;
       case "mysql":
         logger.info("Start MySQL Database");
         MysqlSeeder mysqlSeeder = new MysqlSeeder(tickerSymbolExtern);
@@ -187,6 +175,18 @@ public final class DatabaseSeeder {
         SqliteSeeder sqliteSeeder = new SqliteSeeder(tickerSymbolExtern, "embedded");
         sqliteSeeder.createData();
         logger.info("End   SQLite");
+        break;
+      case "sqlserver":
+        logger.info("Start Microsoft SQL Server");
+        SqlserverSeeder sqlserverSeeder = new SqlserverSeeder(tickerSymbolExtern);
+        sqlserverSeeder.createData();
+        logger.info("End   Microsoft SQL Server");
+        break;
+      case "sqlserver_presto":
+        logger.info("Start Microsoft SQL Server via Presto");
+        SqlserverSeeder sqlserverSeederPresto = new SqlserverSeeder(tickerSymbolExtern, "presto");
+        sqlserverSeederPresto.createData();
+        logger.info("End   Microsoft SQL Server via Presto");
         break;
       case "":
         MessageHandling.abortProgram(logger,

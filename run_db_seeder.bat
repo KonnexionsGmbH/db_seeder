@@ -32,8 +32,8 @@ if ["%1"] EQU [""] (
     echo informix           - IBM Informix
     echo mariadb            - MariaDB Server
     echo mimer              - Mimer SQL
-    echo mssqlserver        - Microsoft SQL Server
-    echo mssqlserver_presto - Microsoft SQL Server via Presto
+    echo sqlserver          - Microsoft SQL Server
+    echo sqlserver_presto   - Microsoft SQL Server via Presto
     echo mysql              - MySQL
     echo mysql_presto       - MySQL via Presto
     echo oracle             - Oracle Database
@@ -310,45 +310,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=mssqlserver
-)
-
-if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
-    set DB_SEEDER_CONNECTION_PORT=1433
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
-    set DB_SEEDER_CONTAINER_PORT=1433
-    set DB_SEEDER_DATABASE=kxn_db
-    set DB_SEEDER_DATABASE_SYS=master
-    set DB_SEEDER_PASSWORD=mssqlserver_2019
-    set DB_SEEDER_PASSWORD_SYS=mssqlserver_2019
-    set DB_SEEDER_SCHEMA=kxn_schema
-    set DB_SEEDER_USER=kxn_user
-    set DB_SEEDER_USER_SYS=sa
-    set DB_SEEDER_VERSION=2019-latest
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
-    set DB_SEEDER_DBMS=mssqlserver_presto
-)
-
-if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver_presto"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
-    set DB_SEEDER_CONNECTION_PORT=1433
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
-    set DB_SEEDER_CONTAINER_PORT=1433
-    set DB_SEEDER_DATABASE=kxn_db
-    set DB_SEEDER_DATABASE_SYS=master
-    set DB_SEEDER_DBMS_PRESTO=yes
-    set DB_SEEDER_PASSWORD=mssqlserver_2019
-    set DB_SEEDER_PASSWORD_SYS=mssqlserver_2019
-    set DB_SEEDER_SCHEMA=kxn_schema
-    set DB_SEEDER_USER=kxn_user
-    set DB_SEEDER_USER_SYS=sa
-    set DB_SEEDER_VERSION=2019-latest
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=mysql
 )
 
@@ -472,6 +433,45 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlite:
     set DB_SEEDER_DATABASE=.\tmp\sqlite_kxn_db
     set DB_SEEDER_DBMS_EMBEDDED=yes
+)
+
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
+    set DB_SEEDER_DBMS=sqlserver
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=1433
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    set DB_SEEDER_CONTAINER_PORT=1433
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=master
+    set DB_SEEDER_PASSWORD=sqlserver_2019
+    set DB_SEEDER_PASSWORD_SYS=sqlserver_2019
+    set DB_SEEDER_SCHEMA=kxn_schema
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=sa
+    set DB_SEEDER_VERSION=2019-latest
+)
+
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
+    set DB_SEEDER_DBMS=sqlserver_presto
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_presto"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=1433
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    set DB_SEEDER_CONTAINER_PORT=1433
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=master
+    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_PASSWORD=sqlserver_2019
+    set DB_SEEDER_PASSWORD_SYS=sqlserver_2019
+    set DB_SEEDER_SCHEMA=kxn_schema
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=sa
+    set DB_SEEDER_VERSION=2019-latest
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (

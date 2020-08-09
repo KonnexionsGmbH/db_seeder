@@ -12,7 +12,7 @@ ch.konnexions.db_seeder.jdbc.ibmdb2
 ch.konnexions.db_seeder.jdbc.informix
 ch.konnexions.db_seeder.jdbc.mariadb
 ch.konnexions.db_seeder.jdbc.mimer
-ch.konnexions.db_seeder.jdbc.mssqlserver
+ch.konnexions.db_seeder.jdbc.sqlserver
 ch.konnexions.db_seeder.jdbc.mysql
 ch.konnexions.db_seeder.jdbc.oracle
 ch.konnexions.db_seeder.jdbc.postgresql

@@ -47,9 +47,6 @@ public abstract class AbstractDbmsSeeder {
     MIMER(
         "mimer"
     ),
-    MSSQLSERVER(
-        "mssqlserver"
-    ),
     MYSQL(
         "mysql"
     ),
@@ -61,6 +58,9 @@ public abstract class AbstractDbmsSeeder {
     ),
     SQLITE(
         "sqlite"
+    ),
+    SQLSERVER(
+        "sqlserver"
     );
 
     private final String tickerSymbol;
@@ -193,26 +193,12 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "Mimer",
                         "" });
-    dbmsDetails.put("mssqlserver",
+    dbmsDetails.put("sqlserver",
                     new String[] {
-                        "mssqlserver",
+                        "sqlserver",
                         "MS SQL Server",
                         "client",
                         "MS SQL Server",
-                        "" });
-    dbmsDetails.put("mssqlserver_presto",
-                    new String[] {
-                        "mssqlserver",
-                        "MS SQL Server",
-                        "presto",
-                        "MS SQL Server",
-                        "" });
-    dbmsDetails.put("mysql",
-                    new String[] {
-                        "mysql",
-                        "MySQL Database",
-                        "client",
-                        "MySQL",
                         "" });
     dbmsDetails.put("mysql_presto",
                     new String[] {
@@ -255,6 +241,20 @@ public abstract class AbstractDbmsSeeder {
                         "SQLite",
                         "embedded",
                         "SQLite",
+                        "" });
+    dbmsDetails.put("sqlserver_presto",
+                    new String[] {
+                        "sqlserver",
+                        "MS SQL Server",
+                        "presto",
+                        "MS SQL Server",
+                        "" });
+    dbmsDetails.put("mysql",
+                    new String[] {
+                        "mysql",
+                        "MySQL Database",
+                        "client",
+                        "MySQL",
                         "" });
 
     return dbmsDetails;

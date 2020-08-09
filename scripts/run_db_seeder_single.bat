@@ -28,10 +28,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
 
 set DB_SEEDER_DBMS_PRESTO=no
 
-if ["%DB_SEEDER_DBMS%"] EQU ["mssqlserver_presto"] (
-    set DB_SEEDER_DBMS_PRESTO=yes
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_DBMS_PRESTO=yes
 )
@@ -41,6 +37,10 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
+    set DB_SEEDER_DBMS_PRESTO=yes
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_presto"] (
     set DB_SEEDER_DBMS_PRESTO=yes
 )
 

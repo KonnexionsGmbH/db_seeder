@@ -22,8 +22,8 @@ informix	IBM Informix	client	16	2020-07-15 11:00:21.332545000	2020-07-15 11:00:3
 informix	IBM Informix	client	37	2020-07-15 11:00:37.988928000	2020-07-15 11:01:15.163508000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
 mariadb	MariaDB Server	client	7	2020-07-15 11:01:46.813636000	2020-07-15 11:01:54.783084000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
 mariadb	MariaDB Server	client	7	2020-07-15 11:01:55.258679000	2020-07-15 11:02:02.942632000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
-mssqlserver	MS SQL Server	client	12	2020-07-15 11:02:59.470094000	2020-07-15 11:03:11.471503000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
-mssqlserver	MS SQL Server	client	11	2020-07-15 11:03:12.011331000	2020-07-15 11:03:23.144842000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
+sqlserver	MS SQL Server	client	12	2020-07-15 11:02:59.470094000	2020-07-15 11:03:11.471503000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
+sqlserver	MS SQL Server	client	11	2020-07-15 11:03:12.011331000	2020-07-15 11:03:23.144842000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
 mimer	Mimer SQL	client	51	2020-07-15 11:03:57.651189000	2020-07-15 11:04:49.648712000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
 mimer	Mimer SQL	client	55	2020-07-15 11:04:50.119683000	2020-07-15 11:05:45.400917000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp
 mysql	MySQL Database	client	13	2020-07-15 11:06:24.248206000	2020-07-15 11:06:37.347547000	travis-job-be7e1414-ae17-41c4-be87-3883dbc58c78	2	amd64 / Linux / 5.0.0-1031-gcp

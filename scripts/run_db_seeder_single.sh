@@ -28,10 +28,6 @@ fi
 
 export DB_SEEDER_DBMS_PRESTO=no
 
-if [ "$DB_SEEDER_DBMS" = "mssqlserver_presto" ]; then
-    export DB_SEEDER_DBMS_PRESTO=yes
-fi
-
 if [ "$DB_SEEDER_DBMS" = "mysql_presto" ]; then
     export DB_SEEDER_DBMS_PRESTO=yes
 fi
@@ -41,6 +37,10 @@ if [ "$DB_SEEDER_DBMS" = "oracle_presto" ]; then
 fi
 
 if [ "$DB_SEEDER_DBMS" = "postgresql_presto" ]; then
+    export DB_SEEDER_DBMS_PRESTO=yes
+fi
+
+if [ "$DB_SEEDER_DBMS" = "sqlserver_presto" ]; then
     export DB_SEEDER_DBMS_PRESTO=yes
 fi
 

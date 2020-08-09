@@ -8,8 +8,8 @@ jdk:
 
 env:
   matrix:
-    - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
     - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
+    - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
     - DB_SEEDER_DBMS=complete_emb DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
     - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
     - DB_SEEDER_DBMS=cratedb
@@ -25,8 +25,6 @@ env:
     - DB_SEEDER_DBMS=informix
     - DB_SEEDER_DBMS=mariadb
     - DB_SEEDER_DBMS=mimer
-    - DB_SEEDER_DBMS=mssqlserver
-    - DB_SEEDER_DBMS=mssqlserver_presto
     - DB_SEEDER_DBMS=mysql
     - DB_SEEDER_DBMS=mysql_presto
     - DB_SEEDER_DBMS=oracle
@@ -34,6 +32,8 @@ env:
     - DB_SEEDER_DBMS=postgresql
     - DB_SEEDER_DBMS=postgresql_presto
     - DB_SEEDER_DBMS=sqlite
+    - DB_SEEDER_DBMS=sqlserver
+    - DB_SEEDER_DBMS=sqlserver_presto
 
 before_script:
   - echo 'Europe/Zurich' | sudo tee /etc/timezone
