@@ -25,9 +25,9 @@ if [ -z "$DB_SEEDER_IS_TRAVIS" ]; then
 fi
 
 if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_emb_${DB_SEEDER_RELEASE}.tsv
+    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_${DB_SEEDER_RELEASE}.tsv
 else
-    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_emb.tsv
+    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_embedded.tsv
 fi  
 
 rm -f $DB_SEEDER_FILE_STATISTICS_NAME
