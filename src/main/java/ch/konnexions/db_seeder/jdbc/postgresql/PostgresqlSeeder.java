@@ -101,7 +101,6 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     dbmsEnum = DbmsEnum.POSTGRESQL;
 
     if (isPresto) {
-      logger.info("wwe config.getSchema()='" + config.getSchema() + "'");
       urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
                                                   config.getConnectionHostPresto(),
                                                   config.getConnectionPortPresto(),
