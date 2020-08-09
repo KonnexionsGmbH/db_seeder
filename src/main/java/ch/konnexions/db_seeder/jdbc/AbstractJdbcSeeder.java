@@ -61,6 +61,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * 
    * @return the Presto URL string
    */
+  @SuppressWarnings("ucd")
   public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort) {
     return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "?user=presto";
   }
@@ -244,14 +245,17 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @return the database connection
    */
-  protected final Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
+  protected final Connection connect(String urlIn, String driver, String user, String password, boolean autoCommit) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     if (driver != null) {
       try {
-        logger.debug("driver='" + driver + "'");
+        if (isDebug) {
+          logger.debug("driver='" + driver + "'");
+        }
+
         Class.forName(driver);
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -261,16 +265,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     Connection connection = null;
 
+    String     url        = urlIn.replace("\"",
+                                          "");
+
     try {
       if (isDebug) {
-        logger.debug("url   ='" + url + "'");
+        logger.debug("url='" + url + "'");
       }
 
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);
       } else {
         if (isDebug) {
-          logger.debug("user  ='" + user + "' password='" + password + "'");
+          logger.debug("user='" + user + "' password='" + password + "'");
         }
         connection = DriverManager.getConnection(url,
                                                  user,
@@ -280,7 +287,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       connection.setAutoCommit(autoCommit);
 
       if (isDebug) {
-        logger.debug("auto  =" + connection.getAutoCommit());
+        logger.debug("auto=" + connection.getAutoCommit());
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -375,7 +382,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("mysql".equals(tickerSymbolLower)) {
+    if ("sqlserver".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -427,7 +437,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("mysql".equals(tickerSymbolLower)) {
+    if ("sqlserver".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -1298,7 +1311,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.SQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
         preparedStatement.setNString(columnPos,
                                      getContentVarchar(tableName,
                                                        columnName,
@@ -1364,7 +1377,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           preparedStatement.setNull(columnPos,
                                     java.sql.Types.VARCHAR);
         } else {
-          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.SQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
             preparedStatement.setNString(columnPos,
                                          defaultValue);
           } else {

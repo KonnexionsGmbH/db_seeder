@@ -4,7 +4,8 @@
 .idea
 .settings
 /.gradle/
-/statistics/db_seeder_local*
+/resources/docker/presto/catalog/db_seeder_*
+/resources/statistics/db_seeder_local*
 bin
 build
 eclipse_workspace/

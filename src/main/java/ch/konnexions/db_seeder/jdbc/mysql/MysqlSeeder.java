@@ -220,7 +220,6 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
         e.printStackTrace();
         System.exit(1);
       }
-
     }
 
     if (isDebug) {

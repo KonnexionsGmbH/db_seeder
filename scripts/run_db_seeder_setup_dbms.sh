@@ -13,8 +13,9 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - setting up the DBMS."
 echo "--------------------------------------------------------------------------------"
-echo "DBMS                      : $DB_SEEDER_DBMS"
+echo "DBMS_DB                   : $DB_SEEDER_DBMS_DB"
 echo "DBMS_EMBEDDED             : $DB_SEEDER_DBMS_EMBEDDED"
+echo "DBMS_PRESTO               : $DB_SEEDER_DBMS_PRESTO"
 echo --------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
@@ -26,17 +27,17 @@ if [ "$DB_SEEDER_DBMS_EMBEDDED" = "no" ]; then
 fi
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" = "yes" ] ||
-   [ "$DB_SEEDER_DBMS" = "derby" ] ||
-   [ "$DB_SEEDER_DBMS" = "h2" ] ||
-   [ "$DB_SEEDER_DBMS" = "ibmdb2" ] ; then
-    ( ./scripts/run_db_seeder_setup_files.sh "${DB_SEEDER_DBMS}" )
+   [ "$DB_SEEDER_DBMS_DB" = "derby" ] ||
+   [ "$DB_SEEDER_DBMS_DB" = "h2" ] ||
+   [ "$DB_SEEDER_DBMS_DB" = "ibmdb2" ] ; then
+    ( ./scripts/run_db_seeder_setup_files.sh "${DB_SEEDER_DBMS_DB}" )
 fi
 
 # ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "cratedb" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "cratedb" ]; then
     start=$(date +%s)
     echo "CrateDB."
     echo "--------------------------------------------------------------------------------"
@@ -58,7 +59,7 @@ fi
 # CUBRID                                  https://hub.docker.com/r/cubrid/cubrid
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "cubrid" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "cubrid" ]; then
     start=$(date +%s)
     echo "CUBRID."
     echo "--------------------------------------------------------------------------------"
@@ -81,7 +82,7 @@ fi
 #           https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "derby" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "derby" ]; then
     echo "Apache Derby"
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
@@ -106,7 +107,7 @@ fi
 # Firebird                        https://hub.docker.com/r/jacobalberty/firebird
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "firebird" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "firebird" ]; then
     start=$(date +%s)
     echo "Firebird."
     echo "--------------------------------------------------------------------------------"
@@ -132,7 +133,7 @@ fi
 #     https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "h2" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "h2" ]; then
     echo "H2 Database Engine"
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
@@ -158,7 +159,7 @@ fi
 #      https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "hsqldb" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "hsqldb" ]; then
     echo "HyperSQL Database"
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
@@ -183,7 +184,7 @@ fi
 # IBM Db2 Database                           https://hub.docker.com/r/ibmcom/db2
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "ibmdb2" ]; then
     start=$(date +%s)
     echo "IBM Db2 Database."
     echo "--------------------------------------------------------------------------------"
@@ -205,7 +206,7 @@ fi
 # IBM Informix       https://hub.docker.com/r/ibmcom/informix-developer-database
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "informix" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "informix" ]; then
     start=$(date +%s)
     echo "IBM Informix."
     echo "--------------------------------------------------------------------------------"
@@ -232,7 +233,7 @@ fi
 # MariaDB Server                                https://hub.docker.com/_/mariadb
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "mariadb" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "mariadb" ]; then
     start=$(date +%s)
     echo "MariaDB Server."
     echo "--------------------------------------------------------------------------------"
@@ -254,7 +255,7 @@ fi
 # Mimer SQL                     https://hub.docker.com/r/mimersql/mimersql_v11.0
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "mimer" ]; then
     start=$(date +%s)
     echo "Mimer SQL."
     echo "--------------------------------------------------------------------------------"
@@ -275,32 +276,10 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server Database  https://hub.docker.com/_/microsoft-mssql-server
-# ------------------------------------------------------------------------------
-
-if [ "$DB_SEEDER_DBMS" = "mssqlserver" ]; then
-    start=$(date +%s)
-    echo "Microsoft SQL Server."
-    echo "--------------------------------------------------------------------------------"
-    echo "Docker create db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION)"
-    docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=mssqlserver_2019" -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
-
-    echo "Docker start db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION) ..."
-    if ! docker start db_seeder_db; then
-        exit 255
-    fi
-
-    sleep 30
-
-    end=$(date +%s)
-    echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
-fi
-
-# ------------------------------------------------------------------------------
 # MySQL Database                                  https://hub.docker.com/_/mysql
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "mysql" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "mysql" ]; then
     start=$(date +%s)
     echo "MySQL Database."
     echo "--------------------------------------------------------------------------------"
@@ -321,7 +300,7 @@ fi
 # Oracle Database.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "oracle" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "oracle" ]; then
     echo "Oracle Database"
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
@@ -346,7 +325,7 @@ fi
 # PostgreSQL Database                          https://hub.docker.com/_/postgres
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
+if [ "$DB_SEEDER_DBMS_DB" = "postgresql" ]; then
     start=$(date +%s)
     echo "PostgreSQL Database."
     echo "--------------------------------------------------------------------------------"
@@ -362,6 +341,28 @@ if [ "$DB_SEEDER_DBMS" = "postgresql" ]; then
 
     end=$(date +%s)
     echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
+# Microsoft SQL Server Database  https://hub.docker.com/_/microsoft-mssql-server
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_DB" = "sqlserver" ]; then
+    start=$(date +%s)
+    echo "Microsoft SQL Server."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION)"
+    docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sqlserver_2019" -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
+
+    echo "Docker start db_seeder_db (Microsoft SQL Server $DB_SEEDER_VERSION) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 30
+
+    end=$(date +%s)
+    echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
 fi
 
 if [ "$DB_SEEDER_DBMS_EMBEDDED" == "no" ]; then

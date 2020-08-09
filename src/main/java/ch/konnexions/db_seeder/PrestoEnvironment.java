@@ -16,6 +16,9 @@ import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
+import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
+import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
+import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
@@ -27,26 +30,28 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 @SuppressWarnings("ucd")
 public final class PrestoEnvironment {
 
-  private static String              connectionHost    = "";
-  private static int                 connectionPort    = 0;
-  private static String              connectionPrefix  = "";
-  private static String              connectionSuffix  = "";
+  private static String              connectionHost;
+  private static int                 connectionPort;
+  private static String              connectionPrefix;
+  private static String              connectionSuffix;
+  private static String              connectionService;
 
+  private static String              database;
   private static String              directoryCatalogProperty;
 
-  private static ArrayList<String>   entries           = new ArrayList<>();
+  private static ArrayList<String>   entries       = new ArrayList<>();
 
-  private static final Logger        logger            = Logger.getLogger(PrestoEnvironment.class);
-  private static final boolean       isDebug           = logger.isDebugEnabled();
+  private static final Logger        logger        = Logger.getLogger(PrestoEnvironment.class);
+  private static final boolean       isDebug       = logger.isDebugEnabled();
 
-  private static Map<String, String> osEnvironment     = System.getenv();
+  private static Map<String, String> osEnvironment = System.getenv();
 
-  private static String              password          = "";
+  private static String              password;
 
-  private static String              tickerSymbolLower = "";
+  private static String              tickerSymbolLower;
 
-  private static String              url               = "";
-  private static String              user              = "";
+  private static String              url;
+  private static String              user;
 
   /**
    * Create the catalog data and the catalog file.
@@ -64,6 +69,10 @@ public final class PrestoEnvironment {
     entries.add("connection-url=" + url);
     entries.add("connection-user=" + user);
     entries.add("connection-password=" + password);
+
+    if ("oracle".equals(tickerSymbolLower)) {
+      entries.add("oracle.number.default-scale=38");
+    }
 
     createCatalogFile(tickerSymbolLower,
                       entries);
@@ -194,6 +203,244 @@ public final class PrestoEnvironment {
   }
 
   /**
+   * Create the Oracle catalog file.
+   *
+   * @param tickerSymbolExtern the DBMS ticker symbol
+   */
+  private static void createCatalogFileOracle(String tickerSymbolExtern) {
+    if (isDebug) {
+      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+    }
+
+    // =========================================================================
+    // Common variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_ORACLE_CONNECTION_HOST")) {
+      connectionHost = osEnvironment.get("DB_SEEDER_ORACLE_CONNECTION_HOST");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_ORACLE_CONNECTION_HOST");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_ORACLE_CONNECTION_PORT")) {
+      String connectionPortString = osEnvironment.get("DB_SEEDER_ORACLE_CONNECTION_PORT");
+      try {
+        connectionPort = Integer.parseInt(connectionPortString);
+      } catch (NumberFormatException e) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: parameter is not an integer: DB_SEEDER_ORACLE_CONNECTION_PORT");
+      }
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_ORACLE_CONNECTION_PORT");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_ORACLE_CONNECTION_PREFIX")) {
+      connectionPrefix = osEnvironment.get("DB_SEEDER_ORACLE_CONNECTION_PREFIX");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_ORACLE_CONNECTION_PREFIX");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_ORACLE_CONNECTION_SERVICE")) {
+      connectionService = osEnvironment.get("DB_SEEDER_ORACLE_CONNECTION_SERVICE");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_ORACLE_CONNECTION_SERVICE");
+    }
+
+    // =========================================================================
+    // Non-Privileged access variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_ORACLE_PASSWORD")) {
+      password = osEnvironment.get("DB_SEEDER_ORACLE_PASSWORD");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_ORACLE_PASSWORD");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_ORACLE_USER")) {
+      user = osEnvironment.get("DB_SEEDER_ORACLE_USER");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_ORACLE_USER");
+    }
+
+    // =========================================================================
+    // Non-Privileged catalog creation.
+    // -------------------------------------------------------------------------
+
+    url = OracleSeeder.getUrlPresto(connectionHost,
+                                    connectionPort,
+                                    connectionPrefix,
+                                    connectionService);
+
+    createCatalog(tickerSymbolLower);
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Create the PostgreSQL catalog file.
+   *
+   * @param tickerSymbolExtern the DBMS ticker symbol
+   */
+  private static void createCatalogFilePostgresql(String tickerSymbolExtern) {
+    if (isDebug) {
+      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+    }
+
+    // =========================================================================
+    // Common variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_HOST")) {
+      connectionHost = osEnvironment.get("DB_SEEDER_POSTGRESQL_CONNECTION_HOST");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_POSTGRESQL_CONNECTION_HOST");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_PORT")) {
+      String connectionPortString = osEnvironment.get("DB_SEEDER_POSTGRESQL_CONNECTION_PORT");
+      try {
+        connectionPort = Integer.parseInt(connectionPortString);
+      } catch (NumberFormatException e) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: parameter is not an integer: DB_SEEDER_POSTGRESQL_CONNECTION_PORT");
+      }
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_POSTGRESQL_CONNECTION_PORT");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX")) {
+      connectionPrefix = osEnvironment.get("DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_POSTGRESQL_DATABASE")) {
+      database = osEnvironment.get("DB_SEEDER_POSTGRESQL_DATABASE");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_POSTGRESQL_DATABASE");
+    }
+
+    // =========================================================================
+    // Non-Privileged access variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_POSTGRESQL_PASSWORD")) {
+      password = osEnvironment.get("DB_SEEDER_POSTGRESQL_PASSWORD");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_POSTGRESQL_PASSWORD");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_POSTGRESQL_USER")) {
+      user = osEnvironment.get("DB_SEEDER_POSTGRESQL_USER");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_POSTGRESQL_USER");
+    }
+
+    // =========================================================================
+    // Non-Privileged catalog creation.
+    // -------------------------------------------------------------------------
+
+    url = PostgresqlSeeder.getUrlPresto(connectionHost,
+                                        connectionPort,
+                                        connectionPrefix,
+                                        database);
+
+    createCatalog(tickerSymbolLower);
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Create the Microsoft SQL Server catalog file.
+   *
+   * @param tickerSymbolExtern the DBMS ticker symbol
+   */
+  private static void createCatalogFileSqlserver(String tickerSymbolExtern) {
+    if (isDebug) {
+      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+    }
+
+    // =========================================================================
+    // Common variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_CONNECTION_HOST")) {
+      connectionHost = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_HOST");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_HOST");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_CONNECTION_PORT")) {
+      String connectionPortString = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_PORT");
+      try {
+        connectionPort = Integer.parseInt(connectionPortString);
+      } catch (NumberFormatException e) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: parameter is not an integer: DB_SEEDER_SQLSERVER_CONNECTION_PORT");
+      }
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PORT");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_CONNECTION_PREFIX")) {
+      connectionPrefix = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
+    }
+
+    // =========================================================================
+    // Non-Privileged access variables.
+    // -------------------------------------------------------------------------
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_PASSWORD")) {
+      password = osEnvironment.get("DB_SEEDER_SQLSERVER_PASSWORD");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_PASSWORD");
+    }
+
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_USER")) {
+      user = osEnvironment.get("DB_SEEDER_SQLSERVER_USER");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_USER");
+    }
+
+    // =========================================================================
+    // Non-Privileged catalog creation.
+    // -------------------------------------------------------------------------
+
+    url = SqlserverSeeder.getUrlPresto(connectionHost,
+                                       connectionPort,
+                                       connectionPrefix);
+
+    createCatalog(tickerSymbolLower);
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
    * The main method.
    *
    * @param args the arguments
@@ -227,6 +474,21 @@ public final class PrestoEnvironment {
         logger.info("Start MySQL Database");
         createCatalogFileMysql(tickerSymbolExtern);
         logger.info("End   MySQL Database");
+        break;
+      case "oracle":
+        logger.info("Start Oracle Database");
+        createCatalogFileOracle(tickerSymbolExtern);
+        logger.info("End   Oracle Database");
+        break;
+      case "postgresql":
+        logger.info("Start PostgreSQL Database");
+        createCatalogFilePostgresql(tickerSymbolExtern);
+        logger.info("End   PostgreSQL Database");
+        break;
+      case "sqlserver":
+        logger.info("Start Microsoft SQL Server");
+        createCatalogFileSqlserver(tickerSymbolExtern);
+        logger.info("End   Microsoft SQL Server");
         break;
       case "":
         MessageHandling.abortProgram(logger,
