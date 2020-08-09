@@ -7,7 +7,7 @@
 
 ## Version 2.1.0
 
-Release Date: dd.08.2020
+Release Date: 11.08.2020
 
 #### System Requirements
 
@@ -21,13 +21,24 @@ Release Date: dd.08.2020
 
   - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
+- CUBRID
+
+  - gradle warning with http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727)).
+
 - Mimer SQL & DBeaver
 
   - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
+- Presto Distributed Query Engine
+
+  - MySQL Connector: JDBC INSERT limited to about 100 rows - observed 98 to 115 (see [here](https://github.com/prestosql/presto/issues/4732)).
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4750)).
+  - PostgreSQL Connector: Cannot insert BLOB using Presto JDBC (see [here](https://github.com/prestosql/presto/issues/4751)).
+  - SQL Server Connector: Login failed (see [here](https://github.com/prestosql/presto/issues/4757)).
+
 #### New Features
 
-- [5](https://github.com/KonnexionsGmbH/db_seeder/issues/5).
+- Adding the JDBC driver of the Presto Distributed Query Enginge (see [Issue #5](https://github.com/KonnexionsGmbH/db_seeder/issues/5)).
 
 #### Modified Features
 
