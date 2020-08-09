@@ -87,7 +87,7 @@ set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 set DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
 
 if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
-    set DB_SEEDER_FILE_STATISTICS_NAME=statistics\db_seeder_local.tsv
+    set DB_SEEDER_FILE_STATISTICS_NAME=resources\statistics\db_seeder_local.tsv
 )    
 
 set DB_SEEDER_NULL_FACTOR=

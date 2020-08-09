@@ -105,7 +105,7 @@ fi
 
 mkdir tmp
 
-cp -a docker/* tmp
+cp -a resources/docker/* tmp
 mv tmp/dockerfile_presto tmp/dockerfile
 
 docker build -t konnexionsgmbh/db_seeder_presto tmp

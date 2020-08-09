@@ -209,7 +209,7 @@ Only either a range restriction (`lowerRange...`, `upperRange...`) or a value re
 | `VARCHAR`   | `setNString` (Firebird, MariaDB, MS SQL SERVER and Oracle) |
 |             | `setString` (else)                                         |
 
-#### 2.1.3 Example File `db_seeder_schema.company.json` in the Directory `json` 
+#### 2.1.3 Example File `db_seeder_schema.company.json` in the Directory `resources/json` 
 
 This file contains the definition of a simple database schema consisting of the database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE.  
 
@@ -360,10 +360,10 @@ db_seeder.database.sys=
 db_seeder.database=
 
 db_seeder.file.configuration.name=
-db_seeder.file.json.name=json/db_seeder_schema.company.json
+db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
-db_seeder.file.statistics.name=statistics/db_seeder_local.tsv
+db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
 
 db_seeder.password.sys=
 db_seeder.password=

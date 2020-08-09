@@ -90,7 +90,7 @@ export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 export DB_SEEDER_FILE_STATISTICS_DELIMITER=\\t
 
 if [ -z "$DB_SEEDER_FILE_STATISTICS_NAME" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=statistics/db_seeder_local.tsv
+    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local.tsv
 fi 
 
 unset -f DB_SEEDER_NULL_FACTOR=

@@ -112,7 +112,7 @@ echo.
     if exist tmp rmdir /Q/S tmp
     mkdir tmp
 
-    xcopy /E /I docker tmp
+    xcopy /E /I resources\docker tmp
     rename tmp\dockerfile_presto dockerfile
 
     docker build -t konnexionsgmbh/db_seeder_presto tmp
