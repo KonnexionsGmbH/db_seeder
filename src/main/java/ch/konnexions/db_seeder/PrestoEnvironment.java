@@ -66,8 +66,7 @@ public final class PrestoEnvironment {
     entries.clear();
 
     entries.add("connector.name=" + tickerSymbolLower);
-    entries.add("connection-url=" + url.replace("\"",
-                                                ""));
+    entries.add("connection-url=" + url);
     entries.add("connection-user=" + user);
     entries.add("connection-password=" + password);
 

@@ -245,14 +245,17 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @return the database connection
    */
-  protected final Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
+  protected final Connection connect(String urlIn, String driver, String user, String password, boolean autoCommit) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     if (driver != null) {
       try {
-        logger.debug("driver='" + driver + "'");
+        if (isDebug) {
+          logger.debug("driver='" + driver + "'");
+        }
+
         Class.forName(driver);
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -262,16 +265,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     Connection connection = null;
 
+    String     url        = urlIn.replace("\"",
+                                          "");
+
     try {
       if (isDebug) {
-        logger.debug("url   ='" + url + "'");
+        logger.debug("url='" + url + "'");
       }
 
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);
       } else {
         if (isDebug) {
-          logger.debug("user  ='" + user + "' password='" + password + "'");
+          logger.debug("user='" + user + "' password='" + password + "'");
         }
         connection = DriverManager.getConnection(url,
                                                  user,
@@ -281,7 +287,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       connection.setAutoCommit(autoCommit);
 
       if (isDebug) {
-        logger.debug("auto  =" + connection.getAutoCommit());
+        logger.debug("auto=" + connection.getAutoCommit());
       }
     } catch (SQLException e) {
       e.printStackTrace();

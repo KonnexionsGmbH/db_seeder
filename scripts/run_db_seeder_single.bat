@@ -8,6 +8,8 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+set DB_SEEDER_DBMS_DB=%DB_SEEDER_DBMS%
+
 set DB_SEEDER_DBMS_EMBEDDED=no
 
 if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
@@ -29,18 +31,22 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
 set DB_SEEDER_DBMS_PRESTO=no
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
+    set DB_SEEDER_DBMS_DB=mysql
     set DB_SEEDER_DBMS_PRESTO=yes
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
+    set DB_SEEDER_DBMS_DB=oracle
     set DB_SEEDER_DBMS_PRESTO=yes
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
+    set DB_SEEDER_DBMS_DB=postgresql
     set DB_SEEDER_DBMS_PRESTO=yes
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_presto"] (
+    set DB_SEEDER_DBMS_DB=sqlserver
     set DB_SEEDER_DBMS_PRESTO=yes
 )
 
@@ -50,6 +56,7 @@ echo ---------------------------------------------------------------------------
 echo DB Seeder - Run a single DBMS variation.
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
+echo DBMS_DB                         : %DB_SEEDER_DBMS_DB%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo DBMS_PRESTO                     : %DB_SEEDER_DBMS_PRESTO%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
@@ -61,7 +68,7 @@ echo:| TIME
 echo ================================================================================
     
 if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
-    call scripts\run_db_seeder_setup_dbms.bat %DB_SEEDER_DBMS%
+    call scripts\run_db_seeder_setup_dbms.bat
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
@@ -75,19 +82,19 @@ if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
 )
 
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["1"] (
-    call scripts\run_db_seeder_create_data.bat %DB_SEEDER_DBMS%
+    call scripts\run_db_seeder_create_data.bat
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
 )
     
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["2"] (
-    call scripts\run_db_seeder_create_data.bat %DB_SEEDER_DBMS%
+    call scripts\run_db_seeder_create_data.bat
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
     
-    call scripts\run_db_seeder_create_data.bat %DB_SEEDER_DBMS%
+    call scripts\run_db_seeder_create_data.bat
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%
     )
