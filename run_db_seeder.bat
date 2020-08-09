@@ -346,6 +346,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_PASSWORD_SYS=mysql
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=root
+    set DB_SEEDER_VERSION=8.0.20
+    set DB_SEEDER_VERSION=8.0.21
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (

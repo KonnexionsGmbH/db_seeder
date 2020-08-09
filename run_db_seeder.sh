@@ -258,22 +258,6 @@ if [ "$DB_SEEDER_DBMS" = "mimer" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ];
     export DB_SEEDER_VERSION=v11.0.3c
 fi
 
-if [ "$DB_SEEDER_DBMS" = "sqlserver_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
-    export DB_SEEDER_CONNECTION_PORT=1433
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
-    export DB_SEEDER_CONTAINER_PORT=1433
-    export DB_SEEDER_DATABASE=kxn_db
-    export DB_SEEDER_DATABASE_SYS=master
-    export DB_SEEDER_DBMS_PRESTO=yes
-    export DB_SEEDER_PASSWORD=sqlserver_2019
-    export DB_SEEDER_PASSWORD_SYS=sqlserver_2019
-    export DB_SEEDER_SCHEMA=kxn_schema
-    export DB_SEEDER_USER=kxn_user
-    export DB_SEEDER_USER_SYS=sa
-    export DB_SEEDER_VERSION=2019-latest
-fi
-
 if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
@@ -303,6 +287,8 @@ if [ "$DB_SEEDER_DBMS" = "mysql_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_pre
     export DB_SEEDER_PASSWORD_SYS=mysql
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=root
+    export DB_SEEDER_VERSION=8.0.20
+    export DB_SEEDER_VERSION=8.0.21
 fi
 
 if [ "$DB_SEEDER_DBMS" = "oracle" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ]; then
@@ -379,6 +365,22 @@ if [ "$DB_SEEDER_DBMS" = "sqlserver" ] || [ "$DB_SEEDER_DBMS" = "complete_client
     export DB_SEEDER_CONTAINER_PORT=1433
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=master
+    export DB_SEEDER_PASSWORD=sqlserver_2019
+    export DB_SEEDER_PASSWORD_SYS=sqlserver_2019
+    export DB_SEEDER_SCHEMA=kxn_schema
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=sa
+    export DB_SEEDER_VERSION=2019-latest
+fi
+
+if [ "$DB_SEEDER_DBMS" = "sqlserver_presto" ] || [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=1433
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    export DB_SEEDER_CONTAINER_PORT=1433
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=master
+    export DB_SEEDER_DBMS_PRESTO=yes
     export DB_SEEDER_PASSWORD=sqlserver_2019
     export DB_SEEDER_PASSWORD_SYS=sqlserver_2019
     export DB_SEEDER_SCHEMA=kxn_schema
