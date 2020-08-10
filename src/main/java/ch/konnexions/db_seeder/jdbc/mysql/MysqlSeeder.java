@@ -23,12 +23,11 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
    * 
    * @return the connection URL for privileged access
    */
-  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + connectionSuffix;
+  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix) {
+    return connectionPrefix + connectionHost + ":" + connectionPort;
   }
 
   /**

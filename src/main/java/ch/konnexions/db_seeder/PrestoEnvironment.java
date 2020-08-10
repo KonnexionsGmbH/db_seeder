@@ -33,7 +33,6 @@ public final class PrestoEnvironment {
   private static String              connectionHost;
   private static int                 connectionPort;
   private static String              connectionPrefix;
-  private static String              connectionSuffix;
   private static String              connectionService;
 
   private static String              database;
@@ -66,12 +65,13 @@ public final class PrestoEnvironment {
     entries.clear();
 
     entries.add("connector.name=" + tickerSymbolLower);
-    entries.add("connection-url=" + url);
+    entries.add("connection-url=" + url.replace("\"",
+                                                ""));
     entries.add("connection-user=" + user);
     entries.add("connection-password=" + password);
 
     if ("oracle".equals(tickerSymbolLower)) {
-      entries.add("oracle.number.default-scale=38");
+      entries.add("oracle.number.default-scale=10");
     }
 
     createCatalogFile(tickerSymbolLower,
@@ -161,13 +161,6 @@ public final class PrestoEnvironment {
                                    "Program abort: parameter missing (null): DB_SEEDER_MYSQL_CONNECTION_PREFIX");
     }
 
-    if (osEnvironment.containsKey("DB_SEEDER_MYSQL_CONNECTION_SUFFIX")) {
-      connectionSuffix = osEnvironment.get("DB_SEEDER_MYSQL_CONNECTION_SUFFIX");
-    } else {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_MYSQL_CONNECTION_SUFFIX");
-    }
-
     // =========================================================================
     // Non-Privileged access variables.
     // -------------------------------------------------------------------------
@@ -192,8 +185,7 @@ public final class PrestoEnvironment {
 
     url = MysqlSeeder.getUrlPresto(connectionHost,
                                    connectionPort,
-                                   connectionPrefix,
-                                   connectionSuffix);
+                                   connectionPrefix);
 
     createCatalog(tickerSymbolLower);
 

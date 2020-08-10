@@ -8,14 +8,10 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-set DB_SEEDER_RELEASE=2.1.0
-
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Presto Distributed Query Engine Docker container.
-echo --------------------------------------------------------------------------------
-echo RELEASE                   : %DB_SEEDER_RELEASE%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
@@ -33,15 +29,17 @@ lib\Gammadyne\timer.exe
 echo --------------------------------------------------------------------------------
 echo Start Presto Distributed Query Engine - creating and starting the container
 echo --------------------------------------------------------------------------------
-echo Docker create presto (Presto Distributed Query Engine %DB_SEEDER_RELEASE%)
-docker create --name db_seeder_presto -p 8080:8080/tcp konnexionsgmbh/db_seeder_presto:%DB_SEEDER_RELEASE%
-echo Docker start presto (Presto Distributed Query Engine %DB_SEEDER_RELEASE%) ...
+echo Docker create presto (Presto Distributed Query Engine)
+docker create --name db_seeder_presto -p 8080:8080/tcp konnexionsgmbh/db_seeder_presto
+echo Docker start presto (Presto Distributed Query Engine) ...
 docker start db_seeder_presto
 
 ping -n 30 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo Docker Presto Distributed Query Engine was ready in %CONSUMED%
+
+docker ps
 
 GOTO END_OF_SCRIPT
 

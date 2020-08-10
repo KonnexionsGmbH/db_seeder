@@ -356,7 +356,9 @@ The following control parameters are currently supported:
 
 ```
 db_seeder.connection.host=
+db_seeder.connection.host.presto=
 db_seeder.connection.port=0
+db_seeder.connection.port.presto=0
 db_seeder.connection.prefix=
 db_seeder.connection.service=
 db_seeder.connection.suffix=
@@ -377,7 +379,6 @@ db_seeder.schema=
 
 db_seeder.user.sys=
 db_seeder.user=
-
 ```
 
 #### 4.2.2 Explanation and Cross-reference
@@ -385,12 +386,16 @@ db_seeder.user=
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                                                     | Description |     
 | ---                                       | ---                               | ---                                                                                                         | --- |
 | connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                                            | host name or ip address of the database server |
+| connection.host_presto=<x...x>            | CONNECTION_HOST_PRESTO            | Presto                                                                                                      | host name or ip address of the Presto distributed query engine |
 | connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                                            | port number of the database server |
+| connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                      | port number of the Presto distributed query engine |
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                   | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                      | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql                                                                   | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, mysql, postgresql, sqlserver                                                      | privileged database name |
 | database=<x...x>                          | DATABASE                          | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, postgresql, sqlite, sqlserver | database name |
+| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                         | directory and file name of the db_seeder configuration file |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                               | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                    | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                    | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                    | file name of the statistics file created in `run_db_seeder` |
