@@ -73,14 +73,6 @@ if [ "$DB_SEEDER_SETUP_DBMS" = "yes" ]; then
     fi    
 fi
 
-if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
-    if [ "TRAVIS" = "true" ]; then
-        if ! ( ./run_db_seeder_presto_environment.sh ); then
-            exit 255
-        fi    
-    fi
-fi
-
 if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "1" ]; then
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
