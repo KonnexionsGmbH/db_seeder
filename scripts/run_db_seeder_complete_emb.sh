@@ -20,11 +20,7 @@ export DB_SEEDER_DBMS_SQLITE=yes
 # Initialise Statistics.
 # ------------------------------------------------------------------------------
 
-if [ -z "$DB_SEEDER_IS_TRAVIS" ]; then
-    export DB_SEEDER_IS_TRAVIS=no
-fi
-
-if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
+if [ "$TRAVIS" = "true" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_${DB_SEEDER_RELEASE}.tsv
 else
     export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_embedded.tsv
@@ -44,7 +40,7 @@ echo "DBMS_SQLITE                     : $DB_SEEDER_DBMS_SQLITE"
 echo "--------------------------------------------------------------------------------"
 echo "FILE_STATISTICS_NAME            : $DB_SEEDER_FILE_STATISTICS_NAME"
 echo "--------------------------------------------------------------------------------"
-echo "IS_TRAVIS                       : $DB_SEEDER_IS_TRAVIS"
+echo "IS_TRAVIS                       : $TRAVIS"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
@@ -99,7 +95,7 @@ fi
 # Upload Statistics.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_IS_TRAVIS" = "yes" ]; then
+if [ "$TRAVIS" = "true" ]; then
     if ! ( ./scripts/run_travis_push_to_github.sh ); then
         exit 255
     fi    

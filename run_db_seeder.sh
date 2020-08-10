@@ -406,7 +406,7 @@ echo "--------------------------------------------------------------------------
 echo "DBMS                              : $DB_SEEDER_DBMS"
 echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
 echo "DBMS_PRESTO                       : $DB_SEEDER_DBMS_PRESTO"
-echo "IS_TRAVIS                         : $DB_SEEDER_IS_TRAVIS"
+echo "IS_TRAVIS                         : $TRAVIS"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
 echo "PRESTO_INSTALLATION_TYPE          : $DB_SEEDER_PRESTO_INSTALLATION_TYPE"
 echo "RELEASE                           : $DB_SEEDER_RELEASE"

@@ -17,6 +17,7 @@
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
 **[4.2 Control Parameters](#operating_instructions_control)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
+**[6. Presto - Distributed Query Engine](#presto)**<br>
 
 ----
 
@@ -100,10 +101,17 @@ Currently the following database management systems are supported:
   - **[see technical details here](#details_sqlite)**
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
-If the selected database, schema or user already exist, they is deleted with all including data. 
+If the selected database, schema or user already exist, they are deleted with all including data. 
 **`db_seeder`** then creates the selected database, schema or user and generates the desired dummy data.
 
 A maximum of 2 147 483 647 rows can be generated per database table.
+
+The database schema to be used, that is, the required database tables can be user defined using a JSON file. 
+Details can be found here: [2.1 Database Schema](#database_schema). 
+
+The database schema to be used, that is, the required database tables can be user defined using a JSON file. 
+Details can be found here: [6. Presto - Distributed Query Engine](#presto). 
+
 
 [//]: # (===========================================================================================)
 
@@ -1091,3 +1099,6 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLITE.png)
+
+## <a name="presto"></a> 6. Presto - Distributed Query Engine
+
