@@ -8,6 +8,8 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+set ERRORLEVEL=
+
 set DB_SEEDER_DBMS_DERBY_EMB=yes
 set DB_SEEDER_DBMS_H2_EMB=yes
 set DB_SEEDER_DBMS_HSQLDB_EMB=yes
@@ -49,6 +51,7 @@ echo.
     if ["%DB_SEEDER_DBMS_DERBY_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat derby_emb yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -60,6 +63,7 @@ echo.
     if ["%DB_SEEDER_DBMS_H2_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat h2_emb yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -71,6 +75,7 @@ echo.
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat hsqldb_emb yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -82,6 +87,7 @@ echo.
     if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
         call run_db_seeder.bat sqlite yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )

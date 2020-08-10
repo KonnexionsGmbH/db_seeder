@@ -8,6 +8,8 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+set ERRORLEVEL=
+
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
 rem set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax.json
@@ -37,6 +39,7 @@ echo ===========================================================================
 
 java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
 if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
@@ -46,11 +49,13 @@ mkdir eclipse_workspace
 
 %HOME_ECLIPSE%\eclipse -nosplash -data eclipse_workspace -application org.eclipse.jdt.core.JavaCodeFormatter -config src\main\resources\org.eclipse.jdt.core.prefs -quiet src\main\java\ch\konnexions\db_seeder\generated\ -vmargs -Dfile.encoding=UTF-8
 if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
 gradle copyJarToLib
 if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 

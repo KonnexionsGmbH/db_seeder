@@ -8,6 +8,8 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+set ERRORLEVEL=
+
 set DB_SEEDER_DBMS_CRATEDB=yes
 set DB_SEEDER_DBMS_CUBRID=yes
 set DB_SEEDER_DBMS_DERBY=yes
@@ -69,6 +71,7 @@ echo.
     if ["%DB_SEEDER_DBMS_CRATEDB%"] EQU ["yes"] (
         call run_db_seeder.bat cratedb yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -80,6 +83,7 @@ echo.
     if ["%DB_SEEDER_DBMS_CUBRID%"] EQU ["yes"] (
         call run_db_seeder.bat cubrid yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -91,6 +95,7 @@ echo.
     if ["%DB_SEEDER_DBMS_DERBY%"] EQU ["yes"] (
         call run_db_seeder.bat derby yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -102,6 +107,7 @@ echo.
     if ["%DB_SEEDER_DBMS_FIREBIRD%"] EQU ["yes"] (
         call run_db_seeder.bat firebird yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -113,6 +119,7 @@ echo.
     if ["%DB_SEEDER_DBMS_H2%"] EQU ["yes"] (
         call run_db_seeder.bat h2 yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -124,6 +131,7 @@ echo.
     if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
         call run_db_seeder.bat hsqldb yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -135,6 +143,7 @@ echo.
     if ["%DB_SEEDER_DBMS_IBMDB2%"] EQU ["yes"] (
         call run_db_seeder.bat ibmdb2 yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -146,6 +155,7 @@ echo.
     if ["%DB_SEEDER_DBMS_INFORMIX%"] EQU ["yes"] (
         call run_db_seeder.bat informix yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -157,6 +167,7 @@ echo.
     if ["%DB_SEEDER_DBMS_MARIADB%"] EQU ["yes"] (
         call run_db_seeder.bat mariadb yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -168,6 +179,7 @@ echo.
     if ["%DB_SEEDER_DBMS_MIMER%"] EQU ["yes"] (
         call run_db_seeder.bat mimer yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -179,6 +191,7 @@ echo.
     if ["%DB_SEEDER_DBMS_MYSQL%"] EQU ["yes"] (
         call run_db_seeder.bat mysql yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -190,6 +203,7 @@ echo.
     if ["%DB_SEEDER_DBMS_ORACLE%"] EQU ["yes"] (
         call run_db_seeder.bat oracle yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -201,6 +215,7 @@ echo.
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
         call run_db_seeder.bat postgresql yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -212,6 +227,7 @@ echo.
     if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
         call run_db_seeder.bat sqlserver yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )

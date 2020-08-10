@@ -9,6 +9,8 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+set ERRORLEVEL=
+
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
@@ -34,8 +36,8 @@ if ["%1"] EQU [""] (
     echo mimer              - Mimer SQL
     echo sqlserver          - Microsoft SQL Server
     echo sqlserver_presto   - Microsoft SQL Server via Presto
-    echo mysql              - MySQL
-    echo mysql_presto       - MySQL via Presto
+    echo mysql              - MySQL Database
+    echo mysql_presto       - MySQL Database via Presto
     echo oracle             - Oracle Database
     echo oracle_presto      - Oracle Database via Presto
     echo postgresql         - PostgreSQL Database
@@ -317,7 +319,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
-    set DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&failOverReadOnly=false"
+    set DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
     set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys
@@ -534,6 +536,7 @@ echo ===========================================================================
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
     call scripts\run_db_seeder_complete_client
     if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
     
@@ -543,6 +546,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
     call scripts\run_db_seeder_complete_emb
     if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
     
@@ -552,6 +556,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
     call scripts\run_db_seeder_complete_presto
     if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
     
@@ -560,6 +565,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
 
 call scripts\run_db_seeder_single %DB_SEEDER_DBMS%
 if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 

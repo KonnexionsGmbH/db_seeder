@@ -34,6 +34,7 @@ public final class PrestoEnvironment {
   private static int                 connectionPort;
   private static String              connectionPrefix;
   private static String              connectionService;
+  private static String              connectionSuffix;
 
   private static String              database;
   private static String              directoryCatalogProperty;
@@ -67,8 +68,10 @@ public final class PrestoEnvironment {
     entries.add("connector.name=" + tickerSymbolLower);
     entries.add("connection-url=" + url.replace("\"",
                                                 ""));
-    entries.add("connection-user=" + user);
-    entries.add("connection-password=" + password);
+    if (!("postgresql".equals(tickerSymbolLower) || "sqlserver".equals(tickerSymbolLower))) {
+      entries.add("connection-user=" + user);
+      entries.add("connection-password=" + password);
+    }
 
     if ("oracle".equals(tickerSymbolLower)) {
       entries.add("oracle.number.default-scale=10");
@@ -161,6 +164,13 @@ public final class PrestoEnvironment {
                                    "Program abort: parameter missing (null): DB_SEEDER_MYSQL_CONNECTION_PREFIX");
     }
 
+    if (osEnvironment.containsKey("DB_SEEDER_MYSQL_CONNECTION_SUFFIX")) {
+      connectionSuffix = osEnvironment.get("DB_SEEDER_MYSQL_CONNECTION_SUFFIX");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_MYSQL_CONNECTION_SUFFIX");
+    }
+
     // =========================================================================
     // Non-Privileged access variables.
     // -------------------------------------------------------------------------
@@ -185,7 +195,8 @@ public final class PrestoEnvironment {
 
     url = MysqlSeeder.getUrlPresto(connectionHost,
                                    connectionPort,
-                                   connectionPrefix);
+                                   connectionPrefix,
+                                   connectionSuffix);
 
     createCatalog(tickerSymbolLower);
 
@@ -349,7 +360,9 @@ public final class PrestoEnvironment {
     url = PostgresqlSeeder.getUrlPresto(connectionHost,
                                         connectionPort,
                                         connectionPrefix,
-                                        database);
+                                        database,
+                                        user,
+                                        password);
 
     createCatalog(tickerSymbolLower);
 
@@ -399,6 +412,13 @@ public final class PrestoEnvironment {
                                    "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
     }
 
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_DATABASE")) {
+      database = osEnvironment.get("DB_SEEDER_SQLSERVER_DATABASE");
+    } else {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_DATABASE");
+    }
+
     // =========================================================================
     // Non-Privileged access variables.
     // -------------------------------------------------------------------------
@@ -423,7 +443,10 @@ public final class PrestoEnvironment {
 
     url = SqlserverSeeder.getUrlPresto(connectionHost,
                                        connectionPort,
-                                       connectionPrefix);
+                                       connectionPrefix,
+                                       database,
+                                       user,
+                                       password);
 
     createCatalog(tickerSymbolLower);
 

@@ -25,10 +25,13 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * @param connectionPrefix the connection prefix
    * @param connectionService the connection service
    * 
-   * @return the connection URL for privileged access
+   * @return the connection URL for non-privileged access
    */
   public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
+    return getUrlUser(connectionHost,
+                      connectionPort,
+                      connectionPrefix,
+                      connectionService);
   }
 
   /**

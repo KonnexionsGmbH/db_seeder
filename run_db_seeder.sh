@@ -34,8 +34,8 @@ if [ -z "$1" ]; then
     echo "mimer              - Mimer SQL"
     echo "sqlserver          - Microsoft SQL Server"
     echo "sqlserver_presto   - Microsoft SQL Server via Presto"
-    echo "mysql              - MySQL"
-    echo "mysql_presto       - MySQL via Presto"
+    echo "mysql              - MySQL Database"
+    echo "mysql_presto       - MySQL Database via Presto"
     echo "oracle             - Oracle Database"
     echo "oracle_presto      - Oracle Database via Presto"
     echo "postgresql         - PostgreSQL Database"
@@ -262,7 +262,7 @@ if [ "$DB_SEEDER_DBMS" = "mysql" ] || [ "$DB_SEEDER_DBMS" = "complete_client" ];
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
-    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC"
+    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys

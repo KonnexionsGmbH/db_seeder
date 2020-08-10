@@ -8,6 +8,8 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+set ERRORLEVEL=
+
 set DB_SEEDER_DBMS_SQLSERVER=yes
 set DB_SEEDER_DBMS_MYSQL_PRESTO=yes
 set DB_SEEDER_DBMS_ORACLE_PRESTO=yes
@@ -44,11 +46,13 @@ echo.
     
     call run_db_seeder_generate_schema.bat
     if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
     
     call run_db_seeder_presto_environment.bat
     if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
 
@@ -59,6 +63,7 @@ echo.
     if ["%DB_SEEDER_DBMS_MYSQL_PRESTO%"] EQU ["yes"] (
         call run_db_seeder.bat mysql_presto yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -70,6 +75,7 @@ echo.
     if ["%DB_SEEDER_DBMS_ORACLE_PRESTO%"] EQU ["yes"] (
         call run_db_seeder.bat oracle_presto yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -81,6 +87,7 @@ echo.
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
         call run_db_seeder.bat postgresql yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
@@ -92,6 +99,7 @@ echo.
     if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
         call run_db_seeder.bat sqlserver yes 2
         if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )

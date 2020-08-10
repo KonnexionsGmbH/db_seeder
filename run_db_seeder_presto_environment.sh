@@ -15,6 +15,7 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
 export DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY=/presto-server
+
 export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE=resources/docker/presto
 export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE}/catalog
 
@@ -29,6 +30,7 @@ export DB_SEEDER_VERSION_PRESTO=340
 export DB_SEEDER_MYSQL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
 export DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 export DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
+export DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
 export DB_SEEDER_MYSQL_PASSWORD=mysql
 export DB_SEEDER_MYSQL_USER=kxn_user
 
@@ -49,6 +51,7 @@ export DB_SEEDER_POSTGRESQL_USER=kxn_user
 export DB_SEEDER_SQLSERVER_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
 export DB_SEEDER_SQLSERVER_CONNECTION_PORT=1433
 export DB_SEEDER_SQLSERVER_CONNECTION_PREFIX="jdbc:sqlserver://"
+export DB_SEEDER_SQLSERVER_DATABASE=kxn_db
 export DB_SEEDER_SQLSERVER_PASSWORD=sqlserver_2019
 export DB_SEEDER_SQLSERVER_USER=kxn_user
 
@@ -69,6 +72,7 @@ echo "--------------------------------------------------------------------------
 echo "MYSQL_CONNECTION_HOST         : $DB_SEEDER_MYSQL_CONNECTION_HOST"
 echo "MYSQL_CONNECTION_PORT         : $DB_SEEDER_MYSQL_CONNECTION_PORT"
 echo "MYSQL_CONNECTION_PREFIX       : $DB_SEEDER_MYSQL_CONNECTION_PREFIX"
+echo "MYSQL_CONNECTION_SUFFIX       : $DB_SEEDER_MYSQL_CONNECTION_SUFFIX"
 echo "MYSQL_PASSWORD                : $DB_SEEDER_MYSQL_PASSWORD"
 echo "MYSQL_USER                    : $DB_SEEDER_MYSQL_USER"
 echo "--------------------------------------------------------------------------------"
@@ -89,6 +93,7 @@ echo "--------------------------------------------------------------------------
 echo "SQLSERVER_CONNECTION_HOST     : $DB_SEEDER_SQLSERVER_CONNECTION_HOST"
 echo "SQLSERVER_CONNECTION_PORT     : $DB_SEEDER_SQLSERVER_CONNECTION_PORT"
 echo "SQLSERVER_CONNECTION_PREFIX   : $DB_SEEDER_SQLSERVER_CONNECTION_PREFIX"
+echo "SQLSERVER_DATABASE            : $DB_SEEDER_SQLSERVER_DATABASE"
 echo "SQLSERVER_PASSWORD            : $DB_SEEDER_SQLSERVER_PASSWORD"
 echo "SQLSERVER_USER                : $DB_SEEDER_SQLSERVER_USER"
 echo "--------------------------------------------------------------------------------"
