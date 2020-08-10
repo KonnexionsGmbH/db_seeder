@@ -15,13 +15,11 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=resources/docker/presto/catalog
 export DB_SEEDER_GLOBAL_CONNECTION_HOST="$(hostname -i)"
-export DB_SEEDER_RELEASE=2.1.0
 export DB_SEEDER_VERSION_PRESTO=340
 
 export DB_SEEDER_MYSQL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
 export DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 export DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
-export DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&failOverReadOnly=false"
 export DB_SEEDER_MYSQL_PASSWORD=mysql
 export DB_SEEDER_MYSQL_USER=kxn_user
 
@@ -51,7 +49,6 @@ echo "--------------------------------------------------------------------------
 echo "DB Seeder - Creating a Presto environment."
 echo "--------------------------------------------------------------------------------"
 echo "DIRECTORY_CATALOG_PROPERTY    : $DB_SEEDER_DIRECTORY_CATALOG_PROPERTY"
-echo "RELEASE                       : $DB_SEEDER_RELEASE"
 echo "VERSION_PRESTO                : $DB_SEEDER_VERSION_PRESTO"
 echo "--------------------------------------------------------------------------------"
 echo "CONNECTION_HOST_PRESTO        : $DB_SEEDER_CONNECTION_HOST_PRESTO"
@@ -60,7 +57,6 @@ echo "--------------------------------------------------------------------------
 echo "MYSQL_CONNECTION_HOST         : $DB_SEEDER_MYSQL_CONNECTION_HOST"
 echo "MYSQL_CONNECTION_PORT         : $DB_SEEDER_MYSQL_CONNECTION_PORT"
 echo "MYSQL_CONNECTION_PREFIX       : $DB_SEEDER_MYSQL_CONNECTION_PREFIX"
-echo "MYSQL_CONNECTION_SUFFIX       : $DB_SEEDER_MYSQL_CONNECTION_SUFFIX"
 echo "MYSQL_PASSWORD                : $DB_SEEDER_MYSQL_PASSWORD"
 echo "MYSQL_USER                    : $DB_SEEDER_MYSQL_USER"
 echo "--------------------------------------------------------------------------------"
@@ -99,6 +95,9 @@ echo "--------------------------------------------------------------------------
 echo "Create Docker image."
 echo "--------------------------------------------------------------------------------"
 
+docker ps    | grep -r "db_seeder_presto" && docker stop db_seeder_presto
+docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_presto
+
 if [ -d "tmp" ]; then 
     rm -Rf tmp
 fi
@@ -110,14 +109,16 @@ mv tmp/dockerfile_presto tmp/dockerfile
 
 docker build -t konnexionsgmbh/db_seeder_presto tmp
 
-docker tag konnexionsgmbh/db_seeder_presto konnexionsgmbh/db_seeder_presto:$DB_SEEDER_RELEASE
-
 docker images -q -f "dangling=true" -f "label=autodelete=true"
 
 for IMAGE in $(docker images -q -f "dangling=true" -f "label=autodelete=true")
 do
     docker rmi -f $IMAGE
 done
+
+if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+    exit 255
+fi    
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
