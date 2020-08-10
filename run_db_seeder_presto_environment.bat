@@ -96,6 +96,8 @@ echo.
     echo Compile and generate catalog property files.
     echo --------------------------------------------------------------------------------
 
+    rm -f ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_*.properties
+    
     java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.PrestoEnvironment mysql oracle postgresql sqlserver
     if %ERRORLEVEL% NEQ 0 (
         exit %ERRORLEVEL%

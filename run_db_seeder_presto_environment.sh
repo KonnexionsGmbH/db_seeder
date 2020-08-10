@@ -15,7 +15,8 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
 export DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY=/presto-server
-export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=resources/docker/presto
+export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE=resources/docker/presto
+export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE}/catalog
 
 if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
     export DB_SEEDER_GLOBAL_CONNECTION_HOST="$(hostname -i)"
@@ -74,7 +75,7 @@ echo "--------------------------------------------------------------------------
 echo "ORACLE_CONNECTION_HOST        : $DB_SEEDER_ORACLE_CONNECTION_HOST"
 echo "ORACLE_CONNECTION_PORT        : $DB_SEEDER_ORACLE_CONNECTION_PORT"
 echo "ORACLE_CONNECTION_PREFIX      : $DB_SEEDER_ORACLE_CONNECTION_PREFIX"
-echo "ORACLE_CONNECTION_SUFFIX      : $DB_SEEDER_ORACLE_CONNECTION_SUFFIX"
+echo "ORACLE_CONNECTION_SERVICE     : $DB_SEEDER_ORACLE_CONNECTION_SERVICE"
 echo "ORACLE_PASSWORD               : $DB_SEEDER_ORACLE_PASSWORD"
 echo "ORACLE_USER                   : $DB_SEEDER_ORACLE_USER"
 echo "--------------------------------------------------------------------------------"
@@ -97,6 +98,8 @@ date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 echo "Compile and generate catalog property files."
 echo "--------------------------------------------------------------------------------"
+
+rm -f ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_*.properties
 
 if ! (java --enable-preview -cp "{$DB_SEEDER_JAVA_CLASSPATH}" ch.konnexions.db_seeder.PrestoEnvironment mysql oracle postgresql sqlserver); then
     exit 255
@@ -138,32 +141,33 @@ echo "Install Presto locally."
 echo "--------------------------------------------------------------------------------"
 
 if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
-    if [ "$DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY" = "" ]; then
+    if [ ! -d "$DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY" ]; then
         echo "--------------------------------------------------------------------------------"
         echo "Install Presto Server."
         echo "--------------------------------------------------------------------------------"
-        wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-server/${DB_SEEDER_VERSION_PRESTO}/presto-server-${DB_SEEDER_VERSION_PRESTO}.tar.gz
+        sudo wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-server/${DB_SEEDER_VERSION_PRESTO}/presto-server-${DB_SEEDER_VERSION_PRESTO}.tar.gz
         tar -xf presto-server-*.tar.gz
-        mv presto-server-${DB_SEEDER_VERSION_PRESTO} ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}
-        mkdir ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc 
-        mkdir ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog
+        rm -f *.tar.gz
+        sudo mv presto-server-${DB_SEEDER_VERSION_PRESTO} ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}
+        sudo mkdir -p ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc 
+        sudo mkdir -p ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog
         
-        cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/base/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/
-        cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/catalog/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
+        sudo cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE}/base/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/
+        sudo cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE}/catalog/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
         
         echo "--------------------------------------------------------------------------------"
         echo "Install Presto Command-Line Interface."
         echo "--------------------------------------------------------------------------------"
         wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-cli/${DB_SEEDER_VERSION_PRESTO}/presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar
-        mv presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
-        chmod +x ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
+        sudo mv presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
+        sudo chmod +x ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
         
         export PATH=${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/:${PATH}
            
-        ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/launcher start
+        sudo ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/launcher start
     fi
 
-    cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/catalog/db_seeder_* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
+    cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
 fi
 
 echo "--------------------------------------------------------------------------------"
