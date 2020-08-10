@@ -20,10 +20,14 @@ env:
   - DB_SEEDER_DBMS=mariadb
   - DB_SEEDER_DBMS=mimer
   - DB_SEEDER_DBMS=mysql
+  - DB_SEEDER_DBMS=mysql_presto
   - DB_SEEDER_DBMS=oracle
+  - DB_SEEDER_DBMS=oracle_presto
   - DB_SEEDER_DBMS=postgresql
+  - DB_SEEDER_DBMS=postgresql_presto
   - DB_SEEDER_DBMS=sqlite
   - DB_SEEDER_DBMS=sqlserver
+  - DB_SEEDER_DBMS=sqlserver_presto
 
 jdk:
   - oraclejdk14
