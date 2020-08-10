@@ -408,6 +408,7 @@ echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
 echo "DBMS_PRESTO                       : $DB_SEEDER_DBMS_PRESTO"
 echo "IS_TRAVIS                         : $DB_SEEDER_IS_TRAVIS"
 echo "NO_CREATE_RUNS                    : $DB_SEEDER_NO_CREATE_RUNS"
+echo "PRESTO_INSTALLATION_TYPE          : $DB_SEEDER_PRESTO_INSTALLATION_TYPE"
 echo "RELEASE                           : $DB_SEEDER_RELEASE"
 echo "SETUP_DBMS                        : $DB_SEEDER_SETUP_DBMS"
 echo "--------------------------------------------------------------------------------"
@@ -453,7 +454,7 @@ elif [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
         exit 255
     fi    
 else
-    if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
+    if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ] && [ ! "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
         if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
             exit 255
         fi    
