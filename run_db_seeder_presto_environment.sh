@@ -13,8 +13,16 @@ sleep .1
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
-export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=resources/docker/presto/catalog
-export DB_SEEDER_GLOBAL_CONNECTION_HOST="$(hostname -i)"
+export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
+export DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY=/presto-server
+export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=resources/docker/presto
+
+if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
+    export DB_SEEDER_GLOBAL_CONNECTION_HOST="$(hostname -i)"
+else
+    export DB_SEEDER_GLOBAL_CONNECTION_HOST=localhost
+fi
+
 export DB_SEEDER_VERSION_PRESTO=340
 
 export DB_SEEDER_MYSQL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
@@ -47,6 +55,9 @@ echo "==========================================================================
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Creating a Presto environment."
+echo "--------------------------------------------------------------------------------"
+echo "PRESTO_INSTALLATION_TYPE      : $DB_SEEDER_PRESTO_INSTALLATION_TYPE"
+echo "PRESTO_INSTALLATION_DIRECTORY : $DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY"
 echo "--------------------------------------------------------------------------------"
 echo "DIRECTORY_CATALOG_PROPERTY    : $DB_SEEDER_DIRECTORY_CATALOG_PROPERTY"
 echo "VERSION_PRESTO                : $DB_SEEDER_VERSION_PRESTO"
@@ -95,30 +106,65 @@ echo "--------------------------------------------------------------------------
 echo "Create Docker image."
 echo "--------------------------------------------------------------------------------"
 
-docker ps    | grep -r "db_seeder_presto" && docker stop db_seeder_presto
-docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_presto
-
-if [ -d "tmp" ]; then 
-    rm -Rf tmp
+if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
+    docker ps    | grep -r "db_seeder_presto" && docker stop db_seeder_presto
+    docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_presto
+    
+    if [ -d "tmp" ]; then 
+        rm -Rf tmp
+    fi
+    
+    mkdir tmp
+    
+    cp -a resources/docker/* tmp
+    mv tmp/dockerfile_presto tmp/dockerfile
+    
+    docker build -t konnexionsgmbh/db_seeder_presto tmp
+    
+    docker images -q -f "dangling=true" -f "label=autodelete=true"
+    
+    for IMAGE in $(docker images -q -f "dangling=true" -f "label=autodelete=true")
+    do
+        docker rmi -f $IMAGE
+    done
+    
+    if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+        exit 255
+    fi    
 fi
 
-mkdir tmp
+echo "--------------------------------------------------------------------------------"
+echo "Install Presto locally."
+echo "--------------------------------------------------------------------------------"
 
-cp -a resources/docker/* tmp
-mv tmp/dockerfile_presto tmp/dockerfile
+if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
+    if [ "$DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY" = "" ]; then
+        echo "--------------------------------------------------------------------------------"
+        echo "Install Presto Server."
+        echo "--------------------------------------------------------------------------------"
+        wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-server/${DB_SEEDER_VERSION_PRESTO}/presto-server-${DB_SEEDER_VERSION_PRESTO}.tar.gz
+        tar -xf presto-server-*.tar.gz
+        mv presto-server-${DB_SEEDER_VERSION_PRESTO} ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}
+        mkdir ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc 
+        mkdir ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog
+        
+        cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/base/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/
+        cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/catalog/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
+        
+        echo "--------------------------------------------------------------------------------"
+        echo "Install Presto Command-Line Interface."
+        echo "--------------------------------------------------------------------------------"
+        wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-cli/${DB_SEEDER_VERSION_PRESTO}/presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar
+        mv presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
+        chmod +x ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
+        
+        export PATH=${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/:${PATH}
+           
+        ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/launcher start
+    fi
 
-docker build -t konnexionsgmbh/db_seeder_presto tmp
-
-docker images -q -f "dangling=true" -f "label=autodelete=true"
-
-for IMAGE in $(docker images -q -f "dangling=true" -f "label=autodelete=true")
-do
-    docker rmi -f $IMAGE
-done
-
-if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
-    exit 255
-fi    
+    cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/catalog/db_seeder_* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
+fi
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
