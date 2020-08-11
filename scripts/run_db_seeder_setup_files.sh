@@ -13,32 +13,31 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - creating database files or directories."
 echo "--------------------------------------------------------------------------------"
-echo "DBMS                      : $DB_SEEDER_DBMS"
-echo --------------------------------------------------------------------------------
-echo "VERSION                   : $DB_SEEDER_VERSION"
-echo "DATABASE                  : $DB_SEEDER_DATABASE"
+echo "DATABASE                  : ${DB_SEEDER_DATABASE}"
+echo "DBMS                      : ${DB_SEEDER_DBMS}"
+echo "VERSION                   : ${DB_SEEDER_VERSION}"
 echo --------------------------------------------------------------------------------
 
 unset -f DB_SEEDER_DATABASE_INTERN
 
-if [ "$DB_SEEDER_DBMS" = "derby" ] || [ "$DB_SEEDER_DBMS" = "emb" ]; then
-    export DB_SEEDER_DATABASE_INTERN=$DB_SEEDER_DATABASE
+if [ "${DB_SEEDER_DBMS}" = "derby" ] || [ "${DB_SEEDER_DBMS}" = "emb" ]; then
+    export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
-if [ "$DB_SEEDER_DBMS" = "h2" ] || [ "$DB_SEEDER_DBMS" = "h2_emb" ]; then
-    export DB_SEEDER_DATABASE_INTERN=$DB_SEEDER_DATABASE
+if [ "${DB_SEEDER_DBMS}" = "h2" ] || [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then
+    export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
-if [ "$DB_SEEDER_DBMS" = "hsqldb_emb" ]; then
-    export DB_SEEDER_DATABASE_INTERN=$DB_SEEDER_DATABASE
+if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
+    export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
-if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
-    export DB_SEEDER_DATABASE_INTERN=$DB_SEEDER_DATABASE
+if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
+    export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
-if [ "$DB_SEEDER_DBMS" = "sqlite" ]; then
-    export DB_SEEDER_DATABASE_INTERN=$DB_SEEDER_DATABASE
+if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
+    export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
 if [ -n "$DB_SEEDER_DATABASE_INTERN" ]; then
@@ -56,10 +55,10 @@ if [ -n "$DB_SEEDER_DATABASE_INTERN" ]; then
         rm -f "${DB_SEEDER_DATABASE}"*
     fi    
     
-    if [ "$DB_SEEDER_DBMS" = "ibmdb2" ]; then
+    if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
         mkdir -p "${DB_SEEDER_DATABASE}"
     else
-        fileDirectory=$DB_SEEDER_DATABASE
+        fileDirectory=${DB_SEEDER_DATABASE}
         mkdir -p "${fileDirectory%/*}"
     fi
 fi    

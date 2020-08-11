@@ -12,7 +12,7 @@ export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
 
 export DB_SEEDER_DBMS_DEFAULT=complete
 
-if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
+if [ "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" = "docker" ]; then
     DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT="$(hostname -i)"
 else
     DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT=0.0.0.0
@@ -28,28 +28,28 @@ if [ -z "$1" ]; then
     echo "oracle             - Oracle Database"
     echo "postgresql         - PostgreSQL Database"
     echo "---------------------------------------------------------"
-    read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
-    export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
+    read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
+    export DB_SEEDER_DBMS=${DB_SEEDER_DBMS}
 
-    if [ -z "$DB_SEEDER_DBMS" ]; then
-        export DB_SEEDER_DBMS=$DB_SEEDER_DBMS_DEFAULT
+    if [ -z "${DB_SEEDER_DBMS}" ]; then
+        export DB_SEEDER_DBMS=${DB_SEEDER_DBMS_DEFAULT}
     fi
 else
     export DB_SEEDER_DBMS=$1
 fi
 
 if [ -z "$2" ]; then
-    read -p "Enter the local IP address [default: $DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT] " DB_SEEDER_GLOBAL_CONNECTION_HOST
-    export DB_SEEDER_GLOBAL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
+    read -p "Enter the local IP address [default: ${DB_SEEDER_GLOBAL_CONNECTION_HOST}_DEFAULT] " DB_SEEDER_GLOBAL_CONNECTION_HOST
+    export DB_SEEDER_GLOBAL_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
 
-    if [ -z "$DB_SEEDER_GLOBAL_CONNECTION_HOST" ]; then
-        export DB_SEEDER_GLOBAL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT
+    if [ -z "${DB_SEEDER_GLOBAL_CONNECTION_HOST}" ]; then
+        export DB_SEEDER_GLOBAL_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}_DEFAULT
     fi
 else
     export DB_SEEDER_GLOBAL_CONNECTION_HOST=$2
 fi
 
-if [ "$DB_SEEDER_DBMS" = "complete" ]; then
+if [ "${DB_SEEDER_DBMS}" = "complete" ]; then
     export DB_SEEDER_DBMS="mysql oracle postgresql sqlserver"
 fi
 
@@ -62,28 +62,28 @@ export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=${DB_SEEDER_DIRECTORY_CATALOG_PROPER
 
 export DB_SEEDER_VERSION_PRESTO=340
 
-export DB_SEEDER_MYSQL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
+export DB_SEEDER_MYSQL_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
 export DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 export DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
 export DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
 export DB_SEEDER_MYSQL_PASSWORD=mysql
 export DB_SEEDER_MYSQL_USER=kxn_user
 
-export DB_SEEDER_ORACLE_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
+export DB_SEEDER_ORACLE_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
 export DB_SEEDER_ORACLE_CONNECTION_PORT=1521
 export DB_SEEDER_ORACLE_CONNECTION_PREFIX="jdbc:oracle:thin:@//"
 export DB_SEEDER_ORACLE_CONNECTION_SERVICE=orclpdb1
 export DB_SEEDER_ORACLE_PASSWORD=oracle
 export DB_SEEDER_ORACLE_USER=kxn_user
 
-export DB_SEEDER_POSTGRESQL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
+export DB_SEEDER_POSTGRESQL_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
 export DB_SEEDER_POSTGRESQL_CONNECTION_PORT=5432
 export DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX="jdbc:postgresql://"
 export DB_SEEDER_POSTGRESQL_DATABASE=kxn_db
 export DB_SEEDER_POSTGRESQL_PASSWORD=postgresql
 export DB_SEEDER_POSTGRESQL_USER=kxn_user
 
-export DB_SEEDER_SQLSERVER_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
+export DB_SEEDER_SQLSERVER_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
 export DB_SEEDER_SQLSERVER_CONNECTION_PORT=1433
 export DB_SEEDER_SQLSERVER_CONNECTION_PREFIX="jdbc:sqlserver://"
 export DB_SEEDER_SQLSERVER_DATABASE=kxn_db
@@ -95,14 +95,12 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Creating a Presto environment."
 echo "--------------------------------------------------------------------------------"
-echo "DBMS_DEFAULT                  : $DB_SEEDER_DBMS_DEFAULT"
-echo "GLOBAL_CONNECTION_HOST        : $DB_SEEDER_GLOBAL_CONNECTION_HOST"
-echo "--------------------------------------------------------------------------------"
-echo "PRESTO_INSTALLATION_TYPE      : $DB_SEEDER_PRESTO_INSTALLATION_TYPE"
-echo "PRESTO_INSTALLATION_DIRECTORY : $DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY"
-echo "--------------------------------------------------------------------------------"
-echo "DIRECTORY_CATALOG_PROPERTY    : $DB_SEEDER_DIRECTORY_CATALOG_PROPERTY"
-echo "VERSION_PRESTO                : $DB_SEEDER_VERSION_PRESTO"
+echo "DBMS_DEFAULT                  : ${DB_SEEDER_DBMS_DEFAULT}"
+echo "GLOBAL_CONNECTION_HOST        : ${DB_SEEDER_GLOBAL_CONNECTION_HOST}"
+echo "JAVA_CLASSPATH                : ${DB_SEEDER_JAVA_CLASSPATH}"
+echo "PRESTO_INSTALLATION_DIRECTORY : ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}"
+echo "PRESTO_INSTALLATION_TYPE      : ${DB_SEEDER_PRESTO_INSTALLATION_TYPE}"
+echo "VERSION_PRESTO                : ${DB_SEEDER_VERSION_PRESTO}"
 echo "--------------------------------------------------------------------------------"
 echo "CONNECTION_HOST_PRESTO        : $DB_SEEDER_CONNECTION_HOST_PRESTO"
 echo "CONNECTION_PORT_PRESTO        : $DB_SEEDER_CONNECTION_PORT_PRESTO"
@@ -135,8 +133,6 @@ echo "SQLSERVER_DATABASE            : $DB_SEEDER_SQLSERVER_DATABASE"
 echo "SQLSERVER_PASSWORD            : $DB_SEEDER_SQLSERVER_PASSWORD"
 echo "SQLSERVER_USER                : $DB_SEEDER_SQLSERVER_USER"
 echo "--------------------------------------------------------------------------------"
-echo "JAVA_CLASSPATH                : $DB_SEEDER_JAVA_CLASSPATH"
-echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 echo "Compile and generate catalog property files."
@@ -144,15 +140,15 @@ echo "--------------------------------------------------------------------------
 
 rm -f ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_*.properties
 
-if ! (java --enable-preview -cp "{$DB_SEEDER_JAVA_CLASSPATH}" ch.konnexions.db_seeder.PrestoEnvironment $DB_SEEDER_DBMS); then
+if ! (java --enable-preview -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.PrestoEnvironment ${DB_SEEDER_DBMS}); then
     exit 255
 fi    
 
-echo "--------------------------------------------------------------------------------"
-echo "Create Docker image."
-echo "--------------------------------------------------------------------------------"
+if [ "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" = "docker" ]; then
+    echo "--------------------------------------------------------------------------------"
+    echo "Create Docker image."
+    echo "--------------------------------------------------------------------------------"
 
-if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
     docker ps    | grep -r "db_seeder_presto" && docker stop db_seeder_presto
     docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_presto
     
@@ -179,12 +175,12 @@ if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
     fi    
 fi
 
-echo "--------------------------------------------------------------------------------"
-echo "Install Presto locally."
-echo "--------------------------------------------------------------------------------"
+if [ "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" = "local" ]; then
+    echo "--------------------------------------------------------------------------------"
+    echo "Install Presto locally."
+    echo "--------------------------------------------------------------------------------"
 
-if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
-    if [ ! -d "$DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY" ]; then
+    if [ ! -d "${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}" ]; then
         echo "--------------------------------------------------------------------------------"
         echo "Install Presto Server."
         echo "--------------------------------------------------------------------------------"
