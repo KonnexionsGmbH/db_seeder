@@ -37,13 +37,12 @@ echo.
     echo DB Seeder - Run all DBMS variations.
     echo --------------------------------------------------------------------------------
     echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
+    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
     echo DBMS_DERBY_EMB                  : %DB_SEEDER_DBMS_DERBY_EMB%
     echo DBMS_H2_EMB                     : %DB_SEEDER_DBMS_H2_EMB%
     echo DBMS_HSQLDB_EMB                 : %DB_SEEDER_DBMS_HSQLDB_EMB%
     echo DBMS_SQLITE                     : %DB_SEEDER_DBMS_SQLITE%
-    echo --------------------------------------------------------------------------------
-    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================

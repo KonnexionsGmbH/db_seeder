@@ -15,6 +15,10 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Presto Distributed Query Engine Docker container.
 echo --------------------------------------------------------------------------------
+echo DBMS_PRESTO                       : %DB_SEEDER_DBMS_PRESTO%
+echo PRESTO_INSTALLATION_DIRECTORY     : %DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY%
+echo VERSION_PRESTO                    : %DB_SEEDER_VERSION_PRESTO%
+echo "--------------------------------------------------------------------------------"
 echo:| TIME
 echo ================================================================================
 

@@ -47,6 +47,7 @@ echo.
     echo DB Seeder - Run all DBMS variations.
     echo --------------------------------------------------------------------------------
     echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
+    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
     echo DBMS_CRATEDB                    : %DB_SEEDER_DBMS_CRATEDB%
     echo DBMS_CUBRID                     : %DB_SEEDER_DBMS_CUBRID%
@@ -62,8 +63,6 @@ echo.
     echo DBMS_ORACLE                     : %DB_SEEDER_DBMS_ORACLE%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
     echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
-    echo --------------------------------------------------------------------------------
-    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================

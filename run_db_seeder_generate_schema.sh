@@ -25,14 +25,12 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Generation of database schema."
 echo "--------------------------------------------------------------------------------"
-echo "FILE_JSON_NAME            : ${DB_SEEDER_FILE_JSON_NAME}"
-echo "RELEASE                   : ${DB_SEEDER_RELEASE}"
-echo "--------------------------------------------------------------------------------"
-echo "IS_ECLIPSE_INSTALLED      : $DB_SEEDER_IS_ECLIPSE_INSTALLED"
 echo "DB_SEEDER_ECLIPSE_VERSION : ${DB_SEEDER_ECLIPSE_VERSION_1} ${DB_SEEDER_ECLIPSE_VERSION_2}"
-echo "HOME_ECLIPSE              : $HOME_ECLIPSE"
-echo "--------------------------------------------------------------------------------"
+echo "FILE_JSON_NAME            : ${DB_SEEDER_FILE_JSON_NAME}"
+echo "HOME_ECLIPSE              : ${HOME_ECLIPSE}"
+echo "IS_ECLIPSE_INSTALLED      : ${DB_SEEDER_IS_ECLIPSE_INSTALLED}"
 echo "JAVA_CLASSPATH            : ${DB_SEEDER_JAVA_CLASSPATH}"
+echo "RELEASE                   : ${DB_SEEDER_RELEASE}"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
@@ -55,7 +53,7 @@ fi
 
 mkdir eclipse_workspace
 
-if ! ($HOME_ECLIPSE/eclipse -nosplash -data eclipse_workspace -application org.eclipse.jdt.core.JavaCodeFormatter -config src/main/resources/org.eclipse.jdt.core.prefs -quiet src/main/java/ch/konnexions/db_seeder/generated/ -vmargs -Dfile.encoding=UTF-8); then
+if ! (${HOME_ECLIPSE}/eclipse -nosplash -data eclipse_workspace -application org.eclipse.jdt.core.JavaCodeFormatter -config src/main/resources/org.eclipse.jdt.core.prefs -quiet src/main/java/ch/konnexions/db_seeder/generated/ -vmargs -Dfile.encoding=UTF-8); then
     exit 255
 fi    
 

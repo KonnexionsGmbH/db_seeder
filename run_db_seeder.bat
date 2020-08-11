@@ -79,20 +79,19 @@ rem ----------------------------------------------------------------------------
 rem Start Properties.
 rem ------------------------------------------------------------------------------
 
-set DB_SEEDER_DEFAULT_ROW_SIZE=1000
+if ["%DB_SEEDER_COMPLETE_RUN%"] EQU [""] (
+    set DB_SEEDER_COMPLETE_RUN=no
+)
 
 set DB_SEEDER_DBMS_EMBEDDED=no
 set DB_SEEDER_DBMS_PRESTO=no
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
-
 set DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
 
 if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_STATISTICS_NAME=resources\statistics\db_seeder_local.tsv
 )    
-
-set DB_SEEDER_NULL_FACTOR=
 
 set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS% 
 
@@ -497,18 +496,25 @@ echo ---------------------------------------------------------------------------
 echo DB Seeder - Creation of dummy data in an empty databases, database users or 
 echo             schemas.
 echo --------------------------------------------------------------------------------
+echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
 echo DBMS                            : %DB_SEEDER_DBMS%
+echo DBMS_DB                         : %DB_SEEDER_DBMS_DB%
+echo DBMS_DEFAULT                    : %DB_SEEDER_DBMS_DEFAULT%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo DBMS_PRESTO                     : %DB_SEEDER_DBMS_PRESTO%
-echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
-echo RELEASE                         : %DB_SEEDER_RELEASE%
-echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
-echo --------------------------------------------------------------------------------
+echo DIRECTORY_CATALOG_PROPERTY      : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
+echo FILE_JSON_NAME                  : %DB_SEEDER_FILE_JSON_NAME%
 echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
 echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
+echo GLOBAL_CONNECTION_HOST          : %DB_SEEDER_GLOBAL_CONNECTION_HOST%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
+echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
+echo PRESTO_INSTALLATION_DIRECTORY   : %DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY%
+echo RELEASE                         : %DB_SEEDER_RELEASE%
+echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
+echo VERSION_PRESTO                  : %DB_SEEDER_VERSION_PRESTO%
 echo --------------------------------------------------------------------------------
 echo CONNECTION_HOST_PRESTO          : %DB_SEEDER_CONNECTION_HOST_PRESTO%
 echo CONNECTION_PORT_PRESTO          : %DB_SEEDER_CONNECTION_PORT_PRESTO%

@@ -18,7 +18,6 @@ echo ---------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo DBMS_PRESTO                     : %DB_SEEDER_DBMS_PRESTO%
-echo --------------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------

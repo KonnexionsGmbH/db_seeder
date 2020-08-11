@@ -84,9 +84,10 @@ echo ---------------------------------------------------------------------------
 echo DB Seeder - Creating a Presto environment.
 echo --------------------------------------------------------------------------------
 echo DBMS_DEFAULT                  : %DB_SEEDER_DBMS_DEFAULT%
-echo GLOBAL_CONNECTION_HOST        : %DB_SEEDER_GLOBAL_CONNECTION_HOST%
-echo --------------------------------------------------------------------------------
 echo DIRECTORY_CATALOG_PROPERTY    : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
+echo GLOBAL_CONNECTION_HOST        : %DB_SEEDER_GLOBAL_CONNECTION_HOST%
+echo JAVA_CLASSPATH                : %DB_SEEDER_JAVA_CLASSPATH%
+echo PRESTO_INSTALLATION_DIRECTORY : %DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY%
 echo VERSION_PRESTO                : %DB_SEEDER_VERSION_PRESTO%
 echo --------------------------------------------------------------------------------
 echo CONNECTION_HOST_PRESTO        : %DB_SEEDER_CONNECTION_HOST_PRESTO%
@@ -119,8 +120,6 @@ echo SQLSERVER_CONNECTION_PREFIX   : %DB_SEEDER_SQLSERVER_CONNECTION_PREFIX%
 echo SQLSERVER_DATABASE            : %DB_SEEDER_SQLSERVER_DATABASE%
 echo SQLSERVER_PASSWORD            : %DB_SEEDER_SQLSERVER_PASSWORD%
 echo SQLSERVER_USER                : %DB_SEEDER_SQLSERVER_USER%
-echo --------------------------------------------------------------------------------
-echo JAVA_CLASSPATH                : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================

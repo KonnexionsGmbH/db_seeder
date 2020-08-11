@@ -27,12 +27,10 @@ echo DB Seeder - Generation of database schema.
 echo --------------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_JSON_NAME          : %DB_SEEDER_FILE_JSON_NAME%
-echo RELEASE                 : %DB_SEEDER_RELEASE%
-echo --------------------------------------------------------------------------------
-echo IS_ECLIPSE_INSTALLED    : %DB_SEEDER_IS_ECLIPSE_INSTALLED%
 echo HOME_ECLIPSE            : %HOME_ECLIPSE%
-echo --------------------------------------------------------------------------------
+echo IS_ECLIPSE_INSTALLED    : %DB_SEEDER_IS_ECLIPSE_INSTALLED%
 echo JAVA_CLASSPATH          : %DB_SEEDER_JAVA_CLASSPATH%
+echo RELEASE                 : %DB_SEEDER_RELEASE%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================

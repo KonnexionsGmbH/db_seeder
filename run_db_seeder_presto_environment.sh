@@ -96,6 +96,7 @@ echo "--------------------------------------------------------------------------
 echo "DB Seeder - Creating a Presto environment."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_DEFAULT                  : ${DB_SEEDER_DBMS_DEFAULT}"
+echo "DIRECTORY_CATALOG_PROPERTY    : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
 echo "GLOBAL_CONNECTION_HOST        : ${DB_SEEDER_GLOBAL_CONNECTION_HOST}"
 echo "JAVA_CLASSPATH                : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "PRESTO_INSTALLATION_DIRECTORY : ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}"
