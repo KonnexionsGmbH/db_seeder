@@ -53,7 +53,7 @@ if ! ( ./run_db_seeder_generate_schema.sh ); then
     exit 255
 fi    
 
-if ! ( ./run_db_seeder_presto_environment.sh ); then
+if ! ( ./run_db_seeder_presto_environment.sh complete localhost ); then
     exit 255
 fi    
 

@@ -54,7 +54,7 @@ echo.
         exit %ERRORLEVEL%
     )
     
-    call run_db_seeder_presto_environment.bat
+    call run_db_seeder_presto_environment.bat complete
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%

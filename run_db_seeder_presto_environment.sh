@@ -50,7 +50,7 @@ else
 fi
 
 if [ "$DB_SEEDER_DBMS" = "complete" ]; then
-    export DB_SEEDER_DBMS=mysql oracle postgresql sqlserver
+    export DB_SEEDER_DBMS="mysql oracle postgresql sqlserver"
 fi
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
@@ -210,7 +210,7 @@ if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
         sudo ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/launcher start
     fi
 
-    cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
+    sudo cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
 fi
 
 echo "--------------------------------------------------------------------------------"

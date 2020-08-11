@@ -20,7 +20,7 @@ export DB_SEEDER_ECLIPSE_VERSION_2=R
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
-echo "================================================================================"./run_db_seeder_presto_environment.sh
+echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Generation of database schema."

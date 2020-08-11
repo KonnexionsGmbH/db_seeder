@@ -78,7 +78,7 @@ fi
 if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
     if [ ! "$DB_SEEDER_COMPLETE_RUN" = "yes" ]; then
         if [ "${TRAVIS}" = "true" ]; then
-            if ! ( ./run_db_seeder_presto_environment.sh ); then
+            if ! ( ./run_db_seeder_presto_environment.sh complete localhost ); then
                 exit 255
             fi    
         fi    
