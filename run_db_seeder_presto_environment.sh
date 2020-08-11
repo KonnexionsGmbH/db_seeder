@@ -174,7 +174,7 @@ if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
     
     for IMAGE in $(docker images -q -f "dangling=true" -f "label=autodelete=true")
     do
-        docker rmi -f $IMAGE
+        docker rmi -f "$IMAGE"
     done
     
     if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then

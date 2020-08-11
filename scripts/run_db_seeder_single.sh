@@ -75,17 +75,19 @@ if [ "$DB_SEEDER_SETUP_DBMS" = "yes" ]; then
     fi    
 fi
 
-if [ ! "$DB_SEEDER_COMPLETE_RUN" = "yes" ]; then
-    if [ "${TRAVIS}" = "true" ]; then
-        if ! ( ./run_db_seeder_presto_environment.sh ); then
-            exit 255
+if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ]; then
+    if [ ! "$DB_SEEDER_COMPLETE_RUN" = "yes" ]; then
+        if [ "${TRAVIS}" = "true" ]; then
+            if ! ( ./run_db_seeder_presto_environment.sh ); then
+                exit 255
+            fi    
         fi    
-    fi    
-    
-    if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ] && [ ! "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
-        if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
-            exit 255
-        fi    
+        
+        if [ ! "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
+            if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+                exit 255
+            fi    
+        fi
     fi
 fi
 
