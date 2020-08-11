@@ -540,7 +540,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
         exit %ERRORLEVEL%
     )
     
-    goto EXIT
+    goto END_OF_SCRIPT
 )    
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
@@ -550,7 +550,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
         exit %ERRORLEVEL%
     )
     
-    goto EXIT
+    goto END_OF_SCRIPT
 )    
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
@@ -560,7 +560,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
         exit %ERRORLEVEL%
     )
     
-    goto EXIT
+    goto END_OF_SCRIPT
 )    
 
 if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
@@ -577,7 +577,7 @@ if %ERRORLEVEL% NEQ 0 (
     exit %ERRORLEVEL%
 )
 
-EXIT:
+END_OF_SCRIPT:
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

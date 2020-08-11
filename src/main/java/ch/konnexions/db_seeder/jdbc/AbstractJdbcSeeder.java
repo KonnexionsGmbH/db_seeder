@@ -462,6 +462,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
+      if (rowNo % 500 == 0) {
+        logger.info("database table " + String.format(FORMAT_TABLE_NAME,
+                                                      tableName.toLowerCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
+                                                                                                       rowNo));
+      }
+
       insertTable(preparedStatement,
                   tableName,
                   rowNo);
@@ -1521,7 +1527,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     if (expectedRows == count) {
       logger.info("database table " + String.format(FORMAT_TABLE_NAME,
                                                     tableName) + " - " + String.format(FORMAT_ROW_NO,
-                                                                                       count) + " rows created");
+                                                                                       count) + " rows in total");
     } else {
       logger.fatal("database table " + String.format(FORMAT_TABLE_NAME,
                                                      tableName) + " is incomplete - expected" + String.format(FORMAT_ROW_NO,
