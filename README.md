@@ -109,7 +109,8 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 The database schema to be used, that is, the required database tables can be user defined using a JSON file. 
 Details can be found here: [2.1 Database Schema](#database_schema). 
 
-The database schema to be used, that is, the required database tables can be user defined using a JSON file. 
+For the DBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Presto can optionally be used instead of the original JDBC driver. 
+The prerequisite for this is that Presto is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
 Details can be found here: [6. Presto - Distributed Query Engine](#presto). 
 
 
