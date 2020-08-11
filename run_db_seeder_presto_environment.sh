@@ -16,10 +16,12 @@ export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
 export DB_SEEDER_DBMS_DEFAULT=complete
 
 if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
-    export DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT="$(hostname -i)"
+    DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT="$(hostname -i)"
 else
-    export DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT=0.0.0.0
+    DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT=0.0.0.0
 fi
+
+export DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT
 
 if [ -z "$1" ]; then
     echo "============================================================"
