@@ -80,20 +80,23 @@ export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 # Start Properties.
 # ------------------------------------------------------------------------------
 
-export DB_SEEDER_DEFAULT_ROW_SIZE=1000
+if [ -z "${DB_SEEDER_COMPLETE_RUN}" ]; then
+    export DB_SEEDER_COMPLETE_RUN=no
+fi 
 
 export DB_SEEDER_DBMS_EMBEDDED=no
 export DB_SEEDER_DBMS_PRESTO=no
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
-
 export DB_SEEDER_FILE_STATISTICS_DELIMITER=\\t
 
 if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local.tsv
 fi 
 
-unset -f DB_SEEDER_NULL_FACTOR=
+if [ -z "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" ]; then
+    export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
+fi 
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
