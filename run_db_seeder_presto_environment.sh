@@ -11,19 +11,55 @@ sleep .1
 #
 # ------------------------------------------------------------------------------
 
+export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
+
+export DB_SEEDER_DBMS_DEFAULT=complete
+
+if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
+    export DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT="$(hostname -i)"
+else
+    export DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT=0.0.0.0
+fi
+
+if [ -z "$1" ]; then
+    echo "============================================================"
+    echo "complete           - All implemented Presto enabled DBMSs"
+    echo "sqlserver          - Microsoft SQL Server"
+    echo "mysql              - MySQL Database"
+    echo "oracle             - Oracle Database"
+    echo "postgresql         - PostgreSQL Database"
+    echo "-----------------------------------------------------------"
+    read -p -r "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
+    export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
+
+    if [ -z "$DB_SEEDER_DBMS" ]; then
+        export DB_SEEDER_DBMS=$DB_SEEDER_DBMS_DEFAULT
+    fi
+else
+    export DB_SEEDER_DBMS=$1
+fi
+
+if [ -z "$2" ]; then
+    read -p -r "Enter the local IP address [default: $DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT] " DB_SEEDER_GLOBAL_CONNECTION_HOST
+    export DB_SEEDER_GLOBAL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
+
+    if [ -z "$DB_SEEDER_GLOBAL_CONNECTION_HOST" ]; then
+        export DB_SEEDER_GLOBAL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT
+    fi
+else
+    export DB_SEEDER_GLOBAL_CONNECTION_HOST=$2
+fi
+
+if [ "$DB_SEEDER_DBMS" = "complete" ]; then
+    export DB_SEEDER_DBMS=mysql oracle postgresql sqlserver
+fi
+
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
-export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
 export DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY=/presto-server
 
 export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE=resources/docker/presto
 export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE}/catalog
-
-if [ "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "docker" ]; then
-    export DB_SEEDER_GLOBAL_CONNECTION_HOST="$(hostname -i)"
-else
-    export DB_SEEDER_GLOBAL_CONNECTION_HOST=localhost
-fi
 
 export DB_SEEDER_VERSION_PRESTO=340
 
@@ -59,6 +95,9 @@ echo "==========================================================================
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Creating a Presto environment."
+echo "--------------------------------------------------------------------------------"
+echo "DBMS_DEFAULT                  : $DB_SEEDER_DBMS_DEFAULT"
+echo "GLOBAL_CONNECTION_HOST        : $DB_SEEDER_GLOBAL_CONNECTION_HOST"
 echo "--------------------------------------------------------------------------------"
 echo "PRESTO_INSTALLATION_TYPE      : $DB_SEEDER_PRESTO_INSTALLATION_TYPE"
 echo "PRESTO_INSTALLATION_DIRECTORY : $DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY"
@@ -106,7 +145,7 @@ echo "--------------------------------------------------------------------------
 
 rm -f ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_*.properties
 
-if ! (java --enable-preview -cp "{$DB_SEEDER_JAVA_CLASSPATH}" ch.konnexions.db_seeder.PrestoEnvironment mysql oracle postgresql sqlserver); then
+if ! (java --enable-preview -cp "{$DB_SEEDER_JAVA_CLASSPATH}" ch.konnexions.db_seeder.PrestoEnvironment $DB_SEEDER_DBMS); then
     exit 255
 fi    
 

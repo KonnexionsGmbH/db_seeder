@@ -11,6 +11,7 @@ setlocal EnableDelayedExpansion
 set ERRORLEVEL=
 
 set DB_SEEDER_DBMS_DEFAULT=complete
+set DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT=192.168.1.109
 
 if ["%1"] EQU [""] (
     echo ============================================================
@@ -29,6 +30,16 @@ if ["%1"] EQU [""] (
     set DB_SEEDER_DBMS=%1
 )
 
+if ["%2"] EQU [""] (
+    set /P DB_SEEDER_GLOBAL_CONNECTION_HOST="Enter the local IP address [default: %DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT%] "
+
+    if ["!DB_SEEDER_GLOBAL_CONNECTION_HOST!"] EQU [""] (
+        set DB_SEEDER_GLOBAL_CONNECTION_HOST=%DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT%
+    )
+) else (
+    set DB_SEEDER_GLOBAL_CONNECTION_HOST=%2
+)
+
 if ["!DB_SEEDER_DBMS!"] EQU ["complete"] (
     set DB_SEEDER_DBMS=mysql oracle postgresql sqlserver
 )
@@ -37,7 +48,6 @@ set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
 set DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=resources\docker\presto\catalog
 
-set DB_SEEDER_GLOBAL_CONNECTION_HOST=192.168.1.109
 set DB_SEEDER_VERSION_PRESTO=340
 
 set DB_SEEDER_MYSQL_CONNECTION_HOST=%DB_SEEDER_GLOBAL_CONNECTION_HOST%
@@ -72,6 +82,9 @@ echo ===========================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - Creating a Presto environment.
+echo --------------------------------------------------------------------------------
+echo DBMS_DEFAULT                  : %DB_SEEDER_DBMS_DEFAULT%
+echo GLOBAL_CONNECTION_HOST        : %DB_SEEDER_GLOBAL_CONNECTION_HOST%
 echo --------------------------------------------------------------------------------
 echo DIRECTORY_CATALOG_PROPERTY    : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
 echo VERSION_PRESTO                : %DB_SEEDER_VERSION_PRESTO%
