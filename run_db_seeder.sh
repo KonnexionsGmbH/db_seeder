@@ -42,7 +42,7 @@ if [ -z "$1" ]; then
     echo "postgresql_presto  - PostgreSQL Database via Presto"
     echo "sqlite             - SQLite [embedded]"
     echo "---------------------------------------------------------"
-    read -p -r "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
+    read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
 
     if [ -z "$DB_SEEDER_DBMS" ]; then
@@ -53,7 +53,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p -r "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
+    read -p "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
     export DB_SEEDER_SETUP_DBMS=$DB_SEEDER_SETUP_DBMS
 
     if [ -z "$DB_SEEDER_SETUP_DBMS" ]; then
@@ -64,7 +64,7 @@ else
 fi
 
 if [ -z "$3" ]; then
-    read -p -r "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
+    read -p "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=$DB_SEEDER_NO_CREATE_RUNS
 
     if [ -z "$DB_SEEDER_NO_CREATE_RUNS" ]; then

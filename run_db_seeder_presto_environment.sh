@@ -2,9 +2,6 @@
 
 set -e
 
-exec &> >(tee -i run_db_seeder_presto_environment.log)
-sleep .1
-
 # ------------------------------------------------------------------------------
 #
 # run_db_seeder_presto_environment.sh: Creating a Presto environment.
@@ -24,14 +21,14 @@ fi
 export DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT
 
 if [ -z "$1" ]; then
-    echo "============================================================"
+    echo "========================================================="
     echo "complete           - All implemented Presto enabled DBMSs"
     echo "sqlserver          - Microsoft SQL Server"
     echo "mysql              - MySQL Database"
     echo "oracle             - Oracle Database"
     echo "postgresql         - PostgreSQL Database"
-    echo "-----------------------------------------------------------"
-    read -p -r "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
+    echo "---------------------------------------------------------"
+    read -p "Enter the desired database management system [default: $DB_SEEDER_DBMS_DEFAULT] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=$DB_SEEDER_DBMS
 
     if [ -z "$DB_SEEDER_DBMS" ]; then
@@ -42,7 +39,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p -r "Enter the local IP address [default: $DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT] " DB_SEEDER_GLOBAL_CONNECTION_HOST
+    read -p "Enter the local IP address [default: $DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT] " DB_SEEDER_GLOBAL_CONNECTION_HOST
     export DB_SEEDER_GLOBAL_CONNECTION_HOST=$DB_SEEDER_GLOBAL_CONNECTION_HOST
 
     if [ -z "$DB_SEEDER_GLOBAL_CONNECTION_HOST" ]; then
