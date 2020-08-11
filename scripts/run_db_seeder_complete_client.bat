@@ -10,6 +10,8 @@ setlocal EnableDelayedExpansion
 
 set ERRORLEVEL=
 
+set DB_SEEDER_COMPLETE_RUN=yes
+
 set DB_SEEDER_DBMS_CRATEDB=yes
 set DB_SEEDER_DBMS_CUBRID=yes
 set DB_SEEDER_DBMS_DERBY=yes
@@ -43,6 +45,8 @@ echo.
     echo Start %0
     echo --------------------------------------------------------------------------------
     echo DB Seeder - Run all DBMS variations.
+    echo --------------------------------------------------------------------------------
+    echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
     echo --------------------------------------------------------------------------------
     echo DBMS_CRATEDB                    : %DB_SEEDER_DBMS_CRATEDB%
     echo DBMS_CUBRID                     : %DB_SEEDER_DBMS_CUBRID%

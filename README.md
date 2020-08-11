@@ -1103,3 +1103,15 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ## <a name="presto"></a> 6. Presto - Distributed Query Engine
 
+The [Presto](https://prestosql.io/) distributed query engine can integrate the following DBMS, among others:
+
+- Microsoft SQL Server via the [SQL Server Connector](https://prestosql.io/docs/current/connector/sqlserver.html),
+- MySQL via the [MySQL Connector](https://prestosql.io/docs/current/connector/mysql.html),
+- Oracle via the [Oracle Connector](https://prestosql.io/docs/current/connector/oracle.html), and
+- PostgreSQL via the [PostgreSQL Connector](https://prestosql.io/docs/current/connector/postgresql.html).
+
+**`db_seeder`** makes it possible to use Presto's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
+To use the Presto JDBC driver, a Presto server is required.
+With the script `db_seeder_presto_environment` a Presto server can be set up.
+Since Presto does not support the Windows operating system, a suitable docker image is created for Windows.
+For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the Presto server.

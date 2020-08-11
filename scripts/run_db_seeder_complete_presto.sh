@@ -11,6 +11,8 @@ sleep .1
 #
 # ------------------------------------------------------------------------------
 
+export DB_SEEDER_COMPLETE_RUN=yes
+
 export DB_SEEDER_DBMS_SQLSERVER=yes
 export DB_SEEDER_DBMS_MYSQL_PRESTO=yes
 export DB_SEEDER_DBMS_ORACLE_PRESTO=yes
@@ -32,6 +34,8 @@ echo "==========================================================================
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Run all DBMS variations."
+echo "--------------------------------------------------------------------------------"
+echo "COMPLETE_RUN                    : $DB_SEEDER_COMPLETE_RUN"
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_MYSQL_PRESTO               : $DB_SEEDER_DBMS_MYSQL_PRESTO"
 echo "DBMS_ORACLE_PRESTO              : $DB_SEEDER_DBMS_ORACLE_PRESTO"

@@ -454,12 +454,6 @@ elif [ "$DB_SEEDER_DBMS" = "complete_presto" ]; then
         exit 255
     fi    
 else
-    if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ] && [ ! "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
-        if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
-            exit 255
-        fi    
-    fi
-
     if ! ( ./scripts/run_db_seeder_single.sh "${DB_SEEDER_DBMS}" ); then
         exit 255
     fi    

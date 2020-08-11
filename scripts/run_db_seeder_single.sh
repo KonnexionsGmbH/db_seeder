@@ -55,6 +55,8 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Run a single DBMS variation."
 echo "--------------------------------------------------------------------------------"
+echo "COMPLETE_RUN                      : $DB_SEEDER_COMPLETE_RUN"
+echo "--------------------------------------------------------------------------------"
 echo "DBMS                              : $DB_SEEDER_DBMS"
 echo "DBMS_DB                           : $DB_SEEDER_DBMS_DB"
 echo "DBMS_EMBEDDED                     : $DB_SEEDER_DBMS_EMBEDDED"
@@ -71,6 +73,20 @@ if [ "$DB_SEEDER_SETUP_DBMS" = "yes" ]; then
     if ! ( ./scripts/run_db_seeder_setup_dbms.sh ); then
         exit 255
     fi    
+fi
+
+if [ ! "$DB_SEEDER_COMPLETE_RUN" = "yes" ]; then
+    if [ "${TRAVIS}" = "true" ]; then
+        if ! ( ./run_db_seeder_presto_environment.sh ); then
+            exit 255
+        fi    
+    fi    
+    
+    if [ "$DB_SEEDER_DBMS_PRESTO" = "yes" ] && [ ! "$DB_SEEDER_PRESTO_INSTALLATION_TYPE" = "local" ]; then
+        if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+            exit 255
+        fi    
+    fi
 fi
 
 if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "1" ]; then

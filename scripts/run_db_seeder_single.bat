@@ -56,6 +56,8 @@ echo ===========================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - Run a single DBMS variation.
+echo "--------------------------------------------------------------------------------
+echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
 echo DBMS_DB                         : %DB_SEEDER_DBMS_DB%
@@ -77,6 +79,14 @@ if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
     )
 )
     
+if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
+    call scripts\run_db_seeder_setup_presto.bat
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+)
+
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["1"] (
     call scripts\run_db_seeder_create_data.bat
     if %ERRORLEVEL% NEQ 0 (

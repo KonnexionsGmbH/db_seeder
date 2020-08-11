@@ -11,6 +11,8 @@ sleep .1
 #
 # ------------------------------------------------------------------------------
 
+export DB_SEEDER_COMPLETE_RUN=yes
+
 export DB_SEEDER_DBMS_DERBY_EMB=yes
 export DB_SEEDER_DBMS_H2_EMB=yes
 export DB_SEEDER_DBMS_HSQLDB_EMB=yes
@@ -32,6 +34,8 @@ echo "==========================================================================
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Run all DBMS variations."
+echo "--------------------------------------------------------------------------------"
+echo "COMPLETE_RUN                    : $DB_SEEDER_COMPLETE_RUN"
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_DERBY_EMB                  : $DB_SEEDER_DBMS_DERBY_EMB"
 echo "DBMS_H2_EMB                     : $DB_SEEDER_DBMS_H2_EMB"
