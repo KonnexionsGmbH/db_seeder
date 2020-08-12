@@ -84,7 +84,7 @@ public abstract class AbstractDbmsSeeder {
 
   public static final String                FORMAT_IDENTIFIER                 = "%-10d";
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
-  protected static final String             FORMAT_ROW_NO                     = "%1$10d";
+  public static final String             FORMAT_ROW_NO                     = "%1$10d";
   protected static final String             FORMAT_TABLE_NAME                 = "%-17s";
 
   private static final Logger               logger                            = Logger.getLogger(AbstractDbmsSeeder.class);

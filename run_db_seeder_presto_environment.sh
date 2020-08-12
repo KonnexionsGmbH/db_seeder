@@ -195,14 +195,16 @@ if [ "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" = "local" ]; then
         sudo cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE}/base/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/
         sudo cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY_BASE}/catalog/* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
         
-        echo "--------------------------------------------------------------------------------"
-        echo "Install Presto Command-Line Interface."
-        echo "--------------------------------------------------------------------------------"
-        wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-cli/${DB_SEEDER_VERSION_PRESTO}/presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar
-        sudo mv presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
-        sudo chmod +x ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
+        if [ ! "${TRAVIS}" = "true" ]; then
+            echo "--------------------------------------------------------------------------------"
+            echo "Install Presto Command-Line Interface."
+            echo "--------------------------------------------------------------------------------"
+            wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-cli/${DB_SEEDER_VERSION_PRESTO}/presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar
+            sudo mv presto-cli-${DB_SEEDER_VERSION_PRESTO}-executable.jar ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
+            sudo chmod +x ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/presto
         
-        export PATH=${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/:${PATH}
+            export PATH=${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/:${PATH}
+        fi
            
         sudo ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/bin/launcher start
     fi

@@ -65,11 +65,16 @@ public final class Statistics {
     try {
       LocalDateTime endDateTime = LocalDateTime.now();
 
+      long          duration    = Duration.between(startDateTime,
+                                                   endDateTime).toSeconds();
+
+      logger.info("duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                                          duration));
+
       statisticsFile.printRecord(tickerSymbolExtern,
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER],
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
-                                 Duration.between(startDateTime,
-                                                  endDateTime).toSeconds(),
+                                 duration,
                                  startDateTime.format(formatter),
                                  endDateTime.format(formatter),
                                  InetAddress.getLocalHost().getHostName(),
