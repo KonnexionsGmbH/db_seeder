@@ -208,6 +208,7 @@ if [ "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" = "local" ]; then
     fi
 
     sudo cp -a  ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_* ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}/etc/catalog/
+    sleep 60
 fi
 
 echo "--------------------------------------------------------------------------------"
