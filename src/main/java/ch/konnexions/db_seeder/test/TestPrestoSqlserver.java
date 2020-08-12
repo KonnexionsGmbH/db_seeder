@@ -53,7 +53,7 @@ public final class TestPrestoSqlserver {
   private final static String  driverOriginal      = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
   private final static String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
-  public static final String   FORMAT_ROW_NO       = "%1$4d";
+  public static final String   FORMAT_ROW_NO       = "%1$6d";
 
   private final static Logger  logger              = Logger.getLogger(TestPrestoSqlserver.class);
 
@@ -61,7 +61,7 @@ public final class TestPrestoSqlserver {
 
   private final static String  password            = "sqlserver_2019";
 
-  private final static int     rowMaxSize          = 10;
+  private final static int     rowMaxSize          = 2500;
 
   private final static String  schemaName          = "kxn_schema";
   @SuppressWarnings("preview")
@@ -259,8 +259,10 @@ public final class TestPrestoSqlserver {
                                                                                       rowNo) + " result " + count);
         }
 
-        logger.info("row # " + String.format(FORMAT_ROW_NO,
-                                             rowNo) + " is inserted");
+        if (rowNo % 50 == 0) {
+          logger.info(String.format(FORMAT_ROW_NO + " rows inserted so far",
+                                    rowNo));
+        }
       }
 
       preparedStatement.close();
@@ -273,8 +275,9 @@ public final class TestPrestoSqlserver {
                                      LocalDateTime.now()).toSeconds();
 
     logger.info("");
-    logger.info("duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                        duration));
+    logger.info(String.format(FORMAT_ROW_NO,
+                              rowMaxSize) + " rows inserted totally - duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                                                                                             duration));
   }
 
   /**

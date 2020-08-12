@@ -53,7 +53,7 @@ public final class TestPrestoMysql {
   private final static String  driverOriginal      = "com.mysql.cj.jdbc.Driver";
   private final static String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
-  public static final String   FORMAT_ROW_NO       = "%1$4d";
+  public static final String   FORMAT_ROW_NO       = "%1$6d";
 
   private final static Logger  logger              = Logger.getLogger(TestPrestoMysql.class);
 
@@ -61,7 +61,7 @@ public final class TestPrestoMysql {
 
   private final static String  password            = "mysql";
 
-  private final static int     rowMaxSize          = 300;
+  private final static int     rowMaxSize          = 2500;
 
   @SuppressWarnings("preview")
   private final static String  sqlStmntCreateTable = """
@@ -256,8 +256,10 @@ public final class TestPrestoMysql {
                                                                                       rowNo) + " result " + count);
         }
 
-        logger.info("row # " + String.format(FORMAT_ROW_NO,
-                                             rowNo) + " is inserted");
+        if (rowNo % 50 == 0) {
+          logger.info(String.format(FORMAT_ROW_NO + " rows inserted so far",
+                                    rowNo));
+        }
       }
 
       preparedStatement.close();
@@ -270,8 +272,9 @@ public final class TestPrestoMysql {
                                      LocalDateTime.now()).toSeconds();
 
     logger.info("");
-    logger.info("duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                        duration));
+    logger.info(String.format(FORMAT_ROW_NO,
+                              rowMaxSize) + " rows inserted totally - duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                                                                                             duration));
   }
 
   /**
