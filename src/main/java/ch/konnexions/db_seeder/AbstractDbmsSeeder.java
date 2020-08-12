@@ -47,9 +47,6 @@ public abstract class AbstractDbmsSeeder {
     MIMER(
         "mimer"
     ),
-    MSSQLSERVER(
-        "mssqlserver"
-    ),
     MYSQL(
         "mysql"
     ),
@@ -61,6 +58,9 @@ public abstract class AbstractDbmsSeeder {
     ),
     SQLITE(
         "sqlite"
+    ),
+    SQLSERVER(
+        "sqlserver"
     );
 
     private final String tickerSymbol;
@@ -76,15 +76,15 @@ public abstract class AbstractDbmsSeeder {
 
   public static final Map<String, String[]> dbmsDetails                       = initDbmsDetails();
 
-  //  public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
+  public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
   //  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
   private static final int                  DBMS_DETAILS_NAME                 = 3;
   private static final int                  DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
-  //  public static final int                   DBMS_DETAILS_TICKER_SYMBOL        = 0;
+  public static final int                   DBMS_DETAILS_TICKER_SYMBOL_LOWER  = 0;
 
   public static final String                FORMAT_IDENTIFIER                 = "%-10d";
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
-  protected static final String             FORMAT_ROW_NO                     = "%1$10d";
+  public static final String             FORMAT_ROW_NO                     = "%1$10d";
   protected static final String             FORMAT_TABLE_NAME                 = "%-17s";
 
   private static final Logger               logger                            = Logger.getLogger(AbstractDbmsSeeder.class);
@@ -193,25 +193,32 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "Mimer",
                         "" });
-    dbmsDetails.put("mssqlserver",
+    dbmsDetails.put("sqlserver",
                     new String[] {
-                        "mssqlserver",
+                        "sqlserver",
                         "MS SQL Server",
                         "client",
                         "MS SQL Server",
                         "" });
-    dbmsDetails.put("mysql",
+    dbmsDetails.put("mysql_presto",
                     new String[] {
                         "mysql",
                         "MySQL Database",
-                        "client",
+                        "presto",
                         "MySQL",
-                        "`" });
+                        "" });
     dbmsDetails.put("oracle",
                     new String[] {
                         "oracle",
                         "Oracle Database",
                         "client",
+                        "Oracle",
+                        "" });
+    dbmsDetails.put("oracle_presto",
+                    new String[] {
+                        "oracle",
+                        "Oracle Database",
+                        "presto",
                         "Oracle",
                         "" });
     dbmsDetails.put("postgresql",
@@ -221,6 +228,13 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "PostgreSQL",
                         "" });
+    dbmsDetails.put("postgresql_presto",
+                    new String[] {
+                        "postgresql",
+                        "PostgreSQL Database",
+                        "presto",
+                        "PostgreSQL",
+                        "" });
     dbmsDetails.put("sqlite",
                     new String[] {
                         "sqlite",
@@ -228,17 +242,34 @@ public abstract class AbstractDbmsSeeder {
                         "embedded",
                         "SQLite",
                         "" });
+    dbmsDetails.put("sqlserver_presto",
+                    new String[] {
+                        "sqlserver",
+                        "MS SQL Server",
+                        "presto",
+                        "MS SQL Server",
+                        "" });
+    dbmsDetails.put("mysql",
+                    new String[] {
+                        "mysql",
+                        "MySQL Database",
+                        "client",
+                        "MySQL",
+                        "" });
 
     return dbmsDetails;
   }
 
-  protected Config        config;
-  protected DbmsEnum      dbmsEnum;
+  private final boolean isDebug = logger.isDebugEnabled();
 
-  protected String        dbmsTickerSymbol;
+  protected Config      config;
 
-  protected String        identifierDelimiter;
-  protected final boolean isDebug = logger.isDebugEnabled();
+  protected DbmsEnum    dbmsEnum;
+
+  protected String      identifierDelimiter;
+
+  protected String      tickerSymbolExtern;
+  protected String      tickerSymbolLower;
 
   /**
    * Initialises a new abstract DBMS seeder object.
@@ -250,36 +281,20 @@ public abstract class AbstractDbmsSeeder {
   /**
    * Initialises a new abstract DBMS seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractDbmsSeeder(String dbmsTickerSymbol) {
+  public AbstractDbmsSeeder(String tickerSymbolExtern, String dbmsOption) {
     super();
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    identifierDelimiter = dbmsDetails.get(dbmsTickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    this.tickerSymbolExtern = tickerSymbolExtern;
 
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
-  }
-
-  /**
-   * Initialises a new abstract DBMS seeder object.
-   *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
-   */
-  public AbstractDbmsSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super();
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
-    }
-
-    identifierDelimiter = dbmsDetails.get(dbmsTickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    identifierDelimiter     = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    tickerSymbolLower       = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
 
     if (isDebug) {
       logger.debug("End   Constructor");

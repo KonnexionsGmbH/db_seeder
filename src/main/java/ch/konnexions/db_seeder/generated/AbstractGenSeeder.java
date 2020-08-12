@@ -11,22 +11,24 @@ import org.apache.log4j.Logger;
  * Test Data Generator for a Database - Abstract Generated Seeder.
  * <br>
  * @author  GenerateSchema.class
- * @version 2.0.0
+ * @version 2.1.0
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
-  private static final Logger logger = Logger.getLogger(AbstractGenSeeder.class);
+  private static final Logger logger  = Logger.getLogger(AbstractGenSeeder.class);
+  private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public AbstractGenSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     nullFactor = 4;
@@ -37,27 +39,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Initialises a new abstract generated seeder object.
-   *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
-   */
-  public AbstractGenSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
-    }
-
-    nullFactor = 4;
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
-  }
-
-  /**
-   * Creates a content value of type BIGINT.
+   * Create a content value of type BIGINT.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -87,7 +69,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type BLOB.
+   * Create a content value of type BLOB.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -103,7 +85,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type CLOB.
+   * Create a content value of type CLOB.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -119,7 +101,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type TIMESTAMP.
+   * Create a content value of type TIMESTAMP.
    *
    * @param tableName         the table name
    * @param columnName        the column name
@@ -135,7 +117,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   }
 
   /**
-   * Creates a content value of type VARCHAR.
+   * Create a content value of type VARCHAR.
    *
    * @param tableName         the table name
    * @param columnName        the column name

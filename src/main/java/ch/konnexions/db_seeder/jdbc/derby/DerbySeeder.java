@@ -17,42 +17,92 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   private static final Logger logger = Logger.getLogger(DerbySeeder.class);
 
   /**
+   * Gets the connection URL for privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param database the database
+   *
+   * @return the connection URL for privileged access
+   */
+  private final static String getUrlSys(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
+    String urlBase;
+
+    if (isClient) {
+      urlBase = connectionPrefix + "//" + connectionHost + ":" + connectionPort + "/";
+    } else {
+      urlBase = connectionPrefix + ";databaseName=";
+    }
+    return urlBase + database + ";create=true";
+  }
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param database the database 
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
+    String urlBase;
+
+    if (isClient) {
+      urlBase = connectionPrefix + "//" + connectionHost + ":" + connectionPort + "/";
+    } else {
+      urlBase = connectionPrefix + ";databaseName=";
+    }
+    return urlBase + database + ";create=false";
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
+
+  /**
    * Instantiates a new Apache Derby seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the externl DBMS ticker symbol 
    */
-  public DerbySeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    init();
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+  public DerbySeeder(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
   }
 
   /**
    * Instantiates a new Apache Derby seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
    */
-  public DerbySeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public DerbySeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.DERBY;
 
-    init();
+    if (isClient) {
+      driver = "org.apache.derby.jdbc.ClientDriver";
+    } else {
+      driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    }
+
+    dropTableStmnt = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
+
+    urlSys         = getUrlSys(isClient,
+                               config.getConnectionHost(),
+                               config.getConnectionPort(),
+                               config.getConnectionPrefix(),
+                               config.getDatabase());
+
+    urlUser        = getUrlUser(isClient,
+                                config.getConnectionHost(),
+                                config.getConnectionPort(),
+                                config.getConnectionPrefix(),
+                                config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -72,37 +122,6 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   }
 
   /**
-   * The common initialisation part.
-   */
-  private void init() {
-    if (isDebug) {
-      logger.debug("Start");
-
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-    }
-
-    dbmsEnum = DbmsEnum.DERBY;
-
-    if (isClient) {
-      driver  = "org.apache.derby.jdbc.ClientDriver";
-      urlBase = config.getConnectionPrefix() + "//" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase() + ";create=";
-    } else {
-      driver  = "org.apache.derby.jdbc.EmbeddedDriver";
-      urlBase = config.getConnectionPrefix() + ";databaseName=" + config.getDatabase() + ";create=";
-    }
-
-    url            = urlBase + "false";
-    urlSetup       = urlBase + "true";
-
-    dropTableStmnt = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  /**
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    */
@@ -116,7 +135,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          driver,
                          true);
 
@@ -141,12 +160,23 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
 
-    connection = connect(url);
+    connection = connect(urlUser);
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
       logger.debug("End");

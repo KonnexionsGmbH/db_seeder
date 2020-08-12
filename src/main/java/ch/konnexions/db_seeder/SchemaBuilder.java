@@ -17,7 +17,6 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 @SuppressWarnings("ucd")
 public final class SchemaBuilder {
 
-  @SuppressWarnings("ucd")
   private static final Logger logger = Logger.getLogger(SchemaBuilder.class);
 
   /**
@@ -38,7 +37,7 @@ public final class SchemaBuilder {
 
     if (null == release) {
       MessageHandling.abortProgram(logger,
-                                   "Command line argument 'DB_SEEDER_RELEASE' missing (null)");
+                                   "Program abort: command line argument 'DB_SEEDER_RELEASE' missing (null)");
     }
 
     String fileJsonName = new Config().getFileJsonName();
@@ -47,12 +46,12 @@ public final class SchemaBuilder {
 
     if (!fileJson.exists()) {
       MessageHandling.abortProgram(logger,
-                                   "File '" + fileJsonName + "' is not existing");
+                                   "Program abort: file '" + fileJsonName + "' is not existing");
     }
 
     if (fileJson.isDirectory()) {
       MessageHandling.abortProgram(logger,
-                                   "'" + fileJsonName + "' is a directory not a file");
+                                   "Program abort: '" + fileJsonName + "' is a directory not a file");
     }
 
     new GenerateSchema().generateSchema(release,
@@ -62,4 +61,6 @@ public final class SchemaBuilder {
 
     System.exit(0);
   }
+
+  protected final boolean isDebug = logger.isDebugEnabled();
 }

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a CrateDB DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.0.0
+ * @version 2.1.0
  */
 public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
 
@@ -18,7 +18,7 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
   private static final Logger                 logger            = Logger.getLogger(AbstractGenCratedbSchema.class);
 
   /**
-   * Creates the CREATE TABLE statements.
+   * Create the CREATE TABLE statements.
    */
   @SuppressWarnings("preview")
   private static HashMap<String, String> createTableStmnts() {
@@ -104,17 +104,28 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract CrateDB schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public AbstractGenCratedbSchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public AbstractGenCratedbSchema(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
+
+  /**
+   * Initialises a new abstract CrateDB schema object.
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
+   */
+  public AbstractGenCratedbSchema(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

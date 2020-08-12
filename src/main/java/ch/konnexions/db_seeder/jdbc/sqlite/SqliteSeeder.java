@@ -17,21 +17,36 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
   private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
 
   /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionPrefix the connection prefix
+   * @param database the database with non-privileged access
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionPrefix, String database) {
+    return connectionPrefix + database;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
+
+  /**
    * Instantiates a new SQLite seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
    */
-  public SqliteSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public SqliteSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    dbmsEnum              = DbmsEnum.SQLITE;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.SQLITE;
 
-    url                   = config.getConnectionPrefix() + config.getDatabase();
+    urlUser  = getUrlUser(config.getConnectionPrefix(),
+                          config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -64,7 +79,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url);
+    connection = connect(urlUser);
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.
@@ -80,8 +95,19 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
       logger.debug("End");

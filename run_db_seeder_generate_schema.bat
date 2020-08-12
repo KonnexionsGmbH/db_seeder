@@ -8,11 +8,13 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+set ERRORLEVEL=
+
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
-rem set DB_SEEDER_FILE_JSON_NAME=json\db_seeder_schema.syntax.json
+rem set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax.json
 
-set DB_SEEDER_RELEASE=2.0.0
+set DB_SEEDER_RELEASE=2.1.0
 
 set DB_SEEDER_IS_ECLIPSE_INSTALLED=true
 
@@ -25,18 +27,17 @@ echo DB Seeder - Generation of database schema.
 echo --------------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_JSON_NAME          : %DB_SEEDER_FILE_JSON_NAME%
-echo RELEASE                 : %DB_SEEDER_RELEASE%
-echo --------------------------------------------------------------------------------
-echo IS_ECLIPSE_INSTALLED    : %DB_SEEDER_IS_ECLIPSE_INSTALLED%
 echo HOME_ECLIPSE            : %HOME_ECLIPSE%
-echo --------------------------------------------------------------------------------
+echo IS_ECLIPSE_INSTALLED    : %DB_SEEDER_IS_ECLIPSE_INSTALLED%
 echo JAVA_CLASSPATH          : %DB_SEEDER_JAVA_CLASSPATH%
+echo RELEASE                 : %DB_SEEDER_RELEASE%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
 java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
 if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
@@ -46,11 +47,13 @@ mkdir eclipse_workspace
 
 %HOME_ECLIPSE%\eclipse -nosplash -data eclipse_workspace -application org.eclipse.jdt.core.JavaCodeFormatter -config src\main\resources\org.eclipse.jdt.core.prefs -quiet src\main\java\ch\konnexions\db_seeder\generated\ -vmargs -Dfile.encoding=UTF-8
 if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
 gradle copyJarToLib
 if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 

@@ -17,23 +17,58 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
   private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
 
   /**
+   * Gets the connection URL for privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param databaseSys the database with privileged access
+   *
+   * @return the connection URL for privileged access
+   */
+  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String databaseSys) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys;
+  }
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param database the database with non-privileged access
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
+
+  /**
    * Instantiates a new MariaDB seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public MariadbSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public MariadbSeeder(String tickerSymbolExtern) {
+    super(tickerSymbolExtern);
 
     if (isDebug) {
       logger.debug("Start Constructor");
     }
 
-    dbmsEnum              = DbmsEnum.MARIADB;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.MARIADB;
 
-    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
-    url                   = urlBase + config.getDatabase();
-    urlSetup              = urlBase + config.getDatabaseSys();
+    urlSys   = getUrlSys(config.getConnectionHost(),
+                         config.getConnectionPort(),
+                         config.getConnectionPrefix(),
+                         config.getDatabaseSys());
+
+    urlUser  = getUrlUser(config.getConnectionHost(),
+                          config.getConnectionPort(),
+                          config.getConnectionPrefix(),
+                          config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -66,7 +101,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          null,
                          config.getUserSys(),
                          config.getPasswordSys());
@@ -106,15 +141,26 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword());
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     if (isDebug) {
       logger.debug("End");

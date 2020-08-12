@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a SQLite DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.0.0
+ * @version 2.1.0
  */
 public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
 
@@ -18,7 +18,7 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
   private static final Logger                 logger            = Logger.getLogger(AbstractGenSqliteSchema.class);
 
   /**
-   * Creates the CREATE TABLE statements.
+   * Create the CREATE TABLE statements.
    */
   @SuppressWarnings("preview")
   private static HashMap<String, String> createTableStmnts() {
@@ -90,7 +90,7 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        MODIFIED                         DATETIME,
                        NAME                             VARCHAR2(100)             NOT NULL,
                        SYMBOL                           VARCHAR2(50),
-                       CONSTRAINT CONSTRAINT_13       UNIQUE      (FK_COUNTRY_ID, NAME)
+                       CONSTRAINT CONSTRAINT_12       UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -111,17 +111,28 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract SQLite schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public AbstractGenSqliteSchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public AbstractGenSqliteSchema(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
+
+  /**
+   * Initialises a new abstract SQLite schema object.
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
+   */
+  public AbstractGenSqliteSchema(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

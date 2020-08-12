@@ -17,42 +17,57 @@ public final class H2Seeder extends AbstractGenH2Schema {
   private static final Logger logger = Logger.getLogger(H2Seeder.class);
 
   /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param isClient client version
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param database the database
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
+    if (isClient) {
+      return connectionPrefix + "tcp://" + connectionHost + ":" + connectionPort + "/" + database;
+    } else {
+      return connectionPrefix + "file:" + database;
+    }
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
+
+  /**
    * Instantiates a new H2 seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public H2Seeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
-
-    init();
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+  public H2Seeder(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
   }
 
   /**
    * Instantiates a new H2 seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
    */
-  public H2Seeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public H2Seeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.H2;
 
-    init();
+    driver   = "org.h2.Driver";
+
+    urlUser  = getUrlUser(isClient,
+                          config.getConnectionHost(),
+                          config.getConnectionPort(),
+                          config.getConnectionPrefix(),
+                          config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -72,32 +87,6 @@ public final class H2Seeder extends AbstractGenH2Schema {
   }
 
   /**
-   * The common initialisation part.
-   */
-  private void init() {
-    if (isDebug) {
-      logger.debug("Start");
-
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-    }
-
-    dbmsEnum = DbmsEnum.H2;
-
-    driver   = "org.h2.Driver";
-
-    if (isClient) {
-      url = config.getConnectionPrefix() + "tcp://" + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getDatabase();
-    } else {
-      url = config.getConnectionPrefix() + "file:" + config.getDatabase();
-    }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  /**
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    */
@@ -111,7 +100,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          driver,
                          "sa",
                          "",
@@ -157,12 +146,12 @@ public final class H2Seeder extends AbstractGenH2Schema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          password);
@@ -171,6 +160,8 @@ public final class H2Seeder extends AbstractGenH2Schema {
       statement = connection.createStatement();
 
       executeDdlStmnts("SET SCHEMA " + schemaName);
+
+      createSchema();
 
       statement.close();
     } catch (SQLException e) {

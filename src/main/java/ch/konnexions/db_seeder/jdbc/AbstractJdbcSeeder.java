@@ -37,85 +37,116 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX       = 3;
-  private static final Logger logger             = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final int    ENCODING_MAX = 3;
 
-  private final String        BLOB_FILE          = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]        BLOB_DATA_BYTES    = readBlobFile2Bytes();
-  private final String        CLOB_FILE          = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-
-  private final String        CLOB_DATA          = readClobFile();
-  protected Connection        connection         = null;
-
-  protected String            driver             = "";
-  protected String            dropTableStmnt     = "";
-
-  protected Properties        encodedColumnNames = new Properties();
-
-  protected final boolean     isClient;
-  protected final boolean     isEmbedded;
-
-  protected int               nullFactor;
-
-  private final Random        randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  private ResultSet           resultSet          = null;
-
-  protected Statement         statement          = null;
-
-  protected String            url                = "";
-  protected String            urlBase            = "";
-  protected String            urlSetup           = "";
+  private static final Logger logger       = Logger.getLogger(AbstractJdbcSeeder.class);
 
   /**
-   * Initialises a new abstract JDBC seeder object.
+   * Gets the catalog name.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * 
+   * @return the catalog name
    */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    config     = new Config();
-
-    isClient   = true;
-    isEmbedded = false;
-
-    if (isDebug) {
-      logger.debug("client  =" + isClient);
-      logger.debug("embedded=" + isEmbedded);
-
-      logger.debug("End   Constructor");
-    }
+  public static String getCatalogName(String tickerSymbolLower) {
+    return "db_seeder_" + tickerSymbolLower;
   }
 
   /**
+   * Gets the Presto URL string.
+   *
+   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port
+   * 
+   * @return the Presto URL string
+   */
+  @SuppressWarnings("ucd")
+  public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "?user=presto";
+  }
+
+  /**
+   * Gets the Presto URL string.
+   *
+   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port
+   * @param databaseSchema the database schema
+   * 
+   * @return the Presto URL string
+   */
+  public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
+    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=presto";
+  }
+
+  private final boolean   isDebug            = logger.isDebugEnabled();
+
+  private final String    BLOB_FILE          = Paths.get("src",
+                                                         "main",
+                                                         "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]    BLOB_DATA_BYTES    = readBlobFile2Bytes();
+
+  private final String    CLOB_FILE          = Paths.get("src",
+                                                         "main",
+                                                         "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String    CLOB_DATA          = readClobFile();
+  protected Connection    connection         = null;
+
+  protected String        driver             = "";
+  protected final String  driver_presto      = "io.prestosql.jdbc.PrestoDriver";
+  protected String        dropTableStmnt     = "";
+
+  protected Properties    encodedColumnNames = new Properties();
+
+  protected final boolean isClient;
+  private final boolean   isEmbedded;
+  protected final boolean isPresto;
+
+  protected int           nullFactor;
+
+  private final Random    randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private ResultSet       resultSet          = null;
+
+  protected Statement     statement          = null;
+
+  protected String        urlPresto          = "";
+  protected String        urlSys             = "";
+  protected String        urlUser            = "";
+
+  /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
-   * @param isClient client database version
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractJdbcSeeder(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public AbstractJdbcSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    config        = new Config();
+    config = new Config();
 
-    this.isClient = isClient;
-    isEmbedded    = !(this.isClient);
+    if ("embedded".equals(dbmsOption)) {
+      isClient   = false;
+      isEmbedded = true;
+      isPresto   = false;
+    } else if ("presto".equals(dbmsOption)) {
+      isClient   = false;
+      isEmbedded = false;
+      isPresto   = true;
+    } else {
+      isClient   = true;
+      isEmbedded = false;
+      isPresto   = false;
+    }
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
       logger.debug("embedded=" + isEmbedded);
+      logger.debug("presto  =" + isPresto);
 
       logger.debug("End   Constructor");
     }
@@ -214,14 +245,17 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @return the database connection
    */
-  protected final Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
+  protected final Connection connect(String urlIn, String driver, String user, String password, boolean autoCommit) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     if (driver != null) {
       try {
-        logger.debug("driver='" + driver + "'");
+        if (isDebug) {
+          logger.debug("driver='" + driver + "'");
+        }
+
         Class.forName(driver);
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
@@ -231,15 +265,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     Connection connection = null;
 
+    String     url        = urlIn.replace("\"",
+                                          "");
+
     try {
       if (isDebug) {
-        logger.debug("url   ='" + url + "'");
+        logger.debug("url='" + url + "'");
       }
+
       if (user == null && password == null) {
         connection = DriverManager.getConnection(url);
       } else {
         if (isDebug) {
-          logger.debug("user  ='" + user + "' password='" + password + "'");
+          logger.debug("user='" + user + "' password='" + password + "'");
         }
         connection = DriverManager.getConnection(url,
                                                  user,
@@ -249,7 +287,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       connection.setAutoCommit(autoCommit);
 
       if (isDebug) {
-        logger.debug("auto  =" + connection.getAutoCommit());
+        logger.debug("auto=" + connection.getAutoCommit());
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -301,11 +339,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Creates the column names with encoding variations.
+   * Create the column names with encoding variations.
    *
    * @param isEncodingIso_8859_1 the is encoding ISO_8859_1 8859 1
    * @param isEncodingUtf_8 the is encoding UTF_8 required
-   * @return the properties
    */
   protected abstract void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8);
 
@@ -317,7 +354,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, dbmsTickerSymbol, dbmsDetails);
+    Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
 
     setupDatabase();
 
@@ -335,7 +372,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   private void createData(String tableName) {
-
     int rowMaxSize = getMaxRowSize(tableName);
 
     if (isDebug) {
@@ -344,26 +380,18 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                                                                 rowMaxSize) + " rows to be created");
     }
 
-    tableName = tableName.toUpperCase();
+    String editedTableName;
 
-    try {
-      statement = connection.createStatement();
-
-      String sqlStmnt = createDdlStmnt(tableName);
-
-      if (isDebug) {
-        logger.debug("next SQL statement=" + sqlStmnt);
-      }
-
-      statement.execute(sqlStmnt);
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
+    if ("sqlserver".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)) {
+      editedTableName = tableName.toLowerCase();
+    } else {
+      editedTableName = tableName.toUpperCase();
     }
 
-    final int countExisting = countData(tableName);
+    final int countExisting = countData(editedTableName);
 
     if (countExisting != 0) {
       if (isDebug) {
@@ -380,13 +408,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                      rowMaxSize,
                      pkList);
 
-    if (!(dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.FIREBIRD)) {
-      try {
+    try {
+      if (!(connection.getAutoCommit())) {
         connection.commit();
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.exit(1);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
     }
 
     pkLists.put(tableName,
@@ -394,7 +422,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     pkListSizes.put(tableName,
                     pkList.size());
 
-    validateNumberRows(tableName,
+    validateNumberRows(editedTableName,
                        rowMaxSize);
 
     if (isDebug) {
@@ -407,7 +435,18 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + tableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
+    String editedTableName;
+
+    if ("sqlserver".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)) {
+      editedTableName = tableName.toLowerCase();
+    } else {
+      editedTableName = tableName.toUpperCase();
+    }
+
+    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
 
     if (isDebug) {
       logger.debug("sql='" + sqlStmnt + "'");
@@ -423,12 +462,23 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
+      if (rowNo % 500 == 0) {
+        logger.info("database table " + String.format(FORMAT_TABLE_NAME,
+                                                      tableName.toLowerCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
+                                                                                                       rowNo));
+      }
+
       insertTable(preparedStatement,
                   tableName,
                   rowNo);
 
       try {
-        preparedStatement.executeUpdate();
+        int count = preparedStatement.executeUpdate();
+
+        if (count != 1) {
+          MessageHandling.abortProgram(logger,
+                                       "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
+        }
 
         pkList.add(rowNo);
       } catch (SQLException e) {
@@ -448,7 +498,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       try {
         statement = connection.createStatement();
 
-        statement.execute("REFRESH TABLE " + tableName);
+        statement.execute("REFRESH TABLE " + editedTableName);
 
         statement.close();
       } catch (SQLException e) {
@@ -470,6 +520,38 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @return the 'CREATE TABLE' statement
    */
   protected abstract String createDdlStmnt(String tableName);
+
+  /**
+   * Create the all database tables.
+   */
+  protected final void createSchema() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    for (String tableName : TABLE_NAMES_CREATE) {
+      try {
+        statement = connection.createStatement();
+
+        String sqlStmnt = createDdlStmnt(tableName);
+
+        if (isDebug) {
+          logger.debug("next SQL statement=" + sqlStmnt);
+        }
+
+        statement.execute(sqlStmnt);
+
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
 
   /**
    * Close the database connection.
@@ -864,6 +946,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return count;
   }
 
+  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
+  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
+  //  }
+
   private int getMaxRowSize(String tableName) {
     int maxRowSize   = maxRowSizes.get(tableName);
 
@@ -872,10 +958,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return Math.min(maxRowSize,
                     MAX_ROW_SIZE);
   }
-
-  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
-  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
-  //  }
 
   protected abstract void insertTable(PreparedStatement preparedStatement, String tableName, long rowNo);
 
@@ -891,7 +973,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param lowerRange        the lower range
    * @param upperRange        the upper range
    * @param validValues       the valid values
-   * @return 
    */
   protected void prepStmntColBigint(PreparedStatement preparedStatement,
                                     String tableName,
@@ -1046,7 +1127,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setString(columnPos,
                                   getContentClob(tableName,
@@ -1236,7 +1317,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+      if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.SQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
         preparedStatement.setNString(columnPos,
                                      getContentVarchar(tableName,
                                                        columnName,
@@ -1302,7 +1383,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           preparedStatement.setNull(columnPos,
                                     java.sql.Types.VARCHAR);
         } else {
-          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.MSSQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
+          if (dbmsEnum == DbmsEnum.FIREBIRD || dbmsEnum == DbmsEnum.MARIADB || dbmsEnum == DbmsEnum.SQLSERVER || dbmsEnum == DbmsEnum.ORACLE) {
             preparedStatement.setNString(columnPos,
                                          defaultValue);
           } else {
@@ -1358,7 +1439,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       if (size == 0) {
         MessageHandling.abortProgram(logger,
-                                     "No BLOB data found");
+                                     "Program abort: no BLOB data found");
       }
 
       fileInputStream.close();
@@ -1423,7 +1504,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       statement = connection.createStatement();
 
-      resultSet = statement.executeQuery("SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter);
+      String sqlStmnt = "SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter;
+
+      if (isDebug) {
+        logger.debug("sqlStmnt='" + sqlStmnt + "'");
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -1440,7 +1527,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     if (expectedRows == count) {
       logger.info("database table " + String.format(FORMAT_TABLE_NAME,
                                                     tableName) + " - " + String.format(FORMAT_ROW_NO,
-                                                                                       count) + " rows created");
+                                                                                       count) + " rows in total");
     } else {
       logger.fatal("database table " + String.format(FORMAT_TABLE_NAME,
                                                      tableName) + " is incomplete - expected" + String.format(FORMAT_ROW_NO,

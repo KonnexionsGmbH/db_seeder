@@ -28,31 +28,36 @@ public final class Config {
 
   @SuppressWarnings("unused")
   private static final Logger     logger     = Logger.getLogger(Config.class);
+  @SuppressWarnings("unused")
+  private final boolean           isDebug    = logger.isDebugEnabled();
 
   private String                  connectionHost;
+  private String                  connectionHostPresto;
   private int                     connectionPort;
+
+  private int                     connectionPortPresto;
+
   private String                  connectionPrefix;
   private String                  connectionService;
   private String                  connectionSuffix;
-
   private String                  database;
   private String                  databaseSys;
 
   private String                  fileConfigurationName;
   private String                  fileJsonName;
+
   private String                  fileStatisticsDelimiter;
   private String                  fileStatisticsHeader;
   private String                  fileStatisticsName;
-
   private ArrayList<String>       keysSorted = new ArrayList<>();
-
   private String                  password;
+
   private String                  passwordSys;
+
   private PropertiesConfiguration propertiesConfiguration;
-
   private String                  schema;
-
   private String                  user;
+
   private String                  userSys;
 
   /**
@@ -108,10 +113,24 @@ public final class Config {
   }
 
   /**
+   * @return the host name where the Presto server is listening for requests
+   */
+  public String getConnectionHostPresto() {
+    return connectionHostPresto;
+  }
+
+  /**
    * @return the port number where the database server is listening for requests
    */
   public final int getConnectionPort() {
     return connectionPort;
+  }
+
+  /**
+   * @return the port number where the Presto server is listening for requests
+   */
+  public final int getConnectionPortPresto() {
+    return connectionPortPresto;
   }
 
   /**
@@ -206,6 +225,7 @@ public final class Config {
     ArrayList<String> list = new ArrayList<>();
 
     list.add("db_seeder.connection.port");
+    list.add("db_seeder.connection.port.presto");
     list.add("db_seeder.null.factor");
 
     return list;
@@ -257,7 +277,9 @@ public final class Config {
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
     connectionHost          = propertiesConfiguration.getString("db_seeder.connection.host");
+    connectionHostPresto    = propertiesConfiguration.getString("db_seeder.connection.host.presto");
     connectionPort          = propertiesConfiguration.getInt("db_seeder.connection.port");
+    connectionPortPresto    = propertiesConfiguration.getInt("db_seeder.connection.port.presto");
     connectionPrefix        = propertiesConfiguration.getString("db_seeder.connection.prefix");
     connectionService       = propertiesConfiguration.getString("db_seeder.connection.service");
     connectionSuffix        = propertiesConfiguration.getString("db_seeder.connection.suffix");
@@ -292,10 +314,22 @@ public final class Config {
                                           connectionHost);
     }
 
+    if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_HOST_PRESTO")) {
+      connectionHostPresto = environmentVariables.get("DB_SEEDER_CONNECTION_HOST_PRESTO");
+      propertiesConfiguration.setProperty("db_seeder.connection.host.presto",
+                                          connectionHostPresto);
+    }
+
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PORT")) {
       connectionPort = Integer.parseInt(environmentVariables.get("DB_SEEDER_CONNECTION_PORT"));
       propertiesConfiguration.setProperty("db_seeder.connection.port",
                                           connectionPort);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PORT_PRESTO")) {
+      connectionPortPresto = Integer.parseInt(environmentVariables.get("DB_SEEDER_CONNECTION_PORT_PRESTO"));
+      propertiesConfiguration.setProperty("db_seeder.connection.port.presto",
+                                          connectionPortPresto);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PREFIX")) {

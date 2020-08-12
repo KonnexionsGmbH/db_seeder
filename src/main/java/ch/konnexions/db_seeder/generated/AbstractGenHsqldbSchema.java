@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a HyperSQL DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.0.0
+ * @version 2.1.0
  */
 public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
 
@@ -18,7 +18,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
   private static final Logger                 logger            = Logger.getLogger(AbstractGenHsqldbSchema.class);
 
   /**
-   * Creates the CREATE TABLE statements.
+   * Create the CREATE TABLE statements.
    */
   @SuppressWarnings("preview")
   private static HashMap<String, String> createTableStmnts() {
@@ -90,7 +90,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_5        UNIQUE      (FK_COUNTRY_ID, NAME)
+                       CONSTRAINT CONSTRAINT_5        UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -111,40 +111,28 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
     return statements;
   }
 
+  private final boolean isDebug = logger.isDebugEnabled();
+
   /**
    * Initialises a new abstract HyperSQL schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public AbstractGenHsqldbSchema(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
-
-    if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
-    }
-
-    createColumnNames(true,
-                      true);
-
-    if (isDebug) {
-      logger.debug("End   Constructor");
-    }
+  public AbstractGenHsqldbSchema(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
   }
 
   /**
    * Initialises a new abstract HyperSQL schema object.
    *
-   * @param dbmsTickerSymbol
-   *            DBMS ticker symbol
-   * @param isClient
-   *            client database version
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenHsqldbSchema(String dbmsTickerSymbol, boolean isClient) {
-    super(dbmsTickerSymbol, isClient);
+  public AbstractGenHsqldbSchema(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol + " - isClient=" + isClient);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

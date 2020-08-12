@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.0.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.1.0.svg)
 ----
 
 ### Table of Contents
@@ -17,6 +17,7 @@
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
 **[4.2 Control Parameters](#operating_instructions_control)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
+**[6. Presto - Distributed Query Engine](#presto)**<br>
 
 ----
 
@@ -70,7 +71,7 @@ Currently the following database management systems are supported:
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
   - relational database management system (RDBMS)
   - client only version
-  - **[see technical details here](#details_mssqlserver)**
+  - **[see technical details here](#details_sqlserver)**
 - [Mimer SQL](https://www.mimer.com) 
   - relational database management system (RDBMS)
   - client only version
@@ -89,6 +90,10 @@ Currently the following database management systems are supported:
   - open source
   - client only version
   - **[see technical details here](#details_postgresql)**
+- [Presto Distributed Query Engine](https://prestosql.io/)
+  - distributed query engine
+  - open source
+  - **[see technical details here](#details_presto)**
 - [SQLite](https://www.sqlite.org)
   - relational database management system (RDBMS)
   - open source
@@ -96,32 +101,41 @@ Currently the following database management systems are supported:
   - **[see technical details here](#details_sqlite)**
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
-If the selected database, schema or user already exist, they is deleted with all including data. 
+If the selected database, schema or user already exist, they are deleted with all including data. 
 **`db_seeder`** then creates the selected database, schema or user and generates the desired dummy data.
 
 A maximum of 2 147 483 647 rows can be generated per database table.
+
+The database schema to be used, that is, the required database tables can be user defined using a JSON file. 
+Details can be found here: [2.1 Database Schema](#database_schema). 
+
+For the DBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Presto can optionally be used instead of the original JDBC driver. 
+The prerequisite for this is that Presto is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
+Details can be found here: [6. Presto - Distributed Query Engine](#presto). 
+
 
 [//]: # (===========================================================================================)
 
 ### 1.1 Relational Database Management Systems
 
-| DBMS                 | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
-|---                   |---                 |---                        |---                  |
-| Apache Derby         | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
-| CrateDB              | cratedb            | 4.1.6 - 4.2.2             | 2.6.0               |
-| CUBRID               | cubrid             | 10.2                      | 10.2.1.8849         |
-| Firebird             | firebird           | 3.0.5 - 3.0.6             | 4.0.0.java11        | 
-| H2 Database Engine   | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
-| HyperSQL Database    | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
-| IBM Db2 Database     | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
-| IBM Informix         | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
-| MariaDB Server       | mariadb            | 10.4.13 - 10.5.4          | 2.6.1               | 
-| Microsoft SQL Server | mssqlserver        | 2019-latest               | 8.3.1.jre14-preview | 
-| Mimer SQL            | mimer              | 11.0.3C                   | 3.40                | 
-| MySQL Database       | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
-| Oracle Database      | oracle             | 12c - 19c                 | 19.7.0.0            |
-| PostgreSQL Database  | postgresql         | 12.3                      | 42.2.14             |
-| SQLite               | sqlite             | 3.32.3                    | 3.32.3.2            |
+| DBMS                            | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
+|---                              |---                 |---                        |---                  |
+| Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
+| CUBRID                          | cubrid             | 10.2                      | 10.2.1.8849         |
+| CrateDB                         | cratedb            | 4.1.6 - 4.2.2             | 2.6.0               |
+| Firebird                        | firebird           | 3.0.5 - 3.0.6             | 4.0.0.java11        | 
+| H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
+| HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.4          | 2.6.2               | 
+| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.0.jre14         | 
+| Mimer SQL                       | mimer              | 11.0.3C                   | 3.40                | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
+| Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
+| PostgreSQL Database             | postgresql         | 12.3                      | 42.2.14             |
+| Presto Distributed query Engine | n/a                | 339 - 340                 | 339                 |
+| SQLite                          | sqlite             | 3.32.3                    | 3.32.3.2            |
 
 [//]: # (===========================================================================================)
 
@@ -209,7 +223,7 @@ Only either a range restriction (`lowerRange...`, `upperRange...`) or a value re
 | `VARCHAR`   | `setNString` (Firebird, MariaDB, MS SQL SERVER and Oracle) |
 |             | `setString` (else)                                         |
 
-#### 2.1.3 Example File `db_seeder_schema.company.json` in the Directory `json` 
+#### 2.1.3 Example File `db_seeder_schema.company.json` in the Directory `resources/json` 
 
 This file contains the definition of a simple database schema consisting of the database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE.  
 
@@ -351,7 +365,9 @@ The following control parameters are currently supported:
 
 ```
 db_seeder.connection.host=
+db_seeder.connection.host.presto=
 db_seeder.connection.port=0
+db_seeder.connection.port.presto=0
 db_seeder.connection.prefix=
 db_seeder.connection.service=
 db_seeder.connection.suffix=
@@ -360,10 +376,10 @@ db_seeder.database.sys=
 db_seeder.database=
 
 db_seeder.file.configuration.name=
-db_seeder.file.json.name=json/db_seeder_schema.company.json
+db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
-db_seeder.file.statistics.name=statistics/db_seeder_local.tsv
+db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
 
 db_seeder.password.sys=
 db_seeder.password=
@@ -372,29 +388,32 @@ db_seeder.schema=
 
 db_seeder.user.sys=
 db_seeder.user=
-
 ```
 
 #### 4.2.2 Explanation and Cross-reference
 
-| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By | Description |
-| --- | --- | --- | --- |
-| connection.host=<x...x> | CONNECTION_HOST | all client RDBMS | host name or ip address of the database server |
-| connection.port=<9...9> | CONNECTION_PORT | all client RDBMS | port number of the database server |
-| connection.prefix=<x...x> | CONNECTION_PREFIX | all RDBMS | prefix of the database connection string |
-| connection.service=<x...x> | CONNECTION_SERVICE | oracle | service name of the database connection string |
-| connection.suffix=<x...x> | CONNECTION_SUFFIX | cubrid, firebird, hsqldb, informix, mysql | suffix of the database connection string |
-| database.sys=<x...x> | DATABASE | informix, mariadb, mimer, mssqlserver, mysql, postgresql | privileged database name |
-| database=<x...x> | DATABASE | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, postgresql, sqlite | database name |
-| file.statistics.delimiter=<x...x> | FILE_STATISTICS_NAME | all DBMS | separator of the statistics file created in `run_db_seeder` |
-| file.statistics.header=<x...x> | FILE_STATISTICS_NAME | all DBMS | header line of the statistics file created in `run_db_seeder` |
-| file.statistics.name=<x...x> | FILE_STATISTICS_NAME | all DBMS | file name of the statistics file created in `run_db_seeder` |
-| password.sys=<x...x> | PASSWORD_SYS | firebird, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the privileged user |
-| password=<x...x> | PASSWORD | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | password of the normal user |
-| schema=kxn_schema | SCHEMA | h2, hsqldb, ibmdb2, mssqlserver | schema name |
-| user.sys=<x...x>> | USER.SYS | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the privileged user |
-| user=kxn_user | USER | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mssqlserver, mysql, oracle, postgresql | name of the normal user |
-|     |     |     |     |
+| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                                                     | Description |     
+| ---                                       | ---                               | ---                                                                                                         | --- |
+| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                                            | host name or ip address of the database server |
+| connection.host_presto=<x...x>            | CONNECTION_HOST_PRESTO            | Presto                                                                                                      | host name or ip address of the Presto distributed query engine |
+| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                                            | port number of the database server |
+| connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                      | port number of the Presto distributed query engine |
+| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                   | prefix of the database connection string |
+| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                      | service name of the database connection string |
+| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql                                                                   | suffix of the database connection string |
+| database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, mysql, postgresql, sqlserver                                                      | privileged database name |
+| database=<x...x>                          | DATABASE                          | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, postgresql, sqlite, sqlserver | database name |
+| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                         | directory and file name of the db_seeder configuration file |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                               | directory and file name of the JSON file containing the database schema |
+| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                    | separator of the statistics file created in `run_db_seeder` |
+| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                    | header line of the statistics file created in `run_db_seeder` |
+| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                    | file name of the statistics file created in `run_db_seeder` |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | firebird, ibmdb2, informix, mariadb, mimer, mysql, oracle, postgresql, sqlserver                            | password of the privileged user |
+| password=<x...x>                          | PASSWORD                          | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, postgresql, sqlserver                 | password of the normal user |
+| schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, sqlserver                                                                               | schema name |
+| user.sys=<x...x>                          | USER.SYS                          | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, oracle, postgresql, sqlserver   | name of the privileged user |
+| user=kxn_user                             | USER                              | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, postgresql, sqlserver                 | name of the normal user |
+|                                           |                                   |                                                                                                             |     |
 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 
@@ -410,11 +429,12 @@ Below are also DBeaver based connection parameter examples for each database man
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
+**[Microsoft SQL Server](#details_sqlserver)** / 
 **[Mimer SQL](#details_mimer)** / 
-**[Microsoft SQL Server](#details_mssqlserver)** / 
 **[MySQL Database](#details_mysql)** / 
 **[Oracle Database](#details_oracle)** / 
 **[PostgreSQL Database](#details_postgresql)** / 
+**[Presto distributed Query Engine](#details_presto)** / 
 **[SQLite](#details_sqlite)**
 
 [//]: # (===========================================================================================)
@@ -819,7 +839,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_mssqlserver"></a> 5.10 Microsoft SQL Server
+###  <a name="details_sqlserver"></a> 5.10 Microsoft SQL Server
 
 - **data types**:
 
@@ -855,7 +875,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MSSQLSERVER.png)
+![](.README_images/DBeaver_SQLSERVER.png)
 
 [//]: # (===========================================================================================)
 
@@ -985,7 +1005,7 @@ Below are also DBeaver based connection parameter examples for each database man
 | BLOB           | BYTEA                    |
 | CLOB           | TEXT                     |
 | TIMESTAMP      | TIMESTAMP                |
-| VARCHAR        | VARCHAR                 |
+| VARCHAR        | VARCHAR                  |
 
 - **DDL syntax**:
   - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
@@ -1011,7 +1031,41 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.15 SQLite
+### <a name="details_presto"></a> 5.15 Presto Distributed Query Engine
+
+- **data types**:
+
+| db seeder Type | Presto Database Type |
+| ---            | ---                  |
+| BIGINT         | BIGINT               |
+| BLOB           | VARBINARY            |
+| CLOB           | VARCHAR              |
+| TIMESTAMP      | TIMESTAMP            |
+| VARCHAR        | VARCHAR              |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a 
+  - [CREATE SCHEMA](https://prestodb.io/docs/current/sql/create-schema.html)
+  - [CREATE TABLE](https://prestodb.io/docs/current/sql/create-table.html) 
+  - CREATE USER - n/a 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull prestosql/presto:340`
+  - [DockerHub](https://hub.docker.com/r/prestosql/presto)
+
+- **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
+  
+- **issue tracking**: [GitHub](https://github.com/prestosql/presto/issues)
+
+- **JDBC driver (latest)**:
+  - version 339
+  - [Maven repository](https://mvnrepository.com/artifact/io.prestosql/presto-jdbc)
+
+- **source code**: [GitHub](https://github.com/prestosql/presto)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_sqlite"></a> 5.16 SQLite
 
 - **data types**:
 
@@ -1046,3 +1100,18 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLITE.png)
+
+## <a name="presto"></a> 6. Presto - Distributed Query Engine
+
+The [Presto](https://prestosql.io/) distributed query engine can integrate the following DBMS, among others:
+
+- Microsoft SQL Server via the [SQL Server Connector](https://prestosql.io/docs/current/connector/sqlserver.html),
+- MySQL via the [MySQL Connector](https://prestosql.io/docs/current/connector/mysql.html),
+- Oracle via the [Oracle Connector](https://prestosql.io/docs/current/connector/oracle.html), and
+- PostgreSQL via the [PostgreSQL Connector](https://prestosql.io/docs/current/connector/postgresql.html).
+
+**`db_seeder`** makes it possible to use Presto's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
+To use the Presto JDBC driver, a Presto server is required.
+With the script `db_seeder_presto_environment` a Presto server can be set up.
+Since Presto does not support the Windows operating system, a suitable docker image is created for Windows.
+For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the Presto server.

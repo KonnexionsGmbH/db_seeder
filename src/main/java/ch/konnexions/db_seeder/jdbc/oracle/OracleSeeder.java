@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenOracleSchema;
+import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
  * Test Data Generator for an Oracle DBMS.
@@ -17,21 +18,73 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   private static final Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
+   * Gets the connection URL for Presto (used by PrestoEnvironment).
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionService the connection service
+   * 
+   * @return the connection URL for non-privileged access
+   */
+  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
+    return getUrlUser(connectionHost,
+                      connectionPort,
+                      connectionPrefix,
+                      connectionService);
+  }
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionService the connection service
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
+
+  /**
    * Instantiates a new Oracle seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public OracleSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public OracleSeeder(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
+
+  /**
+   * Instantiates a new Oracle seeder object.
+   * 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
+   */
+  public OracleSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    dbmsEnum              = DbmsEnum.ORACLE;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.ORACLE;
 
-    url                   = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/" + config.getConnectionService();
+    if (isPresto) {
+      urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
+                                                  config.getConnectionHostPresto(),
+                                                  config.getConnectionPortPresto(),
+                                                  config.getUser());
+    }
+
+    urlUser = getUrlUser(config.getConnectionHost(),
+                         config.getConnectionPort(),
+                         config.getConnectionPrefix(),
+                         config.getConnectionService());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -64,7 +117,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          config.getUserSys().toUpperCase(),
                          config.getPasswordSys());
@@ -106,15 +159,38 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          null,
                          userName,
                          config.getPassword());
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect - Presto.
+    // -----------------------------------------------------------------------
+
+    if (isPresto) {
+      disconnect(connection);
+
+      connection = connect(urlPresto,
+                           driver_presto,
+                           true);
+    }
 
     if (isDebug) {
       logger.debug("End");

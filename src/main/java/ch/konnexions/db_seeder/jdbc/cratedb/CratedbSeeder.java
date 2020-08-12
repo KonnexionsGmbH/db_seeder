@@ -17,25 +17,71 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
   private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
+   * Gets the connection URL for privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionSuffix the connection suffix
+   * @param userSys the privileged user
+   * 
+   * @return the connection URL for privileged access
+   */
+  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String userSys) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/?strict=true&user=" + userSys;
+  }
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionSuffix the connection suffix
+   * @param user the non-privileged user
+   * @param password the non-privileged password
+   * 
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost,
+                                         int connectionPort,
+                                         String connectionPrefix,
+                                         String connectionSuffix,
+                                         String user,
+                                         String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/?strict=true&user=" + user + "&password=" + password;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
+
+  /**
    * Instantiates a new CrateDB seeder object.
    *
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public CratedbSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public CratedbSeeder(String tickerSymbolExtern) {
+    super(tickerSymbolExtern);
 
     if (isDebug) {
-      logger.debug("Start Constructor - dbmsTickerSymbol=" + dbmsTickerSymbol);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern);
     }
 
-    dbmsEnum              = DbmsEnum.CRATEDB;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum       = DbmsEnum.CRATEDB;
 
-    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/?strict=true&user=";
-    url                   = urlBase + config.getUser() + "&password=" + config.getPassword();
-    urlSetup              = urlBase + config.getUserSys();
+    dropTableStmnt = "SELECT 'DROP TABLE ' || table_name FROM information_schema.tables WHERE table_schema = 'doc' AND table_name = '?'";
 
-    dropTableStmnt        = "SELECT 'DROP TABLE ' || table_name FROM information_schema.tables WHERE table_schema = 'doc' AND table_name = '?'";
+    urlSys         = getUrlSys(config.getConnectionHost(),
+                               config.getConnectionPort(),
+                               config.getConnectionPrefix(),
+                               config.getConnectionSuffix(),
+                               config.getUserSys());
+
+    urlUser        = getUrlUser(config.getConnectionHost(),
+                                config.getConnectionPort(),
+                                config.getConnectionPrefix(),
+                                config.getConnectionSuffix(),
+                                config.getUser(),
+                                config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -68,7 +114,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          true);
 
     String userName = config.getUser();
@@ -103,16 +149,24 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
 
-    connection = connect(url,
+    connection = connect(urlUser,
                          true);
 
-    if (isDebug) {
-      logger.debug("End");
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
     }
+
   }
 }

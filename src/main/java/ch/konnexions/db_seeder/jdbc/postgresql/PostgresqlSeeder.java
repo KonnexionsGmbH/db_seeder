@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
+import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
  * Test Data Generator for a PostgreSQL DBMS.
@@ -23,23 +24,109 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
   private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
 
   /**
+   * Gets the connection URL for Presto (used by PrestoEnvironment).
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param database the database with non-privileged access
+   * @param user the user with non-privileged access
+   * @param password the password with non-privileged access
+   *
+   * @return the connection URL for non-privileged access
+   */
+  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return getUrlUser(connectionHost,
+                      connectionPort,
+                      connectionPrefix,
+                      database,
+                      user,
+                      password);
+  }
+
+  /**
+   * Gets the connection URL for privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param databaseSys the database with privileged access
+   * @param userSys the user with privileged access
+   * @param passwordSys the password with privileged access
+   *
+   * @return the connection URL for privileged access
+   */
+  private final static String getUrlSys(String connectionHost,
+                                        int connectionPort,
+                                        String connectionPrefix,
+                                        String databaseSys,
+                                        String userSys,
+                                        String passwordSys) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + "?user=" + userSys + "&password=" + passwordSys;
+  }
+
+  /**
+   * Gets the connection URL for non-privileged access.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param database the database with non-privileged access
+   * @param user the user with non-privileged access
+   * @param password the password with non-privileged access
+   *
+   * @return the connection URL for non-privileged access
+   */
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password;
+  }
+
+  private final boolean isDebug = logger.isDebugEnabled();
+
+  /**
    * Instantiates a new PostgreSQL seeder object.
    * 
-   * @param dbmsTickerSymbol DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public PostgresqlSeeder(String dbmsTickerSymbol) {
-    super(dbmsTickerSymbol);
+  public PostgresqlSeeder(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
+
+  /**
+   * Instantiates a new PostgreSQL seeder object.
+   * 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or presto
+   */
+  public PostgresqlSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    dbmsEnum              = DbmsEnum.POSTGRESQL;
-    this.dbmsTickerSymbol = dbmsTickerSymbol;
+    dbmsEnum = DbmsEnum.POSTGRESQL;
 
-    urlBase               = config.getConnectionPrefix() + config.getConnectionHost() + ":" + config.getConnectionPort() + "/";
-    url                   = urlBase + config.getDatabase() + "?user=" + config.getUser() + "&password=" + config.getPassword();
-    urlSetup              = urlBase + config.getDatabaseSys() + "?user=" + config.getUserSys() + "&password=" + config.getPasswordSys();
+    if (isPresto) {
+      urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
+                                                  config.getConnectionHostPresto(),
+                                                  config.getConnectionPortPresto(),
+                                                  config.getSchema());
+    }
+
+    urlSys  = getUrlSys(config.getConnectionHost(),
+                        config.getConnectionPort(),
+                        config.getConnectionPrefix(),
+                        config.getDatabaseSys(),
+                        config.getUserSys(),
+                        config.getPasswordSys());
+
+    urlUser = getUrlUser(config.getConnectionHost(),
+                         config.getConnectionPort(),
+                         config.getConnectionPrefix(),
+                         config.getDatabase(),
+                         config.getUser(),
+                         config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -97,7 +184,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSetup,
+    connection = connect(urlSys,
                          true);
 
     String databaseName = config.getDatabase();
@@ -133,12 +220,35 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
+    // Create database schema.
     // -----------------------------------------------------------------------
 
     disconnect(connection);
 
-    connection = connect(url);
+    connection = connect(urlUser);
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect - Presto.
+    // -----------------------------------------------------------------------
+
+    if (isPresto) {
+      disconnect(connection);
+
+      connection = connect(urlPresto,
+                           driver_presto,
+                           true);
+    }
 
     if (isDebug) {
       logger.debug("End");

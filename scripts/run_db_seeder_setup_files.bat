@@ -13,10 +13,9 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - cleanup embedded database files.
 echo --------------------------------------------------------------------------------
-echo DBMS                      : %DB_SEEDER_DBMS%
-echo --------------------------------------------------------------------------------
-echo VERSION                   : %DB_SEEDER_VERSION%
 echo DATABASE                  : %DB_SEEDER_DATABASE%
+echo DBMS                      : %DB_SEEDER_DBMS%
+echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 
 set DB_SEEDER_DATABASE_INTERN=
