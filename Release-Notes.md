@@ -32,8 +32,6 @@ Release Date: dd.mm.2020
 - Presto Distributed Query Engine
 
   - MySQL Connector: JDBC INSERT limited to about 100 rows - observed 98 to 115 (see [here](https://github.com/prestosql/presto/issues/4732)).
-  - PostgreSQL Connector: Cannot insert BLOB using Presto JDBC (see [here](https://github.com/prestosql/presto/issues/4751)).
-  - SQL Server Connector: Login failed (see [here](https://github.com/prestosql/presto/issues/4757)).
 
 #### New Features
 
