@@ -7,7 +7,7 @@
 
 ## Version 2.1.1
 
-Release Date: dd.mm.2020
+Release Date: 13.08.2020
 
 #### System Requirements
 
@@ -36,9 +36,12 @@ Release Date: dd.mm.2020
 
 #### Modified Features
 
-- solved: gradle warning with http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727)).
+- Firebird: JDBC 4.0.1.java11
+- MariaDB Server: DBMS 10.5.5
+- Presto: JDBC 340
 - solved: PostgreSQL Connector: Cannot insert BLOB using Presto JDBC (see [here](https://github.com/prestosql/presto/issues/4751)).
 - solved: SQL Server Connector: Login failed (see [here](https://github.com/prestosql/presto/issues/4757)).
+- solved: gradle warning with http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727)).
 
 #### Deleted Features
 

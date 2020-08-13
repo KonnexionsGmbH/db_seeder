@@ -26,6 +26,17 @@ The **`db_seeder`** demonstration program for Presto can then be executed with t
 ## 4. Sample run for the PostgreSQL Connector
 
 Menu items 2 (Run the demo with the original JDBC driver) and 3 (Run the demo with the Presto JDBC driver) differ only in the selection of the driver. 
+By default, 2500 rows are inserted in the following database table:
+
+    CREATE TABLE issue_table (
+        column_pk        BIGINT         NOT NULL
+                                        PRIMARY KEY,
+        column_blob      BYTEA,
+        column_clob      TEXT,
+        column_timestamp TIMESTAMP      NOT NULL,
+        column_varchar   VARCHAR(100)   NOT NULL
+                                        UNIQUE
+    )
 
 The Connector proprties files are located in the directory `resources/docker/presto/catalog`.  If adjustments are necessary, the scripts `run_db_seeder_presto_environment` and `scripts/run_db_seeder_setup_presto`must be run again. 
 

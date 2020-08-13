@@ -290,6 +290,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.4.13
     set DB_SEEDER_VERSION=10.5.3
     set DB_SEEDER_VERSION=10.5.4
+    set DB_SEEDER_VERSION=10.5.5
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
