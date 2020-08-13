@@ -26,7 +26,7 @@ The **`db_seeder`** demonstration program for Presto can then be executed with t
 ## 4. Sample run for the PostgreSQL Connector
 
 Menu items 2 (Run the demo with the original JDBC driver) and 3 (Run the demo with the Presto JDBC driver) differ only in the selection of the driver. 
-By default, 2500 rows are inserted in the following database table:
+By default, 2500 rows are inserted in the following database table (PostgreSQL version):
 
     CREATE TABLE issue_table (
         column_pk        BIGINT         NOT NULL
