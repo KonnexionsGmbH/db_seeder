@@ -2,13 +2,13 @@
 
 ## 1. Available Files
 
-- src/ch/konnexions/db_seeder/test/TestPresto[mysql|oracle|postgresql|sqlserver].java
-- Test_Presto.md (this file)
-- scripts/run_test_presto_[mysql|oracle|postgresql|sqlserver].[bat/sh]
+- `src/ch/konnexions/db_seeder/test/TestPresto[mysql|oracle|postgresql|sqlserver].java`
+- `Test_Presto.md` (this file)
+- `scripts/run_test_presto_[mysql|oracle|postgresql|sqlserver].[bat/sh]`
 
 ## 2. Compiling
 
-The best way to compile is with Gradle and the statement build `copyJarToLib`. 
+The best way to compile is with Gradle and the statement `build copyJarToLib`. 
 This creates the JAR file `db_seeder.jar` in the directory `lib`.
 Java must be installed at least in version 14.
 
@@ -16,12 +16,12 @@ Java must be installed at least in version 14.
 
 Prerequisite for this is an executable Presto version and the successful installation of the corresponding DBMS.
 
-Presto can be installed with the script `run_db_seeder_presto_environment`, in Windows we create a docker container and for Linux a local installation.
-In Windows, the script `scripts/run_db_seeder_setup_presto` must then also run so that a container is created from the previously created Presto image.
+Presto can be installed with the script `run_db_seeder_presto_environment`, in Windows we create a Docker image and for Linux a local installation.
+In Windows, the script `scripts/run_db_seeder_setup_presto` must then also run so that a Docker container is created from the previously created Docker image.
 
 The DBMS can be made available with the script `scripts/run_db_seeder_setup_dbms`, whereby a corresponding Docker Container is created in Windows and Linux.
 
-The **`db_seeder`** demonstration program for Presto can then be executed with the DBMS specific script `scripts/run_test_presto_<mysql|oracle|postgresql|sqlserver>`. 
+The **`db_seeder`** demonstration program for Presto can then be executed with the DBMS specific script `scripts/run_test_presto_[mysql|oracle|postgresql|sqlserver]`. 
 
 ## 4. Sample run for the PostgreSQL Connector
 
@@ -30,6 +30,8 @@ Menu items 2 (Run the demo with the original JDBC driver) and 3 (Run the demo wi
 The Connector proprties files are located in the directory `resources/docker/presto/catalog`.  If adjustments are necessary, the scripts `run_db_seeder_presto_environment` and `scripts/run_db_seeder_setup_presto`must be run again. 
 
 All driver and SQL relevant events are logged at the console.
+
+**Windows example:**
 
     D:\SoftDevelopment\Projects\Konnexions\db_seeder>docker start db_seeder_presto
     db_seeder_presto
