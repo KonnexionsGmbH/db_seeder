@@ -76,8 +76,7 @@ public final class TestPrestoSqlserver {
                                                                                          UNIQUE
                                                      )
                                                      """;
-  // wwe private final static String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
-  private final static String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?)";
+  private final static String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
   private static LocalDateTime startDateTime;
   private static Statement     statement;
 
@@ -137,14 +136,13 @@ public final class TestPrestoSqlserver {
                                  BLOB_DATA_BYTES);
     }
 
-    // wwe
-    //    if (rowNo % nullFactor == 0) {
-    //      preparedStatement.setNull(columnPos++,
-    //                                Types.VARCHAR);
-    //    } else {
-    //      preparedStatement.setString(columnPos++,
-    //                                  CLOB_DATA);
-    //    }
+    if (rowNo % nullFactor == 0) {
+      preparedStatement.setNull(columnPos++,
+                                Types.VARCHAR);
+    } else {
+      preparedStatement.setString(columnPos++,
+                                  CLOB_DATA);
+    }
 
     preparedStatement.setTimestamp(columnPos++,
                                    new java.sql.Timestamp(System.currentTimeMillis() + new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)).nextInt(

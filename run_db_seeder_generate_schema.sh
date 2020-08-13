@@ -12,7 +12,7 @@ export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
 # export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
 
-export DB_SEEDER_RELEASE=2.1.1
+export DB_SEEDER_RELEASE=2.1.2
 
 export DB_SEEDER_IS_ECLIPSE_INSTALLED=true
 export DB_SEEDER_ECLIPSE_VERSION_1=2020-06

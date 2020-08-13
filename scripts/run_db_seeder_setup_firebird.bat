@@ -24,6 +24,7 @@ rem ----------------------------------------------------------------------------
 
 echo Firebird
 echo --------------------------------------------------------------------------------
+lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Firebird %DB_SEEDER_VERSION%)
 docker create --name db_seeder_db -e FIREBIRD_DATABASE=%DB_SEEDER_DATABASE% -e ISC_PASSWORD=firebird -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp jacobalberty/firebird:%DB_SEEDER_VERSION%
 
