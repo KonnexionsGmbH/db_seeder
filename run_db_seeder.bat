@@ -14,7 +14,7 @@ set ERRORLEVEL=
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.1.0
+set DB_SEEDER_RELEASE=2.1.1
 
 if ["%1"] EQU [""] (
     echo ============================================================
@@ -290,6 +290,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.4.13
     set DB_SEEDER_VERSION=10.5.3
     set DB_SEEDER_VERSION=10.5.4
+    set DB_SEEDER_VERSION=10.5.5
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (

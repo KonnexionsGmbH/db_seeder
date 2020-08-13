@@ -8,7 +8,7 @@ ARG LOCALE=en_US.UTF-8
 ARG TIMEZONE=Europe/Zurich
 
 ARG VERSION_JAVA=14.0.2
-ARG VERSION_PRESTO=339
+ARG VERSION_PRESTO=340
 
 # Supplement necessary system software -----------------------------------------
 RUN apt-get update \

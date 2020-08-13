@@ -105,7 +105,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
       urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
                                                   config.getConnectionHostPresto(),
                                                   config.getConnectionPortPresto(),
-                                                  config.getDatabase());
+                                                  "dbo");
     }
 
     urlSys  = getUrlSys(config.getConnectionHost(),

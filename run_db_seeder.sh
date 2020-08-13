@@ -12,7 +12,7 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.1.0
+export DB_SEEDER_RELEASE=2.1.1
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -245,6 +245,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
     export DB_SEEDER_VERSION=10.4.13
     export DB_SEEDER_VERSION=10.5.3
     export DB_SEEDER_VERSION=10.5.4
+    export DB_SEEDER_VERSION=10.5.5
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
