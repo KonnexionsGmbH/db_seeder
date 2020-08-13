@@ -24,6 +24,7 @@ rem ----------------------------------------------------------------------------
 
 echo Mimer SQL
 echo --------------------------------------------------------------------------------
+lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Mimer SQL %DB_SEEDER_VERSION%)
 docker create --name db_seeder_db -e MIMER_SYSADM_PASSWORD=mimer -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp mimersql/mimersql_v11.0:%DB_SEEDER_VERSION%
  

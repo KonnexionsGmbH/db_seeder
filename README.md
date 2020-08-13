@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.1.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.1.2.svg)
 ----
 
 ### Table of Contents
@@ -1113,5 +1113,5 @@ The [Presto](https://prestosql.io/) distributed query engine can integrate the f
 **`db_seeder`** makes it possible to use Presto's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
 To use the Presto JDBC driver, a Presto server is required.
 With the script `db_seeder_presto_environment` a Presto server can be set up.
-Since Presto does not support the Windows operating system, a suitable docker image is created for Windows.
+Since Presto does not support the Windows operating system, a suitable Docker image is created for Windows.
 For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the Presto server.

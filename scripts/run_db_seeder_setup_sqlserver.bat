@@ -9,11 +9,25 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+if ["%DB_SEEDER_VERSION%"] EQU [""] (
+    set DB_SEEDER_VERSION=latest
+)
+
+if ["%DB_SEEDER_CONNECTION_PORT%"] EQU [""] (
+    set DB_SEEDER_CONNECTION_PORT=1433
+)
+
+if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
+    set DB_SEEDER_CONTAINER_PORT=1433
+)
+
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Microsoft SQL Server Docker container.
 echo --------------------------------------------------------------------------------
+echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
+echo DB_SEEDER_CONTAINER_PORT  : %DB_SEEDER_CONTAINER_PORT%
 echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
@@ -25,6 +39,7 @@ rem ----------------------------------------------------------------------------
 
 echo Microsoft SQL Server
 echo --------------------------------------------------------------------------------
+lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%)
 docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sqlserver_2019" -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% mcr.microsoft.com/mssql/server:%DB_SEEDER_VERSION%
 

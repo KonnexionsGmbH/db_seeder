@@ -31,10 +31,10 @@ docker ps -a | grep -r "db_seeder_presto" && goto CONTAINER_START
 
 :IMAGE_PULL
 
-lib\Gammadyne\timer.exe
 echo --------------------------------------------------------------------------------
 echo Start Presto Distributed Query Engine - creating and starting the container
 echo --------------------------------------------------------------------------------
+lib\Gammadyne\timer.exe
 echo Docker create presto (Presto Distributed Query Engine)
 docker create --name db_seeder_presto -p 8080:8080/tcp konnexionsgmbh/db_seeder_presto
 echo Docker start presto (Presto Distributed Query Engine) ...

@@ -24,6 +24,7 @@ rem ----------------------------------------------------------------------------
 
 echo IBM Informix
 echo --------------------------------------------------------------------------------
+lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (IBM Informix %DB_SEEDER_VERSION%)
 docker create --name db_seeder_db -e LICENSE=accept -e DB_INIT=1 -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% --privileged ibmcom/informix-developer-database:%DB_SEEDER_VERSION%
 

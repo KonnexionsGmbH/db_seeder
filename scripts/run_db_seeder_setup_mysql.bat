@@ -8,11 +8,25 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+if ["%DB_SEEDER_VERSION%"] EQU [""] (
+    set DB_SEEDER_VERSION=latest
+)
+
+if ["%DB_SEEDER_CONNECTION_PORT%"] EQU [""] (
+    set DB_SEEDER_CONNECTION_PORT=3306
+)
+
+if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
+    set DB_SEEDER_CONTAINER_PORT=3306
+)
+
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a MySQL Database Docker container.
 echo --------------------------------------------------------------------------------
+echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
+echo DB_SEEDER_CONTAINER_PORT  : %DB_SEEDER_CONTAINER_PORT%
 echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
@@ -24,6 +38,7 @@ rem ----------------------------------------------------------------------------
 
 echo MySQL Database
 echo --------------------------------------------------------------------------------
+lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (MySQL Database %DB_SEEDER_VERSION%)
 docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mysql -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp mysql:%DB_SEEDER_VERSION%
 

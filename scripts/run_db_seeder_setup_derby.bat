@@ -25,6 +25,7 @@ rem ----------------------------------------------------------------------------
 
 echo Apache Derby
 echo --------------------------------------------------------------------------------
+lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Apache Derby %DB_SEEDER_VERSION%)
 docker create --name db_seeder_db -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp konnexionsgmbh/apache_derby:%DB_SEEDER_VERSION%
 
