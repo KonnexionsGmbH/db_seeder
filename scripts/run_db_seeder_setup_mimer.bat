@@ -8,11 +8,27 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+if ["%DB_SEEDER_VERSION%"] EQU [""] (
+    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_db
+    set DB_SEEDER_VERSION=latest
+)
+
+if ["%DB_SEEDER_CONNECTION_PORT%"] EQU [""] (
+    set DB_SEEDER_CONNECTION_PORT=1360
+)
+
+if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
+    set DB_SEEDER_CONTAINER_PORT=1360
+)
+
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Mimer SQL Docker container.
 echo --------------------------------------------------------------------------------
+echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
+echo DB_SEEDER_CONTAINER_PORT  : %DB_SEEDER_CONTAINER_PORT%
 echo VERSION                   : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME

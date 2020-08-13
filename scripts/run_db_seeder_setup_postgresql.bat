@@ -9,6 +9,8 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 if ["%DB_SEEDER_VERSION%"] EQU [""] (
+    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_db
     set DB_SEEDER_VERSION=latest
 )
 
