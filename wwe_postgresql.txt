@@ -1,0 +1,222 @@
+[main] Start TestPrestoPostgresql
+[main] 
+[main] ----------------------------------------------
+[main] 1 - Setup the database (includes reset)
+[main] 2 - Run the demo with the original JDBC driver
+[main] 3 - Run the demo with the Presto JDBC driver
+[main] 4 - Reset the database
+[main] 9 - Terminate the processing
+[main] ----------------------------------------------
+[main] 
+[main] Please make a choice:
+1
+[main] Reset the database
+[main] 
+[main] driver  ='org.postgresql.Driver'
+[main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
+[main] sqlStmnt='DROP DATABASE IF EXISTS kxn_db'
+[main] sqlStmnt='DROP USER IF EXISTS kxn_user'
+[main] 
+[main] Setup the database
+[main] 
+[main] driver  ='org.postgresql.Driver'
+[main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
+[main] sqlStmnt='CREATE DATABASE kxn_db'
+[main] sqlStmnt='CREATE USER kxn_user WITH ENCRYPTED PASSWORD 'postgresql''
+[main] sqlStmnt='GRANT ALL PRIVILEGES ON DATABASE kxn_db TO kxn_user'
+[main] driver  ='org.postgresql.Driver'
+[main] url     ='jdbc:postgresql://localhost:5432/kxn_db?user=kxn_user&password=postgresql'
+[main] sqlStmnt='CREATE TABLE issue_table (
+    column_pk        BIGINT         NOT NULL
+                                    PRIMARY KEY,
+    column_blob      BYTEA,
+    column_clob      TEXT,
+    column_timestamp TIMESTAMP      NOT NULL,
+    column_varchar   VARCHAR(100)   NOT NULL
+                                    UNIQUE
+)
+'
+[main] 
+[main] ----------------------------------------------
+[main] 1 - Setup the database (includes reset)
+[main] 2 - Run the demo with the original JDBC driver
+[main] 3 - Run the demo with the Presto JDBC driver
+[main] 4 - Reset the database
+[main] 9 - Terminate the processing
+[main] ----------------------------------------------
+[main] 
+[main] Please make a choice:
+2
+[main] Run the demo with the original JDBC driver
+[main] 
+[main] driver  ='org.postgresql.Driver'
+[main] url     ='jdbc:postgresql://localhost:5432/kxn_db?user=kxn_user&password=postgresql'
+[main] 
+[main]     50 rows inserted so far
+[main]    100 rows inserted so far
+[main]    150 rows inserted so far
+[main]    200 rows inserted so far
+[main]    250 rows inserted so far
+[main]    300 rows inserted so far
+[main]    350 rows inserted so far
+[main]    400 rows inserted so far
+[main]    450 rows inserted so far
+[main]    500 rows inserted so far
+[main]    550 rows inserted so far
+[main]    600 rows inserted so far
+[main]    650 rows inserted so far
+[main]    700 rows inserted so far
+[main]    750 rows inserted so far
+[main]    800 rows inserted so far
+[main]    850 rows inserted so far
+[main]    900 rows inserted so far
+[main]    950 rows inserted so far
+[main]   1000 rows inserted so far
+[main]   1050 rows inserted so far
+[main]   1100 rows inserted so far
+[main]   1150 rows inserted so far
+[main]   1200 rows inserted so far
+[main]   1250 rows inserted so far
+[main]   1300 rows inserted so far
+[main]   1350 rows inserted so far
+[main]   1400 rows inserted so far
+[main]   1450 rows inserted so far
+[main]   1500 rows inserted so far
+[main]   1550 rows inserted so far
+[main]   1600 rows inserted so far
+[main]   1650 rows inserted so far
+[main]   1700 rows inserted so far
+[main]   1750 rows inserted so far
+[main]   1800 rows inserted so far
+[main]   1850 rows inserted so far
+[main]   1900 rows inserted so far
+[main]   1950 rows inserted so far
+[main]   2000 rows inserted so far
+[main]   2050 rows inserted so far
+[main]   2100 rows inserted so far
+[main]   2150 rows inserted so far
+[main]   2200 rows inserted so far
+[main]   2250 rows inserted so far
+[main]   2300 rows inserted so far
+[main]   2350 rows inserted so far
+[main]   2400 rows inserted so far
+[main]   2450 rows inserted so far
+[main]   2500 rows inserted so far
+[main] 
+[main]   2500 rows inserted totally - duration in seconds:          6
+[main] 
+[main] ----------------------------------------------
+[main] 1 - Setup the database (includes reset)
+[main] 2 - Run the demo with the original JDBC driver
+[main] 3 - Run the demo with the Presto JDBC driver
+[main] 4 - Reset the database
+[main] 9 - Terminate the processing
+[main] ----------------------------------------------
+[main] 
+[main] Please make a choice:
+1
+[main] Reset the database
+[main] 
+[main] driver  ='org.postgresql.Driver'
+[main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
+[main] sqlStmnt='DROP DATABASE IF EXISTS kxn_db'
+[main] sqlStmnt='DROP USER IF EXISTS kxn_user'
+[main] 
+[main] Setup the database
+[main] 
+[main] driver  ='org.postgresql.Driver'
+[main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
+[main] sqlStmnt='CREATE DATABASE kxn_db'
+[main] sqlStmnt='CREATE USER kxn_user WITH ENCRYPTED PASSWORD 'postgresql''
+[main] sqlStmnt='GRANT ALL PRIVILEGES ON DATABASE kxn_db TO kxn_user'
+[main] driver  ='org.postgresql.Driver'
+[main] url     ='jdbc:postgresql://localhost:5432/kxn_db?user=kxn_user&password=postgresql'
+[main] sqlStmnt='CREATE TABLE issue_table (
+    column_pk        BIGINT         NOT NULL
+                                    PRIMARY KEY,
+    column_blob      BYTEA,
+    column_clob      TEXT,
+    column_timestamp TIMESTAMP      NOT NULL,
+    column_varchar   VARCHAR(100)   NOT NULL
+                                    UNIQUE
+)
+'
+[main] 
+[main] ----------------------------------------------
+[main] 1 - Setup the database (includes reset)
+[main] 2 - Run the demo with the original JDBC driver
+[main] 3 - Run the demo with the Presto JDBC driver
+[main] 4 - Reset the database
+[main] 9 - Terminate the processing
+[main] ----------------------------------------------
+[main] 
+[main] Please make a choice:
+3
+[main] Run the demo with the Presto JDBC driver
+[main] 
+[main] driver  ='io.prestosql.jdbc.PrestoDriver'
+[main] url     ='jdbc:presto://localhost:8080/db_seeder_postgresql/public?user=presto'
+[main] 
+[main]     50 rows inserted so far
+[main]    100 rows inserted so far
+[main]    150 rows inserted so far
+[main]    200 rows inserted so far
+[main]    250 rows inserted so far
+[main]    300 rows inserted so far
+[main]    350 rows inserted so far
+[main]    400 rows inserted so far
+[main]    450 rows inserted so far
+[main]    500 rows inserted so far
+[main]    550 rows inserted so far
+[main]    600 rows inserted so far
+[main]    650 rows inserted so far
+[main]    700 rows inserted so far
+[main]    750 rows inserted so far
+[main]    800 rows inserted so far
+[main]    850 rows inserted so far
+[main]    900 rows inserted so far
+[main]    950 rows inserted so far
+[main]   1000 rows inserted so far
+[main]   1050 rows inserted so far
+[main]   1100 rows inserted so far
+[main]   1150 rows inserted so far
+[main]   1200 rows inserted so far
+[main]   1250 rows inserted so far
+[main]   1300 rows inserted so far
+[main]   1350 rows inserted so far
+[main]   1400 rows inserted so far
+[main]   1450 rows inserted so far
+[main]   1500 rows inserted so far
+[main]   1550 rows inserted so far
+[main]   1600 rows inserted so far
+[main]   1650 rows inserted so far
+[main]   1700 rows inserted so far
+[main]   1750 rows inserted so far
+[main]   1800 rows inserted so far
+[main]   1850 rows inserted so far
+[main]   1900 rows inserted so far
+[main]   1950 rows inserted so far
+[main]   2000 rows inserted so far
+[main]   2050 rows inserted so far
+[main]   2100 rows inserted so far
+[main]   2150 rows inserted so far
+[main]   2200 rows inserted so far
+[main]   2250 rows inserted so far
+[main]   2300 rows inserted so far
+[main]   2350 rows inserted so far
+[main]   2400 rows inserted so far
+[main]   2450 rows inserted so far
+[main]   2500 rows inserted so far
+[main] 
+[main]   2500 rows inserted totally - duration in seconds:        392
+[main] 
+[main] ----------------------------------------------
+[main] 1 - Setup the database (includes reset)
+[main] 2 - Run the demo with the original JDBC driver
+[main] 3 - Run the demo with the Presto JDBC driver
+[main] 4 - Reset the database
+[main] 9 - Terminate the processing
+[main] ----------------------------------------------
+[main] 
+[main] Please make a choice:
+
