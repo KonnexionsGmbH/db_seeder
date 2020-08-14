@@ -49,7 +49,8 @@ jar {
 
     manifest {
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.DatabaseSeeder'
-        attributes 'Main-Class' : 'ch.konnexions.db_seeder.GenerateSchema'
+        attributes 'Main-Class' : 'ch.konnexions.db_seeder.PrestoEnvironment'
+        attributes 'Main-Class' : 'ch.konnexions.db_seeder.SchemaBuilder'
     }
 }
 
