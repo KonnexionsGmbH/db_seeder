@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_test_presto_mysql.bat: Demonstration Issues Oracle Connector.
+rem run_i4812.bat: Demonstration Issue 4812.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -11,16 +11,12 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Demonstration Issues Oracle Connector.
+echo DB Seeder - Demonstration Issue 4812.
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------
 
-java --enable-preview -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.test.TestPrestoOracle
-if %ERRORLEVEL% NEQ 0 (
-    echo Processing of the script was aborted, error code=%ERRORLEVEL%
-    exit %ERRORLEVEL%
-)
+java --enable-preview -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.I4812
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

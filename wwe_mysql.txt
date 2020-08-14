@@ -4,7 +4,7 @@ DB Seeder - Demonstration Issues MySQL Connector.
 --------------------------------------------------------------------------------
 DATE TIME : 13.08.2020 22:10:25
 --------------------------------------------------------------------------------
-[main] Start TestPrestoMysql
+[main] Start SampleMysql
 [main] 
 [main] ----------------------------------------------
 [main] 1 - Setup the database (includes reset)
@@ -204,4 +204,4 @@ DATE TIME : 13.08.2020 22:10:25
 [main] 
 [main] Please make a choice:
 9
-[main] End   TestPrestoMysql
+[main] End   SampleMysql

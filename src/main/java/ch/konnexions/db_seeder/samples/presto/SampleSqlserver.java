@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ch.konnexions.db_seeder.test;
+package ch.konnexions.db_seeder.samples.presto;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,12 +28,12 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
- * Example program for Issues PostgreSQL Connector.
+ * Example program for Issues SQL Server Connector.
  * 
  * @author  walter@konnexions.ch
  * @since   2020-08-11
  */
-public final class TestPrestoPostgresql {
+public final class SampleSqlserver {
 
   private final static String  BLOB_FILE           = Paths.get("src",
                                                                "main",
@@ -46,31 +46,32 @@ public final class TestPrestoPostgresql {
   private final static String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
   private final static String  connectionHost      = "localhost";
-  private final static int     connectionPort      = 5432;
+  private final static int     connectionPort      = 1433;
 
   private final static String  databaseName        = "kxn_db";
-  private final static String  databaseNameSys     = "kxn_db_sys";
-  private final static String  driverOriginal      = "org.postgresql.Driver";
+  private final static String  databaseNameSys     = "master";
+  private final static String  driverOriginal      = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
   private final static String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
 
-  private final static Logger  logger              = Logger.getLogger(TestPrestoPostgresql.class);
+  private final static Logger  logger              = Logger.getLogger(SampleSqlserver.class);
 
   private final static int     nullFactor          = 4;
 
-  private final static String  password            = "postgresql";
+  private final static String  password            = "sqlserver_2019";
 
   private final static int     rowMaxSize          = 2500;
 
+  private final static String  schemaName          = "kxn_schema";
   @SuppressWarnings("preview")
   private final static String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
                                                          column_pk        BIGINT         NOT NULL
                                                                                          PRIMARY KEY,
-                                                         column_blob      BYTEA,
-                                                         column_clob      TEXT,
-                                                         column_timestamp TIMESTAMP      NOT NULL,
+                                                         column_blob      VARBINARY(MAX),
+                                                         column_clob      VARCHAR(MAX),
+                                                         column_timestamp DATETIME2      NOT NULL,
                                                          column_varchar   VARCHAR(100)   NOT NULL
                                                                                          UNIQUE
                                                      )
@@ -80,13 +81,13 @@ public final class TestPrestoPostgresql {
   private static Statement     statement;
 
   private final static String  userName            = "kxn_user";
-  private final static String  userNameSys         = "kxn_user_sys";
+  private final static String  userNameSys         = "sa";
 
-  private final static String  urlSys              = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys + "?user="
-      + userNameSys + "&password=" + password;
-  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_postgresql/public?user=presto";
-  private final static String  urlUser             = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseName + "?user=" + userName
-      + "&password=" + password;
+  private final static String  urlSys              = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseNameSys + ";user="
+      + userNameSys + ";password=" + password;
+  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_sqlserver/dbo?user=presto";
+  private final static String  urlUser             = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseName + ";user="
+      + userName + ";password=" + password;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     if (driver != null) {
@@ -129,7 +130,7 @@ public final class TestPrestoPostgresql {
 
     if (rowNo % nullFactor == 0) {
       preparedStatement.setNull(columnPos++,
-                                Types.NULL);
+                                Types.BLOB);
     } else {
       preparedStatement.setBytes(columnPos++,
                                  BLOB_DATA_BYTES);
@@ -221,7 +222,6 @@ public final class TestPrestoPostgresql {
 
   private static void executeDdlStmnts(String firstDdlStmnt, String... remainingDdlStmnts) {
     try {
-      logger.info("sqlStmnt='" + firstDdlStmnt + "'");
       statement.execute(firstDdlStmnt);
 
       for (String sqlStmnt : remainingDdlStmnts) {
@@ -282,7 +282,7 @@ public final class TestPrestoPostgresql {
    * @param args
    */
   public static void main(String[] args) {
-    logger.info("Start TestPrestoPostgresql");
+    logger.info("Start SampleSqlserver");
 
     int     choice  = 0;
 
@@ -326,7 +326,7 @@ public final class TestPrestoPostgresql {
 
     scanner.close();
 
-    logger.info("End   TestPrestoPostgresql");
+    logger.info("End   SampleSqlserver");
   }
 
   private static byte[] readBlobFile2Bytes() {
@@ -407,8 +407,7 @@ public final class TestPrestoPostgresql {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName,
-                       "DROP USER IF EXISTS " + userName);
+      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName);
 
       statement.close();
     } catch (SQLException e) {
@@ -444,9 +443,16 @@ public final class TestPrestoPostgresql {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("CREATE DATABASE " + databaseName,
-                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + password + "'",
-                       "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
+      executeDdlStmnts("sp_configure 'contained database authentication', 1",
+                       "RECONFIGURE",
+                       "USE master",
+                       "CREATE DATABASE " + databaseName,
+                       "USE master",
+                       "ALTER DATABASE " + databaseName + " SET CONTAINMENT = PARTIAL",
+                       "USE " + databaseName,
+                       "CREATE SCHEMA " + schemaName,
+                       "CREATE USER " + userName + " WITH PASSWORD = '" + password + "', DEFAULT_SCHEMA=" + schemaName,
+                       "sp_addrolemember 'db_owner', '" + userName + "'");
 
       statement.close();
     } catch (SQLException e) {
@@ -491,4 +497,5 @@ public final class TestPrestoPostgresql {
 
     disconnect(connection);
   }
+
 }

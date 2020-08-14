@@ -4,19 +4,19 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_test_presto_sqlserver.sh: Demonstration Issues SQL Server Connector.
+# run_test_presto_postgresql.sh: Demonstration Issues Presto PostgreSQL Connector.
 #
 # ------------------------------------------------------------------------------
 
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - Demonstration Issues SQL Server Connector."
+echo "DB Seeder - Demonstration Issues Presto PostgreSQL Connector."
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"
 
-if ! (java --enable-preview -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.test.TestPrestoSqlserver); then
+if ! (java --enable-preview -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.samples.presto.SamplePostgresql); then
     exit 255
 fi    
 

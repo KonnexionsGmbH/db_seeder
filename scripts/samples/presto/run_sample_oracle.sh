@@ -4,19 +4,19 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_test_presto_mysql.sh: Demonstration Issues MySQL Connector.
+# run_test_presto_mysql.sh: Demonstration Issues Presto Oracle Connector.
 #
 # ------------------------------------------------------------------------------
 
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - Demonstration Issues MySQL Connector."
+echo "DB Seeder - Demonstration Issues Presto Oracle Connector."
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"
 
-if ! (java --enable-preview -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.test.TestPrestoMysql); then
+if ! (java --enable-preview -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.samples.presto.SampleOracle); then
     exit 255
 fi    
 

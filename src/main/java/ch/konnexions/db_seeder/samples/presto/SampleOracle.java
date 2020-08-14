@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ch.konnexions.db_seeder.test;
+package ch.konnexions.db_seeder.samples.presto;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
@@ -28,12 +29,12 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
- * Example program for Issues SQL Server Connector.
+ * Example program for Issues Oracle Connector.
  * 
  * @author  walter@konnexions.ch
  * @since   2020-08-11
  */
-public final class TestPrestoSqlserver {
+public final class SampleOracle {
 
   private final static String  BLOB_FILE           = Paths.get("src",
                                                                "main",
@@ -46,33 +47,31 @@ public final class TestPrestoSqlserver {
   private final static String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
   private final static String  connectionHost      = "localhost";
-  private final static int     connectionPort      = 1433;
+  private final static int     connectionPort      = 1521;
 
-  private final static String  databaseName        = "kxn_db";
-  private final static String  databaseNameSys     = "master";
-  private final static String  driverOriginal      = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  private final static String  driverOriginal      = "oracle.jdbc.driver.OracleDriver";
   private final static String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
 
-  private final static Logger  logger              = Logger.getLogger(TestPrestoSqlserver.class);
+  private final static Logger  logger              = Logger.getLogger(SampleOracle.class);
 
   private final static int     nullFactor          = 4;
 
-  private final static String  password            = "sqlserver_2019";
+  private final static String  password            = "oracle";
 
   private final static int     rowMaxSize          = 2500;
 
-  private final static String  schemaName          = "kxn_schema";
+  private final static String  service             = "orclpdb1";
   @SuppressWarnings("preview")
   private final static String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
-                                                         column_pk        BIGINT         NOT NULL
+                                                         column_pk        NUMBER         NOT NULL
                                                                                          PRIMARY KEY,
-                                                         column_blob      VARBINARY(MAX),
-                                                         column_clob      VARCHAR(MAX),
-                                                         column_timestamp DATETIME2      NOT NULL,
-                                                         column_varchar   VARCHAR(100)   NOT NULL
+                                                         column_blob      BLOB,
+                                                         column_clob      CLOB,
+                                                         column_timestamp TIMESTAMP      NOT NULL,
+                                                         column_varchar   VARCHAR2(100)  NOT NULL
                                                                                          UNIQUE
                                                      )
                                                      """;
@@ -81,13 +80,11 @@ public final class TestPrestoSqlserver {
   private static Statement     statement;
 
   private final static String  userName            = "kxn_user";
-  private final static String  userNameSys         = "sa";
+  private final static String  userNameSys         = "SYS AS SYSDBA";
 
-  private final static String  urlSys              = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseNameSys + ";user="
-      + userNameSys + ";password=" + password;
-  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_sqlserver/dbo?user=presto";
-  private final static String  urlUser             = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseName + ";user="
-      + userName + ";password=" + password;
+  private final static String  urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
+  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_oracle/" + userName + "?user=presto";
+  private final static String  urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     if (driver != null) {
@@ -130,7 +127,7 @@ public final class TestPrestoSqlserver {
 
     if (rowNo % nullFactor == 0) {
       preparedStatement.setNull(columnPos++,
-                                Types.BLOB);
+                                Types.NULL);
     } else {
       preparedStatement.setBytes(columnPos++,
                                  BLOB_DATA_BYTES);
@@ -162,9 +159,9 @@ public final class TestPrestoSqlserver {
 
     connection = connect(urlUser,
                          driverOriginal,
-                         null,
-                         null,
-                         true);
+                         userName.toUpperCase(),
+                         password,
+                         false);
 
     // -----------------------------------------------------------------------
     // Insert data.
@@ -220,8 +217,40 @@ public final class TestPrestoSqlserver {
     }
   }
 
+  private final static void dropUser(String userName, String cascadeRestrict, String tableName, String columnName) {
+    try {
+      int    count    = 0;
+
+      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + userName + "'";
+
+      logger.info("sqlStmnt='" + sqlStmnt + "'");
+
+      ResultSet resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      resultSet.close();
+
+      if (count > 0) {
+        sqlStmnt = "DROP USER " + userName + (cascadeRestrict != null
+            ? " " + cascadeRestrict
+            : "");
+
+        logger.info("sqlStmnt='" + sqlStmnt + "'");
+
+        statement.execute(sqlStmnt);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
   private static void executeDdlStmnts(String firstDdlStmnt, String... remainingDdlStmnts) {
     try {
+      logger.info("sqlStmnt='" + firstDdlStmnt + "'");
       statement.execute(firstDdlStmnt);
 
       for (String sqlStmnt : remainingDdlStmnts) {
@@ -282,7 +311,7 @@ public final class TestPrestoSqlserver {
    * @param args
    */
   public static void main(String[] args) {
-    logger.info("Start TestPrestoSqlserver");
+    logger.info("Start SampleOracle");
 
     int     choice  = 0;
 
@@ -326,7 +355,7 @@ public final class TestPrestoSqlserver {
 
     scanner.close();
 
-    logger.info("End   TestPrestoSqlserver");
+    logger.info("End   SampleOracle");
   }
 
   private static byte[] readBlobFile2Bytes() {
@@ -396,9 +425,9 @@ public final class TestPrestoSqlserver {
 
     connection = connect(urlSys,
                          driverOriginal,
-                         null,
-                         null,
-                         true);
+                         userNameSys,
+                         password,
+                         false);
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.
@@ -407,7 +436,10 @@ public final class TestPrestoSqlserver {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName);
+      dropUser(userName.toUpperCase(),
+               "CASCADE",
+               "ALL_USERS",
+               "username");
 
       statement.close();
     } catch (SQLException e) {
@@ -432,9 +464,9 @@ public final class TestPrestoSqlserver {
 
     connection = connect(urlSys,
                          driverOriginal,
-                         null,
-                         null,
-                         true);
+                         userNameSys,
+                         password,
+                         false);
 
     // -----------------------------------------------------------------------
     // Setup the database.
@@ -443,16 +475,12 @@ public final class TestPrestoSqlserver {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("sp_configure 'contained database authentication', 1",
-                       "RECONFIGURE",
-                       "USE master",
-                       "CREATE DATABASE " + databaseName,
-                       "USE master",
-                       "ALTER DATABASE " + databaseName + " SET CONTAINMENT = PARTIAL",
-                       "USE " + databaseName,
-                       "CREATE SCHEMA " + schemaName,
-                       "CREATE USER " + userName + " WITH PASSWORD = '" + password + "', DEFAULT_SCHEMA=" + schemaName,
-                       "sp_addrolemember 'db_owner', '" + userName + "'");
+      executeDdlStmnts("CREATE USER " + userName.toUpperCase() + " IDENTIFIED BY \"" + password + "\"",
+                       "ALTER USER " + userName.toUpperCase() + " QUOTA UNLIMITED ON users",
+                       "GRANT CREATE SEQUENCE TO " + userName.toUpperCase(),
+                       "GRANT CREATE SESSION TO " + userName.toUpperCase(),
+                       "GRANT CREATE TABLE TO " + userName.toUpperCase(),
+                       "GRANT UNLIMITED TABLESPACE TO " + userName.toUpperCase());
 
       statement.close();
     } catch (SQLException e) {
@@ -472,9 +500,9 @@ public final class TestPrestoSqlserver {
 
     connection = connect(urlUser,
                          driverOriginal,
-                         null,
-                         null,
-                         true);
+                         userName.toUpperCase(),
+                         password,
+                         false);
 
     // -----------------------------------------------------------------------
     // Setup the database.
@@ -497,5 +525,4 @@ public final class TestPrestoSqlserver {
 
     disconnect(connection);
   }
-
 }
