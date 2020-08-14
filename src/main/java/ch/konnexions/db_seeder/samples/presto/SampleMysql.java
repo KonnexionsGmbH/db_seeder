@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ch.konnexions.db_seeder.test;
+package ch.konnexions.db_seeder.samples.presto;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,7 +33,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-08-11
  */
-public final class TestPrestoMysql {
+public final class SampleMysql {
 
   private final static String  BLOB_FILE           = Paths.get("src",
                                                                "main",
@@ -55,7 +55,7 @@ public final class TestPrestoMysql {
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
 
-  private final static Logger  logger              = Logger.getLogger(TestPrestoMysql.class);
+  private final static Logger  logger              = Logger.getLogger(SampleMysql.class);
 
   private final static int     nullFactor          = 4;
 
@@ -281,7 +281,7 @@ public final class TestPrestoMysql {
    * @param args
    */
   public static void main(String[] args) {
-    logger.info("Start TestPrestoMysql");
+    logger.info("Start SampleMysql");
 
     int     choice  = 0;
 
@@ -325,7 +325,7 @@ public final class TestPrestoMysql {
 
     scanner.close();
 
-    logger.info("End   TestPrestoMysql");
+    logger.info("End   SampleMysql");
   }
 
   private static byte[] readBlobFile2Bytes() {

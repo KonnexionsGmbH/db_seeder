@@ -1,4 +1,4 @@
-[main] Start TestPrestoPostgresql
+[main] Start SamplePostgresql
 [main] 
 [main] ----------------------------------------------
 [main] 1 - Setup the database (includes reset)

@@ -95,4 +95,4 @@ RUN echo "=====================================================================>
 EXPOSE 8080
 
 CMD ["presto-server/bin/launcher", "run"] 
-ping -n 10 127.0.0.1 >nul
+RUN sleep 10

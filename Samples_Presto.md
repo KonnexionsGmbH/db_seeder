@@ -2,9 +2,9 @@
 
 ## 1. Available Files
 
-- `src/ch/konnexions/db_seeder/test/TestPresto[mysql|oracle|postgresql|sqlserver].java`
-- `Test_Presto.md` (this file)
-- `scripts/run_test_presto_[mysql|oracle|postgresql|sqlserver].[bat/sh]`
+- `src/ch/konnexions/db_seeder/samples/presto/Sample[mysql|oracle|postgresql|sqlserver].java`
+- `Samples_Presto.md` (this file)
+- `scripts/samples/presto/run_sample_[mysql|oracle|postgresql|sqlserver].[bat/sh]`
 
 ## 2. Compiling
 
@@ -17,11 +17,10 @@ Java must be installed at least in version 14.
 Prerequisite for this is an executable Presto version and the successful installation of the corresponding DBMS.
 
 Presto can be installed with the script `run_db_seeder_presto_environment`, in Windows we create a Docker image and for Linux a local installation.
-In Windows, the script `scripts/run_db_seeder_setup_presto` must then also run so that a Docker container is created from the previously created Docker image.
 
-The DBMS can be made available with the script `scripts/run_db_seeder_setup_dbms`, whereby a corresponding Docker Container is created in Windows and Linux.
+The DBMS can be made available with the script `run_db_seeder [mysql|oracle|postgresql|sqlserver] yes 0`, whereby a corresponding Docker Container is created in Windows and Linux.
 
-The **`db_seeder`** demonstration program for Presto can then be executed with the DBMS specific script `scripts/run_test_presto_[mysql|oracle|postgresql|sqlserver]`. 
+The **`db_seeder`** demonstration program for Presto can then be executed with the DBMS specific script `scripts/samples/presto/run_sample_[mysql|oracle|postgresql|sqlserver]`. 
 
 ## 4. Sample run for the PostgreSQL Connector
 
@@ -55,16 +54,16 @@ All driver and SQL relevant events are logged at the console.
     6408751738ca        postgres:12.3-alpine              "docker-entrypoint.s…"   8 hours ago         Up 5 seconds        0.0.0.0:5432->5432/tcp   db_seeder_db
     4d18bdee0064        konnexionsgmbh/db_seeder_presto   "presto-server/bin/l…"   19 hours ago        Up 20 seconds       0.0.0.0:8080->8080/tcp   db_seeder_presto
 
-    D:\SoftDevelopment\Projects\Konnexions\db_seeder>scripts\run_test_presto_postgresql
+    D:\SoftDevelopment\Projects\Konnexions\db_seeder>scripts\samples\presto\run_sample_postgresql
     ================================================================================
-    Start scripts\run_test_presto_postgresql
+    Start scripts\samples\presto\run_sample_postgresql
     --------------------------------------------------------------------------------
-    DB Seeder - Demonstration Issues PostgreSQL Connector.
+    DB Seeder - Demonstration Issues Presto PostgreSQL Connector.
     --------------------------------------------------------------------------------
-    The current time is:  8:09:11.71
+    The current time is:  9:01:51.34
     Enter the new time:
     --------------------------------------------------------------------------------
-    [main] Start TestPrestoPostgresql
+    [main] Start SamplePostgresql
     [main]
     [main] ----------------------------------------------
     [main] 1 - Setup the database (includes reset)
@@ -169,7 +168,7 @@ All driver and SQL relevant events are logged at the console.
     [main]   2450 rows inserted so far
     [main]   2500 rows inserted so far
     [main]
-    [main]   2500 rows inserted totally - duration in seconds:         12
+    [main]   2500 rows inserted totally - duration in seconds:         13
     [main]
     [main] ----------------------------------------------
     [main] 1 - Setup the database (includes reset)
@@ -223,5 +222,5 @@ All driver and SQL relevant events are logged at the console.
     [main] driver  ='io.prestosql.jdbc.PrestoDriver'
     [main] url     ='jdbc:presto://localhost:8080/db_seeder_postgresql/public?user=presto'
     [main]
-    [main]     50 rows inserted so far`
+    [main]     50 rows inserted so far
 
