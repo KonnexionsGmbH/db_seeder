@@ -45,7 +45,6 @@ script:
   - travis_fold start "Prepare_Installation_Process"
   - export VERSION_GRADLE=6.4.1
   - sudo apt update -q
-  - sudo apt-get install -y hostname
   - travis_fold end   "Prepare_Installation_Process"
 
   - travis_fold start "Install_Gradle"

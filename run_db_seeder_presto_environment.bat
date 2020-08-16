@@ -162,10 +162,9 @@ docker network create db_seeder_net
 docker network ls
 lib\Gammadyne\timer.exe
 echo Docker create presto (Presto Distributed Query Engine)
-docker create --name          db_seeder_presto ^
-              --network       db_seeder_net ^
-              --network-alias db_seeder_presto ^
-              -p              8080:8080/tcp ^
+docker create --name    db_seeder_presto ^
+              --network db_seeder_net ^
+              -p        8080:8080/tcp ^
               konnexionsgmbh/db_seeder_presto
 echo Docker start presto (Presto Distributed Query Engine) ...
 docker start db_seeder_presto
