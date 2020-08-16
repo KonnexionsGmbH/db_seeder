@@ -21,8 +21,8 @@ echo ---------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "no" ]; then
     echo "Docker stop/rm db_seeder_db ................................ before:"
-    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
-    docker ps -a | grep -r "db_seeder_db" && docker rm db_seeder_db
+    docker ps    | grep "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
     docker network prune --force
     echo "............................................................. after:"
     docker ps -a
