@@ -473,12 +473,20 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
-        int count = preparedStatement.executeUpdate();
+//        if (isPresto) {
+          preparedStatement.addBatch();
 
-        if (count != 1) {
-          MessageHandling.abortProgram(logger,
-                                       "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
-        }
+          if (rowNo % batchSize == 0) {
+            preparedStatement.executeBatch();
+          }
+//        } else {
+//          int count = preparedStatement.executeUpdate();
+//
+//          if (count != 1) {
+//            MessageHandling.abortProgram(logger,
+//                                         "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
+//          }
+//        }
 
         pkList.add(rowNo);
       } catch (SQLException e) {
@@ -488,6 +496,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
+//      if (isPresto) {
+        preparedStatement.executeBatch();
+//      }
+
       preparedStatement.close();
     } catch (SQLException e) {
       e.printStackTrace();

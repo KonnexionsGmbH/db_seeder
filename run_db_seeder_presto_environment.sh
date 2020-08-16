@@ -42,7 +42,7 @@ export DB_SEEDER_VERSION_PRESTO=340
 export DB_SEEDER_MYSQL_CONNECTION_HOST=db_seeder_db
 export DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 export DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
-export DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
+export DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false?rewriteBatchedStatements=true"
 export DB_SEEDER_MYSQL_PASSWORD=mysql
 export DB_SEEDER_MYSQL_USER=kxn_user
 

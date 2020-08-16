@@ -83,10 +83,10 @@ public final class SampleMysql {
   private final static String  userNameSys         = "root";
 
   private final static String  urlSys              = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys
-      + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false";
+      + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false?rewriteBatchedStatements=true";
   private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_mysql/kxn_db?user=presto";
   private final static String  urlUser             = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseName
-      + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false";
+      + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false?rewriteBatchedStatements=true";
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     if (driver != null) {
