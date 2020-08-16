@@ -50,7 +50,7 @@ RUN wget --quiet https://repo1.maven.org/maven2/io/prestosql/presto-server/${VER
  && mkdir presto-server/etc \
  && mkdir presto-server/etc/catalog
  
-COPY presto/base/* /presto-server/etc/
+COPY presto/* /presto-server/etc/
 COPY presto/catalog/* /presto-server/etc/catalog/
 
 # presto - Command-Line Interface ----------------------------------------------
