@@ -222,6 +222,7 @@ public final class SampleSqlserver {
 
   private static void executeDdlStmnts(String firstDdlStmnt, String... remainingDdlStmnts) {
     try {
+      logger.info("sqlStmnt='" + firstDdlStmnt + "'");
       statement.execute(firstDdlStmnt);
 
       for (String sqlStmnt : remainingDdlStmnts) {

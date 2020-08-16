@@ -473,20 +473,20 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
-//        if (isPresto) {
+        if (isPresto && ("oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower))) {
+          int count = preparedStatement.executeUpdate();
+
+          if (count != 1) {
+            MessageHandling.abortProgram(logger,
+                                         "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
+          }
+        } else {
           preparedStatement.addBatch();
 
           if (rowNo % batchSize == 0) {
             preparedStatement.executeBatch();
           }
-//        } else {
-//          int count = preparedStatement.executeUpdate();
-//
-//          if (count != 1) {
-//            MessageHandling.abortProgram(logger,
-//                                         "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
-//          }
-//        }
+        }
 
         pkList.add(rowNo);
       } catch (SQLException e) {
@@ -496,9 +496,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-//      if (isPresto) {
+      if (!(isPresto && ("oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower)))) {
         preparedStatement.executeBatch();
-//      }
+      }
 
       preparedStatement.close();
     } catch (SQLException e) {

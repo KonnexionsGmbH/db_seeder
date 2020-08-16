@@ -42,7 +42,7 @@ set DB_SEEDER_VERSION_PRESTO=340
 set DB_SEEDER_MYSQL_CONNECTION_HOST=db_seeder_db
 set DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 set DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
-set DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false?rewriteBatchedStatements=true"
+set DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
 set DB_SEEDER_MYSQL_PASSWORD=mysql
 set DB_SEEDER_MYSQL_USER=kxn_user
 

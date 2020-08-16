@@ -260,9 +260,9 @@ public abstract class AbstractDbmsSeeder {
     return dbmsDetails;
   }
 
-  protected final int   batchSize                         = 1000;
+  protected final int   batchSize = 1000;
 
-  private final boolean isDebug = logger.isDebugEnabled();
+  private final boolean isDebug   = logger.isDebugEnabled();
 
   protected Config      config;
 
