@@ -20,8 +20,8 @@ echo VERSION                   : %DB_SEEDER_VERSION%
    
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     echo Docker stop/rm db_seeder_db ................................ before:
-    docker ps -a
-    docker ps -qa --filter "name=db_seeder_db" | grep -q . && docker stop db_seeder_db && docker rm -fv db_seeder_db
+    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | grep -r "db_seeder_db" && docker rm db_seeder_db
     echo ............................................................. after:
     docker ps -a
 )

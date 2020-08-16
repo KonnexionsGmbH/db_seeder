@@ -8,12 +8,6 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
-if ["%DB_SEEDER_VERSION%"] EQU [""] (
-    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
-    docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_db
-    set DB_SEEDER_VERSION=db_19_3_ee
-)
-
 if ["%DB_SEEDER_CONNECTION_PORT%"] EQU [""] (
     set DB_SEEDER_CONNECTION_PORT=1521
 )
@@ -22,11 +16,18 @@ if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
     set DB_SEEDER_CONTAINER_PORT=1521
 )
 
+if ["%DB_SEEDER_VERSION%"] EQU [""] (
+    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | grep -r "db_seeder_db" && docker rm db_seeder_db
+    set DB_SEEDER_VERSION=db_19_3_ee
+)
+
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Oracle Database Docker container.
 echo --------------------------------------------------------------------------------
+echo DBMS_PRESTO               : %DB_SEEDER_DBMS_PRESTO%
 echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
 echo DB_SEEDER_CONTAINER_PORT  : %DB_SEEDER_CONTAINER_PORT%
 echo VERSION                   : %DB_SEEDER_VERSION%
@@ -42,7 +43,21 @@ echo Oracle Database
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Oracle Database %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -e ORACLE_PWD=oracle -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp --shm-size 1G konnexionsgmbh/%DB_SEEDER_VERSION%
+
+if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
+    docker create --name     db_seeder_db ^
+                  -e         ORACLE_PWD=oracle ^
+                  --network  db_seeder_net ^
+                  -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
+                  --shm-size 1G 
+                  konnexionsgmbh/%DB_SEEDER_VERSION%
+) else (
+    docker create --name     db_seeder_db ^
+                  -e         ORACLE_PWD=oracle ^
+                  -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
+                  --shm-size 1G 
+                  konnexionsgmbh/%DB_SEEDER_VERSION%
+)
 
 echo Docker start db_seeder_db (Oracle Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

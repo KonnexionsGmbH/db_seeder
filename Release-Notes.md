@@ -37,6 +37,7 @@ n/a
 
 #### Modified Features
 
+- SQLite: DBMS 3.33.0
 - minor script fixes.
 
 #### Deleted Features

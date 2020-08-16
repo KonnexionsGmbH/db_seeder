@@ -72,7 +72,6 @@ echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo GLOBAL_CONNECTION_HOST          : %DB_SEEDER_GLOBAL_CONNECTION_HOST%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
-echo PRESTO_INSTALLATION_DIRECTORY   : %DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
 echo VERSION_PRESTO                  : %DB_SEEDER_VERSION_PRESTO%
@@ -108,14 +107,6 @@ if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
     )
 )
     
-if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
-    call scripts\run_db_seeder_setup_presto.bat
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
-    )
-)
-
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["1"] (
     call scripts\run_db_seeder_create_data.bat
     if %ERRORLEVEL% NEQ 0 (

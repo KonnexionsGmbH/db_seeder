@@ -70,8 +70,6 @@ echo "FILE_STATISTICS_NAME              : ${DB_SEEDER_FILE_STATISTICS_NAME}"
 echo "GLOBAL_CONNECTION_HOST            : ${DB_SEEDER_GLOBAL_CONNECTION_HOST}"
 echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
-echo "PRESTO_INSTALLATION_DIRECTORY     : ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}"
-echo "PRESTO_INSTALLATION_TYPE          : ${DB_SEEDER_PRESTO_INSTALLATION_TYPE}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"
 echo "SETUP_DBMS                        : ${DB_SEEDER_SETUP_DBMS}"
 echo "TRAVIS                            : ${TRAVIS}"
@@ -104,22 +102,6 @@ if [ "${DB_SEEDER_SETUP_DBMS}" = "yes" ]; then
     if ! ( ./scripts/run_db_seeder_setup_dbms.sh ); then
         exit 255
     fi    
-fi
-
-if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
-    if [ ! "${DB_SEEDER_COMPLETE_RUN}" = "yes" ]; then
-        if [ "${TRAVIS}" = "true" ]; then
-            if ! ( ./run_db_seeder_presto_environment.sh complete localhost ); then
-                exit 255
-            fi    
-        fi    
-        
-        if [ ! "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" = "local" ]; then
-            if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
-                exit 255
-            fi    
-        fi
-    fi
 fi
 
 if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "1" ]; then

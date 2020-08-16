@@ -21,8 +21,9 @@ echo ---------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "no" ]; then
     echo "Docker stop/rm db_seeder_db ................................ before:"
-    docker ps -a
-    docker ps -qa --filter "name=db_seeder_db" | grep -q . && docker stop db_seeder_db && docker rm -fv db_seeder_db
+    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | grep -r "db_seeder_db" && docker rm db_seeder_db
+    docker network prune --force
     echo "............................................................. after:"
     docker ps -a
 fi
@@ -285,7 +286,11 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
     echo "MySQL Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MySQL ${DB_SEEDER_VERSION})"
-    docker create --name db_seeder_db -e MYSQL_ROOT_PASSWORD=mysql -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp mysql:"${DB_SEEDER_VERSION}"
+    docker create --name    db_seeder_db \
+                  -e        MYSQL_ROOT_PASSWORD=mysql \
+                  --network db_seeder_net \
+                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                  mysql:"${DB_SEEDER_VERSION}"
 
     echo "Docker start db_seeder_db (MySQL ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then

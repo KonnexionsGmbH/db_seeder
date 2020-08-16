@@ -94,10 +94,6 @@ if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local.tsv
 fi 
 
-if [ -z "${DB_SEEDER_PRESTO_INSTALLATION_TYPE}" ]; then
-    export DB_SEEDER_PRESTO_INSTALLATION_TYPE=local
-fi 
-
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
@@ -422,8 +418,6 @@ echo "FILE_STATISTICS_NAME              : ${DB_SEEDER_FILE_STATISTICS_NAME}"
 echo "GLOBAL_CONNECTION_HOST            : ${DB_SEEDER_GLOBAL_CONNECTION_HOST}"
 echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
-echo "PRESTO_INSTALLATION_DIRECTORY     : ${DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY}"
-echo "PRESTO_INSTALLATION_TYPE          : ${DB_SEEDER_PRESTO_INSTALLATION_TYPE}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"
 echo "SETUP_DBMS                        : ${DB_SEEDER_SETUP_DBMS}"
 echo "TRAVIS                            : ${TRAVIS}"
@@ -465,6 +459,13 @@ elif [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
         exit 255
     fi    
 else
+    if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
+        if [ "${DB_SEEDER_SETUP_DBMS}" = "yes" ]; then
+            if ! ( ./run_db_seeder_presto_environment.sh complete ); then
+                exit 255
+            fi
+        fi        
+    fi        
     if ! ( ./scripts/run_db_seeder_single.sh "${DB_SEEDER_DBMS}" ); then
         exit 255
     fi    

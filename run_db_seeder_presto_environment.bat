@@ -11,7 +11,6 @@ setlocal EnableDelayedExpansion
 set ERRORLEVEL=
 
 set DB_SEEDER_DBMS_DEFAULT=complete
-set DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT=192.168.1.109
 
 if ["%1"] EQU [""] (
     echo ============================================================
@@ -30,16 +29,6 @@ if ["%1"] EQU [""] (
     set DB_SEEDER_DBMS=%1
 )
 
-if ["%2"] EQU [""] (
-    set /P DB_SEEDER_GLOBAL_CONNECTION_HOST="Enter the local IP address [default: %DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT%] "
-
-    if ["!DB_SEEDER_GLOBAL_CONNECTION_HOST!"] EQU [""] (
-        set DB_SEEDER_GLOBAL_CONNECTION_HOST=%DB_SEEDER_GLOBAL_CONNECTION_HOST_DEFAULT%
-    )
-) else (
-    set DB_SEEDER_GLOBAL_CONNECTION_HOST=%2
-)
-
 if ["!DB_SEEDER_DBMS!"] EQU ["complete"] (
     set DB_SEEDER_DBMS=mysql oracle postgresql sqlserver
 )
@@ -50,28 +39,28 @@ set DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=resources\docker\presto\catalog
 
 set DB_SEEDER_VERSION_PRESTO=340
 
-set DB_SEEDER_MYSQL_CONNECTION_HOST=%DB_SEEDER_GLOBAL_CONNECTION_HOST%
+set DB_SEEDER_MYSQL_CONNECTION_HOST=db_seeder_db
 set DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 set DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
 set DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
 set DB_SEEDER_MYSQL_PASSWORD=mysql
 set DB_SEEDER_MYSQL_USER=kxn_user
 
-set DB_SEEDER_ORACLE_CONNECTION_HOST=%DB_SEEDER_GLOBAL_CONNECTION_HOST%
+set DB_SEEDER_ORACLE_CONNECTION_HOST=db_seeder_db
 set DB_SEEDER_ORACLE_CONNECTION_PORT=1521
 set DB_SEEDER_ORACLE_CONNECTION_PREFIX="jdbc:oracle:thin:@//"
 set DB_SEEDER_ORACLE_CONNECTION_SERVICE=orclpdb1
 set DB_SEEDER_ORACLE_PASSWORD=oracle
 set DB_SEEDER_ORACLE_USER=kxn_user
 
-set DB_SEEDER_POSTGRESQL_CONNECTION_HOST=%DB_SEEDER_GLOBAL_CONNECTION_HOST%
+set DB_SEEDER_POSTGRESQL_CONNECTION_HOST=db_seeder_db
 set DB_SEEDER_POSTGRESQL_CONNECTION_PORT=5432
 set DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX="jdbc:postgresql://"
 set DB_SEEDER_POSTGRESQL_DATABASE=kxn_db
 set DB_SEEDER_POSTGRESQL_PASSWORD=postgresql
 set DB_SEEDER_POSTGRESQL_USER=kxn_user
 
-set DB_SEEDER_SQLSERVER_CONNECTION_HOST=%DB_SEEDER_GLOBAL_CONNECTION_HOST%
+set DB_SEEDER_SQLSERVER_CONNECTION_HOST=db_seeder_db
 set DB_SEEDER_SQLSERVER_CONNECTION_PORT=1433
 set DB_SEEDER_SQLSERVER_CONNECTION_PREFIX="jdbc:sqlserver://"
 set DB_SEEDER_SQLSERVER_DATABASE=kxn_db
@@ -85,9 +74,7 @@ echo DB Seeder - Creating a Presto environment.
 echo --------------------------------------------------------------------------------
 echo DBMS_DEFAULT                  : %DB_SEEDER_DBMS_DEFAULT%
 echo DIRECTORY_CATALOG_PROPERTY    : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
-echo GLOBAL_CONNECTION_HOST        : %DB_SEEDER_GLOBAL_CONNECTION_HOST%
 echo JAVA_CLASSPATH                : %DB_SEEDER_JAVA_CLASSPATH%
-echo PRESTO_INSTALLATION_DIRECTORY : %DB_SEEDER_PRESTO_INSTALLATION_DIRECTORY%
 echo VERSION_PRESTO                : %DB_SEEDER_VERSION_PRESTO%
 echo --------------------------------------------------------------------------------
 echo CONNECTION_HOST_PRESTO        : %DB_SEEDER_CONNECTION_HOST_PRESTO%
@@ -134,12 +121,23 @@ if %ERRORLEVEL% NEQ 0 (
     exit %ERRORLEVEL%
 )
 
+echo Docker stop/rm db_seeder_presto ............................ before:
+docker ps    | grep -r "db_seeder_presto" && docker stop db_seeder_presto
+docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_presto
+echo ............................................................. after:
+docker ps -a
+
+echo Docker stop/rm db_seeder_db ................................ before:
+docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
+docker ps -a | grep -r "db_seeder_db" && docker rm db_seeder_db
+echo ............................................................. after:
+docker ps -a
+
+docker network prune --force
+
 echo --------------------------------------------------------------------------------
 echo Create Docker image.
 echo --------------------------------------------------------------------------------
-
-docker ps    | grep -r "db_seeder_presto" && docker stop db_seeder_presto
-docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_presto
 
 if exist tmp rmdir /Q/S tmp
 mkdir tmp
@@ -153,11 +151,27 @@ docker images -q -f "dangling=true" -f "label=autodelete=true"
 
 for /F %%I in ('docker images -q -f "dangling=true" -f "label=autodelete=true"') do (docker rmi -f %%I)
 
-call scripts\run_db_seeder_setup_presto
-if %ERRORLEVEL% NEQ 0 (
-    echo Processing of the script was aborted, error code=%ERRORLEVEL%
-    exit %ERRORLEVEL%
-)
+echo --------------------------------------------------------------------------------
+echo Start Presto Distributed Query Engine - creating and starting the container
+echo --------------------------------------------------------------------------------
+docker network create db_seeder_net
+docker network ls
+lib\Gammadyne\timer.exe
+echo Docker create presto (Presto Distributed Query Engine)
+docker create --name          db_seeder_presto ^
+              --network       db_seeder_net ^
+              --network-alias db_seeder_presto ^
+              -p              8080:8080/tcp ^
+              konnexionsgmbh/db_seeder_presto
+echo Docker start presto (Presto Distributed Query Engine) ...
+docker start db_seeder_presto
+
+ping -n 30 127.0.0.1>nul
+
+for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
+echo Docker Presto Distributed Query Engine was ready in %CONSUMED%
+
+docker ps
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

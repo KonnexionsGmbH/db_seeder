@@ -135,7 +135,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | PostgreSQL Database             | postgresql         | 12.3                      | 42.2.14             |
 | Presto Distributed query Engine | n/a                | 339 - 340                 | 340                 |
-| SQLite                          | sqlite             | 3.32.3                    | 3.32.3.2            |
+| SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
 
 [//]: # (===========================================================================================)
 
@@ -1088,7 +1088,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [SQLite Forum](https://www.sqlite.org/forum/about)
 
 - **JDBC driver (latest)**:
-  - version 3.32.3.2
+  - version 3.33.0
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
 
 - **restrictions**:
