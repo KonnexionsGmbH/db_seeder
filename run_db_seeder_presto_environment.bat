@@ -121,6 +121,10 @@ if %ERRORLEVEL% NEQ 0 (
     exit %ERRORLEVEL%
 )
 
+echo --------------------------------------------------------------------------------
+echo Stop and delete existing containers.
+echo --------------------------------------------------------------------------------
+
 echo Docker stop/rm db_seeder_presto ............................ before:
 docker ps    | grep -r "db_seeder_presto" && docker stop db_seeder_presto
 docker ps -a | grep -r "db_seeder_presto" && docker rm db_seeder_presto

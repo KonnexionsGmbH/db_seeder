@@ -286,11 +286,19 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
     echo "MySQL Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MySQL ${DB_SEEDER_VERSION})"
-    docker create --name    db_seeder_db \
-                  -e        MYSQL_ROOT_PASSWORD=mysql \
-                  --network db_seeder_net \
-                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  mysql:"${DB_SEEDER_VERSION}"
+
+    if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
+        docker create --name    db_seeder_db \
+                      -e        MYSQL_ROOT_PASSWORD=mysql \
+                      --network db_seeder_net \
+                      -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                      mysql:"${DB_SEEDER_VERSION}"
+    else
+        docker create --name    db_seeder_db \
+                      -e        MYSQL_ROOT_PASSWORD=mysql \
+                      -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                      mysql:"${DB_SEEDER_VERSION}"
+    fi  
 
     echo "Docker start db_seeder_db (MySQL ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -311,7 +319,21 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
     echo "Docker create db_seeder_db (Oracle ${DB_SEEDER_VERSION})"
-    docker create --name db_seeder_db -e ORACLE_PWD=oracle -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp --shm-size 1G konnexionsgmbh/${DB_SEEDER_VERSION}
+
+    if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
+        docker create --name     db_seeder_db \
+                      -e         ORACLE_PWD=oracle \
+                      --network   db_seeder_net \
+                      -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                      --shm-size 1G \
+                      konnexionsgmbh/${DB_SEEDER_VERSION}
+    else
+        docker create --name     db_seeder_db \
+                      -e         ORACLE_PWD=oracle \
+                      -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                      --shm-size 1G \
+                      konnexionsgmbh/${DB_SEEDER_VERSION}
+    fi  
 
     echo "Docker start db_seeder_db (Oracle ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -336,7 +358,23 @@ if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
     echo "PostgreSQL Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (PostgreSQL ${DB_SEEDER_VERSION})"
-    docker create --name db_seeder_db -e POSTGRES_DB=kxn_db_sys -e POSTGRES_PASSWORD=postgresql -e POSTGRES_USER=kxn_user_sys -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" postgres:"${DB_SEEDER_VERSION}"
+
+    if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
+        docker create --name    db_seeder_db \
+                      -e        POSTGRES_DB=kxn_db_sys \
+                      -e        POSTGRES_PASSWORD=postgresql \
+                      -e        POSTGRES_USER=kxn_user_sys \
+                      --network db_seeder_net \
+                      -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
+                      postgres:"${DB_SEEDER_VERSION}"
+    else
+        docker create --name db_seeder_db \
+                      -e     POSTGRES_DB=kxn_db_sys \
+                      -e     POSTGRES_PASSWORD=postgresql \
+                      -e     POSTGRES_USER=kxn_user_sys \
+                      -p     "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
+                      postgres:"${DB_SEEDER_VERSION}"
+    fi  
 
     echo "Docker start db_seeder_db (PostgreSQL ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -358,7 +396,21 @@ if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
     echo "Microsoft SQL Server."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Microsoft SQL Server ${DB_SEEDER_VERSION})"
-    docker create --name db_seeder_db -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sqlserver_2019" -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
+
+    if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
+        docker create --name    db_seeder_db \
+                      -e        "ACCEPT_EULA=Y" \
+                      -e        "SA_PASSWORD=sqlserver_2019" \
+                      --network db_seeder_net \
+                      -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
+                      mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
+    else
+        docker create --name db_seeder_db \
+                      -e     "ACCEPT_EULA=Y" \
+                      -e     "SA_PASSWORD=sqlserver_2019" \
+                      -p     "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
+                      mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
+    fi  
 
     echo "Docker start db_seeder_db (Microsoft SQL Server ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
