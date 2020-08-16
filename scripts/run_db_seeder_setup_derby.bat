@@ -17,8 +17,8 @@ if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
 )
 
 if ["%DB_SEEDER_VERSION%"] EQU [""] (
-    docker ps    | grep -r "db_seeder_db" && docker stop db_seeder_db
-    docker ps -a | grep -r "db_seeder_db" && docker rm db_seeder_db
+    docker ps    | grep "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
     set DB_SEEDER_VERSION=latest
 )
 
