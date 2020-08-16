@@ -461,7 +461,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       System.exit(1);
     }
 
+    boolean isToBeExecuted = false;
+
     for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
+
       if (rowNo % 500 == 0) {
         logger.info("database table " + String.format(FORMAT_TABLE_NAME,
                                                       tableName.toLowerCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
@@ -473,7 +476,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
-        if (isPresto && ("oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower))) {
+        if (isPresto) {
           int count = preparedStatement.executeUpdate();
 
           if (count != 1) {
@@ -485,6 +488,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
           if (rowNo % batchSize == 0) {
             preparedStatement.executeBatch();
+            isToBeExecuted = false;
+          } else {
+            isToBeExecuted = true;
           }
         }
 
@@ -496,7 +502,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      if (!(isPresto && ("oracle".equals(tickerSymbolLower) || "postgresql".equals(tickerSymbolLower)))) {
+      if (isToBeExecuted) {
         preparedStatement.executeBatch();
       }
 
