@@ -1,29 +1,29 @@
 ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
-cratedb	cratedb	CrateDB	10	2020-08-17 03:00:30.450344000	2020-08-17 03:00:40.876501000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-cratedb	cratedb	CrateDB	5	2020-08-17 03:00:41.366282000	2020-08-17 03:00:47.127334000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-cubrid	cubrid	CUBRID	5	2020-08-17 03:01:33.709497000	2020-08-17 03:01:39.061437000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-cubrid	cubrid	CUBRID	5	2020-08-17 03:01:39.550482000	2020-08-17 03:01:44.674245000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-derby	derby	Apache Derby [client]	10	2020-08-17 03:02:39.147149000	2020-08-17 03:02:49.946546000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-derby	derby	Apache Derby [client]	10	2020-08-17 03:02:50.451495000	2020-08-17 03:03:00.679726000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-firebird	firebird	Firebird	35	2020-08-17 03:03:39.485672000	2020-08-17 03:04:15.318808000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-firebird	firebird	Firebird	33	2020-08-17 03:04:15.800576000	2020-08-17 03:04:49.228982000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-h2	h2	H2 Database Engine [client]	4	2020-08-17 03:05:22.947936000	2020-08-17 03:05:27.802159000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-h2	h2	H2 Database Engine [client]	5	2020-08-17 03:05:28.224829000	2020-08-17 03:05:33.535670000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb	hsqldb	HyperSQL Database [client]	8	2020-08-17 03:06:08.715221000	2020-08-17 03:06:17.576173000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb	hsqldb	HyperSQL Database [client]	8	2020-08-17 03:06:18.125275000	2020-08-17 03:06:26.145947000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-ibmdb2	ibmdb2	IBM Db2 Database	9	2020-08-17 03:12:49.235861000	2020-08-17 03:12:58.961631000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-ibmdb2	ibmdb2	IBM Db2 Database	8	2020-08-17 03:12:59.515393000	2020-08-17 03:13:08.120964000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-informix	informix	IBM Informix	8	2020-08-17 03:17:29.076675000	2020-08-17 03:17:38.045004000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-informix	informix	IBM Informix	8	2020-08-17 03:17:38.525251000	2020-08-17 03:17:46.768580000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-mariadb	mariadb	MariaDB Server	4	2020-08-17 03:18:28.669835000	2020-08-17 03:18:33.281291000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-mariadb	mariadb	MariaDB Server	4	2020-08-17 03:18:33.771861000	2020-08-17 03:18:38.282301000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-mimer	mimer	Mimer SQL	23	2020-08-17 03:19:22.913905000	2020-08-17 03:19:46.673972000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-mimer	mimer	Mimer SQL	24	2020-08-17 03:19:47.145454000	2020-08-17 03:20:11.503413000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-mysql	mysql	MySQL Database	7	2020-08-17 03:21:30.572553000	2020-08-17 03:21:38.103594000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-mysql	mysql	MySQL Database	7	2020-08-17 03:21:38.598941000	2020-08-17 03:21:46.148041000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-oracle	oracle	Oracle Database	7	2020-08-17 03:31:27.481850000	2020-08-17 03:31:35.200922000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-oracle	oracle	Oracle Database	6	2020-08-17 03:31:35.678281000	2020-08-17 03:31:42.675685000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-postgresql	postgresql	PostgreSQL Database	3	2020-08-17 03:32:30.307932000	2020-08-17 03:32:33.722979000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-postgresql	postgresql	PostgreSQL Database	2	2020-08-17 03:32:34.173526000	2020-08-17 03:32:37.143307000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-sqlserver	sqlserver	MS SQL Server	5	2020-08-17 03:34:16.459537000	2020-08-17 03:34:22.271480000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
-sqlserver	sqlserver	MS SQL Server	5	2020-08-17 03:34:22.759211000	2020-08-17 03:34:28.610029000	travis-job-631545a5-717c-4d9f-aeef-8232f11a5506	2	amd64 / Linux / 5.3.0-1029-gcp
+cratedb	cratedb	CrateDB	14	2020-08-17 03:00:34.798200000	2020-08-17 03:00:49.299109000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+cratedb	cratedb	CrateDB	9	2020-08-17 03:00:49.974746000	2020-08-17 03:00:59.833536000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+cubrid	cubrid	CUBRID	8	2020-08-17 03:01:46.246904000	2020-08-17 03:01:54.439004000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+cubrid	cubrid	CUBRID	7	2020-08-17 03:01:54.952193000	2020-08-17 03:02:02.726226000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+derby	derby	Apache Derby [client]	17	2020-08-17 03:02:57.687533000	2020-08-17 03:03:14.721296000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+derby	derby	Apache Derby [client]	12	2020-08-17 03:03:15.238214000	2020-08-17 03:03:28.099657000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+firebird	firebird	Firebird	51	2020-08-17 03:04:06.680764000	2020-08-17 03:04:58.186231000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+firebird	firebird	Firebird	51	2020-08-17 03:04:58.663349000	2020-08-17 03:05:50.532067000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+h2	h2	H2 Database Engine [client]	9	2020-08-17 03:06:24.156661000	2020-08-17 03:06:33.245196000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+h2	h2	H2 Database Engine [client]	8	2020-08-17 03:06:33.731566000	2020-08-17 03:06:42.457250000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb	hsqldb	HyperSQL Database [client]	14	2020-08-17 03:07:17.504178000	2020-08-17 03:07:31.769372000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb	hsqldb	HyperSQL Database [client]	13	2020-08-17 03:07:32.603456000	2020-08-17 03:07:45.943413000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+ibmdb2	ibmdb2	IBM Db2 Database	14	2020-08-17 03:14:09.422076000	2020-08-17 03:14:24.080864000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+ibmdb2	ibmdb2	IBM Db2 Database	10	2020-08-17 03:14:24.889354000	2020-08-17 03:14:35.262754000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+informix	informix	IBM Informix	12	2020-08-17 03:18:55.099383000	2020-08-17 03:19:07.776523000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+informix	informix	IBM Informix	27	2020-08-17 03:19:08.234314000	2020-08-17 03:19:35.283527000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+mariadb	mariadb	MariaDB Server	6	2020-08-17 03:20:17.147599000	2020-08-17 03:20:23.715773000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+mariadb	mariadb	MariaDB Server	5	2020-08-17 03:20:24.169003000	2020-08-17 03:20:29.951898000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+mimer	mimer	Mimer SQL	34	2020-08-17 03:21:14.397416000	2020-08-17 03:21:49.276808000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+mimer	mimer	Mimer SQL	35	2020-08-17 03:21:49.711215000	2020-08-17 03:22:25.230702000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+mysql	mysql	MySQL Database	9	2020-08-17 03:23:44.631909000	2020-08-17 03:23:53.725675000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+mysql	mysql	MySQL Database	9	2020-08-17 03:23:54.402335000	2020-08-17 03:24:03.768991000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+oracle	oracle	Oracle Database	10	2020-08-17 03:33:51.162692000	2020-08-17 03:34:02.093021000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+oracle	oracle	Oracle Database	10	2020-08-17 03:34:02.573264000	2020-08-17 03:34:12.820166000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+postgresql	postgresql	PostgreSQL Database	5	2020-08-17 03:35:00.336412000	2020-08-17 03:35:06.287322000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+postgresql	postgresql	PostgreSQL Database	5	2020-08-17 03:35:06.791434000	2020-08-17 03:35:12.315251000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+sqlserver	sqlserver	MS SQL Server	9	2020-08-17 03:36:19.423272000	2020-08-17 03:36:28.631547000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
+sqlserver	sqlserver	MS SQL Server	8	2020-08-17 03:36:29.099045000	2020-08-17 03:36:37.938209000	travis-job-c32d3d8a-dd4d-48b4-9395-b845c45630b4	2	amd64 / Linux / 5.3.0-1029-gcp
