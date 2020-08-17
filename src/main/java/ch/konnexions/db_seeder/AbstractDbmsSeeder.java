@@ -77,16 +77,16 @@ public abstract class AbstractDbmsSeeder {
   public static final Map<String, String[]> dbmsDetails                       = initDbmsDetails();
 
   public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
+
   //  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
   private static final int                  DBMS_DETAILS_NAME                 = 3;
   private static final int                  DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
   public static final int                   DBMS_DETAILS_TICKER_SYMBOL_LOWER  = 0;
-
   public static final String                FORMAT_IDENTIFIER                 = "%-10d";
+
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
   public static final String                FORMAT_ROW_NO                     = "%1$10d";
   protected static final String             FORMAT_TABLE_NAME                 = "%-17s";
-
   private static final Logger               logger                            = Logger.getLogger(AbstractDbmsSeeder.class);
 
   /**
@@ -260,7 +260,9 @@ public abstract class AbstractDbmsSeeder {
     return dbmsDetails;
   }
 
-  private final boolean isDebug = logger.isDebugEnabled();
+  protected final int   batchSize = 1000;
+
+  private final boolean isDebug   = logger.isDebugEnabled();
 
   protected Config      config;
 

@@ -20,7 +20,7 @@ public class I4812 {
 
   public static void main(String[] args) throws Exception {
     Class.forName("com.mysql.cj.jdbc.Driver");
-    String     url        = "jdbc:mysql://192.168.1.109:3306/?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false";
+    String     url        = "jdbc:mysql://192.168.1.109:3306/?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
     Connection connection = DriverManager.getConnection(url,
                                                         "root",
                                                         "mysql");

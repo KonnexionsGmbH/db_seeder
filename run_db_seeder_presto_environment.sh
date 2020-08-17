@@ -39,28 +39,28 @@ export DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=${DB_SEEDER_DIRECTORY_CATALOG_PROPER
 
 export DB_SEEDER_VERSION_PRESTO=340
 
-export DB_SEEDER_MYSQL_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
+export DB_SEEDER_MYSQL_CONNECTION_HOST=db_seeder_db
 export DB_SEEDER_MYSQL_CONNECTION_PORT=3306
 export DB_SEEDER_MYSQL_CONNECTION_PREFIX="jdbc:mysql://"
-export DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
+export DB_SEEDER_MYSQL_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
 export DB_SEEDER_MYSQL_PASSWORD=mysql
 export DB_SEEDER_MYSQL_USER=kxn_user
 
-export DB_SEEDER_ORACLE_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
+export DB_SEEDER_ORACLE_CONNECTION_HOST=db_seeder_db
 export DB_SEEDER_ORACLE_CONNECTION_PORT=1521
 export DB_SEEDER_ORACLE_CONNECTION_PREFIX="jdbc:oracle:thin:@//"
 export DB_SEEDER_ORACLE_CONNECTION_SERVICE=orclpdb1
 export DB_SEEDER_ORACLE_PASSWORD=oracle
 export DB_SEEDER_ORACLE_USER=kxn_user
 
-export DB_SEEDER_POSTGRESQL_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
+export DB_SEEDER_POSTGRESQL_CONNECTION_HOST=db_seeder_db
 export DB_SEEDER_POSTGRESQL_CONNECTION_PORT=5432
 export DB_SEEDER_POSTGRESQL_CONNECTION_PREFIX="jdbc:postgresql://"
 export DB_SEEDER_POSTGRESQL_DATABASE=kxn_db
 export DB_SEEDER_POSTGRESQL_PASSWORD=postgresql
 export DB_SEEDER_POSTGRESQL_USER=kxn_user
 
-export DB_SEEDER_SQLSERVER_CONNECTION_HOST=${DB_SEEDER_GLOBAL_CONNECTION_HOST}
+export DB_SEEDER_SQLSERVER_CONNECTION_HOST=db_seeder_db
 export DB_SEEDER_SQLSERVER_CONNECTION_PORT=1433
 export DB_SEEDER_SQLSERVER_CONNECTION_PREFIX="jdbc:sqlserver://"
 export DB_SEEDER_SQLSERVER_DATABASE=kxn_db
@@ -74,7 +74,7 @@ echo "DB Seeder - Creating a Presto environment."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_DEFAULT                  : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DIRECTORY_CATALOG_PROPERTY    : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
-echo "GLOBAL_CONNECTION_HOST        : ${DB_SEEDER_GLOBAL_CONNECTION_HOST}"
+echo "GLOBAL_CONNECTION_HOST        : db_seeder_db"
 echo "JAVA_CLASSPATH                : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "VERSION_PRESTO                : ${DB_SEEDER_VERSION_PRESTO}"
 echo "--------------------------------------------------------------------------------"
@@ -167,10 +167,9 @@ docker network create db_seeder_net
 docker network ls
 start=$(date +%s)
 echo "Docker create presto (Presto Distributed Query Engine)"
-docker create --name          db_seeder_presto ^
-              --network       db_seeder_net ^
-              --network-alias db_seeder_presto ^
-              -p              8080:8080/tcp ^
+docker create --name    db_seeder_presto \
+              --network db_seeder_net \
+              -p        8080:8080/tcp \
               konnexionsgmbh/db_seeder_presto
 echo "Docker start presto (Presto Distributed Query Engine) ..."
 docker start db_seeder_presto

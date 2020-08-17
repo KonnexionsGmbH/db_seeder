@@ -461,7 +461,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       System.exit(1);
     }
 
+    boolean isToBeExecuted = false;
+
     for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
+
       if (rowNo % 500 == 0) {
         logger.info("database table " + String.format(FORMAT_TABLE_NAME,
                                                       tableName.toLowerCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
@@ -473,11 +476,22 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
-        int count = preparedStatement.executeUpdate();
+        if (isPresto) {
+          int count = preparedStatement.executeUpdate();
 
-        if (count != 1) {
-          MessageHandling.abortProgram(logger,
-                                       "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
+          if (count != 1) {
+            MessageHandling.abortProgram(logger,
+                                         "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
+          }
+        } else {
+          preparedStatement.addBatch();
+
+          if (rowNo % batchSize == 0) {
+            preparedStatement.executeBatch();
+            isToBeExecuted = false;
+          } else {
+            isToBeExecuted = true;
+          }
         }
 
         pkList.add(rowNo);
@@ -488,6 +502,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
+      if (isToBeExecuted) {
+        preparedStatement.executeBatch();
+      }
+
       preparedStatement.close();
     } catch (SQLException e) {
       e.printStackTrace();

@@ -85,7 +85,7 @@ public final class SampleSqlserver {
 
   private final static String  urlSys              = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseNameSys + ";user="
       + userNameSys + ";password=" + password;
-  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_sqlserver/dbo?user=presto";
+  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_sqlserver/kxn_schema?user=presto";
   private final static String  urlUser             = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseName + ";user="
       + userName + ";password=" + password;
 
@@ -222,6 +222,7 @@ public final class SampleSqlserver {
 
   private static void executeDdlStmnts(String firstDdlStmnt, String... remainingDdlStmnts) {
     try {
+      logger.info("sqlStmnt='" + firstDdlStmnt + "'");
       statement.execute(firstDdlStmnt);
 
       for (String sqlStmnt : remainingDdlStmnts) {

@@ -133,7 +133,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Mimer SQL                       | mimer              | 11.0.3C                   | 3.40                | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
-| PostgreSQL Database             | postgresql         | 12.3                      | 42.2.14             |
+| PostgreSQL Database             | postgresql         | 12.3                      | 42.2.15             |
 | Presto Distributed query Engine | n/a                | 339 - 340                 | 340                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
 
@@ -1020,7 +1020,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
   
 - **JDBC driver (latest)**:
-  - version 42.2.14
+  - version 42.2.15
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)

@@ -49,13 +49,13 @@ if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
                   -e         ORACLE_PWD=oracle ^
                   --network  db_seeder_net ^
                   -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-                  --shm-size 1G 
+                  --shm-size 1G ^
                   konnexionsgmbh/%DB_SEEDER_VERSION%
 ) else (
     docker create --name     db_seeder_db ^
                   -e         ORACLE_PWD=oracle ^
                   -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-                  --shm-size 1G 
+                  --shm-size 1G ^
                   konnexionsgmbh/%DB_SEEDER_VERSION%
 )
 

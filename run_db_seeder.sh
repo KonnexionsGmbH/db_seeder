@@ -262,7 +262,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
-    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
+    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys
@@ -278,7 +278,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
-    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false"
+    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys
