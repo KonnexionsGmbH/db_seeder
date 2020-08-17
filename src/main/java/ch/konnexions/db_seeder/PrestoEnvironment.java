@@ -50,6 +50,8 @@ public final class PrestoEnvironment {
 
   private static String              tickerSymbolLower;
 
+  private static String              schema;
+
   private static String              url;
   private static String              user;
 
@@ -412,11 +414,11 @@ public final class PrestoEnvironment {
                                    "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
     }
 
-    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_DATABASE")) {
-      database = osEnvironment.get("DB_SEEDER_SQLSERVER_DATABASE");
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_SCHEMA")) {
+      schema = osEnvironment.get("DB_SEEDER_SQLSERVER_SCHEMA");
     } else {
       MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_DATABASE");
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_SCHEMA");
     }
 
     // =========================================================================
@@ -444,7 +446,7 @@ public final class PrestoEnvironment {
     url = SqlserverSeeder.getUrlPresto(connectionHost,
                                        connectionPort,
                                        connectionPrefix,
-                                       database,
+                                       schema,
                                        user,
                                        password);
 

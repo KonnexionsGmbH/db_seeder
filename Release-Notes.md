@@ -27,8 +27,7 @@ Release Date: dd.mm.2020
 
 - Presto Distributed Query Engine
 
-  - MySQL Connector: Connection failure (see [here](https://github.com/prestosql/presto/issues/4812)).
-  - PostgreSQL Connector: Connection failure (see [here](https://github.com/prestosql/presto/issues/4813)).
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
   - SQL Server Connector: Failed to insert NULL for varbinary in SQL Server (see [here](https://github.com/prestosql/presto/issues/4795)).
 
 #### New Features
@@ -37,15 +36,16 @@ n/a
 
 #### Modified Features
 
+- PostgreSQL: JDBC 42.2.15
+- Presto: use of Docker network
 - SQLite: DBMS 3.33.0
-- minor script fixes.
+- minor script fixes
 
 #### Deleted Features
 
 n/a
 
 ----------
-
 
 ## Version 2.1.2
 
