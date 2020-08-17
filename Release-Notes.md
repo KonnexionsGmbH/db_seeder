@@ -7,7 +7,7 @@
 
 ## Version 2.1.3
 
-Release Date: dd.mm.2020
+Release Date: 17.08.2020
 
 #### System Requirements
 
