@@ -14,6 +14,8 @@ import java.util.Random;
  * @since   2020-08-18
  */
 public class I72 {
+  private static final int    BATCH_SIZE            = 1000;
+
   private static final int    ROW_MAX_CITY          = 1800;
   private static final int    ROW_MAX_COUNTRY       = 200;
   private static final int    ROW_MAX_COUNTRY_STATE = 600;
@@ -57,7 +59,7 @@ public class I72 {
 
       preparedStatement.addBatch();
 
-      if (i % 1000 == 0) {
+      if (i % BATCH_SIZE == 0) {
         logger.info("Table CITY          : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();
@@ -66,6 +68,8 @@ public class I72 {
       } else {
         isToBeExecuted = true;
       }
+
+      preparedStatement.close();
     }
 
     if (isToBeExecuted) {
@@ -115,7 +119,7 @@ public class I72 {
 
       preparedStatement.addBatch();
 
-      if (i % 1000 == 0) {
+      if (i % BATCH_SIZE == 0) {
         logger.info("Table COUNTRY       : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();
@@ -181,7 +185,7 @@ public class I72 {
 
       preparedStatement.addBatch();
 
-      if (i % 1000 == 0) {
+      if (i % BATCH_SIZE == 0) {
         logger.info("Table COUNTRY_STATE : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();
@@ -239,7 +243,7 @@ public class I72 {
 
       preparedStatement.addBatch();
 
-      if (i % 1000 == 0) {
+      if (i % BATCH_SIZE == 0) {
         logger.info("Table TIMEZONE      : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();

@@ -135,6 +135,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
                          config.getPasswordSys(),
                          true);
 
+    String password   = config.getPassword();
     String schemaName = config.getSchema();
     String userName   = config.getUser();
 
@@ -159,7 +160,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("CREATE USER " + userName + " WITH UNENCRYPTED PASSWORD '" + config.getPassword() + "' NAME 'Dbseeder User' SCHEMA sys",
+      executeDdlStmnts("CREATE USER " + userName + " WITH UNENCRYPTED PASSWORD '" + password + "' NAME 'Dbseeder User' SCHEMA sys",
                        "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName,
                        "ALTER USER " + userName + " SET SCHEMA " + schemaName);
 
@@ -178,7 +179,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     connection = connect(urlUser,
                          null,
                          userName,
-                         config.getPassword(),
+                         password,
                          true);
 
     try {
@@ -191,6 +192,18 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
       e.printStackTrace();
       System.exit(1);
     }
+
+    // -----------------------------------------------------------------------
+    // Disconnect and reconnect.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(urlUser,
+                         driver,
+                         userName,
+                         password,
+                         true);
 
     if (isDebug) {
       logger.debug("End");
