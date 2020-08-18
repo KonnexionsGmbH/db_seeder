@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.1.3.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.2.0.svg)
 ----
 
 ### Table of Contents
@@ -76,6 +76,11 @@ Currently the following database management systems are supported:
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_mimer)**
+- [MonetDB](https://www.monetdb.org) 
+  - relational database management system (RDBMS)
+  - open source
+  - client only version
+  - **[see technical details here](#details_monetdb)**
 - [MySQL Database](https://www.mysql.com) 
   - relational database management system (RDBMS)
   - open source
@@ -131,6 +136,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.5          | 2.6.2               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.0.jre14         | 
 | Mimer SQL                       | mimer              | 11.0.3C                   | 3.40                | 
+| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29               | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | PostgreSQL Database             | postgresql         | 12.3                      | 42.2.15             |
@@ -431,6 +437,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[MariaDB Server](#details_mariadb)** / 
 **[Microsoft SQL Server](#details_sqlserver)** / 
 **[Mimer SQL](#details_mimer)** / 
+**[MonetDB](#details_monetdb)** / 
 **[MySQL Database](#details_mysql)** / 
 **[Oracle Database](#details_oracle)** / 
 **[PostgreSQL Database](#details_postgresql)** / 
@@ -917,7 +924,50 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.12 MySQL Database
+### <a name="details_monetdb"></a> 5.12 MonetDB
+
+- **data types**:
+
+| db seeder Type | MonetDB Type |
+| ---            | ---          |
+| BIGINT         | BIGINT       |
+| BLOB           | LONGBLOB     |
+| CLOB           | LONGTEXT     |
+| TIMESTAMP      | DATETIME     |
+| VARCHAR        | VARCHAR      |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a
+  - [CREATE SCHEMA](https://www.monetdb.org/Documentation/SQLReference/DataDefinition/SchemaDefinitions) 
+  - [CREATE TABLE](https://www.monetdb.org/Documentation/SQLReference/TableDefinitions) 
+  - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull monetdb/monetdb:Jun2020-SP1`
+  - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
+
+- **encoding**: no special configuration should be needed
+  
+- **issue tracking**: [Bugzilla](https://www.monetdb.org/bugzilla/)
+
+- **JDBC driver (latest)**:
+  - version 2.29
+  - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java/)
+
+- **privileged database access**:
+  - database: `demo`
+  - user: `monetdb`
+  - password: `monetdb`
+
+- **source code**: [monetdb.org](https://www.monetdb.org/downloads/sources/)
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_monetdb.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_mysql"></a> 5.13 MySQL Database
 
 - **data types**:
 
@@ -959,7 +1009,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.13 Oracle Database
+### <a name="details_oracle"></a> 5.14 Oracle Database
 
 - **data types**:
 
@@ -995,7 +1045,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.14 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.15 PostgreSQL Database
 
 - **data types**:
 
@@ -1031,7 +1081,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_presto"></a> 5.15 Presto Distributed Query Engine
+### <a name="details_presto"></a> 5.16 Presto Distributed Query Engine
 
 - **data types**:
 
@@ -1065,7 +1115,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.16 SQLite
+### <a name="details_sqlite"></a> 5.17 SQLite
 
 - **data types**:
 

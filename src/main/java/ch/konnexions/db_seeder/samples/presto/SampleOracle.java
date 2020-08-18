@@ -221,7 +221,7 @@ public final class SampleOracle {
     try {
       int    count    = 0;
 
-      String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + userName + "'";
+      String sqlStmnt = "SELECT COUNT(*) FROM " + tableName + " WHERE " + columnName + " = '" + userName + "'";
 
       logger.info("sqlStmnt='" + sqlStmnt + "'");
 

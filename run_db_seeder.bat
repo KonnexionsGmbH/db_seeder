@@ -14,7 +14,7 @@ set ERRORLEVEL=
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.1.3
+set DB_SEEDER_RELEASE=2.2.0
 
 if ["%1"] EQU [""] (
     echo ============================================================
@@ -34,6 +34,7 @@ if ["%1"] EQU [""] (
     echo informix           - IBM Informix
     echo mariadb            - MariaDB Server
     echo mimer              - Mimer SQL
+    echo monetdb            - MonetDB
     echo sqlserver          - Microsoft SQL Server
     echo sqlserver_presto   - Microsoft SQL Server via Presto
     echo mysql              - MySQL Database
@@ -312,6 +313,24 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
+    set DB_SEEDER_DBMS=monetdb
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=50000
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:monetdb://
+    set DB_SEEDER_CONTAINER_PORT=50000
+    set DB_SEEDER_DATABASE_SYS=demo
+    set DB_SEEDER_PASSWORD=monetdb
+    set DB_SEEDER_PASSWORD_SYS=monetdb
+    set DB_SEEDER_SCHEMA=kxn_schema
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=monetdb
+    set DB_SEEDER_VERSION=Jun2020-SP1
+)
+
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=mysql
 )
 
@@ -572,6 +591,11 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
 if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
     if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
         call run_db_seeder_presto_environment complete
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+        call scripts\run_db_seeder_setup_presto
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

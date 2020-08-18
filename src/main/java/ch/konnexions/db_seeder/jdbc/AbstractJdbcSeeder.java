@@ -382,10 +382,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("sqlserver".equals(tickerSymbolLower)
-        || "mysql".equals(tickerSymbolLower)
-        || "oracle".equals(tickerSymbolLower)
-        || "postgresql".equals(tickerSymbolLower)) {
+    if (dbmsEnum == DbmsEnum.MYSQL || dbmsEnum == DbmsEnum.ORACLE || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.SQLSERVER) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -437,10 +434,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if ("sqlserver".equals(tickerSymbolLower)
-        || "mysql".equals(tickerSymbolLower)
-        || "oracle".equals(tickerSymbolLower)
-        || "postgresql".equals(tickerSymbolLower)) {
+    if (dbmsEnum == DbmsEnum.MYSQL || dbmsEnum == DbmsEnum.ORACLE || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.SQLSERVER) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -467,8 +461,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       if (rowNo % 500 == 0) {
         logger.info("database table " + String.format(FORMAT_TABLE_NAME,
-                                                      tableName.toLowerCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
-                                                                                                       rowNo));
+                                                      tableName) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
+                                                                                         rowNo));
       }
 
       insertTable(preparedStatement,
@@ -476,6 +470,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
+//      if (isPresto || dbmsEnum == DbmsEnum.MONETDB) {
         if (isPresto) {
           int count = preparedStatement.executeUpdate();
 

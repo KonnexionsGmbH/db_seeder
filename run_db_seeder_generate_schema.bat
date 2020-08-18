@@ -45,7 +45,12 @@ if exist eclipse_workspace\ rmdir /q /s eclipse_workspace
 
 mkdir eclipse_workspace
 
-%HOME_ECLIPSE%\eclipse -nosplash -data eclipse_workspace -application org.eclipse.jdt.core.JavaCodeFormatter -config src\main\resources\org.eclipse.jdt.core.prefs -quiet src\main\java\ch\konnexions\db_seeder\generated\ -vmargs -Dfile.encoding=UTF-8
+%HOME_ECLIPSE%\eclipse -nosplash ^
+                       -data eclipse_workspace ^
+                       -application org.eclipse.jdt.core.JavaCodeFormatter ^
+                       -config src\main\resources\org.eclipse.jdt.core.prefs ^
+                       -quiet src\main\java\ch\konnexions\db_seeder\generated\ ^
+                       -vmargs -Dfile.encoding=UTF-8
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%

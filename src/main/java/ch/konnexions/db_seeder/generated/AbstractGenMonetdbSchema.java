@@ -6,16 +6,16 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a CrateDB DBMS. <br>
+ * CREATE TABLE statements for a MonetDB DBMS. <br>
  * 
  * @author  GenerateSchema.class
  * @version 2.1.3
  */
-public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
+public abstract class AbstractGenMonetdbSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
-  private static final Logger                 logger            = Logger.getLogger(AbstractGenCratedbSchema.class);
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenMonetdbSchema.class);
 
   /**
    * Create the CREATE TABLE statements.
@@ -29,11 +29,11 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                    CREATE TABLE CITY (
                        PK_CITY_ID                       BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              BIGINT,
-                       CITY_MAP                         OBJECT,
+                       FK_COUNTRY_STATE_ID              BIGINT                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
+                       CITY_MAP                         BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             TEXT                      NOT NULL
+                       NAME                             VARCHAR(100)              NOT NULL
                    )
                    """);
 
@@ -42,21 +42,23 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                    CREATE TABLE COMPANY (
                        PK_COMPANY_ID                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_CITY_ID                       BIGINT                    NOT NULL,
-                       ACTIVE                           TEXT                      NOT NULL,
-                       ADDRESS1                         TEXT,
-                       ADDRESS2                         TEXT,
-                       ADDRESS3                         TEXT,
+                       FK_CITY_ID                       BIGINT                    NOT NULL
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
+                       ACTIVE                           VARCHAR(1)                NOT NULL,
+                       ADDRESS1                         VARCHAR(50),
+                       ADDRESS2                         VARCHAR(50),
+                       ADDRESS3                         VARCHAR(50),
                        CREATED                          TIMESTAMP                 NOT NULL,
-                       DIRECTIONS                       TEXT,
-                       EMAIL                            TEXT,
-                       FAX                              TEXT,
+                       DIRECTIONS                       CLOB,
+                       EMAIL                            VARCHAR(100),
+                       FAX                              VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             TEXT                      NOT NULL,
-                       PHONE                            TEXT,
-                       POSTAL_CODE                      TEXT,
-                       URL                              TEXT,
-                       VAT_ID_NUMBER                    TEXT
+                       NAME                             VARCHAR(100)              NOT NULL
+                                                                                  UNIQUE,
+                       PHONE                            VARCHAR(50),
+                       POSTAL_CODE                      VARCHAR(50),
+                       URL                              VARCHAR(250),
+                       VAT_ID_NUMBER                    VARCHAR(100)
                    )
                    """);
 
@@ -65,11 +67,12 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                    CREATE TABLE COUNTRY (
                        PK_COUNTRY_ID                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COUNTRY_MAP                      OBJECT,
+                       COUNTRY_MAP                      BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
-                       ISO3166                          TEXT,
+                       ISO3166                          VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             TEXT                      NOT NULL
+                       NAME                             VARCHAR(100)              NOT NULL
+                                                                                  UNIQUE
                    )
                    """);
 
@@ -78,13 +81,16 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                    CREATE TABLE COUNTRY_STATE (
                        PK_COUNTRY_STATE_ID              BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_COUNTRY_ID                    BIGINT                    NOT NULL,
-                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL,
-                       COUNTRY_STATE_MAP                OBJECT,
+                       FK_COUNTRY_ID                    BIGINT                    NOT NULL
+                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
+                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL
+                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
+                       COUNTRY_STATE_MAP                BLOB,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             TEXT                      NOT NULL,
-                       SYMBOL                           TEXT
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       SYMBOL                           VARCHAR(50),
+                       CONSTRAINT CONSTRAINT_9        UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -93,11 +99,12 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
                    CREATE TABLE TIMEZONE (
                        PK_TIMEZONE_ID                   BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       ABBREVIATION                     TEXT                      NOT NULL,
+                       ABBREVIATION                     VARCHAR(50)               NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             TEXT                      NOT NULL,
-                       V_TIME_ZONE                      TEXT
+                       NAME                             VARCHAR(100)              NOT NULL
+                                                                                  UNIQUE,
+                       V_TIME_ZONE                      VARCHAR(4000)
                    )
                    """);
 
@@ -107,21 +114,21 @@ public abstract class AbstractGenCratedbSchema extends AbstractGenSeeder {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new abstract CrateDB schema object.
+   * Initialises a new abstract MonetDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public AbstractGenCratedbSchema(String tickerSymbolExtern) {
+  public AbstractGenMonetdbSchema(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
   }
 
   /**
-   * Initialises a new abstract CrateDB schema object.
+   * Initialises a new abstract MonetDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenCratedbSchema(String tickerSymbolExtern, String dbmsOption) {
+  public AbstractGenMonetdbSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {

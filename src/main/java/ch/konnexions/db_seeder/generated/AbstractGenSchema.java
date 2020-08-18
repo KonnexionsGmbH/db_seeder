@@ -11,7 +11,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Test Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  GenerateSchema.class
- * @version 2.1.0
+ * @version 2.1.3
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
@@ -23,6 +23,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
   private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);
   private final boolean         isDebug                  = logger.isDebugEnabled();
+
+  /**
+   * Initialises a new abstract generated schema object.
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   */
+  public AbstractGenSchema(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
 
   /**
    * Initialises a new abstract generated schema object.

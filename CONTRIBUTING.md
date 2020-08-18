@@ -8,13 +8,8 @@ In case of software changes we strongly recommend you to respect the license ter
 1. Push to the branch (git push origin my-new-feature)
 1. Create a new Pull Request
 1. Action points to be considered when adding a new database:
-   - lib
-     - <database_driver>.jar
-   - resources
-     - docker
-       - presto
-         - catalog
-           - db_seeder_<ticker_symbol>.properties
+   - lib/<database_driver>.jar
+   - resources/docker/presto/catalog/db_seeder_<ticker_symbol>.properties
    - scripts
      - run_db_seeder_complete[client|emb|presto].[bat|sh]
      - run_db_seeder_setup_<ticker_symbol>.bat
@@ -28,7 +23,7 @@ In case of software changes we strongly recommend you to respect the license ter
      - ch/konnexions/db_seeder/PrestoEnvironment.java
      - ch/konnexions/db_seeder/generator/GenerateSchema.java
      - ch/konnexions/db_seeder/jdbc/<ticker_symbol>/<Database>Seeder.java
-     - ch/konnexions/db_seeder/jdbc/AbstractJdbcSeeder.java     
+   - ch/konnexions/db_seeder/jdbc/AbstractJdbcSeeder.java     
    - .travis.yml
    - README.md
    - Release-Notes.md

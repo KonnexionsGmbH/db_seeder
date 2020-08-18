@@ -47,6 +47,9 @@ public abstract class AbstractDbmsSeeder {
     MIMER(
         "mimer"
     ),
+    MONETDB(
+        "monetdb"
+    ),
     MYSQL(
         "mysql"
     ),
@@ -192,6 +195,13 @@ public abstract class AbstractDbmsSeeder {
                         "Mimer SQL",
                         "client",
                         "Mimer",
+                        "" });
+    dbmsDetails.put("monetdb",
+                    new String[] {
+                        "monetdb",
+                        "MonetDB",
+                        "client",
+                        "MonetDB",
                         "" });
     dbmsDetails.put("sqlserver",
                     new String[] {

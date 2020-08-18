@@ -55,6 +55,10 @@ if ! ( ./run_db_seeder_presto_environment.sh complete ); then
     exit 255
 fi    
 
+if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+    exit 255
+fi    
+
 unset -f "${DB_SEEDER_DBMS}"=
 
 # ------------------------------------------------------------------------------

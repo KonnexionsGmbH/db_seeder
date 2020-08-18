@@ -2,19 +2,18 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_sqlserver.bat: Setup a Microsoft SQL Server Docker
-rem                                    container.
+rem run_db_seeder_setup_monetdb.bat: Setup a monetdb Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
 if ["%DB_SEEDER_CONNECTION_PORT%"] EQU [""] (
-    set DB_SEEDER_CONNECTION_PORT=1433
+    set DB_SEEDER_CONNECTION_PORT=50000
 )
 
 if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
-    set DB_SEEDER_CONTAINER_PORT=1433
+    set DB_SEEDER_CONTAINER_PORT=50000
 )
 
 if ["%DB_SEEDER_VERSION%"] EQU [""] (
@@ -26,7 +25,7 @@ if ["%DB_SEEDER_VERSION%"] EQU [""] (
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a Microsoft SQL Server Docker container.
+echo DB Seeder - setup a monetdb Docker container.
 echo --------------------------------------------------------------------------------
 echo DBMS_PRESTO               : %DB_SEEDER_DBMS_PRESTO%
 echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
@@ -37,36 +36,20 @@ echo:| TIME
 echo ================================================================================
 
 rem ------------------------------------------------------------------------------
-rem Microsoft SQL Server           https://hub.docker.com/_/microsoft-mssql-server
+rem monetdb                               https://hub.docker.com/r/monetdb/monetdb
 rem ------------------------------------------------------------------------------
 
-echo Microsoft SQL Server
+echo monetdb
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
-echo Docker create db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%)
-
-if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
-    docker create --name db_seeder_db ^
-                  -e        "ACCEPT_EULA=Y" ^
-                  -e        "SA_PASSWORD=sqlserver_2019" ^
-                  --network db_seeder_net ^
-                  -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
-                  mcr.microsoft.com/mssql/server:%DB_SEEDER_VERSION%
-) else (
-    docker create --name db_seeder_db ^
-                  -e     "ACCEPT_EULA=Y" ^
-                  -e     "SA_PASSWORD=sqlserver_2019" ^
-                  -p     %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
-                  mcr.microsoft.com/mssql/server:%DB_SEEDER_VERSION%
-)
-
-echo Docker start db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%) ...
+echo Docker create db_seeder_db (monetdb %DB_SEEDER_VERSION%)
+docker create --name db_seeder_db -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp monetdb/monetdb:%DB_SEEDER_VERSION%
+ 
+echo Docker start db_seeder_db (monetdb %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
-ping -n 30 127.0.0.1>nul
-
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
-echo DOCKER Microsoft SQL Server was ready in %CONSUMED%
+echo DOCKER monetdb was ready in %CONSUMED%
 
 docker ps
 

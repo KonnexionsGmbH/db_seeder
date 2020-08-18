@@ -32,6 +32,7 @@ if [ -z "$1" ]; then
     echo "informix           - IBM Informix"
     echo "mariadb            - MariaDB Server"
     echo "mimer              - Mimer SQL"
+    echo "monetdb            - MonetDB"
     echo "sqlserver          - Microsoft SQL Server"
     echo "sqlserver_presto   - Microsoft SQL Server via Presto"
     echo "mysql              - MySQL Database"
@@ -258,6 +259,20 @@ if [ "${DB_SEEDER_DBMS}" = "mimer" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
     export DB_SEEDER_VERSION=v11.0.3c
 fi
 
+if [ "${DB_SEEDER_DBMS}" = "monetdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=50000
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:monetdb://
+    export DB_SEEDER_CONTAINER_PORT=50000
+    export DB_SEEDER_DATABASE_SYS=demo
+    export DB_SEEDER_PASSWORD=monetdb
+    export DB_SEEDER_PASSWORD_SYS=monetdb
+    export DB_SEEDER_SCHEMA=kxn_schema
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=monetdb
+    export DB_SEEDER_VERSION=Jun2020-SP1
+fi
+
 if [ "${DB_SEEDER_DBMS}" = "mysql" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
@@ -462,6 +477,9 @@ else
     if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
         if [ "${DB_SEEDER_SETUP_DBMS}" = "yes" ]; then
             if ! ( ./run_db_seeder_presto_environment.sh complete ); then
+                exit 255
+            fi
+            if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
                 exit 255
             fi
         fi        
