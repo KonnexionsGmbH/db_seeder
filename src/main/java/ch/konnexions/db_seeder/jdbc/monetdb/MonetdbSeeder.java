@@ -71,6 +71,51 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
   }
 
   /**
+   * Drop the database user and schema.
+   *
+   * @param userName the user name
+   * @param schemaName the schema name
+   */
+  private void dropUser(String userName, String schemaName) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      int    count    = 0;
+
+      String sqlStmnt = "SELECT count(*) FROM sys.users WHERE name = '" + userName + "'";
+
+      if (isDebug) {
+        logger.debug("next SQL statement=" + sqlStmnt);
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        count = resultSet.getInt(1);
+      }
+
+      resultSet.close();
+
+      if (count > 0) {
+        executeDdlStmnts("ALTER USER " + userName + " SET SCHEMA sys",
+                         "DROP SCHEMA " + schemaName + " CASCADE",
+                         "CREATE SCHEMA " + schemaName + " AUTHORIZATION monetdb;",
+                         "DROP USER " + userName,
+                         "DROP SCHEMA " + schemaName);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    */
@@ -99,23 +144,21 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
 
     try {
       statement = connection.createStatement();
-
-      dropUser(userName,
-               null,
-               "sys.users",
-               "name");
-
-      executeDdlStmnts("DROP SCHEMA IF EXISTS " + schemaName + " CASCADE");
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
+
+    dropUser(userName,
+             schemaName);
 
     // -----------------------------------------------------------------------
     // Setup the database.
     // -----------------------------------------------------------------------
 
     try {
+      statement = connection.createStatement();
+
       executeDdlStmnts("CREATE USER " + userName + " WITH UNENCRYPTED PASSWORD '" + config.getPassword() + "' NAME 'Dbseeder User' SCHEMA sys",
                        "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName,
                        "ALTER USER " + userName + " SET SCHEMA " + schemaName);

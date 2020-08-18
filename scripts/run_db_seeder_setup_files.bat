@@ -82,7 +82,7 @@ if NOT ["%DB_SEEDER_DATABASE_INTERN%" == ""] (
         md %DB_SEEDER_DATABASE%
     ) else (
         for %%F in ("%DB_SEEDER_DATABASE%") do set dirname=%%~dpF
-        md dirname
+        md %dirname%
     )
 )
 

@@ -58,20 +58,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param tickerSymbolLower the lower case DBMS ticker symbol
    * @param connectionHost the connection host name
    * @param connectionPort the connection port
-   * 
-   * @return the Presto URL string
-   */
-  @SuppressWarnings("ucd")
-  public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort) {
-    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "?user=presto";
-  }
-
-  /**
-   * Gets the Presto URL string.
-   *
-   * @param tickerSymbolLower the lower case DBMS ticker symbol
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port
    * @param databaseSchema the database schema
    * 
    * @return the Presto URL string
@@ -106,7 +92,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected int           nullFactor;
 
   private final Random    randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  private ResultSet       resultSet          = null;
+  protected ResultSet     resultSet          = null;
 
   protected Statement     statement          = null;
 
@@ -301,7 +287,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return connection;
   }
 
-  private int countData(String tableName) {
+  private final int countData(String tableName) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -371,7 +357,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private void createData(String tableName) {
+  private final void createData(String tableName) {
     int rowMaxSize = getMaxRowSize(tableName);
 
     if (isDebug) {
@@ -427,7 +413,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private void createDataInsert(String tableName, int rowMaxSize, ArrayList<Object> pkList) {
+  private final void createDataInsert(String tableName, int rowMaxSize, ArrayList<Object> pkList) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -470,8 +456,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
-//      if (isPresto || dbmsEnum == DbmsEnum.MONETDB) {
-        if (isPresto) {
+        if (isPresto || dbmsEnum == DbmsEnum.MONETDB) {
+          //      if (isPresto) {
           int count = preparedStatement.executeUpdate();
 
           if (count != 1) {
@@ -939,7 +925,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return columnValue;
   }
 
-  private int getLengthUTF_8(String stringUTF_8) {
+  private final int getLengthUTF_8(String stringUTF_8) {
     int count = 0;
 
     for (int i = 0, len = stringUTF_8.length(); i < len; i++) {
@@ -963,7 +949,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
 
-  private int getMaxRowSize(String tableName) {
+  private final int getMaxRowSize(String tableName) {
     int maxRowSize   = maxRowSizes.get(tableName);
 
     int MAX_ROW_SIZE = Integer.MAX_VALUE;
@@ -1078,7 +1064,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  protected void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  private final void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setBytes(columnPos,
                                  getContentBlob(tableName,
@@ -1140,7 +1126,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  private final void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setString(columnPos,
                                   getContentClob(tableName,
@@ -1426,7 +1412,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private byte[] readBlobFile2Bytes() {
+  private final byte[] readBlobFile2Bytes() {
     if (isDebug) {
       logger.debug("Start");
 
@@ -1470,7 +1456,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return blobDataBytesArray;
   }
 
-  private String readClobFile() {
+  private final String readClobFile() {
     BufferedReader bufferedReader = null;
     try {
       bufferedReader = new BufferedReader(new FileReader(CLOB_FILE));
@@ -1507,7 +1493,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected abstract void setupDatabase();
 
-  private void validateNumberRows(String tableName, int expectedRows) {
+  private final void validateNumberRows(String tableName, int expectedRows) {
     if (isDebug) {
       logger.debug("Start");
     }
