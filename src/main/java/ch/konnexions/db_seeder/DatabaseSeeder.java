@@ -17,6 +17,7 @@ import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.informix.InformixSeeder;
 import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mimer.MimerSeeder;
+import ch.konnexions.db_seeder.jdbc.monetdb.MonetdbSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
@@ -133,6 +134,12 @@ public final class DatabaseSeeder {
         MimerSeeder mimerSeeder = new MimerSeeder(tickerSymbolExtern);
         mimerSeeder.createData();
         logger.info("End   Mimer SQL");
+        break;
+      case "monetdb":
+        logger.info("Start MonetDB");
+        MonetdbSeeder monetdbSeeder = new MonetdbSeeder(tickerSymbolExtern);
+        monetdbSeeder.createData();
+        logger.info("End   MonetDB");
         break;
       case "mysql":
         logger.info("Start MySQL Database");

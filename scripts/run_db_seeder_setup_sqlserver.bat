@@ -68,6 +68,8 @@ ping -n 30 127.0.0.1>nul
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER Microsoft SQL Server was ready in %CONSUMED%
 
+docker ps
+
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

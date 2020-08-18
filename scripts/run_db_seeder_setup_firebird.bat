@@ -61,6 +61,8 @@ if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER Firebird was ready in %CONSUMED%
 
+docker ps
+
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

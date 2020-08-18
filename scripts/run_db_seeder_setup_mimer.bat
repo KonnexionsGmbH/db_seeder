@@ -55,6 +55,8 @@ docker exec -i db_seeder_db bash < scripts\run_db_seeder_setup_mimer.input
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER Mimer SQL was ready in %CONSUMED%
 
+docker ps
+
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

@@ -60,6 +60,12 @@ echo.
         exit %ERRORLEVEL%
     )
 
+    call scripts\run_db_seeder_setup_presto.bat
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
     rem ------------------------------------------------------------------------------
     rem MySQL Database - via Presto.
     rem ------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a SQLite DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.1.0
+ * @version 2.1.3
  */
 public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        MODIFIED                         DATETIME,
                        NAME                             VARCHAR2(100)             NOT NULL,
                        SYMBOL                           VARCHAR2(50),
-                       CONSTRAINT CONSTRAINT_12       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_13       UNIQUE      (fk_country_id, name)
                    )
                    """);
 

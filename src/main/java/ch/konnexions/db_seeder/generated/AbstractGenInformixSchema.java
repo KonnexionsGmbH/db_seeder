@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a IBM Informix DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.1.0
+ * @version 2.1.3
  */
 public abstract class AbstractGenInformixSchema extends AbstractGenSeeder {
 

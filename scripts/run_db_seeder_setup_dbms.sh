@@ -278,6 +278,26 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mimer" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# MonetDB                               https://hub.docker.com/r/monetdb/monetdb
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "monetdb" ]; then
+    start=$(date +%s)
+    echo "MonetDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (MonetDB ${DB_SEEDER_VERSION})"
+    docker create --name db_seeder_db -p "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp monetdb/monetdb:"${DB_SEEDER_VERSION}"
+
+    echo "Docker start db_seeder_db (MonetDB ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    end=$(date +%s)
+    echo "DOCKER MonetDB was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
 # MySQL Database                                  https://hub.docker.com/_/mysql
 # ------------------------------------------------------------------------------
 

@@ -23,10 +23,11 @@ export DB_SEEDER_DBMS_IBMDB2=yes
 export DB_SEEDER_DBMS_INFORMIX=yes
 export DB_SEEDER_DBMS_MARIADB=yes
 export DB_SEEDER_DBMS_MIMER=yes
-export DB_SEEDER_DBMS_SQLSERVER=yes
+export DB_SEEDER_DBMS_MONETDB=yes
 export DB_SEEDER_DBMS_MYSQL=yes
 export DB_SEEDER_DBMS_ORACLE=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
+export DB_SEEDER_DBMS_SQLSERVER=yes
 
 # ------------------------------------------------------------------------------
 # Initialise Statistics.
@@ -59,6 +60,7 @@ echo "DBMS_IBMDB2                     : $DB_SEEDER_DBMS_IBMDB2"
 echo "DBMS_INFORMIX                   : $DB_SEEDER_DBMS_INFORMIX"
 echo "DBMS_MARIADB                    : $DB_SEEDER_DBMS_MARIADB"
 echo "DBMS_MIMER                      : $DB_SEEDER_DBMS_MIMER"
+echo "DBMS_MONETDB                    : $DB_SEEDER_DBMS_MONETDB"
 echo "DBMS_MYSQL                      : $DB_SEEDER_DBMS_MYSQL"
 echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
@@ -169,6 +171,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_MIMER" = "yes" ]; then
     if ! ( ./run_db_seeder.sh mimer yes 2 ); then
+        exit 255
+    fi    
+fi
+
+# ------------------------------------------------------------------------------
+# MonetDB.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_MONETDB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh monetdb yes 2 ); then
         exit 255
     fi    
 fi

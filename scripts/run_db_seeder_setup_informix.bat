@@ -63,6 +63,8 @@ docker exec -i db_seeder_db bash < scripts\run_db_seeder_setup_informix.input
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER IBM Informix was ready in %CONSUMED%
 
+docker ps
+
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

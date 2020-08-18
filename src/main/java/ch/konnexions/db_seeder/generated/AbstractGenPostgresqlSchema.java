@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a PostgreSQL DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.1.0
+ * @version 2.1.3
  */
 public abstract class AbstractGenPostgresqlSchema extends AbstractGenSeeder {
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenPostgresqlSchema extends AbstractGenSeeder {
                        modified                         TIMESTAMP,
                        name                             VARCHAR(100)              NOT NULL,
                        symbol                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_11       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_12       UNIQUE      (fk_country_id, name)
                    )
                    """);
 
