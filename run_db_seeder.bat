@@ -14,7 +14,7 @@ set ERRORLEVEL=
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.2.0
+set DB_SEEDER_RELEASE=2.3.0
 
 if ["%1"] EQU [""] (
     echo ============================================================

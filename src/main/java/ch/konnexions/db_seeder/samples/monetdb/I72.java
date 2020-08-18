@@ -18,7 +18,7 @@ public class I72 {
   private static final int    ROW_MAX_COUNTRY       = 200;
   private static final int    ROW_MAX_COUNTRY_STATE = 600;
   private static final int    ROW_MAX_TIMEZONE      = 11;
-  
+
   private final static Logger logger                = Logger.getLogger(I72.class);
 
   @SuppressWarnings("preview")
@@ -61,6 +61,7 @@ public class I72 {
         logger.info("Table CITY          : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();
+        preparedStatement.clearBatch();
         isToBeExecuted = false;
       } else {
         isToBeExecuted = true;
@@ -71,7 +72,10 @@ public class I72 {
       logger.info("Table CITY          : " + String.format("%1$6d" + " row(s) inserted in total",
                                                            ROW_MAX_CITY));
       preparedStatement.executeBatch();
+      preparedStatement.clearBatch();
     }
+
+    preparedStatement.close();
   }
 
   @SuppressWarnings("preview")
@@ -115,6 +119,7 @@ public class I72 {
         logger.info("Table COUNTRY       : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();
+        preparedStatement.clearBatch();
         isToBeExecuted = false;
       } else {
         isToBeExecuted = true;
@@ -125,7 +130,10 @@ public class I72 {
       logger.info("Table COUNTRY       : " + String.format("%1$6d" + " row(s) inserted in total",
                                                            ROW_MAX_COUNTRY));
       preparedStatement.executeBatch();
+      preparedStatement.clearBatch();
     }
+
+    preparedStatement.close();
   }
 
   @SuppressWarnings("preview")
@@ -177,6 +185,7 @@ public class I72 {
         logger.info("Table COUNTRY_STATE : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();
+        preparedStatement.clearBatch();
         isToBeExecuted = false;
       } else {
         isToBeExecuted = true;
@@ -187,7 +196,10 @@ public class I72 {
       logger.info("Table COUNTRY_STATE : " + String.format("%1$6d" + " row(s) inserted in total",
                                                            ROW_MAX_COUNTRY_STATE));
       preparedStatement.executeBatch();
+      preparedStatement.clearBatch();
     }
+
+    preparedStatement.close();
   }
 
   @SuppressWarnings("preview")
@@ -231,6 +243,7 @@ public class I72 {
         logger.info("Table TIMEZONE      : " + String.format("%1$6d" + " row(s) inserted so far",
                                                              i));
         preparedStatement.executeBatch();
+        preparedStatement.clearBatch();
         isToBeExecuted = false;
       } else {
         isToBeExecuted = true;
@@ -241,7 +254,10 @@ public class I72 {
       logger.info("Table TIMEZONE      : " + String.format("%1$6d" + " row(s) inserted in total",
                                                            ROW_MAX_TIMEZONE));
       preparedStatement.executeBatch();
+      preparedStatement.clearBatch();
     }
+
+    preparedStatement.close();
   }
 
   public static void main(String[] args) throws Exception {
