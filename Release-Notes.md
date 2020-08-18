@@ -7,7 +7,7 @@
 
 ## Version 2.2.0
 
-Release Date: dd.08.2020
+Release Date: 18.08.2020
 
 #### System Requirements
 
@@ -24,6 +24,10 @@ Release Date: dd.08.2020
 - Mimer SQL & DBeaver
 
   - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
+
+- MonetDB
+
+  - Exception in thread "main" java.sql.BatchUpdateException.
 
 - Presto Distributed Query Engine
 
