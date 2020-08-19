@@ -963,7 +963,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_monetdb.png)
+![](.README_images/DBeaver_MONETDB.png)
 
 [//]: # (===========================================================================================)
 

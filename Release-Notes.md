@@ -81,10 +81,6 @@ Release Date: 18.08.2020
 
 - the [original image from Presto](https://hub.docker.com/r/prestosql/presto) is now used
 
-#### Deleted Features
-
-n/a
-
 ----------
 
 ## Version 2.1.3
