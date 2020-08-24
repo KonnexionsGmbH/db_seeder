@@ -14,7 +14,6 @@ In case of software changes we strongly recommend you to respect the license ter
      - run_db_seeder_complete[client|emb|presto].[bat|sh]
      - run_db_seeder_setup_<ticker_symbol>.bat
      - run_db_seeder_setup_dbms.[bat|sh]
-     - run_db_seeder_setup_dbms.sh
      - run_db_seeder_setup_files.[bat|sh]
      - run_db_seeder_single.[bat|sh]
    - src/main/java

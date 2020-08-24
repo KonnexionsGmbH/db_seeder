@@ -32,7 +32,7 @@ Release Date: dd.mm.2020
 
 #### New Features
 
-n/a
+- New DBMS: YugabyteDB
 
 #### Modified Features
 

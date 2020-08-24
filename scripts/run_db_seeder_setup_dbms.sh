@@ -443,6 +443,36 @@ if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
     echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"
 fi
 
+# ------------------------------------------------------------------------------
+# YugabyteDB                       https://hub.docker.com/r/yugabytedb/yugabyte/
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
+    start=$(date +%s)
+    echo "YugabyteDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION})"
+
+    rm -rf tmp/yb_data
+    mkdir tmp/yb_data
+
+    docker run -d \
+               --name db_seeder_db \
+               -p 5433:5433 \
+               -p 7000:7000 \
+               -p 9001:9000 \
+               -p 9042:9042 \
+               -v $PWD/tmp/yb_data:/home/yugabyte/var \
+               yugabytedb/yugabyte:$DB_SEEDER_VERSION bin/yugabyted start --daemon=false
+
+    echo "Docker start db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION}) ..."
+
+    sleep 60
+
+    end=$(date +%s)
+    echo "DOCKER YugabyteDB was ready in $((end - start)) seconds"
+fi
+
 if [ "${DB_SEEDER_DBMS_EMBEDDED}" == "no" ]; then
     docker ps
 fi    

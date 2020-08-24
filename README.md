@@ -104,6 +104,11 @@ Currently the following database management systems are supported:
   - open source
   - embedded only version
   - **[see technical details here](#details_sqlite)**
+- [YugabyteDB](https://www.yugabyte.com)
+  - relational database management system (RDBMS)
+  - open source
+  - client only version
+  - **[see technical details here](#details_yugabyte)**
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
 If the selected database, schema or user already exist, they are deleted with all including data. 
@@ -142,6 +147,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | PostgreSQL Database             | postgresql         | 12.3                      | 42.2.15             |
 | Presto Distributed query Engine | n/a                | 339 - 340                 | 340                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
+| YugabyteDB                      | yugabyte           | 2.2.0.0-b80               | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -443,6 +449,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[PostgreSQL Database](#details_postgresql)** / 
 **[Presto distributed Query Engine](#details_presto)** / 
 **[SQLite](#details_sqlite)**
+**[YugabyteDB](#details_yugabyte)**
 
 [//]: # (===========================================================================================)
 
@@ -931,9 +938,9 @@ Below are also DBeaver based connection parameter examples for each database man
 | db seeder Type | MonetDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
-| BLOB           | LONGBLOB     |
-| CLOB           | LONGTEXT     |
-| TIMESTAMP      | DATETIME     |
+| BLOB           | BLOB         |
+| CLOB           | CLOB         |
+| TIMESTAMP      | TIMESTAMP    |
 | VARCHAR        | VARCHAR      |
 
 - **DDL syntax**:
@@ -1150,6 +1157,44 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLITE.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_yugabyte"></a> 5.16 YugabyteDB
+
+- **data types**:
+
+| db seeder Type | PostgreSQL Database Type |
+| ---            | ---                      |
+| BIGINT         | BIGINT                   |
+| BLOB           | BYTEA                    |
+| CLOB           | TEXT                     |
+| TIMESTAMP      | TIMESTAMP                |
+| VARCHAR        | VARCHAR                  |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database/) 
+  - [CREATE SCHEMA](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_schema/)
+  - [CREATE TABLE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_table/) 
+  - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull yugabytedb/yugabyte:2.2.0.0-b80`
+  - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
+
+- **encoding**: full support of UTF-8
+  
+- **issue tracking**: [GitHub](https://github.com/yugabyte/yugabyte-db/issues)
+
+- **JDBC driver (latest)**:
+  - version 42.2.7-yb-3
+  - [Maven repository](https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb)
+
+- **source code**: [GitHub](https://github.com/yugabyte/yugabyte-db)
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_YOUGABYTE.png)
 
 ## <a name="presto"></a> 6. Presto - Distributed Query Engine
 

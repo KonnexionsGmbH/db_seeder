@@ -42,6 +42,7 @@ if [ -z "$1" ]; then
     echo "postgresql         - PostgreSQL Database"
     echo "postgresql_presto  - PostgreSQL Database via Presto"
     echo "sqlite             - SQLite [embedded]"
+    echo "yugabyte           - YugabyteDB"
     echo "---------------------------------------------------------"
     read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=${DB_SEEDER_DBMS}
@@ -402,6 +403,22 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_presto" ] || [ "${DB_SEEDER_DBMS}" = "comp
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=2019-latest
+fi
+
+
+if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=5433
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    export DB_SEEDER_CONTAINER_PORT=5433
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    export DB_SEEDER_PASSWORD=yugabyte
+    export DB_SEEDER_PASSWORD_SYS=yugabyte
+    export DB_SEEDER_SCHEMA=kxn_schema
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=yugabyte
+    export DB_SEEDER_VERSION=2.2.2.0
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then

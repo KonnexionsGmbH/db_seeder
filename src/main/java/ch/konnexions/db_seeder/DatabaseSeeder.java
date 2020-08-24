@@ -23,6 +23,7 @@ import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
+import ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
@@ -194,6 +195,12 @@ public final class DatabaseSeeder {
         SqlserverSeeder sqlserverSeederPresto = new SqlserverSeeder(tickerSymbolExtern, "presto");
         sqlserverSeederPresto.createData();
         logger.info("End   Microsoft SQL Server via Presto");
+        break;
+      case "yugabyte":
+        logger.info("Start YugabyteDB");
+        YugabyteSeeder yugabyteSeeder = new YugabyteSeeder(tickerSymbolExtern);
+        yugabyteSeeder.createData();
+        logger.info("End   YugabyteDB");
         break;
       case "":
         MessageHandling.abortProgram(logger,

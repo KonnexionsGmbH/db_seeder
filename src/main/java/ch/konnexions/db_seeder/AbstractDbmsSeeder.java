@@ -64,6 +64,9 @@ public abstract class AbstractDbmsSeeder {
     ),
     SQLSERVER(
         "sqlserver"
+    ),
+    YUGABYTE(
+        "yugabyte"
     );
 
     private final String tickerSymbol;
@@ -265,6 +268,13 @@ public abstract class AbstractDbmsSeeder {
                         "MySQL Database",
                         "client",
                         "MySQL",
+                        "" });
+    dbmsDetails.put("yugabyte",
+                    new String[] {
+                        "yugabyte",
+                        "YugabyteDB",
+                        "client",
+                        "YugabyteDB",
                         "" });
 
     return dbmsDetails;
