@@ -95,11 +95,11 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "cratedb" -> "OBJECT";
       case "mariadb", "mysql" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";
-      case "postgresql" -> "BYTEA";
+      case "postgresql", "yugabyte" -> "BYTEA";
       default -> "BLOB";
       };
     case "CLOB" -> switch (tickerSymbolLower) {
-      case "cratedb", "postgresql" -> "TEXT";
+      case "cratedb", "postgresql", "yugabyte" -> "TEXT";
       case "firebird" -> "BLOB SUB_TYPE 1";
       case "mariadb", "mysql" -> "LONGTEXT";
       case "sqlserver" -> "VARCHAR(MAX)";

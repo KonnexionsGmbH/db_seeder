@@ -29,6 +29,7 @@ env:
   - DB_SEEDER_DBMS=sqlite
   - DB_SEEDER_DBMS=sqlserver
 # - DB_SEEDER_DBMS=sqlserver_presto
+  - DB_SEEDER_DBMS=yugabyte
 
 jdk:
   - oraclejdk14
