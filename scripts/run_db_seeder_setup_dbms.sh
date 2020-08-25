@@ -479,6 +479,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
     echo "Docker create db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION})"
 
     rm -rf tmp/yb_data
+    mkdir -p tmp
     mkdir tmp/yb_data
 
     docker run -d \
