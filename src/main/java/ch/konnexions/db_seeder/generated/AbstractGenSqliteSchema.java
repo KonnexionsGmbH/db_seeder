@@ -90,7 +90,7 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        MODIFIED                         DATETIME,
                        NAME                             VARCHAR2(100)             NOT NULL,
                        SYMBOL                           VARCHAR2(50),
-                       CONSTRAINT CONSTRAINT_13       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_14       UNIQUE      (fk_country_id, name)
                    )
                    """);
 

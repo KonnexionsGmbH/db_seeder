@@ -90,7 +90,7 @@ public abstract class AbstractGenPostgresqlSchema extends AbstractGenSeeder {
                        modified                         TIMESTAMP,
                        name                             VARCHAR(100)              NOT NULL,
                        symbol                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_12       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_13       UNIQUE      (fk_country_id, name)
                    )
                    """);
 

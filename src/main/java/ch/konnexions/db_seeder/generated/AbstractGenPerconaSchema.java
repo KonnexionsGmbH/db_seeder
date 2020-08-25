@@ -6,16 +6,16 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a YugabyteDB DBMS. <br>
+ * CREATE TABLE statements for a Percona Server DBMS. <br>
  * 
  * @author  GenerateSchema.class
  * @version 2.3.0
  */
-public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
+public abstract class AbstractGenPerconaSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
-  private static final Logger                 logger            = Logger.getLogger(AbstractGenYugabyteSchema.class);
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenPerconaSchema.class);
 
   /**
    * Create the CREATE TABLE statements.
@@ -26,85 +26,85 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
 
     statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE CITY (
-                       PK_CITY_ID                       BIGINT                    NOT NULL
+                   CREATE TABLE city (
+                       pk_city_id                       BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              BIGINT                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
-                       CITY_MAP                         BYTEA,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       fk_country_state_id              BIGINT                    REFERENCES country_state                    (pk_country_state_id),
+                       city_map                         LONGBLOB,
+                       created                          DATETIME                  NOT NULL,
+                       modified                         DATETIME,
+                       name                             VARCHAR(100)              NOT NULL
                    )
                    """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
-                   CREATE TABLE COMPANY (
-                       PK_COMPANY_ID                    BIGINT                    NOT NULL
+                   CREATE TABLE company (
+                       pk_company_id                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_CITY_ID                       BIGINT                    NOT NULL
-                                                                                  REFERENCES CITY                             (PK_CITY_ID),
-                       ACTIVE                           VARCHAR(1)                NOT NULL,
-                       ADDRESS1                         VARCHAR(50),
-                       ADDRESS2                         VARCHAR(50),
-                       ADDRESS3                         VARCHAR(50),
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       DIRECTIONS                       TEXT,
-                       EMAIL                            VARCHAR(100),
-                       FAX                              VARCHAR(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       fk_city_id                       BIGINT                    NOT NULL
+                                                                                  REFERENCES city                             (pk_city_id),
+                       active                           VARCHAR(1)                NOT NULL,
+                       address1                         VARCHAR(50),
+                       address2                         VARCHAR(50),
+                       address3                         VARCHAR(50),
+                       created                          DATETIME                  NOT NULL,
+                       directions                       LONGTEXT,
+                       email                            VARCHAR(100),
+                       fax                              VARCHAR(50),
+                       modified                         DATETIME,
+                       name                             VARCHAR(100)              NOT NULL
                                                                                   UNIQUE,
-                       PHONE                            VARCHAR(50),
-                       POSTAL_CODE                      VARCHAR(50),
-                       URL                              VARCHAR(250),
-                       VAT_ID_NUMBER                    VARCHAR(100)
+                       phone                            VARCHAR(50),
+                       postal_code                      VARCHAR(50),
+                       url                              VARCHAR(250),
+                       vat_id_number                    VARCHAR(100)
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
-                   CREATE TABLE COUNTRY (
-                       PK_COUNTRY_ID                    BIGINT                    NOT NULL
+                   CREATE TABLE country (
+                       pk_country_id                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COUNTRY_MAP                      BYTEA,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       ISO3166                          VARCHAR(50),
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       country_map                      LONGBLOB,
+                       created                          DATETIME                  NOT NULL,
+                       iso3166                          VARCHAR(50),
+                       modified                         DATETIME,
+                       name                             VARCHAR(100)              NOT NULL
                                                                                   UNIQUE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE COUNTRY_STATE (
-                       PK_COUNTRY_STATE_ID              BIGINT                    NOT NULL
+                   CREATE TABLE country_state (
+                       pk_country_state_id              BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_COUNTRY_ID                    BIGINT                    NOT NULL
-                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
-                       FK_TIMEZONE_ID                   BIGINT                    NOT NULL
-                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
-                       COUNTRY_STATE_MAP                BYTEA,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL,
-                       SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_16       UNIQUE      (fk_country_id, name)
+                       fk_country_id                    BIGINT                    NOT NULL
+                                                                                  REFERENCES country                          (pk_country_id),
+                       fk_timezone_id                   BIGINT                    NOT NULL
+                                                                                  REFERENCES timezone                         (pk_timezone_id),
+                       country_state_map                LONGBLOB,
+                       created                          DATETIME                  NOT NULL,
+                       modified                         DATETIME,
+                       name                             VARCHAR(100)              NOT NULL,
+                       symbol                           VARCHAR(50),
+                       CONSTRAINT CONSTRAINT_12       UNIQUE      (fk_country_id, name)
                    )
                    """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
-                   CREATE TABLE TIMEZONE (
-                       PK_TIMEZONE_ID                   BIGINT                    NOT NULL
+                   CREATE TABLE timezone (
+                       pk_timezone_id                   BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       ABBREVIATION                     VARCHAR(50)               NOT NULL,
-                       CREATED                          TIMESTAMP                 NOT NULL,
-                       MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       abbreviation                     VARCHAR(50)               NOT NULL,
+                       created                          DATETIME                  NOT NULL,
+                       modified                         DATETIME,
+                       name                             VARCHAR(100)              NOT NULL
                                                                                   UNIQUE,
-                       V_TIME_ZONE                      VARCHAR(4000)
+                       v_time_zone                      VARCHAR(4000)
                    )
                    """);
 
@@ -114,21 +114,21 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new abstract YugabyteDB schema object.
+   * Initialises a new abstract Percona Server schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public AbstractGenYugabyteSchema(String tickerSymbolExtern) {
+  public AbstractGenPerconaSchema(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
   }
 
   /**
-   * Initialises a new abstract YugabyteDB schema object.
+   * Initialises a new abstract Percona Server schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenYugabyteSchema(String tickerSymbolExtern, String dbmsOption) {
+  public AbstractGenPerconaSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {

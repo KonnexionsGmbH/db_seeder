@@ -56,6 +56,9 @@ public abstract class AbstractDbmsSeeder {
     ORACLE(
         "oracle"
     ),
+    PERCONA(
+        "percona"
+    ),
     POSTGRESQL(
         "postgresql"
     ),
@@ -206,12 +209,12 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "MonetDB",
                         "" });
-    dbmsDetails.put("sqlserver",
+    dbmsDetails.put("mysql",
                     new String[] {
-                        "sqlserver",
-                        "MS SQL Server",
+                        "mysql",
+                        "MySQL Database",
                         "client",
-                        "MS SQL Server",
+                        "MySQL",
                         "" });
     dbmsDetails.put("mysql_presto",
                     new String[] {
@@ -234,6 +237,13 @@ public abstract class AbstractDbmsSeeder {
                         "presto",
                         "Oracle",
                         "" });
+    dbmsDetails.put("percona",
+                    new String[] {
+                        "percona",
+                        "Percona Server for MySQL",
+                        "client",
+                        "Percona Server",
+                        "" });
     dbmsDetails.put("postgresql",
                     new String[] {
                         "postgresql",
@@ -255,19 +265,19 @@ public abstract class AbstractDbmsSeeder {
                         "embedded",
                         "SQLite",
                         "" });
+    dbmsDetails.put("sqlserver",
+                    new String[] {
+                        "sqlserver",
+                        "MS SQL Server",
+                        "client",
+                        "MS SQL Server",
+                        "" });
     dbmsDetails.put("sqlserver_presto",
                     new String[] {
                         "sqlserver",
                         "MS SQL Server",
                         "presto",
                         "MS SQL Server",
-                        "" });
-    dbmsDetails.put("mysql",
-                    new String[] {
-                        "mysql",
-                        "MySQL Database",
-                        "client",
-                        "MySQL",
                         "" });
     dbmsDetails.put("yugabyte",
                     new String[] {

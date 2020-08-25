@@ -20,6 +20,7 @@ import ch.konnexions.db_seeder.jdbc.mimer.MimerSeeder;
 import ch.konnexions.db_seeder.jdbc.monetdb.MonetdbSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
+import ch.konnexions.db_seeder.jdbc.percona.PerconaSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
@@ -165,6 +166,12 @@ public final class DatabaseSeeder {
         OracleSeeder oracleSeederPresto = new OracleSeeder(tickerSymbolExtern, "presto");
         oracleSeederPresto.createData();
         logger.info("End   Oracle Database via Presto");
+        break;
+      case "percona":
+        logger.info("Start Percona Server for MySQL");
+        PerconaSeeder perconaSeeder = new PerconaSeeder(tickerSymbolExtern);
+        perconaSeeder.createData();
+        logger.info("End   Percona Server for MySQL");
         break;
       case "postgresql":
         logger.info("Start PostgreSQL Database");

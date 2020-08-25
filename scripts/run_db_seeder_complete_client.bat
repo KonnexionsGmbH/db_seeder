@@ -25,8 +25,10 @@ set DB_SEEDER_DBMS_MIMER=yes
 set DB_SEEDER_DBMS_MONETDB=yes
 set DB_SEEDER_DBMS_MYSQL=yes
 set DB_SEEDER_DBMS_ORACLE=yes
+set DB_SEEDER_DBMS_PERCONA=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
 set DB_SEEDER_DBMS_SQLSERVER=yes
+set DB_SEEDER_DBMS_YUGABYTE=yes
 
 echo.
 echo Script %0 is now running
@@ -63,8 +65,10 @@ echo.
     echo DBMS_MOMETDB                    : %DB_SEEDER_DBMS_MONETDB%
     echo DBMS_MYSQL                      : %DB_SEEDER_DBMS_MYSQL%
     echo DBMS_ORACLE                     : %DB_SEEDER_DBMS_ORACLE%
+    echo DBMS_PERCONA                    : %DB_SEEDER_DBMS_PERCONA%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
     echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
+    echo DBMS_YUGABYTE                   : %DB_SEEDER_DBMS_YUGABYTE%
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
@@ -226,6 +230,18 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
+    rem Percona Server for MySQL.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_PERCONA%"] EQU ["yes"] (
+        call run_db_seeder.bat perciona yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
+    
+    rem ------------------------------------------------------------------------------
     rem PostgreSQL Database.
     rem ------------------------------------------------------------------------------
     
@@ -243,6 +259,18 @@ echo.
     
     if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
         call run_db_seeder.bat sqlserver yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
+    
+    rem ------------------------------------------------------------------------------
+    rem YugabyteDB.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_YUGABYTE%"] EQU ["yes"] (
+        call run_db_seeder.bat yugabyte yes 2
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

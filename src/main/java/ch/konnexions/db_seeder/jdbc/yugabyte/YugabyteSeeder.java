@@ -4,39 +4,18 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
+import ch.konnexions.db_seeder.generated.AbstractGenYugabyteSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * Test Data Generator for a PostgreSQL DBMS.
+ * Test Data Generator for a YugabyteDB DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class YugabyteSeeder extends AbstractGenPostgresqlSchema {
+public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
 
   private static final Logger logger = Logger.getLogger(YugabyteSeeder.class);
-
-  /**
-   * Gets the connection URL for Presto (used by PrestoEnvironment).
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param database the database with non-privileged access
-   * @param user the user with non-privileged access
-   * @param password the password with non-privileged access
-   *
-   * @return the connection URL for non-privileged access
-   */
-  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
-    return getUrlUser(connectionHost,
-                      connectionPort,
-                      connectionPrefix,
-                      database,
-                      user,
-                      password);
-  }
 
   /**
    * Gets the connection URL for privileged access.
@@ -78,7 +57,7 @@ public final class YugabyteSeeder extends AbstractGenPostgresqlSchema {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Instantiates a new PostgreSQL seeder object.
+   * Instantiates a new YugabyteDB seeder object.
    * 
    * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
@@ -87,19 +66,19 @@ public final class YugabyteSeeder extends AbstractGenPostgresqlSchema {
   }
 
   /**
-   * Instantiates a new PostgreSQL seeder object.
+   * Instantiates a new YugabyteDB seeder object.
    * 
    * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
-  public YugabyteSeeder(String tickerSymbolExtern, String dbmsOption) {
+  private YugabyteSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
       logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    dbmsEnum = DbmsEnum.POSTGRESQL;
+    dbmsEnum = DbmsEnum.YUGABYTE;
 
     if (isPresto) {
       urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
@@ -136,7 +115,7 @@ public final class YugabyteSeeder extends AbstractGenPostgresqlSchema {
    */
   @Override
   protected final String createDdlStmnt(String tableName) {
-    return AbstractGenPostgresqlSchema.createTableStmnts.get(tableName);
+    return AbstractGenYugabyteSchema.createTableStmnts.get(tableName);
   }
 
   @Override
