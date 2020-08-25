@@ -389,6 +389,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
         exit 255
     fi
 
+    sleep 60
+
     end=$(date +%s)
 fi
 
