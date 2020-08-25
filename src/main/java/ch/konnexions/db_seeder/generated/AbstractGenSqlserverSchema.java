@@ -90,7 +90,7 @@ public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
                        modified                         DATETIME2,
                        name                             VARCHAR(100)              NOT NULL,
                        symbol                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_14       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_15       UNIQUE      (fk_country_id, name)
                    )
                    """);
 

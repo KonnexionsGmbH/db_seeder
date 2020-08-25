@@ -32,11 +32,14 @@ Release Date: dd.mm.2020
 
 #### New Features
 
+- New DBMS: Percona Server for MySQL
 - New DBMS: YugabyteDB
 
 #### Modified Features
 
-n/a
+- CrateDB: DBMS 4.2.3
+- PostgreSQL: DBMS 12.4
+- PostgreSQL: JDBC 42.2.15
 
 #### Deleted Features
 

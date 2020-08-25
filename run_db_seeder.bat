@@ -41,6 +41,7 @@ if ["%1"] EQU [""] (
     echo mysql_presto       - MySQL Database via Presto
     echo oracle             - Oracle Database
     echo oracle_presto      - Oracle Database via Presto
+    echo percona            - Percona Server for MySQL
     echo postgresql         - PostgreSQL Database
     echo postgresql_presto  - PostgreSQL Database via Presto
     echo sqlite             - SQLite [embedded]
@@ -112,6 +113,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.1.6
     set DB_SEEDER_VERSION=4.1.8
     set DB_SEEDER_VERSION=4.2.2
+    set DB_SEEDER_VERSION=4.2.3
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
@@ -412,6 +414,25 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
+    set DB_SEEDER_DBMS=percona
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=3306
+    set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
+    set DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
+    set DB_SEEDER_CONTAINER_PORT=3306
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=sys
+    set DB_SEEDER_PASSWORD=percona
+    set DB_SEEDER_PASSWORD_SYS=percona
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=root
+    set DB_SEEDER_VERSION=5.7.14
+)
+
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=postgresql
 )
 
@@ -426,7 +447,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_PASSWORD_SYS=postgresql
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
-    set DB_SEEDER_VERSION=12.3-alpine
+    set DB_SEEDER_VERSION=12.4-alpine
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
@@ -446,7 +467,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
     set DB_SEEDER_SCHEMA=public
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
-    set DB_SEEDER_VERSION=12.3-alpine
+    set DB_SEEDER_VERSION=12.4-alpine
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
@@ -514,7 +535,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=yugabyte
-    set DB_SEEDER_VERSION=2.2.2.0
+    set DB_SEEDER_VERSION=2.2.2.0-b15
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (

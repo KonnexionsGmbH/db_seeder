@@ -93,7 +93,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       };
     case "BLOB" -> switch (tickerSymbolLower) {
       case "cratedb" -> "OBJECT";
-      case "mariadb", "mysql" -> "LONGBLOB";
+      case "mariadb", "mysql", "percona" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";
       case "postgresql", "yugabyte" -> "BYTEA";
       default -> "BLOB";
@@ -101,13 +101,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     case "CLOB" -> switch (tickerSymbolLower) {
       case "cratedb", "postgresql", "yugabyte" -> "TEXT";
       case "firebird" -> "BLOB SUB_TYPE 1";
-      case "mariadb", "mysql" -> "LONGTEXT";
+      case "mariadb", "mysql", "percona" -> "LONGTEXT";
       case "sqlserver" -> "VARCHAR(MAX)";
       default -> "CLOB";
       };
     case "TIMESTAMP" -> switch (tickerSymbolLower) {
       case "informix" -> "DATETIME YEAR TO FRACTION";
-      case "mariadb", "mysql", "sqlite" -> "DATETIME";
+      case "mariadb", "mysql", "percona", "sqlite" -> "DATETIME";
       case "sqlserver" -> "DATETIME2";
       default -> "TIMESTAMP";
       };
@@ -185,6 +185,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       if ("sqlserver".equals(tickerSymbolLower)
           || "mysql".equals(tickerSymbolLower)
           || "oracle".equals(tickerSymbolLower)
+          || "percona".equals(tickerSymbolLower)
           || "postgresql".equals(tickerSymbolLower)) {
         columns.forEach(column -> column.toLowerCase());
       } else {
@@ -203,6 +204,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         if ("sqlserver".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
+            || "percona".equals(tickerSymbolLower)
             || "postgresql".equals(tickerSymbolLower)) {
           editedReferenceTable = tableConstraint.getReferenceTable().toLowerCase();
           columns.forEach(column -> column.toLowerCase());
@@ -472,6 +474,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         if ("sqlserver".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
+            || "percona".equals(tickerSymbolLower)
             || "postgresql".equals(tickerSymbolLower)) {
           editedTableName = tableName.toLowerCase();
         } else {
@@ -502,6 +505,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           if ("sqlserver".equals(tickerSymbolLower)
               || "mysql".equals(tickerSymbolLower)
               || "oracle".equals(tickerSymbolLower)
+              || "percona".equals(tickerSymbolLower)
               || "postgresql".equals(tickerSymbolLower)) {
             editedColumnName = column.getColumnName().toLowerCase();
           } else {
@@ -594,6 +598,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                 if ("sqlserver".equals(tickerSymbolLower)
                     || "mysql".equals(tickerSymbolLower)
                     || "oracle".equals(tickerSymbolLower)
+                    || "percona".equals(tickerSymbolLower)
                     || "postgresql".equals(tickerSymbolLower)) {
                   editedReferenceTable  = reference.getReferenceTable().toLowerCase();
                   editedReferenceColumn = reference.getReferenceColumn().toLowerCase();

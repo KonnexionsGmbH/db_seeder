@@ -39,6 +39,7 @@ if [ -z "$1" ]; then
     echo "mysql_presto       - MySQL Database via Presto"
     echo "oracle             - Oracle Database"
     echo "oracle_presto      - Oracle Database via Presto"
+    echo "percona            - Percona Server for MySQL"
     echo "postgresql         - PostgreSQL Database"
     echo "postgresql_presto  - PostgreSQL Database via Presto"
     echo "sqlite             - SQLite [embedded]"
@@ -107,6 +108,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
     export DB_SEEDER_VERSION=4.1.6
     export DB_SEEDER_VERSION=4.1.8
     export DB_SEEDER_VERSION=4.2.2
+    export DB_SEEDER_VERSION=4.2.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
@@ -338,6 +340,21 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ] || [ "${DB_SEEDER_DBMS}" = "complet
     export DB_SEEDER_VERSION=db_19_3_ee
 fi
 
+if [ "${DB_SEEDER_DBMS}" = "percona" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=3306
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
+    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
+    export DB_SEEDER_CONTAINER_PORT=3306
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=sys
+    export DB_SEEDER_PASSWORD=percona
+    export DB_SEEDER_PASSWORD_SYS=percona
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=root
+    export DB_SEEDER_VERSION=5.7.14
+fi
+
 if [ "${DB_SEEDER_DBMS}" = "postgresql" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
@@ -349,7 +366,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ] || [ "${DB_SEEDER_DBMS}" = "complete_c
     export DB_SEEDER_PASSWORD_SYS=postgresql
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
-    export DB_SEEDER_VERSION=12.3-alpine
+    export DB_SEEDER_VERSION=12.4-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
@@ -365,7 +382,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "com
     export DB_SEEDER_SCHEMA=public
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
-    export DB_SEEDER_VERSION=12.3-alpine
+    export DB_SEEDER_VERSION=12.4-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ] || [ "${DB_SEEDER_DBMS}" = "complete_emb" ]; then
@@ -418,7 +435,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=yugabyte
-    export DB_SEEDER_VERSION=2.2.2.0
+    export DB_SEEDER_VERSION=2.2.2.0-b15
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then

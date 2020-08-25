@@ -370,6 +370,29 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# Percona Server                         https://hub.docker.com/_/percona-server
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
+    start=$(date +%s)
+    echo "Percona Server."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (Percona Server ${DB_SEEDER_VERSION})"
+
+    docker create --name db_seeder_db \
+                  -e     MYSQL_ROOT_PASSWORD=percona \
+                  -p     $DB_SEEDER_CONNECTION_PORT:$DB_SEEDER_CONTAINER_PORT/tcp \
+                  store/percona/percona-server:$DB_SEEDER_VERSION
+
+    echo "Docker start db_seeder_db (Percona Server ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    end=$(date +%s)
+fi
+
+# ------------------------------------------------------------------------------
 # PostgreSQL Database                          https://hub.docker.com/_/postgres
 # ------------------------------------------------------------------------------
 

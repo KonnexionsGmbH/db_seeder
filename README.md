@@ -90,6 +90,11 @@ Currently the following database management systems are supported:
   - relational database management system (RDBMS)
   - client only version
   - **[see technical details here](#details_oracle)**
+- [Percona Server for MySQL](https://www.percona.com/software/mysql-database/percona-server)
+  - relational database management system (RDBMS)
+  - open source
+  - client only version
+  - **[see technical details here](#details_percona)**
 - [PostgreSQL Database](https://www.postgresql.org)
   - relational database management system (RDBMS)
   - open source
@@ -132,7 +137,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 |---                              |---                 |---                        |---                  |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                      | 10.2.1.8849         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.2.2             | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.2.3             | 2.6.0               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.6             | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
@@ -141,13 +146,14 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.5          | 2.6.2               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.0.jre14         | 
 | Mimer SQL                       | mimer              | 11.0.3C                   | 3.40                | 
-| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29               | 
+| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29                | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
-| PostgreSQL Database             | postgresql         | 12.3                      | 42.2.15             |
+| Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.21              | 
+| PostgreSQL Database             | postgresql         | 12.3 - 12.4               | 42.2.16             |
 | Presto Distributed query Engine | n/a                | 339 - 340                 | 340                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
-| YugabyteDB                      | yugabyte           | 2.2.0.0-b80               | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15               | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -404,28 +410,28 @@ db_seeder.user=
 
 #### 4.2.2 Explanation and Cross-reference
 
-| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                                                     | Description |     
-| ---                                       | ---                               | ---                                                                                                         | --- |
-| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                                            | host name or ip address of the database server |
-| connection.host_presto=<x...x>            | CONNECTION_HOST_PRESTO            | Presto                                                                                                      | host name or ip address of the Presto distributed query engine |
-| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                                            | port number of the database server |
-| connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                      | port number of the Presto distributed query engine |
-| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                   | prefix of the database connection string |
-| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                      | service name of the database connection string |
-| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql                                                                   | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, mysql, postgresql, sqlserver                                                      | privileged database name |
-| database=<x...x>                          | DATABASE                          | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, postgresql, sqlite, sqlserver | database name |
-| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                         | directory and file name of the db_seeder configuration file |
-| file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                               | directory and file name of the JSON file containing the database schema |
-| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                    | separator of the statistics file created in `run_db_seeder` |
-| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                    | header line of the statistics file created in `run_db_seeder` |
-| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                    | file name of the statistics file created in `run_db_seeder` |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | firebird, ibmdb2, informix, mariadb, mimer, mysql, oracle, postgresql, sqlserver                            | password of the privileged user |
-| password=<x...x>                          | PASSWORD                          | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, postgresql, sqlserver                 | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, sqlserver                                                                               | schema name |
-| user.sys=<x...x>                          | USER.SYS                          | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, oracle, postgresql, sqlserver   | name of the privileged user |
-| user=kxn_user                             | USER                              | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, postgresql, sqlserver                 | name of the normal user |
-|                                           |                                   |                                                                                                             |     |
+| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                                                              | Description |     
+| ---                                       | ---                               | ---                                                                                                                  | --- |
+| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                                                     | host name or ip address of the database server |
+| connection.host_presto=<x...x>            | CONNECTION_HOST_PRESTO            | Presto                                                                                                               | host name or ip address of the Presto distributed query engine |
+| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                                                     | port number of the database server |
+| connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                               | port number of the Presto distributed query engine |
+| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
+| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
+| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona                                                                   | suffix of the database connection string |
+| database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, mysql, percona, postgresql, sqlserver                                                      | privileged database name |
+| database=<x...x>                          | DATABASE                          | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, percona, postgresql, sqlite, sqlserver | database name |
+| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
+| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
+| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
+| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | firebird, ibmdb2, informix, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver                            | password of the privileged user |
+| password=<x...x>                          | PASSWORD                          | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver                 | password of the normal user |
+| schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, sqlserver                                                                                        | schema name |
+| user.sys=<x...x>                          | USER.SYS                          | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver   | name of the privileged user |
+| user=kxn_user                             | USER                              | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver                 | name of the normal user |
+|                                           |                                   |                                                                                                                      |     |
 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 
@@ -446,6 +452,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[MonetDB](#details_monetdb)** / 
 **[MySQL Database](#details_mysql)** / 
 **[Oracle Database](#details_oracle)** / 
+**[Percona Server for MySQL](#details_percona)** / 
 **[PostgreSQL Database](#details_postgresql)** / 
 **[Presto distributed Query Engine](#details_presto)** / 
 **[SQLite](#details_sqlite)**
@@ -517,7 +524,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.2.2`
+  - pull command: `docker pull crate:4.2.3`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -1052,6 +1059,44 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
+### <a name="details_percona"></a> 5.15 Percona Server for MySQL
+
+- **data types**:
+
+| db seeder Type | Percona Sercver Type |
+| ---            | ---                  |
+| BIGINT         | BIGINT               |
+| BLOB           | LONGBLOB             |
+| CLOB           | LONGTEXT             |
+| TIMESTAMP      | DATETIME             |
+| VARCHAR        | VARCHAR              |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://dev.mysql.com/doc/refman/8.0/en/create-database.html) 
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://dev.mysql.com/doc/refman/8.0/en/create-table.html) 
+  - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull store/percona/percona-server:5.7.14`
+  - [DockerHub](https://hub.docker.com/_/percona-server)
+
+- **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
+  
+- **issue tracking**: [Jira](https://jira.percona.com/projects/PS/issues/PS-7237?filter=allopenissues)
+
+- **JDBC driver (latest)**:
+  - version 8.0.21
+  - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+
+- **privileged database access**:
+  - database: `sys`
+  - user: `root`
+
+- **source code**: [GitHub](https://github.com/percona/percona-server)
+
+[//]: # (===========================================================================================)
+
 ### <a name="details_postgresql"></a> 5.15 PostgreSQL Database
 
 - **data types**:
@@ -1071,13 +1116,13 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:12.3-alpine`
+  - pull command: `docker pull postgres:12.4-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
   
 - **JDBC driver (latest)**:
-  - version 42.2.15
+  - version 42.2.16
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)
@@ -1179,7 +1224,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.2.0.0-b80`
+  - pull command: `docker pull yugabytedb/yugabyte:2.2.2.0-b15`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: full support of UTF-8

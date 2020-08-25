@@ -26,8 +26,10 @@ export DB_SEEDER_DBMS_MIMER=yes
 export DB_SEEDER_DBMS_MONETDB=yes
 export DB_SEEDER_DBMS_MYSQL=yes
 export DB_SEEDER_DBMS_ORACLE=yes
+export DB_SEEDER_DBMS_PERCONA=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
 export DB_SEEDER_DBMS_SQLSERVER=yes
+export DB_SEEDER_DBMS_YUGABYTE=yes
 
 # ------------------------------------------------------------------------------
 # Initialise Statistics.
@@ -63,8 +65,10 @@ echo "DBMS_MIMER                      : $DB_SEEDER_DBMS_MIMER"
 echo "DBMS_MONETDB                    : $DB_SEEDER_DBMS_MONETDB"
 echo "DBMS_MYSQL                      : $DB_SEEDER_DBMS_MYSQL"
 echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
+echo "DBMS_PERCONA                    : $DB_SEEDER_DBMS_PERCONA"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
 echo "DBMS_SQLSERVER                  : $DB_SEEDER_DBMS_SQLSERVER"
+echo "DBMS_YUGABYTE                   : $DB_SEEDER_DBMS_YUGABYTE"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
@@ -206,6 +210,16 @@ if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# Percona Server for MySQL.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_PERCONA" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh percona yes 2 ); then
+        exit 255
+    fi    
+fi
+
+# ------------------------------------------------------------------------------
 # PostgreSQL Database.
 # ------------------------------------------------------------------------------
 
@@ -221,6 +235,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
     if ! ( ./run_db_seeder.sh sqlserver yes 2 ); then
+        exit 255
+    fi    
+fi
+
+# ------------------------------------------------------------------------------
+# YugabyteDB.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_YUGABYTE" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh yugabyte yes 2 ); then
         exit 255
     fi    
 fi
