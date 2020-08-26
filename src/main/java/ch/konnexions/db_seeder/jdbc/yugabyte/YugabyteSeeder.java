@@ -25,17 +25,11 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
    * @param connectionPrefix the connection prefix
    * @param databaseSys the database with privileged access
    * @param userSys the user with privileged access
-   * @param passwordSys the password with privileged access
    *
    * @return the connection URL for privileged access
    */
-  private final static String getUrlSys(String connectionHost,
-                                        int connectionPort,
-                                        String connectionPrefix,
-                                        String databaseSys,
-                                        String userSys,
-                                        String passwordSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + "?user=" + userSys + "&password=" + passwordSys;
+  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String databaseSys, String userSys) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + "?user=" + userSys;
   }
 
   /**
@@ -91,8 +85,7 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
                         config.getConnectionPort(),
                         config.getConnectionPrefix(),
                         config.getDatabaseSys(),
-                        config.getUserSys(),
-                        config.getPasswordSys());
+                        config.getUserSys());
 
     urlUser = getUrlUser(config.getConnectionHost(),
                          config.getConnectionPort(),
@@ -153,8 +146,8 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE DATABASE " + databaseName,
-                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+      executeDdlStmnts("CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+                       "CREATE DATABASE " + databaseName + " WITH OWNER = " + userName,
                        "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
 
       statement.close();

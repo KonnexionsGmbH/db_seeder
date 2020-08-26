@@ -429,10 +429,8 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     export DB_SEEDER_CONTAINER_PORT=5433
     export DB_SEEDER_DATABASE=kxn_db
-    export DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    export DB_SEEDER_DATABASE_SYS=yugabyte
     export DB_SEEDER_PASSWORD=yugabyte
-    export DB_SEEDER_PASSWORD_SYS=yugabyte
-    export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15

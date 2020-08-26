@@ -529,10 +529,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     set DB_SEEDER_CONTAINER_PORT=5433
     set DB_SEEDER_DATABASE=kxn_db
-    set DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    set DB_SEEDER_DATABASE_SYS=yugabyte
     set DB_SEEDER_PASSWORD=yugabyte
-    set DB_SEEDER_PASSWORD_SYS=yugabyte
-    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=yugabyte
     set DB_SEEDER_VERSION=2.2.2.0-b15
