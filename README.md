@@ -419,18 +419,18 @@ db_seeder.user=
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona                                                                   | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, mysql, percona, postgresql, sqlserver                                                      | privileged database name |
-| database=<x...x>                          | DATABASE                          | derby, cubrid, firebird, h2, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, percona, postgresql, sqlite, sqlserver | database name |
+| database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                                   | privileged database name |
+| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, monetdb, oracle                                                                             | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | firebird, ibmdb2, informix, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver                            | password of the privileged user |
-| password=<x...x>                          | PASSWORD                          | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver                 | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, sqlserver                                                                                        | schema name |
-| user.sys=<x...x>                          | USER.SYS                          | cratedb, cubrid, firebird, hsqldb, ibmdb2, informix, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver   | name of the privileged user |
-| user=kxn_user                             | USER                              | cratedb, cubrid, firebird, h2, hsqldb, mariadb, mimer, mysql, oracle, percona, postgresql, sqlserver                 | name of the normal user |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver                   | password of the privileged user |
+| password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
+| schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, monetdb, postgresql_presto, sqlserver                                                            | schema name |
+| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2                                                                                            | name of the privileged user |
+| user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
@@ -1209,7 +1209,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | PostgreSQL Database Type |
+| db seeder Type | YugabyteDB Database Type |
 | ---            | ---                      |
 | BIGINT         | BIGINT                   |
 | BLOB           | BYTEA                    |

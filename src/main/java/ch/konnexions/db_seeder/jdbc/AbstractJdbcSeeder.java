@@ -1110,7 +1110,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
 
       if (rowNo % nullFactor == 0) {
-        if (dbmsEnum == DbmsEnum.POSTGRESQL) {
+        if (dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.YUGABYTE) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
           return;
