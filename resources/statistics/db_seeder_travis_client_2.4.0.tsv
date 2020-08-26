@@ -1,19 +1,19 @@
 ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
-agens	agens	AgensGraph	4	2020-08-26 13:59:29.526915000	2020-08-26 13:59:33.746093000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-cratedb	cratedb	CrateDB	10	2020-08-26 14:00:33.445156000	2020-08-26 14:00:44.136094000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-cubrid	cubrid	CUBRID	5	2020-08-26 14:01:31.232677000	2020-08-26 14:01:37.023928000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-derby	derby	Apache Derby [client]	11	2020-08-26 14:02:31.946445000	2020-08-26 14:02:43.778829000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-firebird	firebird	Firebird	45	2020-08-26 14:03:22.383701000	2020-08-26 14:04:07.848136000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-h2	h2	H2 Database Engine [client]	4	2020-08-26 14:04:41.804881000	2020-08-26 14:04:46.734126000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb	hsqldb	HyperSQL Database [client]	9	2020-08-26 14:05:21.524262000	2020-08-26 14:05:31.483443000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-ibmdb2	ibmdb2	IBM Db2 Database	10	2020-08-26 14:11:54.425434000	2020-08-26 14:12:05.407101000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-informix	informix	IBM Informix	9	2020-08-26 14:16:26.097610000	2020-08-26 14:16:35.940151000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-mariadb	mariadb	MariaDB Server	4	2020-08-26 14:17:18.064866000	2020-08-26 14:17:22.768638000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-mimer	mimer	Mimer SQL	29	2020-08-26 14:18:07.303243000	2020-08-26 14:18:36.424838000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-monetdb	monetdb	MonetDB	14	2020-08-26 14:19:04.929888000	2020-08-26 14:19:19.877142000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-mysql	mysql	MySQL Database	7	2020-08-26 14:20:35.333601000	2020-08-26 14:20:43.150658000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-oracle	oracle	Oracle Database	8	2020-08-26 14:30:23.623567000	2020-08-26 14:30:31.975926000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-percona	percona	Percona Server for MySQL	7	2020-08-26 14:31:53.775776000	2020-08-26 14:32:01.506246000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-postgresql	postgresql	PostgreSQL Database	3	2020-08-26 14:32:40.459434000	2020-08-26 14:32:43.657222000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-sqlserver	sqlserver	MS SQL Server	5	2020-08-26 14:33:50.791817000	2020-08-26 14:33:56.749021000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
-yugabyte	yugabyte	YugabyteDB	16	2020-08-26 14:35:41.706401000	2020-08-26 14:35:58.685310000	travis-job-64856822-ac2e-4519-ac12-90b9f3456d6d	2	amd64 / Linux / 5.3.0-1029-gcp
+agens	agens	AgensGraph	6	2020-08-26 13:58:49.221400000	2020-08-26 13:58:55.754044000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+cratedb	cratedb	CrateDB	13	2020-08-26 13:59:54.880464000	2020-08-26 14:00:08.354400000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+cubrid	cubrid	CUBRID	8	2020-08-26 14:00:54.716191000	2020-08-26 14:01:03.222813000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+derby	derby	Apache Derby [client]	17	2020-08-26 14:01:58.075854000	2020-08-26 14:02:16.021270000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+firebird	firebird	Firebird	57	2020-08-26 14:02:55.281788000	2020-08-26 14:03:53.039279000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+h2	h2	H2 Database Engine [client]	9	2020-08-26 14:04:26.612239000	2020-08-26 14:04:36.229502000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb	hsqldb	HyperSQL Database [client]	16	2020-08-26 14:05:11.135617000	2020-08-26 14:05:27.265293000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+ibmdb2	ibmdb2	IBM Db2 Database	16	2020-08-26 14:11:50.944071000	2020-08-26 14:12:07.651912000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+informix	informix	IBM Informix	13	2020-08-26 14:16:28.821572000	2020-08-26 14:16:41.961134000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+mariadb	mariadb	MariaDB Server	6	2020-08-26 14:17:23.955480000	2020-08-26 14:17:30.124765000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+mimer	mimer	Mimer SQL	41	2020-08-26 14:18:15.040459000	2020-08-26 14:18:56.321368000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+monetdb	monetdb	MonetDB	33	2020-08-26 14:19:25.866501000	2020-08-26 14:19:59.763530000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+mysql	mysql	MySQL Database	9	2020-08-26 14:21:13.594950000	2020-08-26 14:21:23.365029000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+oracle	oracle	Oracle Database	12	2020-08-26 14:31:06.275276000	2020-08-26 14:31:18.971118000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+percona	percona	Percona Server for MySQL	9	2020-08-26 14:32:41.025706000	2020-08-26 14:32:50.868031000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+postgresql	postgresql	PostgreSQL Database	5	2020-08-26 14:33:42.476566000	2020-08-26 14:33:47.999545000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+sqlserver	sqlserver	MS SQL Server	10	2020-08-26 14:34:55.736117000	2020-08-26 14:35:05.871859000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
+yugabyte	yugabyte	YugabyteDB	22	2020-08-26 14:36:44.856269000	2020-08-26 14:37:07.718378000	travis-job-edbf9e4b-c155-4d7c-b3b3-2af79f705fab	2	amd64 / Linux / 5.3.0-1029-gcp
