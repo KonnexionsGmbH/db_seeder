@@ -30,6 +30,10 @@ Release Date: 26.08.2020
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
   - SQL Server Connector: Failed to insert NULL for varbinary in SQL Server (see [here](https://github.com/prestosql/presto/issues/4795)).
 
+- YugabyteDB
+
+  - Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
+
 #### New Features
 
 - New DBMS: Percona Server for MySQL
