@@ -46,7 +46,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
     echo "Docker create db_seeder_db (AgensGraph ${DB_SEEDER_VERSION})"
 
     docker create --name db_seeder_db \
-                  -p     %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% \
+                  -p     ${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT} \
                   -t \
                   bitnine/agensgraph:%DB_SEEDER_VERSION% agens
 
