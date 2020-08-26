@@ -478,18 +478,17 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION})"
 
-# wwe
-#   rm -rf tmp/yb_data
-#   mkdir -p tmp
-#   mkdir tmp/yb_data
+    rm -rf tmp/yb_data
+    mkdir -p tmp
+    mkdir tmp/yb_data
 
     docker run -d \
                --name db_seeder_db \
-               -p 5433:5433 \
-               -p 7000:7000 \
-               -p 9001:9000 \
-               -p 9042:9042 \
-#              -v $PWD/tmp/yb_data:/home/yugabyte/var \
+               -p     5433:5433 \
+               -p     7000:7000 \
+               -p     9000:9000 \
+               -p     9042:9042 \
+               -v     $PWD/tmp/yb_data:/home/yugabyte/var \
                yugabytedb/yugabyte:$DB_SEEDER_VERSION bin/yugabyted start --daemon=false
 
     echo "Docker start db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION}) ..."
