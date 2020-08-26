@@ -13,6 +13,7 @@ sleep .1
 
 export DB_SEEDER_COMPLETE_RUN=yes
 
+export DB_SEEDER_DBMS_AGENS=yes
 export DB_SEEDER_DBMS_CRATEDB=yes
 export DB_SEEDER_DBMS_CUBRID=yes
 export DB_SEEDER_DBMS_DERBY=yes
@@ -52,6 +53,7 @@ echo "COMPLETE_RUN                    : ${DB_SEEDER_COMPLETE_RUN}"
 echo "FILE_STATISTICS_NAME            : ${DB_SEEDER_FILE_STATISTICS_NAME}"
 echo "TRAVIS                          : ${TRAVIS}"
 echo "--------------------------------------------------------------------------------"
+echo "DBMS_AGENS                      : $DB_SEEDER_DBMS_AGENS"
 echo "DBMS_CRATEDB                    : $DB_SEEDER_DBMS_CRATEDB"
 echo "DBMS_CUBRID                     : $DB_SEEDER_DBMS_CUBRID"
 echo "DBMS_DERBY                      : $DB_SEEDER_DBMS_DERBY"
@@ -78,6 +80,16 @@ if ! ( ./run_db_seeder_generate_schema.sh ); then
 fi    
 
 unset -f "${DB_SEEDER_DBMS}"=
+
+# ------------------------------------------------------------------------------
+# AgensGraph.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_AGENS" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh agens yes 2 ); then
+        exit 255
+    fi    
+fi
 
 # ------------------------------------------------------------------------------
 # CrateDB.

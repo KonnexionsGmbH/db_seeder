@@ -92,14 +92,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       default -> "BIGINT";
       };
     case "BLOB" -> switch (tickerSymbolLower) {
+      case "agens", "postgresql", "yugabyte" -> "BYTEA";
       case "cratedb" -> "OBJECT";
       case "mariadb", "mysql", "percona" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";
-      case "postgresql", "yugabyte" -> "BYTEA";
       default -> "BLOB";
       };
     case "CLOB" -> switch (tickerSymbolLower) {
-      case "cratedb", "postgresql", "yugabyte" -> "TEXT";
+      case "agens", "cratedb", "postgresql", "yugabyte" -> "TEXT";
       case "firebird" -> "BLOB SUB_TYPE 1";
       case "mariadb", "mysql", "percona" -> "LONGTEXT";
       case "sqlserver" -> "VARCHAR(MAX)";
@@ -182,11 +182,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       columns = tableConstraint.getColumns();
 
-      if ("sqlserver".equals(tickerSymbolLower)
+      if ("agens".equals(tickerSymbolLower)
           || "mysql".equals(tickerSymbolLower)
           || "oracle".equals(tickerSymbolLower)
           || "percona".equals(tickerSymbolLower)
-          || "postgresql".equals(tickerSymbolLower)) {
+          || "postgresql".equals(tickerSymbolLower)
+          || "sqlserver".equals(tickerSymbolLower)) {
         columns.forEach(column -> column.toLowerCase());
       } else {
         columns.forEach(column -> column.toUpperCase());
@@ -201,11 +202,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
         columns  = tableConstraint.getReferenceColumns();
 
-        if ("sqlserver".equals(tickerSymbolLower)
+        if ("agens".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
             || "percona".equals(tickerSymbolLower)
-            || "postgresql".equals(tickerSymbolLower)) {
+            || "postgresql".equals(tickerSymbolLower)
+            || "sqlserver".equals(tickerSymbolLower)) {
           editedReferenceTable = tableConstraint.getReferenceTable().toLowerCase();
           columns.forEach(column -> column.toLowerCase());
         } else {
@@ -471,11 +473,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        if ("sqlserver".equals(tickerSymbolLower)
+        if ("agens".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
             || "percona".equals(tickerSymbolLower)
-            || "postgresql".equals(tickerSymbolLower)) {
+            || "postgresql".equals(tickerSymbolLower)
+            || "sqlserver".equals(tickerSymbolLower)) {
           editedTableName = tableName.toLowerCase();
         } else {
           editedTableName = tableName.toUpperCase();
@@ -502,11 +505,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         for (Column column : columns) {
           columnNameUpper = column.getColumnName().toUpperCase();
 
-          if ("sqlserver".equals(tickerSymbolLower)
+          if ("agens".equals(tickerSymbolLower)
               || "mysql".equals(tickerSymbolLower)
               || "oracle".equals(tickerSymbolLower)
               || "percona".equals(tickerSymbolLower)
-              || "postgresql".equals(tickerSymbolLower)) {
+              || "postgresql".equals(tickerSymbolLower)
+              || "sqlserver".equals(tickerSymbolLower)) {
             editedColumnName = column.getColumnName().toLowerCase();
           } else {
             editedColumnName = column.getColumnName().toUpperCase();
@@ -595,11 +599,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                   workArea = new StringBuffer(" ".repeat(82));
                 }
 
-                if ("sqlserver".equals(tickerSymbolLower)
+                if ("agens".equals(tickerSymbolLower)
                     || "mysql".equals(tickerSymbolLower)
                     || "oracle".equals(tickerSymbolLower)
                     || "percona".equals(tickerSymbolLower)
-                    || "postgresql".equals(tickerSymbolLower)) {
+                    || "postgresql".equals(tickerSymbolLower)
+                    || "sqlserver".equals(tickerSymbolLower)) {
                   editedReferenceTable  = reference.getReferenceTable().toLowerCase();
                   editedReferenceColumn = reference.getReferenceColumn().toLowerCase();
                 } else {

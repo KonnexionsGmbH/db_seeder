@@ -12,6 +12,7 @@ set ERRORLEVEL=
 
 set DB_SEEDER_COMPLETE_RUN=yes
 
+set DB_SEEDER_DBMS_AGENS=yes
 set DB_SEEDER_DBMS_CRATEDB=yes
 set DB_SEEDER_DBMS_CUBRID=yes
 set DB_SEEDER_DBMS_DERBY=yes
@@ -52,6 +53,7 @@ echo.
     echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
     echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
+    echo DBMS_AGENS                      : %DB_SEEDER_DBMS_AGENS%
     echo DBMS_CRATEDB                    : %DB_SEEDER_DBMS_CRATEDB%
     echo DBMS_CUBRID                     : %DB_SEEDER_DBMS_CUBRID%
     echo DBMS_DERBY                      : %DB_SEEDER_DBMS_DERBY%
@@ -72,6 +74,18 @@ echo.
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
+    
+    rem ------------------------------------------------------------------------------
+    rem AgensGraph.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_AGENS%"] EQU ["yes"] (
+        call run_db_seeder.bat agens yes 2
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
     
     rem ------------------------------------------------------------------------------
     rem CrateDB.

@@ -14,13 +14,15 @@ set ERRORLEVEL=
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.3.0
+set DB_SEEDER_RELEASE=2.4.0
 
 if ["%1"] EQU [""] (
-    echo ============================================================
+    echo =========================================================
     echo complete_client    - All implemented client DBMSs
     echo complete_emb       - All implemented embedded DBMSs
     echo complete_presto    - All implemented Presto enabled DBMSs
+    echo ---------------------------------------------------------
+    echo agens              - AgensGraph [client]
     echo derby              - Apache Derby [client]
     echo derby_emb          - Apache Derby [embedded]
     echo cratedb            - CrateDB
@@ -46,7 +48,7 @@ if ["%1"] EQU [""] (
     echo postgresql_presto  - PostgreSQL Database via Presto
     echo sqlite             - SQLite [embedded]
     echo yugabyte           - YugabyteDB
-    echo -----------------------------------------------------------
+    echo ---------------------------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 
     if ["!DB_SEEDER_DBMS!"] EQU [""] (
@@ -97,6 +99,24 @@ if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
 )    
 
 set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS% 
+
+if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
+    set DB_SEEDER_DBMS=agens
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=5432
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:agensgraph://
+    set DB_SEEDER_CONTAINER_PORT=5432
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=agens
+    set DB_SEEDER_PASSWORD=agens
+    set DB_SEEDER_PASSWORD_SYS=agens
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=agens
+    set DB_SEEDER_VERSION=v2.1.1
+)
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=cratedb

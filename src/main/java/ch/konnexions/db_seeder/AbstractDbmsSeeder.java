@@ -17,6 +17,9 @@ public abstract class AbstractDbmsSeeder {
 
   public enum DbmsEnum {
 
+    AGENS(
+        "agens"
+    ),
     CRATEDB(
         "cratedb"
     ),
@@ -111,6 +114,13 @@ public abstract class AbstractDbmsSeeder {
   private static Map<String, String[]> initDbmsDetails() {
     Map<String, String[]> dbmsDetails = new HashMap<>();
 
+    dbmsDetails.put("agens",
+                    new String[] {
+                        "agens",
+                        "AgensGraph",
+                        "client",
+                        "AgensGraph",
+                        "" });
     dbmsDetails.put("cratedb",
                     new String[] {
                         "cratedb",

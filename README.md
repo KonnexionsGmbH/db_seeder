@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.3.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.4.0.svg)
 ----
 
 ### Table of Contents
@@ -25,6 +25,11 @@
 
 **`db_seeder`** allows the generation of dummy data in different database management systems. 
 Currently the following database management systems are supported:
+- [AgensGraph](https://bitnine.net/agensgraph/)
+  - graph database management system
+  - open source
+  - client only version
+  - **[see technical details here](#details_agens)**
 - [Apache Derby](https://db.apache.org/derby)
   - relational database management system (RDBMS)
   - open source
@@ -135,6 +140,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 
 | DBMS                            | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
 |---                              |---                 |---                        |---                  |
+| AgensGraph                      | agens              | v2.1.1                    | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                      | 10.2.1.8849         |
 | CrateDB                         | cratedb            | 4.1.6 - 4.2.3             | 2.6.0               |
@@ -419,14 +425,14 @@ db_seeder.user=
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona                                                                   | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                                   | privileged database name |
+| database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
 | database=<x...x>                          | DATABASE                          | all DBMS except cratedb, monetdb, oracle                                                                             | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver                   | password of the privileged user |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver            | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, monetdb, postgresql_presto, sqlserver                                                            | schema name |
 | user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2                                                                                            | name of the privileged user |
@@ -438,6 +444,7 @@ db_seeder.user=
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
+**[AgensGraph](#details_agens)** / 
 **[Apache Derby](#details_derby)** / 
 **[CrateDB](#details_cratedb)** / 
 **[CUBRID](#details_cubrid)** / 
@@ -457,6 +464,40 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Presto distributed Query Engine](#details_presto)** / 
 **[SQLite](#details_sqlite)**
 **[YugabyteDB](#details_yugabyte)**
+
+[//]: # (===========================================================================================)
+
+### <a name="details_postgresql"></a> 5.1 AgensGraph
+
+- **data types**:
+
+| db seeder Type | AgensGraph Database Type |
+| ---            | ---                      |
+| BIGINT         | BIGINT                   |
+| BLOB           | BYTEA                    |
+| CLOB           | TEXT                     |
+| TIMESTAMP      | TIMESTAMP                |
+| VARCHAR        | VARCHAR                  |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
+  - [CREATE SCHEMA](https://www.postgresql.org/docs/12/sql-createschema.html)
+  - [CREATE TABLE](https://www.postgresql.org/docs/12/sql-createtable.html) 
+  - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull bitnine/agensgraph:v2.1.1`
+  - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
+
+- **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
+  
+- **issue tracking**: [GitHub](https://github.com/bitnine-oss/agensgraph/issues)
+  
+- **JDBC driver (latest)**:
+  - version 1.4.2-c1
+  - [Maven repository](https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc)
+
+- **source code**: [GitHub](https://github.com/bitnine-oss/agensgraph)
 
 [//]: # (===========================================================================================)
 

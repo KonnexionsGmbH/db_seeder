@@ -36,6 +36,32 @@ if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "yes" ] ||
 fi
 
 # ------------------------------------------------------------------------------
+# AgensGraph                         https://hub.docker.com/r/bitnine/agensgraph
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
+    start=$(date +%s)
+    echo "AgensGraph."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (AgensGraph ${DB_SEEDER_VERSION})"
+
+    docker create --name db_seeder_db \
+                  -p     %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% \
+                  -t \
+                  bitnine/agensgraph:%DB_SEEDER_VERSION% agens
+
+    echo "Docker start db_seeder_db (AgensGraph ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 30
+
+    end=$(date +%s)
+    echo "DOCKER AgensGraph was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate
 # ------------------------------------------------------------------------------
 

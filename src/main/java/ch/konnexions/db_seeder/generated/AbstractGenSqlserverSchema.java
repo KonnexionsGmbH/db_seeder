@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a MS SQL Server DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.3.0
+ * @version 2.4.0
  */
 public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
                        modified                         DATETIME2,
                        name                             VARCHAR(100)              NOT NULL,
                        symbol                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_15       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_16       UNIQUE      (fk_country_id, name)
                    )
                    """);
 

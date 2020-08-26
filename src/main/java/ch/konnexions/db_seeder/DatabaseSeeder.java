@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.jdbc.agens.AgensSeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
 import ch.konnexions.db_seeder.jdbc.derby.DerbySeeder;
@@ -59,6 +60,12 @@ public final class DatabaseSeeder {
       logger.info("tickerSymbolExtern='" + tickerSymbolExtern + "'");
 
       switch (Objects.requireNonNull(tickerSymbolExtern)) {
+      case "agens":
+        logger.info("Start AgensGraph");
+        AgensSeeder agensSeeder = new AgensSeeder(tickerSymbolExtern);
+        agensSeeder.createData();
+        logger.info("End   AgensGraph");
+        break;
       case "cratedb":
         logger.info("Start CrateDB");
         CratedbSeeder cratedbSeeder = new CratedbSeeder(tickerSymbolExtern);
