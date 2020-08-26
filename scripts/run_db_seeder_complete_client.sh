@@ -86,7 +86,7 @@ unset -f "${DB_SEEDER_DBMS}"=
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_AGENS" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh agens yes 2 ); then
+    if ! ( ./run_db_seeder.sh agens yes 1 ); then
         exit 255
     fi    
 fi
@@ -96,7 +96,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_CRATEDB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh cratedb yes 2 ); then
+    if ! ( ./run_db_seeder.sh cratedb yes 1 ); then
         exit 255
     fi    
 fi
@@ -106,7 +106,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_CUBRID" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh cubrid yes 2 ); then
+    if ! ( ./run_db_seeder.sh cubrid yes 1 ); then
         exit 255
     fi    
 fi
@@ -116,7 +116,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_DERBY" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh derby yes 2 ); then
+    if ! ( ./run_db_seeder.sh derby yes 1 ); then
         exit 255
     fi    
 fi
@@ -126,7 +126,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_FIREBIRD" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh firebird yes 2 ); then
+    if ! ( ./run_db_seeder.sh firebird yes 1 ); then
         exit 255
     fi    
 fi
@@ -136,7 +136,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_H2" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh h2 yes 2 ); then
+    if ! ( ./run_db_seeder.sh h2 yes 1 ); then
         exit 255
     fi    
 fi
@@ -146,7 +146,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh hsqldb yes 2 ); then
+    if ! ( ./run_db_seeder.sh hsqldb yes 1 ); then
         exit 255
     fi    
 fi
@@ -156,7 +156,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_IBMDB2" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh ibmdb2 yes 2 ); then
+    if ! ( ./run_db_seeder.sh ibmdb2 yes 1 ); then
         exit 255
     fi    
 fi
@@ -166,7 +166,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_INFORMIX" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh informix yes 2 ); then
+    if ! ( ./run_db_seeder.sh informix yes 1 ); then
         exit 255
     fi    
 fi
@@ -176,7 +176,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MARIADB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh mariadb yes 2 ); then
+    if ! ( ./run_db_seeder.sh mariadb yes 1 ); then
         exit 255
     fi    
 fi
@@ -186,7 +186,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MIMER" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh mimer yes 2 ); then
+    if ! ( ./run_db_seeder.sh mimer yes 1 ); then
         exit 255
     fi    
 fi
@@ -196,7 +196,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MONETDB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh monetdb yes 2 ); then
+    if ! ( ./run_db_seeder.sh monetdb yes 1 ); then
         exit 255
     fi    
 fi
@@ -206,7 +206,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh mysql yes 2 ); then
+    if ! ( ./run_db_seeder.sh mysql yes 1 ); then
         exit 255
     fi    
 fi
@@ -216,7 +216,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh oracle yes 2 ); then
+    if ! ( ./run_db_seeder.sh oracle yes 1 ); then
         exit 255
     fi    
 fi
@@ -226,7 +226,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_PERCONA" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh percona yes 2 ); then
+    if ! ( ./run_db_seeder.sh percona yes 1 ); then
         exit 255
     fi    
 fi
@@ -236,7 +236,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh postgresql yes 2 ); then
+    if ! ( ./run_db_seeder.sh postgresql yes 1 ); then
         exit 255
     fi    
 fi
@@ -246,7 +246,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlserver yes 2 ); then
+    if ! ( ./run_db_seeder.sh sqlserver yes 1 ); then
         exit 255
     fi    
 fi
@@ -256,7 +256,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_YUGABYTE" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh yugabyte yes 2 ); then
+    if ! ( ./run_db_seeder.sh yugabyte yes 1 ); then
         exit 255
     fi    
 fi

@@ -71,7 +71,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MYSQL_PRESTO%"] EQU ["yes"] (
-        call run_db_seeder.bat mysql_presto yes 2
+        call run_db_seeder.bat mysql_presto yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -83,7 +83,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_ORACLE_PRESTO%"] EQU ["yes"] (
-        call run_db_seeder.bat oracle_presto yes 2
+        call run_db_seeder.bat oracle_presto yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -95,7 +95,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
-        call run_db_seeder.bat postgresql yes 2
+        call run_db_seeder.bat postgresql yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -107,7 +107,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
-        call run_db_seeder.bat sqlserver yes 2
+        call run_db_seeder.bat sqlserver yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

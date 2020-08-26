@@ -58,7 +58,7 @@ unset -f "${DB_SEEDER_DBMS}"=
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_DERBY_EMB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh derby_emb yes 2 ); then
+    if ! ( ./run_db_seeder.sh derby_emb yes 1 ); then
         exit 255
     fi    
 fi
@@ -68,7 +68,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_H2_EMB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh h2_emb yes 2 ); then
+    if ! ( ./run_db_seeder.sh h2_emb yes 1 ); then
         exit 255
     fi    
 fi
@@ -78,7 +78,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB_EMB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh hsqldb_emb yes 2 ); then
+    if ! ( ./run_db_seeder.sh hsqldb_emb yes 1 ); then
         exit 255
     fi    
 fi
@@ -88,7 +88,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlite yes 2 ); then
+    if ! ( ./run_db_seeder.sh sqlite yes 1 ); then
         exit 255
     fi    
 fi
