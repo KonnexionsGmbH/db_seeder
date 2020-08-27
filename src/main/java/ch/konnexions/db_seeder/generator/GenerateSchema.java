@@ -93,7 +93,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       };
     case "BLOB" -> switch (tickerSymbolLower) {
       case "agens", "postgresql", "yugabyte" -> "BYTEA";
-      case "cratedb" -> "OBJECT";
+      case "cratedb" -> "TEXT";
       case "exasol" -> "VARCHAR(2000000)";
       case "mariadb", "mysql", "percona" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";
@@ -170,9 +170,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       constraintType = tableConstraint.getConstraintType().toUpperCase();
 
       if ("UNIQUE".equals(constraintType)) {
-      if ("exasol".equals(tickerSymbolLower)) {
-        continue;
-      }
+        if ("exasol".equals(tickerSymbolLower)) {
+          continue;
+        }
       }
 
       workArea = new StringBuilder(" ".repeat(23));
@@ -636,7 +636,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // UNIQUE ............................................................
 
-          if (!("cratedb".equals(tickerSymbolLower)||"exasol".equals(tickerSymbolLower))) {
+          if (!("cratedb".equals(tickerSymbolLower) || "exasol".equals(tickerSymbolLower))) {
             if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());

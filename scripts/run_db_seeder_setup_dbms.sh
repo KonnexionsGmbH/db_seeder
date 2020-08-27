@@ -140,11 +140,11 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
     echo "Exasol."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Exasol ${DB_SEEDER_VERSION})"
-    docker run --detach ^
-               --name         db_seeder_db ^
-               -p             127.0.0.1:${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT}/tcp ^
-               --privileged ^
-               --stop-timeout 120 ^
+    docker run --detach \
+               --name         db_seeder_db \
+               -p             127.0.0.1:${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT}/tcp \
+               --privileged \
+               --stop-timeout 120 \
                exasol/docker-db:${DB_SEEDER_VERSION}
 
     echo "Docker start db_seeder_db (Exasol ${DB_SEEDER_VERSION}) ..."

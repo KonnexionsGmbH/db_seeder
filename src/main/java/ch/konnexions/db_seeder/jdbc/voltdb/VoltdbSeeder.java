@@ -1,9 +1,10 @@
 package ch.konnexions.db_seeder.jdbc.voltdb;
 
-import ch.konnexions.db_seeder.generated.AbstractGenVoltdbSchema;
+import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
+import ch.konnexions.db_seeder.generated.AbstractGenVoltdbSchema;
 
 /**
  * Test Data Generator for a HyperQL Database DBMS.

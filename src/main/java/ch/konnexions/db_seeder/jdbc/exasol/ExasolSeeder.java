@@ -88,8 +88,8 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
                          config.getPasswordSys(),
                          true);
 
-    String password   = config.getPassword();
-    String userName   = config.getUser();
+    String password = config.getPassword();
+    String userName = config.getUser();
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.
@@ -112,7 +112,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
       statement = connection.createStatement();
 
       executeDdlStmnts("CREATE USER " + userName + " IDENTIFIED BY \"" + password + "\"",
-                       "GRANT ALL PRIVILEGES TO "+userName);
+                       "GRANT ALL PRIVILEGES TO " + userName);
 
       statement.close();
     } catch (SQLException e) {

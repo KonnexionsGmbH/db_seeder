@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -66,24 +67,25 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=presto";
   }
 
-  private final boolean   isDebug            = logger.isDebugEnabled();
+  private final boolean   isDebug                = logger.isDebugEnabled();
 
-  private final String    BLOB_FILE          = Paths.get("src",
-                                                         "main",
-                                                         "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]    BLOB_DATA_BYTES    = readBlobFile2Bytes();
+  private final String    BLOB_FILE              = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private final byte[]    BLOB_DATA_BYTES        = readBlobFile2Bytes();
+  private final String    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
 
-  private final String    CLOB_FILE          = Paths.get("src",
-                                                         "main",
-                                                         "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final String    CLOB_DATA          = readClobFile();
-  protected Connection    connection         = null;
+  private final String    CLOB_FILE              = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private final String    CLOB_DATA              = readClobFile();
+  protected Connection    connection             = null;
 
-  protected String        driver             = "";
-  protected final String  driver_presto      = "io.prestosql.jdbc.PrestoDriver";
-  protected String        dropTableStmnt     = "";
+  protected String        driver                 = "";
+  protected final String  driver_presto          = "io.prestosql.jdbc.PrestoDriver";
+  protected String        dropTableStmnt         = "";
 
-  protected Properties    encodedColumnNames = new Properties();
+  protected Properties    encodedColumnNames     = new Properties();
 
   protected final boolean isClient;
   private final boolean   isEmbedded;
@@ -91,14 +93,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected int           nullFactor;
 
-  private final Random    randomInt          = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  protected ResultSet     resultSet          = null;
+  private final Random    randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  protected ResultSet     resultSet              = null;
 
-  protected Statement     statement          = null;
+  protected Statement     statement              = null;
 
-  protected String        urlPresto          = "";
-  protected String        urlSys             = "";
-  protected String        urlUser            = "";
+  protected String        urlPresto              = "";
+  protected String        urlSys                 = "";
+  protected String        urlUser                = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
@@ -886,6 +888,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return BLOB_DATA_BYTES;
   }
 
+  protected String getContentBlobString(String tableName, String columnName, long rowNo) {
+
+    return BLOB_DATA_BYTES_STRING;
+  }
+
   protected String getContentClob(String tableName, String columnName, long rowNo) {
 
     return CLOB_DATA;
@@ -1085,11 +1092,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private final void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (dbmsEnum == DbmsEnum.EXASOL) {
+      if (dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.EXASOL) {
         preparedStatement.setString(columnPos,
-                                    getContentClob(tableName,
-                                                   columnName,
-                                                   rowNo));
+                                    getContentBlobString(tableName,
+                                                         columnName,
+                                                         rowNo));
       } else {
         preparedStatement.setBytes(columnPos,
                                    getContentBlob(tableName,
@@ -1114,14 +1121,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   @SuppressWarnings("ucd")
   protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (dbmsEnum == DbmsEnum.CRATEDB) {
-        preparedStatement.setNull(columnPos,
-                                  Types.NULL);
-        return;
-      }
-
       if (rowNo % nullFactor == 0) {
-        if (dbmsEnum == DbmsEnum.EXASOL || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.VOLTDB || dbmsEnum == DbmsEnum.YUGABYTE) {
+        if (dbmsEnum == DbmsEnum.CRATEDB
+            || dbmsEnum == DbmsEnum.EXASOL
+            || dbmsEnum == DbmsEnum.POSTGRESQL
+            || dbmsEnum == DbmsEnum.VOLTDB
+            || dbmsEnum == DbmsEnum.YUGABYTE) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
           return;
