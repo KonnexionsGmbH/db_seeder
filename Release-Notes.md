@@ -7,7 +7,7 @@
 
 ## Version 2.4.0
 
-Release Date: dd.09.2020
+Release Date: 27.08.2020
 
 #### System Requirements
 
@@ -37,6 +37,7 @@ Release Date: dd.09.2020
 #### New Features
 
 - New DBMS: AgensGraph
+- New DBMS: VolDB
 
 #### Modified Features
 

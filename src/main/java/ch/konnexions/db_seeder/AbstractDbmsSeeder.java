@@ -71,6 +71,9 @@ public abstract class AbstractDbmsSeeder {
     SQLSERVER(
         "sqlserver"
     ),
+    VOLTDB(
+        "voltdb"
+    ),
     YUGABYTE(
         "yugabyte"
     );
@@ -288,6 +291,13 @@ public abstract class AbstractDbmsSeeder {
                         "MS SQL Server",
                         "presto",
                         "MS SQL Server",
+                        "" });
+    dbmsDetails.put("voltdb",
+                    new String[] {
+                        "voltdb",
+                        "VoltDB",
+                        "client",
+                        "VoltDB",
                         "" });
     dbmsDetails.put("yugabyte",
                     new String[] {

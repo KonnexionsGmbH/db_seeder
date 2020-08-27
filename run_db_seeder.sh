@@ -45,6 +45,7 @@ if [ -z "$1" ]; then
     echo "postgresql         - PostgreSQL Database"
     echo "postgresql_presto  - PostgreSQL Database via Presto"
     echo "sqlite             - SQLite [embedded]"
+    echo "voltdb             - VoltDB"
     echo "yugabyte           - YugabyteDB"
     echo "---------------------------------------------------------"
     read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
@@ -438,8 +439,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_presto" ] || [ "${DB_SEEDER_DBMS}" = "comp
     export DB_SEEDER_VERSION=2019-latest
 fi
 
-
-if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+if [ "${DB_SEEDER_DBMS}" = "voltdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
@@ -450,6 +450,17 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15
+fi
+
+if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=21212
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
+    export DB_SEEDER_CONNECTION_SUFFIX="?autoreconnect=true"
+    export DB_SEEDER_CONTAINER_PORT=21212
+    export DB_SEEDER_PASSWORD=voltdb
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_VERSION=9.2.1
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then

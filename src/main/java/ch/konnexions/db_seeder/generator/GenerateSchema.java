@@ -96,6 +96,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "cratedb" -> "OBJECT";
       case "mariadb", "mysql", "percona" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";
+      case "voltdb" -> "VARBINARY(1048576)";
       default -> "BLOB";
       };
     case "CLOB" -> switch (tickerSymbolLower) {
@@ -103,6 +104,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "firebird" -> "BLOB SUB_TYPE 1";
       case "mariadb", "mysql", "percona" -> "LONGTEXT";
       case "sqlserver" -> "VARCHAR(MAX)";
+      case "voltdb" -> "VARCHAR(1048576)";
       default -> "CLOB";
       };
     case "TIMESTAMP" -> switch (tickerSymbolLower) {

@@ -495,6 +495,31 @@ if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# VoltDB                        https://hub.docker.com/r/voltdb/voltdb-community
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "voltdb" ]; then
+    start=$(date +%s)
+    echo "VoltDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (VoltDB ${DB_SEEDER_VERSION})"
+
+docker run -d ^
+           -e        HOST_COUNT=1 \
+           --name    db_seeder_db \
+           -p        21212:21212 \
+           -v        $PWD/resources/voltdb/deployment.xml:/tmp/deployment.xml \
+           voltdb/voltdb-community:${DB_SEEDER_VERSION}
+
+    echo "Docker start db_seeder_db (VoltDB ${DB_SEEDER_VERSION}) ..."
+
+#   sleep 60
+
+    end=$(date +%s)
+    echo "DOCKER VoltDB was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
 # YugabyteDB                       https://hub.docker.com/r/yugabytedb/yugabyte/
 # ------------------------------------------------------------------------------
 

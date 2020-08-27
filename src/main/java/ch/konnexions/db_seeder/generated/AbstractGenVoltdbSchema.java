@@ -6,16 +6,16 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a YugabyteDB DBMS. <br>
+ * CREATE TABLE statements for a VoltDB DBMS. <br>
  * 
  * @author  GenerateSchema.class
  * @version 2.4.0
  */
-public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
+public abstract class AbstractGenVoltdbSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
-  private static final Logger                 logger            = Logger.getLogger(AbstractGenYugabyteSchema.class);
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenVoltdbSchema.class);
 
   /**
    * Create the CREATE TABLE statements.
@@ -30,7 +30,7 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
                        PK_CITY_ID                       BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
                        FK_COUNTRY_STATE_ID              BIGINT                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
-                       CITY_MAP                         BYTEA,
+                       CITY_MAP                         VARBINARY(1048576),
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL
@@ -49,7 +49,7 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
                        ADDRESS2                         VARCHAR(50),
                        ADDRESS3                         VARCHAR(50),
                        CREATED                          TIMESTAMP                 NOT NULL,
-                       DIRECTIONS                       TEXT,
+                       DIRECTIONS                       VARCHAR(1048576),
                        EMAIL                            VARCHAR(100),
                        FAX                              VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
@@ -67,7 +67,7 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
                    CREATE TABLE COUNTRY (
                        PK_COUNTRY_ID                    BIGINT                    NOT NULL
                                                                                   PRIMARY KEY,
-                       COUNTRY_MAP                      BYTEA,
+                       COUNTRY_MAP                      VARBINARY(1048576),
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
@@ -85,12 +85,12 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
                                                                                   REFERENCES COUNTRY                          (PK_COUNTRY_ID),
                        FK_TIMEZONE_ID                   BIGINT                    NOT NULL
                                                                                   REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
-                       COUNTRY_STATE_MAP                BYTEA,
+                       COUNTRY_STATE_MAP                VARBINARY(1048576),
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_18       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_17       UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -114,21 +114,21 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new abstract YugabyteDB schema object.
+   * Initialises a new abstract VoltDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public AbstractGenYugabyteSchema(String tickerSymbolExtern) {
+  public AbstractGenVoltdbSchema(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
   }
 
   /**
-   * Initialises a new abstract YugabyteDB schema object.
+   * Initialises a new abstract VoltDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption client, embedded or presto
    */
-  public AbstractGenYugabyteSchema(String tickerSymbolExtern, String dbmsOption) {
+  public AbstractGenVoltdbSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {

@@ -29,6 +29,7 @@ set DB_SEEDER_DBMS_ORACLE=yes
 set DB_SEEDER_DBMS_PERCONA=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
 set DB_SEEDER_DBMS_SQLSERVER=yes
+set DB_SEEDER_DBMS_VOLTDB=yes
 set DB_SEEDER_DBMS_YUGABYTE=yes
 
 echo.
@@ -70,6 +71,7 @@ echo.
     echo DBMS_PERCONA                    : %DB_SEEDER_DBMS_PERCONA%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
     echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
+    echo DBMS_VOLTDB                     : %DB_SEEDER_DBMS_VOLTDB%
     echo DBMS_YUGABYTE                   : %DB_SEEDER_DBMS_YUGABYTE%
     echo --------------------------------------------------------------------------------
     echo:| TIME
@@ -273,6 +275,18 @@ echo.
     
     if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
         call run_db_seeder.bat sqlserver yes 1
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
+    
+    rem ------------------------------------------------------------------------------
+    rem VoltDB.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_VOLTDB%"] EQU ["yes"] (
+        call run_db_seeder.bat voltdb yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

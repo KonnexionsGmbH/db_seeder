@@ -30,6 +30,7 @@ export DB_SEEDER_DBMS_ORACLE=yes
 export DB_SEEDER_DBMS_PERCONA=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
 export DB_SEEDER_DBMS_SQLSERVER=yes
+export DB_SEEDER_DBMS_VOLTDB=yes
 export DB_SEEDER_DBMS_YUGABYTE=yes
 
 # ------------------------------------------------------------------------------
@@ -70,6 +71,7 @@ echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
 echo "DBMS_PERCONA                    : $DB_SEEDER_DBMS_PERCONA"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
 echo "DBMS_SQLSERVER                  : $DB_SEEDER_DBMS_SQLSERVER"
+echo "DBMS_VOLTDB                     : $DB_SEEDER_DBMS_VOLTDB"
 echo "DBMS_YUGABYTE                   : $DB_SEEDER_DBMS_YUGABYTE"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
@@ -247,6 +249,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
     if ! ( ./run_db_seeder.sh sqlserver yes 1 ); then
+        exit 255
+    fi    
+fi
+
+# ------------------------------------------------------------------------------
+# VoltDB.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_VOLTDB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh voltdb yes 1 ); then
         exit 255
     fi    
 fi

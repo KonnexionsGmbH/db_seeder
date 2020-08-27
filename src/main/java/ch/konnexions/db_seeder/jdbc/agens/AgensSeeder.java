@@ -78,22 +78,22 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
     }
 
     dbmsEnum = DbmsEnum.POSTGRESQL;
-    
-    driver = "net.bitnine.agensgraph.Driver";
 
-    urlSys  = getUrlSys(config.getConnectionHost(),
-                        config.getConnectionPort(),
-                        config.getConnectionPrefix(),
-                        config.getDatabaseSys(),
-                        config.getUserSys(),
-                        config.getPasswordSys());
+    driver   = "net.bitnine.agensgraph.Driver";
 
-    urlUser = getUrlUser(config.getConnectionHost(),
+    urlSys   = getUrlSys(config.getConnectionHost(),
                          config.getConnectionPort(),
                          config.getConnectionPrefix(),
-                         config.getDatabase(),
-                         config.getUser(),
-                         config.getPassword());
+                         config.getDatabaseSys(),
+                         config.getUserSys(),
+                         config.getPasswordSys());
+
+    urlUser  = getUrlUser(config.getConnectionHost(),
+                          config.getConnectionPort(),
+                          config.getConnectionPrefix(),
+                          config.getDatabase(),
+                          config.getUser(),
+                          config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
