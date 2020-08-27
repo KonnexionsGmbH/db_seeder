@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.4.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.0.svg)
 ----
 
 ### Table of Contents
@@ -1299,12 +1299,6 @@ Below are also DBeaver based connection parameter examples for each database man
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **source code**: [GitHub](https://github.com/VoltDB/voltdb)
-
-![](.README_images/DBeaver_HSQLDB.png)
-  
-  -- embedded version:
-  
-![](.README_images/DBeaver_HSQLDB_EMB.png)
 
 [//]: # (===========================================================================================)
 

@@ -58,6 +58,7 @@ echo "DBMS_AGENS                      : $DB_SEEDER_DBMS_AGENS"
 echo "DBMS_CRATEDB                    : $DB_SEEDER_DBMS_CRATEDB"
 echo "DBMS_CUBRID                     : $DB_SEEDER_DBMS_CUBRID"
 echo "DBMS_DERBY                      : $DB_SEEDER_DBMS_DERBY"
+echo "DBMS_EXASOL                     : $DB_SEEDER_DBMS_EXASOL"
 echo "DBMS_FIREBIRD                   : $DB_SEEDER_DBMS_FIREBIRD"
 echo "DBMS_H2                         : $DB_SEEDER_DBMS_H2"
 echo "DBMS_HSQLDB                     : $DB_SEEDER_DBMS_HSQLDB"
@@ -119,6 +120,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_DERBY" = "yes" ]; then
     if ! ( ./run_db_seeder.sh derby yes 1 ); then
+        exit 255
+    fi    
+fi
+
+# ------------------------------------------------------------------------------
+# Exasol - client version.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_EXASOL" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh exasol yes 1 ); then
         exit 255
     fi    
 fi

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a Firebird DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.4.0
+ * @version 2.5.0
  */
 public abstract class AbstractGenFirebirdSchema extends AbstractGenSeeder {
 

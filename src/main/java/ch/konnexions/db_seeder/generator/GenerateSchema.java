@@ -94,6 +94,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     case "BLOB" -> switch (tickerSymbolLower) {
       case "agens", "postgresql", "yugabyte" -> "BYTEA";
       case "cratedb" -> "OBJECT";
+      case "exasol" -> "VARCHAR(2000000)";
       case "mariadb", "mysql", "percona" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";
       case "voltdb" -> "VARBINARY(1048576)";
@@ -101,6 +102,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       };
     case "CLOB" -> switch (tickerSymbolLower) {
       case "agens", "cratedb", "postgresql", "yugabyte" -> "TEXT";
+      case "exasol" -> "VARCHAR(2000000)";
       case "firebird" -> "BLOB SUB_TYPE 1";
       case "mariadb", "mysql", "percona" -> "LONGTEXT";
       case "sqlserver" -> "VARCHAR(MAX)";
@@ -165,14 +167,20 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     for (int i = 0; i < tableConstraints.size(); i++) {
       TableConstraint tableConstraint = tableConstraints.get(i);
 
+      constraintType = tableConstraint.getConstraintType().toUpperCase();
+
+      if ("UNIQUE".equals(constraintType)) {
+      if ("exasol".equals(tickerSymbolLower)) {
+        continue;
+      }
+      }
+
       workArea = new StringBuilder(" ".repeat(23));
 
       if (!"informix".equals(tickerSymbolLower)) {
         workArea.append(String.format("%-31s",
                                       "CONSTRAINT CONSTRAINT_" + ++constraintNumber));
       }
-
-      constraintType = tableConstraint.getConstraintType().toUpperCase();
 
       switch (constraintType) {
       case "FOREIGN" -> workArea.append("FOREIGN KEY (").append(identifierDelimiter);
@@ -628,7 +636,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // UNIQUE ............................................................
 
-          if (!("cratedb".equals(tickerSymbolLower))) {
+          if (!("cratedb".equals(tickerSymbolLower)||"exasol".equals(tickerSymbolLower))) {
             if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());

@@ -12,7 +12,7 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.4.0
+export DB_SEEDER_RELEASE=2.5.0
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -25,6 +25,7 @@ if [ -z "$1" ]; then
     echo "derby_emb          - Apache Derby [embedded]"
     echo "cratedb            - CrateDB"
     echo "cubrid             - CUBRID"
+    echo "exasol             - Exasol"
     echo "firebird           - Firebird"
     echo "h2                 - H2 Database Engine [client]"
     echo "h2_emb             - H2 Database Engine [embedded]"
@@ -158,6 +159,19 @@ if [ "${DB_SEEDER_DBMS}" = "derby_emb" ] || [ "${DB_SEEDER_DBMS}" = "complete_em
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
+fi
+
+if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=127.0.0.1
+    export DB_SEEDER_CONNECTION_PORT=8899
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
+    export DB_SEEDER_CONTAINER_PORT=8888
+    export DB_SEEDER_PASSWORD=exasol
+    export DB_SEEDER_PASSWORD_SYS=exasol
+    export DB_SEEDER_SCHEMA=kxn_schema
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=sys
+    export DB_SEEDER_VERSION=6.2.8-d1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
