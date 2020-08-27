@@ -17,6 +17,9 @@ public abstract class AbstractDbmsSeeder {
 
   public enum DbmsEnum {
 
+    AGENS(
+        "agens"
+    ),
     CRATEDB(
         "cratedb"
     ),
@@ -68,6 +71,9 @@ public abstract class AbstractDbmsSeeder {
     SQLSERVER(
         "sqlserver"
     ),
+    VOLTDB(
+        "voltdb"
+    ),
     YUGABYTE(
         "yugabyte"
     );
@@ -111,6 +117,13 @@ public abstract class AbstractDbmsSeeder {
   private static Map<String, String[]> initDbmsDetails() {
     Map<String, String[]> dbmsDetails = new HashMap<>();
 
+    dbmsDetails.put("agens",
+                    new String[] {
+                        "agens",
+                        "AgensGraph",
+                        "client",
+                        "AgensGraph",
+                        "" });
     dbmsDetails.put("cratedb",
                     new String[] {
                         "cratedb",
@@ -278,6 +291,13 @@ public abstract class AbstractDbmsSeeder {
                         "MS SQL Server",
                         "presto",
                         "MS SQL Server",
+                        "" });
+    dbmsDetails.put("voltdb",
+                    new String[] {
+                        "voltdb",
+                        "VoltDB",
+                        "client",
+                        "VoltDB",
                         "" });
     dbmsDetails.put("yugabyte",
                     new String[] {

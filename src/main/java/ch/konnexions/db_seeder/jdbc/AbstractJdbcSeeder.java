@@ -650,7 +650,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_DROP) {
-        String sqlStmnt = "DROP TABLE IF EXISTS \"" + tableName + "\"";
+        String sqlStmnt = "DROP TABLE" + (dbmsEnum == DbmsEnum.VOLTDB
+            ? " " + identifierDelimiter + tableName + identifierDelimiter + " "
+            : " ") + "IF EXISTS" + (dbmsEnum == DbmsEnum.VOLTDB
+                ? ""
+                : " " + identifierDelimiter + tableName + identifierDelimiter);
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -1110,7 +1114,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
 
       if (rowNo % nullFactor == 0) {
-        if (dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.YUGABYTE) {
+        if (dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.VOLTDB || dbmsEnum == DbmsEnum.YUGABYTE) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
           return;
@@ -1166,7 +1170,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
-        if (dbmsEnum == DbmsEnum.CRATEDB) {
+        if (dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.VOLTDB) {
           preparedStatement.setNull(columnPos,
                                     Types.VARCHAR);
           return;

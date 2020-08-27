@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a HyperSQL DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.3.0
+ * @version 2.4.0
  */
 public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_5        UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_6        UNIQUE      (fk_country_id, name)
                    )
                    """);
 

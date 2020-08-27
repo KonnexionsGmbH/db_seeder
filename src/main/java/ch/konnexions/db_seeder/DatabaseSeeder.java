@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import org.apache.log4j.Logger;
 
+import ch.konnexions.db_seeder.jdbc.agens.AgensSeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
 import ch.konnexions.db_seeder.jdbc.derby.DerbySeeder;
@@ -24,6 +25,7 @@ import ch.konnexions.db_seeder.jdbc.percona.PerconaSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
+import ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder;
 import ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
@@ -59,6 +61,12 @@ public final class DatabaseSeeder {
       logger.info("tickerSymbolExtern='" + tickerSymbolExtern + "'");
 
       switch (Objects.requireNonNull(tickerSymbolExtern)) {
+      case "agens":
+        logger.info("Start AgensGraph");
+        AgensSeeder agensSeeder = new AgensSeeder(tickerSymbolExtern);
+        agensSeeder.createData();
+        logger.info("End   AgensGraph");
+        break;
       case "cratedb":
         logger.info("Start CrateDB");
         CratedbSeeder cratedbSeeder = new CratedbSeeder(tickerSymbolExtern);
@@ -202,6 +210,12 @@ public final class DatabaseSeeder {
         SqlserverSeeder sqlserverSeederPresto = new SqlserverSeeder(tickerSymbolExtern, "presto");
         sqlserverSeederPresto.createData();
         logger.info("End   Microsoft SQL Server via Presto");
+        break;
+      case "voltdb":
+        logger.info("Start VoltDB");
+        VoltdbSeeder voltdbSeeder = new VoltdbSeeder(tickerSymbolExtern);
+        voltdbSeeder.createData();
+        logger.info("End   VoltDB");
         break;
       case "yugabyte":
         logger.info("Start YugabyteDB");

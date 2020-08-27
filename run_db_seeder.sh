@@ -12,13 +12,15 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.3.0
+export DB_SEEDER_RELEASE=2.4.0
 
 if [ -z "$1" ]; then
     echo "========================================================="
     echo "complete_client    - All implemented client DBMSs"
     echo "complete_emb       - All implemented embedded DBMSs"
     echo "complete_presto    - All implemented Presto enabled DBMSs"
+    echo "---------------------------------------------------------"
+    echo "agens              - AgensGraph [client]"
     echo "derby              - Apache Derby [client]"
     echo "derby_emb          - Apache Derby [embedded]"
     echo "cratedb            - CrateDB"
@@ -43,6 +45,7 @@ if [ -z "$1" ]; then
     echo "postgresql         - PostgreSQL Database"
     echo "postgresql_presto  - PostgreSQL Database via Presto"
     echo "sqlite             - SQLite [embedded]"
+    echo "voltdb             - VoltDB"
     echo "yugabyte           - YugabyteDB"
     echo "---------------------------------------------------------"
     read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
@@ -96,6 +99,20 @@ export DB_SEEDER_FILE_STATISTICS_DELIMITER=\\t
 if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local.tsv
 fi 
+
+if [ "${DB_SEEDER_DBMS}" = "agens" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=5432
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:agensgraph://
+    export DB_SEEDER_CONTAINER_PORT=5432
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=agens
+    export DB_SEEDER_PASSWORD=agens
+    export DB_SEEDER_PASSWORD_SYS=agens
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=agens
+    export DB_SEEDER_VERSION=v2.1.1
+fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
@@ -422,6 +439,16 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_presto" ] || [ "${DB_SEEDER_DBMS}" = "comp
     export DB_SEEDER_VERSION=2019-latest
 fi
 
+if [ "${DB_SEEDER_DBMS}" = "voltdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=21212
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
+    export DB_SEEDER_CONNECTION_SUFFIX="?autoreconnect=true"
+    export DB_SEEDER_CONTAINER_PORT=21212
+    export DB_SEEDER_PASSWORD=voltdb
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_VERSION=9.2.1
+fi
 
 if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost

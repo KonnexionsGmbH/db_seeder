@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '2.3.0'
+version '2.4.0'
 
 repositories {
     jcenter()
@@ -21,25 +21,12 @@ repositories {
 dependencies {
     implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.12.1'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.h2database:h2:1.4.200'
-    implementation 'com.ibm.db2:jcc:11.5.4.0'
-    implementation 'com.ibm.informix:jdbc:4.50.4.1'
-    implementation 'com.microsoft.sqlserver:mssql-jdbc:8.4.0.jre14'
-    implementation 'com.oracle.database.jdbc:ojdbc8:19.7.0.0'
-    implementation 'com.yugabyte:jdbc-yugabytedb:42.2.7-yb-3'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
-    implementation 'cubrid:cubrid-jdbc:10.2.1.8849'
     implementation 'io.crate:crate-jdbc:2.6.0'
-    implementation 'io.prestosql:presto-jdbc:340'
-    implementation 'mysql:mysql-connector-java:8.0.21'
     implementation 'org.apache.commons:commons-configuration2:2.7'
     implementation 'org.apache.commons:commons-csv:1.8'
-    implementation 'org.apache.derby:derby:10.15.2.0'
     implementation 'org.apache.derby:derbyclient:10.15.2.0'
     implementation 'org.firebirdsql.jdbc:jaybird:4.0.1.java11'
-    implementation 'org.hsqldb:hsqldb:2.5.1'
-    implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.2'
-    implementation 'org.postgresql:postgresql:42.2.16'
     implementation 'org.slf4j:slf4j-log4j12:1.7.30'
     implementation 'org.xerial:sqlite-jdbc:3.32.3.2'
 }

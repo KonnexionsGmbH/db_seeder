@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.3.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.4.0.svg)
 ----
 
 ### Table of Contents
@@ -25,94 +25,121 @@
 
 **`db_seeder`** allows the generation of dummy data in different database management systems. 
 Currently the following database management systems are supported:
+- [AgensGraph](https://bitnine.net/agensgraph)
+  - client only version
+  - commercial, open source
+  - derived from PostgreSQL
+  - property graph model and relational model
+  - **[see technical details here](#details_agens)**
 - [Apache Derby](https://db.apache.org/derby)
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded version
+  - open source
+  - relational model
   - **[see technical details here](#details_derby)**
 - [CrateDB](https://crate.io)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - commercial, open source
+  - compatible with PostgreSQL
+  - relational model
   - **[see technical details here](#details_cratedb)**
 - [CUBRID](https://www.cubrid.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - compatible with MySQL
+  - open source
+  - relational model
   - **[see technical details here](#details_cubrid)**
 - [Firebird](https://firebirdsql.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded (not supported here) version
+  - open source
+  - relational model
   - **[see technical details here](#details_firebird)**
 - [H2 Database Engine](https://www.h2database.com/html/main.html) 
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded version
+  - compatible with HyperSQL, PostgreSQL
+  - open source
+  - relational model
   - **[see technical details here](#details_h2)**
 - [HyperSQL Database](https://hsqldb.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded version
+  - open source
+  - relational model
   - **[see technical details here](#details_hsqldb)**
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_ibmdb2)**
 - [IBM Informix](https://www.ibm.com/products/informix) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_informix)**
 - [MariaDB Server](https://mariadb.com) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - derived from MySQL
+  - open source
+  - relational model
   - **[see technical details here](#details_mariadb)**
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - derived from Adaptive Server Enterprise
+  - relational model
   - **[see technical details here](#details_sqlserver)**
 - [Mimer SQL](https://www.mimer.com) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_mimer)**
 - [MonetDB](https://www.monetdb.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - open source
+  - relational model
   - **[see technical details here](#details_monetdb)**
 - [MySQL Database](https://www.mysql.com) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - open source
+  - relational model
   - **[see technical details here](#details_mysql)**
 - [Oracle Database](https://www.oracle.com/database)
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_oracle)**
 - [Percona Server for MySQL](https://www.percona.com/software/mysql-database/percona-server)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - commercial, open source
+  - derived from MySQL
+  - relational model
   - **[see technical details here](#details_percona)**
 - [PostgreSQL Database](https://www.postgresql.org)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - open source
+  - relational model
   - **[see technical details here](#details_postgresql)**
 - [Presto Distributed Query Engine](https://prestosql.io/)
+  - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
   - open source
   - **[see technical details here](#details_presto)**
 - [SQLite](https://www.sqlite.org)
-  - relational database management system (RDBMS)
-  - open source
+  - commercial, open source
   - embedded only version
+  - relational model
   - **[see technical details here](#details_sqlite)**
-- [YugabyteDB](https://www.yugabyte.com)
-  - relational database management system (RDBMS)
-  - open source
+- [VoltDB](https://www.voltdb.com)
   - client only version
+  - commercial, open source
+  - derived from H-Store, HyperSQL
+  - relational model
+  - **[see technical details here](#details_voltdb)**
+- [YugabyteDB](https://www.yugabyte.com)
+  - client only version
+  - commercial, open source
+  - compatible with Cassandra, PostgreSQL, Redis
+  - derived from PostgreSQL, RocksDB
+  - inspired by Cloud Spanner
+  - relational model
   - **[see technical details here](#details_yugabyte)**
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
@@ -135,6 +162,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 
 | DBMS                            | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
 |---                              |---                 |---                        |---                  |
+| AgensGraph                      | agens              | v2.1.1                    | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                      | 10.2.1.8849         |
 | CrateDB                         | cratedb            | 4.1.6 - 4.2.3             | 2.6.0               |
@@ -153,6 +181,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | PostgreSQL Database             | postgresql         | 12.3 - 12.4               | 42.2.16             |
 | Presto Distributed query Engine | n/a                | 339 - 340                 | 340                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
+| VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15               | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
@@ -418,18 +447,18 @@ db_seeder.user=
 | connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                               | port number of the Presto distributed query engine |
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
-| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona                                                                   | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                                   | privileged database name |
-| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, monetdb, oracle                                                                             | database name |
+| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona, voltdb                                                           | suffix of the database connection string |
+| database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
+| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, monetdb, oracle, voltdb                                                                     | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver                   | password of the privileged user |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver            | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, monetdb, postgresql_presto, sqlserver                                                            | schema name |
-| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2                                                                                            | name of the privileged user |
+| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2, voltdb                                                                                    | name of the privileged user |
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
 
@@ -438,6 +467,7 @@ db_seeder.user=
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
+**[AgensGraph](#details_agens)** / 
 **[Apache Derby](#details_derby)** / 
 **[CrateDB](#details_cratedb)** / 
 **[CUBRID](#details_cubrid)** / 
@@ -456,11 +486,46 @@ Below are also DBeaver based connection parameter examples for each database man
 **[PostgreSQL Database](#details_postgresql)** / 
 **[Presto distributed Query Engine](#details_presto)** / 
 **[SQLite](#details_sqlite)**
+**[VoltDB](#details_voltdb)**
 **[YugabyteDB](#details_yugabyte)**
 
 [//]: # (===========================================================================================)
 
-### <a name="details_derby"></a> 5.1 Apache Derby
+### <a name="details_postgresql"></a> 5.1 AgensGraph
+
+- **data types**:
+
+| db seeder Type | AgensGraph Database Type |
+| ---            | ---                      |
+| BIGINT         | BIGINT                   |
+| BLOB           | BYTEA                    |
+| CLOB           | TEXT                     |
+| TIMESTAMP      | TIMESTAMP                |
+| VARCHAR        | VARCHAR                  |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
+  - [CREATE SCHEMA](https://www.postgresql.org/docs/12/sql-createschema.html)
+  - [CREATE TABLE](https://www.postgresql.org/docs/12/sql-createtable.html) 
+  - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull bitnine/agensgraph:v2.1.1`
+  - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
+
+- **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
+  
+- **issue tracking**: [GitHub](https://github.com/bitnine-oss/agensgraph/issues)
+  
+- **JDBC driver (latest)**:
+  - version 1.4.2-c1
+  - [Maven repository](https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc)
+
+- **source code**: [GitHub](https://github.com/bitnine-oss/agensgraph)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_derby"></a> 5.2 Apache Derby
 
 - **data types**:
 
@@ -505,7 +570,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_cratedb"></a> 5.2 CrateDB
+### <a name="details_cratedb"></a> 5.3 CrateDB
 
 - **data types**:
 
@@ -551,7 +616,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_cubrid"></a> 5.3 CUBRID
+### <a name="details_cubrid"></a> 5.4 CUBRID
 
 - **data types**:
 
@@ -595,7 +660,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_firebird"></a> 5.4 Firebird
+### <a name="details_firebird"></a> 5.5 Firebird
 
 - **data types**:
 
@@ -636,7 +701,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_h2"></a> 5.5 H2 Database Engine
+### <a name="details_h2"></a> 5.6 H2 Database Engine
 
 - **data types**:
 
@@ -682,7 +747,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_hsqldb"></a> 5.6 HyperSQL Database
+### <a name="details_hsqldb"></a> 5.7 HyperSQL Database
 
 - **data types**:
 
@@ -728,7 +793,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_ibmdb2"></a> 5.7 IBM Db2 Database
+### <a name="details_ibmdb2"></a> 5.8 IBM Db2 Database
 
 - **data types**:
 
@@ -771,7 +836,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_informix"></a> 5.8 IBM Informix
+### <a name="details_informix"></a> 5.9 IBM Informix
 
 - **data types**:
 
@@ -814,7 +879,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mariadb"></a> 5.9 MariaDB Server
+### <a name="details_mariadb"></a> 5.10 MariaDB Server
 
 - **data types**:
 
@@ -860,7 +925,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_sqlserver"></a> 5.10 Microsoft SQL Server
+###  <a name="details_sqlserver"></a> 5.11 Microsoft SQL Server
 
 - **data types**:
 
@@ -900,7 +965,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mimer"></a> 5.11 Mimer SQL
+### <a name="details_mimer"></a> 5.12 Mimer SQL
 
 - **data types**:
 
@@ -938,7 +1003,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_monetdb"></a> 5.12 MonetDB
+### <a name="details_monetdb"></a> 5.13 MonetDB
 
 - **data types**:
 
@@ -981,7 +1046,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.13 MySQL Database
+### <a name="details_mysql"></a> 5.14 MySQL Database
 
 - **data types**:
 
@@ -1023,7 +1088,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.14 Oracle Database
+### <a name="details_oracle"></a> 5.15 Oracle Database
 
 - **data types**:
 
@@ -1059,7 +1124,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_percona"></a> 5.15 Percona Server for MySQL
+### <a name="details_percona"></a> 5.16 Percona Server for MySQL
 
 - **data types**:
 
@@ -1097,7 +1162,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.15 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.17 PostgreSQL Database
 
 - **data types**:
 
@@ -1133,7 +1198,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_presto"></a> 5.16 Presto Distributed Query Engine
+### <a name="details_presto"></a> 5.18 Presto Distributed Query Engine
 
 - **data types**:
 
@@ -1167,7 +1232,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.17 SQLite
+### <a name="details_sqlite"></a> 5.19 SQLite
 
 - **data types**:
 
@@ -1205,7 +1270,45 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_yugabyte"></a> 5.16 YugabyteDB
+### <a name="details_voltdb"></a> 5.20 VoltDB
+
+- **data types**:
+
+| db seeder Type | VoltDB Type |
+| ---            | ---         |
+| BIGINT         | BIGINT      |
+| BLOB           | VARBINARY   |
+| CLOB           | VARCHAR     |
+| TIMESTAMP      | TIMESTAMP   |
+| VARCHAR        | VARCHAR     |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a  
+  - CREATE SCHEMA - n/a  
+  - [CREATE TABLE](https://docs.voltdb.com/UsingVoltDB/ddlref_createtable.php) 
+  - CREATE USER - n/a  
+
+- **Docker image (latest)**:
+  - pull command: `docker pull voltdb/voltdb-community:9.2.1`
+  - [DockerHub](https://hub.docker.com/r/voltdb/voltdb-community)
+
+- **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
+
+- **JDBC driver (latest)**:
+  - version 2.5.1
+  - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
+
+- **source code**: [GitHub](https://github.com/VoltDB/voltdb)
+
+![](.README_images/DBeaver_HSQLDB.png)
+  
+  -- embedded version:
+  
+![](.README_images/DBeaver_HSQLDB_EMB.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_yugabyte"></a> 5.21 YugabyteDB
 
 - **data types**:
 

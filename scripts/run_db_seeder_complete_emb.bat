@@ -52,7 +52,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_DERBY_EMB%"] EQU ["yes"] (
-        call run_db_seeder.bat derby_emb yes 2
+        call run_db_seeder.bat derby_emb yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -64,7 +64,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_H2_EMB%"] EQU ["yes"] (
-        call run_db_seeder.bat h2_emb yes 2
+        call run_db_seeder.bat h2_emb yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -76,7 +76,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
-        call run_db_seeder.bat hsqldb_emb yes 2
+        call run_db_seeder.bat hsqldb_emb yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -88,7 +88,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
-        call run_db_seeder.bat sqlite yes 2
+        call run_db_seeder.bat sqlite yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

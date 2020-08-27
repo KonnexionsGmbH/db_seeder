@@ -66,7 +66,7 @@ unset -f "${DB_SEEDER_DBMS}"=
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MYSQL_PRESTO" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh mysql_presto yes 2 ); then
+    if ! ( ./run_db_seeder.sh mysql_presto yes 1 ); then
         exit 255
     fi    
 fi
@@ -76,7 +76,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_ORACLE_PRESTO" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh oracle_presto yes 2 ); then
+    if ! ( ./run_db_seeder.sh oracle_presto yes 1 ); then
         exit 255
     fi    
 fi
@@ -86,7 +86,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh postgresql yes 2 ); then
+    if ! ( ./run_db_seeder.sh postgresql yes 1 ); then
         exit 255
     fi    
 fi
@@ -96,7 +96,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlserver yes 2 ); then
+    if ! ( ./run_db_seeder.sh sqlserver yes 1 ); then
         exit 255
     fi    
 fi
