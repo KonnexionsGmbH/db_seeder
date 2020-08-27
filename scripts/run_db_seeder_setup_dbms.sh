@@ -504,7 +504,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "voltdb" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (VoltDB ${DB_SEEDER_VERSION})"
 
-docker run -d ^
+docker run -d \
            -e        HOST_COUNT=1 \
            --name    db_seeder_db \
            -p        21212:21212 \

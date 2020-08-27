@@ -25,104 +25,121 @@
 
 **`db_seeder`** allows the generation of dummy data in different database management systems. 
 Currently the following database management systems are supported:
-- [AgensGraph](https://bitnine.net/agensgraph/)
-  - graph database management system
-  - open source
+- [AgensGraph](https://bitnine.net/agensgraph)
   - client only version
+  - commercial, open source
+  - derived from PostgreSQL
+  - property graph model and relational model
   - **[see technical details here](#details_agens)**
 - [Apache Derby](https://db.apache.org/derby)
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded version
+  - open source
+  - relational model
   - **[see technical details here](#details_derby)**
 - [CrateDB](https://crate.io)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - commercial, open source
+  - compatible with PostgreSQL
+  - relational model
   - **[see technical details here](#details_cratedb)**
 - [CUBRID](https://www.cubrid.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - compatible with MySQL
+  - open source
+  - relational model
   - **[see technical details here](#details_cubrid)**
 - [Firebird](https://firebirdsql.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded (not supported here) version
+  - open source
+  - relational model
   - **[see technical details here](#details_firebird)**
 - [H2 Database Engine](https://www.h2database.com/html/main.html) 
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded version
+  - compatible with HyperSQL, PostgreSQL
+  - open source
+  - relational model
   - **[see technical details here](#details_h2)**
 - [HyperSQL Database](https://hsqldb.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client and embedded version
+  - open source
+  - relational model
   - **[see technical details here](#details_hsqldb)**
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_ibmdb2)**
 - [IBM Informix](https://www.ibm.com/products/informix) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_informix)**
 - [MariaDB Server](https://mariadb.com) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - derived from MySQL
+  - open source
+  - relational model
   - **[see technical details here](#details_mariadb)**
 - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - derived from Adaptive Server Enterprise
+  - relational model
   - **[see technical details here](#details_sqlserver)**
 - [Mimer SQL](https://www.mimer.com) 
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_mimer)**
 - [MonetDB](https://www.monetdb.org) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - open source
+  - relational model
   - **[see technical details here](#details_monetdb)**
 - [MySQL Database](https://www.mysql.com) 
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - open source
+  - relational model
   - **[see technical details here](#details_mysql)**
 - [Oracle Database](https://www.oracle.com/database)
-  - relational database management system (RDBMS)
   - client only version
+  - commercial
+  - relational model
   - **[see technical details here](#details_oracle)**
 - [Percona Server for MySQL](https://www.percona.com/software/mysql-database/percona-server)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - commercial, open source
+  - derived from MySQL
+  - relational model
   - **[see technical details here](#details_percona)**
 - [PostgreSQL Database](https://www.postgresql.org)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - open source
+  - relational model
   - **[see technical details here](#details_postgresql)**
 - [Presto Distributed Query Engine](https://prestosql.io/)
+  - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
   - open source
   - **[see technical details here](#details_presto)**
 - [SQLite](https://www.sqlite.org)
-  - relational database management system (RDBMS)
-  - open source
+  - commercial, open source
   - embedded only version
+  - relational model
   - **[see technical details here](#details_sqlite)**
 - [VoltDB](https://www.voltdb.com)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - commercial, open source
+  - derived from H-Store, HyperSQL
+  - relational model
   - **[see technical details here](#details_voltdb)**
 - [YugabyteDB](https://www.yugabyte.com)
-  - relational database management system (RDBMS)
-  - open source
   - client only version
+  - commercial, open source
+  - compatible with Cassandra, PostgreSQL, Redis
+  - derived from PostgreSQL, RocksDB
+  - inspired by Cloud Spanner
+  - relational model
   - **[see technical details here](#details_yugabyte)**
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
