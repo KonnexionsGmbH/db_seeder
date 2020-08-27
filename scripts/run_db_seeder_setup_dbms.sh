@@ -513,7 +513,7 @@ docker run -d ^
 
     echo "Docker start db_seeder_db (VoltDB ${DB_SEEDER_VERSION}) ..."
 
-#   sleep 60
+    sleep 20
 
     end=$(date +%s)
     echo "DOCKER VoltDB was ready in $((end - start)) seconds"

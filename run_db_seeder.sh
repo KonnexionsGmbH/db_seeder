@@ -441,6 +441,17 @@ fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=21212
+    export DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
+    export DB_SEEDER_CONNECTION_SUFFIX="?autoreconnect=true"
+    export DB_SEEDER_CONTAINER_PORT=21212
+    export DB_SEEDER_PASSWORD=voltdb
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_VERSION=9.2.1
+fi
+
+if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     export DB_SEEDER_CONTAINER_PORT=5433
@@ -450,17 +461,6 @@ if [ "${DB_SEEDER_DBMS}" = "voltdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15
-fi
-
-if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
-    export DB_SEEDER_CONNECTION_PORT=21212
-    export DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
-    export DB_SEEDER_CONNECTION_SUFFIX="?autoreconnect=true"
-    export DB_SEEDER_CONTAINER_PORT=21212
-    export DB_SEEDER_PASSWORD=voltdb
-    export DB_SEEDER_USER=kxn_user
-    export DB_SEEDER_VERSION=9.2.1
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then

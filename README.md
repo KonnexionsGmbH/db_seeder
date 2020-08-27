@@ -114,6 +114,11 @@ Currently the following database management systems are supported:
   - open source
   - embedded only version
   - **[see technical details here](#details_sqlite)**
+- [VoltDB](https://www.voltdb.com)
+  - relational database management system (RDBMS)
+  - open source
+  - client only version
+  - **[see technical details here](#details_voltdb)**
 - [YugabyteDB](https://www.yugabyte.com)
   - relational database management system (RDBMS)
   - open source
@@ -159,6 +164,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | PostgreSQL Database             | postgresql         | 12.3 - 12.4               | 42.2.16             |
 | Presto Distributed query Engine | n/a                | 339 - 340                 | 340                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
+| VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15               | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
@@ -424,9 +430,9 @@ db_seeder.user=
 | connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                               | port number of the Presto distributed query engine |
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
-| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona                                                                   | suffix of the database connection string |
+| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona, voltdb                                                           | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
-| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, monetdb, oracle                                                                             | database name |
+| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, monetdb, oracle, voltdb                                                                     | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
@@ -435,7 +441,7 @@ db_seeder.user=
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver            | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, monetdb, postgresql_presto, sqlserver                                                            | schema name |
-| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2                                                                                            | name of the privileged user |
+| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2, voltdb                                                                                    | name of the privileged user |
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
 
@@ -463,6 +469,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[PostgreSQL Database](#details_postgresql)** / 
 **[Presto distributed Query Engine](#details_presto)** / 
 **[SQLite](#details_sqlite)**
+**[VoltDB](#details_voltdb)**
 **[YugabyteDB](#details_yugabyte)**
 
 [//]: # (===========================================================================================)
@@ -1246,7 +1253,45 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_yugabyte"></a> 5.20 YugabyteDB
+### <a name="details_voltdb"></a> 5.20 VoltDB
+
+- **data types**:
+
+| db seeder Type | VoltDB Type |
+| ---            | ---         |
+| BIGINT         | BIGINT      |
+| BLOB           | VARBINARY   |
+| CLOB           | VARCHAR     |
+| TIMESTAMP      | TIMESTAMP   |
+| VARCHAR        | VARCHAR     |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a  
+  - CREATE SCHEMA - n/a  
+  - [CREATE TABLE](https://docs.voltdb.com/UsingVoltDB/ddlref_createtable.php) 
+  - CREATE USER - n/a  
+
+- **Docker image (latest)**:
+  - pull command: `docker pull voltdb/voltdb-community:9.2.1`
+  - [DockerHub](https://hub.docker.com/r/voltdb/voltdb-community)
+
+- **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
+
+- **JDBC driver (latest)**:
+  - version 2.5.1
+  - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
+
+- **source code**: [GitHub](https://github.com/VoltDB/voltdb)
+
+![](.README_images/DBeaver_HSQLDB.png)
+  
+  -- embedded version:
+  
+![](.README_images/DBeaver_HSQLDB_EMB.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_yugabyte"></a> 5.21 YugabyteDB
 
 - **data types**:
 
