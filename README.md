@@ -1375,7 +1375,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_YOUGABYTE.png)
+![](.README_images/DBeaver_YUGABYTE.png)
 
 ## <a name="presto"></a> 6. Presto - Distributed Query Engine
 

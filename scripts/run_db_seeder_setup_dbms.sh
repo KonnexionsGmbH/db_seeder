@@ -144,7 +144,6 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
                --name         db_seeder_db \
                -p             127.0.0.1:${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT}/tcp \
                --privileged \
-               --stop-timeout 120 \
                exasol/docker-db:${DB_SEEDER_VERSION}
 
     echo "Docker start db_seeder_db (Exasol ${DB_SEEDER_VERSION}) ..."
@@ -152,7 +151,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
         exit 255
     fi
 
-    sleep 90
+    sleep 60
 
     end=$(date +%s)
     echo "DOCKER Exasol was ready in $((end - start)) seconds"
