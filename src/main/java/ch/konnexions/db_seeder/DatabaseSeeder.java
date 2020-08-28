@@ -92,17 +92,17 @@ public final class DatabaseSeeder {
         derbySeederEmbedded.createData();
         logger.info("End   Apache Derby [embedded]");
         break;
-      case "firebird":
-        logger.info("Start Firebird [client]");
-        FirebirdSeeder firebirdSeeder = new FirebirdSeeder(tickerSymbolExtern);
-        firebirdSeeder.createData();
-        logger.info("End   Firebird [client]");
-        break;
       case "exasol":
         logger.info("Start Exasol [client]");
         ExasolSeeder exasolSeeder = new ExasolSeeder(tickerSymbolExtern);
         exasolSeeder.createData();
         logger.info("End   Exasol [client]");
+        break;
+      case "firebird":
+        logger.info("Start Firebird [client]");
+        FirebirdSeeder firebirdSeeder = new FirebirdSeeder(tickerSymbolExtern);
+        firebirdSeeder.createData();
+        logger.info("End   Firebird [client]");
         break;
       case "h2":
         logger.info("Start H2 Database Engine [client]");
