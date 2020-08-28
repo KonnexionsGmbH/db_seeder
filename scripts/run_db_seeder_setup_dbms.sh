@@ -151,7 +151,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
         exit 255
     fi
 
-    sleep 60
+    sleep 90
 
     end=$(date +%s)
     echo "DOCKER Exasol was ready in $((end - start)) seconds"
