@@ -16,7 +16,7 @@ Java must be installed at least in version 14.
 
 Prerequisite for this is an executable Presto version and the successful installation of the corresponding DBMS.
 
-The Presto catalog properties can be generated with the script `run_db_seeder_presto_environment`.
+The Presto catalog properties can be generated with the script `scripts/run_db_seeder_presto_environment`.
 
 Presto and the DBMS can be made available with the script `run_db_seeder [mysql|oracle|postgresql|sqlserver] yes 0`, whereby corresponding Docker container are created in Windows and Linux.0
 
@@ -37,7 +37,7 @@ By default, 2500 rows are inserted in the following database table (PostgreSQL v
                                         UNIQUE
     )
 
-The Connector proprties files are located in the directory `resources/docker/presto/catalog`.  If adjustments are necessary, the scripts `run_db_seeder_presto_environment` and `scripts/run_db_seeder_setup_presto`must be run again. 
+The Connector proprties files are located in the directory `resources/docker/presto/catalog`.  If adjustments are necessary, the scripts `scripts/run_db_seeder_presto_environment` and `scripts/run_db_seeder_setup_presto`must be run again. 
 
 All driver and SQL relevant events are logged at the console.
 

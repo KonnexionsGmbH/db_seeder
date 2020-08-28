@@ -683,7 +683,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
 
 if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
     if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
-        call run_db_seeder_presto_environment complete
+        call scripts\run_db_seeder_presto_environment complete
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

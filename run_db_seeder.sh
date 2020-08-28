@@ -549,7 +549,7 @@ elif [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
 else
     if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
         if [ "${DB_SEEDER_SETUP_DBMS}" = "yes" ]; then
-            if ! ( ./run_db_seeder_presto_environment.sh complete ); then
+            if ! ( ./scripts/run_db_seeder_presto_environment.sh complete ); then
                 exit 255
             fi
             if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then

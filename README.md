@@ -196,7 +196,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 
 ### <a name="database_schema"></a> 2.1 Database Schema
 
-The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script `run_db_seeder_generate_schema`.
+The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script `scripts/run_db_seeder_generate_schema`.
 To validate the database schema in the JSON parameter file, the JSON schema file `db_seeder_schema.schema.json` in the directory `src/main/resources` is used.
 
 #### 2.1.1 Structure of the Database Schema Definition File 
@@ -457,7 +457,7 @@ db_seeder.user=
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
 | database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                                                             | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
-| file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
