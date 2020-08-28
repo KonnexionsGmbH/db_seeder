@@ -1,8 +1,8 @@
 ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
-derby_emb	derby	Apache Derby [embedded]	14	2020-08-26 08:39:53.701009000	2020-08-26 08:40:08.398792000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
-h2_emb	h2	H2 Database Engine [embedded]	4	2020-08-26 08:40:09.122297000	2020-08-26 08:40:13.471497000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
-h2_emb	h2	H2 Database Engine [embedded]	5	2020-08-26 08:40:13.961178000	2020-08-26 08:40:19.009486000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb_emb	hsqldb	HyperSQL Database [embedded]	16	2020-08-26 08:40:19.758453000	2020-08-26 08:40:35.829392000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb_emb	hsqldb	HyperSQL Database [embedded]	16	2020-08-26 08:40:36.332686000	2020-08-26 08:40:53.026020000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
+derby_emb	derby	Apache Derby	14	2020-08-26 08:39:53.701009000	2020-08-26 08:40:08.398792000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
+h2_emb	h2	H2 Database Engine	4	2020-08-26 08:40:09.122297000	2020-08-26 08:40:13.471497000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
+h2_emb	h2	H2 Database Engine	5	2020-08-26 08:40:13.961178000	2020-08-26 08:40:19.009486000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb_emb	hsqldb	HyperSQL Database	16	2020-08-26 08:40:19.758453000	2020-08-26 08:40:35.829392000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb_emb	hsqldb	HyperSQL Database	16	2020-08-26 08:40:36.332686000	2020-08-26 08:40:53.026020000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
 sqlite	sqlite	SQLite	1	2020-08-26 08:40:53.666336000	2020-08-26 08:40:55.467071000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp
 sqlite	sqlite	SQLite	2	2020-08-26 08:40:55.973690000	2020-08-26 08:40:58.007544000	travis-job-601495c5-83c9-4e72-99ba-ac055dccbfbd	2	amd64 / Linux / 5.3.0-1029-gcp

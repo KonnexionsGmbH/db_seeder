@@ -2,11 +2,11 @@ ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host
 agens	agens	AgensGraph	6	2020-08-28 16:25:14.831355000	2020-08-28 16:25:21.497290000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
 cratedb	cratedb	CrateDB	14	2020-08-28 16:26:20.497435000	2020-08-28 16:26:34.783951000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
 cubrid	cubrid	CUBRID	8	2020-08-28 16:27:21.160950000	2020-08-28 16:27:29.420085000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
-derby	derby	Apache Derby [client]	18	2020-08-28 16:28:24.059131000	2020-08-28 16:28:42.662876000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
+derby	derby	Apache Derby	18	2020-08-28 16:28:24.059131000	2020-08-28 16:28:42.662876000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
 exasol	exasol	Exasol	6	2020-08-28 16:32:58.216429000	2020-08-28 16:33:04.953427000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
 firebird	firebird	Firebird	64	2020-08-28 16:33:58.583536000	2020-08-28 16:35:02.995612000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
-h2	h2	H2 Database Engine [client]	9	2020-08-28 16:35:36.543007000	2020-08-28 16:35:45.556224000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb	hsqldb	HyperSQL Database [client]	16	2020-08-28 16:36:20.630461000	2020-08-28 16:36:37.469566000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
+h2	h2	H2 Database Engine	9	2020-08-28 16:35:36.543007000	2020-08-28 16:35:45.556224000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
+hsqldb	hsqldb	HyperSQL Database	16	2020-08-28 16:36:20.630461000	2020-08-28 16:36:37.469566000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
 ibmdb2	ibmdb2	IBM Db2 Database	16	2020-08-28 16:42:56.992653000	2020-08-28 16:43:13.836913000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
 informix	informix	IBM Informix	12	2020-08-28 16:47:32.490341000	2020-08-28 16:47:45.306063000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
 mariadb	mariadb	MariaDB Server	6	2020-08-28 16:48:35.783108000	2020-08-28 16:48:42.240401000	travis-job-346903a5-7cb9-4e60-b78d-7da18508f4a1	2	amd64 / Linux / 5.3.0-1029-gcp
