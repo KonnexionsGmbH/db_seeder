@@ -126,6 +126,7 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
                          true);
 
     String databaseName = config.getDatabase();
+    String schemaName   = config.getSchema();
     String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
@@ -135,7 +136,8 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName,
+      executeDdlStmnts("DROP SCHEMA IF EXISTS " + schemaName + " CASCADE",
+                       "DROP DATABASE IF EXISTS " + databaseName,
                        "DROP USER IF EXISTS " + userName);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -147,8 +149,8 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE DATABASE " + databaseName,
-                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+      executeDdlStmnts("CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+                       "CREATE DATABASE " + databaseName + " WITH OWNER " + userName,
                        "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
 
       statement.close();
@@ -168,24 +170,15 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
     try {
       statement = connection.createStatement();
 
+      executeDdlStmnts("CREATE SCHEMA " + schemaName,
+                       "SET search_path = " + schemaName);
+
       createSchema();
 
       statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Disconnect and reconnect - Presto.
-    // -----------------------------------------------------------------------
-
-    if (isPresto) {
-      disconnect(connection);
-
-      connection = connect(urlPresto,
-                           driver_presto,
-                           true);
     }
 
     if (isDebug) {

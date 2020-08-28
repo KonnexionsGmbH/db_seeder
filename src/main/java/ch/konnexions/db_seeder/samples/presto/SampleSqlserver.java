@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ch.konnexions.db_seeder.samples.presto;
 
 import java.io.BufferedReader;
@@ -280,7 +277,9 @@ public final class SampleSqlserver {
   }
 
   /**
-   * @param args
+   * The main method.
+   *
+   * @param args the arguments
    */
   public static void main(String[] args) {
     logger.info("Start SampleSqlserver");

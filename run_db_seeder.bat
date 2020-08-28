@@ -12,9 +12,10 @@ setlocal EnableDelayedExpansion
 set ERRORLEVEL=
 
 set DB_SEEDER_DBMS_DEFAULT=sqlite
-set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=2.5.0
+set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
+set DB_SEEDER_VERSION_PRESTO=340
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -115,6 +116,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
     set DB_SEEDER_DATABASE_SYS=agens
     set DB_SEEDER_PASSWORD=agens
     set DB_SEEDER_PASSWORD_SYS=agens
+    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=agens
     set DB_SEEDER_VERSION=v2.1.1
@@ -484,6 +486,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_DATABASE_SYS=kxn_db_sys
     set DB_SEEDER_PASSWORD=postgresql
     set DB_SEEDER_PASSWORD_SYS=postgresql
+    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
@@ -503,7 +506,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
     set DB_SEEDER_DBMS_PRESTO=yes
     set DB_SEEDER_PASSWORD=postgresql
     set DB_SEEDER_PASSWORD_SYS=postgresql
-    set DB_SEEDER_SCHEMA=public
+    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
@@ -585,6 +588,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=yugabyte
     set DB_SEEDER_PASSWORD=yugabyte
+    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=yugabyte
     set DB_SEEDER_VERSION=2.2.2.0-b15
@@ -683,7 +687,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
 
 if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
     if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
-        call run_db_seeder_presto_environment complete
+        call scripts\run_db_seeder_presto_environment complete
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

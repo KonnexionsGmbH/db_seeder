@@ -196,7 +196,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 
 ### <a name="database_schema"></a> 2.1 Database Schema
 
-The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script `run_db_seeder_generate_schema`.
+The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script `scripts/run_db_seeder_generate_schema`.
 To validate the database schema in the JSON parameter file, the JSON schema file `db_seeder_schema.schema.json` in the directory `src/main/resources` is used.
 
 #### 2.1.1 Structure of the Database Schema Definition File 
@@ -457,13 +457,13 @@ db_seeder.user=
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
 | database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                                                             | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
-| file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver    | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | exasol, h2, hsqldb, ibmdb2, monetdb, postgresql_presto, sqlserver                                                            | schema name |
+| schema=kxn_schema                         | SCHEMA                            | agens, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte                                          | schema name |
 | user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2, voltdb                                                                                    | name of the privileged user |
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
@@ -511,16 +511,16 @@ Below are also DBeaver based connection parameter examples for each database man
 | VARCHAR        | VARCHAR                  |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
-  - [CREATE SCHEMA](https://www.postgresql.org/docs/12/sql-createschema.html)
-  - [CREATE TABLE](https://www.postgresql.org/docs/12/sql-createtable.html) 
-  - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
+  - CREATE DATABASE: see PostgreSQL Database 
+  - CREATE SCHEMA: see PostgreSQL Database
+  - CREATE TABLE: see PostgreSQL Database 
+  - CREATE USER: see PostgreSQL Database 
 
 - **Docker image (latest)**:
   - pull command: `docker pull bitnine/agensgraph:v2.1.1`
   - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
 
-- **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
+- **encoding**: see PostgreSQL Database
   
 - **issue tracking**: [GitHub](https://github.com/bitnine-oss/agensgraph/issues)
   
@@ -1363,7 +1363,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - pull command: `docker pull yugabytedb/yugabyte:2.2.2.0-b15`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
-- **encoding**: full support of UTF-8
+- **encoding**: see PostgreSQL Database
   
 - **issue tracking**: [GitHub](https://github.com/yugabyte/yugabyte-db/issues)
 
@@ -1375,7 +1375,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_YOUGABYTE.png)
+![](.README_images/DBeaver_YUGABYTE.png)
 
 ## <a name="presto"></a> 6. Presto - Distributed Query Engine
 

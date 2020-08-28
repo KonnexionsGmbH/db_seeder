@@ -10,8 +10,8 @@ setlocal EnableDelayedExpansion
 
 set ERRORLEVEL=
 
-if ["%DB_SEEDER_VERSION%"] EQU [""] (
-    set DB_SEEDER_VERSION=latest
+if ["%DB_SEEDER_VERSION_PRESTO%"] EQU [""] (
+    set DB_SEEDER_VERSION_PRESTO=latest
 )
 
 echo ================================================================================

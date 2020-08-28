@@ -47,7 +47,7 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-if ! ( ./run_db_seeder_generate_schema.sh ); then
+if ! ( ./scripts/run_db_seeder_generate_schema.sh ); then
     exit 255
 fi    
 

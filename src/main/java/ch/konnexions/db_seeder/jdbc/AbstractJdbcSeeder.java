@@ -225,12 +225,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param urlIn the URL
    * @param driver the database driver
    * @param user the user name
    * @param password the password
    * @param autoCommit the auto commit option
-   *
    * @return the database connection
    */
   protected final Connection connect(String urlIn, String driver, String user, String password, boolean autoCommit) {
@@ -1128,10 +1127,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
 
       if (rowNo % nullFactor == 0) {
-        if (dbmsEnum == DbmsEnum.EXASOL
-            || dbmsEnum == DbmsEnum.POSTGRESQL
-            || dbmsEnum == DbmsEnum.VOLTDB
-            || dbmsEnum == DbmsEnum.YUGABYTE) {
+        if (dbmsEnum == DbmsEnum.EXASOL || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.VOLTDB || dbmsEnum == DbmsEnum.YUGABYTE) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
           return;

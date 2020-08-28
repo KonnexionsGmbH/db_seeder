@@ -153,6 +153,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
                          true);
 
     String databaseName = config.getDatabase();
+    String schemaName   = config.getSchema();
     String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
@@ -162,7 +163,8 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName,
+      executeDdlStmnts("DROP SCHEMA IF EXISTS " + schemaName + " CASCADE",
+                       "DROP DATABASE IF EXISTS " + databaseName,
                        "DROP USER IF EXISTS " + userName);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -174,8 +176,8 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE DATABASE " + databaseName,
-                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+      executeDdlStmnts("CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+                       "CREATE DATABASE " + databaseName + " WITH OWNER " + userName,
                        "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
 
       statement.close();
@@ -194,6 +196,9 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
     try {
       statement = connection.createStatement();
+
+      executeDdlStmnts("CREATE SCHEMA " + schemaName,
+                       "SET search_path = " + schemaName);
 
       createSchema();
 
@@ -219,5 +224,4 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
       logger.debug("End");
     }
   }
-
 }
