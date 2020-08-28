@@ -30,30 +30,30 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 @SuppressWarnings("ucd")
 public final class PrestoEnvironment {
 
-  private static String              connectionHost;
-  private static int                 connectionPort;
-  private static String              connectionPrefix;
-  private static String              connectionService;
-  private static String              connectionSuffix;
+  private static String                    connectionHost;
+  private static int                       connectionPort;
+  private static String                    connectionPrefix;
+  private static String                    connectionService;
+  private static String                    connectionSuffix;
 
-  private static String              database;
-  private static String              directoryCatalogProperty;
+  private static String                    database;
+  private static String                    directoryCatalogProperty;
 
-  private static ArrayList<String>   entries       = new ArrayList<>();
+  private static final ArrayList<String>   entries       = new ArrayList<>();
 
-  private static final Logger        logger        = Logger.getLogger(PrestoEnvironment.class);
-  private static final boolean       isDebug       = logger.isDebugEnabled();
+  private static final Logger              logger        = Logger.getLogger(PrestoEnvironment.class);
+  private static final boolean             isDebug       = logger.isDebugEnabled();
 
-  private static Map<String, String> osEnvironment = System.getenv();
+  private static final Map<String, String> osEnvironment = System.getenv();
 
-  private static String              password;
+  private static String                    password;
 
-  private static String              tickerSymbolLower;
+  private static String                    tickerSymbolLower;
 
-  private static String              schema;
+  private static String                    schema;
 
-  private static String              url;
-  private static String              user;
+  private static String                    url;
+  private static String                    user;
 
   /**
    * Create the catalog data and the catalog file.

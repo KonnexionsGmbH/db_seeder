@@ -145,7 +145,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     StringBuilder     workArea;
 
-    tableConstraints.sort(new Comparator<TableConstraint>() {
+    tableConstraints.sort(new Comparator<>() {
       @Override
       public int compare(TableConstraint tableConstraint1, TableConstraint tableConstraint2) {
         int result = tableConstraint1.getConstraintType().compareTo(tableConstraint2.getConstraintType());
@@ -163,6 +163,20 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         return tableConstraint1.getColumns().get(1).compareTo(tableConstraint2.getColumns().get(1));
       }
     });
+
+    int constraintSize = -1;
+
+    for (TableConstraint tableConstraint : tableConstraints) {
+      constraintType = tableConstraint.getConstraintType().toUpperCase();
+
+      if ("UNIQUE".equals(constraintType)) {
+        if ("exasol".equals(tickerSymbolLower)) {
+          continue;
+        }
+      }
+
+      constraintSize++;
+    }
 
     for (int i = 0; i < tableConstraints.size(); i++) {
       TableConstraint tableConstraint = tableConstraints.get(i);
@@ -233,7 +247,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                                                                             columns)).append(identifierDelimiter).append(")");
       }
 
-      if (i < tableConstraints.size() - 1) {
+      if (i < constraintSize) {
         workArea.append(",");
       }
 
@@ -589,7 +603,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               ArrayList<References> references = column.getReferences();
 
-              references.sort(new Comparator<References>() {
+              references.sort(new Comparator<>() {
                 @Override
                 public int compare(References reference1, References reference2) {
                   int result = reference1.getReferenceTable().compareTo(reference2.getReferenceTable());
@@ -672,9 +686,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // Column end ........................................................
 
-          bw.append(workArea.toString().stripTrailing() + ((!(columnNameLastUpper.equals(columnNameUpper) && editedTableConstraints.size() == 0))
+          bw.append(workArea.toString().stripTrailing()).append((!(columnNameLastUpper.equals(columnNameUpper) && editedTableConstraints.size() == 0))
               ? ","
-              : ""));
+              : "");
           bw.newLine();
         }
 
@@ -1435,7 +1449,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           String dataType   = column.getDataType().toUpperCase();
 
           switch (dataType) {
-          case "BIGINT":
+          case "BIGINT" -> {
             if (column.getReferences() == null || column.getReferences().size() == 0) {
               bw.append("    prepStmntColBigint").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
                   ? ""
@@ -1466,17 +1480,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               break;
             }
-
             bw.newLine();
-
             if (column.getDefaultValueInteger() == null) {
               bw.append("                             null,");
             } else {
               bw.append("                             ").append(column.getDefaultValueInteger().toString()).append(",");
             }
-
             bw.newLine();
-
             if (column.getLowerRangeInteger() == null && column.getUpperRangeInteger() == null) {
               bw.append("                             null,");
               bw.newLine();
@@ -1486,9 +1496,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                             ").append(column.getUpperRangeInteger().toString()).append(",");
             }
-
             bw.newLine();
-
             if (column.getValidValuesInteger() == null) {
               bw.append("                             null);");
             } else {
@@ -1497,11 +1505,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.append("                             Arrays.asList(").append(String.join(",",
                                                                                           liste)).append("));");
             }
-
             bw.newLine();
-
-            break;
-          case "BLOB":
+          }
+          case "BLOB" -> {
             bw.append("    prepStmntColBlob").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
                 ? ""
                 : "Opt").append("(preparedStatement,");
@@ -1514,9 +1520,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.newLine();
             bw.append("                              rowNo);");
             bw.newLine();
-
-            break;
-          case "CLOB":
+          }
+          case "CLOB" -> {
             bw.append("      prepStmntColClob").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
                 ? ""
                 : "Opt").append("(preparedStatement,");
@@ -1529,9 +1534,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.newLine();
             bw.append("                                rowNo);");
             bw.newLine();
-
-            break;
-          case "TIMESTAMP":
+          }
+          case "TIMESTAMP" -> {
             bw.append("    prepStmntColTimestamp").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
                 ? ""
                 : "Opt").append("(preparedStatement,");
@@ -1544,8 +1548,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.newLine();
             bw.append("                               rowNo);");
             bw.newLine();
-            break;
-          case "VARCHAR":
+          }
+          case "VARCHAR" -> {
             bw.append("    prepStmntColVarchar").append(column.isNotNull() || column.isPrimaryKey() || column.isUnique()
                 ? ""
                 : "Opt").append("(preparedStatement,");
@@ -1560,15 +1564,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             bw.newLine();
             bw.append("                             ").append(String.valueOf(column.getSize())).append(",");
             bw.newLine();
-
             if (column.getDefaultValueString() == null) {
               bw.append("                             null,");
             } else {
               bw.append("                             \"").append(column.getDefaultValueString()).append("\",");
             }
-
             bw.newLine();
-
             if (column.getLowerRangeString() == null && column.getUpperRangeString() == null) {
               bw.append("                             null,");
               bw.newLine();
@@ -1578,9 +1579,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               bw.newLine();
               bw.append("                             \"").append(column.getUpperRangeString()).append("\",");
             }
-
             bw.newLine();
-
             if (column.getValidValuesString() == null) {
               bw.append("                             null);");
             } else {
@@ -1588,14 +1587,11 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                                                                                             column.getValidValuesString()).replace(",",
                                                                                                                                    "\",\"")).append("\"));");
             }
-
             bw.newLine();
-
-            break;
-          default:
-            MessageHandling.abortProgram(logger,
-                                         "Program abort: database table: '" + tableName + "' column: '" + columnName + "' - Unknown data type '" + dataType
-                                             + "'");
+          }
+          default -> MessageHandling.abortProgram(logger,
+                                                  "Program abort: database table: '" + tableName + "' column: '" + columnName + "' - Unknown data type '"
+                                                      + dataType + "'");
           }
         }
 
@@ -2096,7 +2092,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     String            columnName;
     ArrayList<String> tableColumnNames = new ArrayList<>();
     String            dataType;
-    Integer           size;
+    int               size;
 
     // -------------------------------------------------------------------------
     // Definition database table column
