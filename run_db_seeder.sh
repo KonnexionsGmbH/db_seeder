@@ -13,6 +13,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.5.0
+export DB_SEEDER_VERSION_PRESTO=340
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -110,6 +111,7 @@ if [ "${DB_SEEDER_DBMS}" = "agens" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
     export DB_SEEDER_DATABASE_SYS=agens
     export DB_SEEDER_PASSWORD=agens
     export DB_SEEDER_PASSWORD_SYS=agens
+    export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=agens
     export DB_SEEDER_VERSION=v2.1.1
@@ -395,6 +397,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ] || [ "${DB_SEEDER_DBMS}" = "complete_c
     export DB_SEEDER_DATABASE_SYS=kxn_db_sys
     export DB_SEEDER_PASSWORD=postgresql
     export DB_SEEDER_PASSWORD_SYS=postgresql
+    export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
@@ -410,7 +413,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "com
     export DB_SEEDER_DBMS_PRESTO=yes
     export DB_SEEDER_PASSWORD=postgresql
     export DB_SEEDER_PASSWORD_SYS=postgresql
-    export DB_SEEDER_SCHEMA=public
+    export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
@@ -472,6 +475,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=yugabyte
     export DB_SEEDER_PASSWORD=yugabyte
+    export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15

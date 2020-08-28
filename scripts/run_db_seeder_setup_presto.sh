@@ -8,8 +8,8 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-if [ "${DB_SEEDER_VERSION}" = "" ]; then
-    export DB_SEEDER_VERSION=latest
+if [ "${DB_SEEDER_VERSION_PRESTO}" = "" ]; then
+    export DB_SEEDER_VERSION_PRESTO=latest
 fi
 
 echo "================================================================================"
@@ -51,7 +51,7 @@ docker create --name    db_seeder_presto \
               --network db_seeder_net \
               -p        8080:8080/tcp \
               -v        $PWD/resources/docker/presto:/usr/lib/presto/etc \
-              konnexionsgmbh/db_seeder_presto
+              prestosql/presto:${DB_SEEDER_VERSION_PRESTO}
 echo "Docker start presto (Presto Distributed Query Engine) ..."
 docker start db_seeder_presto
 
