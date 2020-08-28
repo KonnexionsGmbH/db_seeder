@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.4.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.0.svg)
 ----
 
 ### Table of Contents
@@ -48,6 +48,11 @@ Currently the following database management systems are supported:
   - open source
   - relational model
   - **[see technical details here](#details_cubrid)**
+- [Exasol](https://www.exasol.com/en) 
+  - client only version
+  - commercial
+  - in-memory, column-oriented, relational model
+  - **[see technical details here](#details_exasol)**
 - [Firebird](https://firebirdsql.org) 
   - client and embedded (not supported here) version
   - open source
@@ -166,6 +171,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                      | 10.2.1.8849         |
 | CrateDB                         | cratedb            | 4.1.6 - 4.2.3             | 2.6.0               |
+| Exasol                          | exasol             | 6.2.8-d1                  | 6.2.5               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.6             | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
@@ -449,15 +455,15 @@ db_seeder.user=
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona, voltdb                                                           | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
-| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, monetdb, oracle, voltdb                                                                     | database name |
+| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                                                             | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver            | password of the privileged user |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver    | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | h2, hsqldb, ibmdb2, monetdb, postgresql_presto, sqlserver                                                            | schema name |
+| schema=kxn_schema                         | SCHEMA                            | exasol, h2, hsqldb, ibmdb2, monetdb, postgresql_presto, sqlserver                                                            | schema name |
 | user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2, voltdb                                                                                    | name of the privileged user |
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
@@ -471,6 +477,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Apache Derby](#details_derby)** / 
 **[CrateDB](#details_cratedb)** / 
 **[CUBRID](#details_cubrid)** / 
+**[Exasol](#details_exasol)** /  
 **[Firebird](#details_firebird)** /  
 **[H2 Database Engine](#details_h2)** /  
 **[HyperSQL Database](#details_hsqldb)** /  
@@ -574,13 +581,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | CreateDB Type |
-| ---            | ---           |
-| BIGINT         | BIGINT        |
-| BLOB           | OBJECT        |
-| CLOB           | TEXT          |
-| TIMESTAMP      | TIMESTAMP     |
-| VARCHAR        | TEXT          |
+| db seeder Type | CrateDB Type |
+| ---            | ---          |
+| BIGINT         | BIGINT       |
+| BLOB           | OBJECT       |
+| CLOB           | TEXT         |
+| TIMESTAMP      | TIMESTAMP    |
+| VARCHAR        | TEXT         |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a
@@ -660,7 +667,40 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_firebird"></a> 5.5 Firebird
+### <a name="details_exasol"></a> 5.5 Exasol
+- **data types**:
+
+| db seeder Type | Exasol Type      |
+| ---            | ---              |
+| BIGINT         | BIGINT           |
+| BLOB           | VARCHAR(2000000) |
+| CLOB           | VARCHAR(2000000) |
+| TIMESTAMP      | TIMESTAMP        |
+| VARCHAR        | VARCHAR          |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a
+  - [CREATE SCHEMA](https://docs.exasol.com/7.0/sql/create_schema.htm) 
+  - [CREATE TABLE](https://docs.exasol.com/7.0/sql/create_table.htm) 
+  - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
+
+- **Docker image (latest)**:
+  - pull command: `docker pull exasol/docker-db:6.2.8-d1`
+  - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
+
+- **JDBC driver (latest)**:
+  - version 6.2.5
+  - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
+
+- **privileged database access**: user `sys` password `exasol` 
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_EXASOL.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_firebird"></a> 5.6 Firebird
 
 - **data types**:
 
@@ -698,10 +738,9 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_FIREBIRD.png)
 
-
 [//]: # (===========================================================================================)
 
-### <a name="details_h2"></a> 5.6 H2 Database Engine
+### <a name="details_h2"></a> 5.7 H2 Database Engine
 
 - **data types**:
 
@@ -747,7 +786,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_hsqldb"></a> 5.7 HyperSQL Database
+### <a name="details_hsqldb"></a> 5.8 HyperSQL Database
 
 - **data types**:
 
@@ -793,7 +832,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_ibmdb2"></a> 5.8 IBM Db2 Database
+### <a name="details_ibmdb2"></a> 5.9 IBM Db2 Database
 
 - **data types**:
 
@@ -836,7 +875,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_informix"></a> 5.9 IBM Informix
+### <a name="details_informix"></a> 5.10 IBM Informix
 
 - **data types**:
 
@@ -879,7 +918,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mariadb"></a> 5.10 MariaDB Server
+### <a name="details_mariadb"></a> 5.11 MariaDB Server
 
 - **data types**:
 
@@ -925,7 +964,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_sqlserver"></a> 5.11 Microsoft SQL Server
+###  <a name="details_sqlserver"></a> 5.12 Microsoft SQL Server
 
 - **data types**:
 
@@ -965,7 +1004,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mimer"></a> 5.12 Mimer SQL
+### <a name="details_mimer"></a> 5.13 Mimer SQL
 
 - **data types**:
 
@@ -1003,7 +1042,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_monetdb"></a> 5.13 MonetDB
+### <a name="details_monetdb"></a> 5.14 MonetDB
 
 - **data types**:
 
@@ -1046,7 +1085,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.14 MySQL Database
+### <a name="details_mysql"></a> 5.15 MySQL Database
 
 - **data types**:
 
@@ -1088,7 +1127,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.15 Oracle Database
+### <a name="details_oracle"></a> 5.16 Oracle Database
 
 - **data types**:
 
@@ -1124,7 +1163,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_percona"></a> 5.16 Percona Server for MySQL
+### <a name="details_percona"></a> 5.17 Percona Server for MySQL
 
 - **data types**:
 
@@ -1162,7 +1201,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.17 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.18 PostgreSQL Database
 
 - **data types**:
 
@@ -1198,15 +1237,15 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_presto"></a> 5.18 Presto Distributed Query Engine
+### <a name="details_presto"></a> 5.19 Presto Distributed Query Engine
 
 - **data types**:
 
 | db seeder Type | Presto Database Type |
 | ---            | ---                  |
 | BIGINT         | BIGINT               |
-| BLOB           | VARBINARY            |
-| CLOB           | VARCHAR              |
+| BLOB           | BLOB                 |
+| CLOB           | CLOB                 |
 | TIMESTAMP      | TIMESTAMP            |
 | VARCHAR        | VARCHAR              |
 
@@ -1232,7 +1271,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.19 SQLite
+### <a name="details_sqlite"></a> 5.20 SQLite
 
 - **data types**:
 
@@ -1240,7 +1279,7 @@ Below are also DBeaver based connection parameter examples for each database man
 | ---            | ---         |
 | BIGINT         | INTEGER     |
 | BLOB           | BLOB        |
-| CLOB           | TEXT        |
+| CLOB           | CLOB        |
 | TIMESTAMP      | DATETIME    |
 | VARCHAR        | VARCHAR2    |
 
@@ -1270,17 +1309,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_voltdb"></a> 5.20 VoltDB
+### <a name="details_voltdb"></a> 5.21 VoltDB
 
 - **data types**:
 
-| db seeder Type | VoltDB Type |
-| ---            | ---         |
-| BIGINT         | BIGINT      |
-| BLOB           | VARBINARY   |
-| CLOB           | VARCHAR     |
-| TIMESTAMP      | TIMESTAMP   |
-| VARCHAR        | VARCHAR     |
+| db seeder Type | VoltDB Type        |
+| ---            | ---                |
+| BIGINT         | BIGINT             |
+| BLOB           | VARBINARY(1048576) |
+| CLOB           | VARCHAR(1048576)   |
+| TIMESTAMP      | TIMESTAMP          |
+| VARCHAR        | VARCHAR            |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a  
@@ -1300,15 +1339,9 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **source code**: [GitHub](https://github.com/VoltDB/voltdb)
 
-![](.README_images/DBeaver_HSQLDB.png)
-  
-  -- embedded version:
-  
-![](.README_images/DBeaver_HSQLDB_EMB.png)
-
 [//]: # (===========================================================================================)
 
-### <a name="details_yugabyte"></a> 5.21 YugabyteDB
+### <a name="details_yugabyte"></a> 5.22 YugabyteDB
 
 - **data types**:
 

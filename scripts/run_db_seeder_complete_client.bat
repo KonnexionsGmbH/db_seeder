@@ -16,6 +16,7 @@ set DB_SEEDER_DBMS_AGENS=yes
 set DB_SEEDER_DBMS_CRATEDB=yes
 set DB_SEEDER_DBMS_CUBRID=yes
 set DB_SEEDER_DBMS_DERBY=yes
+set DB_SEEDER_DBMS_EXASOL=yes
 set DB_SEEDER_DBMS_FIREBIRD=yes
 set DB_SEEDER_DBMS_H2=yes
 set DB_SEEDER_DBMS_HSQLDB=yes
@@ -58,6 +59,7 @@ echo.
     echo DBMS_CRATEDB                    : %DB_SEEDER_DBMS_CRATEDB%
     echo DBMS_CUBRID                     : %DB_SEEDER_DBMS_CUBRID%
     echo DBMS_DERBY                      : %DB_SEEDER_DBMS_DERBY%
+    echo DBMS_EXASOL                     : %DB_SEEDER_DBMS_EXASOL%
     echo DBMS_FIREBIRD                   : %DB_SEEDER_DBMS_FIREBIRD%
     echo DBMS_H2                         : %DB_SEEDER_DBMS_H2%
     echo DBMS_HSQLDB                     : %DB_SEEDER_DBMS_HSQLDB%
@@ -119,6 +121,18 @@ echo.
     
     if ["%DB_SEEDER_DBMS_DERBY%"] EQU ["yes"] (
         call run_db_seeder.bat derby yes 1
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
+    
+    rem ------------------------------------------------------------------------------
+    rem Exasol - client version.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_EXASOL%"] EQU ["yes"] (
+        call run_db_seeder.bat exasol yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

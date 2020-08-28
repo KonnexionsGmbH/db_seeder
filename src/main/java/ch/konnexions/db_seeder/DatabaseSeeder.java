@@ -11,6 +11,7 @@ import ch.konnexions.db_seeder.jdbc.agens.AgensSeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
 import ch.konnexions.db_seeder.jdbc.derby.DerbySeeder;
+import ch.konnexions.db_seeder.jdbc.exasol.ExasolSeeder;
 import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
 import ch.konnexions.db_seeder.jdbc.h2.H2Seeder;
 import ch.konnexions.db_seeder.jdbc.hsqldb.HsqldbSeeder;
@@ -96,6 +97,12 @@ public final class DatabaseSeeder {
         FirebirdSeeder firebirdSeeder = new FirebirdSeeder(tickerSymbolExtern);
         firebirdSeeder.createData();
         logger.info("End   Firebird [client]");
+        break;
+      case "exasol":
+        logger.info("Start Exasol [client]");
+        ExasolSeeder exasolSeeder = new ExasolSeeder(tickerSymbolExtern);
+        exasolSeeder.createData();
+        logger.info("End   Exasol [client]");
         break;
       case "h2":
         logger.info("Start H2 Database Engine [client]");

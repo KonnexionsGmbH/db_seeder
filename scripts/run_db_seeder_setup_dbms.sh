@@ -132,6 +132,33 @@ if [ "${DB_SEEDER_DBMS_DB}" = "derby" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# Exasol                               https://hub.docker.com/r/exasol/docker-db
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
+    start=$(date +%s)
+    echo "Exasol."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (Exasol ${DB_SEEDER_VERSION})"
+    docker run --detach \
+               --name         db_seeder_db \
+               -p             127.0.0.1:${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT}/tcp \
+               --privileged \
+               --stop-timeout 120 \
+               exasol/docker-db:${DB_SEEDER_VERSION}
+
+    echo "Docker start db_seeder_db (Exasol ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 60
+
+    end=$(date +%s)
+    echo "DOCKER Exasol was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
 # Firebird                        https://hub.docker.com/r/jacobalberty/firebird
 # ------------------------------------------------------------------------------
 
@@ -529,9 +556,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION})"
 
-    rm -rf tmp/yb_data
-    mkdir -p tmp
-    mkdir tmp/yb_data
+    rm -rf $PWD/tmp/yb_data
+    mkdir -p $PWD/tmp
+    mkdir $PWD/tmp/yb_data
 
     docker run -d \
                --name db_seeder_db \

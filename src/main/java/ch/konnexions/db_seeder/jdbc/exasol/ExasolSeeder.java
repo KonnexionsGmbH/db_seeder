@@ -1,59 +1,55 @@
-package ch.konnexions.db_seeder.jdbc.voltdb;
+package ch.konnexions.db_seeder.jdbc.exasol;
 
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.AbstractGenVoltdbSchema;
+import ch.konnexions.db_seeder.generated.AbstractGenExasolSchema;
 
 /**
- * Test Data Generator for a HyperQL Database DBMS.
+ * Test Data Generator for a Exasol DBMS.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
+public final class ExasolSeeder extends AbstractGenExasolSchema {
 
-  private static final Logger logger = Logger.getLogger(VoltdbSeeder.class);
+  private static final Logger logger = Logger.getLogger(ExasolSeeder.class);
 
   /**
    * Gets the connection URL for non-privileged access.
    *
-   * @param isClient database client version 
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
    *
    * @return the connection URL for non-privileged access
    */
-  private final static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + connectionSuffix;
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix) {
+    return connectionPrefix + connectionHost + ":" + connectionPort;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new HyperSQL seeder object.
+   * Instantiates a new Exasol seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
-  public VoltdbSeeder(String tickerSymbolExtern) {
+  public ExasolSeeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern);
+      logger.debug("Start Constructor");
     }
 
-    dbmsEnum = DbmsEnum.VOLTDB;
+    dbmsEnum = DbmsEnum.EXASOL;
 
-    driver   = "org.voltdb.jdbc.Driver";
+    driver   = "com.exasol.jdbc.EXADriver";
 
-    urlUser  = getUrlUser(isClient,
-                          config.getConnectionHost(),
+    urlUser  = getUrlUser(config.getConnectionHost(),
                           config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getConnectionSuffix());
+                          config.getConnectionPrefix());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -69,7 +65,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
    */
   @Override
   protected final String createDdlStmnt(String tableName) {
-    return AbstractGenVoltdbSchema.createTableStmnts.get(tableName);
+    return AbstractGenExasolSchema.createTableStmnts.get(tableName);
   }
 
   /**
@@ -88,9 +84,12 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
 
     connection = connect(urlUser,
                          driver,
-                         config.getUser().toUpperCase(),
-                         config.getPassword(),
+                         config.getUserSys(),
+                         config.getPasswordSys(),
                          true);
+
+    String password = config.getPassword();
+    String userName = config.getUser();
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.
@@ -103,14 +102,40 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
       System.exit(1);
     }
 
-    dropAllTablesIfExists();
+    executeDdlStmnts("DROP USER IF EXISTS " + userName + " CASCADE");
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      statement = connection.createStatement();
+
+      executeDdlStmnts("CREATE USER " + userName + " IDENTIFIED BY \"" + password + "\"",
+                       "GRANT ALL PRIVILEGES TO " + userName);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
     // -----------------------------------------------------------------------
     // Create database schema.
     // -----------------------------------------------------------------------
 
+    disconnect(connection);
+
+    connection = connect(urlUser,
+                         null,
+                         userName,
+                         password,
+                         true);
+
     try {
       statement = connection.createStatement();
+
+      executeDdlStmnts("CREATE SCHEMA " + config.getSchema());
 
       createSchema();
 

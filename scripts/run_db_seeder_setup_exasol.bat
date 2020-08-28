@@ -1,19 +1,19 @@
-@echo off
+rem @echo off
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_yugabyte.bat: Setup a YugabyteDB Docker container.
+rem run_db_seeder_setup_exasol.bat: Setup a Exasol Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
 if ["%DB_SEEDER_CONNECTION_PORT%"] EQU [""] (
-    set DB_SEEDER_CONNECTION_PORT=5433
+    set DB_SEEDER_CONNECTION_PORT=8563
 )
 
 if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
-    set DB_SEEDER_CONTAINER_PORT=5433
+    set DB_SEEDER_CONTAINER_PORT=8563
 )
 
 if ["%DB_SEEDER_VERSION%"] EQU [""] (
@@ -25,7 +25,7 @@ if ["%DB_SEEDER_VERSION%"] EQU [""] (
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a YugabyteDB Docker container.
+echo DB Seeder - setup a Exasol Docker container.
 echo --------------------------------------------------------------------------------
 echo DBMS_PRESTO               : %DB_SEEDER_DBMS_PRESTO%
 echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
@@ -36,32 +36,27 @@ echo:| TIME
 echo ================================================================================
 
 rem ------------------------------------------------------------------------------
-rem YugabyteDB                          https://hub.docker.com/_/postgres
+rem Exasol                               https://hub.docker.com/r/exasol/docker-db
 rem ------------------------------------------------------------------------------
 
-echo YugabyteDB
+echo Exasol.
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
-echo Docker create db_seeder_db (YugabyteDB %DB_SEEDER_VERSION%)
-
-rd /q /s %cd%\tmp\yb_data 2>nul
-md %cd%\tmp\yb_data
-
-docker run -d ^
-           --name db_seeder_db ^
-           -p     5433:5433 ^
-           -p     7000:7000 ^
-           -p     9000:9000 ^
-           -p     9042:9042 ^
-           -v     %cd%/tmp/yb_data:/home/yugabyte/var ^
-           yugabytedb/yugabyte:%DB_SEEDER_VERSION% bin/yugabyted start --daemon=false
-
-echo Docker start db_seeder_db (YugabyteDB %DB_SEEDER_VERSION%) ...
+echo Docker create db_seeder_db (Exasol %DB_SEEDER_VERSION%)
+docker run --detach ^
+           --name         db_seeder_db ^
+           -p             127.0.0.1:%DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
+           --privileged ^
+           --stop-timeout 120 ^
+           exasol/docker-db:%DB_SEEDER_VERSION%
+ 
+echo Docker start db_seeder_db (Exasol %DB_SEEDER_VERSION%) ...
+docker start db_seeder_db
 
 ping -n 60 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
-echo DOCKER YugabyteDB was ready in %CONSUMED%
+echo DOCKER Exasol was ready in %CONSUMED%
 
 docker ps
 

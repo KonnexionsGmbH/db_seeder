@@ -1,10 +1,10 @@
 package ch.konnexions.db_seeder.jdbc.agens;
 
-import ch.konnexions.db_seeder.generated.AbstractGenAgensSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
+import ch.konnexions.db_seeder.generated.AbstractGenAgensSchema;
 
 /**
  * Test Data Generator for a AgensGraph DBMS.

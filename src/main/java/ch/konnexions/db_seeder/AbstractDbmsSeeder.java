@@ -29,6 +29,9 @@ public abstract class AbstractDbmsSeeder {
     DERBY(
         "derby"
     ),
+    EXASOL(
+        "exasol"
+    ),
     FIREBIRD(
         "firebird"
     ),
@@ -151,6 +154,13 @@ public abstract class AbstractDbmsSeeder {
                         "Apache Derby [embedded]",
                         "embedded",
                         "Apache Derby",
+                        "" });
+    dbmsDetails.put("exasol",
+                    new String[] {
+                        "exasol",
+                        "Exasol",
+                        "client",
+                        "Exasol",
                         "" });
     dbmsDetails.put("firebird",
                     new String[] {
