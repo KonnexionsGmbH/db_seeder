@@ -44,8 +44,8 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (YugabyteDB %DB_SEEDER_VERSION%)
 
-rd /q /s tmp\yb_data 2>nul
-md tmp\yb_data
+rd /q /s %cd%\tmp\yb_data 2>nul
+md %cd%\tmp\yb_data
 
 docker run -d ^
            --name db_seeder_db ^
