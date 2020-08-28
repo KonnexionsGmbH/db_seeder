@@ -93,7 +93,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       };
     case "BLOB" -> switch (tickerSymbolLower) {
       case "agens", "postgresql", "yugabyte" -> "BYTEA";
-      case "cratedb" -> "TEXT";
+      case "cratedb" -> "OBJECT";
       case "exasol" -> "VARCHAR(2000000)";
       case "mariadb", "mysql", "percona" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";

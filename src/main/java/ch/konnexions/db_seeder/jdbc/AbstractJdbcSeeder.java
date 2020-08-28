@@ -1092,7 +1092,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private final void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.EXASOL) {
+      if (dbmsEnum == DbmsEnum.EXASOL) {
         preparedStatement.setString(columnPos,
                                     getContentBlobString(tableName,
                                                          columnName,
@@ -1121,9 +1121,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   @SuppressWarnings("ucd")
   protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
+      if (dbmsEnum == DbmsEnum.CRATEDB) {
+        preparedStatement.setNull(columnPos,
+                                  Types.NULL);
+        return;
+      }
+
       if (rowNo % nullFactor == 0) {
-        if (dbmsEnum == DbmsEnum.CRATEDB
-            || dbmsEnum == DbmsEnum.EXASOL
+        if (dbmsEnum == DbmsEnum.EXASOL
             || dbmsEnum == DbmsEnum.POSTGRESQL
             || dbmsEnum == DbmsEnum.VOLTDB
             || dbmsEnum == DbmsEnum.YUGABYTE) {

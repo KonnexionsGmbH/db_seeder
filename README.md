@@ -584,7 +584,7 @@ Below are also DBeaver based connection parameter examples for each database man
 | db seeder Type | CrateDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
-| BLOB           | TEXT         |
+| BLOB           | OBJECT       |
 | CLOB           | TEXT         |
 | TIMESTAMP      | TIMESTAMP    |
 | VARCHAR        | TEXT         |
