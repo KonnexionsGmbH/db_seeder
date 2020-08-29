@@ -167,6 +167,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     set DB_SEEDER_CONTAINER_PORT=1527
     set DB_SEEDER_DATABASE=.\tmp\derby_kxn_db
+    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_VERSION=10.15.2.0
 )
 
@@ -181,6 +182,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     )
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     set DB_SEEDER_DATABASE=.\tmp\derby_kxn_db
+    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_DBMS_EMBEDDED=yes
 )
 

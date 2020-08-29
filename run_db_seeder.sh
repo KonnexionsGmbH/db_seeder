@@ -150,6 +150,7 @@ if [ "${DB_SEEDER_DBMS}" = "derby" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_CONTAINER_PORT=1527
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
+    export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_VERSION=10.15.2.0
 fi
 
@@ -161,6 +162,7 @@ if [ "${DB_SEEDER_DBMS}" = "derby_emb" ] || [ "${DB_SEEDER_DBMS}" = "complete_em
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
+    export DB_SEEDER_SCHEMA=kxn_schema
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
