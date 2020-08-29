@@ -154,7 +154,8 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS `" + databaseName + "`",
+      executeDdlStmnts(statement,
+                       "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS `" + userName + "`");
     } catch (SQLException e) {
       e.printStackTrace();
@@ -166,7 +167,8 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE DATABASE `" + databaseName + "`",
+      executeDdlStmnts(statement,
+                       "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",
                        "GRANT ALL ON " + databaseName + ".* TO `" + userName + "`");
@@ -213,7 +215,8 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
       try {
         statement = connection.createStatement();
 
-        executeDdlStmnts("USE " + getCatalogName(tickerSymbolLower) + "." + databaseName);
+        executeDdlStmnts(statement,
+                         "USE " + getCatalogName(tickerSymbolLower) + "." + databaseName);
 
         statement.close();
       } catch (SQLException e) {

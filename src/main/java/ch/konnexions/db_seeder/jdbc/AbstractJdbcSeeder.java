@@ -832,11 +832,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   /**
    * Execute DDL statements.
-   *
+   * 
+   * @param statement the JDBC statement
    * @param firstDdlStmnt the first DDL statement
    * @param remainingDdlStmnts the remaining DDL statements
    */
-  protected final void executeDdlStmnts(String firstDdlStmnt, String... remainingDdlStmnts) {
+  protected final void executeDdlStmnts(Statement statement, String firstDdlStmnt, String... remainingDdlStmnts) {
     if (isDebug) {
       logger.debug("Start");
     }

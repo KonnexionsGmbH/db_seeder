@@ -142,7 +142,8 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE USER " + userName + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
+      executeDdlStmnts(statement,
+                       "CREATE USER " + userName + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
 
       statement.close();
     } catch (SQLException e) {

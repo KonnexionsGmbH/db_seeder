@@ -145,7 +145,8 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE USER " + userName + " IDENTIFIED BY \"" + config.getPassword() + "\"",
+      executeDdlStmnts(statement,
+                       "CREATE USER " + userName + " IDENTIFIED BY \"" + config.getPassword() + "\"",
                        "ALTER USER " + userName + " QUOTA UNLIMITED ON users",
                        "GRANT CREATE SESSION TO " + userName,
                        "GRANT CREATE TABLE TO " + userName,

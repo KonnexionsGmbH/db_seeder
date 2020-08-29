@@ -135,7 +135,8 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP SCHEMA IF EXISTS " + schemaName + " CASCADE",
+      executeDdlStmnts(statement,
+                       "DROP SCHEMA IF EXISTS " + schemaName + " CASCADE",
                        "DROP DATABASE IF EXISTS " + databaseName,
                        "DROP USER IF EXISTS " + userName);
     } catch (SQLException e) {
@@ -148,7 +149,8 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+      executeDdlStmnts(statement,
+                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
                        "CREATE DATABASE " + databaseName + " WITH OWNER " + userName,
                        "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
 
@@ -169,7 +171,8 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("CREATE SCHEMA " + schemaName,
+      executeDdlStmnts(statement,
+                       "CREATE SCHEMA " + schemaName,
                        "SET search_path = " + schemaName);
 
       createSchema();

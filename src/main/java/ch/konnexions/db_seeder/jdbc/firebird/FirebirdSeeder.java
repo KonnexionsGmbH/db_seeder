@@ -120,7 +120,8 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE USER " + userName + " PASSWORD '" + config.getPassword() + "' GRANT ADMIN ROLE",
+      executeDdlStmnts(statement,
+                       "CREATE USER " + userName + " PASSWORD '" + config.getPassword() + "' GRANT ADMIN ROLE",
                        "GRANT CREATE TABLE TO " + userName);
 
       statement.close();

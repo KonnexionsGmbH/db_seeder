@@ -167,7 +167,8 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName);
+      executeDdlStmnts(statement,
+                       "DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -178,7 +179,8 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("sp_configure 'contained database authentication', 1",
+      executeDdlStmnts(statement,
+                       "sp_configure 'contained database authentication', 1",
                        "RECONFIGURE",
                        "USE master",
                        "CREATE DATABASE " + databaseName,
