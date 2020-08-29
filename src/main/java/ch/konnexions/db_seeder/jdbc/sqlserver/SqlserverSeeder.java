@@ -156,9 +156,9 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     connection = connect(urlSys,
                          true);
 
-    final String databaseNmame = config.getDatabase();
-    final String schemaName    = config.getSchema();
-    final String userName      = config.getUser();
+    final String databaseName = config.getDatabase();
+    final String schemaName   = config.getSchema();
+    final String userName     = config.getUser();
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.
@@ -167,7 +167,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseNmame);
+      executeDdlStmnts("DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -181,10 +181,10 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
       executeDdlStmnts("sp_configure 'contained database authentication', 1",
                        "RECONFIGURE",
                        "USE master",
-                       "CREATE DATABASE " + databaseNmame,
+                       "CREATE DATABASE " + databaseName,
                        "USE master",
-                       "ALTER DATABASE " + databaseNmame + " SET CONTAINMENT = PARTIAL",
-                       "USE " + databaseNmame,
+                       "ALTER DATABASE " + databaseName + " SET CONTAINMENT = PARTIAL",
+                       "USE " + databaseName,
                        "CREATE SCHEMA " + schemaName,
                        "CREATE USER " + userName + " WITH PASSWORD = '" + config.getPassword() + "', DEFAULT_SCHEMA=" + schemaName,
                        "sp_addrolemember 'db_owner', '" + userName + "'");

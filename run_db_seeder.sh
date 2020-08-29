@@ -244,7 +244,6 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_CONNECTION_PORT=50000
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:db2://
     export DB_SEEDER_CONTAINER_PORT=50000
-    export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD_SYS=ibmdb2
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER_SYS=db2inst1

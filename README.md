@@ -99,7 +99,7 @@ Currently the following database management systems are supported:
 - [MonetDB](https://www.monetdb.org) 
   - client only version
   - open source
-  - relational model
+  - column-oriented relational model
   - **[see technical details here](#details_monetdb)**
 - [MySQL Database](https://www.mysql.com) 
   - client only version
@@ -136,7 +136,7 @@ Currently the following database management systems are supported:
   - client only version
   - commercial, open source
   - derived from H-Store, HyperSQL
-  - relational model
+  - in-memory relational model
   - **[see technical details here](#details_voltdb)**
 - [YugabyteDB](https://www.yugabyte.com)
   - client only version

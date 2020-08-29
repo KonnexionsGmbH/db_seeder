@@ -293,7 +293,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_CONNECTION_PORT=50000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:db2://
     set DB_SEEDER_CONTAINER_PORT=50000
-    set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_PASSWORD_SYS=ibmdb2
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER_SYS=db2inst1
