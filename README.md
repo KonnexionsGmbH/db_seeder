@@ -178,9 +178,9 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.5          | 2.6.2               | 
-| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.0.jre14         | 
-| Mimer SQL                       | mimer              | 11.0.3C                   | 3.40                | 
-| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29                | 
+| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.1.jre14         | 
+| Mimer SQL                       | mimer              | v11.0.3C                  | 3.40                | 
+| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29.jre7           | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.21              | 
