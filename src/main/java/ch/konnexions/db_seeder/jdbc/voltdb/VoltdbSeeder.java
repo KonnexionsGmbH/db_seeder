@@ -112,7 +112,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

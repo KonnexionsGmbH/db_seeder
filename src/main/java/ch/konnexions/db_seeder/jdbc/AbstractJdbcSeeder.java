@@ -538,8 +538,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   /**
    * Create the all database tables.
+   * @param connection TODO
    */
-  protected final void createSchema() {
+  protected final void createSchema(Connection connection) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1525,6 +1526,181 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * schema or valTableNames)and initialise the database for a new run.
    */
   protected abstract void setupDatabase();
+
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
+   * 
+   * @param statement the JDBC statement
+   * @param driver the database driver
+   * @param urlSys the database URL for privileged access
+   * @param urlUser the database URL for non-privileged access
+   * 
+   * @return  the database connection
+   * 
+   */
+  public Connection setupMysql(Statement statement, String driver, String urlSys, String urlUser) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    connection = connect(urlSys,
+                         driver);
+
+    String databaseName = config.getDatabase();
+    String userName     = config.getUser();
+
+    // -----------------------------------------------------------------------
+    // Tear down an existing schema.
+    // -----------------------------------------------------------------------
+
+    try {
+      statement = connection.createStatement();
+
+      executeDdlStmnts(statement,
+                       "DROP DATABASE IF EXISTS `" + databaseName + "`",
+                       "DROP USER IF EXISTS `" + userName + "`");
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts(statement,
+                       "CREATE DATABASE `" + databaseName + "`",
+                       "USE `" + databaseName + "`",
+                       "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",
+                       "GRANT ALL ON " + databaseName + ".* TO `" + userName + "`");
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Create database schema.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(urlUser);
+
+    try {
+      statement = connection.createStatement();
+
+      createSchema(connection);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+
+    return connection;
+  }
+
+  /**
+   * Delete any existing relevant database schema objects (database, user, 
+   * schema or valTableNames)and initialise the database for a new run.
+   * 
+   * @param statement the JDBC statement
+   * @param driver the database driver
+   * @param urlSys the database URL for privileged access
+   * @param urlUser the database URL for non-privileged access
+   * 
+   * @return  the database connection
+   * 
+   */
+  public Connection setupPostgresql(Statement statement, String driver, String urlSys, String urlUser) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    // -----------------------------------------------------------------------
+    // Connect.
+    // -----------------------------------------------------------------------
+
+    Connection connection   = connect(urlSys,
+                                      true);
+
+    String     databaseName = config.getDatabase();
+    String     schemaName   = config.getSchema();
+    String     userName     = config.getUser();
+
+    // -----------------------------------------------------------------------
+    // Tear down an existing schema.
+    // -----------------------------------------------------------------------
+
+    try {
+      statement = connection.createStatement();
+
+      executeDdlStmnts(statement,
+                       "DROP SCHEMA IF EXISTS " + schemaName + " CASCADE",
+                       "DROP DATABASE IF EXISTS " + databaseName,
+                       "DROP USER IF EXISTS " + userName);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Setup the database.
+    // -----------------------------------------------------------------------
+
+    try {
+      executeDdlStmnts(statement,
+                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
+                       "CREATE DATABASE " + databaseName + " WITH OWNER " + userName,
+                       "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // -----------------------------------------------------------------------
+    // Create database schema.
+    // -----------------------------------------------------------------------
+
+    disconnect(connection);
+
+    connection = connect(urlUser);
+
+    try {
+      statement = connection.createStatement();
+
+      executeDdlStmnts(statement,
+                       "CREATE SCHEMA " + schemaName,
+                       "SET search_path = " + schemaName);
+
+      createSchema(connection);
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+
+    return connection;
+  }
 
   private final void validateNumberRows(String tableName, int expectedRows) {
     if (isDebug) {

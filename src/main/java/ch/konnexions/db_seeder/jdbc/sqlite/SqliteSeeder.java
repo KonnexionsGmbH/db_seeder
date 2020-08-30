@@ -101,7 +101,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

@@ -1,7 +1,5 @@
 package ch.konnexions.db_seeder.jdbc.agens;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenAgensSchema;
@@ -97,71 +95,10 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
       logger.debug("Start");
     }
 
-    // -----------------------------------------------------------------------
-    // Connect.
-    // -----------------------------------------------------------------------
-
-    connection = connect(urlSys,
-                         true);
-
-    String databaseName = config.getDatabase();
-    String schemaName   = config.getSchema();
-    String userName     = config.getUser();
-
-    // -----------------------------------------------------------------------
-    // Tear down an existing schema.
-    // -----------------------------------------------------------------------
-
-    try {
-      statement = connection.createStatement();
-
-      executeDdlStmnts(statement,
-                       "DROP SCHEMA IF EXISTS " + schemaName + " CASCADE",
-                       "DROP DATABASE IF EXISTS " + databaseName,
-                       "DROP USER IF EXISTS " + userName);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Setup the database.
-    // -----------------------------------------------------------------------
-
-    try {
-      executeDdlStmnts(statement,
-                       "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
-                       "CREATE DATABASE " + databaseName + " WITH OWNER " + userName,
-                       "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Create database schema.
-    // -----------------------------------------------------------------------
-
-    disconnect(connection);
-
-    connection = connect(urlUser);
-
-    try {
-      statement = connection.createStatement();
-
-      executeDdlStmnts(statement,
-                       "CREATE SCHEMA " + schemaName,
-                       "SET search_path = " + schemaName);
-
-      createSchema();
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    connection = setupPostgresql(statement,
+                                 driver,
+                                 urlSys,
+                                 urlUser);
 
     if (isDebug) {
       logger.debug("End");

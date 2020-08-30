@@ -140,7 +140,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
       executeDdlStmnts(statement,
                        "CREATE SCHEMA " + config.getSchema());
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

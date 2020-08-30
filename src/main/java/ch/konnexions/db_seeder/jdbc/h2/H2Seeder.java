@@ -180,7 +180,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
       executeDdlStmnts(statement,
                        "SET SCHEMA " + schemaName);
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

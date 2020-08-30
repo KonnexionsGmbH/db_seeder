@@ -184,7 +184,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
       executeDdlStmnts(statement,
                        "SET SCHEMA " + schemaName);
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

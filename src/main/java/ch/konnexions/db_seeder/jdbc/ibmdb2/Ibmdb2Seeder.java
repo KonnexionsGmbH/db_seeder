@@ -23,7 +23,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param database the database 
-   * @param userSys the user
+   * @param user the user
    * @param password the password
    *
    * @return the connection URL
@@ -131,7 +131,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     // -----------------------------------------------------------------------
 
     try {
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

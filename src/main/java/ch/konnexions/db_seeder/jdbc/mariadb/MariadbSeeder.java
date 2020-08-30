@@ -142,7 +142,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

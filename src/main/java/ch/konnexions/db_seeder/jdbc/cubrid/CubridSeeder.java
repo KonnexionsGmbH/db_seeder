@@ -156,7 +156,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

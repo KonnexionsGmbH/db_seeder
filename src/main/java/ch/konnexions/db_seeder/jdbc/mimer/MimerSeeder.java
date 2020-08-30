@@ -151,7 +151,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

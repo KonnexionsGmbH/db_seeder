@@ -169,7 +169,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

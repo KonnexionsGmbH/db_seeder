@@ -132,66 +132,10 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
       logger.debug("Start");
     }
 
-    // -----------------------------------------------------------------------
-    // Connect.
-    // -----------------------------------------------------------------------
-
-    connection = connect(urlSys,
-                         driver);
-
-    String databaseName = config.getDatabase();
-    String userName     = config.getUser();
-
-    // -----------------------------------------------------------------------
-    // Tear down an existing schema.
-    // -----------------------------------------------------------------------
-
-    try {
-      statement = connection.createStatement();
-
-      executeDdlStmnts(statement,
-                       "DROP DATABASE IF EXISTS `" + databaseName + "`",
-                       "DROP USER IF EXISTS `" + userName + "`");
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Setup the database.
-    // -----------------------------------------------------------------------
-
-    try {
-      executeDdlStmnts(statement,
-                       "CREATE DATABASE `" + databaseName + "`",
-                       "USE `" + databaseName + "`",
-                       "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",
-                       "GRANT ALL ON " + databaseName + ".* TO `" + userName + "`");
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    // -----------------------------------------------------------------------
-    // Create database schema.
-    // -----------------------------------------------------------------------
-
-    disconnect(connection);
-
-    connection = connect(urlUser);
-
-    try {
-      statement = connection.createStatement();
-
-      createSchema();
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    connection = setupMysql(statement,
+                            driver,
+                            urlSys,
+                            urlUser);
 
     // -----------------------------------------------------------------------
     // Disconnect and reconnect - Presto.
@@ -208,7 +152,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
         statement = connection.createStatement();
 
         executeDdlStmnts(statement,
-                         "USE " + getCatalogName(tickerSymbolLower) + "." + databaseName);
+                         "USE " + getCatalogName(tickerSymbolLower) + "." + config.getDatabase());
 
         statement.close();
       } catch (SQLException e) {

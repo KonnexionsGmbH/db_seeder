@@ -145,7 +145,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

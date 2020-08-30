@@ -163,7 +163,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

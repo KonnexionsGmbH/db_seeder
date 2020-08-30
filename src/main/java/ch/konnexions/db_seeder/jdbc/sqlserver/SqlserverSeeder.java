@@ -187,7 +187,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

@@ -182,7 +182,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
                        "CREATE SCHEMA " + schemaName,
                        "SET CURRENT SCHEMA = " + schemaName);
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

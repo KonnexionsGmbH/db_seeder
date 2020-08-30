@@ -144,7 +144,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

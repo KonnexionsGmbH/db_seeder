@@ -150,7 +150,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {
