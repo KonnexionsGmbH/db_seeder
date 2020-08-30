@@ -99,7 +99,7 @@ Currently the following database management systems are supported:
 - [MonetDB](https://www.monetdb.org) 
   - client only version
   - open source
-  - relational model
+  - column-oriented relational model
   - **[see technical details here](#details_monetdb)**
 - [MySQL Database](https://www.mysql.com) 
   - client only version
@@ -136,7 +136,7 @@ Currently the following database management systems are supported:
   - client only version
   - commercial, open source
   - derived from H-Store, HyperSQL
-  - relational model
+  - in-memory relational model
   - **[see technical details here](#details_voltdb)**
 - [YugabyteDB](https://www.yugabyte.com)
   - client only version
@@ -178,9 +178,9 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.5          | 2.6.2               | 
-| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.0.jre14         | 
-| Mimer SQL                       | mimer              | 11.0.3C                   | 3.40                | 
-| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29                | 
+| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.1.jre14         | 
+| Mimer SQL                       | mimer              | v11.0.3C                  | 3.40                | 
+| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29.jre7           | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.21              | 
@@ -453,18 +453,18 @@ db_seeder.user=
 | connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                               | port number of the Presto distributed query engine |
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
-| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | cubrid, firebird, hsqldb, informix, mysql, percona, voltdb                                                           | suffix of the database connection string |
+| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                                                             | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
 | database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                                                             | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
-| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                                                                        | directory and file name of the JSON file containing the database schema |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                                                                | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver    | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | agens, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte                                          | schema name |
-| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, h2, voltdb                                                                                    | name of the privileged user |
+| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte                                   | schema name |
+| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, voltdb                                                                                        | name of the privileged user |
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
 
@@ -1176,10 +1176,10 @@ Below are also DBeaver based connection parameter examples for each database man
 | VARCHAR        | VARCHAR              |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://dev.mysql.com/doc/refman/8.0/en/create-database.html) 
+  - CREATE DATABASE: see MySQL Database 
   - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://dev.mysql.com/doc/refman/8.0/en/create-table.html) 
-  - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
+  - CREATE TABLE: see MySQL Database 
+  - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
   - pull command: `docker pull store/percona/percona-server:5.7.14`

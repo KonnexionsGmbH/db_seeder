@@ -90,7 +90,8 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
       driver = "org.apache.derby.jdbc.EmbeddedDriver";
     }
 
-    dropTableStmnt = "SELECT 'DROP TABLE \"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = 'APP'";
+    dropTableStmnt = "SELECT 'DROP TABLE ' || S.SCHEMANAME || '.\"' || T.TABLENAME || '\"' FROM SYS.SYSTABLES T INNER JOIN SYS.SYSSCHEMAS S ON T.SCHEMAID = S.SCHEMAID WHERE T.TABLENAME = '?' AND S.SCHEMANAME = '"
+        + config.getSchema().toUpperCase() + "'";
 
     urlSys         = getUrlSys(isClient,
                                config.getConnectionHost(),
@@ -139,6 +140,8 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
                          driver,
                          true);
 
+    String schemaName = config.getSchema();
+
     // -----------------------------------------------------------------------
     // Tear down an existing schema.
     // -----------------------------------------------------------------------
@@ -151,6 +154,11 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
     }
 
     dropAllTables(dropTableStmnt);
+
+    dropSchema(schemaName.toUpperCase(),
+               "RESTRICT",
+               "SYS.SYSSCHEMAS",
+               "SCHEMANAME");
 
     try {
       statement.close();
@@ -170,7 +178,11 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      executeDdlStmnts(statement,
+                       "CREATE SCHEMA " + schemaName,
+                       "SET CURRENT SCHEMA = " + schemaName);
+
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

@@ -96,10 +96,10 @@ public abstract class AbstractDbmsSeeder {
 
   public static final int                   DBMS_DETAILS_NAME_CHOICE          = 1;
 
-  //  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
+  public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
   private static final int                  DBMS_DETAILS_NAME                 = 3;
   private static final int                  DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
-  public static final int                   DBMS_DETAILS_TICKER_SYMBOL_LOWER  = 0;
+  static final int                          DBMS_DETAILS_TICKER_SYMBOL_LOWER  = 0;
   public static final String                FORMAT_IDENTIFIER                 = "%-10d";
 
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
@@ -144,14 +144,14 @@ public abstract class AbstractDbmsSeeder {
     dbmsDetails.put("derby",
                     new String[] {
                         "derby",
-                        "Apache Derby [client]",
+                        "Apache Derby",
                         "client",
                         "Apache Derby",
                         "" });
     dbmsDetails.put("derby_emb",
                     new String[] {
                         "derby",
-                        "Apache Derby [embedded]",
+                        "Apache Derby",
                         "embedded",
                         "Apache Derby",
                         "" });
@@ -172,28 +172,28 @@ public abstract class AbstractDbmsSeeder {
     dbmsDetails.put("h2",
                     new String[] {
                         "h2",
-                        "H2 Database Engine [client]",
+                        "H2 Database Engine",
                         "client",
                         "H2",
                         "" });
     dbmsDetails.put("h2_emb",
                     new String[] {
                         "h2",
-                        "H2 Database Engine [embedded]",
+                        "H2 Database Engine",
                         "embedded",
                         "H2",
                         "" });
     dbmsDetails.put("hsqldb",
                     new String[] {
                         "hsqldb",
-                        "HyperSQL Database [client]",
+                        "HyperSQL Database",
                         "client",
                         "HyperSQL",
                         "" });
     dbmsDetails.put("hsqldb_emb",
                     new String[] {
                         "hsqldb",
-                        "HyperSQL Database [embedded]",
+                        "HyperSQL Database",
                         "embedded",
                         "HyperSQL",
                         "" });

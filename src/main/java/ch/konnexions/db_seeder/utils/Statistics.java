@@ -72,8 +72,8 @@ public final class Statistics {
                                                           duration));
 
       statisticsFile.printRecord(tickerSymbolExtern,
-                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER],
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
+                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
                                  duration,
                                  startDateTime.format(formatter),
                                  endDateTime.format(formatter),

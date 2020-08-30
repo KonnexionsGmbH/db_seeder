@@ -17,33 +17,26 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
   private static final Logger logger = Logger.getLogger(PerconaSeeder.class);
 
   /**
-   * Gets the connection URL for privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param databaseSys the database with privileged access
+   * @param database the database
+   * @param user the user
+   * @param password the password
    * 
-   * @return the connection URL for privileged access
+   * @return the connection URL
    */
-  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String databaseSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + connectionSuffix;
-  }
-
-  /**
-   * Gets the connection URL for non-privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
-   * @param database the database with non-privileged access
-   * 
-   * @return the connection URL for non-privileged access
-   */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
+  private final static String getUrl(String connectionHost,
+                                     int connectionPort,
+                                     String connectionPrefix,
+                                     String connectionSuffix,
+                                     String database,
+                                     String user,
+                                     String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password + connectionSuffix;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -74,17 +67,21 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
 
     driver   = "com.mysql.cj.jdbc.Driver";
 
-    urlSys   = getUrlSys(config.getConnectionHost(),
-                         config.getConnectionPort(),
-                         config.getConnectionPrefix(),
-                         config.getConnectionSuffix(),
-                         config.getDatabaseSys());
+    urlSys   = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix(),
+                      config.getDatabaseSys(),
+                      config.getUserSys(),
+                      config.getPasswordSys());
 
-    urlUser  = getUrlUser(config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getConnectionSuffix(),
-                          config.getDatabase());
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix(),
+                      config.getDatabase(),
+                      config.getUser(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -118,9 +115,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     // -----------------------------------------------------------------------
 
     connection = connect(urlSys,
-                         driver,
-                         config.getUserSys(),
-                         config.getPasswordSys());
+                         driver);
 
     String databaseName = config.getDatabase();
     String userName     = config.getUser();
@@ -132,7 +127,8 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS `" + databaseName + "`",
+      executeDdlStmnts(statement,
+                       "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS `" + userName + "`");
     } catch (SQLException e) {
       e.printStackTrace();
@@ -144,7 +140,8 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE DATABASE `" + databaseName + "`",
+      executeDdlStmnts(statement,
+                       "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",
                        "GRANT ALL ON " + databaseName + ".* TO `" + userName + "`");
@@ -161,15 +158,12 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         userName,
-                         config.getPassword());
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

@@ -7,7 +7,7 @@
 
 ## Version 2.5.0
 
-Release Date: dd.08.2020
+Release Date: 30.08.2020
 
 #### System Requirements
 
@@ -40,7 +40,7 @@ Release Date: dd.08.2020
 
 #### Modified Features
 
-n/a
+- Microsoft SQL Server: JDBC 8.4.1.jre14
 
 #### Deleted Features
 

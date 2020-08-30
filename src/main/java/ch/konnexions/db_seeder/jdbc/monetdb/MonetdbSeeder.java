@@ -17,17 +17,19 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
   private static final Logger logger = Logger.getLogger(MonetdbSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param databaseSys the database with privileged access
+   * @param database the database
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String databaseSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys;
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -48,10 +50,19 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
 
     driver   = "nl.cwi.monetdb.jdbc.MonetDriver";
 
-    urlUser  = getUrlUser(config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getDatabaseSys());
+    urlSys   = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabaseSys(),
+                      config.getUserSys(),
+                      config.getPasswordSys());
+
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabaseSys(),
+                      config.getUser(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -99,7 +110,8 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
       resultSet.close();
 
       if (count > 0) {
-        executeDdlStmnts("ALTER USER " + userName + " SET SCHEMA sys",
+        executeDdlStmnts(statement,
+                         "ALTER USER " + userName + " SET SCHEMA sys",
                          "DROP SCHEMA " + schemaName + " CASCADE",
                          "CREATE SCHEMA " + schemaName + " AUTHORIZATION monetdb;",
                          "DROP USER " + userName,
@@ -129,13 +141,10 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlUser,
+    connection = connect(urlSys,
                          driver,
-                         config.getUserSys(),
-                         config.getPasswordSys(),
                          true);
 
-    String password   = config.getPassword();
     String schemaName = config.getSchema();
     String userName   = config.getUser();
 
@@ -160,7 +169,8 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("CREATE USER " + userName + " WITH UNENCRYPTED PASSWORD '" + password + "' NAME 'Dbseeder User' SCHEMA sys",
+      executeDdlStmnts(statement,
+                       "CREATE USER " + userName + " WITH UNENCRYPTED PASSWORD '" + config.getPassword() + "' NAME 'Dbseeder User' SCHEMA sys",
                        "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName,
                        "ALTER USER " + userName + " SET SCHEMA " + schemaName);
 
@@ -177,33 +187,18 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     disconnect(connection);
 
     connection = connect(urlUser,
-                         null,
-                         userName,
-                         password,
                          true);
 
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
-
-    // -----------------------------------------------------------------------
-    // Disconnect and reconnect.
-    // -----------------------------------------------------------------------
-
-    disconnect(connection);
-
-    connection = connect(urlUser,
-                         driver,
-                         userName,
-                         password,
-                         true);
 
     if (isDebug) {
       logger.debug("End");

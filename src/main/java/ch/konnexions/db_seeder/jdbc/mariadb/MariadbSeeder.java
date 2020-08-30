@@ -17,31 +17,19 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
   private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
 
   /**
-   * Gets the connection URL for privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param databaseSys the database with privileged access
+   * @param database the database
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for privileged access
+   * @return the connection URL
    */
-  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String databaseSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys;
-  }
-
-  /**
-   * Gets the connection URL for non-privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param database the database with non-privileged access
-   *
-   * @return the connection URL for non-privileged access
-   */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database;
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -60,15 +48,19 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
 
     dbmsEnum = DbmsEnum.MARIADB;
 
-    urlSys   = getUrlSys(config.getConnectionHost(),
-                         config.getConnectionPort(),
-                         config.getConnectionPrefix(),
-                         config.getDatabaseSys());
+    urlSys   = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabaseSys(),
+                      config.getUserSys(),
+                      config.getPasswordSys());
 
-    urlUser  = getUrlUser(config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getDatabase());
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabase(),
+                      config.getUser(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -101,10 +93,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlSys,
-                         null,
-                         config.getUserSys(),
-                         config.getPasswordSys());
+    connection = connect(urlSys);
 
     String databaseName = config.getDatabase();
     String userName     = config.getUser();
@@ -116,7 +105,8 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("DROP DATABASE IF EXISTS `" + databaseName + "`",
+      executeDdlStmnts(statement,
+                       "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS '" + userName + "'");
     } catch (SQLException e) {
       e.printStackTrace();
@@ -128,7 +118,8 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE DATABASE `" + databaseName + "`",
+      executeDdlStmnts(statement,
+                       "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER '" + userName + "'@'%' IDENTIFIED BY '" + config.getPassword() + "'",
                        "GRANT ALL PRIVILEGES ON *.* TO '" + userName + "'@'%'",
@@ -146,15 +137,12 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         userName,
-                         config.getPassword());
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

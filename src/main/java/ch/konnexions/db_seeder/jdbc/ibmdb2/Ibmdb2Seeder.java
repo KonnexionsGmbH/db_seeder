@@ -17,17 +17,19 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
   private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param database the database 
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database;
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + ":user=" + user + ";password=" + password + ";";
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -48,10 +50,12 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
     dropTableStmnt = "SELECT 'DROP TABLE \"' || TABSCHEMA || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABSCHEMA = 'schemaName' AND TABNAME = '?'";
 
-    urlUser        = getUrlUser(config.getConnectionHost(),
-                                config.getConnectionPort(),
-                                config.getConnectionPrefix(),
-                                config.getDatabase());
+    urlSys         = getUrl(config.getConnectionHost(),
+                            config.getConnectionPort(),
+                            config.getConnectionPrefix(),
+                            config.getDatabase(),
+                            config.getUserSys(),
+                            config.getPasswordSys());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -84,10 +88,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlUser,
-                         null,
-                         config.getUserSys(),
-                         config.getPasswordSys());
+    connection = connect(urlSys);
 
     String schemaName = config.getSchema().toUpperCase();
 
@@ -115,7 +116,8 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts("CREATE SCHEMA " + schemaName,
+      executeDdlStmnts(statement,
+                       "CREATE SCHEMA " + schemaName,
                        "SET CURRENT SCHEMA " + schemaName + ";");
 
       statement.close();
@@ -129,7 +131,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     // -----------------------------------------------------------------------
 
     try {
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

@@ -17,15 +17,15 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
   private static final Logger logger = Logger.getLogger(ExasolSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix) {
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix) {
     return connectionPrefix + connectionHost + ":" + connectionPort;
   }
 
@@ -47,9 +47,9 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
 
     driver   = "com.exasol.jdbc.EXADriver";
 
-    urlUser  = getUrlUser(config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix());
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -102,7 +102,8 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
       System.exit(1);
     }
 
-    executeDdlStmnts("DROP USER IF EXISTS " + userName + " CASCADE");
+    executeDdlStmnts(statement,
+                     "DROP USER IF EXISTS " + userName + " CASCADE");
 
     // -----------------------------------------------------------------------
     // Setup the database.
@@ -111,7 +112,8 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("CREATE USER " + userName + " IDENTIFIED BY \"" + password + "\"",
+      executeDdlStmnts(statement,
+                       "CREATE USER " + userName + " IDENTIFIED BY \"" + password + "\"",
                        "GRANT ALL PRIVILEGES TO " + userName);
 
       statement.close();
@@ -135,9 +137,10 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts("CREATE SCHEMA " + config.getSchema());
+      executeDdlStmnts(statement,
+                       "CREATE SCHEMA " + config.getSchema());
 
-      createSchema();
+      createSchema(connection);
 
       statement.close();
     } catch (SQLException e) {

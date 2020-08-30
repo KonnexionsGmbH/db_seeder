@@ -151,7 +151,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
         exit 255
     fi
 
-    sleep 90
+    sleep 120
 
     end=$(date +%s)
     echo "DOCKER Exasol was ready in $((end - start)) seconds"
@@ -570,7 +570,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
 
     echo "Docker start db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION}) ..."
 
-    sleep 60
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER YugabyteDB was ready in $((end - start)) seconds"

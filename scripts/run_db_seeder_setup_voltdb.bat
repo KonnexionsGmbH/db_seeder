@@ -45,10 +45,10 @@ lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (VoltDB %DB_SEEDER_VERSION%)
 
 docker run -d ^
-           -e        HOST_COUNT=1 ^
-           --name    db_seeder_db ^
-           -p        21212:21212 ^
-           -v        %cd%/resources/voltdb/deployment.xml:/tmp/deployment.xml ^
+           -e     HOST_COUNT=1 ^
+           --name db_seeder_db ^
+           -p     21212:21212 ^
+           -v     %cd%/resources/voltdb/deployment.xml:/tmp/deployment.xml ^
            voltdb/voltdb-community:%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (VoltDB %DB_SEEDER_VERSION%) ...

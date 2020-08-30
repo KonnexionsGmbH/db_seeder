@@ -63,8 +63,8 @@ echo Docker start db_seeder_db (Oracle Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 :check_health_status:
-mkdir tmp >nul 2>&1
-docker inspect -f {{.State.Health.Status}} db_seeder_db > tmp\docker_health_status.txt
+mkdir %cd%\tmp >nul 2>&1
+docker inspect -f {{.State.Health.Status}} db_seeder_db > %cd%\tmp\docker_health_status.txt
 set /P DOCKER_HEALTH_STATUS=<tmp\docker_health_status.txt
 if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (
     docker ps --filter "name=db_seeder_db"
