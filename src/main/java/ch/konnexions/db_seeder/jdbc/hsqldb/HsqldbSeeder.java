@@ -41,11 +41,11 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     if (isClient) {
       return connectionPrefix + "hsql://" + connectionHost + ":" + connectionPort + "/" + database + ";user=" + user + ("".equals(password)
           ? ""
-          : "&password=" + password) + connectionSuffix;
+          : ";password=" + password) + connectionSuffix;
     } else {
-      return connectionPrefix + "file:" + database + ";user=" + user + "&password=" + ("".equals(password)
+      return connectionPrefix + "file:" + database + ";user=" + user + ("".equals(password)
           ? ""
-          : "&password=" + password) + connectionSuffix;
+          : ";password=" + password) + connectionSuffix;
     }
   }
 
