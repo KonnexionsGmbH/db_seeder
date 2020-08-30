@@ -22,19 +22,13 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
    * @param database the database 
    * @param userSys the user with privileged access
    * 
    * @return the connection URL for privileged access
    */
-  private final static String getUrlSys(String connectionHost,
-                                        int connectionPort,
-                                        String connectionPrefix,
-                                        String connectionSuffix,
-                                        String database,
-                                        String userSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + userSys.toUpperCase() + connectionSuffix;
+  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String database, String userSys) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + userSys.toUpperCase() + "::";
   }
 
   /**
@@ -43,13 +37,13 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
    * @param database the database
-   * 
+   * @param user the user with non-privileged access
+   * @param password the password with non-privileged access
    * @return the connection URL for non-privileged access
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + connectionSuffix;
+  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + user + ":" + password + ":";
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -73,15 +67,15 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     urlSys   = getUrlSys(config.getConnectionHost(),
                          config.getConnectionPort(),
                          config.getConnectionPrefix(),
-                         config.getConnectionSuffix(),
                          config.getDatabase(),
                          config.getUserSys());
 
     urlUser  = getUrlUser(config.getConnectionHost(),
                           config.getConnectionPort(),
                           config.getConnectionPrefix(),
-                          config.getConnectionSuffix(),
-                          config.getDatabase());
+                          config.getDatabase(),
+                          config.getUser(),
+                          config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -157,10 +151,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         userName,
-                         config.getPassword());
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();

@@ -17,17 +17,17 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
   private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param database the database with non-privileged access
+   * @param database the database
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
   }
 
@@ -51,11 +51,11 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
     dropTableStmnt = "SELECT 'DROP TABLE \"' || RDB$RELATION_NAME || '\";' FROM RDB$RELATIONS WHERE RDB$OWNER_NAME = 'userName' AND RDB$RELATION_NAME = '?'";
 
-    urlUser        = getUrlUser(config.getConnectionHost(),
-                                config.getConnectionPort(),
-                                config.getConnectionPrefix(),
-                                config.getConnectionSuffix(),
-                                config.getDatabase());
+    urlUser        = getUrl(config.getConnectionHost(),
+                            config.getConnectionPort(),
+                            config.getConnectionPrefix(),
+                            config.getConnectionSuffix(),
+                            config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");

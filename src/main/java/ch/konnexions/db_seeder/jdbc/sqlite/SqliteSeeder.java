@@ -17,14 +17,14 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
   private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param connectionPrefix the connection prefix
-   * @param database the database with non-privileged access
+   * @param database the database
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(String connectionPrefix, String database) {
+  private final static String getUrl(String connectionPrefix, String database) {
     return connectionPrefix + database;
   }
 
@@ -45,8 +45,8 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
     dbmsEnum = DbmsEnum.SQLITE;
 
-    urlUser  = getUrlUser(config.getConnectionPrefix(),
-                          config.getDatabase());
+    urlSys   = getUrl(config.getConnectionPrefix(),
+                      config.getDatabase());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -79,7 +79,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlUser);
+    connection = connect(urlSys);
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.

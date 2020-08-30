@@ -17,7 +17,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
   private static final Logger logger = Logger.getLogger(VoltdbSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param isClient database client version 
    * @param connectionHost the connection host name
@@ -25,9 +25,9 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
+  private final static String getUrl(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
     return connectionPrefix + connectionHost + ":" + connectionPort + connectionSuffix;
   }
 
@@ -49,11 +49,11 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
 
     driver   = "org.voltdb.jdbc.Driver";
 
-    urlUser  = getUrlUser(isClient,
-                          config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getConnectionSuffix());
+    urlSys   = getUrl(isClient,
+                      config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -86,7 +86,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlUser,
+    connection = connect(urlSys,
                          driver,
                          config.getUser().toUpperCase(),
                          config.getPassword(),

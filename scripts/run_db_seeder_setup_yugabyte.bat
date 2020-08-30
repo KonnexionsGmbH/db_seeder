@@ -58,7 +58,7 @@ docker run -d ^
 
 echo Docker start db_seeder_db (YugabyteDB %DB_SEEDER_VERSION%) ...
 
-ping -n 60 127.0.0.1>nul
+ping -n 30 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER YugabyteDB was ready in %CONSUMED%

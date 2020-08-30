@@ -17,15 +17,15 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
   private static final Logger logger = Logger.getLogger(ExasolSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix) {
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix) {
     return connectionPrefix + connectionHost + ":" + connectionPort;
   }
 
@@ -47,9 +47,9 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
 
     driver   = "com.exasol.jdbc.EXADriver";
 
-    urlUser  = getUrlUser(config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix());
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix());
 
     if (isDebug) {
       logger.debug("End   Constructor");

@@ -135,7 +135,6 @@ if [ "${DB_SEEDER_DBMS}" = "cubrid" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=33000
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:cubrid:"
-    export DB_SEEDER_CONNECTION_SUFFIX="::"
     export DB_SEEDER_CONTAINER_PORT=33000
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD=cubrid
@@ -256,7 +255,6 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9088
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:informix-sqli://"
-    export DB_SEEDER_CONNECTION_SUFFIX=":INFORMIXSERVER=informix"
     export DB_SEEDER_CONTAINER_PORT=9088
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sysmaster
@@ -315,7 +313,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
-    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
+    export DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys
@@ -331,7 +329,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
-    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
+    export DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys
@@ -379,7 +377,7 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
     export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
-    export DB_SEEDER_CONNECTION_SUFFIX="?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
+    export DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys

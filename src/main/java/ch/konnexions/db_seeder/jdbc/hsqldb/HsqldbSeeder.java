@@ -17,27 +17,35 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   private static final Logger logger = Logger.getLogger(HsqldbSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param isClient database client version 
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param database the database with non-privileged access
+   * @param database the database
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(boolean isClient,
-                                         String connectionHost,
-                                         int connectionPort,
-                                         String connectionPrefix,
-                                         String connectionSuffix,
-                                         String database) {
+  private final static String getUrl(boolean isClient,
+                                     String connectionHost,
+                                     int connectionPort,
+                                     String connectionPrefix,
+                                     String connectionSuffix,
+                                     String database,
+                                     String user,
+                                     String password) {
     if (isClient) {
-      return connectionPrefix + "hsql://" + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
+      return connectionPrefix + "hsql://" + connectionHost + ":" + connectionPort + "/" + database + ";user=" + user + ("".equals(password)
+          ? ""
+          : "&password=" + password) + connectionSuffix;
     } else {
-      return connectionPrefix + "file:" + database + connectionSuffix;
+      return connectionPrefix + "file:" + database + ";user=" + user + "&password=" + ("".equals(password)
+          ? ""
+          : "&password=" + password) + connectionSuffix;
     }
   }
 
@@ -69,12 +77,23 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
     driver   = "org.hsqldb.jdbc.JDBCDriver";
 
-    urlUser  = getUrlUser(isClient,
-                          config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getConnectionSuffix(),
-                          config.getDatabase());
+    urlSys   = getUrl(isClient,
+                      config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix(),
+                      config.getDatabase(),
+                      config.getUserSys().toUpperCase(),
+                      "");
+
+    urlUser  = getUrl(isClient,
+                      config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix(),
+                      config.getDatabase(),
+                      config.getUser().toUpperCase(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -107,10 +126,8 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlUser,
+    connection = connect(urlSys,
                          driver,
-                         config.getUserSys().toUpperCase(),
-                         "",
                          true);
 
     String password   = config.getPassword();
@@ -159,10 +176,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         userName,
-                         password);
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();

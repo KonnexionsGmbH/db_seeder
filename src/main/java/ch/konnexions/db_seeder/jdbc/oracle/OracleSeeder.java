@@ -18,6 +18,20 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   private static final Logger logger = Logger.getLogger(OracleSeeder.class);
 
   /**
+   * Gets the connection URL.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionService the connection service
+   *
+   * @return the connection URL
+   */
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
+  }
+
+  /**
    * Gets the connection URL for Presto (used by PrestoEnvironment).
    *
    * @param connectionHost the connection host name
@@ -28,23 +42,6 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * @return the connection URL for non-privileged access
    */
   public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
-    return getUrlUser(connectionHost,
-                      connectionPort,
-                      connectionPrefix,
-                      connectionService);
-  }
-
-  /**
-   * Gets the connection URL for non-privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param connectionService the connection service
-   *
-   * @return the connection URL for non-privileged access
-   */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
   }
 
@@ -81,10 +78,10 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
                                                   config.getUser());
     }
 
-    urlUser = getUrlUser(config.getConnectionHost(),
-                         config.getConnectionPort(),
-                         config.getConnectionPrefix(),
-                         config.getConnectionService());
+    urlUser = getUrl(config.getConnectionHost(),
+                     config.getConnectionPort(),
+                     config.getConnectionPrefix(),
+                     config.getConnectionService());
 
     if (isDebug) {
       logger.debug("End   Constructor");

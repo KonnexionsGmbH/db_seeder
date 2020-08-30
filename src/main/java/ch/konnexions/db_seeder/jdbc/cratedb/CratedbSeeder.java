@@ -17,39 +17,26 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
   private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
 
   /**
-   * Gets the connection URL for privileged access.
+   * Gets the connection UR.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param userSys the privileged user
+   * @param user the user
+   * @param password the password
    * 
-   * @return the connection URL for privileged access
+   * @return the connection URL
    */
-  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String userSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/?strict=true&user=" + userSys;
-  }
-
-  /**
-   * Gets the connection URL for non-privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
-   * @param user the non-privileged user
-   * @param password the non-privileged password
-   * 
-   * @return the connection URL for non-privileged access
-   */
-  private final static String getUrlUser(String connectionHost,
-                                         int connectionPort,
-                                         String connectionPrefix,
-                                         String connectionSuffix,
-                                         String user,
-                                         String password) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/?strict=true&user=" + user + "&password=" + password;
+  private final static String getUrl(String connectionHost,
+                                     int connectionPort,
+                                     String connectionPrefix,
+                                     String connectionSuffix,
+                                     String user,
+                                     String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/?strict=true&user=" + user + ("".equals(password)
+        ? ""
+        : "&password=" + password);
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -70,18 +57,19 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
     dropTableStmnt = "SELECT 'DROP TABLE ' || table_name FROM information_schema.tables WHERE table_schema = 'doc' AND table_name = '?'";
 
-    urlSys         = getUrlSys(config.getConnectionHost(),
-                               config.getConnectionPort(),
-                               config.getConnectionPrefix(),
-                               config.getConnectionSuffix(),
-                               config.getUserSys());
+    urlSys         = getUrl(config.getConnectionHost(),
+                            config.getConnectionPort(),
+                            config.getConnectionPrefix(),
+                            config.getConnectionSuffix(),
+                            config.getUserSys(),
+                            "");
 
-    urlUser        = getUrlUser(config.getConnectionHost(),
-                                config.getConnectionPort(),
-                                config.getConnectionPrefix(),
-                                config.getConnectionSuffix(),
-                                config.getUser(),
-                                config.getPassword());
+    urlUser        = getUrl(config.getConnectionHost(),
+                            config.getConnectionPort(),
+                            config.getConnectionPrefix(),
+                            config.getConnectionSuffix(),
+                            config.getUser(),
+                            config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");

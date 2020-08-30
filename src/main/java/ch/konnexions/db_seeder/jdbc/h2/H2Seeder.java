@@ -17,21 +17,33 @@ public final class H2Seeder extends AbstractGenH2Schema {
   private static final Logger logger = Logger.getLogger(H2Seeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param isClient client version
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
    * @param database the database
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
+  private final static String getUrl(boolean isClient,
+                                     String connectionHost,
+                                     int connectionPort,
+                                     String connectionPrefix,
+                                     String database,
+                                     String user,
+                                     String password) {
     if (isClient) {
-      return connectionPrefix + "tcp://" + connectionHost + ":" + connectionPort + "/" + database;
+      return connectionPrefix + "tcp://" + connectionHost + ":" + connectionPort + "/" + database + ";USER=" + user + ("".equals(password)
+          ? ""
+          : ";PASSWORD=" + password);
     } else {
-      return connectionPrefix + "file:" + database;
+      return connectionPrefix + "file:" + database + ";USER=" + user + ("".equals(password)
+          ? ""
+          : ";PASSWORD=" + password);
     }
   }
 
@@ -63,11 +75,21 @@ public final class H2Seeder extends AbstractGenH2Schema {
 
     driver   = "org.h2.Driver";
 
-    urlUser  = getUrlUser(isClient,
-                          config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getDatabase());
+    urlSys   = getUrl(isClient,
+                      config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabase(),
+                      config.getUserSys(),
+                      "");
+
+    urlUser  = getUrl(isClient,
+                      config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabase(),
+                      config.getUser(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -100,10 +122,8 @@ public final class H2Seeder extends AbstractGenH2Schema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlUser,
+    connection = connect(urlSys,
                          driver,
-                         "sa",
-                         "",
                          true);
 
     String password   = config.getPassword();
@@ -152,10 +172,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         userName,
-                         password);
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();

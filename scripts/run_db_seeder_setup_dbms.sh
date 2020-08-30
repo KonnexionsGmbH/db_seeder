@@ -570,7 +570,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
 
     echo "Docker start db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION}) ..."
 
-    sleep 60
+    sleep 30
 
     end=$(date +%s)
     echo "DOCKER YugabyteDB was ready in $((end - start)) seconds"

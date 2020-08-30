@@ -99,7 +99,7 @@ public abstract class AbstractDbmsSeeder {
   public static final int                   DBMS_DETAILS_CLIENT_EMBEDDED      = 2;
   private static final int                  DBMS_DETAILS_NAME                 = 3;
   private static final int                  DBMS_DETAILS_IDENTIFIER_DELIMITER = 4;
-  public static final int                   DBMS_DETAILS_TICKER_SYMBOL_LOWER  = 0;
+  static final int                          DBMS_DETAILS_TICKER_SYMBOL_LOWER  = 0;
   public static final String                FORMAT_IDENTIFIER                 = "%-10d";
 
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";

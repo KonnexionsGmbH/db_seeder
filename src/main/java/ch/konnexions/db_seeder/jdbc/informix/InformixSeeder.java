@@ -17,33 +17,19 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
   private static final Logger logger = Logger.getLogger(InformixSeeder.class);
 
   /**
-   * Gets the connection URL for privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
-   * @param databaseSys the database with privileged access
+   * @param database the database
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for privileged access
+   * @return the connection URL
    */
-  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String databaseSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + connectionSuffix;
-  }
-
-  /**
-   * Gets the connection URL for non-privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
-   * @param database the database with non-privileged access
-   *
-   * @return the connection URL for non-privileged access
-   */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + ":INFORMIXSERVER=informix;user=" + user + ";password=" + password;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -66,17 +52,19 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
 
     dropTableStmnt = "SELECT 'DROP TABLE \"' || TABUSER || '\".\"' || TABNAME || '\";' FROM SYSCAT.TABLES WHERE TYPE = 'T' AND TABNAME = ? AND TABUSER = ?";
 
-    urlSys         = getUrlSys(config.getConnectionHost(),
-                               config.getConnectionPort(),
-                               config.getConnectionPrefix(),
-                               config.getConnectionSuffix(),
-                               config.getDatabaseSys());
+    urlSys         = getUrl(config.getConnectionHost(),
+                            config.getConnectionPort(),
+                            config.getConnectionPrefix(),
+                            config.getDatabaseSys(),
+                            config.getUserSys(),
+                            config.getPasswordSys());
 
-    urlUser        = getUrlUser(config.getConnectionHost(),
-                                config.getConnectionPort(),
-                                config.getConnectionPrefix(),
-                                config.getConnectionSuffix(),
-                                config.getDatabase());
+    urlUser        = getUrl(config.getConnectionHost(),
+                            config.getConnectionPort(),
+                            config.getConnectionPrefix(),
+                            config.getDatabase(),
+                            config.getUserSys(),
+                            config.getPasswordSys());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -111,8 +99,6 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
 
     connection = connect(urlSys,
                          driver,
-                         config.getUserSys(),
-                         config.getPasswordSys(),
                          true);
 
     String databaseName = config.getDatabase();
@@ -153,10 +139,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         config.getUserSys(),
-                         config.getPasswordSys());
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();

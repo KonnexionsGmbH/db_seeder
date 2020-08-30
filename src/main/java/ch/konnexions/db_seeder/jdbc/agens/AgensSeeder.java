@@ -17,39 +17,18 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
   private static final Logger logger = Logger.getLogger(AgensSeeder.class);
 
   /**
-   * Gets the connection URL for privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param databaseSys the database with privileged access
-   * @param userSys the user with privileged access
-   * @param passwordSys the password with privileged access
+   * @param database the database
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for privileged access
+   * @return the connection URL
    */
-  private final static String getUrlSys(String connectionHost,
-                                        int connectionPort,
-                                        String connectionPrefix,
-                                        String databaseSys,
-                                        String userSys,
-                                        String passwordSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + "?user=" + userSys + "&password=" + passwordSys;
-  }
-
-  /**
-   * Gets the connection URL for non-privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param database the database with non-privileged access
-   * @param user the user with non-privileged access
-   * @param password the password with non-privileged access
-   *
-   * @return the connection URL for non-privileged access
-   */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password;
   }
 
@@ -81,19 +60,19 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
 
     driver   = "net.bitnine.agensgraph.Driver";
 
-    urlSys   = getUrlSys(config.getConnectionHost(),
-                         config.getConnectionPort(),
-                         config.getConnectionPrefix(),
-                         config.getDatabaseSys(),
-                         config.getUserSys(),
-                         config.getPasswordSys());
+    urlSys   = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabaseSys(),
+                      config.getUserSys(),
+                      config.getPasswordSys());
 
-    urlUser  = getUrlUser(config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getDatabase(),
-                          config.getUser(),
-                          config.getPassword());
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabase(),
+                      config.getUser(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");

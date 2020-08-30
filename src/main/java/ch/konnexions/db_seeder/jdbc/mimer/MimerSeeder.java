@@ -17,17 +17,19 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
   private static final Logger logger = Logger.getLogger(MimerSeeder.class);
 
   /**
-   * Gets the connection URL for non-privileged access.
+   * Gets the connection URL.
    *
    * @param connectionHost the connection host name
    * @param connectionPort the connection port number
    * @param connectionPrefix the connection prefix
-   * @param databaseSys the database with privileged access
+   * @param database the database
+   * @param user the user
+   * @param password the password
    *
-   * @return the connection URL for non-privileged access
+   * @return the connection URL
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String databaseSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys;
+  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "?databaseName=" + database + "&user=" + user + "&password=" + password;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -48,10 +50,19 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
 
     driver   = "com.mimer.jdbc.Driver";
 
-    urlUser  = getUrlUser(config.getConnectionHost(),
-                          config.getConnectionPort(),
-                          config.getConnectionPrefix(),
-                          config.getDatabaseSys());
+    urlSys   = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabaseSys(),
+                      config.getUserSys(),
+                      config.getPasswordSys());
+
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabaseSys(),
+                      config.getUser(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -84,10 +95,8 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     // Connect.
     // -----------------------------------------------------------------------
 
-    connection = connect(urlUser,
+    connection = connect(urlSys,
                          driver,
-                         config.getUserSys(),
-                         config.getPasswordSys(),
                          true);
 
     String databaseName = config.getDatabase();
@@ -137,9 +146,6 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     disconnect(connection);
 
     connection = connect(urlUser,
-                         null,
-                         userName,
-                         config.getPassword(),
                          true);
 
     try {

@@ -18,6 +18,29 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   private static final Logger logger = Logger.getLogger(MysqlSeeder.class);
 
   /**
+   * Gets the connection URL.
+   *
+   * @param connectionHost the connection host name
+   * @param connectionPort the connection port number
+   * @param connectionPrefix the connection prefix
+   * @param connectionSuffix the connection suffix
+   * @param database the database
+   * @param user the user
+   * @param password the password
+   * 
+   * @return the connection URL
+   */
+  private final static String getUrl(String connectionHost,
+                                     int connectionPort,
+                                     String connectionPrefix,
+                                     String connectionSuffix,
+                                     String database,
+                                     String user,
+                                     String password) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password + connectionSuffix;
+  }
+
+  /**
    * Gets the connection URL for Presto (used by PrestoEnvironment).
    *
    * @param connectionHost the connection host name
@@ -29,36 +52,6 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    */
   public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionSuffix;
-  }
-
-  /**
-   * Gets the connection URL for privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
-   * @param databaseSys the database with privileged access
-   * 
-   * @return the connection URL for privileged access
-   */
-  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String databaseSys) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + databaseSys + connectionSuffix;
-  }
-
-  /**
-   * Gets the connection URL for non-privileged access.
-   *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
-   * @param connectionSuffix the connection suffix
-   * @param database the database with non-privileged access
-   * 
-   * @return the connection URL for non-privileged access
-   */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -96,17 +89,21 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
                                                   config.getDatabase());
     }
 
-    urlSys  = getUrlSys(config.getConnectionHost(),
-                        config.getConnectionPort(),
-                        config.getConnectionPrefix(),
-                        config.getConnectionSuffix(),
-                        config.getDatabaseSys());
+    urlSys  = getUrl(config.getConnectionHost(),
+                     config.getConnectionPort(),
+                     config.getConnectionPrefix(),
+                     config.getConnectionSuffix(),
+                     config.getDatabaseSys(),
+                     config.getUserSys(),
+                     config.getPasswordSys());
 
-    urlUser = getUrlUser(config.getConnectionHost(),
-                         config.getConnectionPort(),
-                         config.getConnectionPrefix(),
-                         config.getConnectionSuffix(),
-                         config.getDatabase());
+    urlUser = getUrl(config.getConnectionHost(),
+                     config.getConnectionPort(),
+                     config.getConnectionPrefix(),
+                     config.getConnectionSuffix(),
+                     config.getDatabase(),
+                     config.getUser(),
+                     config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -140,9 +137,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     // -----------------------------------------------------------------------
 
     connection = connect(urlSys,
-                         driver,
-                         config.getUserSys(),
-                         config.getPasswordSys());
+                         driver);
 
     String databaseName = config.getDatabase();
     String userName     = config.getUser();
@@ -185,10 +180,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         null,
-                         userName,
-                         config.getPassword());
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();
