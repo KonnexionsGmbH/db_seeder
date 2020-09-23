@@ -122,8 +122,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
       logger.debug("Start");
     }
 
-    connection = setupPostgresql(statement,
-                                 driver,
+    connection = setupPostgresql(driver,
                                  urlSys,
                                  urlUser);
 

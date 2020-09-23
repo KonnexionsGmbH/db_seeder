@@ -74,14 +74,6 @@ if ! (gradle copyJarToLib); then
     exit 255
 fi    
 
-if ! { gradle javadoc; }; then
-    exit 255
-fi
-
-rm -rf doc
-mkdir doc
-cp -R build/docs/* doc
-
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"

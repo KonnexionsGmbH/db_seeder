@@ -95,8 +95,7 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
       logger.debug("Start");
     }
 
-    connection = setupPostgresql(statement,
-                                 driver,
+    connection = setupPostgresql(driver,
                                  urlSys,
                                  urlUser);
 

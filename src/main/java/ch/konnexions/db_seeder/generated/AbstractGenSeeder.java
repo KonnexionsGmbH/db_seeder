@@ -22,6 +22,15 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * Initialises a new abstract generated seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol 
+   */
+  public AbstractGenSeeder(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
+
+  /**
+   * Initialises a new abstract generated seeder object.
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or presto
    */
   public AbstractGenSeeder(String tickerSymbolExtern, String dbmsOption) {

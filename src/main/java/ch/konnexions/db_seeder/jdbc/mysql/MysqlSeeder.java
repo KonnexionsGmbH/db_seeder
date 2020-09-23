@@ -132,8 +132,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
       logger.debug("Start");
     }
 
-    connection = setupMysql(statement,
-                            driver,
+    connection = setupMysql(driver,
                             urlSys,
                             urlUser);
 
