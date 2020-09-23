@@ -166,10 +166,10 @@ if [ "${DB_SEEDER_DBMS}" = "derby_emb" ] || [ "${DB_SEEDER_DBMS}" = "complete_em
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=127.0.0.1
-    export DB_SEEDER_CONNECTION_PORT=8899
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=8563
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
-    export DB_SEEDER_CONTAINER_PORT=8888
+    export DB_SEEDER_CONTAINER_PORT=8563
     export DB_SEEDER_PASSWORD=exasol
     export DB_SEEDER_PASSWORD_SYS=exasol
     export DB_SEEDER_SCHEMA=kxn_schema
