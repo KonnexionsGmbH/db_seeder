@@ -60,7 +60,6 @@ public final class SampleMysql {
 
   private final static int     rowMaxSize          = 2500;
 
-  @SuppressWarnings("preview")
   private final static String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
                                                          column_pk        BIGINT         NOT NULL

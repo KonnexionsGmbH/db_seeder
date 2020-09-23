@@ -11,21 +11,12 @@ import org.apache.log4j.Logger;
  * Test Data Generator for a Database - Abstract Generated Seeder.
  * <br>
  * @author  GenerateSchema.class
- * @version 2.5.0
+ * @version 2.5.1
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
   private static final Logger logger  = Logger.getLogger(AbstractGenSeeder.class);
   private final boolean       isDebug = logger.isDebugEnabled();
-
-  /**
-   * Initialises a new abstract generated seeder object.
-   *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   */
-  public AbstractGenSeeder(String tickerSymbolExtern) {
-    this(tickerSymbolExtern, "client");
-  }
 
   /**
    * Initialises a new abstract generated seeder object.

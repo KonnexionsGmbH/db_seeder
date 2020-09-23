@@ -12,8 +12,8 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.5.0
-export DB_SEEDER_VERSION_PRESTO=340
+export DB_SEEDER_RELEASE=2.5.1
+export DB_SEEDER_VERSION_PRESTO=341
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -129,6 +129,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
     export DB_SEEDER_VERSION=4.1.8
     export DB_SEEDER_VERSION=4.2.2
     export DB_SEEDER_VERSION=4.2.3
+    export DB_SEEDER_VERSION=4.2.4
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
@@ -175,6 +176,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sys
     export DB_SEEDER_VERSION=6.2.8-d1
+    export DB_SEEDER_VERSION=7.0.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
@@ -479,6 +481,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15
+    export DB_SEEDER_VERSION=2.3.1.0-b15
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then

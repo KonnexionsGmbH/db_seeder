@@ -14,7 +14,7 @@ set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
 rem set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax.json
 
-set DB_SEEDER_RELEASE=2.5.0
+set DB_SEEDER_RELEASE=2.5.1
 
 set DB_SEEDER_IS_ECLIPSE_INSTALLED=true
 
@@ -35,7 +35,7 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
-java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
+java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
@@ -56,11 +56,33 @@ if %ERRORLEVEL% NEQ 0 (
     exit %ERRORLEVEL%
 )
 
-gradle copyJarToLib
+call gradle init
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
+
+call gradle clean
+if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
+    exit %ERRORLEVEL%
+)
+
+call gradle copyJarToLib
+if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
+    exit %ERRORLEVEL%
+)
+
+call gradle javadoc
+if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
+    exit %ERRORLEVEL%
+)
+
+rd /Q /S doc
+md doc
+xcopy /Q /S build\docs\* doc
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

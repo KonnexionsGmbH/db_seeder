@@ -16,7 +16,7 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------
 
-java --enable-preview -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.SamplePostgresql
+java -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.SamplePostgresql
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%

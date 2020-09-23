@@ -1,4 +1,4 @@
-dist: bionic
+dist: focal
 
 env:
   matrix:
@@ -36,7 +36,7 @@ env:
   - DB_SEEDER_DBMS=yugabyte
 
 jdk:
-  - oraclejdk14
+  - oraclejdk15
 
 services:
   - docker
@@ -48,8 +48,10 @@ before_script:
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 script:
-  - travis_fold start "Prepare_Installation_Process"
-  - export VERSION_GRADLE=6.4.1
+  # Prepare installation process -------------------------------------------------
+  - travis_fold start "Prepare_installation_process"
+  - export VERSION_GRADLE=6.6.1
+
   - sudo apt update -q
   - travis_fold end   "Prepare_Installation_Process"
 

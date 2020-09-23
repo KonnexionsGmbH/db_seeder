@@ -1539,7 +1539,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @return  the database connection
    * 
    */
-  public Connection setupMysql(Statement statement, String driver, String urlSys, String urlUser) {
+  public Connection setupMysql(String driver, String urlSys, String urlUser) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1624,7 +1624,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @return  the database connection
    * 
    */
-  public Connection setupPostgresql(Statement statement, String driver, String urlSys, String urlUser) {
+  public Connection setupPostgresql(String driver, String urlSys, String urlUser) {
     if (isDebug) {
       logger.debug("Start");
     }

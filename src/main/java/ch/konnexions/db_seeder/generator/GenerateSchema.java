@@ -488,8 +488,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  @SuppressWarnings(\"preview\")");
-      bw.newLine();
       bw.append("  private static HashMap<String, String> createTableStmnts() {");
       bw.newLine();
       bw.append("    HashMap<String, String> statements = new HashMap<>();");

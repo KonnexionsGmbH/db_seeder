@@ -112,7 +112,7 @@ echo ---------------------------------------------------------------------------
 
 del -f %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%\db_seeder_*.properties
 
-java --enable-preview -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.PrestoEnvironment %DB_SEEDER_DBMS%
+java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.PrestoEnvironment %DB_SEEDER_DBMS%
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%

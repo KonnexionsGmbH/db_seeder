@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '2.5.0'
+version '2.5.1'
 
 repositories {
     jcenter()
@@ -70,5 +70,4 @@ task copyJarToLib(type: Copy, dependsOn: 'fatJar') {
 
 tasks.withType(JavaCompile).each {
     it.options.compilerArgs.add('-deprecation')
-    it.options.compilerArgs.add('--enable-preview')
 }

@@ -28,7 +28,6 @@ public class I72 {
 
   private final static Logger logger                = Logger.getLogger(I72.class);
 
-  @SuppressWarnings("preview")
   private final static void insertCities(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE CITY (
@@ -87,7 +86,6 @@ public class I72 {
     preparedStatement.close();
   }
 
-  @SuppressWarnings("preview")
   private final static void insertCountries(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE COUNTRY (
@@ -145,7 +143,6 @@ public class I72 {
     preparedStatement.close();
   }
 
-  @SuppressWarnings("preview")
   private final static void insertCountryStates(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE COUNTRY_STATE (
@@ -211,7 +208,6 @@ public class I72 {
     preparedStatement.close();
   }
 
-  @SuppressWarnings("preview")
   private final static void insertTimezones(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE TIMEZONE (

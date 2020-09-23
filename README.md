@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.1.svg)
 ----
 
 ### Table of Contents
@@ -169,9 +169,9 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 |---                              |---                 |---                        |---                  |
 | AgensGraph                      | agens              | v2.1.1                    | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
-| CUBRID                          | cubrid             | 10.2                      | 10.2.1.8849         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.2.3             | 2.6.0               |
-| Exasol                          | exasol             | 6.2.8-d1                  | 6.2.5               |
+| CUBRID                          | cubrid             | 10.2                      | 10.2.2.8874         |
+| CrateDB                         | cratedb            | 4.1.6 - 4.2.4             | 2.6.0               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.0          | 6.2.5               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.6             | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
@@ -185,10 +185,10 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.21              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 12.4               | 42.2.16             |
-| Presto Distributed query Engine | n/a                | 339 - 340                 | 340                 |
+| Presto Distributed Query Engine | n/a                | 339 - 341                 | 341                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
 | VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15               | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.3.1.0-b15 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -596,7 +596,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.2.3`
+  - pull command: `docker pull crate:4.2.4`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -652,7 +652,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [reddit](https://www.reddit.com/r/CUBRID)
 
 - **JDBC driver (latest)**:
-  - version 10.2.1.8849
+  - version 10.2.2.8874
   - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
   
 - **privileged database access**: users `DBA` and `PUBLIC`
@@ -685,7 +685,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:6.2.8-d1`
+  - pull command: `docker pull exasol/docker-db:7.0.0`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -1256,7 +1256,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:340`
+  - pull command: `docker pull prestosql/presto:341`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
 - **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
@@ -1264,7 +1264,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/prestosql/presto/issues)
 
 - **JDBC driver (latest)**:
-  - version 340
+  - version 341
   - [Maven repository](https://mvnrepository.com/artifact/io.prestosql/presto-jdbc)
 
 - **source code**: [GitHub](https://github.com/prestosql/presto)
@@ -1360,7 +1360,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.2.2.0-b15`
+  - pull command: `docker pull yugabytedb/yugabyte:2.3.1.0-b15`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: see PostgreSQL Database

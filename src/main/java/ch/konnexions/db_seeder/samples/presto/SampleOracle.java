@@ -60,7 +60,6 @@ public final class SampleOracle {
   private final static int     rowMaxSize          = 2500;
 
   private final static String  service             = "orclpdb1";
-  @SuppressWarnings("preview")
   private final static String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
                                                          column_pk        NUMBER         NOT NULL

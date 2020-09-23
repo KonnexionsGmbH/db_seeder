@@ -61,7 +61,6 @@ public final class SampleSqlserver {
   private final static int     rowMaxSize          = 2500;
 
   private final static String  schemaName          = "kxn_schema";
-  @SuppressWarnings("preview")
   private final static String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
                                                          column_pk        BIGINT         NOT NULL

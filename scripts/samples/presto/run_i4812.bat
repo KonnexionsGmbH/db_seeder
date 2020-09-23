@@ -16,7 +16,7 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------
 
-java --enable-preview -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.I4812
+java -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.I4812
 
 echo --------------------------------------------------------------------------------
 echo:| TIME
