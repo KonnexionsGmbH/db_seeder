@@ -32,56 +32,55 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class SamplePostgresql {
 
-  private final static String  BLOB_FILE           = Paths.get("src",
-                                                               "main",
-                                                               "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final static byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
+  private static String      BLOB_FILE           = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private static byte[]      BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
-  private final static String  CLOB_FILE           = Paths.get("src",
-                                                               "main",
-                                                               "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final static String  CLOB_DATA           = readClobFile();
-  private static Connection    connection;
-  private final static String  connectionHost      = "localhost";
-  private final static int     connectionPort      = 5432;
+  private static String      CLOB_FILE           = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private static String      CLOB_DATA           = readClobFile();
+  private static Connection  connection;
+  private static String      connectionHost      = "localhost";
+  private static int         connectionPort      = 5432;
 
-  private final static String  databaseName        = "kxn_db";
-  private final static String  databaseNameSys     = "kxn_db_sys";
-  private final static String  driverOriginal      = "org.postgresql.Driver";
-  private final static String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
+  private static String      databaseName        = "kxn_db";
+  private static String      databaseNameSys     = "kxn_db_sys";
+  private static String      driverOriginal      = "org.postgresql.Driver";
+  private static String      driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
-  public static final String   FORMAT_ROW_NO       = "%1$6d";
+  public static final String FORMAT_ROW_NO       = "%1$6d";
 
-  private final static Logger  logger              = Logger.getLogger(SamplePostgresql.class);
+  private static Logger      logger              = Logger.getLogger(SamplePostgresql.class);
 
-  private final static int     nullFactor          = 4;
+  private static int         nullFactor          = 4;
 
-  private final static String  password            = "postgresql";
+  private static String      password            = "postgresql";
 
-  private final static int     rowMaxSize          = 2500;
+  private static int         rowMaxSize          = 2500;
 
-  private final static String  sqlStmntCreateTable = """
-                                                     CREATE TABLE issue_table (
-                                                         column_pk        BIGINT         NOT NULL
-                                                                                         PRIMARY KEY,
-                                                         column_blob      BYTEA,
-                                                         column_clob      TEXT,
-                                                         column_timestamp TIMESTAMP      NOT NULL,
-                                                         column_varchar   VARCHAR(100)   NOT NULL
-                                                                                         UNIQUE
-                                                     )
-                                                     """;
-  private final static String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
-  private static LocalDateTime startDateTime;
-  private static Statement     statement;
+  private static String      sqlStmntCreateTable = """
+                                                   CREATE TABLE issue_table (
+                                                       column_pk        BIGINT         NOT NULL
+                                                                                       PRIMARY KEY,
+                                                       column_blob      BYTEA,
+                                                       column_clob      TEXT,
+                                                       column_timestamp TIMESTAMP      NOT NULL,
+                                                       column_varchar   VARCHAR(100)   NOT NULL
+                                                                                       UNIQUE
+                                                   )
+                                                   """;
+  private static String      sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
+  private static Statement   statement;
 
-  private final static String  userName            = "kxn_user";
-  private final static String  userNameSys         = "kxn_user_sys";
+  private static String      userName            = "kxn_user";
+  private static String      userNameSys         = "kxn_user_sys";
 
-  private final static String  urlSys              = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys + "?user="
-      + userNameSys + "&password=" + password;
-  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_postgresql/public?user=presto";
-  private final static String  urlUser             = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseName + "?user=" + userName
+  private static String      urlSys              = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys + "?user=" + userNameSys
+      + "&password=" + password;
+  private static String      urlPresto           = "jdbc:presto://localhost:8080/db_seeder_postgresql/public?user=presto";
+  private static String      urlUser             = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseName + "?user=" + userName
       + "&password=" + password;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
@@ -235,7 +234,7 @@ public final class SamplePostgresql {
 
     logger.info("");
 
-    startDateTime = LocalDateTime.now();
+    LocalDateTime startDateTime = LocalDateTime.now();
 
     try {
       preparedStatement = connection.prepareStatement(sqlStmntInsert);

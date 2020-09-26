@@ -16,9 +16,7 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"
 
-if ! (java -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.samples.presto.SampleMysql); then
-    exit 255
-fi    
+java -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.samples.presto.SampleMysql
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

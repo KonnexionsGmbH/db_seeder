@@ -17,10 +17,6 @@ echo:| TIME
 echo --------------------------------------------------------------------------------
 
 java -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.SamplePostgresql
-if %ERRORLEVEL% NEQ 0 (
-    echo Processing of the script was aborted, error code=%ERRORLEVEL%
-    exit %ERRORLEVEL%
-)
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

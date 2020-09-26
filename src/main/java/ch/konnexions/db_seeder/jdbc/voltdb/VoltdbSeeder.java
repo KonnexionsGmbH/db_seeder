@@ -27,7 +27,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
+  private static String getUrl(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
     return connectionPrefix + connectionHost + ":" + connectionPort + connectionSuffix;
   }
 

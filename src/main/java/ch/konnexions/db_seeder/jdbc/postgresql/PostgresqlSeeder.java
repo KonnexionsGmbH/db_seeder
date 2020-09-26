@@ -27,7 +27,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password;
   }
 
@@ -43,7 +43,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
    *
    * @return the connection URL for non-privileged access
    */
-  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+  public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
     return getUrl(connectionHost,
                   connectionPort,
                   connectionPrefix,

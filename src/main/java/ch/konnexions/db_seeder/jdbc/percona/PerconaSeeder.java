@@ -29,13 +29,13 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
    * 
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost,
-                                     int connectionPort,
-                                     String connectionPrefix,
-                                     String connectionSuffix,
-                                     String database,
-                                     String user,
-                                     String password) {
+  private static String getUrl(String connectionHost,
+                               int connectionPort,
+                               String connectionPrefix,
+                               String connectionSuffix,
+                               String database,
+                               String user,
+                               String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password + connectionSuffix;
   }
 

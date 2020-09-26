@@ -16,9 +16,14 @@ import org.apache.log4j.Logger;
  * @since   2020-08-11
  */
 public class I4812 {
-  private final static Logger logger = Logger.getLogger(I4812.class);
+  private static Logger        logger  = Logger.getLogger(I4812.class);
+  private static final boolean isDebug = logger.isDebugEnabled();
 
   public static void main(String[] args) throws Exception {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
     Class.forName("com.mysql.cj.jdbc.Driver");
     String     url        = "jdbc:mysql://192.168.1.109:3306/?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
     Connection connection = DriverManager.getConnection(url,
@@ -59,5 +64,9 @@ public class I4812 {
 
     statement.close();
     connection.close();
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 }

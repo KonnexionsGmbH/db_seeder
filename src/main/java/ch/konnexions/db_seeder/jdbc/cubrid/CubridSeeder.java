@@ -27,7 +27,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
    * 
    * @return the connection URL for privileged access
    */
-  private final static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String database, String userSys) {
+  private static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String database, String userSys) {
     return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + userSys.toUpperCase() + "::";
   }
 
@@ -42,7 +42,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
    * @param password the password with non-privileged access
    * @return the connection URL for non-privileged access
    */
-  private final static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+  private static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + ":" + database + ":" + user + ":" + password + ":";
   }
 

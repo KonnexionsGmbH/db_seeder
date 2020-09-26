@@ -44,7 +44,7 @@ n/a
 - CUBRID: JDBC 10.2.2.8874
 - Exasol: DBMS 7.0.0
 - PostgreSQL: DBMS 13
-- Presto: DBMS 342
+- Presto: DBMS 343
 - Presto: JDBC 342
 
 #### Deleted Features

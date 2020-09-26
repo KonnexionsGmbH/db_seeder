@@ -26,7 +26,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
    *
    * @return the connection URL for privileged access
    */
-  private final static String getUrlSys(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
+  private static String getUrlSys(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
     String urlBase;
 
     if (isClient) {
@@ -47,7 +47,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
    *
    * @return the connection URL for non-privileged access
    */
-  private final static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
+  private static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
     String urlBase;
 
     if (isClient) {

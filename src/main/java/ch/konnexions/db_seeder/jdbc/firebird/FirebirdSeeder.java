@@ -27,7 +27,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + connectionSuffix;
   }
 

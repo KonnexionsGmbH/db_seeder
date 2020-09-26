@@ -25,7 +25,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix) {
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix) {
     return connectionPrefix + connectionHost + ":" + connectionPort;
   }
 
