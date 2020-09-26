@@ -13,7 +13,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.5.1
-export DB_SEEDER_VERSION_PRESTO=341
+export DB_SEEDER_VERSION_PRESTO=342
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -403,6 +403,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ] || [ "${DB_SEEDER_DBMS}" = "complete_c
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
+    export DB_SEEDER_VERSION=13-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
@@ -419,6 +420,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "com
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
+    export DB_SEEDER_VERSION=13-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ] || [ "${DB_SEEDER_DBMS}" = "complete_emb" ]; then

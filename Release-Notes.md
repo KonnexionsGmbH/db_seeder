@@ -43,8 +43,9 @@ n/a
 - CrateDB: DBMS 4.2.4
 - CUBRID: JDBC 10.2.2.8874
 - Exasol: DBMS 7.0.0
-- Presto: DBMS 341
-- Presto: JDBC 341
+- PostgreSQL: DBMS 13
+- Presto: DBMS 342
+- Presto: JDBC 342
 
 #### Deleted Features
 

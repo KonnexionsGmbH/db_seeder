@@ -15,7 +15,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=2.5.1
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_PRESTO=341
+set DB_SEEDER_VERSION_PRESTO=342
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -494,6 +494,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
+    set DB_SEEDER_VERSION=13-alpine
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
@@ -514,6 +515,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
+    set DB_SEEDER_VERSION=13-alpine
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (

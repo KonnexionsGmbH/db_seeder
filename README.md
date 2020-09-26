@@ -184,8 +184,8 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.21              | 
-| PostgreSQL Database             | postgresql         | 12.3 - 12.4               | 42.2.16             |
-| Presto Distributed Query Engine | n/a                | 339 - 341                 | 341                 |
+| PostgreSQL Database             | postgresql         | 12.3 - 13                 | 42.2.16             |
+| Presto Distributed Query Engine | n/a                | 339 - 342                 | 342                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
 | VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.3.1.0-b15 | 42.2.7-yb-3         |
@@ -1220,7 +1220,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:12.4-alpine`
+  - pull command: `docker pull postgres:13-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
@@ -1256,7 +1256,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:341`
+  - pull command: `docker pull prestosql/presto:342`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
 - **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
@@ -1264,7 +1264,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/prestosql/presto/issues)
 
 - **JDBC driver (latest)**:
-  - version 341
+  - version 342
   - [Maven repository](https://mvnrepository.com/artifact/io.prestosql/presto-jdbc)
 
 - **source code**: [GitHub](https://github.com/prestosql/presto)
