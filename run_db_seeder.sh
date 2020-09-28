@@ -176,7 +176,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sys
     export DB_SEEDER_VERSION=6.2.8-d1
-    export DB_SEEDER_VERSION=7.0.0
+    export DB_SEEDER_VERSION=7.0.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
@@ -357,6 +357,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
+    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
@@ -373,6 +374,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ] || [ "${DB_SEEDER_DBMS}" = "complet
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
+    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "percona" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then

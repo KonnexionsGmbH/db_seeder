@@ -9,6 +9,7 @@
 bin
 build
 eclipse_workspace/
+gradle/
 gradlew
 gradlew.bat
 timer.txt

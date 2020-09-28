@@ -41,11 +41,17 @@ n/a
 #### Modified Features
 
 - CrateDB: DBMS 4.2.4
+
 - CUBRID: JDBC 10.2.2.8874
-- Exasol: DBMS 7.0.0
+
+- Exasol: DBMS 7.0.1
+
+- MariaDB Server: JDBC 2.7.0
+
 - PostgreSQL: DBMS 13
+
 - Presto: DBMS 343
-- Presto: JDBC 342
+- Presto: JDBC 343
 
 #### Deleted Features
 
