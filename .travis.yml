@@ -25,13 +25,13 @@ env:
   - DB_SEEDER_DBMS=mysql
 #  - DB_SEEDER_DBMS=mysql_presto
   - DB_SEEDER_DBMS=oracle
-  - DB_SEEDER_DBMS=oracle_presto
+# - DB_SEEDER_DBMS=oracle_presto
   - DB_SEEDER_DBMS=percona
   - DB_SEEDER_DBMS=postgresql
 #  - DB_SEEDER_DBMS=postgresql_presto
   - DB_SEEDER_DBMS=sqlite
   - DB_SEEDER_DBMS=sqlserver
-  - DB_SEEDER_DBMS=sqlserver_presto
+# - DB_SEEDER_DBMS=sqlserver_presto
   - DB_SEEDER_DBMS=voltdb
   - DB_SEEDER_DBMS=yugabyte
 
