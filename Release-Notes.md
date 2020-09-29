@@ -27,7 +27,7 @@ Release Date: dd.09.2020
 
 - Oracle Database
 
-  - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87).
+  - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
 
 - Presto Distributed Query Engine
 
