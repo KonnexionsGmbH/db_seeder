@@ -3,7 +3,65 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.1.svg)
+
+## Version 2.5.1
+
+Release Date: dd.09.2020
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
+#### Current Issues
+
+- Apache Derby
+
+  - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
+
+- Mimer SQL & DBeaver
+
+  - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
+
+- Oracle Database
+
+  - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
+
+- Presto Distributed Query Engine
+
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
+  - SQL Server Connector: Failed to insert NULL for varbinary in SQL Server (see [here](https://github.com/prestosql/presto/issues/4795)).
+
+- YugabyteDB
+
+  - Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- CrateDB: DBMS 4.2.4
+
+- CUBRID: JDBC 10.2.2.8874
+
+- Exasol: DBMS 7.0.2
+
+- MariaDB Server: JDBC 2.7.0
+
+- PostgreSQL: DBMS 13
+
+- Presto: DBMS 343
+- Presto: JDBC 343
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ## Version 2.5.0
 
@@ -41,10 +99,6 @@ Release Date: 30.08.2020
 #### Modified Features
 
 - Microsoft SQL Server: JDBC 8.4.1.jre14
-
-#### Deleted Features
-
-n/a
 
 ----------
 

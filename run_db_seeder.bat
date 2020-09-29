@@ -13,9 +13,9 @@ set ERRORLEVEL=
 
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.5.0
+set DB_SEEDER_RELEASE=2.5.1
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_PRESTO=340
+set DB_SEEDER_VERSION_PRESTO=343
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -138,6 +138,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.1.8
     set DB_SEEDER_VERSION=4.2.2
     set DB_SEEDER_VERSION=4.2.3
+    set DB_SEEDER_VERSION=4.2.4
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
@@ -190,16 +191,17 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
-    set DB_SEEDER_CONNECTION_HOST=127.0.0.1
-    set DB_SEEDER_CONNECTION_PORT=8899
+    set DB_SEEDER_CONNECTION_HOST=localhost
+    set DB_SEEDER_CONNECTION_PORT=8563
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
-    set DB_SEEDER_CONTAINER_PORT=8888
+    set DB_SEEDER_CONTAINER_PORT=8563
     set DB_SEEDER_PASSWORD=exasol
     set DB_SEEDER_PASSWORD_SYS=exasol
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sys
     set DB_SEEDER_VERSION=6.2.8-d1
+    set DB_SEEDER_VERSION=7.0.2
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
@@ -492,6 +494,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
+    set DB_SEEDER_VERSION=13-alpine
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
@@ -512,6 +515,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
+    set DB_SEEDER_VERSION=13-alpine
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
@@ -594,6 +598,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=yugabyte
     set DB_SEEDER_VERSION=2.2.2.0-b15
+    set DB_SEEDER_VERSION=2.3.1.0-b15
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (

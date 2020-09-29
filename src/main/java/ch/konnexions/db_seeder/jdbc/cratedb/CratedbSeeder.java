@@ -28,12 +28,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
    * 
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost,
-                                     int connectionPort,
-                                     String connectionPrefix,
-                                     String connectionSuffix,
-                                     String user,
-                                     String password) {
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String user, String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/?strict=true&user=" + user + ("".equals(password)
         ? ""
         : "&password=" + password);

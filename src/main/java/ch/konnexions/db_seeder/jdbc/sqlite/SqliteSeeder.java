@@ -24,7 +24,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(String connectionPrefix, String database) {
+  private static String getUrl(String connectionPrefix, String database) {
     return connectionPrefix + database;
   }
 

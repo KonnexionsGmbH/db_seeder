@@ -19,17 +19,16 @@ import org.apache.log4j.Logger;
  * @since   2020-08-18
  */
 public class I72 {
-  private static final int    BATCH_SIZE            = 1000;
+  private static final int BATCH_SIZE            = 1000;
 
-  private static final int    ROW_MAX_CITY          = 1800;
-  private static final int    ROW_MAX_COUNTRY       = 200;
-  private static final int    ROW_MAX_COUNTRY_STATE = 600;
-  private static final int    ROW_MAX_TIMEZONE      = 11;
+  private static final int ROW_MAX_CITY          = 1800;
+  private static final int ROW_MAX_COUNTRY       = 200;
+  private static final int ROW_MAX_COUNTRY_STATE = 600;
+  private static final int ROW_MAX_TIMEZONE      = 11;
 
-  private final static Logger logger                = Logger.getLogger(I72.class);
+  private static Logger    logger                = Logger.getLogger(I72.class);
 
-  @SuppressWarnings("preview")
-  private final static void insertCities(Connection connection, Statement statement) throws Exception {
+  private static void insertCities(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE CITY (
                           PK_CITY_ID                       BIGINT                    NOT NULL
@@ -87,8 +86,7 @@ public class I72 {
     preparedStatement.close();
   }
 
-  @SuppressWarnings("preview")
-  private final static void insertCountries(Connection connection, Statement statement) throws Exception {
+  private static void insertCountries(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE COUNTRY (
                           PK_COUNTRY_ID                    BIGINT                    NOT NULL
@@ -145,8 +143,7 @@ public class I72 {
     preparedStatement.close();
   }
 
-  @SuppressWarnings("preview")
-  private final static void insertCountryStates(Connection connection, Statement statement) throws Exception {
+  private static void insertCountryStates(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE COUNTRY_STATE (
                           PK_COUNTRY_STATE_ID              BIGINT                    NOT NULL
@@ -211,8 +208,7 @@ public class I72 {
     preparedStatement.close();
   }
 
-  @SuppressWarnings("preview")
-  private final static void insertTimezones(Connection connection, Statement statement) throws Exception {
+  private static void insertTimezones(Connection connection, Statement statement) throws Exception {
     statement.execute("""
                       CREATE TABLE TIMEZONE (
                           PK_TIMEZONE_ID                   BIGINT                    NOT NULL

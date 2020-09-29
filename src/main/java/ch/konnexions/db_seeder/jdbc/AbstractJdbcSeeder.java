@@ -69,16 +69,16 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private final boolean   isDebug                = logger.isDebugEnabled();
 
-  private final String    BLOB_FILE              = Paths.get("src",
+  private String          BLOB_FILE              = Paths.get("src",
                                                              "main",
                                                              "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final byte[]    BLOB_DATA_BYTES        = readBlobFile2Bytes();
-  private final String    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
+  private byte[]          BLOB_DATA_BYTES        = readBlobFile2Bytes();
+  private String          BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
 
-  private final String    CLOB_FILE              = Paths.get("src",
+  private String          CLOB_FILE              = Paths.get("src",
                                                              "main",
                                                              "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final String    CLOB_DATA              = readClobFile();
+  private String          CLOB_DATA              = readClobFile();
   protected Connection    connection             = null;
 
   protected String        driver                 = "";
@@ -88,12 +88,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected Properties    encodedColumnNames     = new Properties();
 
   protected final boolean isClient;
-  private final boolean   isEmbedded;
   protected final boolean isPresto;
 
   protected int           nullFactor;
 
-  private final Random    randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private Random          randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
   protected ResultSet     resultSet              = null;
 
   protected Statement     statement              = null;
@@ -116,6 +115,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     config = new Config();
+
+    boolean isEmbedded;
 
     if ("embedded".equals(dbmsOption)) {
       isClient   = false;
@@ -288,7 +289,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return connection;
   }
 
-  private final int countData(String tableName) {
+  private int countData(String tableName) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -358,7 +359,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private final void createData(String tableName) {
+  private void createData(String tableName) {
     int rowMaxSize = getMaxRowSize(tableName);
 
     if (isDebug) {
@@ -418,7 +419,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private final void createDataInsert(String tableName, int rowMaxSize, ArrayList<Object> pkList) {
+  private void createDataInsert(String tableName, int rowMaxSize, ArrayList<Object> pkList) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -456,8 +457,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       if (rowNo % 500 == 0) {
         logger.info("database table " + String.format(FORMAT_TABLE_NAME,
-                                                      tableName) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
-                                                                                         rowNo));
+                                                      tableName.toUpperCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
+                                                                                                       rowNo));
       }
 
       insertTable(preparedStatement,
@@ -899,7 +900,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return CLOB_DATA;
   }
 
-  private final Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
+  private Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
     Random random = new Random();
 
     return fkList.get(random.nextInt(fkList.size()));
@@ -952,7 +953,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return columnValue;
   }
 
-  private final int getLengthUTF_8(String stringUTF_8) {
+  private int getLengthUTF_8(String stringUTF_8) {
     int count = 0;
 
     for (int i = 0, len = stringUTF_8.length(); i < len; i++) {
@@ -972,11 +973,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return count;
   }
 
-  //  private final double getContentDouble( double lowerLimit,  double upperLimit) {
+  //  private double getContentDouble( double lowerLimit,  double upperLimit) {
   //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
   //  }
 
-  private final int getMaxRowSize(String tableName) {
+  private int getMaxRowSize(String tableName) {
     int maxRowSize   = maxRowSizes.get(tableName);
 
     int MAX_ROW_SIZE = Integer.MAX_VALUE;
@@ -1091,7 +1092,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  private final void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  private void prepStmntColBlob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (dbmsEnum == DbmsEnum.EXASOL) {
         preparedStatement.setString(columnPos,
@@ -1160,7 +1161,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  private final void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
+  private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       preparedStatement.setString(columnPos,
                                   getContentClob(tableName,
@@ -1446,7 +1447,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private final byte[] readBlobFile2Bytes() {
+  private byte[] readBlobFile2Bytes() {
     if (isDebug) {
       logger.debug("Start");
 
@@ -1490,7 +1491,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return blobDataBytesArray;
   }
 
-  private final String readClobFile() {
+  private String readClobFile() {
     BufferedReader bufferedReader = null;
     try {
       bufferedReader = new BufferedReader(new FileReader(CLOB_FILE));
@@ -1531,7 +1532,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    * 
-   * @param statement the JDBC statement
    * @param driver the database driver
    * @param urlSys the database URL for privileged access
    * @param urlUser the database URL for non-privileged access
@@ -1539,7 +1539,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @return  the database connection
    * 
    */
-  public Connection setupMysql(Statement statement, String driver, String urlSys, String urlUser) {
+  public Connection setupMysql(String driver, String urlSys, String urlUser) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1616,7 +1616,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Delete any existing relevant database schema objects (database, user, 
    * schema or valTableNames)and initialise the database for a new run.
    * 
-   * @param statement the JDBC statement
    * @param driver the database driver
    * @param urlSys the database URL for privileged access
    * @param urlUser the database URL for non-privileged access
@@ -1624,7 +1623,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @return  the database connection
    * 
    */
-  public Connection setupPostgresql(Statement statement, String driver, String urlSys, String urlUser) {
+  public Connection setupPostgresql(String driver, String urlSys, String urlUser) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1702,7 +1701,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return connection;
   }
 
-  private final void validateNumberRows(String tableName, int expectedRows) {
+  private void validateNumberRows(String tableName, int expectedRows) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -1734,15 +1733,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     if (expectedRows == count) {
       logger.info("database table " + String.format(FORMAT_TABLE_NAME,
-                                                    tableName) + " - " + String.format(FORMAT_ROW_NO,
-                                                                                       count) + " rows in total");
+                                                    tableName.toUpperCase()) + " - " + String.format(FORMAT_ROW_NO,
+                                                                                                     count) + " rows in total");
     } else {
       logger.fatal("database table " + String.format(FORMAT_TABLE_NAME,
-                                                     tableName) + " is incomplete - expected" + String.format(FORMAT_ROW_NO,
-                                                                                                              expectedRows) + " rows - found " + String.format(
-                                                                                                                                                               FORMAT_ROW_NO,
-                                                                                                                                                               count)
-          + " rows");
+                                                     tableName.toUpperCase()) + " is incomplete - expected" + String.format(FORMAT_ROW_NO,
+                                                                                                                            expectedRows) + " rows - found "
+          + String.format(FORMAT_ROW_NO,
+                          count) + " rows");
       System.exit(1);
     }
 

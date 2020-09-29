@@ -32,57 +32,55 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class SampleMysql {
 
-  private final static String  BLOB_FILE           = Paths.get("src",
-                                                               "main",
-                                                               "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private final static byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
+  private static String      BLOB_FILE           = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+  private static byte[]      BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
-  private final static String  CLOB_FILE           = Paths.get("src",
-                                                               "main",
-                                                               "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private final static String  CLOB_DATA           = readClobFile();
-  private static Connection    connection;
-  private final static String  connectionHost      = "localhost";
-  private final static int     connectionPort      = 3306;
+  private static String      CLOB_FILE           = Paths.get("src",
+                                                             "main",
+                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+  private static String      CLOB_DATA           = readClobFile();
+  private static Connection  connection;
+  private static String      connectionHost      = "localhost";
+  private static int         connectionPort      = 3306;
 
-  private final static String  databaseName        = "kxn_db";
-  private final static String  databaseNameSys     = "sys";
-  private final static String  driverOriginal      = "com.mysql.cj.jdbc.Driver";
-  private final static String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
+  private static String      databaseName        = "kxn_db";
+  private static String      databaseNameSys     = "sys";
+  private static String      driverOriginal      = "com.mysql.cj.jdbc.Driver";
+  private static String      driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
-  public static final String   FORMAT_ROW_NO       = "%1$6d";
+  public static final String FORMAT_ROW_NO       = "%1$6d";
 
-  private final static Logger  logger              = Logger.getLogger(SampleMysql.class);
+  private static Logger      logger              = Logger.getLogger(SampleMysql.class);
 
-  private final static int     nullFactor          = 4;
+  private static int         nullFactor          = 4;
 
-  private final static String  password            = "mysql";
+  private static String      password            = "mysql";
 
-  private final static int     rowMaxSize          = 2500;
+  private static int         rowMaxSize          = 2500;
 
-  @SuppressWarnings("preview")
-  private final static String  sqlStmntCreateTable = """
-                                                     CREATE TABLE issue_table (
-                                                         column_pk        BIGINT         NOT NULL
-                                                                                         PRIMARY KEY,
-                                                         column_blob      LONGBLOB,
-                                                         column_clob      LONGTEXT,
-                                                         column_timestamp DATETIME       NOT NULL,
-                                                         column_varchar   VARCHAR(100)   NOT NULL
-                                                                                         UNIQUE
-                                                     )
-                                                     """;
-  private final static String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
-  private static LocalDateTime startDateTime;
-  private static Statement     statement;
+  private static String      sqlStmntCreateTable = """
+                                                   CREATE TABLE issue_table (
+                                                       column_pk        BIGINT         NOT NULL
+                                                                                       PRIMARY KEY,
+                                                       column_blob      LONGBLOB,
+                                                       column_clob      LONGTEXT,
+                                                       column_timestamp DATETIME       NOT NULL,
+                                                       column_varchar   VARCHAR(100)   NOT NULL
+                                                                                       UNIQUE
+                                                   )
+                                                   """;
+  private static String      sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
+  private static Statement   statement;
 
-  private final static String  userName            = "kxn_user";
-  private final static String  userNameSys         = "root";
+  private static String      userName            = "kxn_user";
+  private static String      userNameSys         = "root";
 
-  private final static String  urlSys              = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys
+  private static String      urlSys              = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
-  private final static String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_mysql/kxn_db?user=presto";
-  private final static String  urlUser             = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseName
+  private static String      urlPresto           = "jdbc:presto://localhost:8080/db_seeder_mysql/kxn_db?user=presto";
+  private static String      urlUser             = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseName
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
@@ -236,7 +234,7 @@ public final class SampleMysql {
 
     logger.info("");
 
-    startDateTime = LocalDateTime.now();
+    LocalDateTime startDateTime = LocalDateTime.now();
 
     try {
       preparedStatement = connection.prepareStatement(sqlStmntInsert);

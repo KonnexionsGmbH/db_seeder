@@ -27,7 +27,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
   }
 
@@ -41,7 +41,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * 
    * @return the connection URL for non-privileged access
    */
-  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
+  public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
   }
 

@@ -30,13 +30,13 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * 
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost,
-                                     int connectionPort,
-                                     String connectionPrefix,
-                                     String connectionSuffix,
-                                     String database,
-                                     String user,
-                                     String password) {
+  private static String getUrl(String connectionHost,
+                               int connectionPort,
+                               String connectionPrefix,
+                               String connectionSuffix,
+                               String database,
+                               String user,
+                               String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password + connectionSuffix;
   }
 
@@ -50,7 +50,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * 
    * @return the connection URL for non-privileged access
    */
-  public final static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
+  public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionSuffix;
   }
 
@@ -132,8 +132,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
       logger.debug("Start");
     }
 
-    connection = setupMysql(statement,
-                            driver,
+    connection = setupMysql(driver,
                             urlSys,
                             urlUser);
 

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a MS SQL Server DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.5.0
+ * @version 2.5.1
  */
 public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
 
@@ -20,7 +20,6 @@ public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
   /**
    * Create the CREATE TABLE statements.
    */
-  @SuppressWarnings("preview")
   private static HashMap<String, String> createTableStmnts() {
     HashMap<String, String> statements = new HashMap<>();
 

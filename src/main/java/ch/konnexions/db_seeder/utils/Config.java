@@ -26,9 +26,7 @@ import org.apache.log4j.Logger;
  */
 public final class Config {
 
-  @SuppressWarnings("unused")
   private static final Logger     logger     = Logger.getLogger(Config.class);
-  @SuppressWarnings("unused")
   private final boolean           isDebug    = logger.isDebugEnabled();
 
   private String                  connectionHost;
@@ -92,7 +90,6 @@ public final class Config {
     }
   }
 
-  @SuppressWarnings("unused")
   private ArrayList<String> getBooleanProperties() {
 
     ArrayList<String> list = new ArrayList<>();
@@ -219,7 +216,6 @@ public final class Config {
 
   // -------------------------------------------------------------------------
 
-  @SuppressWarnings("unused")
   private ArrayList<String> getNumericProperties() {
 
     ArrayList<String> list = new ArrayList<>();

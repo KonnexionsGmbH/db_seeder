@@ -52,28 +52,28 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class GenerateSchema extends AbstractDbmsSeeder {
 
-  private static final Logger                               logger                    = Logger.getLogger(GenerateSchema.class);
-  private final boolean                                     isDebug                   = logger.isDebugEnabled();
+  private static final Logger                         logger                    = Logger.getLogger(GenerateSchema.class);
+  private final boolean                               isDebug                   = logger.isDebugEnabled();
 
-  private int                                               constraintNumber          = 0;
+  private int                                         constraintNumber          = 0;
 
-  private int                                               errors                    = 0;
+  private int                                         errors                    = 0;
 
-  private int                                               genDefaultNumberOfRows;
-  private boolean                                           genIsEncodingISO_8859_1;
-  private boolean                                           genIsEncodingUTF_8;
-  private int                                               genNullFactor;
-  private final ArrayList<String>                           genTableHierarchy         = new ArrayList<>();
-  private final Map<String, ArrayList<String>>              genTableNameColumnNames   = new HashMap<>();
-  private final ArrayList<String>                           genTableNames             = new ArrayList<>();
-  private final Map<String, Integer>                        genTableNumberOfRows      = new HashMap<>();
-  private final HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
-  private final HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
-  private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
+  private int                                         genDefaultNumberOfRows;
+  private boolean                                     genIsEncodingISO_8859_1;
+  private boolean                                     genIsEncodingUTF_8;
+  private int                                         genNullFactor;
+  private ArrayList<String>                           genTableHierarchy         = new ArrayList<>();
+  private Map<String, ArrayList<String>>              genTableNameColumnNames   = new HashMap<>();
+  private ArrayList<String>                           genTableNames             = new ArrayList<>();
+  private Map<String, Integer>                        genTableNumberOfRows      = new HashMap<>();
+  private HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
+  private HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
+  private Set<String>                                 genVarcharColumnNames     = new HashSet<>();
 
-  private Set<Table>                                        valTables;
-  private HashMap<String, HashSet<String>>                  valTablesColumns;
-  private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
+  private Set<Table>                                  valTables;
+  private HashMap<String, HashSet<String>>            valTablesColumns;
+  private HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
 
   /**
    * Instantiates a new GenerateSchema object.
@@ -421,7 +421,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    * @param tickerSymbolLower  the lower case ticker symbol
    * @param tickerSymbolPascal the Pascal case ticker symbol
    */
-  @SuppressWarnings("unused")
   private void generateCodeDbmsSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo, String tickerSymbolLower, String tickerSymbolPascal) {
     if (isDebug) {
       logger.debug("Start");
@@ -444,8 +443,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     ArrayList<String> editedTableConstraints;
 
     String            identifierDelimiter = getIdentifierDelimiter(tickerSymbolLower);
-    boolean           isColumnConstraints;
-    boolean           isTableConstraints;
 
     StringBuffer      workArea;
 
@@ -487,8 +484,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("   * Create the CREATE TABLE statements.");
       bw.newLine();
       bw.append("   */");
-      bw.newLine();
-      bw.append("  @SuppressWarnings(\"preview\")");
       bw.newLine();
       bw.append("  private static HashMap<String, String> createTableStmnts() {");
       bw.newLine();
@@ -679,8 +674,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               } else {
                 workArea.append("'").append(column.getDefaultValueString()).append("'");
               }
-
-              isNewLineRequired = true;
             }
           }
 
@@ -709,7 +702,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("  }");
       bw.newLine();
       bw.newLine();
-      bw.append("  private final boolean                       isDebug           = logger.isDebugEnabled();");
+      bw.append("  private final boolean                        isDebug           = logger.isDebugEnabled();");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");
@@ -899,7 +892,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);");
       bw.newLine();
-      bw.append("  private final boolean         isDebug                  = logger.isDebugEnabled();");
+      bw.append("  private final boolean          isDebug                  = logger.isDebugEnabled();");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");
@@ -1132,7 +1125,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("  private static final Logger logger = Logger.getLogger(AbstractGenSeeder.class);");
       bw.newLine();
-      bw.append("  private final boolean isDebug      = logger.isDebugEnabled();");
+      bw.append("  private final boolean     isDebug      = logger.isDebugEnabled();");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");

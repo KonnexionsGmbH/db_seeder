@@ -26,7 +26,7 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + database + "?user=" + user + "&password=" + password;
   }
 
@@ -95,8 +95,7 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
       logger.debug("Start");
     }
 
-    connection = setupPostgresql(statement,
-                                 driver,
+    connection = setupPostgresql(driver,
                                  urlSys,
                                  urlUser);
 

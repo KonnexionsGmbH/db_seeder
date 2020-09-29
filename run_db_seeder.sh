@@ -12,8 +12,8 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.5.0
-export DB_SEEDER_VERSION_PRESTO=340
+export DB_SEEDER_RELEASE=2.5.1
+export DB_SEEDER_VERSION_PRESTO=343
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -129,6 +129,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
     export DB_SEEDER_VERSION=4.1.8
     export DB_SEEDER_VERSION=4.2.2
     export DB_SEEDER_VERSION=4.2.3
+    export DB_SEEDER_VERSION=4.2.4
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
@@ -165,16 +166,17 @@ if [ "${DB_SEEDER_DBMS}" = "derby_emb" ] || [ "${DB_SEEDER_DBMS}" = "complete_em
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=127.0.0.1
-    export DB_SEEDER_CONNECTION_PORT=8899
+    export DB_SEEDER_CONNECTION_HOST=localhost
+    export DB_SEEDER_CONNECTION_PORT=8563
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
-    export DB_SEEDER_CONTAINER_PORT=8888
+    export DB_SEEDER_CONTAINER_PORT=8563
     export DB_SEEDER_PASSWORD=exasol
     export DB_SEEDER_PASSWORD_SYS=exasol
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sys
     export DB_SEEDER_VERSION=6.2.8-d1
+    export DB_SEEDER_VERSION=7.0.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
@@ -355,6 +357,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
+    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
@@ -371,6 +374,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ] || [ "${DB_SEEDER_DBMS}" = "complet
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
+    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "percona" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
@@ -401,6 +405,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ] || [ "${DB_SEEDER_DBMS}" = "complete_c
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
+    export DB_SEEDER_VERSION=13-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
@@ -417,6 +422,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "com
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
+    export DB_SEEDER_VERSION=13-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ] || [ "${DB_SEEDER_DBMS}" = "complete_emb" ]; then
@@ -479,6 +485,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15
+    export DB_SEEDER_VERSION=2.3.1.0-b15
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then

@@ -16,9 +16,7 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"
 
-if ! (java --enable-preview -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.samples.presto.SamplePostgresql); then
-    exit 255
-fi    
+java -cp "${CLASSPATH}:lib/*" ch.konnexions.db_seeder.samples.presto.SamplePostgresql
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

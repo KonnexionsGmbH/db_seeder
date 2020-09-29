@@ -30,14 +30,14 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
    *
    * @return the connection URL
    */
-  private final static String getUrl(boolean isClient,
-                                     String connectionHost,
-                                     int connectionPort,
-                                     String connectionPrefix,
-                                     String connectionSuffix,
-                                     String database,
-                                     String user,
-                                     String password) {
+  private static String getUrl(boolean isClient,
+                               String connectionHost,
+                               int connectionPort,
+                               String connectionPrefix,
+                               String connectionSuffix,
+                               String database,
+                               String user,
+                               String password) {
     if (isClient) {
       return connectionPrefix + "hsql://" + connectionHost + ":" + connectionPort + "/" + database + ";user=" + user + ("".equals(password)
           ? ""

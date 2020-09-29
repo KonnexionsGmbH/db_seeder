@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_i4812.sh: Demonstration Issue 4812.
+# run_i4812.sh: Demonstration Issue 4812 (https://github.com/prestosql/presto/issues/4812).
 #
 # ------------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"
 
-java --enable-preview -cp %CLASSPATH%:lib/* ch.konnexions.db_seeder.samples.presto.I4812
+java -cp %CLASSPATH%:lib/* ch.konnexions.db_seeder.samples.presto.I4812
 
 echo "--------------------------------------------------------------------------------"
 echo:| TIME

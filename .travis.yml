@@ -1,4 +1,4 @@
-dist: bionic
+dist: focal
 
 env:
   matrix:
@@ -23,12 +23,12 @@ env:
   - DB_SEEDER_DBMS=mimer
   - DB_SEEDER_DBMS=monetdb
   - DB_SEEDER_DBMS=mysql
-# - DB_SEEDER_DBMS=mysql_presto
+#  - DB_SEEDER_DBMS=mysql_presto
   - DB_SEEDER_DBMS=oracle
 # - DB_SEEDER_DBMS=oracle_presto
   - DB_SEEDER_DBMS=percona
   - DB_SEEDER_DBMS=postgresql
-# - DB_SEEDER_DBMS=postgresql_presto
+#  - DB_SEEDER_DBMS=postgresql_presto
   - DB_SEEDER_DBMS=sqlite
   - DB_SEEDER_DBMS=sqlserver
 # - DB_SEEDER_DBMS=sqlserver_presto
@@ -36,7 +36,7 @@ env:
   - DB_SEEDER_DBMS=yugabyte
 
 jdk:
-  - oraclejdk14
+  - oraclejdk15
 
 services:
   - docker
@@ -48,14 +48,15 @@ before_script:
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
 
 script:
-  - travis_fold start "Prepare_Installation_Process"
-  - export VERSION_GRADLE=6.4.1
+  # Prepare installation process -------------------------------------------------
+  - travis_fold start "Prepare_installation_process"
+  - export VERSION_GRADLE=6.6.1
+
   - sudo apt update -q
   - travis_fold end   "Prepare_Installation_Process"
 
   - travis_fold start "Install_Gradle"
-  - wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip
-    -P /tmp
+  - wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip -P /tmp
   - sudo unzip -d /opt/gradle /tmp/gradle-*.zip
   - export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}
   - export PATH=${GRADLE_HOME}/bin:${PATH}
