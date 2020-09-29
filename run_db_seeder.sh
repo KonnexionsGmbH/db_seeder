@@ -176,7 +176,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sys
     export DB_SEEDER_VERSION=6.2.8-d1
-    export DB_SEEDER_VERSION=7.0.1
+    export DB_SEEDER_VERSION=7.0.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then

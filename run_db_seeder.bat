@@ -201,7 +201,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sys
     set DB_SEEDER_VERSION=6.2.8-d1
-    set DB_SEEDER_VERSION=7.0.1
+    set DB_SEEDER_VERSION=7.0.2
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (

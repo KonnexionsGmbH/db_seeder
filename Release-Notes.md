@@ -48,7 +48,7 @@ n/a
 
 - CUBRID: JDBC 10.2.2.8874
 
-- Exasol: DBMS 7.0.1
+- Exasol: DBMS 7.0.2
 
 - MariaDB Server: JDBC 2.7.0
 
