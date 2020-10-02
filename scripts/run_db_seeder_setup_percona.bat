@@ -44,9 +44,11 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Percona Server %DB_SEEDER_VERSION%)
 
-docker create --name db_seeder_db ^
-              -e     MYSQL_ROOT_PASSWORD=percona ^
-              -p     %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
+docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker create -e        MYSQL_ROOT_PASSWORD=percona ^
+              --name    db_seeder_db ^
+              --network db_seeder_net ^
+              -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
               store/percona/percona-server:%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (Percona Server %DB_SEEDER_VERSION%) ...

@@ -43,7 +43,12 @@ echo monetdb
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (monetdb %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp monetdb/monetdb:%DB_SEEDER_VERSION%
+
+docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker create --name    db_seeder_db ^
+              --network db_seeder_net ^
+              -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
+              monetdb/monetdb:%DB_SEEDER_VERSION%
  
 echo Docker start db_seeder_db (monetdb %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
