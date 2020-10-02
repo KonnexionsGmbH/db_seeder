@@ -12,7 +12,7 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.5.1
+export DB_SEEDER_RELEASE=2.5.2
 export DB_SEEDER_VERSION_PRESTO=343
 
 if [ -z "$1" ]; then
@@ -486,6 +486,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15
     export DB_SEEDER_VERSION=2.3.1.0-b15
+    export DB_SEEDER_VERSION=2.3.2.0-b37
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then

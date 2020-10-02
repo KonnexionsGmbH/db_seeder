@@ -23,7 +23,7 @@ if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "no" ]; then
     echo "Docker stop/rm db_seeder_db ................................ before:"
     docker ps    | grep "db_seeder_db" && docker stop db_seeder_db
     docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
-    docker network prune --force
+# wwe   docker network prune --force
     echo "............................................................. after:"
     docker ps -a
 fi
@@ -45,8 +45,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (AgensGraph ${DB_SEEDER_VERSION})"
 
-    docker create --name db_seeder_db \
-                  -p     ${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT} \
+    docker create --name    db_seeder_db \
+                  --network db_seeder_net \
+                  -p        ${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT} \
                   -t \
                   bitnine/agensgraph:${DB_SEEDER_VERSION} agens
 
@@ -395,7 +396,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
     if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
         docker create --name     db_seeder_db \
                       -e         ORACLE_PWD=oracle \
-                      --network   db_seeder_net \
+                      --network  db_seeder_net \
                       -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
                       --shm-size 1G \
                       konnexionsgmbh/${DB_SEEDER_VERSION}
