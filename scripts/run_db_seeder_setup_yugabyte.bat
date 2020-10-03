@@ -53,7 +53,7 @@ docker run -d ^
            --network db_seeder_net ^
            -p        5433:5433 ^
            -p        7000:7000 ^
-           -p        9000:9000 ^
+           -p        9001:9000 ^
            -p        9042:9042 ^
            -v        %cd%/tmp/yb_data:/home/yugabyte/var ^
            yugabytedb/yugabyte:%DB_SEEDER_VERSION% bin/yugabyted start --daemon=false

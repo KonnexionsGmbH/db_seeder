@@ -46,7 +46,7 @@ echo Docker create db_seeder_db (MySQL Database %DB_SEEDER_VERSION%)
 
 docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
 docker create -e        MYSQL_ROOT_PASSWORD=mysql ^
-              --name    db_seeder_db
+              --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
               mysql:%DB_SEEDER_VERSION%

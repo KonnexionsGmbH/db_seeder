@@ -613,7 +613,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
                --network db_seeder_net \
                -p        5433:5433 \
                -p        7000:7000 \
-               -p        9000:9000 \
+               -p        9001:9000 \
                -p        9042:9042 \
                -v        $PWD/tmp/yb_data:/home/yugabyte/var \
                yugabytedb/yugabyte:$DB_SEEDER_VERSION bin/yugabyted start --daemon=false

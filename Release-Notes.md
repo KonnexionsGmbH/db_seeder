@@ -40,7 +40,7 @@ Release Date: dd.09.2020
 
 #### New Features
 
-n/a
+- Docker Compose functionality added 
 
 #### Modified Features
 

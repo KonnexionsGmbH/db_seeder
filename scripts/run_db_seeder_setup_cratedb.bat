@@ -45,7 +45,7 @@ lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (CrateDB %DB_SEEDER_VERSION%)
 
 docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
-docker create --env     CRATE_HEAP_SIZE=2g
+docker create --env     CRATE_HEAP_SIZE=2g ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
