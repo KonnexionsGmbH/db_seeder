@@ -8,11 +8,11 @@ services:
     container_name: db_seeder_dev
     image: konnexionsgmbh/kxn_dev:latest
     networks:
-      - db_seeder_net
+      - net
     tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./Transfer:/Transfer_db_seeder
 
 networks:
-  db_seeder_net:
+  net:
