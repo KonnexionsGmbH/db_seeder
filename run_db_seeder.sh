@@ -12,11 +12,7 @@ set -e
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-
-if ! ( ./scripts/run_db_seeder_release.sh ); then
-    exit 255
-fi
-
+export DB_SEEDER_RELEASE=2.5.2
 export DB_SEEDER_VERSION_PRESTO=343
 
 if [ -z "$1" ]; then
