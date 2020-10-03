@@ -35,10 +35,9 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-if ! [ -d "${HOME_ECLIPSE}" ]; then
+if ! [ -d "/eclipse" ]; then
     sudo wget --quiet https://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/${DB_SEEDER_ECLIPSE_VERSION_1}/${DB_SEEDER_ECLIPSE_VERSION_2}/eclipse-java-${DB_SEEDER_ECLIPSE_VERSION_1}-${DB_SEEDER_ECLIPSE_VERSION_2}-linux-gtk-x86_64.tar.gz
     sudo tar -xf eclipse-java-*-linux-gtk-x86_64.tar.gz
-    sudo mv eclipse /
     sudo rm eclipse-java-*-linux-gtk-x86_64.tar.gz
     export HOME_ECLIPSE=/eclipse
 fi
@@ -53,9 +52,6 @@ fi
 
 mkdir eclipse_workspace
 
-pwd
-echo HOME_ECLIPSE=${HOME_ECLIPSE}
-ls -ll ${HOME_ECLIPSE}
 if ! (${HOME_ECLIPSE}/eclipse -nosplash \
                               -data eclipse_workspace \
                               -application org.eclipse.jdt.core.JavaCodeFormatter \
