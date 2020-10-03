@@ -1,5 +1,21 @@
 ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
-derby_emb	Apache Derby	embedded	16	2020-10-03 17:16:30.160279978	2020-10-03 17:16:46.831327824	travis-job-aa23a0fe-e924-4e07-b938-d7d79f4b0515	2	amd64 / Linux / 5.4.0-1024-gcp
-h2_emb	H2 Database Engine	embedded	4	2020-10-03 17:16:47.472403775	2020-10-03 17:16:51.630177677	travis-job-aa23a0fe-e924-4e07-b938-d7d79f4b0515	2	amd64 / Linux / 5.4.0-1024-gcp
-hsqldb_emb	HyperSQL Database	embedded	17	2020-10-03 17:16:52.315379442	2020-10-03 17:17:09.463045775	travis-job-aa23a0fe-e924-4e07-b938-d7d79f4b0515	2	amd64 / Linux / 5.4.0-1024-gcp
-sqlite	SQLite	embedded	2	2020-10-03 17:17:10.158153774	2020-10-03 17:17:12.258272771	travis-job-aa23a0fe-e924-4e07-b938-d7d79f4b0515	2	amd64 / Linux / 5.4.0-1024-gcp
+agens	AgensGraph	client	3	2020-10-03 17:17:10.570699455	2020-10-03 17:17:14.527510420	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+cratedb	CrateDB	client	9	2020-10-03 17:18:11.530485659	2020-10-03 17:18:20.883585086	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+cubrid	CUBRID	client	5	2020-10-03 17:19:01.736535181	2020-10-03 17:19:06.744881919	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+derby	Apache Derby	client	10	2020-10-03 17:20:30.913703297	2020-10-03 17:20:41.596530422	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+exasol	Exasol	client	5	2020-10-03 17:25:57.601327057	2020-10-03 17:26:03.294546948	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+firebird	Firebird	client	34	2020-10-03 17:27:27.565813771	2020-10-03 17:28:02.140697434	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+h2	H2 Database Engine	client	5	2020-10-03 17:29:06.005685519	2020-10-03 17:29:11.095853163	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+hsqldb	HyperSQL Database	client	8	2020-10-03 17:30:16.066301659	2020-10-03 17:30:24.785356121	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+ibmdb2	IBM Db2 Database	client	9	2020-10-03 17:36:52.895741738	2020-10-03 17:37:02.529979730	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+informix	IBM Informix	client	9	2020-10-03 17:41:27.853061652	2020-10-03 17:41:37.553278681	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+mariadb	MariaDB Server	client	4	2020-10-03 17:42:28.065830486	2020-10-03 17:42:32.651399757	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+mimer	Mimer SQL	client	24	2020-10-03 17:43:15.480117896	2020-10-03 17:43:39.945559415	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+monetdb	MonetDB	client	12	2020-10-03 17:44:00.999410013	2020-10-03 17:44:13.697198289	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+mysql	MySQL Database	client	7	2020-10-03 17:45:27.033615019	2020-10-03 17:45:34.244439110	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+oracle	Oracle Database	client	12	2020-10-03 17:56:43.572568671	2020-10-03 17:56:55.657199023	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+percona	Percona Server for MySQL	client	6	2020-10-03 17:58:16.533920450	2020-10-03 17:58:23.328619631	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+postgresql	PostgreSQL Database	client	3	2020-10-03 17:59:01.675310623	2020-10-03 17:59:04.936059675	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+sqlserver	MS SQL Server	client	5	2020-10-03 18:00:09.364896343	2020-10-03 18:00:15.263976087	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+voltdb	VoltDB	client	15	2020-10-03 18:00:59.247118747	2020-10-03 18:01:14.347925033	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
+yugabyte	YugabyteDB	client	16	2020-10-03 18:02:18.503964599	2020-10-03 18:02:34.587000804	travis-job-ff5090fb-33d6-415d-aebb-fa1266a32196	2	amd64 / Linux / 5.4.0-1024-gcp
