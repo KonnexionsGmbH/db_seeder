@@ -12,7 +12,7 @@ setlocal EnableDelayedExpansion
 set ERRORLEVEL=
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
-    set DB_SEEDER_CONNECTION_HOST=db_seeder_db
+    set DB_SEEDER_CONNECTION_HOST=localhost
 )
 
 set DB_SEEDER_DBMS_DEFAULT=sqlite

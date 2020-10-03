@@ -10,7 +10,7 @@ set -e
 # ------------------------------------------------------------------------------
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
-    export DB_SEEDER_CONNECTION_HOST=db_seeder_db
+    export DB_SEEDER_CONNECTION_HOST=localhost
 fi
 
 export DB_SEEDER_DBMS_DEFAULT=sqlite
