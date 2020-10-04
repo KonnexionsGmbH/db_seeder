@@ -50,7 +50,7 @@ before_script:
 script:
   # Prepare installation process -------------------------------------------------
   - travis_fold start "Prepare_installation_process"
-  - export HOME_ECLIPSE=/eclipse
+  - export HOME_ECLIPSE=/snap/eclipse
   - export VERSION_GRADLE=6.6.1
 
   - sudo apt update -q
@@ -59,8 +59,8 @@ script:
   - travis_fold start "Install_Eclipse"
   - sudo snap install --classic eclipse
   - ls -ll /
-  - ls -ll /eclipse
   - ls -ll /snap
+  - ls -ll /snap/eclipse
   - travis_fold end   "Install_Eclipse"
 
   - travis_fold start "Install_Gradle"
