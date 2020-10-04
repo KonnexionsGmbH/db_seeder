@@ -50,7 +50,7 @@ before_script:
 script:
   # Prepare installation process -------------------------------------------------
   - travis_fold start "Prepare_installation_process"
-  - export HOME_ECLIPSE=/snap/bin/eclipse
+  - export HOME_ECLIPSE=/snap/bin
   - export VERSION_GRADLE=6.6.1
 
   - sudo apt update -q
