@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a PostgreSQL DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.5.1
+ * @version 2.5.2
  */
 public abstract class AbstractGenPostgresqlSchema extends AbstractGenSeeder {
 
