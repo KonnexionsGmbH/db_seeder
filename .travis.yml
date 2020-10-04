@@ -59,8 +59,7 @@ script:
   - travis_fold start "Install_Eclipse"
   - sudo snap install --classic eclipse
   - ls -ll /
-  - ls -ll /snap
-  - ls -ll /snap/eclipse
+  - whereis eclipse
   - travis_fold end   "Install_Eclipse"
 
   - travis_fold start "Install_Gradle"
