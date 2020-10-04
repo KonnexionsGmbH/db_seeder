@@ -50,10 +50,17 @@ before_script:
 script:
   # Prepare installation process -------------------------------------------------
   - travis_fold start "Prepare_installation_process"
+  - export VERSION_ECLIPSE_1=2020-09
+  - export VERSION_ECLIPSE_2=R
   - export VERSION_GRADLE=6.6.1
 
   - sudo apt update -q
   - travis_fold end   "Prepare_Installation_Process"
+
+  - travis_fold start "Install_Eclipse"
+  - sudo wget --quiet https://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/${VERSION_ECLIPSE_1}/${VERSION_ECLIPSE_2}/eclipse-java-${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}-linux-gtk-x86_64.tar.gz
+  - sudo tar -xf eclipse-java-*-linux-gtk-x86_64.tar.gz
+  - travis_fold end   "Install_Eclipse"
 
   - travis_fold start "Install_Gradle"
   - wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip -P /tmp
