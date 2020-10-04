@@ -50,6 +50,7 @@ before_script:
 script:
   # Prepare installation process -------------------------------------------------
   - travis_fold start "Prepare_installation_process"
+  - export HOME_ECLIPSE=/eclipse
   - export VERSION_ECLIPSE_1=2020-09
   - export VERSION_ECLIPSE_2=R
   - export VERSION_GRADLE=6.6.1
