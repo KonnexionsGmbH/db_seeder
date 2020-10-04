@@ -16,8 +16,6 @@ rem set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax.json
 
 set DB_SEEDER_RELEASE=2.5.2
 
-set DB_SEEDER_IS_ECLIPSE_INSTALLED=true
-
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
 echo ================================================================================
@@ -28,7 +26,6 @@ echo ---------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_JSON_NAME          : %DB_SEEDER_FILE_JSON_NAME%
 echo HOME_ECLIPSE            : %HOME_ECLIPSE%
-echo IS_ECLIPSE_INSTALLED    : %DB_SEEDER_IS_ECLIPSE_INSTALLED%
 echo JAVA_CLASSPATH          : %DB_SEEDER_JAVA_CLASSPATH%
 echo RELEASE                 : %DB_SEEDER_RELEASE%
 echo --------------------------------------------------------------------------------
