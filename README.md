@@ -9,6 +9,7 @@
 ### Table of Contents
 
 **[1. Introduction](#introduction)**<br>
+**[1.1 Relational Database Management Systems](#rdbms)**<br>
 **[2. Data](#data)**<br>
 **[2.1 Database Schema](#database_schema)**<br>
 **[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
@@ -16,6 +17,7 @@
 **[4. Operating Instructions](#operating_instructions)**<br>
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
 **[4.2 Control Parameters](#operating_instructions_control)**<br>
+**[4.3 Statistics](#statistics)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
 **[6. Presto - Distributed Query Engine](#presto)**<br>
 
@@ -163,7 +165,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 
 [//]: # (===========================================================================================)
 
-### 1.1 Relational Database Management Systems
+### <a name="rdbms"></a> 1.1 Relational Database Management Systems
 
 | DBMS                            | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
 |---                              |---                 |---                        |---                  |
@@ -468,6 +470,10 @@ db_seeder.user=
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
 
+[//]: # (===========================================================================================)
+
+### <a name="statistics"></a> 4.3 Statistics
+ 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 

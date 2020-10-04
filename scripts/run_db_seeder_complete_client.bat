@@ -44,7 +44,7 @@ echo.
 > run_db_seeder_complete.log 2>&1 (
 
     if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
-        set DB_SEEDER_FILE_STATISTICS_NAME=resources\statistics\db_seeder_local.tsv
+        set DB_SEEDER_FILE_STATISTICS_NAME=resources\statistics\db_seeder_cmd_client.tsv
     )
 
     if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
