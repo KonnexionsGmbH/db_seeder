@@ -42,12 +42,12 @@ fi
 
 mkdir eclipse_workspace
 
-if ! (.${HOME_ECLIPSE}/eclipse -nosplash \
-                               -data eclipse_workspace \
-                               -application org.eclipse.jdt.core.JavaCodeFormatter \
-                               -config src/main/resources/org.eclipse.jdt.core.prefs \
-                               -quiet src/main/java/ch/konnexions/db_seeder/generated/ \
-                               -vmargs -Dfile.encoding=UTF-8); then
+if ! (${HOME_ECLIPSE}/eclipse -nosplash \
+                              -data eclipse_workspace \
+                              -application org.eclipse.jdt.core.JavaCodeFormatter \
+                              -config src/main/resources/org.eclipse.jdt.core.prefs \
+                              -quiet src/main/java/ch/konnexions/db_seeder/generated/ \
+                              -vmargs -Dfile.encoding=UTF-8); then
     exit 255
 fi    
 
