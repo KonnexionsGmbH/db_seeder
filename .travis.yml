@@ -2,10 +2,10 @@ dist: focal
 
 env:
   matrix:
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_client_company.tsv
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_client_syntax.tsv
-  - DB_SEEDER_DBMS=complete_emb    DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_embedded_company.tsv
-# - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_presto_company.tsv
+  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_emb    DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_company
+# - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_presto_company
   - DB_SEEDER_DBMS=agens
   - DB_SEEDER_DBMS=cratedb
   - DB_SEEDER_DBMS=cubrid
@@ -82,5 +82,7 @@ script:
 
   - travis_fold start "Generate_Dummy_Data"
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - export DB_SEEDER_RELEASE=2.5.2
+  - export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}.tsv
   - "./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2"
   - travis_fold end   "Generate_Dummy_Data"
