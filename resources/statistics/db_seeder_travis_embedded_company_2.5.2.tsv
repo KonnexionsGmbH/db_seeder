@@ -1,5 +1,0 @@
-ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
-derby_emb	Apache Derby	embedded	15	2020-10-04 12:22:04.458479593	2020-10-04 12:22:19.459023377	travis-job-2b5ae9bc-de4a-4ee3-88ce-7adf0c96859e	2	amd64 / Linux / 5.4.0-1024-gcp
-h2_emb	H2 Database Engine	embedded	4	2020-10-04 12:22:20.184994310	2020-10-04 12:22:24.841973047	travis-job-2b5ae9bc-de4a-4ee3-88ce-7adf0c96859e	2	amd64 / Linux / 5.4.0-1024-gcp
-hsqldb_emb	HyperSQL Database	embedded	15	2020-10-04 12:22:25.478199564	2020-10-04 12:22:40.809468642	travis-job-2b5ae9bc-de4a-4ee3-88ce-7adf0c96859e	2	amd64 / Linux / 5.4.0-1024-gcp
-sqlite	SQLite	embedded	2	2020-10-04 12:22:41.437145421	2020-10-04 12:22:43.545759793	travis-job-2b5ae9bc-de4a-4ee3-88ce-7adf0c96859e	2	amd64 / Linux / 5.4.0-1024-gcp

@@ -7,7 +7,7 @@
 
 ## Version 2.5.2
 
-Release Date: dd.09.2020
+Release Date: dd.10.2020
 
 #### System Requirements
 
@@ -21,6 +21,10 @@ Release Date: dd.09.2020
 
   - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
+- Exasol
+
+  - JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
+    
 - Mimer SQL & DBeaver
 
   - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
@@ -54,7 +58,7 @@ n/a
 
 ## Version 2.5.1
 
-Release Date: dd.09.2020
+Release Date: 29.09.2020
 
 #### System Requirements
 
