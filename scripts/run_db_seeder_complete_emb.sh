@@ -72,41 +72,51 @@ unset -f "${DB_SEEDER_DBMS}"=
 # Apache Derby - embedded version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh derby_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_DERBY_EMB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh derby_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # H2 Database Engine - embedded version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh h2_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_H2_EMB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh h2_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # HyperSQL Database - embedded version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh hsqldb_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_HSQLDB_EMB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh hsqldb_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # SQLite.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh sqlite yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlite yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Upload Statistics.
 # ------------------------------------------------------------------------------
 
-if ! ( ./scripts/run_travis_push_to_github.sh ); then
-    exit 255
-fi
+if [ "${TRAVIS}" = "true" ]; then
+    if ! ( ./scripts/run_travis_push_to_github.sh ); then
+        exit 255
+    fi    
+fi  
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

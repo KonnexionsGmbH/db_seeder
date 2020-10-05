@@ -104,160 +104,200 @@ unset -f "${DB_SEEDER_DBMS}"=
 # AgensGraph.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh agens yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_AGENS" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh agens yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # CrateDB.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh cratedb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_CRATEDB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh cratedb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # CUBRID.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh cubrid yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_CUBRID" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh cubrid yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Apache Derby - client version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh derby yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_DERBY" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh derby yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Exasol - client version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh exasol yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_EXASOL" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh exasol yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Firebird - client version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh firebird yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_FIREBIRD" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh firebird yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # H2 Database Engine - client version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh h2 yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_H2" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh h2 yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # HyperSQL Database - client version.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh hsqldb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh hsqldb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # IBM Db2 Database.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh ibmdb2 yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_IBMDB2" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh ibmdb2 yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # IBM Informix.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh informix yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_INFORMIX" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh informix yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # MariaDB Server.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh mariadb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_MARIADB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh mariadb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Mimer SQL.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh mimer yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_MIMER" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh mimer yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # MonetDB.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh monetdb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_MONETDB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh monetdb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # MySQL Database.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh mysql yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh mysql yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Oracle Database.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh oracle yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh oracle yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Percona Server for MySQL.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh percona yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_PERCONA" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh percona yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # PostgreSQL Database.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh postgresql yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh postgresql yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Microsoft SQL Server.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh sqlserver yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlserver yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # VoltDB.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh voltdb yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_VOLTDB" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh voltdb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # YugabyteDB.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh yugabyte yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_YUGABYTE" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh yugabyte yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------

@@ -97,202 +97,242 @@ echo.
     rem AgensGraph.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat agens yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_AGENS%"] EQU ["yes"] (
+        call run_db_seeder.bat agens yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem CrateDB.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat cratedb yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_CRATEDB%"] EQU ["yes"] (
+        call run_db_seeder.bat cratedb yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem CUBRID.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat cubrid yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_CUBRID%"] EQU ["yes"] (
+        call run_db_seeder.bat cubrid yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Apache Derby - client version.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat derby yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_DERBY%"] EQU ["yes"] (
+        call run_db_seeder.bat derby yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Exasol - client version.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat exasol yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_EXASOL%"] EQU ["yes"] (
+        call run_db_seeder.bat exasol yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Firebird - client version.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat firebird yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_FIREBIRD%"] EQU ["yes"] (
+        call run_db_seeder.bat firebird yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem H2 Database Engine - client version.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat h2 yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_H2%"] EQU ["yes"] (
+        call run_db_seeder.bat h2 yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem HyperSQL Database - client version.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat hsqldb yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
+        call run_db_seeder.bat hsqldb yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem IBM Db2 Database.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat ibmdb2 yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_IBMDB2%"] EQU ["yes"] (
+        call run_db_seeder.bat ibmdb2 yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem IBM Informix.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat informix yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_INFORMIX%"] EQU ["yes"] (
+        call run_db_seeder.bat informix yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem MariaDB Server.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat mariadb yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_MARIADB%"] EQU ["yes"] (
+        call run_db_seeder.bat mariadb yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Mimer SQL.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat mimer yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_MIMER%"] EQU ["yes"] (
+        call run_db_seeder.bat mimer yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem MonetDB.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat monetdb yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_MONETDB%"] EQU ["yes"] (
+        call run_db_seeder.bat monetdb yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem MySQL Database.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat mysql yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_MYSQL%"] EQU ["yes"] (
+        call run_db_seeder.bat mysql yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Oracle Database.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat oracle yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_ORACLE%"] EQU ["yes"] (
+        call run_db_seeder.bat oracle yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Percona Server for MySQL.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat percona yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_PERCONA%"] EQU ["yes"] (
+        call run_db_seeder.bat percona yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem PostgreSQL Database.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat postgresql yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
+        call run_db_seeder.bat postgresql yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Microsoft SQL Server.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat sqlserver yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
+        call run_db_seeder.bat sqlserver yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem VoltDB.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat voltdb yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_VOLTDB%"] EQU ["yes"] (
+        call run_db_seeder.bat voltdb yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem YugabyteDB.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat yugabyte yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_YUGABYTE%"] EQU ["yes"] (
+        call run_db_seeder.bat yugabyte yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo --------------------------------------------------------------------------------

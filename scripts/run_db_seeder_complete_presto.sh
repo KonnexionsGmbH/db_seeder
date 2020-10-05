@@ -80,32 +80,40 @@ unset -f "${DB_SEEDER_DBMS}"=
 # MySQL Database - via Presto.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh mysql_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_MYSQL_PRESTO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh mysql_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Oracle Database - via Presto.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh oracle_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_ORACLE_PRESTO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh oracle_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # PostgreSQL Database.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh postgresql yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh postgresql yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------
 # Microsoft SQL Server.
 # ------------------------------------------------------------------------------
 
-if ! ( ./run_db_seeder.sh sqlserver yes $DB_SEEDER_NO_CREATE_RUNS ); then
-    exit 255
+if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlserver yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi    
 fi
 
 # ------------------------------------------------------------------------------

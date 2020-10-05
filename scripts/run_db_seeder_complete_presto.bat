@@ -84,42 +84,50 @@ echo.
     rem MySQL Database - via Presto.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat mysql_presto yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_MYSQL_PRESTO%"] EQU ["yes"] (
+        call run_db_seeder.bat mysql_presto yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Oracle Database - via Presto.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat oracle_presto yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_ORACLE_PRESTO%"] EQU ["yes"] (
+        call run_db_seeder.bat oracle_presto yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem PostgreSQL Database.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat postgresql yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
+        call run_db_seeder.bat postgresql yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     rem ------------------------------------------------------------------------------
     rem Microsoft SQL Server.
     rem ------------------------------------------------------------------------------
     
-    call run_db_seeder.bat sqlserver yes %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
+    if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
+        call run_db_seeder.bat sqlserver yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
     )
-
+    
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo --------------------------------------------------------------------------------
