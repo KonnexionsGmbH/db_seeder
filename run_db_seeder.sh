@@ -9,10 +9,14 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
+if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+fi
+
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.5.1
+export DB_SEEDER_RELEASE=2.5.2
 export DB_SEEDER_VERSION_PRESTO=343
 
 if [ -z "$1" ]; then
@@ -96,14 +100,8 @@ export DB_SEEDER_DBMS_EMBEDDED=no
 export DB_SEEDER_DBMS_PRESTO=no
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
-export DB_SEEDER_FILE_STATISTICS_DELIMITER=\\t
-
-if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local.tsv
-fi 
 
 if [ "${DB_SEEDER_DBMS}" = "agens" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:agensgraph://
     export DB_SEEDER_CONTAINER_PORT=5432
@@ -118,7 +116,6 @@ if [ "${DB_SEEDER_DBMS}" = "agens" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
     export DB_SEEDER_CONNECTION_PREFIX=crate://
     export DB_SEEDER_CONTAINER_PORT=5432
@@ -133,7 +130,6 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=33000
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:cubrid:"
     export DB_SEEDER_CONTAINER_PORT=33000
@@ -145,7 +141,6 @@ if [ "${DB_SEEDER_DBMS}" = "cubrid" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "derby" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1527
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_CONTAINER_PORT=1527
@@ -166,7 +161,6 @@ if [ "${DB_SEEDER_DBMS}" = "derby_emb" ] || [ "${DB_SEEDER_DBMS}" = "complete_em
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=8563
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
     export DB_SEEDER_CONTAINER_PORT=8563
@@ -180,7 +174,6 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3050
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:firebirdsql://"
     export DB_SEEDER_CONNECTION_SUFFIX="?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true"
@@ -195,7 +188,6 @@ if [ "${DB_SEEDER_DBMS}" = "firebird" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9092
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
     export DB_SEEDER_CONTAINER_PORT=9092
@@ -216,7 +208,6 @@ if [ "${DB_SEEDER_DBMS}" = "h2_emb" ] || [ "${DB_SEEDER_DBMS}" = "complete_emb" 
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "hsqldb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9001
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
     export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
@@ -241,7 +232,6 @@ if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ] || [ "${DB_SEEDER_DBMS}" = "complete_e
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=50000
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:db2://
     export DB_SEEDER_CONTAINER_PORT=50000
@@ -254,7 +244,6 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "informix" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=9088
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:informix-sqli://"
     export DB_SEEDER_CONTAINER_PORT=9088
@@ -267,7 +256,6 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mariadb://
     export DB_SEEDER_CONTAINER_PORT=3306
@@ -284,7 +272,6 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=11360
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mimer://
     export DB_SEEDER_CONTAINER_PORT=1360
@@ -298,7 +285,6 @@ if [ "${DB_SEEDER_DBMS}" = "mimer" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "monetdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=50000
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:monetdb://
     export DB_SEEDER_CONTAINER_PORT=50000
@@ -312,7 +298,6 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     export DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
@@ -328,7 +313,6 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ] || [ "${DB_SEEDER_DBMS}" = "complete_client
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     export DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
@@ -345,7 +329,6 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1521
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
@@ -361,7 +344,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1521
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
@@ -378,7 +360,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ] || [ "${DB_SEEDER_DBMS}" = "complet
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "percona" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     export DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
@@ -393,7 +374,6 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ] || [ "${DB_SEEDER_DBMS}" = "complete_clie
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     export DB_SEEDER_CONTAINER_PORT=5432
@@ -409,7 +389,6 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ] || [ "${DB_SEEDER_DBMS}" = "complete_c
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5432
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     export DB_SEEDER_CONTAINER_PORT=5432
@@ -432,7 +411,6 @@ if [ "${DB_SEEDER_DBMS}" = "sqlite" ] || [ "${DB_SEEDER_DBMS}" = "complete_emb" 
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlserver" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
     export DB_SEEDER_CONTAINER_PORT=1433
@@ -447,7 +425,6 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver" ] || [ "${DB_SEEDER_DBMS}" = "complete_cl
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlserver_presto" ] || [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
     export DB_SEEDER_CONTAINER_PORT=1433
@@ -463,7 +440,6 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_presto" ] || [ "${DB_SEEDER_DBMS}" = "comp
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=21212
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
     export DB_SEEDER_CONNECTION_SUFFIX="?autoreconnect=true"
@@ -474,7 +450,6 @@ if [ "${DB_SEEDER_DBMS}" = "voltdb" ] || [ "${DB_SEEDER_DBMS}" = "complete_clien
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
     export DB_SEEDER_CONNECTION_PORT=5433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     export DB_SEEDER_CONTAINER_PORT=5433
@@ -486,10 +461,10 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ] || [ "${DB_SEEDER_DBMS}" = "complete_cli
     export DB_SEEDER_USER_SYS=yugabyte
     export DB_SEEDER_VERSION=2.2.2.0-b15
     export DB_SEEDER_VERSION=2.3.1.0-b15
+    export DB_SEEDER_VERSION=2.3.2.0-b37
 fi
 
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
-    export DB_SEEDER_CONNECTION_HOST_PRESTO=localhost
     export DB_SEEDER_CONNECTION_PORT_PRESTO=8080
 fi
 

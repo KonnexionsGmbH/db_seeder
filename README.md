@@ -3,19 +3,21 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.2.svg)
 ----
 
 ### Table of Contents
 
 **[1. Introduction](#introduction)**<br>
+**[1.1 Relational Database Management Systems](#rdbms)**<br>
 **[2. Data](#data)**<br>
-**[2.1 Database Schema](#database_schema)**<br>
+**[2.1 Database Schema](#data_database_schema)**<br>
 **[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
 **[4.2 Control Parameters](#operating_instructions_control)**<br>
+**[4.3 Statistics](#operating_instructions_statistics)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
 **[6. Presto - Distributed Query Engine](#presto)**<br>
 
@@ -163,7 +165,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 
 [//]: # (===========================================================================================)
 
-### 1.1 Relational Database Management Systems
+### <a name="rdbms"></a> 1.1 Relational Database Management Systems
 
 | DBMS                            | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
 |---                              |---                 |---                        |---                  |
@@ -188,13 +190,13 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Presto Distributed Query Engine | n/a                | 339 - 343                 | 343                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
 | VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.3.1.0-b15 | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.3.2.0-b37 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
 ## <a name="data"></a> 2. Data 
 
-### <a name="database_schema"></a> 2.1 Database Schema
+### <a name="data_database_schema"></a> 2.1 Database Schema
 
 The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script `scripts/run_db_seeder_generate_schema`.
 To validate the database schema in the JSON parameter file, the JSON schema file `db_seeder_schema.schema.json` in the directory `src/main/resources` is used.
@@ -376,7 +378,28 @@ The system requirements are described in the respective release notes.
 
 ## <a name="operating_instructions"></a> 4. Operating Instructions 
 
-### <a name="operating_instructions_scripts"></a> 4.1 Script `run_db_seeder`
+### <a name="operating_instructions_scripts"></a> 4.1 Scripts
+
+#### 4.1.1 Docker Compose
+
+With the command
+
+    docker-compose up -d
+
+a `db_seeder` specific development container can be started, which performs the following processing:
+
+- all client databases with the database schema `db_seeder_schema.company.json`
+- all client databases with the database schema `db_seeder_schema.syntax.json`
+- all embeded databases with the database schema `db_seeder_schema.company.json`
+- all Presto databases with the database schema `db_seeder_schema.company.json`
+
+For each of these runs, by default a statistics file is created in the file directory `Transfer` with the following file name structure:
+
+    db_seeder_compose_<db type>_<schema>_<db_seeder release>_<yyyy.mm.dd>_<hh24.mi.ss>.tsv
+    
+If these files are to be included in the statistical analysis, they must be copied from the file directory `Transfer` to the file directory `resources/statistics`.    
+
+#### 4.1.2 Script `run_db_seeder`
 
 Using the Konnexions development Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) eliminates the need to install the runtime environment.
  
@@ -403,9 +426,19 @@ The `run_db_seeder` script is controlled by the following script parameters::
   - 2: two runs
   - otherwise: no run
 
+For the run variants `complete_client`, `complete_emb` and `complete_presto`, statistics files with the following data name structure are created in the file directory `resources\statistics` by default:
+
+    db_seeder_<bash | cmd>_<db_type>_unknown_<db_seeder release>.tsv
+
 An overview of the structure of the scripts used can be taken from the following diagram:
 
 ![](.README_images/script_structure.png)
+
+#### 4.1.3 Travis CI
+
+For each `db_seeder` release statistics file are created by default in the file directory `resources\statistics` with the following file name structure:
+
+    db_seeder_travis_<db type>_<schema>_<db_seeder release>.tsv
 
 [//]: # (===========================================================================================)
 
@@ -431,7 +464,7 @@ db_seeder.database=
 db_seeder.file.configuration.name=
 db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
 db_seeder.file.statistics.delimiter=\t
-db_seeder.file.statistics.header=ticker symbol;DBMS;client / embedded;runtime in seconds;start time;end time;host name;no. cores;operating system
+db_seeder.file.statistics.header=ticker symbol;DBMS;db type;runtime in seconds;start time;end time;host name;no. cores;operating system
 db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
 
 db_seeder.password.sys=
@@ -468,6 +501,10 @@ db_seeder.user=
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
 |                                           |                                   |                                                                                                                      |     |
 
+[//]: # (===========================================================================================)
+
+### <a name="operating_instructions_statistics"></a> 4.3 Statistics
+ 
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
@@ -1360,7 +1397,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.3.1.0-b15`
+  - pull command: `docker pull yugabytedb/yugabyte:2.3.2.0-b37`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: see PostgreSQL Database

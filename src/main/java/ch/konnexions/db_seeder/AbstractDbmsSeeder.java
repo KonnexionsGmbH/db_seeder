@@ -1,11 +1,10 @@
 package ch.konnexions.db_seeder;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import ch.konnexions.db_seeder.utils.Config;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.utils.Config;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test Data Generator for a Database - Abstract DBMS Seeder.
@@ -111,7 +110,7 @@ public abstract class AbstractDbmsSeeder {
    * Initialises the DBMS details.
    * 
    * Attributes: 0 - DBMS name long
-   *             1 - client / embedded
+   *             1 - db type
    *             2 - DBMS name short
    *             3 - identifier delimiter
    *

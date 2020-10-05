@@ -39,10 +39,14 @@ export DB_SEEDER_DBMS_YUGABYTE=yes
 # ------------------------------------------------------------------------------
 
 if [ "${TRAVIS}" = "true" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_${DB_SEEDER_RELEASE}.tsv
+    export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+    export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}.tsv
 else
-    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_client.tsv
-fi  
+    if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
+            export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_client_unknown_${DB_SEEDER_RELEASE}.tsv
+    fi
+fi
 
 rm -f ${DB_SEEDER_FILE_STATISTICS_NAME}
 

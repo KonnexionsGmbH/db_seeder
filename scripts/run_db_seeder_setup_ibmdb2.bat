@@ -43,7 +43,16 @@ echo IBM Db2 Database
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
-docker create --name db_seeder_db -e DBNAME=%DB_SEEDER_DATABASE% -e DB2INST1_PASSWORD=ibmdb2 -e LICENSE=accept -p %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% --privileged=true ibmcom/db2:%DB_SEEDER_VERSION%
+
+docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker create -e           DBNAME=%DB_SEEDER_DATABASE% ^
+              -e           DB2INST1_PASSWORD=ibmdb2 ^
+              -e           LICENSE=accept ^
+              --name       db_seeder_db ^
+              --network    db_seeder_net ^
+              -p           %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
+              --privileged=true ^
+              ibmcom/db2:%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
 docker start db_seeder_db

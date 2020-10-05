@@ -43,15 +43,16 @@ docker network prune --force
 echo "--------------------------------------------------------------------------------"
 echo "Start Presto Distributed Query Engine - creating and starting the container"
 echo "--------------------------------------------------------------------------------"
-docker network create db_seeder_net
-docker network ls
 start=$(date +%s)
 echo "Docker create presto (Presto Distributed Query Engine)"
+
+docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
 docker create --name    db_seeder_presto \
               --network db_seeder_net \
               -p        8080:8080/tcp \
               -v        $PWD/resources/docker/presto:/usr/lib/presto/etc \
               prestosql/presto:${DB_SEEDER_VERSION_PRESTO}
+
 echo "Docker start presto (Presto Distributed Query Engine) ..."
 docker start db_seeder_presto
 

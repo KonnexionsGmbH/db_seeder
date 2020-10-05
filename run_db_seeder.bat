@@ -11,9 +11,13 @@ setlocal EnableDelayedExpansion
 
 set ERRORLEVEL=
 
+if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
+)
+
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.5.1
+set DB_SEEDER_RELEASE=2.5.2
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_VERSION_PRESTO=343
 
@@ -95,20 +99,14 @@ set DB_SEEDER_DBMS_EMBEDDED=no
 set DB_SEEDER_DBMS_PRESTO=no
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
-set DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
 
-if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
-    set DB_SEEDER_FILE_STATISTICS_NAME=resources\statistics\db_seeder_local.tsv
-)    
-
-set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS% 
+set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS%
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
     set DB_SEEDER_DBMS=agens
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:agensgraph://
     set DB_SEEDER_CONTAINER_PORT=5432
@@ -127,7 +125,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=crate://
     set DB_SEEDER_CONTAINER_PORT=5432
@@ -146,7 +143,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=33000
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:cubrid:"
     set DB_SEEDER_CONTAINER_PORT=33000
@@ -162,7 +158,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1527
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     set DB_SEEDER_CONTAINER_PORT=1527
@@ -191,7 +186,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=8563
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
     set DB_SEEDER_CONTAINER_PORT=8563
@@ -209,7 +203,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3050
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:firebirdsql://"
     set DB_SEEDER_CONNECTION_SUFFIX="?encoding=UTF8&useFirebirdAutocommit=true&useStreamBlobs=true"
@@ -228,7 +221,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=9092
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
     set DB_SEEDER_CONTAINER_PORT=9092
@@ -259,7 +251,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=9001
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
     set DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
@@ -292,7 +283,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=50000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:db2://
     set DB_SEEDER_CONTAINER_PORT=50000
@@ -309,7 +299,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=9088
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:informix-sqli://"
     set DB_SEEDER_CONTAINER_PORT=9088
@@ -326,7 +315,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mariadb://
     set DB_SEEDER_CONTAINER_PORT=3306
@@ -347,7 +335,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=11360
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mimer://
     set DB_SEEDER_CONTAINER_PORT=1360
@@ -365,7 +352,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=50000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:monetdb://
     set DB_SEEDER_CONTAINER_PORT=50000
@@ -383,7 +369,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     set DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
@@ -403,7 +388,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     set DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
@@ -424,7 +408,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1521
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
@@ -443,7 +426,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1521
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
@@ -463,7 +445,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     set DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
@@ -482,7 +463,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     set DB_SEEDER_CONTAINER_PORT=5432
@@ -502,7 +482,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     set DB_SEEDER_CONTAINER_PORT=5432
@@ -533,7 +512,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1433
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
     set DB_SEEDER_CONTAINER_PORT=1433
@@ -552,7 +530,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_presto"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=1433
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
     set DB_SEEDER_CONTAINER_PORT=1433
@@ -572,7 +549,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=21212
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
     set DB_SEEDER_CONNECTION_SUFFIX="?autoreconnect=true"
@@ -587,7 +563,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
     set DB_SEEDER_CONNECTION_PORT=5433
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     set DB_SEEDER_CONTAINER_PORT=5433
@@ -599,6 +574,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_USER_SYS=yugabyte
     set DB_SEEDER_VERSION=2.2.2.0-b15
     set DB_SEEDER_VERSION=2.3.1.0-b15
+    set DB_SEEDER_VERSION=2.3.2.0-b37
 )
 
 if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
@@ -606,7 +582,6 @@ if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
 )
 
 if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
-    set DB_SEEDER_CONNECTION_HOST_PRESTO=localhost
     set DB_SEEDER_CONNECTION_PORT_PRESTO=8080
 )
 

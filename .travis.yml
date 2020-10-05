@@ -2,10 +2,10 @@ dist: focal
 
 env:
   matrix:
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
-  - DB_SEEDER_DBMS=complete_emb DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
-# - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json
+  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_emb    DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_company
+# - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_presto_company
   - DB_SEEDER_DBMS=agens
   - DB_SEEDER_DBMS=cratedb
   - DB_SEEDER_DBMS=cubrid
@@ -50,10 +50,15 @@ before_script:
 script:
   # Prepare installation process -------------------------------------------------
   - travis_fold start "Prepare_installation_process"
+  - export HOME_ECLIPSE=/snap/bin
   - export VERSION_GRADLE=6.6.1
 
   - sudo apt update -q
   - travis_fold end   "Prepare_Installation_Process"
+
+  - travis_fold start "Install_Eclipse"
+  - sudo snap install --classic eclipse
+  - travis_fold end   "Install_Eclipse"
 
   - travis_fold start "Install_Gradle"
   - wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip -P /tmp
@@ -77,5 +82,6 @@ script:
 
   - travis_fold start "Generate_Dummy_Data"
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
   - "./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2"
   - travis_fold end   "Generate_Dummy_Data"

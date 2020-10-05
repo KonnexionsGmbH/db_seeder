@@ -43,7 +43,10 @@ echo.
 
 > run_db_seeder_complete.log 2>&1 (
 
-    set DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_cmd_client.tsv
+    if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
+        set DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+        set DB_SEEDER_FILE_STATISTICS_NAME=resources\statistics\db_seeder_cmd_client_unknown_%DB_SEEDER_RELEASE%.tsv
+    )
 
     if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
     
@@ -264,7 +267,7 @@ echo.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_PERCONA%"] EQU ["yes"] (
-        call run_db_seeder.bat perciona yes 1
+        call run_db_seeder.bat percona yes 1
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

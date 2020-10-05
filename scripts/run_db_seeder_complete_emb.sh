@@ -23,10 +23,14 @@ export DB_SEEDER_DBMS_SQLITE=yes
 # ------------------------------------------------------------------------------
 
 if [ "${TRAVIS}" = "true" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_${DB_SEEDER_RELEASE}.tsv
+    export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+    export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}.tsv
 else
-    export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_bash_embedded.tsv
-fi  
+    if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
+            export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_embedded_unknown_${DB_SEEDER_RELEASE}.tsv
+    fi
+fi
 
 rm -f ${DB_SEEDER_FILE_STATISTICS_NAME}
 

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a Mimer DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.5.1
+ * @version 2.5.2
  */
 public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
 

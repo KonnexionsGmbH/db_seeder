@@ -1,8 +1,0 @@
-ticker symbol	DBMS	client / embedded	runtime in seconds	start time	end time	host name	no. cores	operating system
-derby_emb	derby	Apache Derby	15	2020-08-13 08:41:27.048312000	2020-08-13 08:41:42.730070000	travis-job-f7e7cf85-8dc2-4075-af88-1a351a3fb711	2	amd64 / Linux / 5.3.0-1029-gcp
-h2_emb	h2	H2 Database Engine	5	2020-08-13 08:41:43.448459000	2020-08-13 08:41:48.828054000	travis-job-f7e7cf85-8dc2-4075-af88-1a351a3fb711	2	amd64 / Linux / 5.3.0-1029-gcp
-h2_emb	h2	H2 Database Engine	5	2020-08-13 08:41:49.266668000	2020-08-13 08:41:54.746809000	travis-job-f7e7cf85-8dc2-4075-af88-1a351a3fb711	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb_emb	hsqldb	HyperSQL Database	15	2020-08-13 08:41:55.358006000	2020-08-13 08:42:10.635810000	travis-job-f7e7cf85-8dc2-4075-af88-1a351a3fb711	2	amd64 / Linux / 5.3.0-1029-gcp
-hsqldb_emb	hsqldb	HyperSQL Database	16	2020-08-13 08:42:11.136337000	2020-08-13 08:42:27.243707000	travis-job-f7e7cf85-8dc2-4075-af88-1a351a3fb711	2	amd64 / Linux / 5.3.0-1029-gcp
-sqlite	sqlite	SQLite	1	2020-08-13 08:42:27.780750000	2020-08-13 08:42:29.742885000	travis-job-f7e7cf85-8dc2-4075-af88-1a351a3fb711	2	amd64 / Linux / 5.3.0-1029-gcp
-sqlite	sqlite	SQLite	2	2020-08-13 08:42:30.209866000	2020-08-13 08:42:32.256615000	travis-job-f7e7cf85-8dc2-4075-af88-1a351a3fb711	2	amd64 / Linux / 5.3.0-1029-gcp

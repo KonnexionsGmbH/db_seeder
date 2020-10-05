@@ -27,7 +27,10 @@ echo.
 
 > run_db_seeder_complete.log 2>&1 (
 
-    set DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_local_cmd_presto.tsv
+    if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
+        set DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+        set DB_SEEDER_FILE_STATISTICS_NAME=resources\statistics\db_seeder_cmd_presto_unknown_%DB_SEEDER_RELEASE%.tsv
+    )
 
     if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
     

@@ -44,20 +44,13 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Oracle Database %DB_SEEDER_VERSION%)
 
-if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
-    docker create --name     db_seeder_db ^
-                  -e         ORACLE_PWD=oracle ^
-                  --network  db_seeder_net ^
-                  -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-                  --shm-size 1G ^
-                  konnexionsgmbh/%DB_SEEDER_VERSION%
-) else (
-    docker create --name     db_seeder_db ^
-                  -e         ORACLE_PWD=oracle ^
-                  -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-                  --shm-size 1G ^
-                  konnexionsgmbh/%DB_SEEDER_VERSION%
-)
+docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker create -e         ORACLE_PWD=oracle ^
+              --name     db_seeder_db ^
+              --network  db_seeder_net ^
+              -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
+              --shm-size 1G ^
+              konnexionsgmbh/%DB_SEEDER_VERSION%
 
 echo Docker start db_seeder_db (Oracle Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

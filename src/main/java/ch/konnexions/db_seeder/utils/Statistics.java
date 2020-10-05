@@ -4,6 +4,11 @@
 
 package ch.konnexions.db_seeder.utils;
 
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,12 +20,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.log4j.Logger;
-
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 
 /**
  * This class is used to record the statisticss of the db_seeder runs.
@@ -43,7 +42,7 @@ public final class Statistics {
   /**
    * Constructs a Statistics object using the given {@link Config} object.
    * @param config the {@link Config} object
-   * @param dbmsValues the DBMS related values DBMS name and client / embedded remark
+   * @param dbmsValues the DBMS related values DBMS name and db type remark
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public Statistics(Config config, String tickerSymbolExtern, Map<String, String[]> dbmsValues) {
