@@ -1,21 +1,21 @@
 ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
-mariadb	MariaDB Server	client	5	2020-10-05 08:50:28.125233602	2020-10-05 08:50:34.103986409	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-mariadb	MariaDB Server	client	5	2020-10-05 08:50:34.601484303	2020-10-05 08:50:40.374051082	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-mimer	Mimer SQL	client	39	2020-10-05 08:51:27.994730292	2020-10-05 08:52:07.074697021	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-mimer	Mimer SQL	client	36	2020-10-05 08:52:07.595913617	2020-10-05 08:52:44.117826570	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-monetdb	MonetDB	client	29	2020-10-05 08:53:11.534310131	2020-10-05 08:53:41.149709885	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-monetdb	MonetDB	client	29	2020-10-05 08:53:41.628768998	2020-10-05 08:54:11.459811834	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-mysql	MySQL Database	client	9	2020-10-05 08:55:26.771737152	2020-10-05 08:55:36.238299829	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-mysql	MySQL Database	client	10	2020-10-05 08:55:36.769223724	2020-10-05 08:55:47.308048097	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-oracle	Oracle Database	client	11	2020-10-05 09:06:54.238894280	2020-10-05 09:07:06.031781222	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-oracle	Oracle Database	client	10	2020-10-05 09:07:06.558479131	2020-10-05 09:07:17.016777942	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-percona	Percona Server for MySQL	client	8	2020-10-05 09:08:39.061330459	2020-10-05 09:08:47.583352778	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-percona	Percona Server for MySQL	client	9	2020-10-05 09:08:48.093387355	2020-10-05 09:08:57.924487617	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-postgresql	PostgreSQL Database	client	5	2020-10-05 09:09:37.301237567	2020-10-05 09:09:42.558033579	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-postgresql	PostgreSQL Database	client	5	2020-10-05 09:09:43.082340713	2020-10-05 09:09:48.546597018	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-sqlserver	MS SQL Server	client	9	2020-10-05 09:11:01.941104275	2020-10-05 09:11:11.153383634	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-sqlserver	MS SQL Server	client	8	2020-10-05 09:11:11.665954246	2020-10-05 09:11:20.352019295	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-voltdb	VoltDB	client	17	2020-10-05 09:12:03.021917790	2020-10-05 09:12:20.718089979	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-voltdb	VoltDB	client	15	2020-10-05 09:12:21.548798239	2020-10-05 09:12:36.763884818	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-yugabyte	YugabyteDB	client	19	2020-10-05 09:13:53.722296139	2020-10-05 09:14:12.926357047	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
-yugabyte	YugabyteDB	client	19	2020-10-05 09:14:13.514264327	2020-10-05 09:14:32.843919337	travis-job-e374d80e-7d94-479d-bcf5-ed1b4e9a8719	2	amd64 / Linux / 5.4.0-1024-gcp
+mariadb	MariaDB Server	client	6	2020-10-05 12:22:08.913355288	2020-10-05 12:22:15.415029672	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+mariadb	MariaDB Server	client	5	2020-10-05 12:22:15.952553493	2020-10-05 12:22:21.912214219	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+mimer	Mimer SQL	client	48	2020-10-05 12:23:06.556681374	2020-10-05 12:23:55.424647967	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+mimer	Mimer SQL	client	48	2020-10-05 12:23:55.948691065	2020-10-05 12:24:44.426943493	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+monetdb	MonetDB	client	37	2020-10-05 12:25:07.629928562	2020-10-05 12:25:45.158843425	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+monetdb	MonetDB	client	37	2020-10-05 12:25:45.701884552	2020-10-05 12:26:22.875311735	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+mysql	MySQL Database	client	9	2020-10-05 12:27:37.345568538	2020-10-05 12:27:46.753495297	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+mysql	MySQL Database	client	10	2020-10-05 12:27:47.351898729	2020-10-05 12:27:57.634829894	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+oracle	Oracle Database	client	14	2020-10-05 12:39:05.481820802	2020-10-05 12:39:19.797861462	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+oracle	Oracle Database	client	13	2020-10-05 12:39:20.337494586	2020-10-05 12:39:33.400754985	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+percona	Percona Server for MySQL	client	8	2020-10-05 12:40:54.717749928	2020-10-05 12:41:03.302458743	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+percona	Percona Server for MySQL	client	9	2020-10-05 12:41:03.840871718	2020-10-05 12:41:13.814948618	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+postgresql	PostgreSQL Database	client	5	2020-10-05 12:41:52.533866739	2020-10-05 12:41:58.143489952	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+postgresql	PostgreSQL Database	client	5	2020-10-05 12:41:58.722060710	2020-10-05 12:42:04.109996701	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+sqlserver	MS SQL Server	client	9	2020-10-05 12:43:11.288319121	2020-10-05 12:43:20.918243212	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+sqlserver	MS SQL Server	client	9	2020-10-05 12:43:21.481453827	2020-10-05 12:43:30.646522077	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+voltdb	VoltDB	client	18	2020-10-05 12:44:13.604867622	2020-10-05 12:44:31.955418617	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+voltdb	VoltDB	client	15	2020-10-05 12:44:32.934072335	2020-10-05 12:44:48.659647727	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+yugabyte	YugabyteDB	client	21	2020-10-05 12:46:05.160356513	2020-10-05 12:46:26.385682035	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
+yugabyte	YugabyteDB	client	21	2020-10-05 12:46:27.012839479	2020-10-05 12:46:48.832771490	travis-job-9a84b21a-47bd-4b0b-bdab-60685287c380	2	amd64 / Linux / 5.4.0-1024-gcp
