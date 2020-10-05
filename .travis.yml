@@ -82,6 +82,5 @@ script:
 
   - travis_fold start "Generate_Dummy_Data"
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
   - "./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2"
   - travis_fold end   "Generate_Dummy_Data"
