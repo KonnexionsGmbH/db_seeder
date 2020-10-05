@@ -1,5 +1,5 @@
 ""ticker symboltDBMSt"db "typetruntime in secondststart" "timet"end "timethost" name"tno. corestoperating system
-derby_embtApache Derbytembeddedt15t2020-10-05 01:53:26.056318609t2020-10-05 01:53:41.417411003t"travis-job-d76935d3-9936-4a57-b7df-a9742a7a0160"t2tamd64 / Linux / 5.4.0-1024-gcp
-h2_embt"H2 Database Engine"tembeddedt4t2020-10-05 01:53:42.061008631t2020-10-05 01:53:46.246945298t"travis-job-d76935d3-9936-4a57-b7df-a9742a7a0160"t2tamd64 / Linux / 5.4.0-1024-gcp
-hsqldb_embt"HyperSQL Database"tembeddedt16t2020-10-05 01:53:46.848308515t2020-10-05 01:54:03.042815580t"travis-job-d76935d3-9936-4a57-b7df-a9742a7a0160"t2tamd64 / Linux / 5.4.0-1024-gcp
-"sqlite"t"SQLite"tembeddedt2t2020-10-05 01:54:03.688285839t2020-10-05 01:54:05.737842623t"travis-job-d76935d3-9936-4a57-b7df-a9742a7a0160"t2tamd64 / Linux / 5.4.0-1024-gcp
+derby_embtApache Derbytembeddedt15t2020-10-05 02:11:30.258623557t2020-10-05 02:11:46.094059705t"travis-job-84f3b809-1e99-4ac3-9eea-20a8ef9f9ce8"t2tamd64 / Linux / 5.4.0-1024-gcp
+h2_embt"H2 Database Engine"tembeddedt3t2020-10-05 02:11:46.705614781t2020-10-05 02:11:50.604218775t"travis-job-84f3b809-1e99-4ac3-9eea-20a8ef9f9ce8"t2tamd64 / Linux / 5.4.0-1024-gcp
+hsqldb_embt"HyperSQL Database"tembeddedt17t2020-10-05 02:11:51.233162414t2020-10-05 02:12:08.491927400t"travis-job-84f3b809-1e99-4ac3-9eea-20a8ef9f9ce8"t2tamd64 / Linux / 5.4.0-1024-gcp
+"sqlite"t"SQLite"tembeddedt2t2020-10-05 02:12:09.181980257t2020-10-05 02:12:11.247963353t"travis-job-84f3b809-1e99-4ac3-9eea-20a8ef9f9ce8"t2tamd64 / Linux / 5.4.0-1024-gcp
