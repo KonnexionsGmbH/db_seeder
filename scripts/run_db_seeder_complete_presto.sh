@@ -23,10 +23,12 @@ export DB_SEEDER_DBMS_POSTGRESQL=yes
 # ------------------------------------------------------------------------------
 
 if [ "${TRAVIS}" = "true" ]; then
+    export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
     export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}.tsv
 else
     if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
-            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_presto.tsv
+            export DB_SEEDER_FILE_STATISTICS_DELIMITER=\t
+            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_presto_unknown_${DB_SEEDER_RELEASE}.tsv
     fi
 fi
 
