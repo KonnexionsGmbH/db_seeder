@@ -1,0 +1,8 @@
+ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
+derby_emb	Apache Derby	embedded	27	2020-10-05 14:26:06.147924600	2020-10-05 14:26:33.200947400	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
+h2_emb	H2 Database Engine	embedded	5	2020-10-05 14:26:34.056199100	2020-10-05 14:26:39.331873400	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
+h2_emb	H2 Database Engine	embedded	6	2020-10-05 14:26:40.165777200	2020-10-05 14:26:46.306582100	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
+hsqldb_emb	HyperSQL Database	embedded	34	2020-10-05 14:26:47.273214100	2020-10-05 14:27:21.832014900	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
+hsqldb_emb	HyperSQL Database	embedded	35	2020-10-05 14:27:22.749750700	2020-10-05 14:27:58.381096500	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
+sqlite	SQLite	embedded	2	2020-10-05 14:27:59.261309400	2020-10-05 14:28:02.011054800	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
+sqlite	SQLite	embedded	2	2020-10-05 14:28:02.778328700	2020-10-05 14:28:05.453322600	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
