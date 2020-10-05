@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a Apache Derby DBMS. <br>
  * 
  * @author  GenerateSchema.class
- * @version 2.5.2
+ * @version 2.6.0
  */
 public abstract class AbstractGenDerbySchema extends AbstractGenSeeder {
 

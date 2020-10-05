@@ -2,12 +2,12 @@
 
 set -e
 
-exec &> >(tee -i run_db_seeder_complete_client.log)
+exec &> >(tee -i run_db_seeder_complete_client_2.log)
 sleep .1
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder_complete_client.sh: Run all client DBMS variations.
+# run_db_seeder_complete_client_2.sh: Run all client DBMS variations.
 #
 # ------------------------------------------------------------------------------
 
@@ -25,16 +25,16 @@ else
     export DB_SEEDER_NO_CREATE_RUNS=$1
 fi
 
-export DB_SEEDER_DBMS_AGENS=yes
-export DB_SEEDER_DBMS_CRATEDB=yes
-export DB_SEEDER_DBMS_CUBRID=yes
-export DB_SEEDER_DBMS_DERBY=yes
-export DB_SEEDER_DBMS_EXASOL=yes
-export DB_SEEDER_DBMS_FIREBIRD=yes
-export DB_SEEDER_DBMS_H2=yes
-export DB_SEEDER_DBMS_HSQLDB=yes
-export DB_SEEDER_DBMS_IBMDB2=yes
-export DB_SEEDER_DBMS_INFORMIX=yes
+export DB_SEEDER_DBMS_AGENS=no
+export DB_SEEDER_DBMS_CRATEDB=no
+export DB_SEEDER_DBMS_CUBRID=no
+export DB_SEEDER_DBMS_DERBY=no
+export DB_SEEDER_DBMS_EXASOL=no
+export DB_SEEDER_DBMS_FIREBIRD=no
+export DB_SEEDER_DBMS_H2=no
+export DB_SEEDER_DBMS_HSQLDB=no
+export DB_SEEDER_DBMS_IBMDB2=no
+export DB_SEEDER_DBMS_INFORMIX=no
 export DB_SEEDER_DBMS_MARIADB=yes
 export DB_SEEDER_DBMS_MIMER=yes
 export DB_SEEDER_DBMS_MONETDB=yes
@@ -51,10 +51,10 @@ export DB_SEEDER_DBMS_YUGABYTE=yes
 # ------------------------------------------------------------------------------
 
 if [ "${TRAVIS}" = "true" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}.tsv
+    export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}_2.tsv
 else
     if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
-            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_client_unknown_${DB_SEEDER_RELEASE}.tsv
+            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_client_unknown_${DB_SEEDER_RELEASE}_2.tsv
     fi
 fi
 

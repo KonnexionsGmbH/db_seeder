@@ -11,7 +11,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Test Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  GenerateSchema.class
- * @version 2.5.2
+ * @version 2.6.0
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 

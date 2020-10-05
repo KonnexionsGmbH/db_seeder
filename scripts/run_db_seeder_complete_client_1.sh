@@ -2,12 +2,12 @@
 
 set -e
 
-exec &> >(tee -i run_db_seeder_complete_client.log)
+exec &> >(tee -i run_db_seeder_complete_client_1.log)
 sleep .1
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder_complete_client.sh: Run all client DBMS variations.
+# run_db_seeder_complete_client_1.sh: Run all client DBMS variations.
 #
 # ------------------------------------------------------------------------------
 
@@ -35,26 +35,26 @@ export DB_SEEDER_DBMS_H2=yes
 export DB_SEEDER_DBMS_HSQLDB=yes
 export DB_SEEDER_DBMS_IBMDB2=yes
 export DB_SEEDER_DBMS_INFORMIX=yes
-export DB_SEEDER_DBMS_MARIADB=yes
-export DB_SEEDER_DBMS_MIMER=yes
-export DB_SEEDER_DBMS_MONETDB=yes
-export DB_SEEDER_DBMS_MYSQL=yes
-export DB_SEEDER_DBMS_ORACLE=yes
-export DB_SEEDER_DBMS_PERCONA=yes
-export DB_SEEDER_DBMS_POSTGRESQL=yes
-export DB_SEEDER_DBMS_SQLSERVER=yes
-export DB_SEEDER_DBMS_VOLTDB=yes
-export DB_SEEDER_DBMS_YUGABYTE=yes
+export DB_SEEDER_DBMS_MARIADB=no
+export DB_SEEDER_DBMS_MIMER=no
+export DB_SEEDER_DBMS_MONETDB=no
+export DB_SEEDER_DBMS_MYSQL=no
+export DB_SEEDER_DBMS_ORACLE=no
+export DB_SEEDER_DBMS_PERCONA=no
+export DB_SEEDER_DBMS_POSTGRESQL=no
+export DB_SEEDER_DBMS_SQLSERVER=no
+export DB_SEEDER_DBMS_VOLTDB=no
+export DB_SEEDER_DBMS_YUGABYTE=no
 
 # ------------------------------------------------------------------------------
 # Initialise Statistics.
 # ------------------------------------------------------------------------------
 
 if [ "${TRAVIS}" = "true" ]; then
-    export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}.tsv
+    export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME}_${DB_SEEDER_RELEASE}_1.tsv
 else
     if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
-            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_client_unknown_${DB_SEEDER_RELEASE}.tsv
+            export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_client_unknown_${DB_SEEDER_RELEASE}_1.tsv
     fi
 fi
 

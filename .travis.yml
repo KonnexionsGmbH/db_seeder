@@ -2,10 +2,14 @@ dist: focal
 
 env:
   matrix:
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
-  - DB_SEEDER_DBMS=complete_emb    DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_company
-# - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_presto_company
+# - DB_SEEDER_DBMS=complete_client   DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+  - DB_SEEDER_DBMS=complete_client_1 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+  - DB_SEEDER_DBMS=complete_client_2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+# - DB_SEEDER_DBMS=complete_client   DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_client_1 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_client_2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_emb      DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_company
+# - DB_SEEDER_DBMS=complete_presto   DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_presto_company
   - DB_SEEDER_DBMS=agens
   - DB_SEEDER_DBMS=cratedb
   - DB_SEEDER_DBMS=cubrid
