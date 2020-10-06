@@ -1,9 +1,0 @@
-ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
-agens	AgensGraph	client	9	2020-10-05 14:29:37.427193800	2020-10-05 14:29:46.980001900	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
-agens	AgensGraph	client	9	2020-10-05 14:29:47.717169800	2020-10-05 14:29:56.818309600	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
-cratedb	CrateDB	client	12	2020-10-05 14:31:25.586442800	2020-10-05 14:31:38.258270200	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
-cratedb	CrateDB	client	8	2020-10-05 14:31:39.067337900	2020-10-05 14:31:47.503408000	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
-cubrid	CUBRID	client	18	2020-10-05 14:32:41.765039200	2020-10-05 14:32:59.787127000	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
-cubrid	CUBRID	client	18	2020-10-05 14:33:00.651162200	2020-10-05 14:33:18.901706300	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
-derby	Apache Derby	client	29	2020-10-05 14:34:42.659963800	2020-10-05 14:35:12.490457300	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard
-derby	Apache Derby	client	27	2020-10-05 14:35:13.211481000	2020-10-05 14:35:40.289619200	ee7d2e0df56f	8	amd64 / Linux / 4.19.128-microsoft-standard

@@ -1,5 +1,0 @@
-ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
-derby_emb	Apache Derby	embedded	23	2020-10-05 06:04:05.328635200	2020-10-05 06:04:28.566212700	jfww-windows	8	amd64 / Windows 10 / 10.0
-h2_emb	H2 Database Engine	embedded	3	2020-10-05 06:04:29.229767400	2020-10-05 06:04:32.707911100	jfww-windows	8	amd64 / Windows 10 / 10.0
-hsqldb_emb	HyperSQL Database	embedded	267	2020-10-05 06:04:33.424940900	2020-10-05 06:09:01.364738200	jfww-windows	8	amd64 / Windows 10 / 10.0
-sqlite	SQLite	embedded	7	2020-10-05 06:09:02.069783900	2020-10-05 06:09:09.658688900	jfww-windows	8	amd64 / Windows 10 / 10.0

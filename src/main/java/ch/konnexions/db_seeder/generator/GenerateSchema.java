@@ -76,7 +76,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   private HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
 
   /**
-   * Instantiates a new GenerateSchema object.
+   * Instantiates a new CreateSummaryFile object.
    */
   public GenerateSchema() {
     super();
@@ -426,15 +426,15 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       logger.debug("Start");
     }
 
-    String            columnConstraint;
+//    String            columnConstraint;
     String            columnNameUpper;
     String            columnNameLastUpper = "";
     ArrayList<Column> columns;
 
-    String            dataType;
+//    String            dataType;
     String            dbmsName            = getDbmsName(tickerSymbolLower);
 
-    ArrayList<String> editedColumnConstraints;
+//    ArrayList<String> editedColumnConstraints;
     String            editedColumnName;
     String            editedDataType;
     String            editedReferenceColumn;
@@ -463,7 +463,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append(" * ");
       bw.newLine();
-      bw.append(" * @author  GenerateSchema.class");
+      bw.append(" * @author  CreateSummaryFile.class");
       bw.newLine();
       bw.append(" * @version ").append(release);
       bw.newLine();
@@ -873,7 +873,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append(" * <br>");
       bw.newLine();
-      bw.append(" * @author  GenerateSchema.class");
+      bw.append(" * @author  CreateSummaryFile.class");
       bw.newLine();
       bw.append(" * @version ").append(release);
       bw.newLine();
@@ -1114,7 +1114,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append(" * <br>");
       bw.newLine();
-      bw.append(" * @author  GenerateSchema.class");
+      bw.append(" * @author  CreateSummaryFile.class");
       bw.newLine();
       bw.append(" * @version ").append(release);
       bw.newLine();

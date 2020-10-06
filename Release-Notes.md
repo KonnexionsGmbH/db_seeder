@@ -7,7 +7,7 @@
 
 ## Version 2.6.0
 
-Release Date: dd.10.2020
+Release Date: 06.10.2020
 
 #### System Requirements
 
@@ -44,7 +44,7 @@ Release Date: dd.10.2020
 
 #### New Features
 
-n/a
+- new scripts for creating a summary file from the benchmark data
 
 #### Modified Features
 

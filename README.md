@@ -434,7 +434,20 @@ An overview of the structure of the scripts used can be taken from the following
 
 ![](.README_images/script_structure.png)
 
-#### 4.1.3 Travis CI
+#### 4.1.3 Script `scripts/run_db_seeder_statistics`
+
+This script aggregates the existing statistics files into a single overall file. 
+The file name of this overall file is defined with parameter `db_seeder.file.statistics.summary.name` and the existing statistics files are searched in the file directories according to parameter `db_seeder.file.statistics.summary.source`.
+The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statistics.delimiter`.
+
+**Example content:**
+
+    ticker symbol	DBMS	version	creator	db type	schema	runtime in seconds	start time	end time	host name	no. cores	operating system	file_name
+    agens	AgensGraph	v2.6.0	bash	client	unknown	14	2020-10-05 16:09:36.618076382	2020-10-05 16:09:51.570013623	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
+    cratedb	CrateDB	v2.6.0	bash	client	unknown	24	2020-10-05 16:11:40.160409347	2020-10-05 16:12:04.695790414	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
+    cubrid	CUBRID	v2.6.0	bash	client	unknown	50	2020-10-05 16:13:22.287362093	2020-10-05 16:14:12.339067275	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
+
+#### 4.1.4 Travis CI
 
 For each `db_seeder` release statistics file are created by default in the file directory `resources\statistics` with the following file name structure:
 
@@ -466,6 +479,8 @@ db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;db type;runtime in seconds;start time;end time;host name;no. cores;operating system
 db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
+db_seeder.file.statistics.summary.name=resources/statistics/db_seeder_summary.tsv
+db_seeder.file.statistics.summary.source=resources/statistics;Transfer
 
 db_seeder.password.sys=
 db_seeder.password=
@@ -494,6 +509,8 @@ db_seeder.user=
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
+| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all DBMS                                                                                                             | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all DBMS                                                                                                             | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver    | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte                                   | schema name |

@@ -16,7 +16,7 @@ export DB_SEEDER_RELEASE=2.6.0
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 if [ -z "${HOME_ECLIPSE}" ]; then
-    export HOME_ECLIPSE=/eclipse
+    export HOME_ECLIPSE=/snap/bin
 fi
 
 echo "================================================================================"
