@@ -119,6 +119,10 @@ if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
     fi    
 fi
 
+if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
+    rm -rf $DB_SEEDER_DATABASE 2>/dev/null
+fi
+
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"

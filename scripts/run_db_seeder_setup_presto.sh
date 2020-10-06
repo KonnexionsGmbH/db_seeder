@@ -38,8 +38,6 @@ docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
 echo "............................................................. after:"
 docker ps -a
 
-docker network prune --force
-
 echo "--------------------------------------------------------------------------------"
 echo "Start Presto Distributed Query Engine - creating and starting the container"
 echo "--------------------------------------------------------------------------------"

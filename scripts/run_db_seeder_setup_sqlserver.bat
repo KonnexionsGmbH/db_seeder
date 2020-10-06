@@ -48,7 +48,7 @@ echo Docker create db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%)
 docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
 docker create -e        "ACCEPT_EULA=Y" ^
               -e        "SA_PASSWORD=sqlserver_2019" ^
-              --name db_seeder_db ^
+              --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               mcr.microsoft.com/mssql/server:%DB_SEEDER_VERSION%
