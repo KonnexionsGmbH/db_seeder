@@ -56,6 +56,9 @@ docker start db_seeder_db
 
 ping -n 60 127.0.0.1>nul
 
+docker network ls
+docker network inspect db_seeder_net
+
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER MySQL Database was ready in %CONSUMED%
 

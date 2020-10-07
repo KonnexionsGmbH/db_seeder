@@ -65,6 +65,9 @@ if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (
     goto :check_health_status
 )
 
+docker network ls
+docker network inspect db_seeder_net
+
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER Oracle Database was ready in %CONSUMED%
 

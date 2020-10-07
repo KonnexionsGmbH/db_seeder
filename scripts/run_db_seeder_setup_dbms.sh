@@ -445,6 +445,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
 
     sleep 60
 
+    docker network ls
+    docker network inspect db_seeder_net
+
     end=$(date +%s)
 fi
 
@@ -475,6 +478,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
     if [ $? -ne 0 ]; then
         exit 255
     fi
+
+    docker network ls
+    docker network inspect db_seeder_net
 
     end=$(date +%s)
     echo "DOCKER Oracle Database was ready in $((end - start)) seconds"
@@ -533,6 +539,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
 
     sleep 30
 
+    docker network ls
+    docker network inspect db_seeder_net
+
     end=$(date +%s)
     echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"
 fi
@@ -561,6 +570,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
     fi
 
     sleep 30
+
+    docker network ls
+    docker network inspect db_seeder_net
 
     end=$(date +%s)
     echo "DOCKER Microsoft SQL Server was ready in $((end - start)) seconds"

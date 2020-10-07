@@ -56,6 +56,9 @@ docker start db_seeder_presto
 
 sleep 30
 
+docker network ls
+docker network inspect db_seeder_net
+
 end=$(date +%s)
 echo "Docker Presto Distributed Query Engine was ready in in $((end - start)) seconds"
 
