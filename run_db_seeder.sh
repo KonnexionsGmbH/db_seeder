@@ -9,10 +9,6 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
-    export DB_SEEDER_CONNECTION_HOST=localhost
-fi
-
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
@@ -464,7 +460,12 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.3.2.0-b37
 fi
 
+if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
+    export DB_SEEDER_CONNECTION_HOST=localhost
+fi
+
 if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
+    export DB_SEEDER_CONNECTION_HOST_PRESTO=${DB_SEEDER_CONNECTION_HOST}
     export DB_SEEDER_CONNECTION_PORT_PRESTO=8080
 fi
 
@@ -489,7 +490,6 @@ echo "FILE_JSON_NAME                    : ${DB_SEEDER_FILE_JSON_NAME}"
 echo "FILE_STATISTICS_DELIMITER         : ${DB_SEEDER_FILE_STATISTICS_DELIMITER}"
 echo "FILE_STATISTICS_HEADER            : ${DB_SEEDER_FILE_STATISTICS_HEADER}"
 echo "FILE_STATISTICS_NAME              : ${DB_SEEDER_FILE_STATISTICS_NAME}"
-echo "GLOBAL_CONNECTION_HOST            : ${DB_SEEDER_GLOBAL_CONNECTION_HOST}"
 echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"

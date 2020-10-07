@@ -1,11 +1,10 @@
 package ch.konnexions.db_seeder.jdbc.sqlserver;
 
-import java.sql.SQLException;
-
-import org.apache.log4j.Logger;
-
 import ch.konnexions.db_seeder.generated.AbstractGenSqlserverSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
 
 /**
  * Test Data Generator for a Microsoft SQL Server DBMS.
@@ -84,7 +83,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
       urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
                                                   config.getConnectionHostPresto(),
                                                   config.getConnectionPortPresto(),
-                                                  "dbo");
+                                                  "kxn_schema");
     }
 
     urlSys  = getUrl(config.getConnectionHost(),
