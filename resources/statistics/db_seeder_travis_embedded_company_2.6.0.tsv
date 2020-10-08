@@ -1,8 +1,8 @@
 ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
-derby_emb	Apache Derby	embedded	16	2020-10-07 14:53:17.968872478	2020-10-07 14:53:33.981709565	travis-job-baaf4f8b-8564-4279-a600-4135760cb3fd	2	amd64 / Linux / 5.4.0-1024-gcp
-h2_emb	H2 Database Engine	embedded	4	2020-10-07 14:53:34.659719623	2020-10-07 14:53:38.726814863	travis-job-baaf4f8b-8564-4279-a600-4135760cb3fd	2	amd64 / Linux / 5.4.0-1024-gcp
-h2_emb	H2 Database Engine	embedded	4	2020-10-07 14:53:39.236531625	2020-10-07 14:53:44.063051749	travis-job-baaf4f8b-8564-4279-a600-4135760cb3fd	2	amd64 / Linux / 5.4.0-1024-gcp
-hsqldb_emb	HyperSQL Database	embedded	16	2020-10-07 14:53:44.802647895	2020-10-07 14:54:01.069153625	travis-job-baaf4f8b-8564-4279-a600-4135760cb3fd	2	amd64 / Linux / 5.4.0-1024-gcp
-hsqldb_emb	HyperSQL Database	embedded	17	2020-10-07 14:54:01.628036040	2020-10-07 14:54:19.158740077	travis-job-baaf4f8b-8564-4279-a600-4135760cb3fd	2	amd64 / Linux / 5.4.0-1024-gcp
-sqlite	SQLite	embedded	2	2020-10-07 14:54:19.782563123	2020-10-07 14:54:21.839284045	travis-job-baaf4f8b-8564-4279-a600-4135760cb3fd	2	amd64 / Linux / 5.4.0-1024-gcp
-sqlite	SQLite	embedded	2	2020-10-07 14:54:22.356013939	2020-10-07 14:54:24.512987096	travis-job-baaf4f8b-8564-4279-a600-4135760cb3fd	2	amd64 / Linux / 5.4.0-1024-gcp
+derby_emb	Apache Derby	embedded	13	2020-10-08 06:41:39.866914148	2020-10-08 06:41:53.595633121	travis-job-832c432f-d27e-495c-8857-a2db0f6252cc	2	amd64 / Linux / 5.4.0-1024-gcp
+h2_emb	H2 Database Engine	embedded	3	2020-10-08 06:41:54.239872483	2020-10-08 06:41:58.208714561	travis-job-832c432f-d27e-495c-8857-a2db0f6252cc	2	amd64 / Linux / 5.4.0-1024-gcp
+h2_emb	H2 Database Engine	embedded	4	2020-10-08 06:41:58.706965736	2020-10-08 06:42:03.652010671	travis-job-832c432f-d27e-495c-8857-a2db0f6252cc	2	amd64 / Linux / 5.4.0-1024-gcp
+hsqldb_emb	HyperSQL Database	embedded	14	2020-10-08 06:42:04.269713163	2020-10-08 06:42:18.541763371	travis-job-832c432f-d27e-495c-8857-a2db0f6252cc	2	amd64 / Linux / 5.4.0-1024-gcp
+hsqldb_emb	HyperSQL Database	embedded	15	2020-10-08 06:42:19.060341913	2020-10-08 06:42:34.453361621	travis-job-832c432f-d27e-495c-8857-a2db0f6252cc	2	amd64 / Linux / 5.4.0-1024-gcp
+sqlite	SQLite	embedded	2	2020-10-08 06:42:35.092063663	2020-10-08 06:42:37.097762629	travis-job-832c432f-d27e-495c-8857-a2db0f6252cc	2	amd64 / Linux / 5.4.0-1024-gcp
+sqlite	SQLite	embedded	1	2020-10-08 06:42:37.584153127	2020-10-08 06:42:39.567438538	travis-job-832c432f-d27e-495c-8857-a2db0f6252cc	2	amd64 / Linux / 5.4.0-1024-gcp
