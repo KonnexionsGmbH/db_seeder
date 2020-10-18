@@ -63,6 +63,7 @@ public final class PrestoEnvironment {
       entries.add("connection-password=" + password);
     }
 
+    // issue #4764
     if ("oracle".equals(tickerSymbolLower)) {
       entries.add("oracle.number.default-scale=10");
     }

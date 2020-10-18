@@ -45,7 +45,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%)
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net 2>null || echo Docker network db_seeder_net already existing
 docker create -e        "ACCEPT_EULA=Y" ^
               -e        "SA_PASSWORD=sqlserver_2019" ^
               --name    db_seeder_db ^

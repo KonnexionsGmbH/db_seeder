@@ -44,7 +44,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION%)
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net 2>null || echo Docker network db_seeder_net already existing
 docker create -e        POSTGRES_DB=kxn_db_sys ^
               -e        POSTGRES_PASSWORD=postgresql ^
               -e        POSTGRES_USER=kxn_user_sys ^

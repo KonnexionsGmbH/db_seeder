@@ -44,7 +44,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (CUBRID %DB_SEEDER_VERSION%)
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net 2>null || echo Docker network db_seeder_net already existing
 docker create -e        CUBRID_DB=%DB_SEEDER_DATABASE% ^
               --name    db_seeder_db ^
               --network db_seeder_net ^

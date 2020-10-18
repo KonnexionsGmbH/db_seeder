@@ -44,6 +44,12 @@ jar {
     }
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(15)
+    }
+}
+
 task fatJar(type: Jar) {
     group = "Konnexions"
     description = 'Create a jar file including all dependencies'

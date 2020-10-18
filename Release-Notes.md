@@ -36,7 +36,6 @@ Release Date: 06.10.2020
 - Presto Distributed Query Engine
 
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
-  - SQL Server Connector: Failed to insert NULL for varbinary in SQL Server (see [here](https://github.com/prestosql/presto/issues/4795)).
 
 - YugabyteDB
 
