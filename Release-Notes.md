@@ -48,7 +48,17 @@ Release Date: 06.10.2020
 
 #### Modified Features
 
-n/a
+- CrateDB: DBMS 4.2.6
+
+- Exasol: DBMS 7.0.3
+- Exasol: JDBC 7.0.0
+
+- MariaDB Server: DBMS 10.5.6
+
+- PostgreSQL: JDBC 42.2.18
+
+- Presto: DBMS 344
+- Presto: JDBC 344
 
 #### Deleted Features
 
