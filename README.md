@@ -546,8 +546,8 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Percona Server for MySQL](#details_percona)** / 
 **[PostgreSQL Database](#details_postgresql)** / 
 **[Presto distributed Query Engine](#details_presto)** / 
-**[SQLite](#details_sqlite)**
-**[VoltDB](#details_voltdb)**
+**[SQLite](#details_sqlite)** /
+**[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
 
 [//]: # (===========================================================================================)
