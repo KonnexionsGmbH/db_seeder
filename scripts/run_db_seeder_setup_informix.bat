@@ -44,7 +44,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (IBM Informix %DB_SEEDER_VERSION%)
 
-docker network create db_seeder_net 2>null || echo Docker network db_seeder_net already existing
+docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e           DB_INIT=1 ^
               -e           LICENSE=accept ^
               --name       db_seeder_db ^

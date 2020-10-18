@@ -45,7 +45,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (HyperSQL Database %DB_SEEDER_VERSION%)
 
-docker network create db_seeder_net 2>null || echo Docker network db_seeder_net already existing
+docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
