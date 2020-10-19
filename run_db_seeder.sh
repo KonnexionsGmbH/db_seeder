@@ -83,6 +83,16 @@ else
     export DB_SEEDER_NO_CREATE_RUNS=$3
 fi
 
+if [ -z "${DOCKER_USERNAME}" ]; then
+    read -p "Enter the docker username " DOCKER_USERNAME
+    export DOCKER_USERNAME=${DOCKER_USERNAME}
+fi
+
+if [ -z "${DOCKER_PASSWORD}" ]; then
+    read -p "Enter the docker password " DOCKER_PASSWORD
+    export DOCKER_PASSWORD=${$DOCKER_PASSWORD}
+fi
+
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 # ------------------------------------------------------------------------------
@@ -489,6 +499,7 @@ echo "DBMS_DEFAULT                      : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DBMS_EMBEDDED                     : ${DB_SEEDER_DBMS_EMBEDDED}"
 echo "DBMS_PRESTO                       : ${DB_SEEDER_DBMS_PRESTO}"
 echo "DIRECTORY_CATALOG_PROPERTY        : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
+echo "DOCKER_USERNAME                   : ${DOCKER_USERNAME}"
 echo "FILE_CONFIGURATION_NAME           : ${DB_SEEDER_FILE_CONFIGURATION_NAME}"
 echo "FILE_JSON_NAME                    : ${DB_SEEDER_FILE_JSON_NAME}"
 echo "FILE_STATISTICS_DELIMITER         : ${DB_SEEDER_FILE_STATISTICS_DELIMITER}"
@@ -524,7 +535,7 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+docker login -u "${DOCKER_USERNAME}" -p "$DOCKER_PASSWORD"
 
 if [ "${DB_SEEDER_DBMS}" = "complete" ]; then
     if ! ( ./scripts/run_db_seeder_complete.sh ${DB_SEEDER_NO_CREATE_RUNS}); then

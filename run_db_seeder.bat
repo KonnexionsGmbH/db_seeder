@@ -82,6 +82,14 @@ if ["%3"] EQU [""] (
     set DB_SEEDER_NO_CREATE_RUNS=%3
 )
 
+if ["%DOCKER_USERNAME%"] EQU [""] (
+    set /P DOCKER_USERNAME="Enter the docker username "
+)
+
+if ["%$DOCKER_PASSWORD%"] EQU [""] (
+    set /P $DOCKER_PASSWORD="Enter the docker password "
+)
+
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
 rem ------------------------------------------------------------------------------
@@ -493,6 +501,7 @@ echo DBMS_DB                         : %DB_SEEDER_DBMS_DB%
 echo DBMS_DEFAULT                    : %DB_SEEDER_DBMS_DEFAULT%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo DBMS_PRESTO                     : %DB_SEEDER_DBMS_PRESTO%
+echo DOCKER_USERNAME                 : %DOCKER_USERNAME%
 echo DIRECTORY_CATALOG_PROPERTY      : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_JSON_NAME                  : %DB_SEEDER_FILE_JSON_NAME%
@@ -527,6 +536,8 @@ echo VERSION                         : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
+
+docker login -u "%DOCKER_USERNAME%" -p "%DOCKER_PASSWORD%"
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
     call scripts\run_db_seeder_complete %DB_SEEDER_NO_CREATE_RUNS%
