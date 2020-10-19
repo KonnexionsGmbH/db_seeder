@@ -524,7 +524,7 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-"$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
 if [ "${DB_SEEDER_DBMS}" = "complete" ]; then
     if ! ( ./scripts/run_db_seeder_complete.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
