@@ -44,7 +44,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (AgensGraph ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        ${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT} \
@@ -72,7 +72,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "cratedb" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (CrateDB ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create --env     CRATE_HEAP_SIZE=2g \
                   --name    db_seeder_db \
                   --network db_seeder_net \
@@ -100,7 +100,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "cubrid" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (CUBRID ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        CUBRID_DB="${DB_SEEDER_DATABASE}" \
                   --name    db_seeder_db \
                   --network db_seeder_net \
@@ -129,7 +129,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "derby" ]; then
     start=$(date +%s)
     echo "Docker create db_seeder_db (Apache Derby ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
@@ -159,7 +159,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Exasol ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker run --detach \
                --name       db_seeder_db \
                --network    db_seeder_net \
@@ -188,7 +188,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "firebird" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Firebird ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        FIREBIRD_DATABASE="${DB_SEEDER_DATABASE}" \
                   -e        ISC_PASSWORD=firebird \
                   --name    db_seeder_db \
@@ -221,7 +221,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "h2" ]; then
     start=$(date +%s)
     echo "Docker create db_seeder_db (H2 Database Engine ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
@@ -252,7 +252,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "hsqldb" ]; then
     start=$(date +%s)
     echo "Docker create db_seeder_db (HyperSQL Database ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
@@ -282,7 +282,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "ibmdb2" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM Db2 ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e           DBNAME="${DB_SEEDER_DATABASE}" \
                   -e           DB2INST1_PASSWORD=ibmdb2 \
                   -e           LICENSE=accept \
@@ -313,7 +313,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "informix" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM Informix ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e           DB_INIT=1 \
                   -e           LICENSE=accept \
                   --name       db_seeder_db \
@@ -348,7 +348,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mariadb" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MariaDB Server ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        MYSQL_ROOT_PASSWORD=mariadb \
                   --name    db_seeder_db \
                   --network db_seeder_net \
@@ -376,7 +376,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mimer" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Mimer SQL ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        MIMER_SYSADM_PASSWORD=mimer \
                   --name    db_seeder_db \
                   --network db_seeder_net \
@@ -406,7 +406,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "monetdb" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MonetDB ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                    -p       "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
@@ -431,7 +431,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MySQL ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        MYSQL_ROOT_PASSWORD=mysql \
                   --name    db_seeder_db \
                   --network db_seeder_net \
@@ -461,7 +461,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
     start=$(date +%s)
     echo "Docker create db_seeder_db (Oracle ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e         ORACLE_PWD=oracle \
                   --name     db_seeder_db \
                   --network  db_seeder_net \
@@ -496,7 +496,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Percona Server ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        MYSQL_ROOT_PASSWORD=percona \
                   --name    db_seeder_db \
                   --network db_seeder_net \
@@ -523,7 +523,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (PostgreSQL ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        POSTGRES_DB=kxn_db_sys \
                   -e        POSTGRES_PASSWORD=postgresql \
                   -e        POSTGRES_USER=kxn_user_sys \
@@ -556,7 +556,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Microsoft SQL Server ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker create -e        "ACCEPT_EULA=Y" \
                   -e        "SA_PASSWORD=sqlserver_2019" \
                   --name    db_seeder_db \
@@ -588,7 +588,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "voltdb" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (VoltDB ${DB_SEEDER_VERSION})"
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker run -d \
                -e        HOST_COUNT=1 \
                --name    db_seeder_db \
@@ -619,7 +619,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
     mkdir -p $PWD/tmp
     mkdir $PWD/tmp/yb_data
 
-    docker network create db_seeder_net || true
+    docker network create db_seeder_net  2>/dev/null || true
     docker run -d \
                --name    db_seeder_db \
                --network db_seeder_net \

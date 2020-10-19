@@ -44,7 +44,7 @@ echo "--------------------------------------------------------------------------
 start=$(date +%s)
 echo "Docker create presto (Presto Distributed Query Engine)"
 
-docker network create db_seeder_net || true
+docker network create db_seeder_net  2>/dev/null || true
 docker create --name    db_seeder_presto \
               --network db_seeder_net \
               -p        8080:8080/tcp \
