@@ -183,9 +183,9 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.1.jre14         | 
 | Mimer SQL                       | mimer              | v11.0.3C                  | 3.40                | 
 | MonetDB                         | monetdb            | Jun2020-SP1               | 2.29.jre7           | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.22              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
-| Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.21              | 
+| Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.22              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13                 | 42.2.18             |
 | Presto Distributed Query Engine | n/a                | 339 - 344                 | 344                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
@@ -1166,7 +1166,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
 
 - **JDBC driver (latest)**:
-  - version 8.0.21
+  - version 8.0.22
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1244,7 +1244,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://jira.percona.com/projects/PS/issues/PS-7237?filter=allopenissues)
 
 - **JDBC driver (latest)**:
-  - version 8.0.21
+  - version 8.0.22
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:

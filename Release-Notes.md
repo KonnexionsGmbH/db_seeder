@@ -54,6 +54,8 @@ Release Date: 06.10.2020
 
 - MariaDB Server: DBMS 10.5.6
 
+- MySQL Database: JDBC 8.0.22
+
 - PostgreSQL: JDBC 42.2.18
 
 - Presto: DBMS 344
@@ -521,7 +523,7 @@ Release Date: 14.07.2020
 #### Modified Features
 
 - Config.java: reduce number of properties (issue #36)
-- MySQL Database: DBMS & JDBC 8.0.21
+- MySQL Database: DBMS & JDBC 8.0.22
 
 ----------
 
