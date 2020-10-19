@@ -19,6 +19,7 @@ set DB_SEEDER_VERSION_PRESTO=344
 
 if ["%1"] EQU [""] (
     echo =========================================================
+    echo complete           - All implemented DBMSs
     echo complete_client    - All implemented client DBMSs
     echo complete_emb       - All implemented embedded DBMSs
     echo complete_presto    - All implemented Presto enabled DBMSs
@@ -527,8 +528,8 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
-if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
-    call scripts\run_db_seeder_complete_client %DB_SEEDER_NO_CREATE_RUNS%
+if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
+    call scripts\run_db_seeder_complete %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
@@ -536,6 +537,16 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
     
     goto END_OF_SCRIPT
 )    
+
+if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
+    call scripts\run_db_seeder_complete_client %DB_SEEDER_NO_CREATE_RUNS%
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
+    goto END_OF_SCRIPT
+)
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
     call scripts\run_db_seeder_complete_emb %DB_SEEDER_NO_CREATE_RUNS%

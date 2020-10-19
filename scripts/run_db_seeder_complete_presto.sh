@@ -25,10 +25,10 @@ else
     export DB_SEEDER_NO_CREATE_RUNS=$1
 fi
 
-export DB_SEEDER_DBMS_SQLSERVER=yes
+export DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
 export DB_SEEDER_DBMS_MYSQL_PRESTO=yes
 export DB_SEEDER_DBMS_ORACLE_PRESTO=yes
-export DB_SEEDER_DBMS_POSTGRESQL=yes
+export DB_SEEDER_DBMS_POSTGRESQL_PRESTO=yes
 
 # ------------------------------------------------------------------------------
 # Initialise Statistics.
@@ -56,8 +56,8 @@ echo "TRAVIS                          : ${TRAVIS}"
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_MYSQL_PRESTO               : $DB_SEEDER_DBMS_MYSQL_PRESTO"
 echo "DBMS_ORACLE_PRESTO              : $DB_SEEDER_DBMS_ORACLE_PRESTO"
-echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
-echo "DBMS_SQLSERVER                  : $DB_SEEDER_DBMS_SQLSERVER"
+echo "DBMS_POSTGRESQL_PRESTO          : $DB_SEEDER_DBMS_POSTGRESQL_PRESTO"
+echo "DBMS_SQLSERVER_PRESTO           : $DB_SEEDER_DBMS_SQLSERVER_PRESTO"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
@@ -100,8 +100,8 @@ fi
 # PostgreSQL Database.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh postgresql yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "$DB_SEEDER_DBMS_POSTGRESQL_PRESTO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh postgresql_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi    
 fi
@@ -110,8 +110,8 @@ fi
 # Microsoft SQL Server.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlserver yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "$DB_SEEDER_DBMS_SQLSERVER_PRESTO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlserver_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi    
 fi

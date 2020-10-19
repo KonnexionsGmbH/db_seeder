@@ -17,6 +17,7 @@ export DB_SEEDER_VERSION_PRESTO=344
 
 if [ -z "$1" ]; then
     echo "========================================================="
+    echo "complete           - All implemented DBMSs"
     echo "complete_client    - All implemented client DBMSs"
     echo "complete_emb       - All implemented embedded DBMSs"
     echo "complete_presto    - All implemented Presto enabled DBMSs"
@@ -523,7 +524,11 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-if [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
+if [ "${DB_SEEDER_DBMS}" = "complete" ]; then
+    if ! ( ./scripts/run_db_seeder_complete.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+        exit 255
+    fi
+elif [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
     if ! ( ./scripts/run_db_seeder_complete_client.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
         exit 255
     fi    

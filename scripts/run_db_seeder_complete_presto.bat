@@ -50,14 +50,13 @@ echo.
     echo DB Seeder - Run all DBMS variations.
     echo --------------------------------------------------------------------------------
     echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
+    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
     echo --------------------------------------------------------------------------------
     echo DBMS_MYSQL_PRESTO               : %DB_SEEDER_DBMS_MYSQL_PRESTO%
     echo DBMS_ORACLE_PRESTO              : %DB_SEEDER_DBMS_ORACLE_PRESTO%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
     echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
-    echo --------------------------------------------------------------------------------
-    echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
