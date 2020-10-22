@@ -47,13 +47,16 @@ Release Date: 06.10.2020
 
 #### Modified Features
 
-- CrateDB: DBMS 4.2.6
+- CrateDB: DBMS 4.2.7
 
 - Exasol: DBMS 7.0.3
 - Exasol: JDBC 7.0.0
 
+- Firebird: DBMS 3.0.7
+
 - MariaDB Server: DBMS 10.5.6
 
+- MySQL Database: DBMS 8.0.22
 - MySQL Database: JDBC 8.0.22
 
 - PostgreSQL: JDBC 42.2.18

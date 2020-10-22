@@ -135,6 +135,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.2.3
     export DB_SEEDER_VERSION=4.2.4
     export DB_SEEDER_VERSION=4.2.6
+    export DB_SEEDER_VERSION=4.2.7
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -193,7 +194,8 @@ if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=SYSDBA
     export DB_SEEDER_VERSION=3.0.5
-    export DB_SEEDER_VERSION=3.0.6
+    export DB_SEEDER_VERSION=3.0.7
+    export DB_SEEDER_VERSION=latest
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
@@ -320,6 +322,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_USER_SYS=root
     export DB_SEEDER_VERSION=8.0.20
     export DB_SEEDER_VERSION=8.0.21
+    export DB_SEEDER_VERSION=8.0.22
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ]; then
@@ -336,6 +339,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ]; then
     export DB_SEEDER_USER_SYS=root
     export DB_SEEDER_VERSION=8.0.20
     export DB_SEEDER_VERSION=8.0.21
+    export DB_SEEDER_VERSION=8.0.22
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then

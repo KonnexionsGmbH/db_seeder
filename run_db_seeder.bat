@@ -134,6 +134,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.2.3
     set DB_SEEDER_VERSION=4.2.4
     set DB_SEEDER_VERSION=4.2.6
+    set DB_SEEDER_VERSION=4.2.7
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -192,7 +193,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SYSDBA
     set DB_SEEDER_VERSION=3.0.5
-    set DB_SEEDER_VERSION=3.0.6
+    set DB_SEEDER_VERSION=3.0.7
+    set DB_SEEDER_VERSION=latest
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
@@ -321,6 +323,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
+    set DB_SEEDER_VERSION=8.0.22
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
@@ -337,6 +340,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
+    set DB_SEEDER_VERSION=8.0.22
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (

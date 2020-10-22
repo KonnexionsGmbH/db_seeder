@@ -172,9 +172,9 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | AgensGraph                      | agens              | v2.1.1                    | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                      | 10.2.2.8874         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.2.6             | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.2.7             | 2.6.0               |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.3          | 7.0.0               |
-| Firebird                        | firebird           | 3.0.5 - 3.0.6             | 4.0.1.java11        | 
+| Firebird                        | firebird           | 3.0.5 - 3.0.7             | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
@@ -183,7 +183,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.1.jre14         | 
 | Mimer SQL                       | mimer              | v11.0.3C                  | 3.40                | 
 | MonetDB                         | monetdb            | Jun2020-SP1               | 2.29.jre7           | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.22              | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.22           | 8.0.22              | 
 | Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.22              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13                 | 42.2.18             |
@@ -650,7 +650,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.2.6`
+  - pull command: `docker pull crate:4.2.7`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -773,7 +773,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:3.0.6`
+  - pull command: `docker pull jacobalberty/firebird:3.0.7`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
@@ -1158,7 +1158,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.21`
+  - pull command: `docker pull mysql:8.0.22`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
