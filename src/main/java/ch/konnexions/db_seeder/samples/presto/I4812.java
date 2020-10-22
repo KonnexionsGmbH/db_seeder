@@ -1,11 +1,11 @@
 package ch.konnexions.db_seeder.samples.presto;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-
-import org.apache.log4j.Logger;
 
 /**
  * Demonstration program for Issue 4812.
@@ -42,7 +42,7 @@ public class I4812 {
     connection.close();
 
     Class.forName("io.prestosql.jdbc.PrestoDriver");
-    url        = "jdbc:presto://localhost:8080/i4812";
+    url        = "jdbc:presto://localhost:8080/I4812";
     connection = DriverManager.getConnection(url,
                                              "test",
                                              null);

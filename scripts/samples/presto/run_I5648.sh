@@ -4,19 +4,23 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_i4812.sh: Demonstration Issue 4812 (https://github.com/prestosql/presto/issues/4812).
+# run_I5648.sh: Demonstration Issue 5648 (https://github.com/prestosql/presto/issues/5648).
 #
 # ------------------------------------------------------------------------------
 
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - Demonstration Issue 4812."
+echo "DB Seeder - Demonstration Issue 5648."
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"
 
-java -cp %CLASSPATH%:lib/* ch.konnexions.db_seeder.samples.presto.I4812
+gradle copyJarToLib
+
+rm -f db_seeder.log
+
+java -cp %CLASSPATH%:lib/* ch.konnexions.db_seeder.samples.presto.I5648
 
 echo "--------------------------------------------------------------------------------"
 echo:| TIME

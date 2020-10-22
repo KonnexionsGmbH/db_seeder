@@ -86,8 +86,8 @@ if ["%DOCKER_USERNAME%"] EQU [""] (
     set /P DOCKER_USERNAME="Enter the docker username "
 )
 
-if ["%$DOCKER_PASSWORD%"] EQU [""] (
-    set /P $DOCKER_PASSWORD="Enter the docker password "
+if ["%DOCKER_PASSWORD%"] EQU [""] (
+    set /P DOCKER_PASSWORD="Enter the docker password "
 )
 
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*

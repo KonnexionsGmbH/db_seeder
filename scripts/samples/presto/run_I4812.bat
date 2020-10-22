@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_i4812.bat: Demonstration Issue 4812 (https://github.com/prestosql/presto/issues/4812).
+rem run_I4812.bat: Demonstration Issue 4812 (https://github.com/prestosql/presto/issues/4812).
 rem
 rem ------------------------------------------------------------------------------
 
