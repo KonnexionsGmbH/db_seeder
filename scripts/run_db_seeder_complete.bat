@@ -45,12 +45,13 @@ set DB_SEEDER_DBMS_ORACLE=yes
 set DB_SEEDER_DBMS_ORACLE_PRESTO=yes
 set DB_SEEDER_DBMS_PERCONA=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
-set DB_SEEDER_DBMS_POSTGRESQL=yes
+set DB_SEEDER_DBMS_POSTGRESQL_PRESTO=yes
 set DB_SEEDER_DBMS_SQLITE=yes
 set DB_SEEDER_DBMS_SQLSERVER=yes
-set DB_SEEDER_DBMS_SQLSERVER=yes
+set DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
 set DB_SEEDER_DBMS_VOLTDB=yes
-set DB_SEEDER_DBMS_YUGABYTE=yes
+rem wwe
+set DB_SEEDER_DBMS_YUGABYTE=no
 
 echo.
 echo Script %0 is now running
@@ -99,10 +100,10 @@ echo.
     echo DBMS_ORACLE_PRESTO              : %DB_SEEDER_DBMS_ORACLE_PRESTO%
     echo DBMS_PERCONA                    : %DB_SEEDER_DBMS_PERCONA%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
-    echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
+    echo DBMS_POSTGRESQL_PRESTO          : %DB_SEEDER_DBMS_POSTGRESQL_PRESTO%
     echo DBMS_SQLITE                     : %DB_SEEDER_DBMS_SQLITE%
     echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
-    echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
+    echo DBMS_SQLSERVER_PRESTO           : %DB_SEEDER_DBMS_SQLSERVER_PRESTO%
     echo DBMS_VOLTDB                     : %DB_SEEDER_DBMS_VOLTDB%
     echo DBMS_YUGABYTE                   : %DB_SEEDER_DBMS_YUGABYTE%
     echo --------------------------------------------------------------------------------
@@ -395,8 +396,8 @@ echo.
     rem PostgreSQL Database.
     rem ------------------------------------------------------------------------------
 
-    if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
-        call run_db_seeder.bat postgresql yes %DB_SEEDER_NO_CREATE_RUNS%
+    if ["%DB_SEEDER_DBMS_POSTGRESQL_PRESTO%"] EQU ["yes"] (
+        call run_db_seeder.bat postgresql_presto yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -431,8 +432,8 @@ echo.
     rem Microsoft SQL Server.
     rem ------------------------------------------------------------------------------
 
-    if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
-        call run_db_seeder.bat sqlserver yes %DB_SEEDER_NO_CREATE_RUNS%
+    if ["%DB_SEEDER_DBMS_SQLSERVER_PRESTO%"] EQU ["yes"] (
+        call run_db_seeder.bat sqlserver_presto yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

@@ -9,10 +9,11 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
+export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
-export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.6.0
+export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_VERSION_PRESTO=344
 
 if [ -z "$1" ]; then
@@ -136,6 +137,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.2.4
     export DB_SEEDER_VERSION=4.2.6
     export DB_SEEDER_VERSION=4.2.7
+    export DB_SEEDER_VERSION=4.3.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -150,7 +152,7 @@ if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "derby" ]; then
-    export DB_SEEDER_CONNECTION_PORT=1527
+    export DB_SEEDER_CONNECTION_PORT=$DB_SEEDER_CONNECTION_PORT_DEFAULT
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_CONTAINER_PORT=1527
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
@@ -195,7 +197,6 @@ if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
     export DB_SEEDER_USER_SYS=SYSDBA
     export DB_SEEDER_VERSION=3.0.5
     export DB_SEEDER_VERSION=3.0.7
-    export DB_SEEDER_VERSION=latest
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2" ]; then

@@ -172,7 +172,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | AgensGraph                      | agens              | v2.1.1                    | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                      | 10.2.2.8874         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.2.7             | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.3.0             | 2.6.0               |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.3          | 7.0.0               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7             | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
@@ -650,7 +650,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.2.7`
+  - pull command: `docker pull crate:4.3.0`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding

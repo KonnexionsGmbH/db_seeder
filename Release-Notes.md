@@ -35,6 +35,7 @@ Release Date: 06.10.2020
 
 - Presto Distributed Query Engine
 
+  - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/prestosql/presto/issues/5684)).
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
 
 - YugabyteDB
@@ -47,7 +48,7 @@ Release Date: 06.10.2020
 
 #### Modified Features
 
-- CrateDB: DBMS 4.2.7
+- CrateDB: DBMS 4.3.0
 
 - Exasol: DBMS 7.0.3
 - Exasol: JDBC 7.0.0

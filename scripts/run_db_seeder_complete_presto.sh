@@ -25,10 +25,10 @@ else
     export DB_SEEDER_NO_CREATE_RUNS=$1
 fi
 
-export DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
 export DB_SEEDER_DBMS_MYSQL_PRESTO=yes
 export DB_SEEDER_DBMS_ORACLE_PRESTO=yes
 export DB_SEEDER_DBMS_POSTGRESQL_PRESTO=yes
+export DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
 
 # ------------------------------------------------------------------------------
 # Initialise Statistics.

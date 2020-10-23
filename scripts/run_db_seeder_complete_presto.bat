@@ -23,10 +23,10 @@ if ["%1"] EQU [""] (
     set DB_SEEDER_NO_CREATE_RUNS=%1
 )
 
-set DB_SEEDER_DBMS_SQLSERVER=yes
 set DB_SEEDER_DBMS_MYSQL_PRESTO=yes
 set DB_SEEDER_DBMS_ORACLE_PRESTO=yes
-set DB_SEEDER_DBMS_POSTGRESQL=yes
+set DB_SEEDER_DBMS_POSTGRESQL_PRESTO=yes
+set DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
 
 echo.
 echo Script %0 is now running
@@ -55,8 +55,8 @@ echo.
     echo --------------------------------------------------------------------------------
     echo DBMS_MYSQL_PRESTO               : %DB_SEEDER_DBMS_MYSQL_PRESTO%
     echo DBMS_ORACLE_PRESTO              : %DB_SEEDER_DBMS_ORACLE_PRESTO%
-    echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
-    echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
+    echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL_PRESTO%
+    echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER_PRESTO%
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
@@ -107,7 +107,7 @@ echo.
     rem PostgreSQL Database.
     rem ------------------------------------------------------------------------------
     
-    if ["%DB_SEEDER_DBMS_POSTGRESQL%"] EQU ["yes"] (
+    if ["%DB_SEEDER_DBMS_POSTGRESQL_PRESTO%"] EQU ["yes"] (
         call run_db_seeder.bat postgresql yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
@@ -119,7 +119,7 @@ echo.
     rem Microsoft SQL Server.
     rem ------------------------------------------------------------------------------
     
-    if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
+    if ["%DB_SEEDER_DBMS_SQLSERVER_PRESTO%"] EQU ["yes"] (
         call run_db_seeder.bat sqlserver yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
