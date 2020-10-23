@@ -1,21 +1,21 @@
 ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
-agens	AgensGraph	client	3	2020-10-22 13:27:19.006138282	2020-10-22 13:27:22.984762064	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-agens	AgensGraph	client	3	2020-10-22 13:27:23.495125572	2020-10-22 13:27:27.489113482	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-cratedb	CrateDB	client	9	2020-10-22 13:28:26.522103711	2020-10-22 13:28:36.249735427	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-cratedb	CrateDB	client	5	2020-10-22 13:28:36.834593464	2020-10-22 13:28:42.681853188	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-cubrid	CUBRID	client	4	2020-10-22 13:29:23.852663146	2020-10-22 13:29:28.487718316	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-cubrid	CUBRID	client	5	2020-10-22 13:29:29.058837500	2020-10-22 13:29:34.096085446	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-derby	Apache Derby	client	10	2020-10-22 13:30:58.731944251	2020-10-22 13:31:09.186762686	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-derby	Apache Derby	client	8	2020-10-22 13:31:09.754735553	2020-10-22 13:31:18.401100469	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-exasol	Exasol	client	5	2020-10-22 13:36:34.907001620	2020-10-22 13:36:40.406666843	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-exasol	Exasol	client	5	2020-10-22 13:36:41.228329327	2020-10-22 13:36:46.423886238	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-firebird	Firebird	client	32	2020-10-22 13:38:10.678579832	2020-10-22 13:38:43.521317480	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-firebird	Firebird	client	31	2020-10-22 13:38:44.041664937	2020-10-22 13:39:15.541051763	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-h2	H2 Database Engine	client	5	2020-10-22 13:40:19.694381345	2020-10-22 13:40:25.138910640	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-h2	H2 Database Engine	client	5	2020-10-22 13:40:25.850389916	2020-10-22 13:40:31.624413935	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-hsqldb	HyperSQL Database	client	8	2020-10-22 13:41:37.039190354	2020-10-22 13:41:45.621775251	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-hsqldb	HyperSQL Database	client	7	2020-10-22 13:41:46.125355974	2020-10-22 13:41:53.885036314	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-ibmdb2	IBM Db2 Database	client	11	2020-10-22 13:48:22.590468187	2020-10-22 13:48:34.005872357	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-ibmdb2	IBM Db2 Database	client	9	2020-10-22 13:48:34.685187526	2020-10-22 13:48:44.501751668	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-informix	IBM Informix	client	8	2020-10-22 13:53:03.444431452	2020-10-22 13:53:12.308546808	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
-informix	IBM Informix	client	8	2020-10-22 13:53:12.829474367	2020-10-22 13:53:21.138904813	travis-job-3b734e5c-cbd3-4b2d-ab13-827cccb3bfd3	2	amd64 / Linux / 5.4.0-1024-gcp
+agens	AgensGraph	client	4	2020-10-23 16:12:36.533923105	2020-10-23 16:12:40.610319795	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+agens	AgensGraph	client	4	2020-10-23 16:12:41.145097224	2020-10-23 16:12:45.241556086	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+cratedb	CrateDB	client	9	2020-10-23 16:13:44.817943490	2020-10-23 16:13:54.635777626	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+cratedb	CrateDB	client	5	2020-10-23 16:13:55.183263803	2020-10-23 16:14:01.114409566	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+cubrid	CUBRID	client	5	2020-10-23 16:14:43.014582516	2020-10-23 16:14:48.286028667	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+cubrid	CUBRID	client	4	2020-10-23 16:14:48.839614748	2020-10-23 16:14:53.597465806	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+derby	Apache Derby	client	10	2020-10-23 16:16:19.024306486	2020-10-23 16:16:29.717898627	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+derby	Apache Derby	client	8	2020-10-23 16:16:30.262011476	2020-10-23 16:16:38.614876062	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+exasol	Exasol	client	5	2020-10-23 16:21:55.617285554	2020-10-23 16:22:01.060867676	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+exasol	Exasol	client	5	2020-10-23 16:22:02.041035365	2020-10-23 16:22:07.241618858	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+firebird	Firebird	client	32	2020-10-23 16:23:32.326601180	2020-10-23 16:24:05.096182980	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+firebird	Firebird	client	31	2020-10-23 16:24:05.597512900	2020-10-23 16:24:37.197917544	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+h2	H2 Database Engine	client	5	2020-10-23 16:25:42.048614679	2020-10-23 16:25:47.355161284	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+h2	H2 Database Engine	client	6	2020-10-23 16:25:47.909078298	2020-10-23 16:25:54.205536172	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+hsqldb	HyperSQL Database	client	8	2020-10-23 16:27:00.685702969	2020-10-23 16:27:09.257221868	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+hsqldb	HyperSQL Database	client	7	2020-10-23 16:27:09.785268681	2020-10-23 16:27:17.686704562	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+ibmdb2	IBM Db2 Database	client	9	2020-10-23 16:33:46.593084926	2020-10-23 16:33:56.183373672	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+ibmdb2	IBM Db2 Database	client	8	2020-10-23 16:33:56.864377810	2020-10-23 16:34:05.589311937	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+informix	IBM Informix	client	8	2020-10-23 16:38:24.424767444	2020-10-23 16:38:33.410015587	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
+informix	IBM Informix	client	8	2020-10-23 16:38:33.940208298	2020-10-23 16:38:42.321848507	travis-job-e7136c13-f29e-43df-b085-16433e279ac3	2	amd64 / Linux / 5.4.0-1024-gcp
