@@ -1,0 +1,25 @@
+ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
+agens	AgensGraph	client	11	2020-10-23 16:55:55.042313000	2020-10-23 16:56:06.125289700	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+cratedb	CrateDB	client	14	2020-10-23 16:57:39.453851800	2020-10-23 16:57:53.866117600	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+cubrid	CUBRID	client	20	2020-10-23 16:58:38.336080800	2020-10-23 16:58:58.354340400	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+derby	Apache Derby	client	31	2020-10-23 17:00:15.974649100	2020-10-23 17:00:47.035621200	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+derby_emb	Apache Derby	embedded	52	2020-10-23 17:00:51.027627200	2020-10-23 17:01:43.411194900	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+exasol	Exasol	client	11	2020-10-23 17:03:58.514301700	2020-10-23 17:04:09.998152700	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+firebird	Firebird	client	307	2020-10-23 17:05:12.202433700	2020-10-23 17:10:19.877201800	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+h2	H2 Database Engine	client	24	2020-10-23 17:11:16.939411300	2020-10-23 17:11:41.910518200	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+h2_emb	H2 Database Engine	embedded	10	2020-10-23 17:11:45.475136700	2020-10-23 17:11:56.172496600	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+hsqldb	HyperSQL Database	client	37	2020-10-23 17:12:41.838583800	2020-10-23 17:13:19.370804300	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+hsqldb_emb	HyperSQL Database	embedded	200	2020-10-23 17:13:23.326959900	2020-10-23 17:16:44.237629800	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+ibmdb2	IBM Db2 Database	client	53	2020-10-23 17:22:01.287594600	2020-10-23 17:22:54.447804900	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+informix	IBM Informix	client	56	2020-10-23 17:26:59.870073700	2020-10-23 17:27:56.659557800	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+mariadb	MariaDB Server	client	9	2020-10-23 17:28:50.364992600	2020-10-23 17:28:59.997576300	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+mimer	Mimer SQL	client	119	2020-10-23 17:29:45.333178400	2020-10-23 17:31:44.596090500	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+monetdb	MonetDB	client	98	2020-10-23 17:32:04.524368800	2020-10-23 17:33:42.652419100	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+mysql	MySQL Database	client	16	2020-10-23 17:34:59.265117400	2020-10-23 17:35:15.736695500	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+mysql_presto	MySQL Database	presto	3893	2020-10-23 17:37:16.757926200	2020-10-23 18:42:09.774942700	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+oracle	Oracle Database	client	34	2020-10-23 18:43:29.390488000	2020-10-23 18:44:04.012785700	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+oracle_presto	Oracle Database	presto	3680	2020-10-23 18:46:16.342081400	2020-10-23 19:47:37.053784300	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+percona	Percona Server for MySQL	client	12	2020-10-23 19:49:01.859980700	2020-10-23 19:49:14.257761000	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+postgresql	PostgreSQL Database	client	9	2020-10-23 19:50:01.004130300	2020-10-23 19:50:10.759519800	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+postgresql_presto	PostgreSQL Database	presto	1905	2020-10-23 19:51:37.971011300	2020-10-23 20:23:23.000219200	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
+sqlite	SQLite	embedded	11	2020-10-23 20:23:27.000168100	2020-10-23 20:23:38.849840500	jfww-win10-nb	8	amd64 / Windows 10 / 10.0
