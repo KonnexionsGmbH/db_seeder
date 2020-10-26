@@ -24,6 +24,7 @@ Release Date: 06.10.2020
 - Exasol
 
   - JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
+  - Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
     
 - Mimer SQL & DBeaver
 
@@ -35,6 +36,7 @@ Release Date: 06.10.2020
 
 - Presto Distributed Query Engine
 
+  - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/prestosql/presto/issues/5681)).
   - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/prestosql/presto/issues/5684)).
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
 
@@ -60,10 +62,12 @@ Release Date: 06.10.2020
 - MySQL Database: DBMS 8.0.22
 - MySQL Database: JDBC 8.0.22
 
+- Oracle Database: JDBC 19.8.0.0
+
 - PostgreSQL: JDBC 42.2.18
 
-- Presto: DBMS 344
-- Presto: JDBC 344
+- Presto: DBMS 345
+- Presto: JDBC 345
 
 #### Deleted Features
 

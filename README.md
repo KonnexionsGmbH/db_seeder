@@ -184,10 +184,10 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Mimer SQL                       | mimer              | v11.0.3C                  | 3.40                | 
 | MonetDB                         | monetdb            | Jun2020-SP1               | 2.29.jre7           | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.22           | 8.0.22              | 
-| Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
+| Oracle Database                 | oracle             | 12c - 19c                 | 19.8.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.22              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13                 | 42.2.18             |
-| Presto Distributed Query Engine | n/a                | 339 - 344                 | 344                 |
+| Presto Distributed Query Engine | n/a                | 339 - 345                 | 345                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
 | VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.3.2.0-b37 | 42.2.7-yb-3         |
@@ -1204,7 +1204,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 19.7.0.0
+  - version 19.8.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc10)
 
 - **privileged database access**:
@@ -1310,7 +1310,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:343`
+  - pull command: `docker pull prestosql/presto:345`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
 - **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
@@ -1318,7 +1318,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/prestosql/presto/issues)
 
 - **JDBC driver (latest)**:
-  - version 343
+  - version 345
   - [Maven repository](https://mvnrepository.com/artifact/io.prestosql/presto-jdbc)
 
 - **source code**: [GitHub](https://github.com/prestosql/presto)
