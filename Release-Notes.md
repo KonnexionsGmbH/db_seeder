@@ -53,7 +53,7 @@ Release Date: 06.10.2020
 - CrateDB: DBMS 4.3.0
 
 - Exasol: DBMS 7.0.3
-- Exasol: JDBC 7.0.0
+- Exasol: JDBC 7.0.3
 
 - Firebird: DBMS 3.0.7
 
@@ -64,10 +64,10 @@ Release Date: 06.10.2020
 
 - Oracle Database: JDBC 19.8.0.0
 
-- PostgreSQL: JDBC 42.2.18
+- PostgreSQL Database: JDBC 42.2.18
 
-- Presto: DBMS 345
-- Presto: JDBC 345
+- Presto Distributed Query Engine: DBMS 345
+- Presto Distributed Query Engine: JDBC 345
 
 #### Deleted Features
 
@@ -165,10 +165,10 @@ Release Date: 29.09.2020
 
 - MariaDB Server: JDBC 2.7.0
 
-- PostgreSQL: DBMS 13
+- PostgreSQL Database: DBMS 13
 
-- Presto: DBMS 343
-- Presto: JDBC 343
+- Presto Distributed Query Engine: DBMS 343
+- Presto Distributed Query Engine: JDBC 343
 
 ----------
 
@@ -243,7 +243,7 @@ Release Date: 27.08.2020
 #### New Features
 
 - New DBMS: AgensGraph
-- New DBMS: VolDB
+- New DBMS: VoltDB
 
 ----------
 
@@ -284,8 +284,9 @@ Release Date: 26.08.2020
 #### Modified Features
 
 - CrateDB: DBMS 4.2.3
-- PostgreSQL: DBMS 12.4
-- PostgreSQL: JDBC 42.2.15
+
+- PostgreSQL Database: DBMS 12.4
+- PostgreSQL Database: JDBC 42.2.15
 
 ----------
 
@@ -355,9 +356,12 @@ Release Date: 17.08.2020
 
 #### Modified Features
 
-- PostgreSQL: JDBC 42.2.15
-- Presto: use of Docker network
+- PostgreSQL Database: JDBC 42.2.15
+
+- Presto Distributed Query Engine: use of Docker network
+
 - SQLite: DBMS 3.33.0
+
 - minor script fixes
 
 ----------
@@ -426,10 +430,13 @@ Release Date: 13.08.2020
 #### Modified Features
 
 - Firebird: JDBC 4.0.1.java11
+
 - MariaDB Server: DBMS 10.5.5
-- Presto: JDBC 340
+
+- Presto Distributed Query Engine: JDBC 340
 - solved: PostgreSQL Connector: Cannot insert BLOB using Presto JDBC (see [here](https://github.com/prestosql/presto/issues/4751)).
 - solved: SQL Server Connector: Login failed (see [here](https://github.com/prestosql/presto/issues/4757)).
+
 - solved: gradle warning with http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727)).
 
 ----------
@@ -531,6 +538,7 @@ Release Date: 14.07.2020
 #### Modified Features
 
 - Config.java: reduce number of properties (issue #36)
+
 - MySQL Database: DBMS & JDBC 8.0.22
 
 ----------
@@ -558,7 +566,9 @@ Release Date: 13.07.2020
 #### Modified Features
 
 - Added complete run and upload of statistics data to Travis CI (issue #42)
+
 - Scripts restructured and extended (issue #40)
+
 - Solved IBM Informix issue (issue #41)
 
 ----------
@@ -590,14 +600,19 @@ Release Date: 10.07.2020
 #### New Features
 
 - New batch script: `run_db_seeder_complete`: Run all DBMS variations
+
 - New DBMS: Mimer SQL
 
 #### Modified Features
 
 - CrateDB: DBMS 4.1.8
+
 - Firebird: DBMS 3.0.6
+
 - IBM Db2 Database: DBMS & JDBC 11.5.4.0
+
 - IBM Informix: JDBC 4.50.4.1
+
 - Oracle Database: JDBC 19.7.0.0
 
 ----------
@@ -683,6 +698,7 @@ Release Date: 26.06.2020
 #### Modified Features
 
 - introducing encoding support for ISO-8859-1 and UTF-8
+
 - Tested DBMS version: MariaDB Server 10.5.4
 
 ----------
@@ -739,6 +755,7 @@ Release Date: 21.06.2020
 #### Modified Features
 
 - Tested DBMS version: MariaDB Server 10.5.3
+
 - Tested DBMS version: Oracle database 12c
 - Tested DBMS version: Oracle database 18c
 
@@ -831,8 +848,11 @@ Release Date: 06.06.2020
 #### New Features
 
 - Documentation
+
 - New DBMS: Microsoft SQL Server
+
 - Travis CI Integration
+
 - Verification of the data storage 
 
 #### Modified Features
