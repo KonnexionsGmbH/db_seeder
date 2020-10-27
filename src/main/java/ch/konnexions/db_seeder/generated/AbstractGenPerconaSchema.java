@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a Percona Server DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.6.0
+ * @version 2.6.1
  */
 public abstract class AbstractGenPerconaSchema extends AbstractGenSeeder {
 
