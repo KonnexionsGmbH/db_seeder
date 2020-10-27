@@ -61,8 +61,8 @@ export DB_SEEDER_POSTGRESQL_USER=kxn_user
 export DB_SEEDER_SQLSERVER_CONNECTION_HOST=db_seeder_db
 export DB_SEEDER_SQLSERVER_CONNECTION_PORT=1433
 export DB_SEEDER_SQLSERVER_CONNECTION_PREFIX="jdbc:sqlserver://"
+export DB_SEEDER_SQLSERVER_DATABASE=kxn_db
 export DB_SEEDER_SQLSERVER_PASSWORD=sqlserver_2019
-export DB_SEEDER_SQLSERVER_SCHEMA=kxn_schema
 export DB_SEEDER_SQLSERVER_USER=kxn_user
 
 echo "================================================================================"
@@ -72,7 +72,6 @@ echo "DB Seeder - Generating Presto catalog properties files."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_DEFAULT                  : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DIRECTORY_CATALOG_PROPERTY    : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
-echo "GLOBAL_CONNECTION_HOST        : db_seeder_db"
 echo "JAVA_CLASSPATH                : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "--------------------------------------------------------------------------------"
 echo "CONNECTION_HOST_PRESTO        : $DB_SEEDER_CONNECTION_HOST_PRESTO"
@@ -103,7 +102,7 @@ echo "SQLSERVER_CONNECTION_HOST     : $DB_SEEDER_SQLSERVER_CONNECTION_HOST"
 echo "SQLSERVER_CONNECTION_PORT     : $DB_SEEDER_SQLSERVER_CONNECTION_PORT"
 echo "SQLSERVER_CONNECTION_PREFIX   : $DB_SEEDER_SQLSERVER_CONNECTION_PREFIX"
 echo "SQLSERVER_PASSWORD            : $DB_SEEDER_SQLSERVER_PASSWORD"
-echo "SQLSERVER_SCHEMA              : $DB_SEEDER_SQLSERVER_SCHEMA"
+echo "SQLSERVER_DATABASE            : $DB_SEEDER_SQLSERVER_DATABASE"
 echo "SQLSERVER_USER                : $DB_SEEDER_SQLSERVER_USER"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

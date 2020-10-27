@@ -38,15 +38,13 @@ docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
 echo "............................................................. after:"
 docker ps -a
 
-docker network prune --force
-
 echo "--------------------------------------------------------------------------------"
 echo "Start Presto Distributed Query Engine - creating and starting the container"
 echo "--------------------------------------------------------------------------------"
 start=$(date +%s)
 echo "Docker create presto (Presto Distributed Query Engine)"
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net  2>/dev/null || true
 docker create --name    db_seeder_presto \
               --network db_seeder_net \
               -p        8080:8080/tcp \
@@ -57,6 +55,9 @@ echo "Docker start presto (Presto Distributed Query Engine) ..."
 docker start db_seeder_presto
 
 sleep 30
+
+docker network ls
+docker network inspect db_seeder_net
 
 end=$(date +%s)
 echo "Docker Presto Distributed Query Engine was ready in in $((end - start)) seconds"

@@ -3,11 +3,81 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.0.svg)
+
+## Version 2.6.0
+
+Release Date: 06.10.2020
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
+#### Current Issues
+
+- Apache Derby
+
+  - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
+
+- Exasol
+
+  - JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
+  - Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
+    
+- Mimer SQL & DBeaver
+
+  - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
+
+- Oracle Database
+
+  - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
+
+- Presto Distributed Query Engine
+
+  - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/prestosql/presto/issues/5681)).
+  - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/prestosql/presto/issues/5684)).
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
+
+- YugabyteDB
+
+  - Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
+
+#### New Features
+
+- new scripts for creating a summary file from the benchmark data
+
+#### Modified Features
+
+- CrateDB: DBMS 4.3.0
+
+- Exasol: DBMS 7.0.3
+- Exasol: JDBC 7.0.3
+
+- Firebird: DBMS 3.0.7
+
+- MariaDB Server: DBMS 10.5.6
+
+- MySQL Database: DBMS 8.0.22
+- MySQL Database: JDBC 8.0.22
+
+- Oracle Database: JDBC 19.8.0.0
+
+- PostgreSQL Database: JDBC 42.2.18
+
+- Presto Distributed Query Engine: DBMS 345
+- Presto Distributed Query Engine: JDBC 345
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ## Version 2.5.2
 
-Release Date: dd.10.2020
+Release Date: 05.10.2020
 
 #### System Requirements
 
@@ -49,10 +119,6 @@ Release Date: dd.10.2020
 #### Modified Features
 
 - YugabyteDB: DBMS 2.3.2.0-b37
-
-#### Deleted Features
-
-n/a
 
 ----------
 
@@ -99,10 +165,10 @@ Release Date: 29.09.2020
 
 - MariaDB Server: JDBC 2.7.0
 
-- PostgreSQL: DBMS 13
+- PostgreSQL Database: DBMS 13
 
-- Presto: DBMS 343
-- Presto: JDBC 343
+- Presto Distributed Query Engine: DBMS 343
+- Presto Distributed Query Engine: JDBC 343
 
 ----------
 
@@ -177,7 +243,7 @@ Release Date: 27.08.2020
 #### New Features
 
 - New DBMS: AgensGraph
-- New DBMS: VolDB
+- New DBMS: VoltDB
 
 ----------
 
@@ -218,8 +284,9 @@ Release Date: 26.08.2020
 #### Modified Features
 
 - CrateDB: DBMS 4.2.3
-- PostgreSQL: DBMS 12.4
-- PostgreSQL: JDBC 42.2.15
+
+- PostgreSQL Database: DBMS 12.4
+- PostgreSQL Database: JDBC 42.2.15
 
 ----------
 
@@ -289,9 +356,12 @@ Release Date: 17.08.2020
 
 #### Modified Features
 
-- PostgreSQL: JDBC 42.2.15
-- Presto: use of Docker network
+- PostgreSQL Database: JDBC 42.2.15
+
+- Presto Distributed Query Engine: use of Docker network
+
 - SQLite: DBMS 3.33.0
+
 - minor script fixes
 
 ----------
@@ -360,10 +430,13 @@ Release Date: 13.08.2020
 #### Modified Features
 
 - Firebird: JDBC 4.0.1.java11
+
 - MariaDB Server: DBMS 10.5.5
-- Presto: JDBC 340
+
+- Presto Distributed Query Engine: JDBC 340
 - solved: PostgreSQL Connector: Cannot insert BLOB using Presto JDBC (see [here](https://github.com/prestosql/presto/issues/4751)).
 - solved: SQL Server Connector: Login failed (see [here](https://github.com/prestosql/presto/issues/4757)).
+
 - solved: gradle warning with http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727)).
 
 ----------
@@ -465,7 +538,8 @@ Release Date: 14.07.2020
 #### Modified Features
 
 - Config.java: reduce number of properties (issue #36)
-- MySQL Database: DBMS & JDBC 8.0.21
+
+- MySQL Database: DBMS & JDBC 8.0.22
 
 ----------
 
@@ -492,7 +566,9 @@ Release Date: 13.07.2020
 #### Modified Features
 
 - Added complete run and upload of statistics data to Travis CI (issue #42)
+
 - Scripts restructured and extended (issue #40)
+
 - Solved IBM Informix issue (issue #41)
 
 ----------
@@ -524,14 +600,19 @@ Release Date: 10.07.2020
 #### New Features
 
 - New batch script: `run_db_seeder_complete`: Run all DBMS variations
+
 - New DBMS: Mimer SQL
 
 #### Modified Features
 
 - CrateDB: DBMS 4.1.8
+
 - Firebird: DBMS 3.0.6
+
 - IBM Db2 Database: DBMS & JDBC 11.5.4.0
+
 - IBM Informix: JDBC 4.50.4.1
+
 - Oracle Database: JDBC 19.7.0.0
 
 ----------
@@ -617,6 +698,7 @@ Release Date: 26.06.2020
 #### Modified Features
 
 - introducing encoding support for ISO-8859-1 and UTF-8
+
 - Tested DBMS version: MariaDB Server 10.5.4
 
 ----------
@@ -673,6 +755,7 @@ Release Date: 21.06.2020
 #### Modified Features
 
 - Tested DBMS version: MariaDB Server 10.5.3
+
 - Tested DBMS version: Oracle database 12c
 - Tested DBMS version: Oracle database 18c
 
@@ -765,8 +848,11 @@ Release Date: 06.06.2020
 #### New Features
 
 - Documentation
+
 - New DBMS: Microsoft SQL Server
+
 - Travis CI Integration
+
 - Verification of the data storage 
 
 #### Modified Features

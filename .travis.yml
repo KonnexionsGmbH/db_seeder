@@ -2,38 +2,42 @@ dist: focal
 
 env:
   matrix:
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
-  - DB_SEEDER_DBMS=complete_client DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
-  - DB_SEEDER_DBMS=complete_emb    DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_company
-# - DB_SEEDER_DBMS=complete_presto DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_presto_company
-  - DB_SEEDER_DBMS=agens
-  - DB_SEEDER_DBMS=cratedb
-  - DB_SEEDER_DBMS=cubrid
-  - DB_SEEDER_DBMS=derby
-  - DB_SEEDER_DBMS=derby_emb
-  - DB_SEEDER_DBMS=exasol
-  - DB_SEEDER_DBMS=firebird
-  - DB_SEEDER_DBMS=h2
-  - DB_SEEDER_DBMS=h2_emb
-  - DB_SEEDER_DBMS=hsqldb
-  - DB_SEEDER_DBMS=hsqldb_emb
-  - DB_SEEDER_DBMS=ibmdb2
-  - DB_SEEDER_DBMS=informix
-  - DB_SEEDER_DBMS=mariadb
-  - DB_SEEDER_DBMS=mimer
-  - DB_SEEDER_DBMS=monetdb
-  - DB_SEEDER_DBMS=mysql
-#  - DB_SEEDER_DBMS=mysql_presto
-  - DB_SEEDER_DBMS=oracle
-# - DB_SEEDER_DBMS=oracle_presto
-  - DB_SEEDER_DBMS=percona
-  - DB_SEEDER_DBMS=postgresql
-#  - DB_SEEDER_DBMS=postgresql_presto
-  - DB_SEEDER_DBMS=sqlite
-  - DB_SEEDER_DBMS=sqlserver
-# - DB_SEEDER_DBMS=sqlserver_presto
-  - DB_SEEDER_DBMS=voltdb
-  - DB_SEEDER_DBMS=yugabyte
+# - DB_SEEDER_DBMS=complete_client   DB_SEEDER_RUNS=2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+  - DB_SEEDER_DBMS=complete_client_1 DB_SEEDER_RUNS=2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+  - DB_SEEDER_DBMS=complete_client_2 DB_SEEDER_RUNS=2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_company
+# - DB_SEEDER_DBMS=complete_client   DB_SEEDER_RUNS=2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_client_1 DB_SEEDER_RUNS=2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_client_2 DB_SEEDER_RUNS=2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json  DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_client_syntax
+  - DB_SEEDER_DBMS=complete_emb      DB_SEEDER_RUNS=2 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_embedded_company
+# - DB_SEEDER_DBMS=complete_presto   DB_SEEDER_RUNS=1 DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company.json DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_travis_presto_company
+  - DB_SEEDER_DBMS=agens             DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=cratedb           DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=cubrid            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=derby             DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=derby_emb         DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=exasol            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=firebird          DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=h2                DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=h2_emb            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=hsqldb            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=hsqldb_emb        DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=ibmdb2            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=informix          DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=mariadb           DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=mimer             DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=monetdb           DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=mysql             DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=mysql_presto      DB_SEEDER_RUNS=1
+  - DB_SEEDER_DBMS=oracle            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=oracle_presto     DB_SEEDER_RUNS=1
+  - DB_SEEDER_DBMS=percona           DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=postgresql        DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=postgresql_presto DB_SEEDER_RUNS=1
+  - DB_SEEDER_DBMS=sqlite            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=sqlserver         DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=sqlserver_presto  DB_SEEDER_RUNS=1
+  - DB_SEEDER_DBMS=voltdb            DB_SEEDER_RUNS=2
+  - DB_SEEDER_DBMS=yugabyte          DB_SEEDER_RUNS=2
 
 jdk:
   - oraclejdk15
@@ -51,7 +55,7 @@ script:
   # Prepare installation process -------------------------------------------------
   - travis_fold start "Prepare_installation_process"
   - export HOME_ECLIPSE=/snap/bin
-  - export VERSION_GRADLE=6.6.1
+  - export VERSION_GRADLE=6.7
 
   - sudo apt update -q
   - travis_fold end   "Prepare_Installation_Process"
@@ -82,5 +86,5 @@ script:
 
   - travis_fold start "Generate_Dummy_Data"
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - "./run_db_seeder.sh ${DB_SEEDER_DBMS} yes 2"
+  - "./run_db_seeder.sh ${DB_SEEDER_DBMS} yes $DB_SEEDER_RUNS"
   - travis_fold end   "Generate_Dummy_Data"

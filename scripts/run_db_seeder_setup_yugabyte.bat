@@ -47,7 +47,7 @@ echo Docker create db_seeder_db (YugabyteDB %DB_SEEDER_VERSION%)
 rd /q /s %cd%\tmp\yb_data 2>nul
 md %cd%\tmp\yb_data
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker run -d ^
            --name    db_seeder_db ^
            --network db_seeder_net ^

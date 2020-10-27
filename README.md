@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.5.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.0.svg)
 ----
 
 ### Table of Contents
@@ -172,22 +172,22 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | AgensGraph                      | agens              | v2.1.1                    | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                      | 10.2.2.8874         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.2.4             | 2.6.0               |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.2          | 6.2.5               |
-| Firebird                        | firebird           | 3.0.5 - 3.0.6             | 4.0.1.java11        | 
+| CrateDB                         | cratedb            | 4.1.6 - 4.3.0             | 2.6.0               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.3          | 7.0.3               |
+| Firebird                        | firebird           | 3.0.5 - 3.0.7             | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.5          | 2.7.0               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.6          | 2.7.0               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.1.jre14         | 
 | Mimer SQL                       | mimer              | v11.0.3C                  | 3.40                | 
 | MonetDB                         | monetdb            | Jun2020-SP1               | 2.29.jre7           | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.21           | 8.0.21              | 
-| Oracle Database                 | oracle             | 12c - 19c                 | 19.7.0.0            |
-| Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.21              | 
-| PostgreSQL Database             | postgresql         | 12.3 - 13                 | 42.2.16             |
-| Presto Distributed Query Engine | n/a                | 339 - 343                 | 343                 |
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.22           | 8.0.22              | 
+| Oracle Database                 | oracle             | 12c - 19c                 | 19.8.0.0            |
+| Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.22              | 
+| PostgreSQL Database             | postgresql         | 12.3 - 13                 | 42.2.18             |
+| Presto Distributed Query Engine | n/a                | 339 - 345                 | 345                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
 | VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.3.2.0-b37 | 42.2.7-yb-3         |
@@ -434,7 +434,20 @@ An overview of the structure of the scripts used can be taken from the following
 
 ![](.README_images/script_structure.png)
 
-#### 4.1.3 Travis CI
+#### 4.1.3 Script `scripts/run_db_seeder_statistics`
+
+This script aggregates the existing statistics files into a single overall file. 
+The file name of this overall file is defined with parameter `db_seeder.file.statistics.summary.name` and the existing statistics files are searched in the file directories according to parameter `db_seeder.file.statistics.summary.source`.
+The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statistics.delimiter`.
+
+**Example content:**
+
+    ticker symbol	DBMS	version	creator	db type	schema	runtime in seconds	start time	end time	host name	no. cores	operating system	file_name
+    agens	AgensGraph	v2.6.0	bash	client	unknown	14	2020-10-05 16:09:36.618076382	2020-10-05 16:09:51.570013623	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
+    cratedb	CrateDB	v2.6.0	bash	client	unknown	24	2020-10-05 16:11:40.160409347	2020-10-05 16:12:04.695790414	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
+    cubrid	CUBRID	v2.6.0	bash	client	unknown	50	2020-10-05 16:13:22.287362093	2020-10-05 16:14:12.339067275	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
+
+#### 4.1.4 Travis CI
 
 For each `db_seeder` release statistics file are created by default in the file directory `resources\statistics` with the following file name structure:
 
@@ -466,6 +479,8 @@ db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;db type;runtime in seconds;start time;end time;host name;no. cores;operating system
 db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
+db_seeder.file.statistics.summary.name=resources/statistics/db_seeder_summary.tsv
+db_seeder.file.statistics.summary.source=resources/statistics;Transfer
 
 db_seeder.password.sys=
 db_seeder.password=
@@ -494,6 +509,8 @@ db_seeder.user=
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
+| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all DBMS                                                                                                             | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all DBMS                                                                                                             | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver    | password of the privileged user |
 | password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte                                   | schema name |
@@ -529,8 +546,8 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Percona Server for MySQL](#details_percona)** / 
 **[PostgreSQL Database](#details_postgresql)** / 
 **[Presto distributed Query Engine](#details_presto)** / 
-**[SQLite](#details_sqlite)**
-**[VoltDB](#details_voltdb)**
+**[SQLite](#details_sqlite)** /
+**[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
 
 [//]: # (===========================================================================================)
@@ -633,7 +650,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.2.4`
+  - pull command: `docker pull crate:4.3.0`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -722,11 +739,11 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.2`
+  - pull command: `docker pull exasol/docker-db:7.0.3`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 6.2.5
+  - version 7.0.3
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
@@ -756,7 +773,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:3.0.6`
+  - pull command: `docker pull jacobalberty/firebird:3.0.7`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
@@ -974,7 +991,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.5.5`
+  - pull command: `docker pull mariadb:10.5.6`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1141,7 +1158,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.21`
+  - pull command: `docker pull mysql:8.0.22`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1149,7 +1166,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
 
 - **JDBC driver (latest)**:
-  - version 8.0.21
+  - version 8.0.22
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1187,7 +1204,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 19.7.0.0
+  - version 19.8.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc10)
 
 - **privileged database access**:
@@ -1227,7 +1244,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://jira.percona.com/projects/PS/issues/PS-7237?filter=allopenissues)
 
 - **JDBC driver (latest)**:
-  - version 8.0.21
+  - version 8.0.22
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1263,7 +1280,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
   
 - **JDBC driver (latest)**:
-  - version 42.2.16
+  - version 42.2.18
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)
@@ -1293,7 +1310,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:343`
+  - pull command: `docker pull prestosql/presto:345`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
 - **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
@@ -1301,7 +1318,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/prestosql/presto/issues)
 
 - **JDBC driver (latest)**:
-  - version 343
+  - version 345
   - [Maven repository](https://mvnrepository.com/artifact/io.prestosql/presto-jdbc)
 
 - **source code**: [GitHub](https://github.com/prestosql/presto)

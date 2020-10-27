@@ -44,7 +44,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Exasol %DB_SEEDER_VERSION%)
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker run --detach ^
            --name       db_seeder_db ^
            --network    db_seeder_net ^

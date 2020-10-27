@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '2.5.2'
+version '2.6.0'
 
 repositories {
     jcenter()
@@ -22,6 +22,7 @@ dependencies {
     implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.12.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    implementation 'commons-io:commons-io:2.8.0'
     implementation 'io.crate:crate-jdbc:2.6.0'
     implementation 'org.apache.commons:commons-configuration2:2.7'
     implementation 'org.apache.commons:commons-csv:1.8'
@@ -36,6 +37,7 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     manifest {
+        attributes 'Main-Class' : 'ch.konnexions.db_seeder.CreateSummaryFile'
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.DatabaseSeeder'
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.PrestoEnvironment'
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.SchemaBuilder'

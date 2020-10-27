@@ -61,8 +61,8 @@ set DB_SEEDER_POSTGRESQL_USER=kxn_user
 set DB_SEEDER_SQLSERVER_CONNECTION_HOST=db_seeder_db
 set DB_SEEDER_SQLSERVER_CONNECTION_PORT=1433
 set DB_SEEDER_SQLSERVER_CONNECTION_PREFIX="jdbc:sqlserver://"
+set DB_SEEDER_SQLSERVER_DATABASE=kxn_db
 set DB_SEEDER_SQLSERVER_PASSWORD=sqlserver_2019
-set DB_SEEDER_SQLSERVER_SCHEMA=kxn_schema
 set DB_SEEDER_SQLSERVER_USER=kxn_user
 
 echo ================================================================================
@@ -101,8 +101,8 @@ echo ---------------------------------------------------------------------------
 echo SQLSERVER_CONNECTION_HOST     : %DB_SEEDER_SQLSERVER_CONNECTION_HOST%
 echo SQLSERVER_CONNECTION_PORT     : %DB_SEEDER_SQLSERVER_CONNECTION_PORT%
 echo SQLSERVER_CONNECTION_PREFIX   : %DB_SEEDER_SQLSERVER_CONNECTION_PREFIX%
+echo SQLSERVER_DATABASE            : %DB_SEEDER_SQLSERVER_DATABASE%
 echo SQLSERVER_PASSWORD            : %DB_SEEDER_SQLSERVER_PASSWORD%
-echo SQLSERVER_SCHEMA              : %DB_SEEDER_SQLSERVER_SCHEMA%
 echo SQLSERVER_USER                : %DB_SEEDER_SQLSERVER_USER%
 echo --------------------------------------------------------------------------------
 echo:| TIME
@@ -110,7 +110,7 @@ echo ===========================================================================
 echo Generate and compile catalog properties files.
 echo --------------------------------------------------------------------------------
 
-del -f %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%\db_seeder_*.properties
+del -f %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%\db_seeder_*.properties 2>nul
 
 java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.PrestoEnvironment %DB_SEEDER_DBMS%
 if %ERRORLEVEL% NEQ 0 (

@@ -27,35 +27,36 @@ import org.apache.log4j.Logger;
 public final class Config {
 
   private static final Logger     logger     = Logger.getLogger(Config.class);
-  private final boolean           isDebug    = logger.isDebugEnabled();
+//  private final boolean           isDebug    = logger.isDebugEnabled();
 
   private String                  connectionHost;
   private String                  connectionHostPresto;
   private int                     connectionPort;
-
   private int                     connectionPortPresto;
-
   private String                  connectionPrefix;
   private String                  connectionService;
   private String                  connectionSuffix;
+
   private String                  database;
   private String                  databaseSys;
 
   private String                  fileConfigurationName;
   private String                  fileJsonName;
-
   private String                  fileStatisticsDelimiter;
   private String                  fileStatisticsHeader;
   private String                  fileStatisticsName;
+  private String                  fileStatisticsSummaryName;
+  private String                  fileStatisticsSummarySource;
+
   private ArrayList<String>       keysSorted = new ArrayList<>();
+
   private String                  password;
-
   private String                  passwordSys;
-
   private PropertiesConfiguration propertiesConfiguration;
-  private String                  schema;
-  private String                  user;
 
+  private String                  schema;
+
+  private String                  user;
   private String                  userSys;
 
   /**
@@ -90,15 +91,15 @@ public final class Config {
     }
   }
 
-  private ArrayList<String> getBooleanProperties() {
-
-    ArrayList<String> list = new ArrayList<>();
-
-    list.add("db_seeder.encoding.iso_8859_1");
-    list.add("db_seeder.encoding.utf_8");
-
-    return list;
-  }
+//  private ArrayList<String> getBooleanProperties() {
+//
+//    ArrayList<String> list = new ArrayList<>();
+//
+//    list.add("db_seeder.encoding.iso_8859_1");
+//    list.add("db_seeder.encoding.utf_8");
+//
+//    return list;
+//  }
 
   // CONNECTION -------------------------------------------------------
 
@@ -201,6 +202,20 @@ public final class Config {
     return fileStatisticsName;
   }
 
+  /**
+   * @return the file statistics summary name
+   */
+  public final String getFileStatisticsSummaryName() {
+    return fileStatisticsSummaryName;
+  }
+
+  /**
+   * @return the file statistics summary source directories
+   */
+  public final String getFileStatisticsSummarySource() {
+    return fileStatisticsSummarySource;
+  }
+
   // -------------------------------------------------------------------------
 
   private ArrayList<String> getKeysSorted() {
@@ -216,16 +231,16 @@ public final class Config {
 
   // -------------------------------------------------------------------------
 
-  private ArrayList<String> getNumericProperties() {
-
-    ArrayList<String> list = new ArrayList<>();
-
-    list.add("db_seeder.connection.port");
-    list.add("db_seeder.connection.port.presto");
-    list.add("db_seeder.null.factor");
-
-    return list;
-  }
+//  private ArrayList<String> getNumericProperties() {
+//
+//    ArrayList<String> list = new ArrayList<>();
+//
+//    list.add("db_seeder.connection.port");
+//    list.add("db_seeder.connection.port.presto");
+//    list.add("db_seeder.null.factor");
+//
+//    return list;
+//  }
 
   // PASSWORD ---------------------------------------------------------
 
@@ -272,30 +287,32 @@ public final class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
-    connectionHost          = propertiesConfiguration.getString("db_seeder.connection.host");
-    connectionHostPresto    = propertiesConfiguration.getString("db_seeder.connection.host.presto");
-    connectionPort          = propertiesConfiguration.getInt("db_seeder.connection.port");
-    connectionPortPresto    = propertiesConfiguration.getInt("db_seeder.connection.port.presto");
-    connectionPrefix        = propertiesConfiguration.getString("db_seeder.connection.prefix");
-    connectionService       = propertiesConfiguration.getString("db_seeder.connection.service");
-    connectionSuffix        = propertiesConfiguration.getString("db_seeder.connection.suffix");
+    connectionHost              = propertiesConfiguration.getString("db_seeder.connection.host");
+    connectionHostPresto        = propertiesConfiguration.getString("db_seeder.connection.host.presto");
+    connectionPort              = propertiesConfiguration.getInt("db_seeder.connection.port");
+    connectionPortPresto        = propertiesConfiguration.getInt("db_seeder.connection.port.presto");
+    connectionPrefix            = propertiesConfiguration.getString("db_seeder.connection.prefix");
+    connectionService           = propertiesConfiguration.getString("db_seeder.connection.service");
+    connectionSuffix            = propertiesConfiguration.getString("db_seeder.connection.suffix");
 
-    database                = propertiesConfiguration.getString("db_seeder.database");
-    databaseSys             = propertiesConfiguration.getString("db_seeder.database.sys");
+    database                    = propertiesConfiguration.getString("db_seeder.database");
+    databaseSys                 = propertiesConfiguration.getString("db_seeder.database.sys");
 
-    fileConfigurationName   = propertiesConfiguration.getString("db_seeder.file.configuration.name");
-    fileJsonName            = propertiesConfiguration.getString("db_seeder.file.json.name");
-    fileStatisticsDelimiter = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
-    fileStatisticsHeader    = propertiesConfiguration.getString("db_seeder.file.statistics.header");
-    fileStatisticsName      = propertiesConfiguration.getString("db_seeder.file.statistics.name");
+    fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
+    fileJsonName                = propertiesConfiguration.getString("db_seeder.file.json.name");
+    fileStatisticsDelimiter     = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
+    fileStatisticsHeader        = propertiesConfiguration.getString("db_seeder.file.statistics.header");
+    fileStatisticsName          = propertiesConfiguration.getString("db_seeder.file.statistics.name");
+    fileStatisticsSummaryName   = propertiesConfiguration.getString("db_seeder.file.statistics.summary.name");
+    fileStatisticsSummarySource = propertiesConfiguration.getString("db_seeder.file.statistics.summary.source");
 
-    password                = propertiesConfiguration.getString("db_seeder.password");
-    passwordSys             = propertiesConfiguration.getString("db_seeder.password.sys");
+    password                    = propertiesConfiguration.getString("db_seeder.password");
+    passwordSys                 = propertiesConfiguration.getString("db_seeder.password.sys");
 
-    schema                  = propertiesConfiguration.getString("db_seeder.schema");
+    schema                      = propertiesConfiguration.getString("db_seeder.schema");
 
-    user                    = propertiesConfiguration.getString("db_seeder.user");
-    userSys                 = propertiesConfiguration.getString("db_seeder.user.sys");
+    user                        = propertiesConfiguration.getString("db_seeder.user");
+    userSys                     = propertiesConfiguration.getString("db_seeder.user.sys");
   }
 
   private void updatePropertiesFromOs() {
@@ -394,6 +411,18 @@ public final class Config {
       fileStatisticsName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.statistics.name",
                                           fileStatisticsName);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_SUMMARY_NAME")) {
+      fileStatisticsSummaryName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_SUMMARY_NAME");
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.summary.name",
+                                          fileStatisticsSummaryName);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_SUMMARY_SOURCE")) {
+      fileStatisticsSummarySource = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_SUMMARY_SOURCE");
+      propertiesConfiguration.setProperty("db_seeder.file.statistics.summary.source",
+                                          fileStatisticsSummarySource);
     }
 
     // PASSWORD ---------------------------------------------------------

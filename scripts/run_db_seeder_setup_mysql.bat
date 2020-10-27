@@ -44,7 +44,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (MySQL Database %DB_SEEDER_VERSION%)
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        MYSQL_ROOT_PASSWORD=mysql ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
@@ -55,6 +55,9 @@ echo Docker start db_seeder_db (MySQL Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 60 127.0.0.1>nul
+
+docker network ls
+docker network inspect db_seeder_net
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER MySQL Database was ready in %CONSUMED%

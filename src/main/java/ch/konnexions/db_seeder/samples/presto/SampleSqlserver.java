@@ -1,28 +1,17 @@
 package ch.konnexions.db_seeder.samples.presto;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+import ch.konnexions.db_seeder.utils.MessageHandling;
+import org.apache.log4j.Logger;
+
+import java.io.*;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
+import java.sql.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Random;
 import java.util.Scanner;
-
-import org.apache.log4j.Logger;
-
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
-import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
  * Example program for Issues SQL Server Connector.
@@ -58,7 +47,7 @@ public final class SampleSqlserver {
 
   private static String      password            = "sqlserver_2019";
 
-  private static int         rowMaxSize          = 2500;
+  private static int         rowMaxSize          = 500;
 
   private static String      schemaName          = "kxn_schema";
   private static String      sqlStmntCreateTable = """

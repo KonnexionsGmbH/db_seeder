@@ -44,7 +44,7 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION%)
 
-docker network ls --filter name=db_seeder_net || docker network create db_seeder_net
+docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        POSTGRES_DB=kxn_db_sys ^
               -e        POSTGRES_PASSWORD=postgresql ^
               -e        POSTGRES_USER=kxn_user_sys ^
@@ -57,6 +57,9 @@ echo Docker start db_seeder_db (PostgreSQL Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 30 127.0.0.1>nul
+
+docker network ls
+docker network inspect db_seeder_net
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER PostgreSQL Database was ready in %CONSUMED%

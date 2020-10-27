@@ -11,18 +11,16 @@ setlocal EnableDelayedExpansion
 
 set ERRORLEVEL=
 
-if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
-    set DB_SEEDER_CONNECTION_HOST=localhost
-)
-
+set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.5.2
+set DB_SEEDER_RELEASE=2.6.0
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_PRESTO=343
+set DB_SEEDER_VERSION_PRESTO=345
 
 if ["%1"] EQU [""] (
     echo =========================================================
+    echo complete           - All implemented DBMSs
     echo complete_client    - All implemented client DBMSs
     echo complete_emb       - All implemented embedded DBMSs
     echo complete_presto    - All implemented Presto enabled DBMSs
@@ -85,6 +83,14 @@ if ["%3"] EQU [""] (
     set DB_SEEDER_NO_CREATE_RUNS=%3
 )
 
+if ["%DOCKER_USERNAME%"] EQU [""] (
+    set /P DOCKER_USERNAME="Enter the docker username "
+)
+
+if ["%DOCKER_PASSWORD%"] EQU [""] (
+    set /P DOCKER_PASSWORD="Enter the docker password "
+)
+
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
 rem ------------------------------------------------------------------------------
@@ -102,10 +108,6 @@ set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
 set DB_SEEDER_DBMS_ORIG=%DB_SEEDER_DBMS%
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=agens
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:agensgraph://
@@ -120,10 +122,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
     set DB_SEEDER_VERSION=v2.1.1
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=cratedb
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=crate://
@@ -136,10 +134,9 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.2.2
     set DB_SEEDER_VERSION=4.2.3
     set DB_SEEDER_VERSION=4.2.4
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=cubrid
+    set DB_SEEDER_VERSION=4.2.6
+    set DB_SEEDER_VERSION=4.2.7
+    set DB_SEEDER_VERSION=4.3.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -153,21 +150,13 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_VERSION=10.2
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=derby
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
-    set DB_SEEDER_CONNECTION_PORT=1527
+    set DB_SEEDER_CONNECTION_PORT=%DB_SEEDER_CONNECTION_PORT_DEFAULT%
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     set DB_SEEDER_CONTAINER_PORT=1527
     set DB_SEEDER_DATABASE=.\tmp\derby_kxn_db
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_VERSION=10.15.2.0
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_emb"] (
-    set DB_SEEDER_DBMS=derby_emb
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
@@ -181,10 +170,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
     set DB_SEEDER_DBMS_EMBEDDED=yes
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=exasol
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_CONNECTION_PORT=8563
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
@@ -196,10 +181,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_USER_SYS=sys
     set DB_SEEDER_VERSION=6.2.8-d1
     set DB_SEEDER_VERSION=7.0.2
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=firebird
+    set DB_SEEDER_VERSION=7.0.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -213,11 +195,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SYSDBA
     set DB_SEEDER_VERSION=3.0.5
-    set DB_SEEDER_VERSION=3.0.6
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=h2
+    set DB_SEEDER_VERSION=3.0.7
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
@@ -232,10 +210,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_VERSION=1.4.200
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_emb"] (
-    set DB_SEEDER_DBMS=h2_emb
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:h2:
     set DB_SEEDER_DATABASE=.\tmp\h2_kxn_db
@@ -244,10 +218,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sa
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=hsqld
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
@@ -263,10 +233,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_VERSION=2.5.1
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_emb"] (
-    set DB_SEEDER_DBMS=hsqld_emb
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
     set DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
@@ -276,10 +242,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SA
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=ibmdb2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
@@ -294,10 +256,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.4.0
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=informix
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_CONNECTION_PORT=9088
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:informix-sqli://"
@@ -308,10 +266,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_USER_SYS=informix
     set DB_SEEDER_VERSION=14.10.FC3DE
     set DB_SEEDER_VERSION=14.10.FC4DE
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=mariadb
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
@@ -328,10 +282,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.3
     set DB_SEEDER_VERSION=10.5.4
     set DB_SEEDER_VERSION=10.5.5
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=mimer
+    set DB_SEEDER_VERSION=10.5.6
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -347,10 +298,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_VERSION=v11.0.3c
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=monetdb
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_CONNECTION_PORT=50000
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:monetdb://
@@ -362,10 +309,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=monetdb
     set DB_SEEDER_VERSION=Jun2020-SP1
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=mysql
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
@@ -381,10 +324,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
-    set DB_SEEDER_DBMS=mysql_presto
+    set DB_SEEDER_VERSION=8.0.22
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
@@ -401,10 +341,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=oracle
+    set DB_SEEDER_VERSION=8.0.22
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
@@ -419,10 +356,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_VERSION=db_12_2_ee
     set DB_SEEDER_VERSION=db_18_3_ee
     set DB_SEEDER_VERSION=db_19_3_ee
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
-    set DB_SEEDER_DBMS=oracle_presto
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
@@ -440,10 +373,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
     set DB_SEEDER_VERSION=db_19_3_ee
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=percona
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
@@ -456,10 +385,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=5.7.14
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=postgresql
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
@@ -475,10 +400,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
     set DB_SEEDER_VERSION=13-alpine
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
-    set DB_SEEDER_DBMS=postgresql_presto
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
@@ -497,18 +418,10 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
     set DB_SEEDER_VERSION=13-alpine
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=sqlite
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlite:
     set DB_SEEDER_DATABASE=.\tmp\sqlite_kxn_db
     set DB_SEEDER_DBMS_EMBEDDED=yes
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=sqlserver
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
@@ -523,10 +436,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sa
     set DB_SEEDER_VERSION=2019-latest
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_presto"] (
-    set DB_SEEDER_DBMS=sqlserver_presto
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_presto"] (
@@ -544,10 +453,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_presto"] (
     set DB_SEEDER_VERSION=2019-latest
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=voltdb
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
     set DB_SEEDER_CONNECTION_PORT=21212
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
@@ -556,10 +461,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
     set DB_SEEDER_PASSWORD=voltdb
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_VERSION=9.2.1
-)
-
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=yugabyte
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
@@ -577,11 +478,15 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.3.2.0-b37
 )
 
-if ["%DB_SEEDER_DBMS_ORIG%"] EQU ["complete_client"] (
-    set DB_SEEDER_DBMS=complete
+if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
+    set DB_SEEDER_CONNECTION_HOST=localhost
 )
 
 if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
+    if ["%DB_SEEDER_CONNECTION_HOST_PRESTO%"] EQU [""] (
+        set DB_SEEDER_CONNECTION_HOST_PRESTO=%DB_SEEDER_CONNECTION_HOST%
+    )
+
     set DB_SEEDER_CONNECTION_PORT_PRESTO=8080
 )
 
@@ -601,13 +506,13 @@ echo DBMS_DB                         : %DB_SEEDER_DBMS_DB%
 echo DBMS_DEFAULT                    : %DB_SEEDER_DBMS_DEFAULT%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo DBMS_PRESTO                     : %DB_SEEDER_DBMS_PRESTO%
+echo DOCKER_USERNAME                 : %DOCKER_USERNAME%
 echo DIRECTORY_CATALOG_PROPERTY      : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_JSON_NAME                  : %DB_SEEDER_FILE_JSON_NAME%
 echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
 echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
-echo GLOBAL_CONNECTION_HOST          : %DB_SEEDER_GLOBAL_CONNECTION_HOST%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
@@ -637,8 +542,10 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
-if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
-    call scripts\run_db_seeder_complete_client
+docker login -u "%DOCKER_USERNAME%" -p "%DOCKER_PASSWORD%"
+
+if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
+    call scripts\run_db_seeder_complete %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
@@ -647,8 +554,18 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
     goto END_OF_SCRIPT
 )    
 
+if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
+    call scripts\run_db_seeder_complete_client %DB_SEEDER_NO_CREATE_RUNS%
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
+    goto END_OF_SCRIPT
+)
+
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
-    call scripts\run_db_seeder_complete_emb
+    call scripts\run_db_seeder_complete_emb %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
@@ -658,7 +575,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
 )    
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
-    call scripts\run_db_seeder_complete_presto
+    call scripts\run_db_seeder_complete_presto %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%

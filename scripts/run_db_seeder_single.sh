@@ -67,7 +67,6 @@ echo "FILE_JSON_NAME                    : ${DB_SEEDER_FILE_JSON_NAME}"
 echo "FILE_STATISTICS_DELIMITER         : ${DB_SEEDER_FILE_STATISTICS_DELIMITER}"
 echo "FILE_STATISTICS_HEADER            : ${DB_SEEDER_FILE_STATISTICS_HEADER}"
 echo "FILE_STATISTICS_NAME              : ${DB_SEEDER_FILE_STATISTICS_NAME}"
-echo "GLOBAL_CONNECTION_HOST            : ${DB_SEEDER_GLOBAL_CONNECTION_HOST}"
 echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"
@@ -117,6 +116,10 @@ if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
     fi    
+fi
+
+if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
+    rm -rf $DB_SEEDER_DATABASE 2>/dev/null
 fi
 
 echo "--------------------------------------------------------------------------------"

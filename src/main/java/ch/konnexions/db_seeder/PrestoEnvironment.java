@@ -1,25 +1,15 @@
 package ch.konnexions.db_seeder;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.apache.log4j.Logger;
-
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
+import org.apache.log4j.Logger;
+
+import java.io.*;
+import java.util.*;
 
 /**
  * Test Data Generator for a Database - Application.
@@ -50,8 +40,6 @@ public final class PrestoEnvironment {
 
   private static String                    tickerSymbolLower;
 
-  private static String                    schema;
-
   private static String                    url;
   private static String                    user;
 
@@ -75,6 +63,7 @@ public final class PrestoEnvironment {
       entries.add("connection-password=" + password);
     }
 
+    // issue #4764
     if ("oracle".equals(tickerSymbolLower)) {
       entries.add("oracle.number.default-scale=10");
     }
@@ -99,7 +88,7 @@ public final class PrestoEnvironment {
     }
 
     try {
-      String fileName = directoryCatalogProperty + "/" + AbstractJdbcSeeder.getCatalogName(tickerSymbolLower) + ".properties";
+      String fileName = directoryCatalogProperty + File.separator + AbstractJdbcSeeder.getCatalogName(tickerSymbolLower) + ".properties";
 
       if (isDebug) {
         logger.debug("fileName='" + fileName + "'");
@@ -414,11 +403,11 @@ public final class PrestoEnvironment {
                                    "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
     }
 
-    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_SCHEMA")) {
-      schema = osEnvironment.get("DB_SEEDER_SQLSERVER_SCHEMA");
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_DATABASE")) {
+      database = osEnvironment.get("DB_SEEDER_SQLSERVER_DATABASE");
     } else {
       MessageHandling.abortProgram(logger,
-                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_SCHEMA");
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_DATABASE");
     }
 
     // =========================================================================
@@ -446,7 +435,7 @@ public final class PrestoEnvironment {
     url = SqlserverSeeder.getUrlPresto(connectionHost,
                                        connectionPort,
                                        connectionPrefix,
-                                       schema,
+                                       database,
                                        user,
                                        password);
 

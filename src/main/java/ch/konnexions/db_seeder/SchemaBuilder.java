@@ -9,7 +9,7 @@ import ch.konnexions.db_seeder.utils.Config;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
- * Test Data Generator for a Database - Application.
+ * Test Data Generator for a Database - Generate schema-related source code.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-07-15
