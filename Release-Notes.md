@@ -7,7 +7,7 @@
 
 ## Version 2.6.0
 
-Release Date: 06.10.2020
+Release Date: 27.10.2020
 
 #### System Requirements
 
