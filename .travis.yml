@@ -32,8 +32,6 @@ script:
   - export PATH=${GRADLE_HOME}/bin:${PATH}
   - travis_fold end   "Install_Gradle"
 
-  - sudo apt install net-tools
-  - netstat -tulpn | grep LISTEN
   - gradle --version
   - java -version
 
