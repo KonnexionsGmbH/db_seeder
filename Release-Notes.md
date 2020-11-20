@@ -50,7 +50,20 @@ n/a
 
 #### Modified Features
 
-n/a
+- CrateDB: DBMS 4.3.1
+
+- MariaDB Server: DBMS 10.5.8
+
+- Mimer SQL: v11.0.4b
+
+- PostgreSQL Database: DBMS 13.1
+
+- Presto Distributed Query Engine: DBMS 346
+- Presto Distributed Query Engine: JDBC 346
+
+- Travis CI  has been limited to the compilation functionality 
+
+- YugabyteDB: DBMS 2.5.0.0-b2
 
 #### Deleted Features
 
