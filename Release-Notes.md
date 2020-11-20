@@ -54,7 +54,7 @@ n/a
 
 - MariaDB Server: DBMS 10.5.8
 
-- Mimer SQL: v11.0.4b
+- Mimer SQL: DBMS v11.0.4b
 
 - PostgreSQL Database: DBMS 13.1
 
@@ -62,6 +62,8 @@ n/a
 - Presto Distributed Query Engine: JDBC 346
 
 - Travis CI  has been limited to the compilation functionality 
+
+- VoltDB: JDBC 10.1.1
 
 - YugabyteDB: DBMS 2.5.0.0-b2
 

@@ -189,7 +189,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
 | Presto Distributed Query Engine | n/a                | 339 - 346                  | 346                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0            | 3.32.3.2            |
-| VoltDB                          | voltdb             | 9.2.1                      | 9.2.2               |
+| VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.0.0-b2   | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
@@ -1382,7 +1382,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 2.5.1
+  - version 10.1.1
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **source code**: [GitHub](https://github.com/VoltDB/voltdb)
