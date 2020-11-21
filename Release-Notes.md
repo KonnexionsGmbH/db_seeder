@@ -34,6 +34,10 @@ Release Date: dd.11.2020
 
   - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
 
+- PostgreSQL Database
+
+  - BUG #16736: SCRAM authentication is not supported by this driver [here]()
+
 - Presto Distributed Query Engine
 
   - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/prestosql/presto/issues/5681)).

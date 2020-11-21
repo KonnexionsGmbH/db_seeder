@@ -50,8 +50,7 @@ set DB_SEEDER_DBMS_SQLITE=yes
 set DB_SEEDER_DBMS_SQLSERVER=yes
 set DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
 set DB_SEEDER_DBMS_VOLTDB=yes
-rem wwe
-set DB_SEEDER_DBMS_YUGABYTE=no
+set DB_SEEDER_DBMS_YUGABYTE=yes
 
 echo.
 echo Script %0 is now running

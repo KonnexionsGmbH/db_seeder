@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
 public final class Config {
 
   private static final Logger     logger     = Logger.getLogger(Config.class);
-//  private final boolean           isDebug    = logger.isDebugEnabled();
+  //  private final boolean           isDebug    = logger.isDebugEnabled();
 
   private String                  connectionHost;
   private String                  connectionHostPresto;
@@ -91,15 +91,15 @@ public final class Config {
     }
   }
 
-//  private ArrayList<String> getBooleanProperties() {
-//
-//    ArrayList<String> list = new ArrayList<>();
-//
-//    list.add("db_seeder.encoding.iso_8859_1");
-//    list.add("db_seeder.encoding.utf_8");
-//
-//    return list;
-//  }
+  //  private ArrayList<String> getBooleanProperties() {
+  //
+  //    ArrayList<String> list = new ArrayList<>();
+  //
+  //    list.add("db_seeder.encoding.iso_8859_1");
+  //    list.add("db_seeder.encoding.utf_8");
+  //
+  //    return list;
+  //  }
 
   // CONNECTION -------------------------------------------------------
 
@@ -231,16 +231,16 @@ public final class Config {
 
   // -------------------------------------------------------------------------
 
-//  private ArrayList<String> getNumericProperties() {
-//
-//    ArrayList<String> list = new ArrayList<>();
-//
-//    list.add("db_seeder.connection.port");
-//    list.add("db_seeder.connection.port.presto");
-//    list.add("db_seeder.null.factor");
-//
-//    return list;
-//  }
+  //  private ArrayList<String> getNumericProperties() {
+  //
+  //    ArrayList<String> list = new ArrayList<>();
+  //
+  //    list.add("db_seeder.connection.port");
+  //    list.add("db_seeder.connection.port.presto");
+  //    list.add("db_seeder.null.factor");
+  //
+  //    return list;
+  //  }
 
   // PASSWORD ---------------------------------------------------------
 

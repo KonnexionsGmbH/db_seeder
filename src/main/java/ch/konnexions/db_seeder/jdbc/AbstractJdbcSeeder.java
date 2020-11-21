@@ -1133,12 +1133,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         if (dbmsEnum == DbmsEnum.EXASOL || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.VOLTDB || dbmsEnum == DbmsEnum.YUGABYTE) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
-          return;
         } else {
           preparedStatement.setNull(columnPos,
                                     Types.BLOB);
-          return;
         }
+        return;
       }
 
       prepStmntColBlob(preparedStatement,
@@ -1189,12 +1188,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         if (dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.EXASOL || dbmsEnum == DbmsEnum.VOLTDB) {
           preparedStatement.setNull(columnPos,
                                     Types.VARCHAR);
-          return;
         } else {
           preparedStatement.setNull(columnPos,
                                     java.sql.Types.CLOB);
-          return;
         }
+        return;
       }
 
       prepStmntColClob(preparedStatement,

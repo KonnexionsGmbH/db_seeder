@@ -193,14 +193,13 @@ public final class CreateSummaryFile {
 
       String[] fileNameTokens    = new String[MAX_FILE_NAME_TOKENS];
 
-      for (int i = 0; i < fileNameTokensNet.length; i++) {
-        fileNameTokens[i] = fileNameTokensNet[i];
-      }
+      System.arraycopy(fileNameTokensNet,
+                       0,
+                       fileNameTokens,
+                       0,
+                       fileNameTokensNet.length);
 
-      if (fileNameTokens[2] == null
-          || (!(fileNameTokens[2].equals("bash")
-              || fileNameTokens[2].equals("cmd")
-              || fileNameTokens[2].equals("compose")))) {
+      if (fileNameTokens[2] == null || (!(fileNameTokens[2].equals("bash") || fileNameTokens[2].equals("cmd") || fileNameTokens[2].equals("compose")))) {
         fileNameTokens[2] = "unknown";
       }
 

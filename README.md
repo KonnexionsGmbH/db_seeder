@@ -546,7 +546,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.1 AgensGraph
+### <a name="details_agens"></a> 5.1 AgensGraph
 
 - **data types**:
 
@@ -1272,6 +1272,8 @@ Below are also DBeaver based connection parameter examples for each database man
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
+
+- **issue tracking**: [pgsql-bugs](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
   - version 42.2.18
