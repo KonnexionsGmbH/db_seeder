@@ -14,7 +14,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.6.1
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_PRESTO=346
+export DB_SEEDER_VERSION_PRESTO=347
 
 if [ -z "$1" ]; then
     echo "========================================================="

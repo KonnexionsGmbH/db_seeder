@@ -56,14 +56,15 @@ n/a
 
 - CrateDB: DBMS 4.3.1
 
-- MariaDB Server: DBMS 10.5.8
+- IBM Db2 Database: JDBC 11.5.5.0
+
+- MariaDB Server: DBMS 10.5.8 / JDBC 2.7.1
 
 - Mimer SQL: DBMS v11.0.4b
 
 - PostgreSQL Database: DBMS 13.1
 
-- Presto Distributed Query Engine: DBMS 346
-- Presto Distributed Query Engine: JDBC 346
+- Presto Distributed Query Engine: DBMS 347 / JDBC 347
 
 - Travis CI  has been limited to the compilation functionality 
 
@@ -124,22 +125,19 @@ Release Date: 27.10.2020
 
 - CrateDB: DBMS 4.3.0
 
-- Exasol: DBMS 7.0.3
-- Exasol: JDBC 7.0.3
+- Exasol: DBMS 7.0.3 / JDBC 7.0.3
 
 - Firebird: DBMS 3.0.7
 
 - MariaDB Server: DBMS 10.5.6
 
-- MySQL Database: DBMS 8.0.22
-- MySQL Database: JDBC 8.0.22
+- MySQL Database: DBMS 8.0.22 / JDBC 8.0.22
 
 - Oracle Database: JDBC 19.8.0.0
 
 - PostgreSQL Database: JDBC 42.2.18
 
-- Presto Distributed Query Engine: DBMS 345
-- Presto Distributed Query Engine: JDBC 345
+- Presto Distributed Query Engine: DBMS 345 / JDBC 345
 
 ----------
 

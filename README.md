@@ -177,9 +177,9 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                      | 2.5.1               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0        | 11.5.4.0            |                                                    
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.8           | 2.7.0               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.8           | 2.7.1               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 8.4.1.jre14         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                | 
 | MonetDB                         | monetdb            | Jun2020-SP1                | 2.29.jre7           | 
@@ -187,7 +187,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Oracle Database                 | oracle             | 12c - 19c                  | 19.8.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.22              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
-| Presto Distributed Query Engine | n/a                | 339 - 346                  | 346                 |
+| Presto Distributed Query Engine | n/a                | 339 - 347                  | 347                 |
 | SQLite                          | sqlite             | 3.32.0 - 3.33.0            | 3.32.3.2            |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.0.0-b2   | 42.2.7-yb-3         |
@@ -910,7 +910,7 @@ Below are also DBeaver based connection parameter examples for each database man
     - procedure or function
   
 - **JDBC driver (latest)**:
-  - version 11.5.4.0
+  - version 11.5.54.0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
@@ -1306,7 +1306,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:346`
+  - pull command: `docker pull prestosql/presto:347`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
 - **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
@@ -1351,7 +1351,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - no Docker image necessary, hence not available
   - no user management 
 
-- **source code**: [Fossil](https://sqlite.org/src/dir?ci=tip)
+- **source code**: [Fossil](https://sqlite.org/src/doc/trunk/README.md)
 
 - **DBeaver database connection settings**:
 
