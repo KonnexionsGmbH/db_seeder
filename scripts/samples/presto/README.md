@@ -10,7 +10,7 @@
 
 The best way to compile is with Gradle and the statement `build copyJarToLib`. 
 This creates the JAR file `db_seeder.jar` in the directory `lib`.
-Java must be installed at least in version 14.
+Java must be installed at least in version 15.
 
 ## 3. Running
 
@@ -18,14 +18,14 @@ Prerequisite for this is an executable Presto version and the successful install
 
 The Presto catalog properties can be generated with the script `scripts/run_db_seeder_presto_environment`.
 
-Presto and the DBMS can be made available with the script `run_db_seeder [mysql|oracle|postgresql|sqlserver] yes 0`, whereby corresponding Docker container are created in Windows and Linux.0
+Presto and the DBMS can be made available with the script `run_db_seeder [mysql|oracle|postgresql|sqlserver]_presto yes 0`, whereby corresponding Docker container are created in Windows and Linux.
 
 The **`db_seeder`** demonstration program for Presto can then be executed with the DBMS specific script `scripts/samples/presto/run_sample_[mysql|oracle|postgresql|sqlserver]`. 
 
 ## 4. Sample run for the PostgreSQL Connector
 
-Menu items 2 (Run the demo with the original JDBC driver) and 3 (Run the demo with the Presto JDBC driver) differ only in the selection of the driver. 
-By default, 2500 rows are inserted in the following database table (PostgreSQL version):
+Menu items 1 and 2 (Run the demo with the original JDBC driver) and 3 and 4 (Run the demo with the Presto JDBC driver) differ only in the selection of the driver. 
+By default, 1000 rows are inserted in the following database table (PostgreSQL version):
 
     CREATE TABLE issue_table (
         column_pk        BIGINT         NOT NULL
@@ -49,178 +49,117 @@ All driver and SQL relevant events are logged at the console.
     D:\SoftDevelopment\Projects\Konnexions\db_seeder>docker start db_seeder_db
     db_seeder_db
 
-    D:\SoftDevelopment\Projects\Konnexions\db_seeder>docker ps
-    CONTAINER ID        IMAGE                             COMMAND                  CREATED             STATUS              PORTS                    NAMES
-    6408751738ca        postgres:12.3-alpine              "docker-entrypoint.s…"   8 hours ago         Up 5 seconds        0.0.0.0:5432->5432/tcp   db_seeder_db
-    4d18bdee0064        konnexionsgmbh/db_seeder_presto   "presto-server/bin/l…"   19 hours ago        Up 20 seconds       0.0.0.0:8080->8080/tcp   db_seeder_presto
+    D:\SoftDevelopment\Projects\db_seeder>docker ps
+    CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                                            NAMES
+    fe106d6782fa        postgres:latest           "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        0.0.0.0:5432->5432/tcp                           db_seeder_db
+    9bfe33d2c490        prestosql/presto:latest   "/usr/lib/presto/bin…"   About an hour ago   Up About an hour    0.0.0.0:8080->8080/tcp                           db_seeder_presto
+    3259f5bb6c0e        portainer/portainer-ce    "/portainer"             6 weeks ago         Up About an hour    0.0.0.0:8000->8000/tcp, 0.0.0.0:9000->9000/tcp   portainer
 
-    D:\SoftDevelopment\Projects\Konnexions\db_seeder>scripts\samples\presto\run_sample_postgresql
+    D:\SoftDevelopment\Projects\db_seeder>scripts\samples\presto\run_sample_postgresql
     ================================================================================
     Start scripts\samples\presto\run_sample_postgresql
     --------------------------------------------------------------------------------
     DB Seeder - Demonstration Issues Presto PostgreSQL Connector.
     --------------------------------------------------------------------------------
-    The current time is:  9:01:51.34
+    The current time is: 17:03:09.92
     Enter the new time:
     --------------------------------------------------------------------------------
-    [main] Start SamplePostgresql
-    [main]
-    [main] ----------------------------------------------
-    [main] 1 - Setup the database (includes reset)
-    [main] 2 - Run the demo with the original JDBC driver
-    [main] 3 - Run the demo with the Presto JDBC driver
-    [main] 4 - Reset the database
-    [main] 9 - Terminate the processing
-    [main] ----------------------------------------------
-    [main]
-    [main] Please make a choice:
-    1
-    [main] Reset the database
-    [main]
-    [main] driver  ='org.postgresql.Driver'
-    [main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
-    [main] sqlStmnt='DROP DATABASE IF EXISTS kxn_db'
-    [main] sqlStmnt='DROP USER IF EXISTS kxn_user'
-    [main]
-    [main] Setup the database
-    [main]
-    [main] driver  ='org.postgresql.Driver'
-    [main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
-    [main] sqlStmnt='CREATE DATABASE kxn_db'
-    [main] sqlStmnt='CREATE USER kxn_user WITH ENCRYPTED PASSWORD 'postgresql''
-    [main] sqlStmnt='GRANT ALL PRIVILEGES ON DATABASE kxn_db TO kxn_user'
-    [main] driver  ='org.postgresql.Driver'
-    [main] url     ='jdbc:postgresql://localhost:5432/kxn_db?user=kxn_user&password=postgresql'
-    [main] sqlStmnt='CREATE TABLE issue_table (
-        column_pk        BIGINT         NOT NULL
-                                        PRIMARY KEY,
-        column_blob      BYTEA,
-        column_clob      TEXT,
-        column_timestamp TIMESTAMP      NOT NULL,
-        column_varchar   VARCHAR(100)   NOT NULL
-                                        UNIQUE
-    )
-    '
-    [main]
-    [main] ----------------------------------------------
-    [main] 1 - Setup the database (includes reset)
-    [main] 2 - Run the demo with the original JDBC driver
-    [main] 3 - Run the demo with the Presto JDBC driver
-    [main] 4 - Reset the database
-    [main] 9 - Terminate the processing
-    [main] ----------------------------------------------
-    [main]
-    [main] Please make a choice:
-    2
-    [main] Run the demo with the original JDBC driver
-    [main]
-    [main] driver  ='org.postgresql.Driver'
-    [main] url     ='jdbc:postgresql://localhost:5432/kxn_db?user=kxn_user&password=postgresql'
-    [main]
-    [main]     50 rows inserted so far
-    [main]    100 rows inserted so far
-    [main]    150 rows inserted so far
-    [main]    200 rows inserted so far
-    [main]    250 rows inserted so far
-    [main]    300 rows inserted so far
-    [main]    350 rows inserted so far
-    [main]    400 rows inserted so far
-    [main]    450 rows inserted so far
-    [main]    500 rows inserted so far
-    [main]    550 rows inserted so far
-    [main]    600 rows inserted so far
-    [main]    650 rows inserted so far
-    [main]    700 rows inserted so far
-    [main]    750 rows inserted so far
-    [main]    800 rows inserted so far
-    [main]    850 rows inserted so far
-    [main]    900 rows inserted so far
-    [main]    950 rows inserted so far
-    [main]   1000 rows inserted so far
-    [main]   1050 rows inserted so far
-    [main]   1100 rows inserted so far
-    [main]   1150 rows inserted so far
-    [main]   1200 rows inserted so far
-    [main]   1250 rows inserted so far
-    [main]   1300 rows inserted so far
-    [main]   1350 rows inserted so far
-    [main]   1400 rows inserted so far
-    [main]   1450 rows inserted so far
-    [main]   1500 rows inserted so far
-    [main]   1550 rows inserted so far
-    [main]   1600 rows inserted so far
-    [main]   1650 rows inserted so far
-    [main]   1700 rows inserted so far
-    [main]   1750 rows inserted so far
-    [main]   1800 rows inserted so far
-    [main]   1850 rows inserted so far
-    [main]   1900 rows inserted so far
-    [main]   1950 rows inserted so far
-    [main]   2000 rows inserted so far
-    [main]   2050 rows inserted so far
-    [main]   2100 rows inserted so far
-    [main]   2150 rows inserted so far
-    [main]   2200 rows inserted so far
-    [main]   2250 rows inserted so far
-    [main]   2300 rows inserted so far
-    [main]   2350 rows inserted so far
-    [main]   2400 rows inserted so far
-    [main]   2450 rows inserted so far
-    [main]   2500 rows inserted so far
-    [main]
-    [main]   2500 rows inserted totally - duration in seconds:         13
-    [main]
-    [main] ----------------------------------------------
-    [main] 1 - Setup the database (includes reset)
-    [main] 2 - Run the demo with the original JDBC driver
-    [main] 3 - Run the demo with the Presto JDBC driver
-    [main] 4 - Reset the database
-    [main] 9 - Terminate the processing
-    [main] ----------------------------------------------
-    [main]
-    [main] Please make a choice:
-    1
-    [main] Reset the database
-    [main]
-    [main] driver  ='org.postgresql.Driver'
-    [main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
-    [main] sqlStmnt='DROP DATABASE IF EXISTS kxn_db'
-    [main] sqlStmnt='DROP USER IF EXISTS kxn_user'
-    [main]
-    [main] Setup the database
-    [main]
-    [main] driver  ='org.postgresql.Driver'
-    [main] url     ='jdbc:postgresql://localhost:5432/kxn_db_sys?user=kxn_user_sys&password=postgresql'
-    [main] sqlStmnt='CREATE DATABASE kxn_db'
-    [main] sqlStmnt='CREATE USER kxn_user WITH ENCRYPTED PASSWORD 'postgresql''
-    [main] sqlStmnt='GRANT ALL PRIVILEGES ON DATABASE kxn_db TO kxn_user'
-    [main] driver  ='org.postgresql.Driver'
-    [main] url     ='jdbc:postgresql://localhost:5432/kxn_db?user=kxn_user&password=postgresql'
-    [main] sqlStmnt='CREATE TABLE issue_table (
-        column_pk        BIGINT         NOT NULL
-                                        PRIMARY KEY,
-        column_blob      BYTEA,
-        column_clob      TEXT,
-        column_timestamp TIMESTAMP      NOT NULL,
-        column_varchar   VARCHAR(100)   NOT NULL
-                                        UNIQUE
-    )
-    '
-    [main]
-    [main] ----------------------------------------------
-    [main] 1 - Setup the database (includes reset)
-    [main] 2 - Run the demo with the original JDBC driver
-    [main] 3 - Run the demo with the Presto JDBC driver
-    [main] 4 - Reset the database
-    [main] 9 - Terminate the processing
-    [main] ----------------------------------------------
-    [main]
-    [main] Please make a choice:
-    3
-    [main] Run the demo with the Presto JDBC driver
-    [main]
-    [main] driver  ='io.prestosql.jdbc.PrestoDriver'
-    [main] url     ='jdbc:presto://localhost:8080/db_seeder_postgresql/public?user=presto'
-    [main]
-    [main]     50 rows inserted so far
-
+    2020-11-27 17:03:10,270 [SamplePostgresql.java] INFO  Start SamplePostgresql
+    2020-11-27 17:03:10,277 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:10,279 [SamplePostgresql.java] INFO  ----------------------------------------------
+    2020-11-27 17:03:10,280 [SamplePostgresql.java] INFO  1 - Run the demo with the original JDBC driver
+    2020-11-27 17:03:10,281 [SamplePostgresql.java] INFO  2 - Run the demo with the original JDBC driver - with batch operations
+    2020-11-27 17:03:10,283 [SamplePostgresql.java] INFO  3 - Run the demo with the Presto JDBC driver
+    2020-11-27 17:03:10,286 [SamplePostgresql.java] INFO  4 - Run the demo with the Presto JDBC driver - with batch operations
+    2020-11-27 17:03:10,288 [SamplePostgresql.java] INFO  8 - Run all demos
+    2020-11-27 17:03:10,292 [SamplePostgresql.java] INFO  9 - Terminate the processing
+    2020-11-27 17:03:10,294 [SamplePostgresql.java] INFO  ----------------------------------------------
+    2020-11-27 17:03:10,295 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:10,296 [SamplePostgresql.java] INFO  Please make a choice:
+    8
+    2020-11-27 17:03:14,004 [SamplePostgresql.java] INFO  Run the demo with the original JDBC driver
+    2020-11-27 17:03:14,005 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:14,007 [SamplePostgresql.java] INFO  Reset the database
+    2020-11-27 17:03:14,008 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:14,766 [SamplePostgresql.java] INFO  Setup the database
+    2020-11-27 17:03:14,769 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:15,128 [SamplePostgresql.java] INFO     100 rows inserted so far - milliseconds:  244
+    2020-11-27 17:03:15,364 [SamplePostgresql.java] INFO     200 rows inserted so far - milliseconds:  235
+    2020-11-27 17:03:15,603 [SamplePostgresql.java] INFO     300 rows inserted so far - milliseconds:  236
+    2020-11-27 17:03:15,829 [SamplePostgresql.java] INFO     400 rows inserted so far - milliseconds:  224
+    2020-11-27 17:03:16,048 [SamplePostgresql.java] INFO     500 rows inserted so far - milliseconds:  216
+    2020-11-27 17:03:16,312 [SamplePostgresql.java] INFO     600 rows inserted so far - milliseconds:  261
+    2020-11-27 17:03:16,554 [SamplePostgresql.java] INFO     700 rows inserted so far - milliseconds:  239
+    2020-11-27 17:03:16,762 [SamplePostgresql.java] INFO     800 rows inserted so far - milliseconds:  206
+    2020-11-27 17:03:16,973 [SamplePostgresql.java] INFO     900 rows inserted so far - milliseconds:  210
+    2020-11-27 17:03:17,190 [SamplePostgresql.java] INFO    1000 rows inserted so far - milliseconds:  214
+    2020-11-27 17:03:17,192 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:17,195 [SamplePostgresql.java] INFO    1000 rows inserted totally - duration in seconds:          2
+    2020-11-27 17:03:17,197 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:17,199 [SamplePostgresql.java] INFO  Run the demo with the original JDBC driver - with batch operations
+    2020-11-27 17:03:17,200 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:17,202 [SamplePostgresql.java] INFO  Reset the database
+    2020-11-27 17:03:17,203 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:17,236 [SamplePostgresql.java] INFO  Setup the database
+    2020-11-27 17:03:17,238 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:17,409 [SamplePostgresql.java] INFO     100 rows inserted so far - milliseconds:   66
+    2020-11-27 17:03:17,489 [SamplePostgresql.java] INFO     200 rows inserted so far - milliseconds:   78
+    2020-11-27 17:03:17,574 [SamplePostgresql.java] INFO     300 rows inserted so far - milliseconds:   82
+    2020-11-27 17:03:17,649 [SamplePostgresql.java] INFO     400 rows inserted so far - milliseconds:   73
+    2020-11-27 17:03:17,738 [SamplePostgresql.java] INFO     500 rows inserted so far - milliseconds:   86
+    2020-11-27 17:03:17,817 [SamplePostgresql.java] INFO     600 rows inserted so far - milliseconds:   78
+    2020-11-27 17:03:17,898 [SamplePostgresql.java] INFO     700 rows inserted so far - milliseconds:   78
+    2020-11-27 17:03:17,978 [SamplePostgresql.java] INFO     800 rows inserted so far - milliseconds:   77
+    2020-11-27 17:03:18,065 [SamplePostgresql.java] INFO     900 rows inserted so far - milliseconds:   84
+    2020-11-27 17:03:18,145 [SamplePostgresql.java] INFO    1000 rows inserted so far - milliseconds:   77
+    2020-11-27 17:03:18,147 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:18,148 [SamplePostgresql.java] INFO    1000 rows inserted totally - duration in seconds:          0
+    2020-11-27 17:03:18,150 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:18,151 [SamplePostgresql.java] INFO  Run the demo with the Presto JDBC driver
+    2020-11-27 17:03:18,152 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:18,154 [SamplePostgresql.java] INFO  Reset the database
+    2020-11-27 17:03:18,155 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:18,188 [SamplePostgresql.java] INFO  Setup the database
+    2020-11-27 17:03:18,190 [SamplePostgresql.java] INFO
+    2020-11-27 17:03:26,806 [SamplePostgresql.java] INFO     100 rows inserted so far - milliseconds: 8145
+    2020-11-27 17:03:34,768 [SamplePostgresql.java] INFO     200 rows inserted so far - milliseconds: 7961
+    2020-11-27 17:03:42,627 [SamplePostgresql.java] INFO     300 rows inserted so far - milliseconds: 7856
+    2020-11-27 17:03:50,604 [SamplePostgresql.java] INFO     400 rows inserted so far - milliseconds: 7974
+    2020-11-27 17:03:58,697 [SamplePostgresql.java] INFO     500 rows inserted so far - milliseconds: 8090
+    2020-11-27 17:04:06,742 [SamplePostgresql.java] INFO     600 rows inserted so far - milliseconds: 8043
+    2020-11-27 17:04:14,989 [SamplePostgresql.java] INFO     700 rows inserted so far - milliseconds: 8245
+    2020-11-27 17:04:23,088 [SamplePostgresql.java] INFO     800 rows inserted so far - milliseconds: 8096
+    2020-11-27 17:04:31,057 [SamplePostgresql.java] INFO     900 rows inserted so far - milliseconds: 7967
+    2020-11-27 17:04:39,124 [SamplePostgresql.java] INFO    1000 rows inserted so far - milliseconds: 8064
+    2020-11-27 17:04:39,135 [SamplePostgresql.java] INFO
+    2020-11-27 17:04:39,137 [SamplePostgresql.java] INFO    1000 rows inserted totally - duration in seconds:         80
+    2020-11-27 17:04:39,138 [SamplePostgresql.java] INFO
+    2020-11-27 17:04:39,140 [SamplePostgresql.java] INFO  Run the demo with the Presto JDBC driver - with batch operations
+    2020-11-27 17:04:39,141 [SamplePostgresql.java] INFO
+    2020-11-27 17:04:39,144 [SamplePostgresql.java] INFO  Reset the database
+    2020-11-27 17:04:39,146 [SamplePostgresql.java] INFO
+    2020-11-27 17:04:39,227 [SamplePostgresql.java] INFO  Setup the database
+    2020-11-27 17:04:39,229 [SamplePostgresql.java] INFO
+    2020-11-27 17:04:47,520 [SamplePostgresql.java] INFO     100 rows inserted so far - milliseconds: 8177
+    2020-11-27 17:04:55,483 [SamplePostgresql.java] INFO     200 rows inserted so far - milliseconds: 7960
+    2020-11-27 17:05:03,180 [SamplePostgresql.java] INFO     300 rows inserted so far - milliseconds: 7694
+    2020-11-27 17:05:10,937 [SamplePostgresql.java] INFO     400 rows inserted so far - milliseconds: 7753
+    2020-11-27 17:05:19,199 [SamplePostgresql.java] INFO     500 rows inserted so far - milliseconds: 8260
+    2020-11-27 17:05:27,322 [SamplePostgresql.java] INFO     600 rows inserted so far - milliseconds: 8120
+    2020-11-27 17:05:35,668 [SamplePostgresql.java] INFO     700 rows inserted so far - milliseconds: 8343
+    2020-11-27 17:05:43,842 [SamplePostgresql.java] INFO     800 rows inserted so far - milliseconds: 8171
+    2020-11-27 17:05:52,484 [SamplePostgresql.java] INFO     900 rows inserted so far - milliseconds: 8639
+    2020-11-27 17:06:00,481 [SamplePostgresql.java] INFO    1000 rows inserted so far - milliseconds: 7994
+    2020-11-27 17:06:00,491 [SamplePostgresql.java] INFO
+    2020-11-27 17:06:00,492 [SamplePostgresql.java] INFO    1000 rows inserted totally - duration in seconds:         81
+    2020-11-27 17:06:00,493 [SamplePostgresql.java] INFO
+    2020-11-27 17:06:00,495 [SamplePostgresql.java] INFO  End   SamplePostgresql
+    --------------------------------------------------------------------------------
+    The current time is: 17:06:00.57
+    Enter the new time:
+    --------------------------------------------------------------------------------
+    End   scripts\samples\presto\run_sample_postgresql
+    ================================================================================
+    
+    D:\SoftDevelopment\Projects\db_seeder>
+    

@@ -7,7 +7,7 @@
 
 ## Version 2.6.1
 
-Release Date: dd.11.2020
+Release Date: 28.11.2020
 
 #### System Requirements
 
