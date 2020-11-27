@@ -1,21 +1,15 @@
 package ch.konnexions.db_seeder.jdbc;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import ch.konnexions.db_seeder.utils.Config;
+import ch.konnexions.db_seeder.utils.MessageHandling;
+import ch.konnexions.db_seeder.utils.Statistics;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.log4j.Logger;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.sql.Types;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -23,18 +17,12 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.log4j.Logger;
-
-import ch.konnexions.db_seeder.utils.Config;
-import ch.konnexions.db_seeder.utils.MessageHandling;
-import ch.konnexions.db_seeder.utils.Statistics;
-
 /**
  * Test Data Generator for a Database - Abstract JDBC Seeder.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
@@ -46,7 +34,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Gets the catalog name.
    *
    * @param tickerSymbolLower the lower case DBMS ticker symbol
-   * 
    * @return the catalog name
    */
   public static String getCatalogName(String tickerSymbolLower) {
@@ -57,10 +44,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Gets the Presto URL string.
    *
    * @param tickerSymbolLower the lower case DBMS ticker symbol
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port
-   * @param databaseSchema the database schema
-   * 
+   * @param connectionHost    the connection host name
+   * @param connectionPort    the connection port
+   * @param databaseSchema    the database schema
    * @return the Presto URL string
    */
   public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
@@ -104,8 +90,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public AbstractJdbcSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -145,7 +131,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Create a database connection.
    *
    * @param url the URL
-   *
    * @return the database connection
    */
   protected final Connection connect(String url) {
@@ -159,9 +144,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param url        the URL
    * @param autoCommit the auto commit option
-   *
    * @return the database connection
    */
   protected final Connection connect(String url, boolean autoCommit) {
@@ -175,9 +159,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
+   * @param url    the URL
    * @param driver the database driver
-   *
    * @return the database connection
    */
   protected final Connection connect(String url, String driver) {
@@ -191,10 +174,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
-   * @param driver the database driver
+   * @param url        the URL
+   * @param driver     the database driver
    * @param autoCommit the auto commit option
-   *
    * @return the database connection
    */
   protected final Connection connect(String url, String driver, boolean autoCommit) {
@@ -208,11 +190,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param url the URL
-   * @param driver the database driver
-   * @param user the user name
+   * @param url      the URL
+   * @param driver   the database driver
+   * @param user     the user name
    * @param password the password
-   *
    * @return the database connection
    */
   protected final Connection connect(String url, String driver, String user, String password) {
@@ -226,10 +207,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Create a database connection.
    *
-   * @param urlIn the URL
-   * @param driver the database driver
-   * @param user the user name
-   * @param password the password
+   * @param urlIn      the URL
+   * @param driver     the database driver
+   * @param user       the user name
+   * @param password   the password
    * @param autoCommit the auto commit option
    * @return the database connection
    */
@@ -330,7 +311,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Create the column names with encoding variations.
    *
    * @param isEncodingIso_8859_1 the is encoding ISO_8859_1 8859 1
-   * @param isEncodingUtf_8 the is encoding UTF_8 required
+   * @param isEncodingUtf_8      the is encoding UTF_8 required
    */
   protected abstract void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8);
 
@@ -466,26 +447,17 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                   rowNo);
 
       try {
-        if (isPresto) {
-          int count = preparedStatement.executeUpdate();
+        preparedStatement.addBatch();
 
-          if (count != 1) {
-            MessageHandling.abortProgram(logger,
-                                         "Program abort: insert result=" + count + " sqlstmnt='" + sqlStmnt + "'");
+        if (rowNo % batchSize == 0) {
+          preparedStatement.executeBatch();
+          isToBeExecuted = false;
+
+          if (dbmsEnum == DbmsEnum.MONETDB) {
+            preparedStatement.clearBatch();
           }
         } else {
-          preparedStatement.addBatch();
-
-          if (rowNo % batchSize == 0) {
-            preparedStatement.executeBatch();
-            isToBeExecuted = false;
-
-            if (dbmsEnum == DbmsEnum.MONETDB) {
-              preparedStatement.clearBatch();
-            }
-          } else {
-            isToBeExecuted = true;
-          }
+          isToBeExecuted = true;
         }
 
         pkList.add(rowNo);
@@ -532,14 +504,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   protected abstract String createDdlStmnt(String tableName);
 
   /**
    * Create the all database tables.
-   * @param connection TODO
+   *
+   * @param connection the database connection
    */
   protected final void createSchema(Connection connection) {
     if (isDebug) {
@@ -678,10 +650,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Drop the database.
    *
-   * @param databaseName the database name
+   * @param databaseName    the database name
    * @param cascadeRestrict "CASCADE" or "RESTRICT"
-   * @param tableName the table name
-   * @param columnName the column name
+   * @param tableName       the table name
+   * @param columnName      the column name
    */
   protected final void dropDatabase(String databaseName, String cascadeRestrict, String tableName, String columnName) {
     if (isDebug) {
@@ -731,10 +703,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Drop the database schema.
    *
-   * @param schemaName the schema name
+   * @param schemaName      the schema name
    * @param cascadeRestrict "CASCADE" or "RESTRICT"
-   * @param tableName the table name
-   * @param columnName the column name
+   * @param tableName       the table name
+   * @param columnName      the column name
    */
   protected final void dropSchema(String schemaName, String cascadeRestrict, String tableName, String columnName) {
     if (isDebug) {
@@ -782,10 +754,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Drop the database user.
    *
-   * @param userName the user name
+   * @param userName        the user name
    * @param cascadeRestrict "CASCADE" or "RESTRICT"
-   * @param tableName the table name
-   * @param columnName the column name
+   * @param tableName       the table name
+   * @param columnName      the column name
    */
   protected final void dropUser(String userName, String cascadeRestrict, String tableName, String columnName) {
     if (isDebug) {
@@ -834,9 +806,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   /**
    * Execute DDL statements.
-   * 
-   * @param statement the JDBC statement
-   * @param firstDdlStmnt the first DDL statement
+   *
+   * @param statement          the JDBC statement
+   * @param firstDdlStmnt      the first DDL statement
    * @param remainingDdlStmnts the remaining DDL statements
    */
   protected final void executeDdlStmnts(Statement statement, String firstDdlStmnt, String... remainingDdlStmnts) {
@@ -1133,12 +1105,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         if (dbmsEnum == DbmsEnum.EXASOL || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.VOLTDB || dbmsEnum == DbmsEnum.YUGABYTE) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
-          return;
         } else {
           preparedStatement.setNull(columnPos,
                                     Types.BLOB);
-          return;
         }
+        return;
       }
 
       prepStmntColBlob(preparedStatement,
@@ -1189,12 +1160,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         if (dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.EXASOL || dbmsEnum == DbmsEnum.VOLTDB) {
           preparedStatement.setNull(columnPos,
                                     Types.VARCHAR);
-          return;
         } else {
           preparedStatement.setNull(columnPos,
                                     java.sql.Types.CLOB);
-          return;
         }
+        return;
       }
 
       prepStmntColClob(preparedStatement,
@@ -1523,21 +1493,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   protected abstract void setupDatabase();
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
-   * 
-   * @param driver the database driver
-   * @param urlSys the database URL for privileged access
+   *
+   * @param driver  the database driver
+   * @param urlSys  the database URL for privileged access
    * @param urlUser the database URL for non-privileged access
-   * 
-   * @return  the database connection
-   * 
+   * @return the database connection
    */
   public Connection setupMysql(String driver, String urlSys, String urlUser) {
     if (isDebug) {
@@ -1613,15 +1581,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
-   * 
-   * @param driver the database driver
-   * @param urlSys the database URL for privileged access
+   *
+   * @param driver  the database driver
+   * @param urlSys  the database URL for privileged access
    * @param urlUser the database URL for non-privileged access
-   * 
-   * @return  the database connection
-   * 
+   * @return the database connection
    */
   public Connection setupPostgresql(String driver, String urlSys, String urlUser) {
     if (isDebug) {

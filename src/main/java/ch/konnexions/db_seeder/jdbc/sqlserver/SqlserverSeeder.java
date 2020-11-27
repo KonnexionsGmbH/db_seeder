@@ -1,10 +1,11 @@
 package ch.konnexions.db_seeder.jdbc.sqlserver;
 
-import ch.konnexions.db_seeder.generated.AbstractGenSqlserverSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
+import ch.konnexions.db_seeder.generated.AbstractGenSqlserverSchema;
+import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
  * Test Data Generator for a Microsoft SQL Server DBMS.

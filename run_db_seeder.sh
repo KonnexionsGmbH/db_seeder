@@ -12,9 +12,9 @@ set -e
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.6.0
+export DB_SEEDER_RELEASE=2.6.1
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_PRESTO=345
+export DB_SEEDER_VERSION_PRESTO=347
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -138,6 +138,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.2.6
     export DB_SEEDER_VERSION=4.2.7
     export DB_SEEDER_VERSION=4.3.0
+    export DB_SEEDER_VERSION=4.3.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -282,6 +283,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.5.4
     export DB_SEEDER_VERSION=10.5.5
     export DB_SEEDER_VERSION=10.5.6
+    export DB_SEEDER_VERSION=10.5.8
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -295,6 +297,7 @@ if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=SYSADM
     export DB_SEEDER_VERSION=v11.0.3c
+    export DB_SEEDER_VERSION=v11.0.4b
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
@@ -401,6 +404,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
     export DB_SEEDER_VERSION=13-alpine
+    export DB_SEEDER_VERSION=13.1-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ]; then
@@ -417,6 +421,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ]; then
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=12.4-alpine
     export DB_SEEDER_VERSION=13-alpine
+    export DB_SEEDER_VERSION=13.1-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
@@ -477,6 +482,8 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.2.2.0-b15
     export DB_SEEDER_VERSION=2.3.1.0-b15
     export DB_SEEDER_VERSION=2.3.2.0-b37
+    export DB_SEEDER_VERSION=2.3.3.0-b106
+    export DB_SEEDER_VERSION=2.5.0.0-b2
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
@@ -514,7 +521,6 @@ echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"
 echo "SETUP_DBMS                        : ${DB_SEEDER_SETUP_DBMS}"
-echo "TRAVIS                            : ${TRAVIS}"
 echo "VERSION_PRESTO                    : ${DB_SEEDER_VERSION_PRESTO}"
 echo --------------------------------------------------------------------------------
 echo "CONNECTION_HOST_PRESTO            : ${DB_SEEDER_CONNECTION_HOST_PRESTO}"

@@ -33,7 +33,7 @@ if ["!DB_SEEDER_DBMS!"] EQU ["complete"] (
     set DB_SEEDER_DBMS=mysql oracle postgresql sqlserver
 )
 
-set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
+set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
 
 set DB_SEEDER_DIRECTORY_CATALOG_PROPERTY=resources\docker\presto\catalog
 

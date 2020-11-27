@@ -95,7 +95,6 @@ public final class Statistics {
   /**
    * Create a new statistics file if none exists yet.
    */
-  @SuppressWarnings("resource")
   private void createStatisticsFile() {
     if (isDebug) {
       logger.debug("Start");

@@ -16,6 +16,10 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------
 
+dir *.log
+if exist db_seeder.log del /f /q db_seeder.log
+dir *.log
+
 java -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.SampleOracle
 
 echo --------------------------------------------------------------------------------

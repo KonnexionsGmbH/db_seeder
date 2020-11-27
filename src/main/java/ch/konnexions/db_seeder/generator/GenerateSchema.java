@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -145,23 +144,20 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     StringBuilder     workArea;
 
-    tableConstraints.sort(new Comparator<>() {
-      @Override
-      public int compare(TableConstraint tableConstraint1, TableConstraint tableConstraint2) {
-        int result = tableConstraint1.getConstraintType().compareTo(tableConstraint2.getConstraintType());
+    tableConstraints.sort((tableConstraint1, tableConstraint2) -> {
+      int result = tableConstraint1.getConstraintType().compareTo(tableConstraint2.getConstraintType());
 
-        if (result != 0) {
-          return result;
-        }
-
-        result = tableConstraint1.getColumns().get(0).compareTo(tableConstraint2.getColumns().get(0));
-
-        if (result != 0) {
-          return result;
-        }
-
-        return tableConstraint1.getColumns().get(1).compareTo(tableConstraint2.getColumns().get(1));
+      if (result != 0) {
+        return result;
       }
+
+      result = tableConstraint1.getColumns().get(0).compareTo(tableConstraint2.getColumns().get(0));
+
+      if (result != 0) {
+        return result;
+      }
+
+      return tableConstraint1.getColumns().get(1).compareTo(tableConstraint2.getColumns().get(1));
     });
 
     int constraintSize = -1;
@@ -212,9 +208,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           || "percona".equals(tickerSymbolLower)
           || "postgresql".equals(tickerSymbolLower)
           || "sqlserver".equals(tickerSymbolLower)) {
-        columns.forEach(column -> column.toLowerCase());
+        columns.forEach(String::toLowerCase);
       } else {
-        columns.forEach(column -> column.toUpperCase());
+        columns.forEach(String::toUpperCase);
       }
 
       workArea.append(String.join(identifierDelimiter + ", " + identifierDelimiter,
@@ -233,10 +229,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             || "postgresql".equals(tickerSymbolLower)
             || "sqlserver".equals(tickerSymbolLower)) {
           editedReferenceTable = tableConstraint.getReferenceTable().toLowerCase();
-          columns.forEach(column -> column.toLowerCase());
+          columns.forEach(String::toLowerCase);
         } else {
           editedReferenceTable = tableConstraint.getReferenceTable().toUpperCase();
-          columns.forEach(column -> column.toUpperCase());
+          columns.forEach(String::toUpperCase);
         }
 
         workArea.append("REFERENCES ").append(String.format("%-33s",
@@ -426,15 +422,15 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       logger.debug("Start");
     }
 
-//    String            columnConstraint;
+    //    String            columnConstraint;
     String            columnNameUpper;
     String            columnNameLastUpper = "";
     ArrayList<Column> columns;
 
-//    String            dataType;
+    //    String            dataType;
     String            dbmsName            = getDbmsName(tickerSymbolLower);
 
-//    ArrayList<String> editedColumnConstraints;
+    //    ArrayList<String> editedColumnConstraints;
     String            editedColumnName;
     String            editedDataType;
     String            editedReferenceColumn;
@@ -598,17 +594,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               ArrayList<References> references = column.getReferences();
 
-              references.sort(new Comparator<>() {
-                @Override
-                public int compare(References reference1, References reference2) {
-                  int result = reference1.getReferenceTable().compareTo(reference2.getReferenceTable());
+              references.sort((reference1, reference2) -> {
+                int result = reference1.getReferenceTable().compareTo(reference2.getReferenceTable());
 
-                  if (result != 0) {
-                    return result;
-                  }
-
-                  return reference1.getReferenceColumn().compareTo(reference2.getReferenceColumn());
+                if (result != 0) {
+                  return result;
                 }
+
+                return reference1.getReferenceColumn().compareTo(reference2.getReferenceColumn());
               });
 
               for (References reference : references) {

@@ -3,7 +3,76 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.1.svg)
+
+## Version 2.6.1
+
+Release Date: 28.11.2020
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
+#### Current Issues
+
+- Apache Derby
+
+  - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
+
+- Exasol
+
+  - JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
+  - Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
+    
+- Mimer SQL & DBeaver
+
+  - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
+
+- Oracle Database
+
+  - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
+
+- Presto Distributed Query Engine
+
+  - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/prestosql/presto/issues/5681)).
+  - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/prestosql/presto/issues/5648)).
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
+
+- YugabyteDB
+
+  - Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- CrateDB: DBMS 4.3.1
+
+- IBM Db2 Database: JDBC 11.5.5.0
+
+- MariaDB Server: DBMS 10.5.8 / JDBC 2.7.1
+
+- Mimer SQL: DBMS v11.0.4b
+
+- PostgreSQL Database: DBMS 13.1
+
+- Presto Distributed Query Engine: DBMS 347 / JDBC 347
+
+- Travis CI  has been limited to the compilation functionality 
+
+- VoltDB: JDBC 10.1.1
+
+- YugabyteDB: DBMS 2.5.0.0-b2
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ## Version 2.6.0
 
@@ -52,26 +121,19 @@ Release Date: 27.10.2020
 
 - CrateDB: DBMS 4.3.0
 
-- Exasol: DBMS 7.0.3
-- Exasol: JDBC 7.0.3
+- Exasol: DBMS 7.0.3 / JDBC 7.0.3
 
 - Firebird: DBMS 3.0.7
 
 - MariaDB Server: DBMS 10.5.6
 
-- MySQL Database: DBMS 8.0.22
-- MySQL Database: JDBC 8.0.22
+- MySQL Database: DBMS 8.0.22 / JDBC 8.0.22
 
 - Oracle Database: JDBC 19.8.0.0
 
 - PostgreSQL Database: JDBC 42.2.18
 
-- Presto Distributed Query Engine: DBMS 345
-- Presto Distributed Query Engine: JDBC 345
-
-#### Deleted Features
-
-n/a
+- Presto Distributed Query Engine: DBMS 345 / JDBC 345
 
 ----------
 

@@ -81,8 +81,8 @@ if NOT ["%DB_SEEDER_DATABASE_INTERN%" == ""] (
     if ["%DB_SEEDER_DBMS%"] == ["ibmdb2"] (
         md %DB_SEEDER_DATABASE%
     ) else (
-        for %%F in ("%DB_SEEDER_DATABASE%") do set dirname=%%~dpF
-        md %dirname%
+         for %%F in ("%DB_SEEDER_DATABASE%") do set dirname=%%~dpF
+         md %dirname%
     )
 )
 

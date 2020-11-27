@@ -10,7 +10,7 @@ setlocal EnableDelayedExpansion
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
-set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
+set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
 
 echo ================================================================================
 echo Start %0

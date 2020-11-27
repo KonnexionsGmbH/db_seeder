@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.1.svg)
 ----
 
 ### Table of Contents
@@ -167,30 +167,30 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 
 ### <a name="rdbms"></a> 1.1 Relational Database Management Systems
 
-| DBMS                            | Ticker Symbol(s)   | DBMS Versions             | Latest JDBC         |
-|---                              |---                 |---                        |---                  |
-| AgensGraph                      | agens              | v2.1.1                    | 1.4.2-c1            |
-| Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
-| CUBRID                          | cubrid             | 10.2                      | 10.2.2.8874         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.3.0             | 2.6.0               |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.3          | 7.0.3               |
-| Firebird                        | firebird           | 3.0.5 - 3.0.7             | 4.0.1.java11        | 
-| H2 Database Engine              | h2, h2_emb         | 1.4.200                   | 1.4.200             | 
-| HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                     | 2.5.1               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0       | 11.5.4.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.6          | 2.7.0               | 
-| Microsoft SQL Server            | sqlserver          | 2019-latest               | 8.4.1.jre14         | 
-| Mimer SQL                       | mimer              | v11.0.3C                  | 3.40                | 
-| MonetDB                         | monetdb            | Jun2020-SP1               | 2.29.jre7           | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.22           | 8.0.22              | 
-| Oracle Database                 | oracle             | 12c - 19c                 | 19.8.0.0            |
-| Percona Server for MySQL        | percona            | 5.7.14                    | 8.0.22              | 
-| PostgreSQL Database             | postgresql         | 12.3 - 13                 | 42.2.18             |
-| Presto Distributed Query Engine | n/a                | 339 - 345                 | 345                 |
-| SQLite                          | sqlite             | 3.32.0 - 3.33.0           | 3.32.3.2            |
-| VoltDB                          | voltdb             | 9.2.1                     | 9.2.2               |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.3.2.0-b37 | 42.2.7-yb-3         |
+| DBMS                            | Ticker Symbol(s)   | DBMS Versions              | Latest JDBC         |
+|---                              |---                 |---                         |---                  |
+| AgensGraph                      | agens              | v2.1.1                     | 1.4.2-c1            |
+| Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
+| CUBRID                          | cubrid             | 10.2                       | 10.2.2.8874         |
+| CrateDB                         | cratedb            | 4.1.6 - 4.3.1              | 2.6.0               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.3           | 7.0.3               |
+| Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.1.java11        | 
+| H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
+| HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                      | 2.5.1               | 
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0        | 11.5.5.0            |                                                    
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE  | 4.50.4.1            | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.8           | 2.7.1               | 
+| Microsoft SQL Server            | sqlserver          | 2019-latest                | 8.4.1.jre14         | 
+| Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                | 
+| MonetDB                         | monetdb            | Jun2020-SP1                | 2.29.jre7           | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.22            | 8.0.22              | 
+| Oracle Database                 | oracle             | 12c - 19c                  | 19.8.0.0            |
+| Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.22              | 
+| PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
+| Presto Distributed Query Engine | n/a                | 339 - 347                  | 347                 |
+| SQLite                          | sqlite             | 3.32.0 - 3.33.0            | 3.32.3.2            |
+| VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.0.0-b2   | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -447,12 +447,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     cratedb	CrateDB	v2.6.0	bash	client	unknown	24	2020-10-05 16:11:40.160409347	2020-10-05 16:12:04.695790414	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
     cubrid	CUBRID	v2.6.0	bash	client	unknown	50	2020-10-05 16:13:22.287362093	2020-10-05 16:14:12.339067275	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
 
-#### 4.1.4 Travis CI
-
-For each `db_seeder` release statistics file are created by default in the file directory `resources\statistics` with the following file name structure:
-
-    db_seeder_travis_<db type>_<schema>_<db_seeder release>.tsv
-
 [//]: # (===========================================================================================)
 
 ### <a name="operating_instructions_control"></a> 4.2 Control Parameters
@@ -552,7 +546,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.1 AgensGraph
+### <a name="details_agens"></a> 5.1 AgensGraph
 
 - **data types**:
 
@@ -650,7 +644,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.3.0`
+  - pull command: `docker pull crate:4.3.1`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -916,7 +910,7 @@ Below are also DBeaver based connection parameter examples for each database man
     - procedure or function
   
 - **JDBC driver (latest)**:
-  - version 11.5.4.0
+  - version 11.5.54.0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
@@ -991,7 +985,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.5.6`
+  - pull command: `docker pull mariadb:10.5.8`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1077,7 +1071,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mimersql/mimersql_v11.0:v11.0.3c`
+  - pull command: `docker pull mimersql/mimersql_v11.0.4b`
   - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
 
 - **encoding**: NCHAR, NVARCHAR
@@ -1274,10 +1268,12 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:13-alpine`
+  - pull command: `docker pull postgres:13.1-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
+
+- **issue tracking**: [pgsql-bugs](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
   - version 42.2.18
@@ -1310,7 +1306,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:345`
+  - pull command: `docker pull prestosql/presto:347`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
 - **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
@@ -1355,7 +1351,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - no Docker image necessary, hence not available
   - no user management 
 
-- **source code**: [Fossil](https://sqlite.org/src/dir?ci=tip)
+- **source code**: [Fossil](https://sqlite.org/src/doc/trunk/README.md)
 
 - **DBeaver database connection settings**:
 
@@ -1388,7 +1384,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 2.5.1
+  - version 10.1.1
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **source code**: [GitHub](https://github.com/VoltDB/voltdb)
@@ -1414,7 +1410,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.3.2.0-b37`
+  - pull command: `docker pull yugabytedb/yugabyte:2.5.0.0-b2`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: see PostgreSQL Database

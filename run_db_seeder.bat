@@ -14,9 +14,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.6.0
+set DB_SEEDER_RELEASE=2.6.1
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_PRESTO=345
+set DB_SEEDER_VERSION_PRESTO=347
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -137,6 +137,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.2.6
     set DB_SEEDER_VERSION=4.2.7
     set DB_SEEDER_VERSION=4.3.0
+    set DB_SEEDER_VERSION=4.3.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -283,6 +284,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.4
     set DB_SEEDER_VERSION=10.5.5
     set DB_SEEDER_VERSION=10.5.6
+    set DB_SEEDER_VERSION=10.5.8
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -296,6 +298,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SYSADM
     set DB_SEEDER_VERSION=v11.0.3c
+    set DB_SEEDER_VERSION=v11.0.4b
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
@@ -400,6 +403,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
     set DB_SEEDER_VERSION=13-alpine
+    set DB_SEEDER_VERSION=13.1-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
@@ -416,6 +420,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=12.4-alpine
     set DB_SEEDER_VERSION=13-alpine
+    set DB_SEEDER_VERSION=13.1-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
@@ -476,6 +481,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.2.2.0-b15
     set DB_SEEDER_VERSION=2.3.1.0-b15
     set DB_SEEDER_VERSION=2.3.2.0-b37
+    set DB_SEEDER_VERSION=2.3.3.0-b106
+    set DB_SEEDER_VERSION=2.5.0.0-b2
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
