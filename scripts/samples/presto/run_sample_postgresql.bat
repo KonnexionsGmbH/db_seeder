@@ -16,6 +16,8 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------
 
+if exist db_seeder.log del /f /q db_seeder.log
+
 java -cp %CLASSPATH%;lib/* ch.konnexions.db_seeder.samples.presto.SamplePostgresql
 
 echo --------------------------------------------------------------------------------
