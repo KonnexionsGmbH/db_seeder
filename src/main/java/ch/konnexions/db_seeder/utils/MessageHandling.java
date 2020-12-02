@@ -5,8 +5,9 @@ import org.apache.log4j.Logger;
 /**
  * Uniform message and program abort handling.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class MessageHandling {
 
@@ -15,7 +16,7 @@ public final class MessageHandling {
   /**
    * Abort program.
    *
-   * @param logger the logger
+   * @param logger  the logger
    * @param message the message
    */
   public static void abortProgram(Logger logger, String message) {
@@ -31,10 +32,9 @@ public final class MessageHandling {
 
   /**
    * Start a new progress message.
-   * 
-   * @param logger the logger
+   *
+   * @param logger  the logger
    * @param message the message
-   * 
    */
   public static void startProgress(Logger logger, String message) {
     logger.info("");

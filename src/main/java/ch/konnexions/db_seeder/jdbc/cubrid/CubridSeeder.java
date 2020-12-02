@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
 /**
  * Test Data Generator for a CUBRID DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class CubridSeeder extends AbstractGenCubridSchema {
 
@@ -19,12 +20,11 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
   /**
    * Gets the connection URL for privileged access.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database 
-   * @param userSys the user with privileged access
-   * 
+   * @param database         the database
+   * @param userSys          the user with privileged access
    * @return the connection URL for privileged access
    */
   private static String getUrlSys(String connectionHost, int connectionPort, String connectionPrefix, String database, String userSys) {
@@ -34,12 +34,12 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
   /**
    * Gets the connection URL for non-privileged access.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   * @param user the user with non-privileged access
-   * @param password the password with non-privileged access
+   * @param database         the database
+   * @param user             the user with non-privileged access
+   * @param password         the password with non-privileged access
    * @return the connection URL for non-privileged access
    */
   private static String getUrlUser(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
@@ -50,8 +50,8 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
 
   /**
    * Instantiates a new CUBRID seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public CubridSeeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
@@ -86,7 +86,6 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -95,7 +94,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

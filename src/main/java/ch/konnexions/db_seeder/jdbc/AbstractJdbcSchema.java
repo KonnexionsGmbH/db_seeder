@@ -1,19 +1,19 @@
 package ch.konnexions.db_seeder.jdbc;
 
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
-
 /**
  * Test Data Generator for a Database - Abstract JDBC Schema.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
 
@@ -29,17 +29,17 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
   protected static List<String>                             TABLE_NAMES_CREATE;
 
   protected static List<String>                             TABLE_NAMES_DROP;
-  private final boolean                                     isDebug     = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract JDBC schema object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public AbstractJdbcSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
 
+    boolean isDebug = logger.isDebugEnabled();
     if (isDebug) {
       logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }

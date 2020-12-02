@@ -10,8 +10,9 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 /**
  * Test Data Generator for a Microsoft SQL Server DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
 
@@ -20,13 +21,12 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   *
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
@@ -36,13 +36,12 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   /**
    * Gets the connection URL for Presto (used by PrestoEnvironment).
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database with non-privileged access
-   * @param user the user with non-privileged access
-   * @param password the password with non-privileged access
-   *
+   * @param database         the database with non-privileged access
+   * @param user             the user with non-privileged access
+   * @param password         the password with non-privileged access
    * @return the connection URL for non-privileged access
    */
   public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
@@ -58,8 +57,8 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
 
   /**
    * Instantiates a new Microsoft SQL Server seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public SqlserverSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -67,9 +66,9 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
 
   /**
    * Instantiates a new Microsoft SQL Server seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public SqlserverSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -110,7 +109,6 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -119,7 +117,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

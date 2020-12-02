@@ -7,8 +7,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenYugabyteSchema;
 /**
  * Test Data Generator for a YugabyteDB DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
 
@@ -17,13 +18,12 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   *
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
@@ -36,8 +36,8 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
 
   /**
    * Instantiates a new YugabyteDB seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public YugabyteSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -45,9 +45,9 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
 
   /**
    * Instantiates a new YugabyteDB seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   private YugabyteSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -81,7 +81,6 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override

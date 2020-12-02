@@ -188,7 +188,7 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.22              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
 | Presto Distributed Query Engine | n/a                | 339 - 347                  | 347                 |
-| SQLite                          | sqlite             | 3.32.0 - 3.33.0            | 3.32.3.2            |
+| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.32.3.2            |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.0.0-b2   | 42.2.7-yb-3         |
 
@@ -1344,8 +1344,9 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [SQLite Forum](https://www.sqlite.org/forum/about)
 
 - **JDBC driver (latest)**:
-  - version 3.33.0
+  - version 3.32.3.2
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
+  - determines also the DBMS version
 
 - **restrictions**:
   - no Docker image necessary, hence not available

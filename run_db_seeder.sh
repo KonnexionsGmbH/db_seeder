@@ -52,7 +52,7 @@ if [ -z "$1" ]; then
     echo "voltdb             - VoltDB"
     echo "yugabyte           - YugabyteDB"
     echo "---------------------------------------------------------"
-    read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
+    read -p -r "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=${DB_SEEDER_DBMS}
 
     if [ -z "${DB_SEEDER_DBMS}" ]; then
@@ -63,7 +63,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
+    read -p -r "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
     export DB_SEEDER_SETUP_DBMS=${DB_SEEDER_SETUP_DBMS}
 
     if [ -z "${DB_SEEDER_SETUP_DBMS}" ]; then
@@ -74,7 +74,7 @@ else
 fi
 
 if [ -z "$3" ]; then
-    read -p "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
+    read -p -r "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS}
 
     if [ -z "${DB_SEEDER_NO_CREATE_RUNS}" ]; then
@@ -85,13 +85,13 @@ else
 fi
 
 if [ -z "${DOCKER_USERNAME}" ]; then
-    read -p "Enter the docker username " DOCKER_USERNAME
+    read -p -r "Enter the docker username " DOCKER_USERNAME
     export DOCKER_USERNAME=${DOCKER_USERNAME}
 fi
 
 if [ -z "${DOCKER_PASSWORD}" ]; then
-    read -p "Enter the docker password " DOCKER_PASSWORD
-    export DOCKER_PASSWORD=${$DOCKER_PASSWORD}
+    read -p -r "Enter the docker password " DOCKER_PASSWORD
+    export DOCKER_PASSWORD=${DOCKER_PASSWORD}
 fi
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"

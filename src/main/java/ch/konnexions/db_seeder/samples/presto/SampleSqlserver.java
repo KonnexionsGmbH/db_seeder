@@ -15,45 +15,45 @@ import java.util.Scanner;
 
 /**
  * Example program for Issues SQL Server Connector.
- * 
- * @author  walter@konnexions.ch
- * @since   2020-08-11
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-08-11
  */
 public final class SampleSqlserver {
   private static final int     BATCH_SIZE          = 100;
 
-  private static String        BLOB_FILE           = Paths.get("src",
+  private static final String  BLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private static byte[]        BLOB_DATA_BYTES     = readBlobFile2Bytes();
+  private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
-  private static String        CLOB_FILE           = Paths.get("src",
+  private static final String  CLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private static String        CLOB_DATA           = readClobFile();
+  private static final String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
-  private static String        connectionHost      = "localhost";
-  private static int           connectionPort      = 1433;
+  private static final String  connectionHost      = "localhost";
+  private static final int     connectionPort      = 1433;
 
-  private static String        databaseName        = "kxn_db";
-  private static String        databaseNameSys     = "master";
-  private static String        driverOriginal      = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-  private static String        driverPresto        = "io.prestosql.jdbc.PrestoDriver";
+  private static final String  databaseName        = "kxn_db";
+  private static final String  databaseNameSys     = "master";
+  private static final String  driverOriginal      = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  private static final String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
   public static final String   FORMAT_ROW_SEC      = "%1$4d";
 
-  private static Logger        logger              = Logger.getLogger(SampleSqlserver.class);
+  private static final Logger  logger              = Logger.getLogger(SampleSqlserver.class);
   private final static boolean isDebug             = logger.isDebugEnabled();
 
-  private static int           nullFactor          = 4;
+  private static final int     nullFactor          = 4;
 
-  private static String        password            = "sqlserver_2019";
+  private static final String  password            = "sqlserver_2019";
 
-  private static int           rowMaxSize          = 1000;
+  private static final int     rowMaxSize          = 1000;
 
-  private static String        schemaName          = "kxn_schema";
-  private static String        sqlStmntCreateTable = """
+  private static final String  schemaName          = "kxn_schema";
+  private static final String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
                                                          column_pk        BIGINT         NOT NULL
                                                                                          PRIMARY KEY,
@@ -64,16 +64,16 @@ public final class SampleSqlserver {
                                                                                          UNIQUE
                                                      )
                                                      """;
-  private static String        sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
+  private static final String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
   private static Statement     statement;
 
-  private static String        userName            = "kxn_user";
-  private static String        userNameSys         = "sa";
+  private static final String  userName            = "kxn_user";
+  private static final String  userNameSys         = "sa";
 
-  private static String        urlSys              = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseNameSys + ";user="
+  private static final String  urlSys              = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseNameSys + ";user="
       + userNameSys + ";password=" + password;
-  private static String        urlPresto           = "jdbc:presto://localhost:8080/db_seeder_sqlserver/kxn_schema?user=presto";
-  private static String        urlUser             = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseName + ";user="
+  private static final String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_sqlserver/kxn_schema?user=presto";
+  private static final String  urlUser             = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseName + ";user="
       + userName + ";password=" + password;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
@@ -349,7 +349,7 @@ public final class SampleSqlserver {
       logger.debug("Start");
     }
 
-    PreparedStatement preparedStatement  = null;
+    PreparedStatement preparedStatement;
 
     LocalDateTime     startDateTime      = LocalDateTime.now();
     LocalDateTime     startDateTimeBatch = LocalDateTime.now();
@@ -405,7 +405,7 @@ public final class SampleSqlserver {
       logger.debug("Start");
     }
 
-    PreparedStatement preparedStatement  = null;
+    PreparedStatement preparedStatement;
 
     LocalDateTime     startDateTime      = LocalDateTime.now();
     LocalDateTime     startDateTimeBatch = LocalDateTime.now();

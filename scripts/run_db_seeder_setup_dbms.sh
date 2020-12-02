@@ -140,7 +140,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "derby" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
+    while [ "$(docker inspect -f {{.State.Health.Status}} db_seeder_db)" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -201,7 +201,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "firebird" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
+    while [ "$(docker inspect -f {{.State.Health.Status}} db_seeder_db)" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -232,7 +232,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "h2" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
+    while [ "$(docker inspect -f {{.State.Health.Status}} db_seeder_db)" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -263,7 +263,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "hsqldb" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
+    while [ "$(docker inspect -f {{.State.Health.Status}} db_seeder_db)" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -327,7 +327,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "informix" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
+    while [ "$(docker inspect -f {{.State.Health.Status}} db_seeder_db)" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 30; done
     if [ $? -ne 0 ]; then
         exit 255
     fi
@@ -474,7 +474,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
         exit 255
     fi
 
-    while [ "`docker inspect -f {{.State.Health.Status}} db_seeder_db`" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 60; done
+    while [ "$(docker inspect -f {{.State.Health.Status}} db_seeder_db)" != "healthy" ]; do docker ps --filter "name=db_seeder_db"; sleep 60; done
     if [ $? -ne 0 ]; then
         exit 255
     fi

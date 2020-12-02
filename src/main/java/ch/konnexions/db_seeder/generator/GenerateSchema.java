@@ -1,27 +1,16 @@
 package ch.konnexions.db_seeder.generator;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+import ch.konnexions.db_seeder.schema.SchemaPojo;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column.References;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
+import ch.konnexions.db_seeder.utils.MessageHandling;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import org.apache.log4j.Logger;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
@@ -30,18 +19,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
-import ch.konnexions.db_seeder.schema.SchemaPojo;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column.References;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
-import ch.konnexions.db_seeder.utils.MessageHandling;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Test Data Generator for a Database - Transform JSON to POJO.
@@ -51,28 +36,28 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class GenerateSchema extends AbstractDbmsSeeder {
 
-  private static final Logger                         logger                    = Logger.getLogger(GenerateSchema.class);
-  private final boolean                               isDebug                   = logger.isDebugEnabled();
+  private static final Logger                               logger                    = Logger.getLogger(GenerateSchema.class);
+  private final boolean                                     isDebug                   = logger.isDebugEnabled();
 
-  private int                                         constraintNumber          = 0;
+  private int                                               constraintNumber          = 0;
 
-  private int                                         errors                    = 0;
+  private int                                               errors                    = 0;
 
-  private int                                         genDefaultNumberOfRows;
-  private boolean                                     genIsEncodingISO_8859_1;
-  private boolean                                     genIsEncodingUTF_8;
-  private int                                         genNullFactor;
-  private ArrayList<String>                           genTableHierarchy         = new ArrayList<>();
-  private Map<String, ArrayList<String>>              genTableNameColumnNames   = new HashMap<>();
-  private ArrayList<String>                           genTableNames             = new ArrayList<>();
-  private Map<String, Integer>                        genTableNumberOfRows      = new HashMap<>();
-  private HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
-  private HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
-  private Set<String>                                 genVarcharColumnNames     = new HashSet<>();
+  private int                                               genDefaultNumberOfRows;
+  private boolean                                           genIsEncodingISO_8859_1;
+  private boolean                                           genIsEncodingUTF_8;
+  private int                                               genNullFactor;
+  private final ArrayList<String>                           genTableHierarchy         = new ArrayList<>();
+  private final Map<String, ArrayList<String>>              genTableNameColumnNames   = new HashMap<>();
+  private final ArrayList<String>                           genTableNames             = new ArrayList<>();
+  private final Map<String, Integer>                        genTableNumberOfRows      = new HashMap<>();
+  private final HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
+  private final HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
+  private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
 
-  private Set<Table>                                  valTables;
-  private HashMap<String, HashSet<String>>            valTablesColumns;
-  private HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
+  private Set<Table>                                        valTables;
+  private HashMap<String, HashSet<String>>                  valTablesColumns;
+  private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
 
   /**
    * Instantiates a new CreateSummaryFile object.
@@ -144,21 +129,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     StringBuilder     workArea;
 
-    tableConstraints.sort((tableConstraint1, tableConstraint2) -> {
-      int result = tableConstraint1.getConstraintType().compareTo(tableConstraint2.getConstraintType());
-
-      if (result != 0) {
-        return result;
-      }
-
-      result = tableConstraint1.getColumns().get(0).compareTo(tableConstraint2.getColumns().get(0));
-
-      if (result != 0) {
-        return result;
-      }
-
-      return tableConstraint1.getColumns().get(1).compareTo(tableConstraint2.getColumns().get(1));
-    });
+    tableConstraints.sort(Comparator.comparing(TableConstraint::getConstraintType).thenComparing(tableConstraint -> tableConstraint.getColumns().get(0))
+        .thenComparing(tableConstraint -> tableConstraint.getColumns().get(1)));
 
     int constraintSize = -1;
 
@@ -268,8 +240,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     BufferedWriter bufferedWriter = null;
     try {
-      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("src/main/java/ch/konnexions/db_seeder/generated/AbstractGen"
-          + tickerSymbolPascal + "Schema.java"), false), StandardCharsets.UTF_8));
+      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/main/java/ch/konnexions/db_seeder/generated/AbstractGen"
+          + tickerSymbolPascal + "Schema.java", false), StandardCharsets.UTF_8));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
@@ -352,8 +324,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     BufferedWriter bufferedWriter = null;
     try {
-      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
-          "src/main/java/ch/konnexions/db_seeder/generated/AbstractGenSchema.java"), false), StandardCharsets.UTF_8));
+      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/main/java/ch/konnexions/db_seeder/generated/AbstractGenSchema.java",
+          false), StandardCharsets.UTF_8));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
@@ -387,8 +359,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     BufferedWriter bufferedWriter = null;
     try {
-      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(
-          "src/main/java/ch/konnexions/db_seeder/generated/AbstractGenSeeder.java"), false), StandardCharsets.UTF_8));
+      bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/main/java/ch/konnexions/db_seeder/generated/AbstractGenSeeder.java",
+          false), StandardCharsets.UTF_8));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       System.exit(1);
@@ -594,15 +566,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               ArrayList<References> references = column.getReferences();
 
-              references.sort((reference1, reference2) -> {
-                int result = reference1.getReferenceTable().compareTo(reference2.getReferenceTable());
-
-                if (result != 0) {
-                  return result;
-                }
-
-                return reference1.getReferenceColumn().compareTo(reference2.getReferenceColumn());
-              });
+              references.sort(Comparator.comparing(References::getReferenceTable).thenComparing(References::getReferenceColumn));
 
               for (References reference : references) {
                 if (isNewLineRequired) {

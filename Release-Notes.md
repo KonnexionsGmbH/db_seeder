@@ -467,8 +467,6 @@ Release Date: 17.08.2020
 
 - Presto Distributed Query Engine: use of Docker network
 
-- SQLite: DBMS 3.33.0
-
 - minor script fixes
 
 ----------
@@ -618,7 +616,7 @@ Release Date: 02.08.2020
 
 - CrateDB: DBMS 4.1.8
 
-- SQLite: JDBC 3.32.3.2
+- SQLite: DBMS 3.32.3 / JDBC 3.32.3.2
 
 ----------
 

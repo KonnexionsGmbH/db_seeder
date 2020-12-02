@@ -42,8 +42,9 @@ public final class Statistics {
 
   /**
    * Constructs a Statistics object using the given {@link Config} object.
-   * @param config the {@link Config} object
-   * @param dbmsValues the DBMS related values DBMS name and db type remark
+   *
+   * @param config             the {@link Config} object
+   * @param dbmsValues         the DBMS related values DBMS name and db type remark
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public Statistics(Config config, String tickerSymbolExtern, Map<String, String[]> dbmsValues) {

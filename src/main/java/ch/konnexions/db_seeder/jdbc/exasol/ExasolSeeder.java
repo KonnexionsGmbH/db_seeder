@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenExasolSchema;
 /**
  * Test Data Generator for a Exasol DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class ExasolSeeder extends AbstractGenExasolSchema {
 
@@ -19,10 +20,9 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   *
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix) {
@@ -34,7 +34,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
   /**
    * Instantiates a new Exasol seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public ExasolSeeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
@@ -60,7 +60,6 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -69,7 +68,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

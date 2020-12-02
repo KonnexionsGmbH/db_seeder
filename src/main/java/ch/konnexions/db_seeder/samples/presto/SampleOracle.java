@@ -16,42 +16,42 @@ import java.util.Scanner;
 /**
  * Example program for Issues Oracle Connector.
  *
- * @author  walter@konnexions.ch
- * @since   2020-08-11
+ * @author walter@konnexions.ch
+ * @since 2020-08-11
  */
 public final class SampleOracle {
   private static final int     BATCH_SIZE          = 100;
 
-  private static String        BLOB_FILE           = Paths.get("src",
+  private static final String  BLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private static byte[]        BLOB_DATA_BYTES     = readBlobFile2Bytes();
+  private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
-  private static String        CLOB_FILE           = Paths.get("src",
+  private static final String  CLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private static String        CLOB_DATA           = readClobFile();
+  private static final String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
-  private static String        connectionHost      = "localhost";
-  private static int           connectionPort      = 1521;
+  private static final String  connectionHost      = "localhost";
+  private static final int     connectionPort      = 1521;
 
-  private static String        driverOriginal      = "oracle.jdbc.driver.OracleDriver";
-  private static String        driverPresto        = "io.prestosql.jdbc.PrestoDriver";
+  private static final String  driverOriginal      = "oracle.jdbc.driver.OracleDriver";
+  private static final String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
   public static final String   FORMAT_ROW_SEC      = "%1$4d";
 
-  private static Logger        logger              = Logger.getLogger(SampleOracle.class);
+  private static final Logger  logger              = Logger.getLogger(SampleOracle.class);
   private final static boolean isDebug             = logger.isDebugEnabled();
 
-  private static int           nullFactor          = 4;
+  private static final int     nullFactor          = 4;
 
-  private static String        password            = "oracle";
+  private static final String  password            = "oracle";
 
-  private static int           rowMaxSize          = 1000;
+  private static final int     rowMaxSize          = 1000;
 
-  private static String        service             = "orclpdb1";
-  private static String        sqlStmntCreateTable = """
+  private static final String  service             = "orclpdb1";
+  private static final String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
                                                          column_pk        NUMBER         NOT NULL
                                                                                          PRIMARY KEY,
@@ -62,15 +62,15 @@ public final class SampleOracle {
                                                                                          UNIQUE
                                                      )
                                                      """;
-  private static String        sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
+  private static final String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
   private static Statement     statement;
 
-  private static String        userName            = "kxn_user";
-  private static String        userNameSys         = "SYS AS SYSDBA";
+  private static final String  userName            = "kxn_user";
+  private static final String  userNameSys         = "SYS AS SYSDBA";
 
-  private static String        urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
-  private static String        urlPresto           = "jdbc:presto://localhost:8080/db_seeder_oracle/" + userName + "?user=presto";
-  private static String        urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
+  private static final String  urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
+  private static final String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_oracle/" + userName + "?user=presto";
+  private static final String  urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     if (isDebug) {
@@ -384,7 +384,7 @@ public final class SampleOracle {
       logger.debug("Start");
     }
 
-    PreparedStatement preparedStatement  = null;
+    PreparedStatement preparedStatement;
 
     LocalDateTime     startDateTime      = LocalDateTime.now();
     LocalDateTime     startDateTimeBatch = LocalDateTime.now();
@@ -440,7 +440,7 @@ public final class SampleOracle {
       logger.debug("Start");
     }
 
-    PreparedStatement preparedStatement  = null;
+    PreparedStatement preparedStatement;
 
     LocalDateTime     startDateTime      = LocalDateTime.now();
     LocalDateTime     startDateTimeBatch = LocalDateTime.now();

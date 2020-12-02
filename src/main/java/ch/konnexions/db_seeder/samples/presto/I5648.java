@@ -1,48 +1,43 @@
 package ch.konnexions.db_seeder.samples.presto;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.apache.log4j.Logger;
+
+import java.sql.*;
 
 /**
  * Example program for Issues Oracle Connector.
- * 
- * @author  walter@konnexions.ch
- * @since   2020-10-22
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-10-22
  */
 public final class I5648 {
 
-  private static Connection connection;
-  private static String     connectionHost      = "localhost";
-  private static int        connectionPort      = 1521;
+  private static Connection   connection;
+  private static final String connectionHost      = "localhost";
+  private static final int    connectionPort      = 1521;
 
-  private static String     driverOriginal      = "oracle.jdbc.driver.OracleDriver";
-  private static String     driverPresto        = "io.prestosql.jdbc.PrestoDriver";
+  private static final String driverOriginal      = "oracle.jdbc.driver.OracleDriver";
+  private static final String driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
-  private static Logger     logger              = Logger.getLogger(I5648.class);
+  private static final Logger logger              = Logger.getLogger(I5648.class);
 
-  private static String     password            = "oracle";
+  private static final String password            = "oracle";
 
-  private static String     service             = "orclpdb1";
-  private static String     sqlStmntCreateTable = """
-                                                  CREATE TABLE issue_table (
-                                                      column_pk        NUMBER         NOT NULL
-                                                  )
-                                                  """;
-  private static String     sqlStmntInsert      = "INSERT INTO issue_table (column_pk) VALUES (?)";
-  private static Statement  statement;
+  private static final String service             = "orclpdb1";
+  private static final String sqlStmntCreateTable = """
+                                                    CREATE TABLE issue_table (
+                                                        column_pk        NUMBER         NOT NULL
+                                                    )
+                                                    """;
+  private static final String sqlStmntInsert      = "INSERT INTO issue_table (column_pk) VALUES (?)";
+  private static Statement    statement;
 
-  private static String     userName            = "kxn_user";
-  private static String     userNameSys         = "SYS AS SYSDBA";
+  private static final String userName            = "kxn_user";
+  private static final String userNameSys         = "SYS AS SYSDBA";
 
-  private static String     urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
-  private static String     urlPresto           = "jdbc:presto://localhost:8080/db_seeder_oracle/" + userName + "?user=presto";
-  private static String     urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
+  private static final String urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
+  private static final String urlPresto           = "jdbc:presto://localhost:8080/db_seeder_oracle/" + userName + "?user=presto";
+  private static final String urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     logger.info("connecting ...");

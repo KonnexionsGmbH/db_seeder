@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenDerbySchema;
 /**
  * Test Data Generator for a Apache Derby DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class DerbySeeder extends AbstractGenDerbySchema {
 
@@ -19,11 +20,10 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   /**
    * Gets the connection URL for privileged access.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   *
+   * @param database         the database
    * @return the connection URL for privileged access
    */
   private static String getUrlSys(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
@@ -40,11 +40,10 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   /**
    * Gets the connection URL for non-privileged access.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database 
-   *
+   * @param database         the database
    * @return the connection URL for non-privileged access
    */
   private static String getUrlUser(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String database) {
@@ -63,7 +62,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   /**
    * Instantiates a new Apache Derby seeder object.
    *
-   * @param tickerSymbolExtern the externl DBMS ticker symbol 
+   * @param tickerSymbolExtern the externl DBMS ticker symbol
    */
   public DerbySeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -72,8 +71,8 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   /**
    * Instantiates a new Apache Derby seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public DerbySeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -114,7 +113,6 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -123,7 +121,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

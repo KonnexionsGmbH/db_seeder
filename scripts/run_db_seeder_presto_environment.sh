@@ -18,7 +18,7 @@ if [ -z "$1" ]; then
     echo "oracle             - Oracle Database"
     echo "postgresql         - PostgreSQL Database"
     echo "---------------------------------------------------------"
-    read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
+    read -p -r "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=${DB_SEEDER_DBMS}
 
     if [ -z "${DB_SEEDER_DBMS}" ]; then

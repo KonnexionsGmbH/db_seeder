@@ -1,11 +1,10 @@
 package ch.konnexions.db_seeder;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import ch.konnexions.db_seeder.utils.Config;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.utils.Config;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test Data Generator for a Database - Abstract DBMS Seeder.
@@ -322,8 +321,6 @@ public abstract class AbstractDbmsSeeder {
 
   protected final int   batchSize = 1000;
 
-  private final boolean isDebug   = logger.isDebugEnabled();
-
   protected Config      config;
 
   protected DbmsEnum    dbmsEnum;
@@ -349,6 +346,7 @@ public abstract class AbstractDbmsSeeder {
   public AbstractDbmsSeeder(String tickerSymbolExtern, String dbmsOption) {
     super();
 
+    boolean isDebug = logger.isDebugEnabled();
     if (isDebug) {
       logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }

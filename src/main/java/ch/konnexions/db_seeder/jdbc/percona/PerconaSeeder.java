@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenPerconaSchema;
 /**
  * Test Data Generator for a Percona Server.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class PerconaSeeder extends AbstractGenPerconaSchema {
 
@@ -19,14 +20,13 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   * 
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost,
@@ -43,8 +43,8 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
 
   /**
    * Instantiates a new Percona Server seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public PerconaSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -52,9 +52,9 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
 
   /**
    * Instantiates a new Percona Server seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   private PerconaSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -92,7 +92,6 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -101,7 +100,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

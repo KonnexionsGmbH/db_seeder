@@ -57,9 +57,6 @@ if [ -n "$DB_SEEDER_DATABASE_INTERN" ]; then
     
     if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
         mkdir -p "${DB_SEEDER_DATABASE}"
-    else
-        fileDirectory=${DB_SEEDER_DATABASE}
-        mkdir -p "${fileDirectory%/*}"
     fi
 fi    
 

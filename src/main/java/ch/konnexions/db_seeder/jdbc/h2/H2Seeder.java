@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
 /**
  * Test Data Generator for a H2 Database Engine DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class H2Seeder extends AbstractGenH2Schema {
 
@@ -19,14 +20,13 @@ public final class H2Seeder extends AbstractGenH2Schema {
   /**
    * Gets the connection URL.
    *
-   * @param isClient client version
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param isClient         client version
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   *
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(boolean isClient,
@@ -52,7 +52,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
   /**
    * Instantiates a new H2 seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public H2Seeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -61,8 +61,8 @@ public final class H2Seeder extends AbstractGenH2Schema {
   /**
    * Instantiates a new H2 seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public H2Seeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -100,7 +100,6 @@ public final class H2Seeder extends AbstractGenH2Schema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -109,7 +108,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
