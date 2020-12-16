@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - cleanup embedded database files.
+echo DB Seeder - creating database files or directories.
 echo --------------------------------------------------------------------------------
 echo DATABASE                  : %DB_SEEDER_DATABASE%
 echo DBMS                      : %DB_SEEDER_DBMS%
@@ -57,21 +57,21 @@ if NOT ["%DB_SEEDER_DATABASE_INTERN%" == ""] (
         rd /q /s %DB_SEEDER_DATABASE% 2>nul
     )    
 
-    if EXIST %DB_SEEDER_DATABASE%.tmp\nul ( 
+    if EXIST %DB_SEEDER_DATABASE%.tmp\nul (
         echo. 
         echo ............................................................ before:
         dir %DB_SEEDER_DATABASE%.tmp
         rd /q /s %DB_SEEDER_DATABASE%.tmp 2>nul
     )    
 
-    if EXIST %DB_SEEDER_DATABASE% ( 
+    if EXIST %DB_SEEDER_DATABASE% (
         echo. 
         echo ............................................................ before:
         dir %DB_SEEDER_DATABASE%
         del /f /q %DB_SEEDER_DATABASE%
     )    
     
-    if EXIST %DB_SEEDER_DATABASE%.* ( 
+    if EXIST %DB_SEEDER_DATABASE%.* (
         echo. 
         echo ............................................................ before:
         dir %DB_SEEDER_DATABASE%.*
@@ -80,9 +80,6 @@ if NOT ["%DB_SEEDER_DATABASE_INTERN%" == ""] (
     
     if ["%DB_SEEDER_DBMS%"] == ["ibmdb2"] (
         md %DB_SEEDER_DATABASE%
-    ) else (
-         for %%F in ("%DB_SEEDER_DATABASE%") do set dirname=%%~dpF
-         md %dirname%
     )
 )
 

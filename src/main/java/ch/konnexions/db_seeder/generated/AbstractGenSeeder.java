@@ -1,17 +1,18 @@
 package ch.konnexions.db_seeder.generated;
 
+import org.apache.log4j.Logger;
+
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 /**
  * Test Data Generator for a Database - Abstract Generated Seeder.
  * <br>
- * @author  CreateSummaryFile.class
- * @version 2.6.1
+ *
+ * @author CreateSummaryFile.class
+ * @version 2.6.2
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
@@ -21,7 +22,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Initialises a new abstract generated seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public AbstractGenSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -30,8 +31,8 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Initialises a new abstract generated seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public AbstractGenSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -50,13 +51,13 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Create a content value of type BIGINT.
    *
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param rowNo             the current row number
-   * @param defaultValue      the defaultValue
-   * @param lowerRange        the lower range
-   * @param upperRange        the upper range
-   * @param validValues       the valid values
+   * @param tableName    the table name
+   * @param columnName   the column name
+   * @param rowNo        the current row number
+   * @param defaultValue the defaultValue
+   * @param lowerRange   the lower range
+   * @param upperRange   the upper range
+   * @param validValues  the valid values
    */
   @Override
   protected final long getContentBigint(String tableName,
@@ -66,76 +67,72 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                                         Integer lowerRange,
                                         Integer upperRange,
                                         List<Integer> validValues) {
-    long result = super.getContentBigint(tableName,
-                                         columnName,
-                                         rowNo,
-                                         defaultValue,
-                                         lowerRange,
-                                         upperRange,
-                                         validValues);
 
-    return result;
+    return super.getContentBigint(tableName,
+                                  columnName,
+                                  rowNo,
+                                  defaultValue,
+                                  lowerRange,
+                                  upperRange,
+                                  validValues);
   }
 
   /**
    * Create a content value of type BLOB.
    *
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param rowNo             the current row number
+   * @param tableName  the table name
+   * @param columnName the column name
+   * @param rowNo      the current row number
    */
   @Override
   protected final byte[] getContentBlob(String tableName, String columnName, long rowNo) {
-    byte[] result = super.getContentBlob(tableName,
-                                         columnName,
-                                         rowNo);
 
-    return result;
+    return super.getContentBlob(tableName,
+                                columnName,
+                                rowNo);
   }
 
   /**
    * Create a content value of type CLOB.
    *
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param rowNo             the current row number
+   * @param tableName  the table name
+   * @param columnName the column name
+   * @param rowNo      the current row number
    */
   @Override
   protected final String getContentClob(String tableName, String columnName, long rowNo) {
-    String result = super.getContentClob(tableName,
-                                         columnName,
-                                         rowNo);
 
-    return result;
+    return super.getContentClob(tableName,
+                                columnName,
+                                rowNo);
   }
 
   /**
    * Create a content value of type TIMESTAMP.
    *
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param rowNo             the current row number
+   * @param tableName  the table name
+   * @param columnName the column name
+   * @param rowNo      the current row number
    */
   @Override
   protected final Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
-    Timestamp result = super.getContentTimestamp(tableName,
-                                                 columnName,
-                                                 rowNo);
 
-    return result;
+    return super.getContentTimestamp(tableName,
+                                     columnName,
+                                     rowNo);
   }
 
   /**
    * Create a content value of type VARCHAR.
    *
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param rowNo             the current row number
-   * @param size              the column size
-   * @param defaultValue      the defaultValue
-   * @param lowerRange        the lower range
-   * @param upperRange        the upper range
-   * @param validValues       the valid values
+   * @param tableName    the table name
+   * @param columnName   the column name
+   * @param rowNo        the current row number
+   * @param size         the column size
+   * @param defaultValue the defaultValue
+   * @param lowerRange   the lower range
+   * @param upperRange   the upper range
+   * @param validValues  the valid values
    */
   @Override
   protected final String getContentVarchar(String tableName,
@@ -146,16 +143,15 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                                            String lowerRange,
                                            String upperRange,
                                            List<String> validValues) {
-    String result = super.getContentVarchar(tableName,
-                                            columnName,
-                                            rowNo,
-                                            size,
-                                            defaultValue,
-                                            lowerRange,
-                                            upperRange,
-                                            validValues);
 
-    return result;
+    return super.getContentVarchar(tableName,
+                                   columnName,
+                                   rowNo,
+                                   size,
+                                   defaultValue,
+                                   lowerRange,
+                                   upperRange,
+                                   validValues);
   }
 
   protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final long rowNo) {

@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 
 /**
  * CREATE TABLE statements for a SQLite DBMS. <br>
- * 
- * @author  CreateSummaryFile.class
- * @version 2.6.1
+ *
+ * @author CreateSummaryFile.class
+ * @version 2.6.2
  */
 public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
 
@@ -125,7 +125,7 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
    * Initialises a new abstract SQLite schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption client, embedded or presto
+   * @param dbmsOption         client, embedded or presto
    */
   public AbstractGenSqliteSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

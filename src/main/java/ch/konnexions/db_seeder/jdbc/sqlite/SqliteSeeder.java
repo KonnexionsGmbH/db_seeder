@@ -1,16 +1,16 @@
 package ch.konnexions.db_seeder.jdbc.sqlite;
 
-import java.sql.SQLException;
-
+import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
+import java.sql.SQLException;
 
 /**
  * Test Data Generator for am SQLite DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
@@ -20,8 +20,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
    * Gets the connection URL.
    *
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   *
+   * @param database         the database
    * @return the connection URL
    */
   private static String getUrl(String connectionPrefix, String database) {
@@ -32,9 +31,9 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
   /**
    * Instantiates a new SQLite seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public SqliteSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -57,7 +56,6 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -66,7 +64,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
@@ -87,6 +85,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
     try {
       statement = connection.createStatement();
+      printDatabaseVersion();
       dropAllTablesIfExists();
       statement.close();
     } catch (SQLException e) {
@@ -104,6 +103,31 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
       createSchema(connection);
 
       statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  private void printDatabaseVersion() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    String sqlStmnt = "SELECT sqlite_version()";
+
+    try {
+      resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        logger.info("SQLite version is " + resultSet.getString(1));
+      }
+
+      resultSet.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);

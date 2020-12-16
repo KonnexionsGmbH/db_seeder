@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 
 /**
  * CREATE TABLE statements for a MySQL DBMS. <br>
- * 
- * @author  CreateSummaryFile.class
- * @version 2.6.1
+ *
+ * @author CreateSummaryFile.class
+ * @version 2.6.2
  */
 public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
 
@@ -125,7 +125,7 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
    * Initialises a new abstract MySQL schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption client, embedded or presto
+   * @param dbmsOption         client, embedded or presto
    */
   public AbstractGenMysqlSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

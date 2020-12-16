@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
 /**
  * Test Data Generator for an IBM Db2 DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
@@ -19,13 +20,12 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database 
-   * @param user the user
-   * @param password the password
-   *
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
@@ -36,8 +36,8 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
   /**
    * Instantiates a new IBM Db2 seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public Ibmdb2Seeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
@@ -66,7 +66,6 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -75,7 +74,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

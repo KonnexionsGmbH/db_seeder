@@ -7,8 +7,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenAgensSchema;
 /**
  * Test Data Generator for a AgensGraph DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class AgensSeeder extends AbstractGenAgensSchema {
 
@@ -17,13 +18,12 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   *
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
@@ -34,8 +34,8 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
 
   /**
    * Instantiates a new AgensGraph seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public AgensSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -43,9 +43,9 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
 
   /**
    * Instantiates a new AgensGraph seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public AgensSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -81,7 +81,6 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override

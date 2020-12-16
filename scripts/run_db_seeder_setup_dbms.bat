@@ -17,7 +17,7 @@ echo DBMS_DB                   : %DB_SEEDER_DBMS_DB%
 echo DBMS_EMBEDDED             : %DB_SEEDER_DBMS_EMBEDDED%
 echo DBMS_PRESTO               : %DB_SEEDER_DBMS_PRESTO%
 echo VERSION                   : %DB_SEEDER_VERSION%
-   
+
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     echo Docker stop/rm db_seeder_db ................................ before:
     docker ps    | grep "db_seeder_db" && docker stop db_seeder_db
@@ -25,7 +25,7 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     echo ............................................................. after:
     docker ps -a
 )
-    
+
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["yes"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS_DB%
     if %ERRORLEVEL% NEQ 0 (

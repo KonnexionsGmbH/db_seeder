@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenInformixSchema;
 /**
  * Test Data Generator for an IBM Informix DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class InformixSeeder extends AbstractGenInformixSchema {
 
@@ -19,13 +20,12 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   *
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
@@ -36,8 +36,8 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
 
   /**
    * Instantiates a new IBM Informix seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public InformixSeeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
@@ -75,7 +75,6 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -84,7 +83,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

@@ -35,7 +35,6 @@ public final class CreateSummaryFile {
 
   private static String         fileStatisticsDelimiter;
   private static String[]       fileStatisticsHeaderTokens;
-  private static String         fileStatisticsSummaryName;
   private static String         fileStatisticsSummaryNameExt;
   private static String         fileStatisticsSummaryNameNoPath;
 
@@ -100,10 +99,10 @@ public final class CreateSummaryFile {
                                    "Program abort: unexpected command line argument(s)");
     }
 
-    fileStatisticsDelimiter         = config.getFileStatisticsDelimiter();
-    fileStatisticsHeaderTokens      = StringUtils.split(config.getFileStatisticsHeader(),
-                                                        ";");
-    fileStatisticsSummaryName       = config.getFileStatisticsSummaryName();
+    fileStatisticsDelimiter    = config.getFileStatisticsDelimiter();
+    fileStatisticsHeaderTokens = StringUtils.split(config.getFileStatisticsHeader(),
+                                                   ";");
+    String fileStatisticsSummaryName = config.getFileStatisticsSummaryName();
     fileStatisticsSummaryNameExt    = FilenameUtils.getExtension(fileStatisticsSummaryName);
     fileStatisticsSummaryNameNoPath = FilenameUtils.getName(fileStatisticsSummaryName);
 

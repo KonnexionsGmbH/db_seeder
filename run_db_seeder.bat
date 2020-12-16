@@ -14,9 +14,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.6.1
+set DB_SEEDER_RELEASE=2.6.2
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_PRESTO=347
+set DB_SEEDER_VERSION_PRESTO=348
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -138,6 +138,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.2.7
     set DB_SEEDER_VERSION=4.3.0
     set DB_SEEDER_VERSION=4.3.1
+    set DB_SEEDER_VERSION=4.3.2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -183,6 +184,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=6.2.8-d1
     set DB_SEEDER_VERSION=7.0.2
     set DB_SEEDER_VERSION=7.0.3
+    set DB_SEEDER_VERSION=7.0.4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -255,6 +257,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_USER_SYS=db2inst1
     set DB_SEEDER_VERSION=11.5.0.0a
     set DB_SEEDER_VERSION=11.5.4.0
+    set DB_SEEDER_VERSION=11.5.5.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
@@ -483,6 +486,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.3.2.0-b37
     set DB_SEEDER_VERSION=2.3.3.0-b106
     set DB_SEEDER_VERSION=2.5.0.0-b2
+    set DB_SEEDER_VERSION=2.5.1.0-b132
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (

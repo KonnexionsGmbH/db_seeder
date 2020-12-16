@@ -6,8 +6,9 @@ import java.util.Set;
 /**
  * Test Data Generator for a Database - Complete schema POJO.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-07-15
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-07-15
  */
 public final class SchemaPojo {
 

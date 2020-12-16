@@ -10,8 +10,9 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 /**
  * Test Data Generator for a MySQL DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
@@ -20,14 +21,13 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   * 
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost,
@@ -43,11 +43,10 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   /**
    * Gets the connection URL for Presto (used by PrestoEnvironment).
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * 
    * @return the connection URL for non-privileged access
    */
   public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
@@ -58,8 +57,8 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
   /**
    * Instantiates a new MySQL seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public MysqlSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -67,9 +66,9 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
   /**
    * Instantiates a new MySQL seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public MysqlSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -114,7 +113,6 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -123,7 +121,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

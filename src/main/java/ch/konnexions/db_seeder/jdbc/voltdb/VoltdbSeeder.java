@@ -1,16 +1,16 @@
 package ch.konnexions.db_seeder.jdbc.voltdb;
 
-import java.sql.SQLException;
-
+import ch.konnexions.db_seeder.generated.AbstractGenVoltdbSchema;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.generated.AbstractGenVoltdbSchema;
+import java.sql.SQLException;
 
 /**
  * Test Data Generator for a HyperQL Database DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
 
@@ -19,15 +19,13 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
   /**
    * Gets the connection URL.
    *
-   * @param isClient database client version 
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   *
    * @return the connection URL
    */
-  private static String getUrl(boolean isClient, String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
     return connectionPrefix + connectionHost + ":" + connectionPort + connectionSuffix;
   }
 
@@ -36,7 +34,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
   /**
    * Initialises a new HyperSQL seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public VoltdbSeeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
@@ -49,8 +47,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
 
     driver   = "org.voltdb.jdbc.Driver";
 
-    urlSys   = getUrl(isClient,
-                      config.getConnectionHost(),
+    urlSys   = getUrl(config.getConnectionHost(),
                       config.getConnectionPort(),
                       config.getConnectionPrefix(),
                       config.getConnectionSuffix());
@@ -64,7 +61,6 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -73,7 +69,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

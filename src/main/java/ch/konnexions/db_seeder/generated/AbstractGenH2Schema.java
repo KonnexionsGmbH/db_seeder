@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 
 /**
  * CREATE TABLE statements for a H2 DBMS. <br>
- * 
- * @author  CreateSummaryFile.class
- * @version 2.6.1
+ *
+ * @author CreateSummaryFile.class
+ * @version 2.6.2
  */
 public abstract class AbstractGenH2Schema extends AbstractGenSeeder {
 
@@ -125,7 +125,7 @@ public abstract class AbstractGenH2Schema extends AbstractGenSeeder {
    * Initialises a new abstract H2 schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption client, embedded or presto
+   * @param dbmsOption         client, embedded or presto
    */
   public AbstractGenH2Schema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

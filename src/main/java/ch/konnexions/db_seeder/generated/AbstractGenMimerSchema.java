@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 
 /**
  * CREATE TABLE statements for a Mimer DBMS. <br>
- * 
- * @author  CreateSummaryFile.class
- * @version 2.6.1
+ *
+ * @author CreateSummaryFile.class
+ * @version 2.6.2
  */
 public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
 
@@ -125,7 +125,7 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
    * Initialises a new abstract Mimer schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption client, embedded or presto
+   * @param dbmsOption         client, embedded or presto
    */
   public AbstractGenMimerSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

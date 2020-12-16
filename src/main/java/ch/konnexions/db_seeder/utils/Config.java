@@ -17,11 +17,11 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.log4j.Logger;
 
 /**
- * The configuration parameters for the supported database management systems. 
- * 
+ * The configuration parameters for the supported database management systems.
+ * <p>
  * The configuration parameters are made available to the configuration object
  * in a text file.
- * 
+ * <p>
  * The parameter name and parameter value must be separated by an equal sign (=).
  */
 public final class Config {

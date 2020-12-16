@@ -94,7 +94,7 @@ public final class PrestoEnvironment {
         logger.debug("fileName='" + fileName + "'");
       }
 
-      BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(fileName), false)));
+      BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName, false)));
 
       for (String entry : entries) {
         bufferedWriter.append(entry);

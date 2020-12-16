@@ -10,8 +10,9 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 /**
  * Test Data Generator for an Oracle DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class OracleSeeder extends AbstractGenOracleSchema {
 
@@ -20,11 +21,10 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
+   * @param connectionHost    the connection host name
+   * @param connectionPort    the connection port number
+   * @param connectionPrefix  the connection prefix
    * @param connectionService the connection service
-   *
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
@@ -34,11 +34,10 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   /**
    * Gets the connection URL for Presto (used by PrestoEnvironment).
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
-   * @param connectionPrefix the connection prefix
+   * @param connectionHost    the connection host name
+   * @param connectionPort    the connection port number
+   * @param connectionPrefix  the connection prefix
    * @param connectionService the connection service
-   * 
    * @return the connection URL for non-privileged access
    */
   public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
@@ -49,8 +48,8 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
 
   /**
    * Instantiates a new Oracle seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public OracleSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -58,9 +57,9 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
 
   /**
    * Instantiates a new Oracle seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public OracleSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -92,7 +91,6 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -101,7 +99,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

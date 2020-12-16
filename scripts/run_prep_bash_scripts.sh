@@ -17,13 +17,13 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-chmod +x *.sh
-chmod +x */*.sh
-chmod +x */*/*/*.sh
+chmod +x -- "glob" *.sh
+chmod +x -- "glob" */*.sh
+chmod +x -- "glob" */*/*/*.sh
 
-dos2unix *.sh
-dos2unix */*.sh
-dos2unix */*/*/*.sh
+dos2unix -- "glob" *.sh
+dos2unix -- "glob" */*.sh
+dos2unix -- "glob" */*/*/*.sh
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

@@ -1,32 +1,27 @@
 package ch.konnexions.db_seeder.samples.monetdb;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.util.Random;
-
 import org.apache.log4j.Logger;
+
+import java.sql.*;
+import java.util.Random;
 
 /**
  * Demonstration program for Issue 72.
- * 
+ * <p>
  * https://github.com/prestosql/presto/issues/4812
- * 
- * @author  walter@konnexions.ch
- * @since   2020-08-18
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-08-18
  */
 public class I72 {
-  private static final int BATCH_SIZE            = 1000;
+  private static final int    BATCH_SIZE            = 1000;
 
-  private static final int ROW_MAX_CITY          = 1800;
-  private static final int ROW_MAX_COUNTRY       = 200;
-  private static final int ROW_MAX_COUNTRY_STATE = 600;
-  private static final int ROW_MAX_TIMEZONE      = 11;
+  private static final int    ROW_MAX_CITY          = 1800;
+  private static final int    ROW_MAX_COUNTRY       = 200;
+  private static final int    ROW_MAX_COUNTRY_STATE = 600;
+  private static final int    ROW_MAX_TIMEZONE      = 11;
 
-  private static Logger    logger                = Logger.getLogger(I72.class);
+  private static final Logger logger                = Logger.getLogger(I72.class);
 
   private static void insertCities(Connection connection, Statement statement) throws Exception {
     statement.execute("""

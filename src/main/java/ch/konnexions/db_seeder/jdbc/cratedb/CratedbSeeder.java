@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
 /**
  * Test Data Generator for a CrateDB DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
@@ -19,13 +20,12 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
   /**
    * Gets the connection UR.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param user the user
-   * @param password the password
-   * 
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String user, String password) {
@@ -39,7 +39,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
   /**
    * Instantiates a new CrateDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public CratedbSeeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
@@ -75,7 +75,6 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -84,7 +83,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

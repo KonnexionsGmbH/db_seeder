@@ -55,16 +55,16 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private final boolean   isDebug                = logger.isDebugEnabled();
 
-  private String          BLOB_FILE              = Paths.get("src",
+  private final String    BLOB_FILE              = Paths.get("src",
                                                              "main",
                                                              "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private byte[]          BLOB_DATA_BYTES        = readBlobFile2Bytes();
-  private String          BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
+  private final byte[]    BLOB_DATA_BYTES        = readBlobFile2Bytes();
+  private final String    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
 
-  private String          CLOB_FILE              = Paths.get("src",
+  private final String    CLOB_FILE              = Paths.get("src",
                                                              "main",
                                                              "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private String          CLOB_DATA              = readClobFile();
+  private final String    CLOB_DATA              = readClobFile();
   protected Connection    connection             = null;
 
   protected String        driver                 = "";
@@ -78,7 +78,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected int           nullFactor;
 
-  private Random          randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  private final Random    randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
   protected ResultSet     resultSet              = null;
 
   protected Statement     statement              = null;
@@ -944,10 +944,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     return count;
   }
-
-  //  private double getContentDouble( double lowerLimit,  double upperLimit) {
-  //    return ThreadLocalRandom.current().nextDouble(lowerLimit, upperLimit);
-  //  }
 
   private int getMaxRowSize(String tableName) {
     int maxRowSize   = maxRowSizes.get(tableName);

@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
 /**
  * Test Data Generator for a Firebird DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
@@ -19,12 +20,11 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
   /**
    * Gets the connection URL.
    *
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param database the database
-   *
+   * @param database         the database
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix, String database) {
@@ -35,8 +35,8 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
   /**
    * Instantiates a new Firebird seeder object.
-   * 
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public FirebirdSeeder(String tickerSymbolExtern) {
     super(tickerSymbolExtern);
@@ -66,7 +66,6 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -75,7 +74,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

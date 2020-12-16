@@ -9,8 +9,9 @@ import ch.konnexions.db_seeder.generated.AbstractGenHsqldbSchema;
 /**
  * Test Data Generator for a HyperQL Database DBMS.
  * <br>
- * @author  walter@konnexions.ch
- * @since   2020-05-01
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-05-01
  */
 public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
@@ -19,15 +20,14 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   /**
    * Gets the connection URL.
    *
-   * @param isClient database client version 
-   * @param connectionHost the connection host name
-   * @param connectionPort the connection port number
+   * @param isClient         database client version
+   * @param connectionHost   the connection host name
+   * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
    * @param connectionSuffix the connection suffix
-   * @param database the database
-   * @param user the user
-   * @param password the password
-   *
+   * @param database         the database
+   * @param user             the user
+   * @param password         the password
    * @return the connection URL
    */
   private static String getUrl(boolean isClient,
@@ -54,7 +54,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   /**
    * Initialises a new HyperSQL seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
   public HsqldbSeeder(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -63,8 +63,8 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   /**
    * Initialises a new HyperSQL seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param dbmsOption         client, embedded or presto
    */
   public HsqldbSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -104,7 +104,6 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
    * Create the DDL statement: CREATE TABLE.
    *
    * @param tableName the database table name
-   *
    * @return the 'CREATE TABLE' statement
    */
   @Override
@@ -113,7 +112,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   }
 
   /**
-   * Delete any existing relevant database schema objects (database, user, 
+   * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override

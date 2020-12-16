@@ -15,44 +15,44 @@ import java.util.Scanner;
 
 /**
  * Demonstration program for Issues MySQL Connector.
- * 
- * @author  walter@konnexions.ch
- * @since   2020-08-11
+ *
+ * @author walter@konnexions.ch
+ * @since 2020-08-11
  */
 public final class SampleMysql {
   private static final int     BATCH_SIZE          = 100;
 
-  private static String        BLOB_FILE           = Paths.get("src",
+  private static final String  BLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath().toString() + File.separator + "blob.png";
-  private static byte[]        BLOB_DATA_BYTES     = readBlobFile2Bytes();
+  private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
-  private static String        CLOB_FILE           = Paths.get("src",
+  private static final String  CLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath().toString() + File.separator + "clob.md";
-  private static String        CLOB_DATA           = readClobFile();
+  private static final String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
-  private static String        connectionHost      = "localhost";
-  private static int           connectionPort      = 3306;
+  private static final String  connectionHost      = "localhost";
+  private static final int     connectionPort      = 3306;
 
-  private static String        databaseName        = "kxn_db";
-  private static String        databaseNameSys     = "sys";
-  private static String        driverOriginal      = "com.mysql.cj.jdbc.Driver";
-  private static String        driverPresto        = "io.prestosql.jdbc.PrestoDriver";
+  private static final String  databaseName        = "kxn_db";
+  private static final String  databaseNameSys     = "sys";
+  private static final String  driverOriginal      = "com.mysql.cj.jdbc.Driver";
+  private static final String  driverPresto        = "io.prestosql.jdbc.PrestoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
   public static final String   FORMAT_ROW_SEC      = "%1$4d";
 
-  private static Logger        logger              = Logger.getLogger(SampleMysql.class);
+  private static final Logger  logger              = Logger.getLogger(SampleMysql.class);
   private final static boolean isDebug             = logger.isDebugEnabled();
 
-  private static int           nullFactor          = 4;
+  private static final int     nullFactor          = 4;
 
-  private static String        password            = "mysql";
+  private static final String  password            = "mysql";
 
-  private static int           rowMaxSize          = 1000;
+  private static final int     rowMaxSize          = 1000;
 
-  private static String        sqlStmntCreateTable = """
+  private static final String  sqlStmntCreateTable = """
                                                      CREATE TABLE issue_table (
                                                          column_pk        BIGINT         NOT NULL
                                                                                          PRIMARY KEY,
@@ -63,16 +63,16 @@ public final class SampleMysql {
                                                                                          UNIQUE
                                                      )
                                                      """;
-  private static String        sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
+  private static final String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
   private static Statement     statement;
 
-  private static String        userName            = "kxn_user";
-  private static String        userNameSys         = "root";
+  private static final String  userName            = "kxn_user";
+  private static final String  userNameSys         = "root";
 
-  private static String        urlSys              = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys
+  private static final String  urlSys              = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
-  private static String        urlPresto           = "jdbc:presto://localhost:8080/db_seeder_mysql/kxn_db?user=presto";
-  private static String        urlUser             = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseName
+  private static final String  urlPresto           = "jdbc:presto://localhost:8080/db_seeder_mysql/kxn_db?user=presto";
+  private static final String  urlUser             = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseName
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
@@ -348,7 +348,7 @@ public final class SampleMysql {
       logger.debug("Start");
     }
 
-    PreparedStatement preparedStatement  = null;
+    PreparedStatement preparedStatement;
 
     LocalDateTime     startDateTime      = LocalDateTime.now();
     LocalDateTime     startDateTimeBatch = LocalDateTime.now();
@@ -404,7 +404,7 @@ public final class SampleMysql {
       logger.debug("Start");
     }
 
-    PreparedStatement preparedStatement  = null;
+    PreparedStatement preparedStatement;
 
     LocalDateTime     startDateTime      = LocalDateTime.now();
     LocalDateTime     startDateTimeBatch = LocalDateTime.now();
