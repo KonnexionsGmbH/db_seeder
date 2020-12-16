@@ -124,7 +124,7 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
       resultSet = statement.executeQuery(sqlStmnt);
 
       while (resultSet.next()) {
-        logger.info("SQLite vesion is " + resultSet.getString(1));
+        logger.info("SQLite version is " + resultSet.getString(1));
       }
 
       resultSet.close();

@@ -172,12 +172,12 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | AgensGraph                      | agens              | v2.1.1                     | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                       | 10.2.2.8874         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.3.1              | 2.6.0               |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.3           | 7.0.3               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.3.2              | 2.6.0               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.4           | 7.0.4               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                      | 2.5.1               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.4.0        | 11.5.5.0            |                                                    
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.0        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.8           | 2.7.1               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 8.4.1.jre14         | 
@@ -187,10 +187,10 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | Oracle Database                 | oracle             | 12c - 19c                  | 19.8.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.22              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
-| Presto Distributed Query Engine | n/a                | 339 - 347                  | 347                 |
-| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.32.3.2            |
+| Presto Distributed Query Engine | n/a                | 339 - 348                  | 348                 |
+| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0            |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.0.0-b2   | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.1.0-b132 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -644,7 +644,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.3.1`
+  - pull command: `docker pull crate:4.3.2`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -733,11 +733,11 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.3`
+  - pull command: `docker pull exasol/docker-db:7.0.4`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 7.0.3
+  - version 7.0.4
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
@@ -899,7 +899,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/db2:11.5.4.0`
+  - pull command: `docker pull ibmcom/db2:11.5.5.0`
   - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
 - **encoding**:
@@ -1306,7 +1306,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:347`
+  - pull command: `docker pull prestosql/presto:348`
   - [DockerHub](https://hub.docker.com/r/prestosql/presto)
 
 - **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
@@ -1344,7 +1344,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [SQLite Forum](https://www.sqlite.org/forum/about)
 
 - **JDBC driver (latest)**:
-  - version 3.32.3.2
+  - version 3.34.0
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
   - determines also the DBMS version
 
@@ -1411,7 +1411,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.5.0.0-b2`
+  - pull command: `docker pull yugabytedb/yugabyte:2.5.1.0-b132`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: see PostgreSQL Database

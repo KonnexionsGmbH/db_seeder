@@ -50,7 +50,17 @@ n/a
 
 #### Modified Features
 
-n/a
+- CrateDB: DBMS 4.3.2
+
+- Exasol: DBMS 7.0.4 / JDBC 7.0.4
+
+- IBM Db2 Database: DBMS 11.5.5.0
+
+- Presto Distributed Query Engine: DBMS 348 / JDBC 348
+
+- SQLite: DBMS 3.34.0 / JDBC 3.34.0
+
+- YugabyteDB: DBMS 2.5.1.0-b132
 
 #### Deleted Features
 
