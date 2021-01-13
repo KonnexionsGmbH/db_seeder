@@ -12,16 +12,16 @@ set -e
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.6.2
+export DB_SEEDER_RELEASE=2.7.0
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_PRESTO=348
+export DB_SEEDER_VERSION_TRINO=351
 
 if [ -z "$1" ]; then
     echo "========================================================="
     echo "complete           - All implemented DBMSs"
     echo "complete_client    - All implemented client DBMSs"
     echo "complete_emb       - All implemented embedded DBMSs"
-    echo "complete_presto    - All implemented Presto enabled DBMSs"
+    echo "complete_trino     - All implemented Trino enabled DBMSs"
     echo "---------------------------------------------------------"
     echo "agens              - AgensGraph [client]"
     echo "derby              - Apache Derby [client]"
@@ -40,19 +40,19 @@ if [ -z "$1" ]; then
     echo "mimer              - Mimer SQL"
     echo "monetdb            - MonetDB"
     echo "sqlserver          - Microsoft SQL Server"
-    echo "sqlserver_presto   - Microsoft SQL Server via Presto"
+    echo "sqlserver_trino    - Microsoft SQL Server via Trino"
     echo "mysql              - MySQL Database"
-    echo "mysql_presto       - MySQL Database via Presto"
+    echo "mysql_trino        - MySQL Database via Trino"
     echo "oracle             - Oracle Database"
-    echo "oracle_presto      - Oracle Database via Presto"
+    echo "oracle_trino       - Oracle Database via Trino"
     echo "percona            - Percona Server for MySQL"
     echo "postgresql         - PostgreSQL Database"
-    echo "postgresql_presto  - PostgreSQL Database via Presto"
+    echo "postgresql_trino   - PostgreSQL Database via Trino"
     echo "sqlite             - SQLite [embedded]"
     echo "voltdb             - VoltDB"
     echo "yugabyte           - YugabyteDB"
     echo "---------------------------------------------------------"
-    read -p -r "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
+    read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=${DB_SEEDER_DBMS}
 
     if [ -z "${DB_SEEDER_DBMS}" ]; then
@@ -63,7 +63,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p -r "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
+    read -p "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
     export DB_SEEDER_SETUP_DBMS=${DB_SEEDER_SETUP_DBMS}
 
     if [ -z "${DB_SEEDER_SETUP_DBMS}" ]; then
@@ -74,7 +74,7 @@ else
 fi
 
 if [ -z "$3" ]; then
-    read -p -r "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
+    read -p "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS}
 
     if [ -z "${DB_SEEDER_NO_CREATE_RUNS}" ]; then
@@ -85,12 +85,12 @@ else
 fi
 
 if [ -z "${DOCKER_USERNAME}" ]; then
-    read -p -r "Enter the docker username " DOCKER_USERNAME
+    read -p "Enter the docker username " DOCKER_USERNAME
     export DOCKER_USERNAME=${DOCKER_USERNAME}
 fi
 
 if [ -z "${DOCKER_PASSWORD}" ]; then
-    read -p -r "Enter the docker password " DOCKER_PASSWORD
+    read -p "Enter the docker password " DOCKER_PASSWORD
     export DOCKER_PASSWORD=${DOCKER_PASSWORD}
 fi
 
@@ -105,7 +105,7 @@ if [ -z "${DB_SEEDER_COMPLETE_RUN}" ]; then
 fi 
 
 export DB_SEEDER_DBMS_EMBEDDED=no
-export DB_SEEDER_DBMS_PRESTO=no
+export DB_SEEDER_DBMS_TRINO=no
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
@@ -140,6 +140,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.3.0
     export DB_SEEDER_VERSION=4.3.1
     export DB_SEEDER_VERSION=4.3.2
+    export DB_SEEDER_VERSION=4.3.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -186,6 +187,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.2
     export DB_SEEDER_VERSION=7.0.3
     export DB_SEEDER_VERSION=7.0.4
+    export DB_SEEDER_VERSION=7.0.5
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -269,6 +271,7 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
     export DB_SEEDER_USER_SYS=informix
     export DB_SEEDER_VERSION=14.10.FC3DE
     export DB_SEEDER_VERSION=14.10.FC4DE
+    export DB_SEEDER_VERSION=14.10.FC5DE
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
@@ -332,14 +335,14 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_VERSION=8.0.22
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     export DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
     export DB_SEEDER_CONTAINER_PORT=3306
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=sys
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
     export DB_SEEDER_PASSWORD=mysql
     export DB_SEEDER_PASSWORD_SYS=mysql
     export DB_SEEDER_USER=kxn_user
@@ -364,12 +367,12 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
     export DB_SEEDER_CONNECTION_PORT=1521
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     export DB_SEEDER_CONTAINER_PORT=1521
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
     export DB_SEEDER_PASSWORD=oracle
     export DB_SEEDER_PASSWORD_SYS=oracle
     export DB_SEEDER_USER=kxn_user
@@ -410,13 +413,13 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_VERSION=13.1-alpine
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_CONNECTION_PORT=5432
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     export DB_SEEDER_CONTAINER_PORT=5432
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=kxn_db_sys
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
     export DB_SEEDER_PASSWORD=postgresql
     export DB_SEEDER_PASSWORD_SYS=postgresql
     export DB_SEEDER_SCHEMA=kxn_schema
@@ -447,13 +450,13 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver" ]; then
     export DB_SEEDER_VERSION=2019-latest
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "sqlserver_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
     export DB_SEEDER_CONTAINER_PORT=1433
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=master
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
     export DB_SEEDER_PASSWORD=sqlserver_2019
     export DB_SEEDER_PASSWORD_SYS=sqlserver_2019
     export DB_SEEDER_SCHEMA=kxn_schema
@@ -488,15 +491,16 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.3.3.0-b106
     export DB_SEEDER_VERSION=2.5.0.0-b2
     export DB_SEEDER_VERSION=2.5.1.0-b132
+    export DB_SEEDER_VERSION=2.5.1.0-b153
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
     export DB_SEEDER_CONNECTION_HOST=localhost
 fi
 
-if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
-    export DB_SEEDER_CONNECTION_HOST_PRESTO=${DB_SEEDER_CONNECTION_HOST}
-    export DB_SEEDER_CONNECTION_PORT_PRESTO=8080
+if [ "${DB_SEEDER_DBMS_TRINO}" = "yes" ]; then
+    export DB_SEEDER_CONNECTION_HOST_TRINO=${DB_SEEDER_CONNECTION_HOST}
+    export DB_SEEDER_CONNECTION_PORT_TRINO=8080
 fi
 
 # ------------------------------------------------------------------------------
@@ -513,7 +517,7 @@ echo "DBMS                              : ${DB_SEEDER_DBMS}"
 echo "DBMS_DB                           : ${DB_SEEDER_DBMS_DB}"
 echo "DBMS_DEFAULT                      : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DBMS_EMBEDDED                     : ${DB_SEEDER_DBMS_EMBEDDED}"
-echo "DBMS_PRESTO                       : ${DB_SEEDER_DBMS_PRESTO}"
+echo "DBMS_TRINO                        : ${DB_SEEDER_DBMS_TRINO}"
 echo "DIRECTORY_CATALOG_PROPERTY        : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
 echo "DOCKER_USERNAME                   : ${DOCKER_USERNAME}"
 echo "FILE_CONFIGURATION_NAME           : ${DB_SEEDER_FILE_CONFIGURATION_NAME}"
@@ -525,10 +529,10 @@ echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"
 echo "SETUP_DBMS                        : ${DB_SEEDER_SETUP_DBMS}"
-echo "VERSION_PRESTO                    : ${DB_SEEDER_VERSION_PRESTO}"
+echo "VERSION_TRINO                     : ${DB_SEEDER_VERSION_TRINO}"
 echo --------------------------------------------------------------------------------
-echo "CONNECTION_HOST_PRESTO            : ${DB_SEEDER_CONNECTION_HOST_PRESTO}"
-echo "CONNECTION_PORT_PRESTO            : ${DB_SEEDER_CONNECTION_PORT_PRESTO}"
+echo "CONNECTION_HOST_TRINO             : ${DB_SEEDER_CONNECTION_HOST_TRINO}"
+echo "CONNECTION_PORT_TRINO             : ${DB_SEEDER_CONNECTION_PORT_TRINO}"
 echo "--------------------------------------------------------------------------------"
 echo "CATALOG                           : ${DB_SEEDER_CATALOG}"
 echo "CATALOG_SYS                       : ${DB_SEEDER_CATALOG_SYS}"
@@ -572,17 +576,17 @@ elif [ "${DB_SEEDER_DBMS}" = "complete_emb" ]; then
     if ! ( ./scripts/run_db_seeder_complete_emb.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
         exit 255
     fi    
-elif [ "${DB_SEEDER_DBMS}" = "complete_presto" ]; then
-    if ! ( ./scripts/run_db_seeder_complete_presto.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+elif [ "${DB_SEEDER_DBMS}" = "complete_trino" ]; then
+    if ! ( ./scripts/run_db_seeder_complete_trino.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
         exit 255
     fi    
 else
-    if [ "${DB_SEEDER_DBMS_PRESTO}" = "yes" ]; then
+    if [ "${DB_SEEDER_DBMS_TRINO}" = "yes" ]; then
         if [ "${DB_SEEDER_SETUP_DBMS}" = "yes" ]; then
-            if ! ( ./scripts/run_db_seeder_presto_environment.sh complete ); then
+            if ! ( ./scripts/run_db_seeder_trino_environment.sh complete ); then
                 exit 255
             fi
-            if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+            if ! ( ./scripts/run_db_seeder_setup_trino.sh ); then
                 exit 255
             fi
         fi        

@@ -4,17 +4,17 @@
 
 package ch.konnexions.db_seeder.utils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * The configuration parameters for the supported database management systems.
@@ -30,9 +30,9 @@ public final class Config {
   //  private final boolean           isDebug    = logger.isDebugEnabled();
 
   private String                  connectionHost;
-  private String                  connectionHostPresto;
+  private String                  connectionHostTrino;
   private int                     connectionPort;
-  private int                     connectionPortPresto;
+  private int                     connectionPortTrino;
   private String                  connectionPrefix;
   private String                  connectionService;
   private String                  connectionSuffix;
@@ -111,10 +111,10 @@ public final class Config {
   }
 
   /**
-   * @return the host name where the Presto server is listening for requests
+   * @return the host name where the Trino server is listening for requests
    */
-  public String getConnectionHostPresto() {
-    return connectionHostPresto;
+  public String getConnectionHostTrino() {
+    return connectionHostTrino;
   }
 
   /**
@@ -125,10 +125,10 @@ public final class Config {
   }
 
   /**
-   * @return the port number where the Presto server is listening for requests
+   * @return the port number where the Trino server is listening for requests
    */
-  public final int getConnectionPortPresto() {
-    return connectionPortPresto;
+  public final int getConnectionPortTrino() {
+    return connectionPortTrino;
   }
 
   /**
@@ -236,7 +236,7 @@ public final class Config {
   //    ArrayList<String> list = new ArrayList<>();
   //
   //    list.add("db_seeder.connection.port");
-  //    list.add("db_seeder.connection.port.presto");
+  //    list.add("db_seeder.connection.port.trino");
   //    list.add("db_seeder.null.factor");
   //
   //    return list;
@@ -288,9 +288,9 @@ public final class Config {
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
     connectionHost              = propertiesConfiguration.getString("db_seeder.connection.host");
-    connectionHostPresto        = propertiesConfiguration.getString("db_seeder.connection.host.presto");
+    connectionHostTrino        = propertiesConfiguration.getString("db_seeder.connection.host.trino");
     connectionPort              = propertiesConfiguration.getInt("db_seeder.connection.port");
-    connectionPortPresto        = propertiesConfiguration.getInt("db_seeder.connection.port.presto");
+    connectionPortTrino        = propertiesConfiguration.getInt("db_seeder.connection.port.trino");
     connectionPrefix            = propertiesConfiguration.getString("db_seeder.connection.prefix");
     connectionService           = propertiesConfiguration.getString("db_seeder.connection.service");
     connectionSuffix            = propertiesConfiguration.getString("db_seeder.connection.suffix");
@@ -327,10 +327,10 @@ public final class Config {
                                           connectionHost);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_HOST_PRESTO")) {
-      connectionHostPresto = environmentVariables.get("DB_SEEDER_CONNECTION_HOST_PRESTO");
-      propertiesConfiguration.setProperty("db_seeder.connection.host.presto",
-                                          connectionHostPresto);
+    if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_HOST_TRINO")) {
+      connectionHostTrino = environmentVariables.get("DB_SEEDER_CONNECTION_HOST_TRINO");
+      propertiesConfiguration.setProperty("db_seeder.connection.host.trino",
+                                          connectionHostTrino);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PORT")) {
@@ -339,10 +339,10 @@ public final class Config {
                                           connectionPort);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PORT_PRESTO")) {
-      connectionPortPresto = Integer.parseInt(environmentVariables.get("DB_SEEDER_CONNECTION_PORT_PRESTO"));
-      propertiesConfiguration.setProperty("db_seeder.connection.port.presto",
-                                          connectionPortPresto);
+    if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PORT_TRINO")) {
+      connectionPortTrino = Integer.parseInt(environmentVariables.get("DB_SEEDER_CONNECTION_PORT_TRINO"));
+      propertiesConfiguration.setProperty("db_seeder.connection.port.trino",
+                                          connectionPortTrino);
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PREFIX")) {

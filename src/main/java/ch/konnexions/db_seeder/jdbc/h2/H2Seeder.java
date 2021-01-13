@@ -62,7 +62,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
    * Instantiates a new H2 seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public H2Seeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

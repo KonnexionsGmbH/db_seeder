@@ -64,7 +64,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
    * Initialises a new HyperSQL seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public HsqldbSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

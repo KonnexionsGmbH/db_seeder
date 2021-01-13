@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.0.svg)
 ----
 
 ### Table of Contents
@@ -19,7 +19,7 @@
 **[4.2 Control Parameters](#operating_instructions_control)**<br>
 **[4.3 Statistics](#operating_instructions_statistics)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
-**[6. Presto - Distributed Query Engine](#presto)**<br>
+**[6. Trino - Distributed Query Engine](#trino)**<br>
 
 ----
 
@@ -124,11 +124,11 @@ Currently the following database management systems are supported:
   - open source
   - relational model
   - **[see technical details here](#details_postgresql)**
-- [Presto Distributed Query Engine](https://prestosql.io/)
+- [Trino Distributed Query Engine](https://trino.io/)
   - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
   - open source
-  - **[see technical details here](#details_presto)**
+  - **[see technical details here](#details_trino)**
 - [SQLite](https://www.sqlite.org)
   - commercial, open source
   - embedded only version
@@ -158,9 +158,9 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 The database schema to be used, that is, the required database tables can be user defined using a JSON file. 
 Details can be found here: [2.1 Database Schema](#database_schema). 
 
-For the DBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Presto can optionally be used instead of the original JDBC driver. 
-The prerequisite for this is that Presto is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
-Details can be found here: [6. Presto - Distributed Query Engine](#presto). 
+For the DBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
+The prerequisite for this is that Trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
+Details can be found here: [6. Trino - Distributed Query Engine](#trino). 
 
 
 [//]: # (===========================================================================================)
@@ -172,25 +172,25 @@ Details can be found here: [6. Presto - Distributed Query Engine](#presto).
 | AgensGraph                      | agens              | v2.1.1                     | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                       | 10.2.2.8874         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.3.2              | 2.6.0               |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.4           | 7.0.4               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.3.3              | 2.6.0               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.5           | 7.0.4               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.1.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                      | 2.5.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.0        | 11.5.5.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10 FC4DE  | 4.50.4.1            | 
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.8           | 2.7.1               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 8.4.1.jre14         | 
-| Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                | 
+| Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                |a 
 | MonetDB                         | monetdb            | Jun2020-SP1                | 2.29.jre7           | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.22            | 8.0.22              | 
-| Oracle Database                 | oracle             | 12c - 19c                  | 19.8.0.0            |
+| Oracle Database                 | oracle             | 12c - 19c                  | 19.9.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.22              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
-| Presto Distributed Query Engine | n/a                | 339 - 348                  | 348                 |
-| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0            |
+| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
+| Trino Distributed Query Engine  | n/a                | 339 - 351                  | 351                 |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.1.0-b132 | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.1.0-b153 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -391,7 +391,7 @@ a `db_seeder` specific development container can be started, which performs the 
 - all client databases with the database schema `db_seeder_schema.company.json`
 - all client databases with the database schema `db_seeder_schema.syntax.json`
 - all embeded databases with the database schema `db_seeder_schema.company.json`
-- all Presto databases with the database schema `db_seeder_schema.company.json`
+- all Trino databases with the database schema `db_seeder_schema.company.json`
 
 For each of these runs, by default a statistics file is created in the file directory `Transfer` with the following file name structure:
 
@@ -426,7 +426,7 @@ The `run_db_seeder` script is controlled by the following script parameters::
   - 2: two runs
   - otherwise: no run
 
-For the run variants `complete_client`, `complete_emb` and `complete_presto`, statistics files with the following data name structure are created in the file directory `resources\statistics` by default:
+For the run variants `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources\statistics` by default:
 
     db_seeder_<bash | cmd>_<db_type>_unknown_<db_seeder release>.tsv
 
@@ -458,9 +458,9 @@ The following control parameters are currently supported:
 
 ```
 db_seeder.connection.host=
-db_seeder.connection.host.presto=
+db_seeder.connection.host.trino=
 db_seeder.connection.port=0
-db_seeder.connection.port.presto=0
+db_seeder.connection.port.trino=0
 db_seeder.connection.prefix=
 db_seeder.connection.service=
 db_seeder.connection.suffix=
@@ -490,9 +490,9 @@ db_seeder.user=
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                                                              | Description |     
 | ---                                       | ---                               | ---                                                                                                                  | --- |
 | connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                                                     | host name or ip address of the database server |
-| connection.host_presto=<x...x>            | CONNECTION_HOST_PRESTO            | Presto                                                                                                               | host name or ip address of the Presto distributed query engine |
+| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | Trino                                                                                                                | host name or ip address of the Trino distributed query engine |
 | connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                                                     | port number of the database server |
-| connection.port_presto=<9...9>            | CONNECTION_PORT_PRESTO            | Presto                                                                                                               | port number of the Presto distributed query engine |
+| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | Trino                                                                                                                | port number of the Trino distributed query engine |
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                                                             | suffix of the database connection string |
@@ -539,8 +539,8 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Oracle Database](#details_oracle)** / 
 **[Percona Server for MySQL](#details_percona)** / 
 **[PostgreSQL Database](#details_postgresql)** / 
-**[Presto distributed Query Engine](#details_presto)** / 
 **[SQLite](#details_sqlite)** /
+**[Trino distributed Query Engine](#details_trino)** /
 **[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
 
@@ -644,7 +644,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.3.2`
+  - pull command: `docker pull crate:4.3.3`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -733,7 +733,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.4`
+  - pull command: `docker pull exasol/docker-db:7.0.5`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -942,7 +942,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC4DE`
+  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC5DE`
   - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
 
 - **encoding**:
@@ -1077,7 +1077,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: NCHAR, NVARCHAR
   
 - **JDBC driver (latest)**: 
-  - version 3.40
+  - version 3.41a
   - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se/)
 
 - **privileged database access**:
@@ -1198,7 +1198,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 19.8.0.0
+  - version 19.9.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc10)
 
 - **privileged database access**:
@@ -1287,41 +1287,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_presto"></a> 5.19 Presto Distributed Query Engine
-
-- **data types**:
-
-| db seeder Type | Presto Database Type |
-| ---            | ---                  |
-| BIGINT         | BIGINT               |
-| BLOB           | BLOB                 |
-| CLOB           | CLOB                 |
-| TIMESTAMP      | TIMESTAMP            |
-| VARCHAR        | VARCHAR              |
-
-- **DDL syntax**:
-  - CREATE DATABASE - n/a 
-  - [CREATE SCHEMA](https://prestodb.io/docs/current/sql/create-schema.html)
-  - [CREATE TABLE](https://prestodb.io/docs/current/sql/create-table.html) 
-  - CREATE USER - n/a 
-
-- **Docker image (latest)**:
-  - pull command: `docker pull prestosql/presto:348`
-  - [DockerHub](https://hub.docker.com/r/prestosql/presto)
-
-- **encoding**: full support of UTF-8 (see [here](https://prestodb.io/docs/current/release/release-0.102.html))
-  
-- **issue tracking**: [GitHub](https://github.com/prestosql/presto/issues)
-
-- **JDBC driver (latest)**:
-  - version 345
-  - [Maven repository](https://mvnrepository.com/artifact/io.prestosql/presto-jdbc)
-
-- **source code**: [GitHub](https://github.com/prestosql/presto)
-
-[//]: # (===========================================================================================)
-
-### <a name="details_sqlite"></a> 5.20 SQLite
+### <a name="details_sqlite"></a> 5.19 SQLite
 
 - **data types**:
 
@@ -1357,6 +1323,40 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLITE.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_trino"></a> 5.20 Trino Distributed Query Engine
+
+- **data types**:
+
+| db seeder Type | Trino Database Type |
+| ---            | ---                 |
+| BIGINT         | BIGINT              |
+| BLOB           | BLOB                |
+| CLOB           | CLOB                |
+| TIMESTAMP      | TIMESTAMP           |
+| VARCHAR        | VARCHAR             |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a
+  - [CREATE SCHEMA](https://trino.io/docs/current/sql/create-schema.html)
+  - [CREATE TABLE](https://trino.io/docs/current/sql/create-table.html)
+  - CREATE USER - n/a
+
+- **Docker image (latest)**:
+  - pull command: `docker pull trinodb/trino:351`
+  - [DockerHub](https://hub.docker.com/r/trinodb/trino)
+
+- **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
+
+- **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
+
+- **JDBC driver (latest)**:
+  - version 351
+  - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
+
+- **source code**: [GitHub](https://github.com/trinodb/trino)
 
 [//]: # (===========================================================================================)
 
@@ -1411,7 +1411,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.5.1.0-b132`
+  - pull command: `docker pull yugabytedb/yugabyte:2.5.1.0-b153`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: see PostgreSQL Database
@@ -1428,17 +1428,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_YUGABYTE.png)
 
-## <a name="presto"></a> 6. Presto - Distributed Query Engine
+## <a name="trino"></a> 6. Trino - Distributed Query Engine
 
-The [Presto](https://prestosql.io/) distributed query engine can integrate the following DBMS, among others:
+The [Trino](https://trino.io/) distributed query engine can integrate the following DBMS, among others:
 
-- Microsoft SQL Server via the [SQL Server Connector](https://prestosql.io/docs/current/connector/sqlserver.html),
-- MySQL via the [MySQL Connector](https://prestosql.io/docs/current/connector/mysql.html),
-- Oracle via the [Oracle Connector](https://prestosql.io/docs/current/connector/oracle.html), and
-- PostgreSQL via the [PostgreSQL Connector](https://prestosql.io/docs/current/connector/postgresql.html).
+- Microsoft SQL Server via the [SQL Server Connector](https://trinodb.io/docs/current/connector/sqlserver.html),
+- MySQL via the [MySQL Connector](https://trinodb.io/docs/current/connector/mysql.html),
+- Oracle via the [Oracle Connector](https://trinodb.io/docs/current/connector/oracle.html), and
+- PostgreSQL via the [PostgreSQL Connector](https://trinodb.io/docs/current/connector/postgresql.html).
 
-**`db_seeder`** makes it possible to use Presto's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
-To use the Presto JDBC driver, a Presto server is required.
-With the script `db_seeder_presto_environment` a Presto server can be set up.
-Since Presto does not support the Windows operating system, a suitable Docker image is created for Windows.
-For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the Presto server.
+**`db_seeder`** makes it possible to use Trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
+To use the Trino JDBC driver, a Trino server is required.
+With the script `db_seeder_trino_environment` a Trino server can be set up.
+Since Trino does not support the Windows operating system, a suitable Docker image is created for Windows.
+For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the Trino server.

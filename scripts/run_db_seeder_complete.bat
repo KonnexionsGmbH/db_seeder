@@ -40,15 +40,15 @@ set DB_SEEDER_DBMS_MARIADB=yes
 set DB_SEEDER_DBMS_MIMER=yes
 set DB_SEEDER_DBMS_MONETDB=yes
 set DB_SEEDER_DBMS_MYSQL=yes
-set DB_SEEDER_DBMS_MYSQL_PRESTO=yes
+set DB_SEEDER_DBMS_MYSQL_TRINO=yes
 set DB_SEEDER_DBMS_ORACLE=yes
-set DB_SEEDER_DBMS_ORACLE_PRESTO=yes
+set DB_SEEDER_DBMS_ORACLE_TRINO=yes
 set DB_SEEDER_DBMS_PERCONA=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
-set DB_SEEDER_DBMS_POSTGRESQL_PRESTO=yes
+set DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
 set DB_SEEDER_DBMS_SQLITE=yes
 set DB_SEEDER_DBMS_SQLSERVER=yes
-set DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
+set DB_SEEDER_DBMS_SQLSERVER_TRINO=yes
 set DB_SEEDER_DBMS_VOLTDB=yes
 set DB_SEEDER_DBMS_YUGABYTE=yes
 
@@ -94,15 +94,15 @@ echo.
     echo DBMS_MIMER                      : %DB_SEEDER_DBMS_MIMER%
     echo DBMS_MOMETDB                    : %DB_SEEDER_DBMS_MONETDB%
     echo DBMS_MYSQL                      : %DB_SEEDER_DBMS_MYSQL%
-    echo DBMS_MYSQL_PRESTO               : %DB_SEEDER_DBMS_MYSQL_PRESTO%
+    echo DBMS_MYSQL_TRINO                : %DB_SEEDER_DBMS_MYSQL_TRINO%
     echo DBMS_ORACLE                     : %DB_SEEDER_DBMS_ORACLE%
-    echo DBMS_ORACLE_PRESTO              : %DB_SEEDER_DBMS_ORACLE_PRESTO%
+    echo DBMS_ORACLE_TRINO               : %DB_SEEDER_DBMS_ORACLE_TRINO%
     echo DBMS_PERCONA                    : %DB_SEEDER_DBMS_PERCONA%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
-    echo DBMS_POSTGRESQL_PRESTO          : %DB_SEEDER_DBMS_POSTGRESQL_PRESTO%
+    echo DBMS_POSTGRESQL_TRINO           : %DB_SEEDER_DBMS_POSTGRESQL_TRINO%
     echo DBMS_SQLITE                     : %DB_SEEDER_DBMS_SQLITE%
     echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
-    echo DBMS_SQLSERVER_PRESTO           : %DB_SEEDER_DBMS_SQLSERVER_PRESTO%
+    echo DBMS_SQLSERVER_TRINO            : %DB_SEEDER_DBMS_SQLSERVER_TRINO%
     echo DBMS_VOLTDB                     : %DB_SEEDER_DBMS_VOLTDB%
     echo DBMS_YUGABYTE                   : %DB_SEEDER_DBMS_YUGABYTE%
     echo --------------------------------------------------------------------------------
@@ -115,13 +115,13 @@ echo.
         exit %ERRORLEVEL%
     )
 
-    call scripts\run_db_seeder_presto_environment.bat complete
+    call scripts\run_db_seeder_trino_environment.bat complete
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
 
-    call scripts\run_db_seeder_setup_presto.bat
+    call scripts\run_db_seeder_setup_trino.bat
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
@@ -332,11 +332,11 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem MySQL Database - via Presto.
+    rem MySQL Database - via Trino.
     rem ------------------------------------------------------------------------------
 
-    if ["%DB_SEEDER_DBMS_MYSQL_PRESTO%"] EQU ["yes"] (
-        call run_db_seeder.bat mysql_presto yes %DB_SEEDER_NO_CREATE_RUNS%
+    if ["%DB_SEEDER_DBMS_MYSQL_TRINO%"] EQU ["yes"] (
+        call run_db_seeder.bat mysql_trino yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -356,11 +356,11 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Oracle Database - via Presto.
+    rem Oracle Database - via Trino.
     rem ------------------------------------------------------------------------------
 
-    if ["%DB_SEEDER_DBMS_ORACLE_PRESTO%"] EQU ["yes"] (
-        call run_db_seeder.bat oracle_presto yes %DB_SEEDER_NO_CREATE_RUNS%
+    if ["%DB_SEEDER_DBMS_ORACLE_TRINO%"] EQU ["yes"] (
+        call run_db_seeder.bat oracle_trino yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -395,8 +395,8 @@ echo.
     rem PostgreSQL Database.
     rem ------------------------------------------------------------------------------
 
-    if ["%DB_SEEDER_DBMS_POSTGRESQL_PRESTO%"] EQU ["yes"] (
-        call run_db_seeder.bat postgresql_presto yes %DB_SEEDER_NO_CREATE_RUNS%
+    if ["%DB_SEEDER_DBMS_POSTGRESQL_TRINO%"] EQU ["yes"] (
+        call run_db_seeder.bat postgresql_trino yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
@@ -431,8 +431,8 @@ echo.
     rem Microsoft SQL Server.
     rem ------------------------------------------------------------------------------
 
-    if ["%DB_SEEDER_DBMS_SQLSERVER_PRESTO%"] EQU ["yes"] (
-        call run_db_seeder.bat sqlserver_presto yes %DB_SEEDER_NO_CREATE_RUNS%
+    if ["%DB_SEEDER_DBMS_SQLSERVER_TRINO%"] EQU ["yes"] (
+        call run_db_seeder.bat sqlserver_trino yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

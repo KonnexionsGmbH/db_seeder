@@ -1,11 +1,10 @@
 package ch.konnexions.db_seeder.jdbc.mysql;
 
-import java.sql.SQLException;
-
-import org.apache.log4j.Logger;
-
 import ch.konnexions.db_seeder.generated.AbstractGenMysqlSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
+import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
 
 /**
  * Test Data Generator for a MySQL DBMS.
@@ -41,7 +40,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   }
 
   /**
-   * Gets the connection URL for Presto (used by PrestoEnvironment).
+   * Gets the connection URL for Trino (used by TrinoEnvironment).
    *
    * @param connectionHost   the connection host name
    * @param connectionPort   the connection port number
@@ -49,7 +48,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * @param connectionSuffix the connection suffix
    * @return the connection URL for non-privileged access
    */
-  public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
+  public static String getUrlTrino(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionSuffix;
   }
 
@@ -68,7 +67,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
    * Instantiates a new MySQL seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public MysqlSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -81,10 +80,10 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
     driver   = "com.mysql.cj.jdbc.Driver";
 
-    if (isPresto) {
-      urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
-                                                  config.getConnectionHostPresto(),
-                                                  config.getConnectionPortPresto(),
+    if (isTrino) {
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
+                                                  config.getConnectionHostTrino(),
+                                                  config.getConnectionPortTrino(),
                                                   config.getDatabase());
     }
 
@@ -135,14 +134,14 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
                             urlUser);
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect - Presto.
+    // Disconnect and reconnect - Trino.
     // -----------------------------------------------------------------------
 
-    if (isPresto) {
+    if (isTrino) {
       disconnect(connection);
 
-      connection = connect(urlPresto,
-                           driver_presto,
+      connection = connect(urlTrino,
+                           driver_trino,
                            true);
 
       try {

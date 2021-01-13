@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '2.6.2'
+version '2.7.0'
 
 repositories {
     jcenter()
@@ -39,7 +39,7 @@ jar {
     manifest {
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.CreateSummaryFile'
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.DatabaseSeeder'
-        attributes 'Main-Class' : 'ch.konnexions.db_seeder.PrestoEnvironment'
+        attributes 'Main-Class' : 'ch.konnexions.db_seeder.TrinoEnvironment'
         attributes 'Main-Class' : 'ch.konnexions.db_seeder.SchemaBuilder'
     }
 }

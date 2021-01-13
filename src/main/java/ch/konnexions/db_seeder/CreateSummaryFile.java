@@ -1,24 +1,17 @@
 package ch.konnexions.db_seeder;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import ch.konnexions.db_seeder.utils.Config;
+import ch.konnexions.db_seeder.utils.MessageHandling;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import ch.konnexions.db_seeder.utils.Config;
-import ch.konnexions.db_seeder.utils.MessageHandling;
+import java.io.*;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Test Data Generator for a Database - Create a summary file from the benchmark data.
@@ -209,7 +202,7 @@ public final class CreateSummaryFile {
         fileNameTokens[2] = "unknown";
       }
 
-      if (fileNameTokens[3] == null || (!(fileNameTokens[3].equals("client") || fileNameTokens[3].equals("embedded") || fileNameTokens[3].equals("presto")))) {
+      if (fileNameTokens[3] == null || (!(fileNameTokens[3].equals("client") || fileNameTokens[3].equals("embedded") || fileNameTokens[3].equals("trino")))) {
         fileNameTokens[3] = "unknown";
       }
 

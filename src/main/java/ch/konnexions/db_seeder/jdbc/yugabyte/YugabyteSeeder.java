@@ -47,7 +47,7 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
    * Instantiates a new YugabyteDB seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   private YugabyteSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

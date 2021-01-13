@@ -32,7 +32,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
   }
 
   /**
-   * Gets the connection URL for Presto (used by PrestoEnvironment).
+   * Gets the connection URL for Trino (used by TrinoEnvironment).
    *
    * @param connectionHost   the connection host name
    * @param connectionPort   the connection port number
@@ -42,7 +42,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
    * @param password         the password with non-privileged access
    * @return the connection URL for non-privileged access
    */
-  public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
+  public static String getUrlTrino(String connectionHost, int connectionPort, String connectionPrefix, String database, String user, String password) {
     return getUrl(connectionHost,
                   connectionPort,
                   connectionPrefix,
@@ -66,7 +66,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
    * Instantiates a new PostgreSQL seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public PostgresqlSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -77,10 +77,10 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
     dbmsEnum = DbmsEnum.POSTGRESQL;
 
-    if (isPresto) {
-      urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
-                                                  config.getConnectionHostPresto(),
-                                                  config.getConnectionPortPresto(),
+    if (isTrino) {
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
+                                                  config.getConnectionHostTrino(),
+                                                  config.getConnectionPortTrino(),
                                                   config.getSchema());
     }
 
@@ -125,14 +125,14 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
                                  urlUser);
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect - Presto.
+    // Disconnect and reconnect - Trino.
     // -----------------------------------------------------------------------
 
-    if (isPresto) {
+    if (isTrino) {
       disconnect(connection);
 
-      connection = connect(urlPresto,
-                           driver_presto,
+      connection = connect(urlTrino,
+                           driver_trino,
                            true);
     }
 

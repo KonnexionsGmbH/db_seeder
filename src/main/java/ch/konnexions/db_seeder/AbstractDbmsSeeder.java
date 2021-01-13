@@ -238,11 +238,11 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "MySQL",
                         "" });
-    dbmsDetails.put("mysql_presto",
+    dbmsDetails.put("mysql_trino",
                     new String[] {
                         "mysql",
                         "MySQL Database",
-                        "presto",
+                        "trino",
                         "MySQL",
                         "" });
     dbmsDetails.put("oracle",
@@ -252,11 +252,11 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "Oracle",
                         "" });
-    dbmsDetails.put("oracle_presto",
+    dbmsDetails.put("oracle_trino",
                     new String[] {
                         "oracle",
                         "Oracle Database",
-                        "presto",
+                        "trino",
                         "Oracle",
                         "" });
     dbmsDetails.put("percona",
@@ -273,11 +273,11 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "PostgreSQL",
                         "" });
-    dbmsDetails.put("postgresql_presto",
+    dbmsDetails.put("postgresql_trino",
                     new String[] {
                         "postgresql",
                         "PostgreSQL Database",
-                        "presto",
+                        "trino",
                         "PostgreSQL",
                         "" });
     dbmsDetails.put("sqlite",
@@ -294,11 +294,11 @@ public abstract class AbstractDbmsSeeder {
                         "client",
                         "MS SQL Server",
                         "" });
-    dbmsDetails.put("sqlserver_presto",
+    dbmsDetails.put("sqlserver_trino",
                     new String[] {
                         "sqlserver",
                         "MS SQL Server",
-                        "presto",
+                        "trino",
                         "MS SQL Server",
                         "" });
     dbmsDetails.put("voltdb",
@@ -341,7 +341,7 @@ public abstract class AbstractDbmsSeeder {
    * Initialises a new abstract DBMS seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol 
-   * @param dbmsOption client, embedded or presto
+   * @param dbmsOption client, embedded or trino
    */
   public AbstractDbmsSeeder(String tickerSymbolExtern, String dbmsOption) {
     super();

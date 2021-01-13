@@ -15,7 +15,7 @@ echo "DB Seeder - Creation of dummy data in an empty database."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS                              : ${DB_SEEDER_DBMS}"
 echo "DBMS_EMBEDDED                     : ${DB_SEEDER_DBMS_EMBEDDED}"
-echo "DBMS_PRESTO                       : ${DB_SEEDER_DBMS_PRESTO}"
+echo "DBMS_TRINO                        : ${DB_SEEDER_DBMS_TRINO}"
 echo "FILE_CONFIGURATION_NAME           : ${DB_SEEDER_FILE_CONFIGURATION_NAME}"
 echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo --------------------------------------------------------------------------------

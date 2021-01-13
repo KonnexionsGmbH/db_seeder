@@ -3,19 +3,9 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.6.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.0.svg)
 
-## Version 2.6.2
-
-Release Date: xx.12.2020
-
-#### System Requirements
-
-- Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
-- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
-
-#### Current Issues
+## Current Issues
 
 - Apache Derby
 
@@ -34,33 +24,145 @@ Release Date: xx.12.2020
 
   - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
 
-- Presto Distributed Query Engine
+- Trino Distributed Query Engine
 
-  - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/prestosql/presto/issues/5681)).
-  - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/prestosql/presto/issues/5648)).
-  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
+  - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
+  - Microsoft SQL Connector: SQL Server "Expected zero to one elements, but found multiple" (see [here](https://github.com/trinodb/trino/issues/6464)).
+
+    2021-01-13 19:42:51,763 [DatabaseSeeder.java] INFO  Start
+    2021-01-13 19:42:51,769 [DatabaseSeeder.java] INFO  tickerSymbolExtern='sqlserver_trino'
+    2021-01-13 19:42:51,769 [DatabaseSeeder.java] INFO  Start Microsoft SQL Server via Trino
+    SLF4J: Class path contains multiple SLF4J bindings.
+    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+    java.sql.SQLException: Query failed (#20210113_184254_00000_jve99): Expected zero to one elements, but found multiple
+            at io.trino.jdbc.AbstractTrinoResultSet.resultsException(AbstractTrinoResultSet.java:1912)
+            at io.trino.jdbc.TrinoResultSet.getColumns(TrinoResultSet.java:242)
+            at io.trino.jdbc.TrinoResultSet.create(TrinoResultSet.java:53)
+            at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:249)
+            at io.trino.jdbc.TrinoStatement.execute(TrinoStatement.java:227)
+            at io.trino.jdbc.TrinoStatement.executeQuery(TrinoStatement.java:76)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.countData(AbstractJdbcSeeder.java:289)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:364)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:331)
+            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:217)
+    Caused by: java.lang.IllegalStateException: Expected zero to one elements, but found multiple
+            at org.jdbi.v3.core.result.ResultIterable.findOne(ResultIterable.java:163)
+            at io.trino.plugin.sqlserver.SqlServerClient.getTableDataCompression(SqlServerClient.java:437)
+            at io.trino.plugin.sqlserver.SqlServerClient.getTableProperties(SqlServerClient.java:378)
+            at io.trino.plugin.jdbc.ForwardingJdbcClient.getTableProperties(ForwardingJdbcClient.java:288)
+            at io.trino.plugin.jdbc.jmx.StatisticsAwareJdbcClient.getTableProperties(StatisticsAwareJdbcClient.java:305)
+            at io.trino.plugin.jdbc.CachingJdbcClient.getTableProperties(CachingJdbcClient.java:365)
+            at io.trino.plugin.jdbc.CachingJdbcClient.getTableProperties(CachingJdbcClient.java:365)
+            at io.trino.plugin.jdbc.JdbcMetadata.getTableMetadata(JdbcMetadata.java:344)
+            at io.trino.metadata.MetadataManager.getTableMetadata(MetadataManager.java:508)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitTable(StatementAnalyzer.java:1231)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitTable(StatementAnalyzer.java:329)
+            at io.trino.sql.tree.Table.accept(Table.java:53)
+            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.analyzeFrom(StatementAnalyzer.java:2529)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuerySpecification(StatementAnalyzer.java:1553)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuerySpecification(StatementAnalyzer.java:329)
+            at io.trino.sql.tree.QuerySpecification.accept(QuerySpecification.java:144)
+            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:356)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuery(StatementAnalyzer.java:1061)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuery(StatementAnalyzer.java:329)
+            at io.trino.sql.tree.Query.accept(Query.java:107)
+            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
+            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
+            at io.trino.sql.analyzer.StatementAnalyzer.analyze(StatementAnalyzer.java:315)
+            at io.trino.sql.analyzer.Analyzer.analyze(Analyzer.java:91)
+            at io.trino.sql.analyzer.Analyzer.analyze(Analyzer.java:83)
+            at io.trino.execution.SqlQueryExecution.analyze(SqlQueryExecution.java:263)
+            at io.trino.execution.SqlQueryExecution.<init>(SqlQueryExecution.java:186)
+            at io.trino.execution.SqlQueryExecution$SqlQueryExecutionFactory.createQueryExecution(SqlQueryExecution.java:768)
+            at io.trino.dispatcher.LocalDispatchQueryFactory.lambda$createDispatchQuery$0(LocalDispatchQueryFactory.java:129)
+            at io.trino.$gen.Trino_351____20210113_184151_2.call(Unknown Source)
+            at com.google.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleTask.runInterruptibly(TrustedListenableFutureTask.java:125)
+            at com.google.common.util.concurrent.InterruptibleTask.run(InterruptibleTask.java:69)
+            at com.google.common.util.concurrent.TrustedListenableFutureTask.run(TrustedListenableFutureTask.java:78)
+            at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+            at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+            at java.base/java.lang.Thread.run(Thread.java:834)
+    Processing of the script was aborted, error code=1
+
+  - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/4764)).
 
 - YugabyteDB
 
   - Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
 
+    2021-01-13 19:47:01,235 [DatabaseSeeder.java] INFO  Start
+    2021-01-13 19:47:01,241 [DatabaseSeeder.java] INFO  tickerSymbolExtern='yugabyte'
+    2021-01-13 19:47:01,241 [DatabaseSeeder.java] INFO  Start YugabyteDB
+    SLF4J: Class path contains multiple SLF4J bindings.
+    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+    Jan. 13, 2021 7:47:03 PM org.postgresql.core.v3.ConnectionFactoryImpl log
+    WARNING: ConnectException occurred while connecting to localhost:5433
+    java.net.ConnectException: Connection refused: no further information
+            at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+            at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:660)
+            at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:549)
+            at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:597)
+            at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:333)
+            at java.base/java.net.Socket.connect(Socket.java:648)
+            at org.postgresql.core.PGStream.<init>(PGStream.java:69)
+            at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:156)
+            at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
+            at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
+            at org.postgresql.Driver.makeConnection(Driver.java:452)
+            at org.postgresql.Driver.connect(Driver.java:254)
+            at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+            at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:246)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:152)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.setupPostgresql(AbstractJdbcSeeder.java:1597)
+            at ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder.setupDatabase(YugabyteSeeder.java:97)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:229)
+
+## Version 2.7.0
+
+Release Date: xx.01.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
 #### New Features
 
-n/a
+Rebranding of Presto to Trino
 
 #### Modified Features
 
-- CrateDB: DBMS 4.3.2
+- CrateDB: DBMS 4.3.3
 
-- Exasol: DBMS 7.0.4 / JDBC 7.0.4
+- Exasol: DBMS 7.0.5 / JDBC 7.0.4
 
 - IBM Db2 Database: DBMS 11.5.5.0
 
-- Presto Distributed Query Engine: DBMS 348 / JDBC 348
+- IBM Informix: DBMS 14.10.FC5DE
+
+- Mimer SQL: JDBC 3.41a
+
+- Oracle Database: JDBC 19.9.0.0
 
 - SQLite: DBMS 3.34.0 / JDBC 3.34.0
 
-- YugabyteDB: DBMS 2.5.1.0-b132
+- Trino Distributed Query Engine: DBMS 351 / JDBC 351
+
+- YugabyteDB: DBMS 2.5.1.0-b153
 
 #### Deleted Features
 
@@ -350,7 +452,7 @@ Release Date: 27.08.2020
 
 - Presto Distributed Query Engine
 
-  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/prestosql/presto/issues/4764)).
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/presto/issues/4764)).
   - SQL Server Connector: Failed to insert NULL for varbinary in SQL Server (see [here](https://github.com/prestosql/presto/issues/4795)).
 
 - YugabyteDB

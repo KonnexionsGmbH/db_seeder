@@ -28,26 +28,26 @@ if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
     export DB_SEEDER_DBMS_EMBEDDED=yes
 fi
 
-export DB_SEEDER_DBMS_PRESTO=no
+export DB_SEEDER_DBMS_TRINO=no
 
-if [ "${DB_SEEDER_DBMS}" = "mysql_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_DBMS_DB=mysql
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "oracle_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
     export DB_SEEDER_DBMS_DB=oracle
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "postgresql_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_DBMS_DB=postgresql
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "sqlserver_presto" ]; then
+if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_DBMS_DB=sqlserver
-    export DB_SEEDER_DBMS_PRESTO=yes
+    export DB_SEEDER_DBMS_TRINO=yes
 fi
 
 echo "================================================================================"
@@ -60,7 +60,7 @@ echo "DBMS                              : ${DB_SEEDER_DBMS}"
 echo "DBMS_DB                           : ${DB_SEEDER_DBMS_DB}"
 echo "DBMS_DEFAULT                      : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DBMS_EMBEDDED                     : ${DB_SEEDER_DBMS_EMBEDDED}"
-echo "DBMS_PRESTO                       : ${DB_SEEDER_DBMS_PRESTO}"
+echo "DBMS_TRINO                        : ${DB_SEEDER_DBMS_TRINO}"
 echo "DIRECTORY_CATALOG_PROPERTY        : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
 echo "FILE_CONFIGURATION_NAME           : ${DB_SEEDER_FILE_CONFIGURATION_NAME}"
 echo "FILE_JSON_NAME                    : ${DB_SEEDER_FILE_JSON_NAME}"
@@ -72,10 +72,10 @@ echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"
 echo "SETUP_DBMS                        : ${DB_SEEDER_SETUP_DBMS}"
 echo "TRAVIS                            : ${TRAVIS}"
-echo "VERSION_PRESTO                    : ${DB_SEEDER_VERSION_PRESTO}"
+echo "VERSION_TRINO                     : ${DB_SEEDER_VERSION_TRINO}"
 echo --------------------------------------------------------------------------------
-echo "CONNECTION_HOST_PRESTO            : $DB_SEEDER_CONNECTION_HOST_PRESTO"
-echo "CONNECTION_PORT_PRESTO            : $DB_SEEDER_CONNECTION_PORT_PRESTO"
+echo "CONNECTION_HOST_TRINO             : $DB_SEEDER_CONNECTION_HOST_TRINO"
+echo "CONNECTION_PORT_TRINO             : $DB_SEEDER_CONNECTION_PORT_TRINO"
 echo "--------------------------------------------------------------------------------"
 echo "CATALOG                           : $DB_SEEDER_CATALOG"
 echo "CATALOG_SYS                       : $DB_SEEDER_CATALOG_SYS"

@@ -27,7 +27,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Firebird Docker container.
 echo --------------------------------------------------------------------------------
-echo DBMS_PRESTO               : %DB_SEEDER_DBMS_PRESTO%
+echo DBMS_TRINO                : %DB_SEEDER_DBMS_TRINO%
 echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
 echo DB_SEEDER_CONTAINER_PORT  : %DB_SEEDER_CONTAINER_PORT%
 echo VERSION                   : %DB_SEEDER_VERSION%

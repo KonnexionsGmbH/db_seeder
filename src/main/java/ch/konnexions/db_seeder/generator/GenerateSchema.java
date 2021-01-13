@@ -687,7 +687,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol");
       bw.newLine();
-      bw.append("   * @param dbmsOption client, embedded or presto");
+      bw.append("   * @param dbmsOption client, embedded or trino");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
@@ -877,7 +877,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol ");
       bw.newLine();
-      bw.append("   * @param dbmsOption client, embedded or presto");
+      bw.append("   * @param dbmsOption client, embedded or trino");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
@@ -1110,7 +1110,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol ");
       bw.newLine();
-      bw.append("   * @param dbmsOption client, embedded or presto");
+      bw.append("   * @param dbmsOption client, embedded or trino");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
