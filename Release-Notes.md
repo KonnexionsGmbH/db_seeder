@@ -7,11 +7,20 @@
 
 ## 1. Execution Variations
 
-### 1.1 Windows 10 Pro
+### 1.1 Ubuntu 20.04 and Windows Subsystem Linux
+
+- Script: `run_db_seeder.sh`
+- Statistics `file: resources/statistics/db_seeder_wsl_complete_company.tsv`
+- Issues:
+    - none
+
+### 1.2 Windows 10 Pro
 
 - Script: `run_db_seeder.bat`
 - Statistics `file: resources/statistics/db_seeder_cmd_complete_company.tsv`
 - Issues:
+  - Trino Distributed Query Engine and Microsoft SQL Connector
+  - YugabyteDB and Docker image
 
 ## 2. Current Issues
 
