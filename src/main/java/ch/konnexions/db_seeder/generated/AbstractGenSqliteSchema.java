@@ -1,15 +1,15 @@
 package ch.konnexions.db_seeder.generated;
 
-import org.apache.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Properties;
+
+import org.apache.log4j.Logger;
 
 /**
  * CREATE TABLE statements for a SQLite DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.6.2
+ * @version 2.7.0
  */
 public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
 

@@ -5,6 +5,14 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.0.svg)
 
+## Execution Variations
+
+### Windows 10 Pro
+
+- Script: `run_db_seeder.bat`
+- Statistics `file: resources/statistics/db_seeder_cmd_complete_company.tsv`
+- Issues:
+
 ## Current Issues
 
 - Apache Derby
@@ -14,6 +22,7 @@
 - Exasol
 
   - JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
+    
   - Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
     
 - Mimer SQL & DBeaver
@@ -27,6 +36,7 @@
 - Trino Distributed Query Engine
 
   - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
+    
   - Microsoft SQL Connector: SQL Server "Expected zero to one elements, but found multiple" (see [here](https://github.com/trinodb/trino/issues/6464)).
 
     2021-01-13 19:42:51,763 [DatabaseSeeder.java] INFO  Start
@@ -92,6 +102,40 @@
     Processing of the script was aborted, error code=1
 
   - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
+
+    2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
+    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle_trino'
+    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  Start Oracle Database via Trino
+    SLF4J: Class path contains multiple SLF4J bindings.
+    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+    java.sql.SQLSyntaxErrorException: ORA-01940: Ein Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
+    
+            at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:509)
+            at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:461)
+            at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1104)
+            at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:553)
+            at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:269)
+            at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:655)
+            at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:229)
+            at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:41)
+            at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:928)
+            at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1205)
+            at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:1823)
+            at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:1778)
+            at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:303)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropUser(AbstractJdbcSeeder.java:795)
+            at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:133)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:181)
+    Caused by: Error : 1940, Position : 0, Sql = DROP USER  KXN_USER CASCADE, OriginalSql = DROP USER  KXN_USER CASCADE, Error Msg = ORA-01940: Ein Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
+    
+            at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:513)
+            ... 16 more
+    Processing of the script was aborted, error code=1
+    
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/4764)).
 
 - YugabyteDB
@@ -139,6 +183,7 @@ Release Date: xx.01.2021
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Java Version 15 (e.g.: https://jdk.java.net/15/)
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
 #### New Features
 
