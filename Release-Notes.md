@@ -15,29 +15,29 @@
 
 ## 2. Current Issues
 
-- Apache Derby
+### Apache Derby
 
-  - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
+- The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
-- Exasol
+### Exasol
 
-  - JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
+- JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
     
-  - Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
+- Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
     
-- Mimer SQL & DBeaver
+### Mimer SQL & DBeaver
 
-  - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
+- DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-- Oracle Database
+### Oracle Database
 
-  - Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
+- Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
 
-- Trino Distributed Query Engine
+### Trino Distributed Query Engine
 
-  - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
+- All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
-  - Microsoft SQL Connector: SQL Server "Expected zero to one elements, but found multiple" (see [here](https://github.com/trinodb/trino/issues/6464)).
+- Microsoft SQL Connector: SQL Server "Expected zero to one elements, but found multiple" (see [here](https://github.com/trinodb/trino/issues/6464)).
 
     2021-01-13 19:42:51,763 [DatabaseSeeder.java] INFO  Start
     2021-01-13 19:42:51,769 [DatabaseSeeder.java] INFO  tickerSymbolExtern='sqlserver_trino'
@@ -101,7 +101,7 @@
             at java.base/java.lang.Thread.run(Thread.java:834)
     Processing of the script was aborted, error code=1
 
-  - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
+- Oracle Connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
 
     2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
     2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle_trino'
@@ -138,9 +138,9 @@
     
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/4764)).
 
-- YugabyteDB
+### YugabyteDB
 
-  - Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
+- Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
 
     2021-01-13 19:47:01,235 [DatabaseSeeder.java] INFO  Start
     2021-01-13 19:47:01,241 [DatabaseSeeder.java] INFO  tickerSymbolExtern='yugabyte'
@@ -174,7 +174,7 @@
             at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
             at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:229)
 
-## Version History
+## 3. Version History
 
 ### 2.7.0
 
