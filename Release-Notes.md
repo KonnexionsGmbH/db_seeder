@@ -5,15 +5,15 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.0.svg)
 
-## Execution Variations
+## 1. Execution Variations
 
-### Windows 10 Pro
+### 1.1 Windows 10 Pro
 
 - Script: `run_db_seeder.bat`
 - Statistics `file: resources/statistics/db_seeder_cmd_complete_company.tsv`
 - Issues:
 
-## Current Issues
+## 2. Current Issues
 
 - Apache Derby
 
@@ -174,7 +174,9 @@
             at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
             at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:229)
 
-## Version 2.7.0
+## Version History
+
+### 2.7.0
 
 Release Date: xx.01.2021
 
@@ -215,7 +217,7 @@ n/a
 
 ----------
 
-## Version 2.6.1
+### 2.6.1
 
 Release Date: 28.11.2020
 
@@ -276,7 +278,7 @@ Release Date: 28.11.2020
 
 ----------
 
-## Version 2.6.0
+### 2.6.0
 
 Release Date: 27.10.2020
 
@@ -339,7 +341,7 @@ Release Date: 27.10.2020
 
 ----------
 
-## Version 2.5.2
+### 2.5.2
 
 Release Date: 05.10.2020
 
@@ -386,7 +388,7 @@ Release Date: 05.10.2020
 
 ----------
 
-## Version 2.5.1
+### 2.5.1
 
 Release Date: 29.09.2020
 
@@ -436,7 +438,7 @@ Release Date: 29.09.2020
 
 ----------
 
-## Version 2.5.0
+### 2.5.0
 
 Release Date: 30.08.2020
 
@@ -475,7 +477,7 @@ Release Date: 30.08.2020
 
 ----------
 
-## Version 2.4.0
+### 2.4.0
 
 Release Date: 27.08.2020
 
@@ -511,7 +513,7 @@ Release Date: 27.08.2020
 
 ----------
 
-## Version 2.3.0
+### 2.3.0
 
 Release Date: 26.08.2020
 
@@ -554,7 +556,7 @@ Release Date: 26.08.2020
 
 ----------
 
-## Version 2.2.0
+### 2.2.0
 
 Release Date: 18.08.2020
 
@@ -593,7 +595,7 @@ Release Date: 18.08.2020
 
 ----------
 
-## Version 2.1.3
+### 2.1.3
 
 Release Date: 17.08.2020
 
@@ -628,7 +630,7 @@ Release Date: 17.08.2020
 
 ----------
 
-## Version 2.1.2
+### 2.1.2
 
 Release Date: 13.08.2020
 
@@ -660,7 +662,7 @@ Release Date: 13.08.2020
 
 ----------
 
-## Version 2.1.1
+### 2.1.1
 
 Release Date: 13.08.2020
 
@@ -703,7 +705,7 @@ Release Date: 13.08.2020
 
 ----------
 
-## Version 2.1.0
+### 2.1.0
 
 Release Date: 11.08.2020
 
@@ -745,7 +747,7 @@ Release Date: 11.08.2020
 
 ----------
 
-## Version 2.0.0
+### 2.0.0
 
 Release Date: 02.08.2020
 
@@ -777,7 +779,7 @@ Release Date: 02.08.2020
 
 ----------
 
-## Version 1.15.10
+### 1.15.10
 
 Release Date: 14.07.2020
 
@@ -805,7 +807,7 @@ Release Date: 14.07.2020
 
 ----------
 
-## Version 1.15.8
+### 1.15.8
 
 Release Date: 13.07.2020
 
@@ -835,7 +837,7 @@ Release Date: 13.07.2020
 
 ----------
 
-## Version 1.15.5
+### 1.15.5
 
 Release Date: 10.07.2020
 
@@ -879,7 +881,7 @@ Release Date: 10.07.2020
 
 ----------
 
-## Version 1.14.0
+### 1.14.0
 
 Release Date: 06.07.2020
 
@@ -900,7 +902,7 @@ Release Date: 06.07.2020
 
 ----------
 
-## Version 1.13.0
+### 1.13.0
 
 Release Date: 01.07.2020
 
@@ -921,7 +923,7 @@ Release Date: 01.07.2020
 
 ----------
 
-## Version 1.12.0
+### 1.12.0
 
 Release Date: 29.06.2020
 
@@ -942,7 +944,7 @@ Release Date: 29.06.2020
 
 ----------
 
-## Version 1.11.2
+### 1.11.2
 
 Release Date: 26.06.2020
 
@@ -965,7 +967,7 @@ Release Date: 26.06.2020
 
 ----------
 
-## Version 1.11.0
+### 1.11.0
 
 Release Date: 26.06.2020
 
@@ -990,7 +992,7 @@ Release Date: 26.06.2020
 
 ----------
 
-## Version 1.8.3
+### 1.8.3
 
 Release Date: 21.06.2020
 
@@ -1023,7 +1025,7 @@ Release Date: 21.06.2020
 
 ----------
 
-## Version 1.6.0
+### 1.6.0
 
 Release Date: 16.06.2020
 
@@ -1038,7 +1040,7 @@ Release Date: 16.06.2020
 
 ----------
 
-## Version 1.5.0
+### 1.5.0
 
 Release Date: 15.06.2020
 
@@ -1053,7 +1055,7 @@ Release Date: 15.06.2020
 
 ----------
 
-## Version 1.4.0
+### 1.4.0
 
 Release Date: 14.06.2020
 
@@ -1068,7 +1070,7 @@ Release Date: 14.06.2020
 
 ----------
 
-## Version 1.3.0
+### 1.3.0
 
 Release Date: 12.06.2020
 
@@ -1083,7 +1085,7 @@ Release Date: 12.06.2020
 
 ----------
 
-## Version 1.2.0
+### 1.2.0
 
 Release Date: 10.06.2020
 
@@ -1098,7 +1100,7 @@ Release Date: 10.06.2020
 
 ----------
 
-## Version 1.1.0
+### 1.1.0
 
 Release Date: 06.06.2020
 
@@ -1123,7 +1125,7 @@ Release Date: 06.06.2020
 
 ----------
 
-## Version 1.0.0
+### 1.0.0
 
 Release Date: 01.06.2020
 
