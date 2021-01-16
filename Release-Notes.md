@@ -7,20 +7,34 @@
 
 ## 1. Execution Variations
 
-### 1.1 Ubuntu 20.04 and Windows Subsystem Linux
+### 1.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
 
+- Requirements:
+    - pull the kxn_dev image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
+    - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
+    - clone the db_seeder repository: git clone   
+    - run`scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` inside Ubuntu (WSL2)
 - Script: `run_db_seeder.sh`
-- Statistics `file: resources/statistics/db_seeder_wsl_complete_company.tsv`
 - Issues:
-    - none
+    - Trino Distributed Query Engine and Microsoft SQL Connector
 
-### 1.2 Windows 10 Pro
+### 1.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
+
+- Requirements:
+    - install Ubuntu 20.04 from Microsoft Marketplace
+    - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
+    - run`scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` inside Ubuntu (WSL2)
+- Script: `run_db_seeder.sh`
+- Issues:
+    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - YugabyteDB and Docker image
+
+### 1.3 Windows 10 Pro
 
 - Script: `run_db_seeder.bat`
-- Statistics `file: resources/statistics/db_seeder_cmd_complete_company.tsv`
 - Issues:
-  - Trino Distributed Query Engine and Microsoft SQL Connector
-  - YugabyteDB and Docker image
+    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - YugabyteDB and Docker image
 
 ## 2. Current Issues
 
@@ -182,6 +196,43 @@
             at ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder.setupDatabase(YugabyteSeeder.java:97)
             at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
             at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:229)
+
+
+    Docker create db_seeder_db (YugabyteDB 2.5.1.0-b153)
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/conf/yugabyted.conf': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/master-info': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/consensus-meta/00000000000000000000000000000000': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/000003.log': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/CURRENT': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/IDENTITY': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/LOCK': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/MANIFEST-000001': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/OPTIONS-000005': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/000003.log': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/CURRENT': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/IDENTITY': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/LOCK': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/MANIFEST-000001': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/OPTIONS-000005': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.snapshots': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/instance': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.ERROR.20210113-184632.18': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.FATAL.20210113-184632.18': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.INFO.20210113-184631.18': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.WARNING.20210113-184631.18': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.ERROR': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.FATAL': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.FATAL.details.2021-01-13T18_46_32.pid18.txt': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.INFO': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.WARNING': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/tablet-meta/00000000000000000000000000000000': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/wals/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/wal-000000001': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master.err': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master.out': Permission denied
+    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/yugabyted.log': Permission denied
+
+
 
 ## 3. Version History
 

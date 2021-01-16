@@ -50,7 +50,7 @@ export DB_SEEDER_DBMS_POSTGRESQL=yes
 export DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
 export DB_SEEDER_DBMS_SQLITE=yes
 export DB_SEEDER_DBMS_SQLSERVER=yes
-export DB_SEEDER_DBMS_SQLSERVER_TRINO=yes
+export DB_SEEDER_DBMS_SQLSERVER_TRINO=no
 export DB_SEEDER_DBMS_VOLTDB=yes
 export DB_SEEDER_DBMS_YUGABYTE=yes
 
@@ -90,15 +90,15 @@ echo "DBMS_MARIADB                    : $DB_SEEDER_DBMS_MARIADB"
 echo "DBMS_MIMER                      : $DB_SEEDER_DBMS_MIMER"
 echo "DBMS_MONETDB                    : $DB_SEEDER_DBMS_MONETDB"
 echo "DBMS_MYSQL                      : $DB_SEEDER_DBMS_MYSQL"
-echo "DBMS_MYSQL_TRINO               : $DB_SEEDER_DBMS_MYSQL_TRINO"
+echo "DBMS_MYSQL_TRINO                : $DB_SEEDER_DBMS_MYSQL_TRINO"
 echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
-echo "DBMS_ORACLE_TRINO              : $DB_SEEDER_DBMS_ORACLE_TRINO"
+echo "DBMS_ORACLE_TRINO               : $DB_SEEDER_DBMS_ORACLE_TRINO"
 echo "DBMS_PERCONA                    : $DB_SEEDER_DBMS_PERCONA"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
-echo "DBMS_POSTGRESQL_TRINO          : $DB_SEEDER_DBMS_POSTGRESQL_TRINO"
+echo "DBMS_POSTGRESQL_TRINO           : $DB_SEEDER_DBMS_POSTGRESQL_TRINO"
 echo "DBMS_SQLITE                     : $DB_SEEDER_DBMS_SQLITE"
 echo "DBMS_SQLSERVER                  : $DB_SEEDER_DBMS_SQLSERVER"
-echo "DBMS_SQLSERVER_TRINO           : $DB_SEEDER_DBMS_SQLSERVER_TRINO"
+echo "DBMS_SQLSERVER_TRINO            : $DB_SEEDER_DBMS_SQLSERVER_TRINO"
 echo "DBMS_VOLTDB                     : $DB_SEEDER_DBMS_VOLTDB"
 echo "DBMS_YUGABYTE                   : $DB_SEEDER_DBMS_YUGABYTE"
 echo "--------------------------------------------------------------------------------"

@@ -212,6 +212,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
     export DB_SEEDER_PASSWORD=h2
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=1.4.200
 fi
 
@@ -222,6 +223,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then
     export DB_SEEDER_PASSWORD=h2
     export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=sa
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
