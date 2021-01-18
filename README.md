@@ -460,7 +460,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
   - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
   - `cd db_seeder`
   - run `./scripts/run_prep_bash_scripts.sh`
-  - export DOCKER_USERNAME=<usr name>
+  - export DOCKER_USERNAME=<user name>
   - export DOCKER_PASSWORD=<password>
 - Script: `./run_db_seeder.sh`
 - Issues:
@@ -472,7 +472,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
   - install Ubuntu 20.04 from Microsoft Marketplace
   - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
   - run`./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` inside Ubuntu
-  - export DOCKER_USERNAME=<usr name>
+  - export DOCKER_USERNAME=<user name>
   - export DOCKER_PASSWORD=<password>
 - Script: `./run_db_seeder.sh`
 - Issues:
@@ -482,8 +482,8 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.3 Windows 10 Pro
 
 - Requirements:
-  - export DOCKER_USERNAME=<usr name>
-  - export DOCKER_PASSWORD=<password>
+  - export DOCKER_USERNAME=\<user name\>
+  - export DOCKER_PASSWORD=\<password\>
 - Script: `run_db_seeder.bat`
 - Issues:
   - Trino Distributed Query Engine and Microsoft SQL Connector
