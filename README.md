@@ -16,8 +16,9 @@
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
-**[4.2 Control Parameters](#operating_instructions_control)**<br>
-**[4.3 Statistics](#operating_instructions_statistics)**<br>
+**[4.2 Execution Variations](#operating_instructions_execution)**<br>
+**[4.3 Control Parameters](#operating_instructions_control)**<br>
+**[4.4 Statistics](#operating_instructions_statistics)**<br>
 **[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
 **[6. Trino - Distributed Query Engine](#trino)**<br>
 
@@ -449,9 +450,49 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 [//]: # (===========================================================================================)
 
-### <a name="operating_instructions_control"></a> 4.2 Control Parameters
+### <a name="operating_instructions_execution"></a> 4.2 Execution Variations
+
+#### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
+
+- Requirements:
+  - pull the kxn_dev image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
+  - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
+  - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
+  - `cd db_seeder`
+  - run `./scripts/run_prep_bash_scripts.sh`
+  - export DOCKER_USERNAME=<usr name>
+  - export DOCKER_PASSWORD=<password>
+- Script: `./run_db_seeder.sh`
+- Issues:
+  - Trino Distributed Query Engine and Microsoft SQL Connector
+
+#### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
+
+- Requirements:
+  - install Ubuntu 20.04 from Microsoft Marketplace
+  - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
+  - run`./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` inside Ubuntu
+  - export DOCKER_USERNAME=<usr name>
+  - export DOCKER_PASSWORD=<password>
+- Script: `./run_db_seeder.sh`
+- Issues:
+  - Trino Distributed Query Engine and Microsoft SQL Connector
+  - YugabyteDB and Docker image
+
+#### 4.2.3 Windows 10 Pro
+
+- Requirements:
+  - export DOCKER_USERNAME=<usr name>
+  - export DOCKER_PASSWORD=<password>
+- Script: `run_db_seeder.bat`
+- Issues:
+  - Trino Distributed Query Engine and Microsoft SQL Connector
+  - YugabyteDB and Docker image
+
+
+### <a name="operating_instructions_control"></a> 4.3 Control Parameters
  
-#### 4.2.1 Supported Parameters
+#### 4.3.1 Supported Parameters
 
 The flow control parameters for **`db_seeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the scripts.
 The following control parameters are currently supported:
@@ -485,7 +526,7 @@ db_seeder.user.sys=
 db_seeder.user=
 ```
 
-#### 4.2.2 Explanation and Cross-reference
+#### 4.3.2 Explanation and Cross-reference
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                                                              | Description |     
 | ---                                       | ---                               | ---                                                                                                                  | --- |
@@ -514,7 +555,7 @@ db_seeder.user=
 
 [//]: # (===========================================================================================)
 
-### <a name="operating_instructions_statistics"></a> 4.3 Statistics
+### <a name="operating_instructions_statistics"></a> 4.4 Statistics
  
 ## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
 

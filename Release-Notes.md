@@ -5,38 +5,7 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.0.svg)
 
-## 1. Execution Variations
-
-### 1.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
-
-- Requirements:
-    - pull the kxn_dev image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
-    - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
-    - clone the db_seeder repository: git clone   
-    - run`scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` inside Ubuntu (WSL2)
-- Script: `run_db_seeder.sh`
-- Issues:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
-
-### 1.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
-
-- Requirements:
-    - install Ubuntu 20.04 from Microsoft Marketplace
-    - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
-    - run`scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` inside Ubuntu (WSL2)
-- Script: `run_db_seeder.sh`
-- Issues:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
-    - YugabyteDB and Docker image
-
-### 1.3 Windows 10 Pro
-
-- Script: `run_db_seeder.bat`
-- Issues:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
-    - YugabyteDB and Docker image
-
-## 2. Current Issues
+## 1. Current Issues
 
 ### Apache Derby
 
@@ -234,7 +203,7 @@
 
 
 
-## 3. Version History
+## 2. Version History
 
 ### 2.7.0
 
