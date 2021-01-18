@@ -116,9 +116,9 @@ sudo dpkg-reconfigure --frontend noninteractive tzdata
 sudo locale-gen "${LOCALE}"
 sudo dpkg-reconfigure --frontend noninteractive locales
 
-eval echo 'export LANG=${LOCALE}' >> ~/.bash_profile
-eval echo 'export LANGUAGE=${LOCALE}' >> ~/.bash_profile
-eval echo 'export LC_ALL=${LOCALE}' >> ~/.bash_profile
+eval echo 'export LANG=${LOCALE}' >> ~/.bashrc
+eval echo 'export LANGUAGE=${LOCALE}' >> ~/.bashrc
+eval echo 'export LC_ALL=${LOCALE}' >> ~/.bashrc
 
 if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     echo "--------------------------------------------------------------------------------"
@@ -132,7 +132,7 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     sudo getent group docker || sudo groupadd docker
     sudo usermod -aG docker ${USER}
 
-    echo 'if [ `id -gn` != "docker" ]; then ( newgrp docker ) fi' >> ~/.bash_profile
+    echo 'if [ `id -gn` != "docker" ]; then ( newgrp docker ) fi' >> ~/.bashrc
 
     echo "--------------------------------------------------------------------------------"
     echo "Install Docker Compose - Version ${VERSION_DOCKER_COMPOSE}"
@@ -176,8 +176,8 @@ sudo rm -rf go
 
 sudo rm -rf go${VERSION_GO}.linux-amd64.tar.gz
 
-eval echo 'export GOPATH=/ora_bench/src_go/go' >> ~/.bash_profile
-eval echo 'export GOROOT=/usr/local/go' >> ~/.bash_profile
+eval echo 'export GOPATH=/ora_bench/src_go/go' >> ~/.bashrc
+eval echo 'export GOROOT=/usr/local/go' >> ~/.bashrc
 export PATH_ADD_ON="/usr/local/go/bin":${PATH_ADD_ON}
 
 echo "--------------------------------------------------------------------------------"
@@ -193,7 +193,7 @@ echo "--------------------------------------------------------------------------
     sudo rm -rf openjdk-${VERSION_JAVA}_linux-x64_bin.tar.gz
 )
 
-eval echo 'export JAVA_HOME=/opt/jdk-${VERSION_JAVA}' >> ~/.bash_profile
+eval echo 'export JAVA_HOME=/opt/jdk-${VERSION_JAVA}' >> ~/.bashrc
 export PATH_ADD_ON="/opt/jdk-${VERSION_JAVA}/bin":${PATH_ADD_ON}
 
 echo "--------------------------------------------------------------------------------"
@@ -214,7 +214,7 @@ sudo rm -rf /opt/gradle
 wget -q https://services.gradle.org/distributions/gradle-${VERSION_GRADLE}-bin.zip -P /tmp
 sudo unzip -o -d /opt/gradle /tmp/gradle-*.zip
 
-eval echo 'export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}' >> ~/.bash_profile
+eval echo 'export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}' >> ~/.bashrc
 export PATH_ADD_ON="/opt/gradle/gradle-${VERSION_GRADLE}/bin":${PATH_ADD_ON}
 
 echo "--------------------------------------------------------------------------------"
@@ -252,8 +252,8 @@ echo "--------------------------------------------------------------------------
     sudo rm -rf *.x86_64.rpm
 )
 
-eval echo 'export ORACLE_HOME=/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64' >> ~/.bash_profile
-eval echo 'export LD_LIBRARY_PATH=/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64/lib:${LD_LIBRARY_PATH}' >> ~/.bash_profile
+eval echo 'export ORACLE_HOME=/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64' >> ~/.bashrc
+eval echo 'export LD_LIBRARY_PATH=/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64/lib:${LD_LIBRARY_PATH}' >> ~/.bashrc
 export PATH_ADD_ON="/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64":${PATH_ADD_ON}
 
 echo "--------------------------------------------------------------------------------"
@@ -295,18 +295,18 @@ echo "Install Yarn"
 echo "--------------------------------------------------------------------------------"
 wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update 
+sudo apt update
 sudo apt install -qy yarn
 
 # Stefans private bash Erweiterung ---------------------------------------------
 sudo cp -r kxn_dev/.bashrc.stefan /.bashrc.stefan
-echo 'source /.bashrc.stefan' >> ~/.bash_profile
+echo 'source /.bashrc.stefan' >> ~/.bashrc
 
 echo "--------------------------------------------------------------------------------"
 echo "Setting up environment"
 echo "--------------------------------------------------------------------------------"
-eval echo 'export PATH=${PATH_ADD_ON}:\"${PATH}\"' >> ~/.bash_profile
-source ~/.bash_profile
+eval echo 'export PATH=${PATH_ADD_ON}:\"${PATH}\"' >> ~/.bashrc
+source ~/.bashrc
 
 echo "--------------------------------------------------------------------------------"
 echo "Cleanup"

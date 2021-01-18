@@ -475,6 +475,10 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
   - install Ubuntu 20.04 from Microsoft Marketplace
   - `sudo apt update`  
   - `sudo apt install dos2unix`
+  - add the following lines to `.bash_profile`:
+        if [ -f ~/.bashrc ]; then
+            source ~/.bashrc
+        fi    
   - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
    
 ![](.README_images/Docker_Desktop_Settings_1.png)
