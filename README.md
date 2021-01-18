@@ -459,9 +459,9 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
   - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
   - `export DOCKER_USERNAME=\<user name\>`
   - `export DOCKER_PASSWORD=\<password\>`
-  - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
+  - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
   - `cd db_seeder`
-  - run `./scripts/run_prep_bash_scripts.sh`
+  - `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
 - Execution: `./run_db_seeder.sh`
 - Issues:
   - Trino Distributed Query Engine and Microsoft SQL Connector
@@ -473,10 +473,10 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
   - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
   - `export DOCKER_USERNAME=\<user name\>`
   - `export DOCKER_PASSWORD=\<password\>`
-  - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
+  - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
   - `cd db_seeder`
-  - run `./scripts/run_prep_bash_scripts.sh`
-  - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh`
+  - `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
+  - `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
 - Execution: `./run_db_seeder.sh`
 - Issues:
   - Trino Distributed Query Engine and Microsoft SQL Connector
@@ -487,7 +487,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - Requirements:
   - `set DOCKER_USERNAME=\<user name\>`
   - `set DOCKER_PASSWORD=\<password\>`
-  - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
+  - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
   - `cd db_seeder`
 - Execution: `run_db_seeder.bat`
 - Issues:
