@@ -457,6 +457,9 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - Requirements:
   - pull the `kxn_dev` image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
   - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
+  - create or modify `/etc/resolv.conf`:  
+    nameserver 8.8.8.4    
+    nameserver 8.8.8.8
   - `export DOCKER_USERNAME=\<user name\>`
   - `export DOCKER_PASSWORD=\<password\>`
   - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
@@ -470,7 +473,14 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 - Requirements:
   - install Ubuntu 20.04 from Microsoft Marketplace
+  - `sudo apt update`  
+  - `sudo apt install dos2unix`
   - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
+   
+![](.README_images/Docker_Desktop_Settings_1.png)
+
+![](.README_images/Docker_Desktop_Settings_2.png)
+
   - `export DOCKER_USERNAME=\<user name\>`
   - `export DOCKER_PASSWORD=\<password\>`
   - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
