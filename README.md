@@ -455,14 +455,14 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
 
 - Requirements:
-  - pull the kxn_dev image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
+  - pull the `kxn_dev` image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
   - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
+  - `export DOCKER_USERNAME=\<user name\>`
+  - `export DOCKER_PASSWORD=\<password\>`
   - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
   - `cd db_seeder`
   - run `./scripts/run_prep_bash_scripts.sh`
-  - export DOCKER_USERNAME=<user name>
-  - export DOCKER_PASSWORD=<password>
-- Script: `./run_db_seeder.sh`
+- Execution: `./run_db_seeder.sh`
 - Issues:
   - Trino Distributed Query Engine and Microsoft SQL Connector
 
@@ -471,10 +471,13 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - Requirements:
   - install Ubuntu 20.04 from Microsoft Marketplace
   - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
-  - run`./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` inside Ubuntu
-  - export DOCKER_USERNAME=<user name>
-  - export DOCKER_PASSWORD=<password>
-- Script: `./run_db_seeder.sh`
+  - `export DOCKER_USERNAME=\<user name\>`
+  - `export DOCKER_PASSWORD=\<password\>`
+  - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
+  - `cd db_seeder`
+  - run `./scripts/run_prep_bash_scripts.sh`
+  - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh`
+- Execution: `./run_db_seeder.sh`
 - Issues:
   - Trino Distributed Query Engine and Microsoft SQL Connector
   - YugabyteDB and Docker image
@@ -482,9 +485,11 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.3 Windows 10 Pro
 
 - Requirements:
-  - export DOCKER_USERNAME=\<user name\>
-  - export DOCKER_PASSWORD=\<password\>
-- Script: `run_db_seeder.bat`
+  - `set DOCKER_USERNAME=\<user name\>`
+  - `set DOCKER_PASSWORD=\<password\>`
+  - clone the db_seeder repository: `git clone https://github.com/KonnexionsGmbH/db_seeder`
+  - `cd db_seeder`
+- Execution: `run_db_seeder.bat`
 - Issues:
   - Trino Distributed Query Engine and Microsoft SQL Connector
   - YugabyteDB and Docker image
