@@ -471,7 +471,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 #### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
 
-- Requirements:
+- **Requirements**:
     - install Ubuntu 20.04 from Microsoft Marketplace
     - `sudo apt update`  
     - `sudo apt install dos2unix`
@@ -491,20 +491,20 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - `cd db_seeder`
     - `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
-- Execution: `./run_db_seeder.sh`
-- Issues:
+- **Execution**: `./run_db_seeder.sh`
+- **Issues**:
     - Trino Distributed Query Engine and Microsoft SQL Connector
     - YugabyteDB and Docker image
 
 #### 4.2.3 Windows 10 Pro
 
-- Requirements:
+- **Requirements**:
     - `set DOCKER_USERNAME=\<user name\>`
     - `set DOCKER_PASSWORD=\<password\>`
     - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
     - `cd db_seeder`
-- Execution: `run_db_seeder.bat`
-- Issues:
+- **Execution**: `run_db_seeder.bat`
+- **Issues**:
     - Trino Distributed Query Engine and Microsoft SQL Connector
     - YugabyteDB and Docker image
 
