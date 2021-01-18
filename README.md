@@ -472,41 +472,41 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
 
 - Requirements:
-  - install Ubuntu 20.04 from Microsoft Marketplace
-  - `sudo apt update`  
-  - `sudo apt install dos2unix`
-  - add the following lines to `.bash_profile`:
-        if [ -f ~/.bashrc ]; then
-            source ~/.bashrc
-        fi    
-  - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
+    - install Ubuntu 20.04 from Microsoft Marketplace
+    - `sudo apt update`  
+    - `sudo apt install dos2unix`
+    - add the following lines to `.bash_profile`:
+          if [ -f ~/.bashrc ]; then
+              source ~/.bashrc
+          fi    
+    - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
    
 ![](.README_images/Docker_Desktop_Settings_1.png)
 
 ![](.README_images/Docker_Desktop_Settings_2.png)
 
-  - `export DOCKER_USERNAME=\<user name\>`
-  - `export DOCKER_PASSWORD=\<password\>`
-  - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
-  - `cd db_seeder`
-  - `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-  - `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
+    - `export DOCKER_USERNAME=\<user name\>`
+    - `export DOCKER_PASSWORD=\<password\>`
+    - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - `cd db_seeder`
+    - `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
+    - `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
 - Execution: `./run_db_seeder.sh`
 - Issues:
-  - Trino Distributed Query Engine and Microsoft SQL Connector
-  - YugabyteDB and Docker image
+    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - YugabyteDB and Docker image
 
 #### 4.2.3 Windows 10 Pro
 
 - Requirements:
-  - `set DOCKER_USERNAME=\<user name\>`
-  - `set DOCKER_PASSWORD=\<password\>`
-  - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
-  - `cd db_seeder`
+    - `set DOCKER_USERNAME=\<user name\>`
+    - `set DOCKER_PASSWORD=\<password\>`
+    - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - `cd db_seeder`
 - Execution: `run_db_seeder.bat`
 - Issues:
-  - Trino Distributed Query Engine and Microsoft SQL Connector
-  - YugabyteDB and Docker image
+    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - YugabyteDB and Docker image
 
 
 ### <a name="operating_instructions_control"></a> 4.3 Control Parameters
