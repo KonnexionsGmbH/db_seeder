@@ -473,8 +473,8 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 - **Requirements**:
     - install Ubuntu 20.04 from Microsoft Marketplace
-    - `sudo apt update`  
-    - `sudo apt install dos2unix`
+    - run `sudo apt update`  
+    - run `sudo apt install dos2unix`
     - add the following lines to `.bash_profile`:
           if [ -f ~/.bashrc ]; then
               source ~/.bashrc
@@ -485,13 +485,13 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 ![](.README_images/Docker_Desktop_Settings_2.png)
 
-    - `export DOCKER_USERNAME=\<user name\>`
-    - `export DOCKER_PASSWORD=\<password\>`
-    - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
-    - `cd db_seeder`
-    - `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
-- **Execution**: `./run_db_seeder.sh`
+    - run `export DOCKER_USERNAME=\<user name\>`
+    - run `export DOCKER_PASSWORD=\<password\>`
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `cd db_seeder`
+    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
+    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
+- **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
     - Trino Distributed Query Engine and Microsoft SQL Connector
     - YugabyteDB and Docker image
@@ -499,11 +499,11 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.3 Windows 10 Pro
 
 - **Requirements**:
-    - `set DOCKER_USERNAME=\<user name\>`
-    - `set DOCKER_PASSWORD=\<password\>`
-    - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
-    - `cd db_seeder`
-- **Execution**: `run_db_seeder.bat`
+    - run `set DOCKER_USERNAME=\<user name\>`
+    - run `set DOCKER_PASSWORD=\<password\>`
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `cd db_seeder`
+- **Execution**: run `run_db_seeder.bat`
 - **Issues**:
     - Trino Distributed Query Engine and Microsoft SQL Connector
     - YugabyteDB and Docker image
