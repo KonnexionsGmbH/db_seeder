@@ -212,6 +212,7 @@ Release Date: xx.01.2021
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4  
 - Java Version 15 (e.g.: https://jdk.java.net/15/)
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`

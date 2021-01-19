@@ -485,12 +485,16 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 ![](.README_images/Docker_Desktop_Settings_2.png)
 
+- **Requirements (continued)**:
     - run `export DOCKER_USERNAME=\<user name\>`
     - run `export DOCKER_PASSWORD=\<password\>`
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
+    - close the Ubuntu shell and reopen it again
+    - run `cd db_seeder`
+    - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
     - Trino Distributed Query Engine and Microsoft SQL Connector
