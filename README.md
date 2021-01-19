@@ -452,9 +452,35 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 ### <a name="operating_instructions_execution"></a> 4.2 Execution Variations
 
+#### 4.2.1 Ubuntu 20.04 LTS (including VMware)
+
+- **Requirements**:
+    - Ubuntu 20.04 installed directly or via VMware
+    - run `sudo apt update`
+    - run `sudo apt install dos2unix`
+    - add the following lines to `.bash_profile`:
+  
+          if [ -f ~/.bashrc ]; then
+              source ~/.bashrc
+          fi
+  
+    - run `export DOCKER_USERNAME=\<user name\>`
+    - run `export DOCKER_PASSWORD=\<password\>`
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `cd db_seeder`
+    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
+    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
+    - close the Ubuntu shell and reopen it again
+    - run `cd db_seeder`
+    - run `gradle copyJarToLib`
+- **Execution**: run `./run_db_seeder.sh`
+- **Issues**:
+    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - YugabyteDB and Docker image
+
 #### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
 
-- Requirements:
+- **Requirements**:
     - pull the `kxn_dev` image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
     - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
     - run `export DOCKER_USERNAME=\<user name\>`
@@ -462,8 +488,9 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-- Execution: `./run_db_seeder.sh`
-- Issues:
+    - run `gradle copyJarToLib`
+- **Execution**: `./run_db_seeder.sh`
+- **Issues**:
   - Trino Distributed Query Engine and Microsoft SQL Connector
 
 #### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
