@@ -455,16 +455,13 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
 
 - Requirements:
-  - pull the `kxn_dev` image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
-  - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
-  - create or modify `/etc/resolv.conf`:  
-    nameserver 8.8.8.4    
-    nameserver 8.8.8.8
-  - `export DOCKER_USERNAME=\<user name\>`
-  - `export DOCKER_PASSWORD=\<password\>`
-  - `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
-  - `cd db_seeder`
-  - `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
+    - pull the `kxn_dev` image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
+    - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
+    - run `export DOCKER_USERNAME=\<user name\>`
+    - run `export DOCKER_PASSWORD=\<password\>`
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `cd db_seeder`
+    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
 - Execution: `./run_db_seeder.sh`
 - Issues:
   - Trino Distributed Query Engine and Microsoft SQL Connector
