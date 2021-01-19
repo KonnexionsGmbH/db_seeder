@@ -55,7 +55,6 @@ echo Docker start db_seeder_db (H2 Database Engine %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 :check_health_status:
-mkdir %cd%\tmp >nul 2>&1
 docker inspect -f {{.State.Health.Status}} db_seeder_db > %cd%\tmp\docker_health_status.txt
 set /P DOCKER_HEALTH_STATUS=<tmp\docker_health_status.txt
 if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (

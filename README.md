@@ -493,7 +493,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the environment)
+    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
     - close the Ubuntu shell and reopen it again
     - run `cd db_seeder`
     - run `gradle copyJarToLib`

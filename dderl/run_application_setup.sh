@@ -25,7 +25,7 @@ if [ ! -d "$HOME_DDERL" ]; then
 
     echo "Create the snapshot directory"
     echo "---------------------------------------------------------"
-    mkdir $HOME_DDERL/snapshot
+    mkdir -p $HOME_DDERL/snapshot
     cp /usr/opt/dderl/backup_snapshot_docker_compose.zip $HOME_DDERL/snapshot
 
     echo "Create the frontend to DDErl"

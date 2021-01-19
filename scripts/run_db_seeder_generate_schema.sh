@@ -40,7 +40,7 @@ if [ -d "eclipse_workspace" ]; then
     rm -Rf eclipse_workspace
 fi
 
-mkdir eclipse_workspace
+mkdir -p eclipse_workspace
 
 if ! (${HOME_ECLIPSE}/eclipse -nosplash \
                               -data eclipse_workspace \

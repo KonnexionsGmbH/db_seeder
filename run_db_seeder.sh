@@ -9,6 +9,8 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
+mkdir -p $PWD/tmp
+
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2

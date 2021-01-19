@@ -9,6 +9,8 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+mkdir %cd%\tmp >nul 2>&1
+
 set ERRORLEVEL=
 
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711

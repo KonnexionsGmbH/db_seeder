@@ -39,7 +39,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 if exist eclipse_workspace\ rmdir /q /s eclipse_workspace
 
-mkdir eclipse_workspace
+mkdir eclipse_workspace >nul 2>&1
 
 %HOME_ECLIPSE%\eclipse -nosplash ^
                        -data eclipse_workspace ^
