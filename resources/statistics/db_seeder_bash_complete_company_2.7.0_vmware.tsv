@@ -1,0 +1,28 @@
+ticker symbol	DBMS	db type	runtime in seconds	start time	end time	host name	no. cores	operating system
+agens	AgensGraph	client	3	2021-01-19 15:30:26.478625564	2021-01-19 15:30:29.497177241	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+cratedb	CrateDB	client	4	2021-01-19 15:31:27.209326759	2021-01-19 15:31:31.351217102	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+cubrid	CUBRID	client	6	2021-01-19 15:32:16.503388287	2021-01-19 15:32:23.194070084	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+derby	Apache Derby	client	5	2021-01-19 15:33:21.192151142	2021-01-19 15:33:26.253783991	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+derby_emb	Apache Derby	embedded	4	2021-01-19 15:33:27.793763505	2021-01-19 15:33:32.685241304	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+exasol	Exasol	client	2	2021-01-19 15:37:30.693007384	2021-01-19 15:37:33.038004964	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+firebird	Firebird	client	17	2021-01-19 15:38:23.622969950	2021-01-19 15:38:41.088485958	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+h2	H2 Database Engine	client	3	2021-01-19 15:39:17.904310919	2021-01-19 15:39:21.487337989	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+h2_emb	H2 Database Engine	embedded	1	2021-01-19 15:39:23.049088550	2021-01-19 15:39:24.241104953	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+hsqldb	HyperSQL Database	client	4	2021-01-19 15:40:02.058095969	2021-01-19 15:40:06.515425147	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+hsqldb_emb	HyperSQL Database	embedded	4	2021-01-19 15:40:08.062065666	2021-01-19 15:40:12.968095657	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+ibmdb2	IBM Db2 Database	client	4	2021-01-19 15:46:21.639743874	2021-01-19 15:46:26.167695972	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+informix	IBM Informix	client	7	2021-01-19 15:50:51.477746453	2021-01-19 15:50:58.998249084	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+mariadb	MariaDB Server	client	2	2021-01-19 15:51:52.148842420	2021-01-19 15:51:54.281117826	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+mimer	Mimer SQL	client	11	2021-01-19 15:52:43.383279089	2021-01-19 15:52:55.176410075	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+monetdb	MonetDB	client	16	2021-01-19 15:53:20.135454602	2021-01-19 15:53:36.733326791	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+mysql	MySQL Database	client	3	2021-01-19 15:54:53.420656607	2021-01-19 15:54:56.618137205	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+mysql_trino	MySQL Database	trino	831	2021-01-19 15:56:31.074966706	2021-01-19 16:10:22.893843194	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+oracle	Oracle Database	client	4	2021-01-19 16:16:55.466943123	2021-01-19 16:16:59.692350501	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+oracle_trino	Oracle Database	trino	823	2021-01-19 16:19:43.665452105	2021-01-19 16:33:27.472495495	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+percona	Percona Server for MySQL	client	3	2021-01-19 16:34:51.727837917	2021-01-19 16:34:55.325466867	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+postgresql	PostgreSQL Database	client	2	2021-01-19 16:35:37.504121286	2021-01-19 16:35:39.679333949	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+postgresql_trino	PostgreSQL Database	trino	575	2021-01-19 16:36:43.325668669	2021-01-19 16:46:19.302169023	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+sqlite	SQLite	embedded	0	2021-01-19 16:46:20.863335799	2021-01-19 16:46:21.660050468	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+sqlserver	MS SQL Server	client	2	2021-01-19 16:47:17.683792114	2021-01-19 16:47:20.469357580	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+voltdb	VoltDB	client	13	2021-01-19 16:48:12.285621193	2021-01-19 16:48:25.917085663	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
+yugabyte	YugabyteDB	client	16	2021-01-19 16:49:35.736017984	2021-01-19 16:49:51.994233271	ubuntu	8	amd64 / Linux / 5.8.0-38-generic
