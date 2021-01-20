@@ -189,6 +189,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.3
     set DB_SEEDER_VERSION=7.0.4
     set DB_SEEDER_VERSION=7.0.5
+    set DB_SEEDER_VERSION=7.0.6
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -336,6 +337,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
     set DB_SEEDER_VERSION=8.0.22
+    set DB_SEEDER_VERSION=8.0.23
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
@@ -353,6 +355,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
     set DB_SEEDER_VERSION=8.0.22
+    set DB_SEEDER_VERSION=8.0.23
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (

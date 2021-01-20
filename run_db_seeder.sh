@@ -190,6 +190,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.3
     export DB_SEEDER_VERSION=7.0.4
     export DB_SEEDER_VERSION=7.0.5
+    export DB_SEEDER_VERSION=7.0.6
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -337,6 +338,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_VERSION=8.0.20
     export DB_SEEDER_VERSION=8.0.21
     export DB_SEEDER_VERSION=8.0.22
+    export DB_SEEDER_VERSION=8.0.23
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
@@ -354,6 +356,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_VERSION=8.0.20
     export DB_SEEDER_VERSION=8.0.21
     export DB_SEEDER_VERSION=8.0.22
+    export DB_SEEDER_VERSION=8.0.23
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then

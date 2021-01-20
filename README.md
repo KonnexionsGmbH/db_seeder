@@ -174,8 +174,8 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                       | 10.2.2.8874         |
 | CrateDB                         | cratedb            | 4.1.6 - 4.3.3              | 2.6.0               |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.5           | 7.0.4               |
-| Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.1.java11        | 
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.6           | 7.0.4               |
+| Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.2.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                      | 2.5.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.0        | 11.5.5.0            |                                                    
@@ -184,9 +184,9 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 8.4.1.jre14         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                |a 
 | MonetDB                         | monetdb            | Jun2020-SP1                | 2.29.jre7           | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.22            | 8.0.22              | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.23            | 8.0.23              | 
 | Oracle Database                 | oracle             | 12c - 19c                  | 19.9.0.0            |
-| Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.22              | 
+| Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.23              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | Trino Distributed Query Engine  | n/a                | 339 - 351                  | 351                 |
@@ -457,7 +457,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - **Requirements**:
     - Ubuntu 20.04 installed directly or via VMware
     - run `sudo apt update`
-    - run `sudo apt install dos2unix`
+    - run `sudo apt install dos2unix git`
     - add the following lines to `.bash_profile`:
   
           if [ -f ~/.bashrc ]; then
@@ -823,7 +823,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.5`
+  - pull command: `docker pull exasol/docker-db:7.0.6`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -865,7 +865,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://www.atlassian.com/software/jira)
 
 - **JDBC driver (latest)**:
-  - version 4.0.1.java11
+  - version 4.0.2.java11
   - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
 
 - **privileged database access**: user `SYSDBA`
@@ -1242,7 +1242,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.22`
+  - pull command: `docker pull mysql:8.0.23`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1250,7 +1250,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
 
 - **JDBC driver (latest)**:
-  - version 8.0.22
+  - version 8.0.23
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1328,7 +1328,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://jira.percona.com/projects/PS/issues/PS-7237?filter=allopenissues)
 
 - **JDBC driver (latest)**:
-  - version 8.0.22
+  - version 8.0.23
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:

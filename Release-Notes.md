@@ -225,7 +225,9 @@ Rebranding of Presto to Trino
 
 - CrateDB: DBMS 4.3.3
 
-- Exasol: DBMS 7.0.5 / JDBC 7.0.4
+- Exasol: DBMS 7.0.6 / JDBC 7.0.4
+
+- Firebird: JDBC 4.0.2.java11
 
 - IBM Db2 Database: DBMS 11.5.5.0
 
@@ -295,6 +297,8 @@ Release Date: 28.11.2020
 - MariaDB Server: DBMS 10.5.8 / JDBC 2.7.1
 
 - Mimer SQL: DBMS v11.0.4b
+
+- MySQL Database: DBMS 8.0.23 / JDBC 8.0.23
 
 - PostgreSQL Database: DBMS 13.1
 

@@ -914,10 +914,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       columnValue = (columnName + "_" + encodedColumnNames.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
                                                                                                                                 rowNo)).stripTrailing();
       if (getLengthUTF_8(columnValue) > size) {
-        logger.info("wwe columnValue="+columnValue);
-        logger.info("wwe columnValue="+getLengthUTF_8(columnValue));
-        logger.info("wwe size="+size);
-        logger.info("wwe start="+(columnValue.length() - size));
         return columnValue.substring(columnValue.length() - size);
       }
     }
