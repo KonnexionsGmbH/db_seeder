@@ -223,7 +223,7 @@ Rebranding of Presto to Trino
 
 #### Modified Features
 
-- CrateDB: DBMS 4.3.3
+- CrateDB: DBMS 4.3.4
 
 - Exasol: DBMS 7.0.6 / JDBC 7.0.4
 

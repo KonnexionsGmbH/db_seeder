@@ -173,7 +173,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | AgensGraph                      | agens              | v2.1.1                     | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                       | 10.2.2.8874         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.3.3              | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.3.4              | 2.6.0               |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.6           | 7.0.4               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.2.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
@@ -734,7 +734,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.3.3`
+  - pull command: `docker pull crate:4.3.4`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding

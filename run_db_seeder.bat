@@ -142,6 +142,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.3.1
     set DB_SEEDER_VERSION=4.3.2
     set DB_SEEDER_VERSION=4.3.3
+    set DB_SEEDER_VERSION=4.3.4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
