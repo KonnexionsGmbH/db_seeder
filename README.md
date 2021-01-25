@@ -443,7 +443,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 **Example content:**
 
-    ticker symbol	DBMS	version	creator	db type	schema	runtime in seconds	start time	end time	host name	no. cores	operating system	file_name
+    ticker symbol	DBMS	version	creator	db type	schema	runtime in ms	start time	end time	host name	no. cores	operating system	file_name
     agens	AgensGraph	v2.6.0	bash	client	unknown	14	2020-10-05 16:09:36.618076382	2020-10-05 16:09:51.570013623	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
     cratedb	CrateDB	v2.6.0	bash	client	unknown	24	2020-10-05 16:11:40.160409347	2020-10-05 16:12:04.695790414	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
     cubrid	CUBRID	v2.6.0	bash	client	unknown	50	2020-10-05 16:13:22.287362093	2020-10-05 16:14:12.339067275	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
@@ -561,7 +561,7 @@ db_seeder.database=
 db_seeder.file.configuration.name=
 db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
 db_seeder.file.statistics.delimiter=\t
-db_seeder.file.statistics.header=ticker symbol;DBMS;db type;runtime in seconds;start time;end time;host name;no. cores;operating system
+db_seeder.file.statistics.header=ticker symbol;DBMS;db type;runtime in ms;start time;end time;host name;no. cores;operating system
 db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
 db_seeder.file.statistics.summary.name=resources/statistics/db_seeder_summary.tsv
 db_seeder.file.statistics.summary.source=resources/statistics;Transfer

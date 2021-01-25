@@ -53,9 +53,11 @@ echo ${PATH}
 # Show component versions ------------------------------------------------------
 echo "=====================================================================> Core Components"
 echo "=====================================================================> Version  Docker: "
-# docker version
+docker version
 echo "=====================================================================> Version  Docker Compose: "
 docker-compose version
+echo "=====================================================================> Version  Eclipse: "
+echo "${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}"
 echo "=====================================================================> Version  Elixir & Erlang: "
 elixir -v
 mix --version
@@ -103,8 +105,6 @@ echo "=====================================================================> Ver
 curl --version
 echo "=====================================================================> Version  dos2unix: "
 dos2unix --version
-echo "=====================================================================> Version  Eclipse: "
-echo "${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}"
 echo "=====================================================================> Version  GNU Autoconf: "
 autoconf -V
 echo "=====================================================================> Version  GNU Automake: "

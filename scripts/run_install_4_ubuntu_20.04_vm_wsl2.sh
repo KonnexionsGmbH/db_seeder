@@ -19,12 +19,13 @@ export VERSION_DOCKER_COMPOSE=1.27.4
 export VERSION_ECLIPSE_1=2020-12
 export VERSION_ECLIPSE_2=R
 export VERSION_ERLANG_SOLUTIONS=2.0
-export VERSION_GO=1.15.6
+export VERSION_GO=1.15.7
 export VERSION_GRADLE=6.8
-export VERSION_JAVA=15.0.1
+export VERSION_JAVA=15.0.2
 export VERSION_NODE=14.x
 export VERSION_ORACLE_INSTANT_CLIENT_1=21
 export VERSION_ORACLE_INSTANT_CLIENT_2=1
+export VERSION_PYTHON=3.9
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -75,17 +76,23 @@ echo "Supplement necessary system software"
 echo "--------------------------------------------------------------------------------"
 sudo rm -rf /tmp/*
 
+if [ "$(dpkg -l | grep python${VERSION_PYTHON})" != "" ]; then
+    sudo apt-get remove -qy python${VERSION_PYTHON}
+    sudo apt autoremove -qy
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 80
+    sudo apt install --reinstall -qy python3
+fi
+
 sudo apt clean
-sudo apt list --installed
 sudo apt update
 sudo apt upgrade -qy
 sudo apt install -qy alien
 sudo apt install -qy apt-transport-https
-# sudo apt install -qy apt-utils
+sudo apt install -qy apt-utils
 sudo apt install -qy autoconf
 sudo apt install -qy autotools-dev
 sudo apt install -qy build-essential
-# sudo apt install -qy ca-certificates
+sudo apt install -qy ca-certificates
 sudo apt install -qy cmake
 sudo apt install -qy curl
 sudo apt install -qy dos2unix
@@ -98,15 +105,22 @@ sudo apt install -qy libaio1
 sudo apt install -qy lsb-core
 sudo apt install -qy net-tools
 sudo apt install -qy nginx
-# sudo apt install -qy openssl
-# sudo apt install -qy procps
-# sudo apt install -qy software-properties-common
+sudo apt install -qy openssl
+sudo apt install -qy procps
+sudo apt install -qy software-properties-common
 sudo apt install -qy tmux
-# sudo apt install -qy tzdata
+sudo apt install -qy tzdata
 sudo apt install -qy unzip
 sudo apt install -qy vim
-# sudo apt install -qy wget
+sudo apt install -qy wget
 sudo apt install -qy zip
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7EA0A9C3F273FCD8
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" --yes
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test --yes
+sudo add-apt-repository ppa:git-core/ppa --yes
+sudo add-apt-repository ppa:deadsnakes/ppa --yes
 
 echo "--------------------------------------------------------------------------------"
 echo "Setting Locale & Timezone"
@@ -126,7 +140,6 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     echo "--------------------------------------------------------------------------------"
     sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo apt-key fingerprint 0EBFCD88
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     sudo apt update
     sudo apt install -qy docker-ce docker-ce-cli containerd.io
     sudo getent group docker || sudo groupadd docker
@@ -158,9 +171,15 @@ sudo mix local.hex --force
 sudo mix local.rebar --force
 
 echo "--------------------------------------------------------------------------------"
+echo "Install GCC"
+echo "--------------------------------------------------------------------------------"
+sudo apt install -qy gcc-10
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
+sudo  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
+
+echo "--------------------------------------------------------------------------------"
 echo "Install Git"
 echo "--------------------------------------------------------------------------------"
-sudo add-apt-repository ppa:git-core/ppa --yes
 sudo apt update
 sudo apt install -qy git
 sudo git config --global credential.helper 'cache --timeout 3600'
@@ -176,7 +195,6 @@ sudo rm -rf go
 
 sudo rm -rf go${VERSION_GO}.linux-amd64.tar.gz
 
-eval echo 'export GOPATH=/ora_bench/src_go/go' >> ~/.bashrc
 eval echo 'export GOROOT=/usr/local/go' >> ~/.bashrc
 export PATH_ADD_ON="/usr/local/go/bin":${PATH_ADD_ON}
 
@@ -185,7 +203,7 @@ echo "Install Java SE Development Kit - Version ${VERSION_JAVA}"
 echo "--------------------------------------------------------------------------------"
 (
     cd /
-    sudo wget -q https://download.java.net/java/GA/jdk${VERSION_JAVA}/51f4f36ad4ef43e39d0dfdbaf6549e32/9/GPL/openjdk-${VERSION_JAVA}_linux-x64_bin.tar.gz
+    sudo wget -q https://download.java.net/java/GA/jdk${VERSION_JAVA}/0d1cfde4252546c6931946de8db48ee2/7/GPL/openjdk-${VERSION_JAVA}_linux-x64_bin.tar.gz
     sudo tar -xf openjdk-${VERSION_JAVA}_linux-x64_bin.tar.gz
     sudo rm -rf /opt/jdk-${VERSION_JAVA}
     sudo cp -r jdk-${VERSION_JAVA} /opt/
@@ -261,12 +279,13 @@ echo "Install Python3"
 echo "--------------------------------------------------------------------------------"
 (
     cd /
-    sudo rm -rf /usr/bin/python
-    sudo apt install -qy python3
-    sudo apt install -qy python3-venv
-    sudo ln -s /usr/bin/python3 /usr/bin/python
+    sudo apt-get install -qy python3-distutils
+    sudo apt-get install -qy python3-apt
+    sudo apt install -qy python${VERSION_PYTHON}
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${VERSION_PYTHON} 90
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 80
     sudo wget -q https://bootstrap.pypa.io/get-pip.py
-    sudo python3 get-pip.py
+    sudo python3 get-pip.py --use-feature=2020-resolver
 )
 
 python3 -m pip install -r kxn_dev/requirements.txt
@@ -295,7 +314,6 @@ echo "Install Yarn"
 echo "--------------------------------------------------------------------------------"
 wget -q -O- https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update 
 sudo apt install -qy yarn
 
 # Stefans private bash Erweiterung ---------------------------------------------
@@ -315,12 +333,12 @@ rm -f *.gz
 rm -f *.rpm 
 rm -f *.zip
 
-sudo apt autoremove
+sudo apt autoremove -qy
 
 sudo mkdir -p /usr/opt/dderl
 sudo cp -r dderl/* /usr/opt/dderl/
 
-export VERSION_KXN_DEV=1.4.6
+export VERSION_KXN_DEV=1.4.7
 
 echo ""
 echo "--------------------------------------------------------------------------------"

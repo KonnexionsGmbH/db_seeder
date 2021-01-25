@@ -385,11 +385,11 @@ public final class SamplePostgresql {
     }
 
     long duration = Duration.between(startDateTime,
-                                     LocalDateTime.now()).toSeconds();
+                                     LocalDateTime.now()).toMillis();
 
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
-                              rowMaxSize) + " rows inserted totally - duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                              rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                                                                                              duration));
 
     logger.info("");
@@ -448,11 +448,11 @@ public final class SamplePostgresql {
     }
 
     long duration = Duration.between(startDateTime,
-                                     LocalDateTime.now()).toSeconds();
+                                     LocalDateTime.now()).toMillis();
 
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
-                              rowMaxSize) + " rows inserted totally - duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                              rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                                                                                              duration));
 
     logger.info("");
