@@ -10,6 +10,7 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 mkdir %cd%\tmp >nul 2>&1
+rmdir /q /s %cd%\tmp\*
 
 set ERRORLEVEL=
 
