@@ -15,7 +15,7 @@ export DB_SEEDER_COMPLETE_RUN=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 
 if [ -z "$1" ]; then
-    read -p -r "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
+    read -p "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS}
 
     if [ -z "${DB_SEEDER_NO_CREATE_RUNS}" ]; then
@@ -42,15 +42,15 @@ export DB_SEEDER_DBMS_MARIADB=yes
 export DB_SEEDER_DBMS_MIMER=yes
 export DB_SEEDER_DBMS_MONETDB=yes
 export DB_SEEDER_DBMS_MYSQL=yes
-export DB_SEEDER_DBMS_MYSQL_PRESTO=yes
+export DB_SEEDER_DBMS_MYSQL_TRINO=yes
 export DB_SEEDER_DBMS_ORACLE=yes
-export DB_SEEDER_DBMS_ORACLE_PRESTO=yes
+export DB_SEEDER_DBMS_ORACLE_TRINO=yes
 export DB_SEEDER_DBMS_PERCONA=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
-export DB_SEEDER_DBMS_POSTGRESQL_PRESTO=yes
+export DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
 export DB_SEEDER_DBMS_SQLITE=yes
 export DB_SEEDER_DBMS_SQLSERVER=yes
-export DB_SEEDER_DBMS_SQLSERVER_PRESTO=yes
+export DB_SEEDER_DBMS_SQLSERVER_TRINO=no
 export DB_SEEDER_DBMS_VOLTDB=yes
 export DB_SEEDER_DBMS_YUGABYTE=yes
 
@@ -90,15 +90,15 @@ echo "DBMS_MARIADB                    : $DB_SEEDER_DBMS_MARIADB"
 echo "DBMS_MIMER                      : $DB_SEEDER_DBMS_MIMER"
 echo "DBMS_MONETDB                    : $DB_SEEDER_DBMS_MONETDB"
 echo "DBMS_MYSQL                      : $DB_SEEDER_DBMS_MYSQL"
-echo "DBMS_MYSQL_PRESTO               : $DB_SEEDER_DBMS_MYSQL_PRESTO"
+echo "DBMS_MYSQL_TRINO                : $DB_SEEDER_DBMS_MYSQL_TRINO"
 echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
-echo "DBMS_ORACLE_PRESTO              : $DB_SEEDER_DBMS_ORACLE_PRESTO"
+echo "DBMS_ORACLE_TRINO               : $DB_SEEDER_DBMS_ORACLE_TRINO"
 echo "DBMS_PERCONA                    : $DB_SEEDER_DBMS_PERCONA"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
-echo "DBMS_POSTGRESQL_PRESTO          : $DB_SEEDER_DBMS_POSTGRESQL_PRESTO"
+echo "DBMS_POSTGRESQL_TRINO           : $DB_SEEDER_DBMS_POSTGRESQL_TRINO"
 echo "DBMS_SQLITE                     : $DB_SEEDER_DBMS_SQLITE"
 echo "DBMS_SQLSERVER                  : $DB_SEEDER_DBMS_SQLSERVER"
-echo "DBMS_SQLSERVER_PRESTO           : $DB_SEEDER_DBMS_SQLSERVER_PRESTO"
+echo "DBMS_SQLSERVER_TRINO            : $DB_SEEDER_DBMS_SQLSERVER_TRINO"
 echo "DBMS_VOLTDB                     : $DB_SEEDER_DBMS_VOLTDB"
 echo "DBMS_YUGABYTE                   : $DB_SEEDER_DBMS_YUGABYTE"
 echo "--------------------------------------------------------------------------------"
@@ -109,11 +109,11 @@ if ! ( ./scripts/run_db_seeder_generate_schema.sh ); then
     exit 255
 fi    
 
-if ! ( ./scripts/run_db_seeder_presto_environment.sh complete ); then
+if ! ( ./scripts/run_db_seeder_trino_environment.sh complete ); then
     exit 255
 fi
 
-if ! ( ./scripts/run_db_seeder_setup_presto.sh ); then
+if ! ( ./scripts/run_db_seeder_setup_trino.sh ); then
     exit 255
 fi
 
@@ -290,11 +290,11 @@ if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# MySQL Database - via Presto.
+# MySQL Database - via Trino.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_MYSQL_PRESTO" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh mysql_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "$DB_SEEDER_DBMS_MYSQL_TRINO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh mysql_trino yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi
@@ -310,11 +310,11 @@ if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Oracle Database - via Presto.
+# Oracle Database - via Trino.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_ORACLE_PRESTO" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh oracle_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "$DB_SEEDER_DBMS_ORACLE_TRINO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh oracle_trino yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi
@@ -343,8 +343,8 @@ fi
 # PostgreSQL Database.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_POSTGRESQL_PRESTO" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh postgresql_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "$DB_SEEDER_DBMS_POSTGRESQL_TRINO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh postgresql_trino yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi
@@ -373,8 +373,8 @@ fi
 # Microsoft SQL Server.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_SQLSERVER_PRESTO" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlserver_presto yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "$DB_SEEDER_DBMS_SQLSERVER_TRINO" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlserver_trino yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi

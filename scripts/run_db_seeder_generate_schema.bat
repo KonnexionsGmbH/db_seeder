@@ -15,7 +15,7 @@ set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 rem set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax.json
 
 set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
-set DB_SEEDER_RELEASE=2.6.2
+set DB_SEEDER_RELEASE=2.7.0
 
 echo ================================================================================
 echo Start %0
@@ -37,9 +37,9 @@ if %ERRORLEVEL% NEQ 0 (
     exit %ERRORLEVEL%
 )
 
-if exist eclipse_workspace\ rmdir /q /s eclipse_workspace
+if exist eclipse_workspace\ rd /q /s eclipse_workspace
 
-mkdir eclipse_workspace
+md eclipse_workspace >nul 2>&1
 
 %HOME_ECLIPSE%\eclipse -nosplash ^
                        -data eclipse_workspace ^

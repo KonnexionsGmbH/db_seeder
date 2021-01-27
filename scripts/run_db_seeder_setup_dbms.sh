@@ -15,7 +15,7 @@ echo "DB Seeder - setting up the DBMS."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_DB                   : ${DB_SEEDER_DBMS_DB}"
 echo "DBMS_EMBEDDED             : ${DB_SEEDER_DBMS_EMBEDDED}"
-echo "DBMS_PRESTO               : ${DB_SEEDER_DBMS_PRESTO}"
+echo "DBMS_TRINO                : ${DB_SEEDER_DBMS_TRINO}"
 echo "VERSION                   : ${DB_SEEDER_VERSION}"
 echo --------------------------------------------------------------------------------
 
@@ -616,8 +616,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
     echo "Docker create db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION})"
 
     rm -rf $PWD/tmp/yb_data
-    mkdir -p $PWD/tmp
-    mkdir $PWD/tmp/yb_data
+    mkdir -p $PWD/tmp/yb_data
 
     docker network create db_seeder_net  2>/dev/null || true
     docker run -d \

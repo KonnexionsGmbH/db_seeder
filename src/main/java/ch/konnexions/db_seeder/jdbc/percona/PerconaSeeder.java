@@ -54,7 +54,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
    * Instantiates a new Percona Server seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   private PerconaSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

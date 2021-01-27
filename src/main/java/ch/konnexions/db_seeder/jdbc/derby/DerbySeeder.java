@@ -72,7 +72,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
    * Instantiates a new Apache Derby seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public DerbySeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

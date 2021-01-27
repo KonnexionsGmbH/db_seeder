@@ -27,7 +27,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DB Seeder - setup a Apache Derby Docker container.
 echo --------------------------------------------------------------------------------
-echo DBMS_PRESTO               : %DB_SEEDER_DBMS_PRESTO%
+echo DBMS_TRINO                : %DB_SEEDER_DBMS_TRINO%
 echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
 echo DB_SEEDER_CONTAINER_PORT  : %DB_SEEDER_CONTAINER_PORT%
 echo VERSION                   : %DB_SEEDER_VERSION%
@@ -55,7 +55,6 @@ echo Docker start db_seeder_db (Apache Derby %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 :check_health_status:
-mkdir %cd%\tmp >nul 2>&1
 docker inspect -f {{.State.Health.Status}} db_seeder_db > %cd%\tmp\docker_health_status.txt
 set /P DOCKER_HEALTH_STATUS=<tmp\docker_health_status.txt
 if NOT ["%DOCKER_HEALTH_STATUS%"] == ["healthy"] (

@@ -41,16 +41,16 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Gets the Presto URL string.
+   * Gets the Trino URL string.
    *
    * @param tickerSymbolLower the lower case DBMS ticker symbol
    * @param connectionHost    the connection host name
    * @param connectionPort    the connection port
    * @param databaseSchema    the database schema
-   * @return the Presto URL string
+   * @return the Trino URL string
    */
-  public static String getUrlPresto(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
-    return "jdbc:presto://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=presto";
+  public static String getUrlTrino(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
+    return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=trino";
   }
 
   private final boolean   isDebug                = logger.isDebugEnabled();
@@ -68,13 +68,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected Connection    connection             = null;
 
   protected String        driver                 = "";
-  protected final String  driver_presto          = "io.prestosql.jdbc.PrestoDriver";
+  protected final String  driver_trino           = "io.trino.jdbc.TrinoDriver";
   protected String        dropTableStmnt         = "";
 
   protected Properties    encodedColumnNames     = new Properties();
 
   protected final boolean isClient;
-  protected final boolean isPresto;
+  protected final boolean isTrino;
 
   protected int           nullFactor;
 
@@ -83,7 +83,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Statement     statement              = null;
 
-  protected String        urlPresto              = "";
+  protected String        urlTrino              = "";
   protected String        urlSys                 = "";
   protected String        urlUser                = "";
 
@@ -91,7 +91,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Initialises a new abstract JDBC seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public AbstractJdbcSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -107,21 +107,21 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     if ("embedded".equals(dbmsOption)) {
       isClient   = false;
       isEmbedded = true;
-      isPresto   = false;
-    } else if ("presto".equals(dbmsOption)) {
+      isTrino   = false;
+    } else if ("trino".equals(dbmsOption)) {
       isClient   = false;
       isEmbedded = false;
-      isPresto   = true;
+      isTrino   = true;
     } else {
       isClient   = true;
       isEmbedded = false;
-      isPresto   = false;
+      isTrino   = false;
     }
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
       logger.debug("embedded=" + isEmbedded);
-      logger.debug("presto  =" + isPresto);
+      logger.debug("trino  =" + isTrino);
 
       logger.debug("End   Constructor");
     }

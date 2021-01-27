@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Demonstration program for Issue 72.
  * <p>
- * https://github.com/prestosql/presto/issues/4812
+ * https://github.com/trinodb/trino/issues/4812
  *
  * @author walter@konnexions.ch
  * @since 2020-08-18

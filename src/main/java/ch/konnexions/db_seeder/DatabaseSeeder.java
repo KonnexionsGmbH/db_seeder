@@ -1,12 +1,5 @@
 package ch.konnexions.db_seeder;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-
-import org.apache.log4j.Logger;
-
 import ch.konnexions.db_seeder.jdbc.agens.AgensSeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
@@ -29,6 +22,12 @@ import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder;
 import ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
+import org.apache.log4j.Logger;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Test Data Generator for a Database - Application.
@@ -164,11 +163,11 @@ public final class DatabaseSeeder {
         mysqlSeeder.createData();
         logger.info("End   MySQL Database");
         break;
-      case "mysql_presto":
-        logger.info("Start MySQL Database via Presto");
-        MysqlSeeder mysqlSeederPresto = new MysqlSeeder(tickerSymbolExtern, "presto");
-        mysqlSeederPresto.createData();
-        logger.info("End   MySQL Database via Presto");
+      case "mysql_trino":
+        logger.info("Start MySQL Database via Trino");
+        MysqlSeeder mysqlSeederTrino = new MysqlSeeder(tickerSymbolExtern, "trino");
+        mysqlSeederTrino.createData();
+        logger.info("End   MySQL Database via Trino");
         break;
       case "oracle":
         logger.info("Start Oracle Database");
@@ -176,11 +175,11 @@ public final class DatabaseSeeder {
         oracleSeeder.createData();
         logger.info("End   Oracle Database");
         break;
-      case "oracle_presto":
-        logger.info("Start Oracle Database via Presto");
-        OracleSeeder oracleSeederPresto = new OracleSeeder(tickerSymbolExtern, "presto");
-        oracleSeederPresto.createData();
-        logger.info("End   Oracle Database via Presto");
+      case "oracle_trino":
+        logger.info("Start Oracle Database via Trino");
+        OracleSeeder oracleSeederTrino = new OracleSeeder(tickerSymbolExtern, "trino");
+        oracleSeederTrino.createData();
+        logger.info("End   Oracle Database via Trino");
         break;
       case "percona":
         logger.info("Start Percona Server for MySQL");
@@ -194,11 +193,11 @@ public final class DatabaseSeeder {
         postgresqlSeeder.createData();
         logger.info("End   PostgreSQL Database");
         break;
-      case "postgresql_presto":
-        logger.info("Start PostgreSQL Database via Presto");
-        PostgresqlSeeder postgresqlSeederPresto = new PostgresqlSeeder(tickerSymbolExtern, "presto");
-        postgresqlSeederPresto.createData();
-        logger.info("End   PostgreSQL Database via Presto");
+      case "postgresql_trino":
+        logger.info("Start PostgreSQL Database via Trino");
+        PostgresqlSeeder postgresqlSeederTrino = new PostgresqlSeeder(tickerSymbolExtern, "trino");
+        postgresqlSeederTrino.createData();
+        logger.info("End   PostgreSQL Database via Trino");
         break;
       case "sqlite":
         logger.info("Start SQLite");
@@ -212,11 +211,11 @@ public final class DatabaseSeeder {
         sqlserverSeeder.createData();
         logger.info("End   Microsoft SQL Server");
         break;
-      case "sqlserver_presto":
-        logger.info("Start Microsoft SQL Server via Presto");
-        SqlserverSeeder sqlserverSeederPresto = new SqlserverSeeder(tickerSymbolExtern, "presto");
-        sqlserverSeederPresto.createData();
-        logger.info("End   Microsoft SQL Server via Presto");
+      case "sqlserver_trino":
+        logger.info("Start Microsoft SQL Server via Trino");
+        SqlserverSeeder sqlserverSeederTrino = new SqlserverSeeder(tickerSymbolExtern, "trino");
+        sqlserverSeederTrino.createData();
+        logger.info("End   Microsoft SQL Server via Trino");
         break;
       case "voltdb":
         logger.info("Start VoltDB");

@@ -9,21 +9,24 @@ rem ----------------------------------------------------------------------------
 
 setlocal EnableDelayedExpansion
 
+rd /q /s %cd%\tmp\
+md %cd%\tmp >nul 2>&1
+
 set ERRORLEVEL=
 
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.6.2
+set DB_SEEDER_RELEASE=2.7.0
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_PRESTO=348
+set DB_SEEDER_VERSION_TRINO=351
 
 if ["%1"] EQU [""] (
     echo =========================================================
     echo complete           - All implemented DBMSs
     echo complete_client    - All implemented client DBMSs
     echo complete_emb       - All implemented embedded DBMSs
-    echo complete_presto    - All implemented Presto enabled DBMSs
+    echo complete_trino     - All implemented Trino enabled DBMSs
     echo ---------------------------------------------------------
     echo agens              - AgensGraph [client]
     echo derby              - Apache Derby [client]
@@ -42,14 +45,14 @@ if ["%1"] EQU [""] (
     echo mimer              - Mimer SQL
     echo monetdb            - MonetDB
     echo sqlserver          - Microsoft SQL Server
-    echo sqlserver_presto   - Microsoft SQL Server via Presto
+    echo sqlserver_trino    - Microsoft SQL Server via Trino
     echo mysql              - MySQL Database
-    echo mysql_presto       - MySQL Database via Presto
+    echo mysql_trino        - MySQL Database via Trino
     echo oracle             - Oracle Database
-    echo oracle_presto      - Oracle Database via Presto
+    echo oracle_trino       - Oracle Database via Trino
     echo percona            - Percona Server for MySQL
     echo postgresql         - PostgreSQL Database
-    echo postgresql_presto  - PostgreSQL Database via Presto
+    echo postgresql_trino   - PostgreSQL Database via Trino
     echo sqlite             - SQLite [embedded]
     echo voltdb             - VoltDB
     echo yugabyte           - YugabyteDB
@@ -102,7 +105,7 @@ if ["%DB_SEEDER_COMPLETE_RUN%"] EQU [""] (
 )
 
 set DB_SEEDER_DBMS_EMBEDDED=no
-set DB_SEEDER_DBMS_PRESTO=no
+set DB_SEEDER_DBMS_TRINO=no
 
 set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
 
@@ -139,6 +142,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.3.0
     set DB_SEEDER_VERSION=4.3.1
     set DB_SEEDER_VERSION=4.3.2
+    set DB_SEEDER_VERSION=4.3.3
+    set DB_SEEDER_VERSION=4.3.4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -185,6 +190,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.2
     set DB_SEEDER_VERSION=7.0.3
     set DB_SEEDER_VERSION=7.0.4
+    set DB_SEEDER_VERSION=7.0.5
+    set DB_SEEDER_VERSION=7.0.6
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -270,6 +277,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_USER_SYS=informix
     set DB_SEEDER_VERSION=14.10.FC3DE
     set DB_SEEDER_VERSION=14.10.FC4DE
+    set DB_SEEDER_VERSION=14.10.FC5DE
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
@@ -331,16 +339,17 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
     set DB_SEEDER_VERSION=8.0.22
+    set DB_SEEDER_VERSION=8.0.23
 )
 
-if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
+if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:mysql://"
     set DB_SEEDER_CONNECTION_SUFFIX="&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true"
     set DB_SEEDER_CONTAINER_PORT=3306
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=sys
-    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_DBMS_TRINO=yes
     set DB_SEEDER_PASSWORD=mysql
     set DB_SEEDER_PASSWORD_SYS=mysql
     set DB_SEEDER_USER=kxn_user
@@ -348,6 +357,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_presto"] (
     set DB_SEEDER_VERSION=8.0.20
     set DB_SEEDER_VERSION=8.0.21
     set DB_SEEDER_VERSION=8.0.22
+    set DB_SEEDER_VERSION=8.0.23
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
@@ -364,12 +374,12 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_VERSION=db_19_3_ee
 )
 
-if ["%DB_SEEDER_DBMS%"] EQU ["oracle_presto"] (
+if ["%DB_SEEDER_DBMS%"] EQU ["oracle_trino"] (
     set DB_SEEDER_CONNECTION_PORT=1521
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     set DB_SEEDER_CONTAINER_PORT=1521
-    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_DBMS_TRINO=yes
     set DB_SEEDER_PASSWORD=oracle
     set DB_SEEDER_PASSWORD_SYS=oracle
     set DB_SEEDER_USER=kxn_user
@@ -409,13 +419,13 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=13.1-alpine
 )
 
-if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_presto"] (
+if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_CONNECTION_PORT=5432
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     set DB_SEEDER_CONTAINER_PORT=5432
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=kxn_db_sys
-    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_DBMS_TRINO=yes
     set DB_SEEDER_PASSWORD=postgresql
     set DB_SEEDER_PASSWORD_SYS=postgresql
     set DB_SEEDER_SCHEMA=kxn_schema
@@ -446,13 +456,13 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
     set DB_SEEDER_VERSION=2019-latest
 )
 
-if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_presto"] (
+if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_CONNECTION_PORT=1433
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
     set DB_SEEDER_CONTAINER_PORT=1433
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_DATABASE_SYS=master
-    set DB_SEEDER_DBMS_PRESTO=yes
+    set DB_SEEDER_DBMS_TRINO=yes
     set DB_SEEDER_PASSWORD=sqlserver_2019
     set DB_SEEDER_PASSWORD_SYS=sqlserver_2019
     set DB_SEEDER_SCHEMA=kxn_schema
@@ -487,18 +497,19 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.3.3.0-b106
     set DB_SEEDER_VERSION=2.5.0.0-b2
     set DB_SEEDER_VERSION=2.5.1.0-b132
+    set DB_SEEDER_VERSION=2.5.1.0-b153
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
     set DB_SEEDER_CONNECTION_HOST=localhost
 )
 
-if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
-    if ["%DB_SEEDER_CONNECTION_HOST_PRESTO%"] EQU [""] (
-        set DB_SEEDER_CONNECTION_HOST_PRESTO=%DB_SEEDER_CONNECTION_HOST%
+if ["%DB_SEEDER_DBMS_TRINO%"] EQU ["yes"] (
+    if ["%DB_SEEDER_CONNECTION_HOST_TRINO%"] EQU [""] (
+        set DB_SEEDER_CONNECTION_HOST_TRINO=%DB_SEEDER_CONNECTION_HOST%
     )
 
-    set DB_SEEDER_CONNECTION_PORT_PRESTO=8080
+    set DB_SEEDER_CONNECTION_PORT_TRINO=8080
 )
 
 rem ------------------------------------------------------------------------------
@@ -516,7 +527,7 @@ echo DBMS                            : %DB_SEEDER_DBMS%
 echo DBMS_DB                         : %DB_SEEDER_DBMS_DB%
 echo DBMS_DEFAULT                    : %DB_SEEDER_DBMS_DEFAULT%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
-echo DBMS_PRESTO                     : %DB_SEEDER_DBMS_PRESTO%
+echo DBMS_TRINO                      : %DB_SEEDER_DBMS_TRINO%
 echo DOCKER_USERNAME                 : %DOCKER_USERNAME%
 echo DIRECTORY_CATALOG_PROPERTY      : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
@@ -528,10 +539,10 @@ echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%
-echo VERSION_PRESTO                  : %DB_SEEDER_VERSION_PRESTO%
+echo VERSION_TRINO                   : %DB_SEEDER_VERSION_TRINO%
 echo --------------------------------------------------------------------------------
-echo CONNECTION_HOST_PRESTO          : %DB_SEEDER_CONNECTION_HOST_PRESTO%
-echo CONNECTION_PORT_PRESTO          : %DB_SEEDER_CONNECTION_PORT_PRESTO%
+echo CONNECTION_HOST_TRINO           : %DB_SEEDER_CONNECTION_HOST_TRINO%
+echo CONNECTION_PORT_TRINO           : %DB_SEEDER_CONNECTION_PORT_TRINO%
 echo --------------------------------------------------------------------------------
 echo CATALOG                         : %DB_SEEDER_CATALOG%
 echo CATALOG_SYS                     : %DB_SEEDER_CATALOG_SYS%
@@ -585,8 +596,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
     goto END_OF_SCRIPT
 )    
 
-if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
-    call scripts\run_db_seeder_complete_presto %DB_SEEDER_NO_CREATE_RUNS%
+if ["%DB_SEEDER_DBMS%"] EQU ["complete_trino"] (
+    call scripts\run_db_seeder_complete_trino %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
@@ -595,14 +606,14 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_presto"] (
     goto END_OF_SCRIPT
 )    
 
-if ["%DB_SEEDER_DBMS_PRESTO%"] EQU ["yes"] (
+if ["%DB_SEEDER_DBMS_TRINO%"] EQU ["yes"] (
     if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
-        call scripts\run_db_seeder_presto_environment complete
+        call scripts\run_db_seeder_trino_environment complete
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
-        call scripts\run_db_seeder_setup_presto
+        call scripts\run_db_seeder_setup_trino
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

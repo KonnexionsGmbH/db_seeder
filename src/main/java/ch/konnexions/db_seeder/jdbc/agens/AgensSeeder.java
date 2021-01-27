@@ -45,7 +45,7 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
    * Instantiates a new AgensGraph seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public AgensSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

@@ -4,6 +4,11 @@
 
 package ch.konnexions.db_seeder.utils;
 
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,12 +20,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.log4j.Logger;
-
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 
 /**
  * This class is used to record the statisticss of the db_seeder runs.
@@ -67,9 +66,9 @@ public final class Statistics {
       LocalDateTime endDateTime = LocalDateTime.now();
 
       long          duration    = Duration.between(startDateTime,
-                                                   endDateTime).toSeconds();
+                                                   endDateTime).toMillis();
 
-      logger.info("duration in seconds: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+      logger.info("duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                                           duration));
 
       statisticsFile.printRecord(tickerSymbolExtern,

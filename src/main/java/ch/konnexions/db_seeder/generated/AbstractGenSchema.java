@@ -10,9 +10,8 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 /**
  * Test Data Generator for a Database - Abstract Generated Schema.
  * <br>
- *
- * @author CreateSummaryFile.class
- * @version 2.6.2
+ * @author  CreateSummaryFile.class
+ * @version 2.7.0
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
@@ -28,7 +27,7 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
   /**
    * Initialises a new abstract generated schema object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    */
   public AbstractGenSchema(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
@@ -37,8 +36,8 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
   /**
    * Initialises a new abstract generated schema object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param dbmsOption client, embedded or trino
    */
   public AbstractGenSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);

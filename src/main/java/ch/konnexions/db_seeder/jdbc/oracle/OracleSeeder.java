@@ -32,7 +32,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   }
 
   /**
-   * Gets the connection URL for Presto (used by PrestoEnvironment).
+   * Gets the connection URL for Trino (used by TrinoEnvironment).
    *
    * @param connectionHost    the connection host name
    * @param connectionPort    the connection port number
@@ -40,7 +40,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * @param connectionService the connection service
    * @return the connection URL for non-privileged access
    */
-  public static String getUrlPresto(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
+  public static String getUrlTrino(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
   }
 
@@ -59,7 +59,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * Instantiates a new Oracle seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public OracleSeeder(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
@@ -70,10 +70,10 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
 
     dbmsEnum = DbmsEnum.ORACLE;
 
-    if (isPresto) {
-      urlPresto = AbstractJdbcSeeder.getUrlPresto(tickerSymbolLower,
-                                                  config.getConnectionHostPresto(),
-                                                  config.getConnectionPortPresto(),
+    if (isTrino) {
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
+                                                  config.getConnectionHostTrino(),
+                                                  config.getConnectionPortTrino(),
                                                   config.getUser());
     }
 
@@ -176,14 +176,14 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     }
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect - Presto.
+    // Disconnect and reconnect - Trino.
     // -----------------------------------------------------------------------
 
-    if (isPresto) {
+    if (isTrino) {
       disconnect(connection);
 
-      connection = connect(urlPresto,
-                           driver_presto,
+      connection = connect(urlTrino,
+                           driver_trino,
                            true);
     }
 

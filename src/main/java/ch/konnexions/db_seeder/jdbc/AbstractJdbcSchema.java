@@ -34,7 +34,7 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
    * Initialises a new abstract JDBC schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
-   * @param dbmsOption         client, embedded or presto
+   * @param dbmsOption         client, embedded or trino
    */
   public AbstractJdbcSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
