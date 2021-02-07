@@ -144,6 +144,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.3.2
     set DB_SEEDER_VERSION=4.3.3
     set DB_SEEDER_VERSION=4.3.4
+    set DB_SEEDER_VERSION=4.4.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -323,6 +324,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=monetdb
     set DB_SEEDER_VERSION=Jun2020-SP1
+    set DB_SEEDER_VERSION=Oct2020-SP2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (

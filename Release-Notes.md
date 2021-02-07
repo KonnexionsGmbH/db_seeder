@@ -205,9 +205,43 @@
 
 ## 2. Version History
 
+### 2.7.1
+
+Release Date: xx.02.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- CrateDB: DBMS 4.4.0
+
+- CUBRID: JDBC 11.0.0.0248
+
+- MariaDB Server: JDBC 2.7.1
+
+- Microsoft SQL Server: JDBC 9.2.0.jre15
+
+- MonetDB: DBMS Oct2020-SP2
+
+#### Deleted Features
+
+n/a
+
+----------
+
 ### 2.7.0
 
-Release Date: xx.01.2021
+Release Date: 28.01.2021
 
 #### System Requirements
 
@@ -242,10 +276,6 @@ Rebranding of Presto to Trino
 - Trino Distributed Query Engine: DBMS 351 / JDBC 351
 
 - YugabyteDB: DBMS 2.5.1.0-b153
-
-#### Deleted Features
-
-n/a
 
 ----------
 

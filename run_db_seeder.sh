@@ -145,6 +145,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.3.2
     export DB_SEEDER_VERSION=4.3.3
     export DB_SEEDER_VERSION=4.3.4
+    export DB_SEEDER_VERSION=4.4.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -324,6 +325,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=monetdb
     export DB_SEEDER_VERSION=Jun2020-SP1
+    export DB_SEEDER_VERSION=Oct2020-SP2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
