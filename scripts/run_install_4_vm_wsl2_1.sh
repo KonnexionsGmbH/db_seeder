@@ -394,6 +394,7 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     echo "--------------------------------------------------------------------------------"
     sudo apt-get install -qy lsb-release \
                              software-properties-common
+    sudo apt-get install -qy --reinstall python3-apt
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" --yes
     sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
     sudo apt-key fingerprint 0EBFCD88
