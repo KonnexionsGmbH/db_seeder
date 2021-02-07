@@ -8,9 +8,15 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-cp -r db_seeder ~/
-cp -r dderl ~/
-cp -r kxn_dev ~/
+if [ -d "db_seeder" ]; then
+    cp -r db_seeder ~/
+fi
+if [ -d "dderl" ]; then
+    cp -r dderl ~/
+fi
+if [ -d "kxn_dev" ]; then
+    cp -r kxn_dev ~/
+fi
 
 cd ~/
 
