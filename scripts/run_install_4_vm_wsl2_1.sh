@@ -123,6 +123,9 @@ else
     export HOST_ENVIRONMENT=$1
 fi
 
+eval echo '' >> ~/.bashrc
+eval echo 'export HOST_ENVIRONMENT=${HOST_ENVIRONMENT}' >> ~/.bashrc
+
 echo ""
 echo "Script $0 is now running"
 
@@ -396,7 +399,7 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
                              python-apt \
                              software-properties-common
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" --yes
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo apt-key fingerprint 0EBFCD88
     sudo apt-get install -qy docker-ce \
                              docker-ce-cli \
