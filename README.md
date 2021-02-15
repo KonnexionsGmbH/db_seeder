@@ -173,7 +173,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | AgensGraph                      | agens              | v2.1.1                     | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                       | 11.0.0.0248         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.4.0              | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.4.1              | 2.6.0               |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.6           | 7.0.4               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.2.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
@@ -189,7 +189,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.23              | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.1                | 42.2.18             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| Trino Distributed Query Engine  | n/a                | 339 - 351                  | 351                 |
+| Trino Distributed Query Engine  | n/a                | 339 - 352                  | 352                 |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.1.0-b153 | 42.2.7-yb-3         |
 
@@ -734,7 +734,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.4.0`
+  - pull command: `docker pull crate:4.4.1`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -1435,7 +1435,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:351`
+  - pull command: `docker pull trinodb/trino:352`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1443,7 +1443,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 351
+  - version 352
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)

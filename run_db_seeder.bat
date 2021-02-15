@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=2.7.0
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=351
+set DB_SEEDER_VERSION_TRINO=352
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -145,6 +145,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.3.3
     set DB_SEEDER_VERSION=4.3.4
     set DB_SEEDER_VERSION=4.4.0
+    set DB_SEEDER_VERSION=4.4.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (

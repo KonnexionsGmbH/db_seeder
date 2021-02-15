@@ -29,70 +29,6 @@
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
-- Microsoft SQL Connector: SQL Server "Expected zero to one elements, but found multiple" (see [here](https://github.com/trinodb/trino/issues/6464)).
-
-    2021-01-13 19:42:51,763 [DatabaseSeeder.java] INFO  Start
-    2021-01-13 19:42:51,769 [DatabaseSeeder.java] INFO  tickerSymbolExtern='sqlserver_trino'
-    2021-01-13 19:42:51,769 [DatabaseSeeder.java] INFO  Start Microsoft SQL Server via Trino
-    SLF4J: Class path contains multiple SLF4J bindings.
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-    java.sql.SQLException: Query failed (#20210113_184254_00000_jve99): Expected zero to one elements, but found multiple
-            at io.trino.jdbc.AbstractTrinoResultSet.resultsException(AbstractTrinoResultSet.java:1912)
-            at io.trino.jdbc.TrinoResultSet.getColumns(TrinoResultSet.java:242)
-            at io.trino.jdbc.TrinoResultSet.create(TrinoResultSet.java:53)
-            at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:249)
-            at io.trino.jdbc.TrinoStatement.execute(TrinoStatement.java:227)
-            at io.trino.jdbc.TrinoStatement.executeQuery(TrinoStatement.java:76)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.countData(AbstractJdbcSeeder.java:289)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:364)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:331)
-            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:217)
-    Caused by: java.lang.IllegalStateException: Expected zero to one elements, but found multiple
-            at org.jdbi.v3.core.result.ResultIterable.findOne(ResultIterable.java:163)
-            at io.trino.plugin.sqlserver.SqlServerClient.getTableDataCompression(SqlServerClient.java:437)
-            at io.trino.plugin.sqlserver.SqlServerClient.getTableProperties(SqlServerClient.java:378)
-            at io.trino.plugin.jdbc.ForwardingJdbcClient.getTableProperties(ForwardingJdbcClient.java:288)
-            at io.trino.plugin.jdbc.jmx.StatisticsAwareJdbcClient.getTableProperties(StatisticsAwareJdbcClient.java:305)
-            at io.trino.plugin.jdbc.CachingJdbcClient.getTableProperties(CachingJdbcClient.java:365)
-            at io.trino.plugin.jdbc.CachingJdbcClient.getTableProperties(CachingJdbcClient.java:365)
-            at io.trino.plugin.jdbc.JdbcMetadata.getTableMetadata(JdbcMetadata.java:344)
-            at io.trino.metadata.MetadataManager.getTableMetadata(MetadataManager.java:508)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitTable(StatementAnalyzer.java:1231)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitTable(StatementAnalyzer.java:329)
-            at io.trino.sql.tree.Table.accept(Table.java:53)
-            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.analyzeFrom(StatementAnalyzer.java:2529)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuerySpecification(StatementAnalyzer.java:1553)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuerySpecification(StatementAnalyzer.java:329)
-            at io.trino.sql.tree.QuerySpecification.accept(QuerySpecification.java:144)
-            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:356)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuery(StatementAnalyzer.java:1061)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuery(StatementAnalyzer.java:329)
-            at io.trino.sql.tree.Query.accept(Query.java:107)
-            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
-            at io.trino.sql.analyzer.StatementAnalyzer.analyze(StatementAnalyzer.java:315)
-            at io.trino.sql.analyzer.Analyzer.analyze(Analyzer.java:91)
-            at io.trino.sql.analyzer.Analyzer.analyze(Analyzer.java:83)
-            at io.trino.execution.SqlQueryExecution.analyze(SqlQueryExecution.java:263)
-            at io.trino.execution.SqlQueryExecution.<init>(SqlQueryExecution.java:186)
-            at io.trino.execution.SqlQueryExecution$SqlQueryExecutionFactory.createQueryExecution(SqlQueryExecution.java:768)
-            at io.trino.dispatcher.LocalDispatchQueryFactory.lambda$createDispatchQuery$0(LocalDispatchQueryFactory.java:129)
-            at io.trino.$gen.Trino_351____20210113_184151_2.call(Unknown Source)
-            at com.google.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleTask.runInterruptibly(TrustedListenableFutureTask.java:125)
-            at com.google.common.util.concurrent.InterruptibleTask.run(InterruptibleTask.java:69)
-            at com.google.common.util.concurrent.TrustedListenableFutureTask.run(TrustedListenableFutureTask.java:78)
-            at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-            at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-            at java.base/java.lang.Thread.run(Thread.java:834)
-    Processing of the script was aborted, error code=1
-
 - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
 
     2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
@@ -223,7 +159,7 @@ n/a
 
 #### Modified Features
 
-- CrateDB: DBMS 4.4.0
+- CrateDB: DBMS 4.4.1
 
 - CUBRID: JDBC 11.0.0.0248
 
@@ -232,6 +168,8 @@ n/a
 - Microsoft SQL Server: JDBC 9.2.0.jre15
 
 - MonetDB: DBMS Oct2020-SP2
+
+- Trino Distributed Query Engine: DBMS 352 / JDBC 352
 
 #### Deleted Features
 

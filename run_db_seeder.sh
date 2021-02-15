@@ -17,7 +17,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.7.0
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=351
+export DB_SEEDER_VERSION_TRINO=352
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -146,6 +146,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.3.3
     export DB_SEEDER_VERSION=4.3.4
     export DB_SEEDER_VERSION=4.4.0
+    export DB_SEEDER_VERSION=4.4.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -375,7 +376,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
-    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
@@ -391,7 +391,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
-    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
