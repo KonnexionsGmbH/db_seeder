@@ -261,9 +261,11 @@ eval echo 'export PATH_ORIG=${PATH_ORIG}' >> ~/.bashrc
 echo '' >> ~/.bashrc
 echo '. /usr/.asdf/asdf.sh' >> ~/.bashrc
 echo '. /usr/.asdf/completions/asdf.bash' >> ~/.bashrc
-# from Docker Desktop -------------------------------------------------------------------
-echo '' >> ~/.bashrc
-echo 'if [ `id -gn` != "docker" ]; then ( newgrp docker ) fi' >> ~/.bashrc
+if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
+    # from Docker Desktop -------------------------------------------------------------------
+    echo '' >> ~/.bashrc
+    echo 'if [ `id -gn` != "docker" ]; then ( newgrp docker ) fi' >> ~/.bashrc
+fi
 
 echo '' >> ~/.bashrc
 echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
