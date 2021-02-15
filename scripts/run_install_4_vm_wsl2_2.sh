@@ -202,7 +202,7 @@ bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-ke
 asdf install nodejs ${VERSION_NODEJS}
 asdf global nodejs ${VERSION_NODEJS}
 echo "================================================================================"
-ls -ll /root/.asdf/installs/nodejs/${VERSION_NODEJS} \
+ls -ll ~/.asdf/installs/nodejs/${VERSION_NODEJS} \
 echo "================================================================================"
 echo "Current Node version is: $(node --version)"
 echo "Current npm version is: $(npm --version)"
