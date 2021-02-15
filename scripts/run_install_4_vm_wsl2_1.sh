@@ -36,7 +36,12 @@ fi
 
 export TIMEZONE=Europe/Zurich
 
-eval echo '' >> ~/.bashrc
+echo '' >> ~/.bashrc
+echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
+echo '# run_install_4_vm_wsl2_x.sh: Install an environment for Ubuntu 20.04 - Start' >> ~/.bashrc
+echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
+
+echo '' >> ~/.bashrc
 eval echo 'export DEBIAN_FRONTEND=${DEBIAN_FRONTEND}' >> ~/.bashrc
 eval echo 'export HOME_ECLIPSE=${HOME_ECLIPSE}' >> ~/.bashrc
 eval echo 'export LOCALE=${LOCALE}' >> ~/.bashrc
@@ -50,29 +55,28 @@ export VERSION_DOS2UNIX=7.4.2
 export VERSION_ECLIPSE_1=2020-12
 export VERSION_ECLIPSE_2=R
 export VERSION_ELIXIR=1.11.3-otp-23
-export VERSION_ERLANG=23.2.3
+export VERSION_ERLANG=23.2.4
 export VERSION_GCC=10
 export VERSION_GCC_ORIG=9
-export VERSION_GO=1.15.7
-export VERSION_GRADLE=6.8.1
+export VERSION_GO=1.15.8
+export VERSION_GRADLE=6.8.2
 export VERSION_HTOP=3.0.5
 export VERSION_JAVA=openjdk-15.0.2
-export VERSION_KOTLIN=1.4.21
+export VERSION_KOTLIN=1.4.30
 export VERSION_MAKE=4.3
-export VERSION_NODE=14.x
-export VERSION_NODEJS=14.15.4
+export VERSION_NODEJS=14.15.5
 export VERSION_OPENSSL=1_1_1i
 export VERSION_ORACLE_INSTANT_CLIENT_1=21
 export VERSION_ORACLE_INSTANT_CLIENT_2=1
 export VERSION_PYTHON=3.9.1
 export VERSION_REBAR=3.14.3
-export VERSION_RUST=1.49.0
+export VERSION_RUST=1.50.0
 export VERSION_TMUX=3.1c
-export VERSION_VIM=8.2.2453
+export VERSION_VIM=8.2.2501
 export VERSION_WGET=1.21.1
 export VERSION_YARN=1.22.5
 
-eval echo '' >> ~/.bashrc
+echo '' >> ~/.bashrc
 eval echo 'export VERSION_AUTOCONF=${VERSION_AUTOCONF}' >> ~/.bashrc
 eval echo 'export VERSION_AUTOMAKE=${VERSION_AUTOMAKE}' >> ~/.bashrc
 eval echo 'export VERSION_CMAKE=${VERSION_CMAKE}' >> ~/.bashrc
@@ -103,9 +107,9 @@ eval echo 'export VERSION_VIM=${VERSION_VIM}' >> ~/.bashrc
 eval echo 'export VERSION_WGET=${VERSION_WGET}' >> ~/.bashrc
 eval echo 'export VERSION_YARN=${VERSION_YARN}' >> ~/.bashrc
 
-export VERSION_KXN_DEV=2.0.0
+export VERSION_KXN_DEV=2.0.1
 
-eval echo '' >> ~/.bashrc
+echo '' >> ~/.bashrc
 eval echo 'export VERSION_KXN_DEV=${VERSION_KXN_DEV}' >> ~/.bashrc
 
 if [ -z "$1" ]; then
@@ -123,7 +127,7 @@ else
     export HOST_ENVIRONMENT=$1
 fi
 
-eval echo '' >> ~/.bashrc
+echo '' >> ~/.bashrc
 eval echo 'export HOST_ENVIRONMENT=${HOST_ENVIRONMENT}' >> ~/.bashrc
 
 echo ""
@@ -158,11 +162,8 @@ if [ "$(dpkg -l | grep python${VERSION_PYTHON})" != "" ]; then
     sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 80
     sudo apt install --reinstall -qy python3
 fi
-
-sudo apt-get -qy remove python3-apt
-sudo apt-get -qy autoremove
-sudo apt-get -qy autoclean
-sudo apt-get install -qy python3-apt
+                         
+sudo apt-get install --reinstall -qy python3-apt
 
 sudo apt-get clean -qy
 sudo apt-get update -qy
@@ -202,7 +203,7 @@ echo "Step: Setting up the environment: 1. Setting the environment variables"
 echo "--------------------------------------------------------------------------------\n"
 
 # from Locale & Timezone -----------------------------------------------------------------
-eval echo '' >> ~/.bashrc
+echo '' >> ~/.bashrc
 eval echo 'export LANG=${LOCALE}' >> ~/.bashrc
 eval echo 'export LANGUAGE=${LOCALE}' >> ~/.bashrc
 eval echo 'export LC_ALL=${LOCALE}' >> ~/.bashrc
@@ -246,21 +247,29 @@ export PATH_ADD_ON="/root/.cargo/bin:${PATH_ADD_ON}"
 echo "--------------------------------------------------------------------------------"
 echo "Step: Setting up the environment: 2. Initializing the interactive shell session"
 echo "--------------------------------------------------------------------------------"
-eval echo '' >> ~/.bashrc
-eval echo 'alias python=python3' >> ~/.bashrc
-eval echo 'alias vi=vim' >> ~/.bashrc
+echo '' >> ~/.bashrc
+echo 'alias python=python3' >> ~/.bashrc
+echo 'alias vi=vim' >> ~/.bashrc
 # from Stefans privater bash Erweiterung ------------------------------------------------
-eval echo '' >> ~/.bashrc
-eval echo '. ~/kxn_dev/.bashrc.stefan' >> ~/.bashrc
+echo '' >> ~/.bashrc
+echo '. ~/kxn_dev/.bashrc.stefan' >> ~/.bashrc
 # PATH variable -------------------------------------------------------------------------
-eval echo '' >> ~/.bashrc
-eval echo 'export PATH=${PATH_ADD_ON}:${PATH_ORIG}' >> ~/.bashrc
+echo '' >> ~/.bashrc
+eval echo 'export PATH=${PATH_ORIG}:${PATH_ADD_ON}' >> ~/.bashrc
 eval echo 'export PATH_ORIG=${PATH_ORIG}' >> ~/.bashrc
 # from asdf -----------------------------------------------------------------------------
-eval echo '' >> ~/.bashrc
-eval echo '. /usr/.asdf/asdf.sh' >> ~/.bashrc
-eval echo '. /usr/.asdf/completions/asdf.bash' >> ~/.bashrc
-eval echo '' >> ~/.bashrc
+echo '' >> ~/.bashrc
+echo '. /usr/.asdf/asdf.sh' >> ~/.bashrc
+echo '. /usr/.asdf/completions/asdf.bash' >> ~/.bashrc
+# from Docker Desktop -------------------------------------------------------------------
+echo '' >> ~/.bashrc
+echo 'if [ `id -gn` != "docker" ]; then ( newgrp docker ) fi' >> ~/.bashrc
+
+echo '' >> ~/.bashrc
+echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
+echo '# run_install_4_vm_wsl2_x.sh: Install an environment for Ubuntu 20.04 - End' >> ~/.bashrc
+echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
+
 # Initializing the interactive shell session ---------------------------------------------
 source ~/.bashrc
 
@@ -398,15 +407,15 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     sudo apt-get install -qy lsb-release \
                              python-apt \
                              software-properties-common
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" --yes
     sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" --yes
     sudo apt-key fingerprint 0EBFCD88
     sudo apt-get install -qy docker-ce \
                              docker-ce-cli \
                              containerd.io
-    echo 'if [ `id -gn` != "docker" ]; then ( newgrp docker ) fi' >> ~/.bashrc
+    sudo chmod 666 /var/run/docker.sock
     echo "================================================================================"
-    #echo "Current Docker Desktop version is: $(docker version)"
+    echo "Current Docker Desktop version is: $(docker version)"
     echo "================================================================================"
 fi
 

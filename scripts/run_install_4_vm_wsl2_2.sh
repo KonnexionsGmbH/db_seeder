@@ -108,6 +108,8 @@ asdf global erlang ${VERSION_ERLANG}
 echo "================================================================================"
 ls -ll ~/.asdf/installs/erlang/*/*
 echo "================================================================================"
+echo "Current Erlang version is: $(erl -eval '{ok, Version} = file:read_file(filename:join([code:root_dir(), "releases", erlang:system_info(otp_release), "OTP_VERSION"])), io:fwrite(Version), halt().' -noshell)"
+echo "================================================================================"
 
 echo "--------------------------------------------------------------------------------"
 echo "Step: Install rebar3 - Version ${VERSION_REBAR}"
@@ -119,7 +121,7 @@ asdf global rebar ${VERSION_REBAR}
 echo "================================================================================"
 ls -ll ~/.asdf/installs/rebar/*/*
 echo "================================================================================"
-echo "Current rebar3 and Erlang version is: $(rebar3 version)"
+echo "Current rebar3 version is: $(rebar3 version)"
 echo "================================================================================"
 
 echo "--------------------------------------------------------------------------------"
@@ -316,77 +318,80 @@ echo ${ORACLE_HOME}
 echo "=====================================================================> Environment variable PATH: "
 echo ${PATH}
 # Show component versions ------------------------------------------------------
-echo "=====================================================================> Core Components"
-echo "=====================================================================> Version  Docker: "
-sudo docker version
-echo "=====================================================================> Version  Docker Compose: "
-docker-compose version
-echo "=====================================================================> Version  Eclipse: "
-echo "${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}"
-echo "=====================================================================> Version  Elixir & Erlang: "
-elixir -v
-mix --version
-echo "=====================================================================> Version  GCC: "
-gcc --version
-echo "=====================================================================> Version  Git: "
-git --version
-echo "=====================================================================> Version  Go: "
-go version
-go env
-echo "=====================================================================> Version  Gradle: "
-gradle --version
-echo "=====================================================================> Version  Java: "
-java -version
-echo "=====================================================================> Version  Kotlin: "
-kotlin -version
-echo "=====================================================================> Version  LCOV: "
-lcov --version
-echo "=====================================================================> Version  nginx: "
-nginx -v
-echo "=====================================================================> Version  Node.js: "
-node --version
-echo "=====================================================================> Version  OpenSSL: "
-openssl version -a
-echo "=====================================================================> Version  Oracle Instant Client: "
-sqlplus -V
-echo "=====================================================================> Version  Python3: "
-python3 --version
-echo "=====================================================================> Version  rebar3: "
-rebar3 version
-echo "=====================================================================> Version  Rust: "
-rustc --version
-echo "=====================================================================> Version  Ubuntu: "
-lsb_release -a
-echo "=====================================================================> Version  Vim: "
-vim --version
-echo "=====================================================================> Version  Yarn: "
-yarn --version
-echo "=====================================================================> Miscellaneous"
+echo "=====================================================================> Components"
 echo "=====================================================================> Version  Alien: "
-alien --version
+echo "Current version of Alien: $(alien --version)"
+echo "=====================================================================> Version  asdf: "
+echo "Current version of asdf: $(asdf --version)"
 echo "=====================================================================> Version  CMake: "
-cmake --version
+echo "Current version of CMake: $(cmake --version)"
 echo "=====================================================================> Version  cURL: "
-curl --version
+echo "Current version of cURL: $(curl --version)"
+echo "=====================================================================> Version  Docker Compose: "
+echo "Current version of Docker Compose: $(docker-compose version)"
+echo "=====================================================================> Version  Docker Desktop: "
+echo "Current version of Docker Desktop: $(docker version)"
 echo "=====================================================================> Version  dos2unix: "
-dos2unix --version
+echo "Current version of dos2unix: $(dos2unix --version)"
+echo "=====================================================================> Version  Eclipse: "
+echo "Current version of Eclipse: ${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}"
+echo "=====================================================================> Version  Elixir "
+echo "Current version of Elixir: $(elixir -v)"
+echo "Current version of Mix: $(mix --version)"
+echo "=====================================================================> Version  Erlang: "
+echo "Current version of Erlang: $(erl -eval '{ok, Version} = file:read_file(filename:join([code:root_dir(), "releases", erlang:system_info(otp_release), "OTP_VERSION"])), io:fwrite(Version), halt().' -noshell)"
+echo "=====================================================================> Version  GCC / G++: "
+echo "Current version of GCC: $(gcc --version)"
+echo "Current version of G++: $(g++ --version)"
+echo "=====================================================================> Version  Git: "
+echo "Current version of Git: $(git --version)"
 echo "=====================================================================> Version  GNU Autoconf: "
-autoconf -V
+echo "Current version of GNU Autoconf: $(autoconf -V)"
 echo "=====================================================================> Version  GNU Automake: "
-automake --version
-echo "=====================================================================> Version  GNU make: "
-make --version
+echo "Current version of GNU Automake: $(automake --version)"
+echo "=====================================================================> Version  GNU Make: "
+echo "Current version of GNU Make: $(make --version)"
+echo "=====================================================================> Version  Go: "
+echo "Current version of Go: $(go version)"
+echo "Current version of Go environment is: $(go env)"
+echo "=====================================================================> Version  Gradle: "
+echo "Current version of Gradle: $(gradle --version)"
 echo "=====================================================================> Version  htop: "
-htop --version
-echo "=====================================================================> Version  npm: "
-npm --version
+echo "Current version of htop: $(htop --version)"
+echo "=====================================================================> Version  Java: "
+echo "Current version of Java SE Development Kit: $(java -version)"
+echo "=====================================================================> Version  Kotlin: "
+echo "Current version of Kotlin: $(kotlin -version)"
+echo "=====================================================================> Version  LCOV: "
+echo "Current version of LCOV: $(lcov --version)"
+echo "=====================================================================> Version  nginx: "
+echo "Current version of nginx: $(nginx -v)"
+echo "=====================================================================> Version  Node.js /npm: "
+echo "Current version of Node: $(node --version)"
+echo "Current version of npm: $(npm --version)"
+echo "=====================================================================> Version  OpenSSL: "
+echo "Current version of OpenSSL: $(openssl version -a)"
+echo "=====================================================================> Version  Oracle Instant Client: "
+echo "Current version of Oracle Instant Client: $(sqlplus -V)"
 echo "=====================================================================> Version  Procps-ng: "
-ps --version
-pip --version
+echo "Current version of Procps-ng: $(ps --version)"
+echo "=====================================================================> Version  Python3: "
+echo "Current version of Python3: $(python3 --version)"
+echo "Current version of pip: $(pip --version)"
+echo "=====================================================================> Version  rebar3: "
+echo "Current version of rebar3: $(rebar3 version)"
+echo "=====================================================================> Version  Rust: "
+echo "Current version of Rust: $(rustc --version)"
 echo "=====================================================================> Version  tmux: "
-tmux -V
+echo "Current version of tmux: $(tmux -V)"
+echo "=====================================================================> Version  Ubuntu: "
+echo "Current version of Ubuntu: $(lsb_release -a)"
+echo "=====================================================================> Version  Vim: "
+echo "Current version of Vim: $(vim --version)"
 echo "=====================================================================> Version  wget: "
-wget --version
+echo "Current version of Wget: $(wget --version)"
+echo "=====================================================================> Version  Yarn: "
+echo "Current version of Yarn: $(yarn --version)"
 
 echo ""
 echo "--------------------------------------------------------------------------------"
