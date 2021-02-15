@@ -53,7 +53,7 @@ asdf plugin add cmake
 asdf install cmake ${VERSION_CMAKE}
 asdf global cmake ${VERSION_CMAKE}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/cmake/*/*
+ls -ll ~/.asdf/installs/cmake
 echo "================================================================================"
 echo "Current CMake version is: $(cmake --version)"
 echo "================================================================================"
@@ -81,7 +81,7 @@ asdf plugin add java
 asdf install java ${VERSION_JAVA}
 asdf global java ${VERSION_JAVA}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/java/*/*
+ls -ll ~/.asdf/installs/java
 echo "================================================================================"
 echo "Current Java SE Development Kit version is: $(java -version)"
 echo "================================================================================"
@@ -106,7 +106,7 @@ asdf plugin add erlang
 asdf install erlang ${VERSION_ERLANG}
 asdf global erlang ${VERSION_ERLANG}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/erlang/*/*
+ls -ll ~/.asdf/installs/erlang
 echo "================================================================================"
 echo "Current Erlang version is: $(erl -eval '{ok, Version} = file:read_file(filename:join([code:root_dir(), "releases", erlang:system_info(otp_release), "OTP_VERSION"])), io:fwrite(Version), halt().' -noshell)"
 echo "================================================================================"
@@ -119,7 +119,7 @@ asdf plugin add rebar
 asdf install rebar ${VERSION_REBAR}
 asdf global rebar ${VERSION_REBAR}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/rebar/*/*
+ls -ll ~/.asdf/installs/rebar
 echo "================================================================================"
 echo "Current rebar3 version is: $(rebar3 version)"
 echo "================================================================================"
@@ -134,7 +134,7 @@ asdf global elixir ${VERSION_ELIXIR}
 mix local.hex --force
 mix local.rebar --force
 echo "================================================================================"
-ls -ll ~/.asdf/installs/elixir/*/*
+ls -ll ~/.asdf/installs/elixir
 echo "================================================================================"
 echo "Current Elixir version is: $(elixir -v)"
 echo "Current Mix version is: $(mix --version)"
@@ -161,7 +161,7 @@ asdf plugin add golang
 asdf install golang ${VERSION_GO}
 asdf global golang ${VERSION_GO}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/golang/*/*
+ls -ll ~/.asdf/installs/golang
 echo "================================================================================"
 echo "Current Go version is: $(go version)"
 echo "Current Go environment is: $(go env)"
@@ -175,7 +175,7 @@ asdf plugin add gradle
 asdf install gradle ${VERSION_GRADLE}
 asdf global gradle ${VERSION_GRADLE}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/gradle/*/*
+ls -ll ~/.asdf/installs/gradle
 echo "================================================================================"
 echo "Current Gradle version is: $(gradle --version)"
 echo "================================================================================"
@@ -188,7 +188,7 @@ asdf plugin add kotlin
 asdf install kotlin ${VERSION_KOTLIN}
 asdf global kotlin ${VERSION_KOTLIN}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/kotlin/*/*
+ls -ll ~/.asdf/installs/kotlin
 echo "================================================================================"
 echo "Current Kotlin version is: $(kotlin -version)"
 echo "================================================================================"
@@ -202,7 +202,7 @@ bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-ke
 asdf install nodejs ${VERSION_NODEJS}
 asdf global nodejs ${VERSION_NODEJS}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/nodejs/${VERSION_NODEJS} \
+ls -ll ~/.asdf/installs/nodejs
 echo "================================================================================"
 echo "Current Node version is: $(node --version)"
 echo "Current npm version is: $(npm --version)"
@@ -224,7 +224,7 @@ asdf plugin add python
 asdf install python ${VERSION_PYTHON}
 asdf global python ${VERSION_PYTHON}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/python/*/*
+ls -ll ~/.asdf/installs/python
 echo "================================================================================"
 echo "Current Python3 version is: $(python3 --version)"
 echo "================================================================================"
@@ -253,7 +253,7 @@ asdf plugin add tmux
 asdf install tmux ${VERSION_TMUX}
 asdf global tmux ${VERSION_TMUX}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/tmux/*/*
+ls -ll ~/.asdf/installs/tmux
 echo "================================================================================"
 echo "Current tmux version is: $(tmux -V)"
 echo "================================================================================"
@@ -266,7 +266,7 @@ asdf plugin add vim
 asdf install vim ${VERSION_VIM}
 asdf global vim ${VERSION_VIM}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/vim/*/*
+ls -ll ~/.asdf/installs/vim
 echo "================================================================================"
 echo "Current Vim version is: $(vim --version)"
 echo "================================================================================"
@@ -279,7 +279,7 @@ asdf plugin add yarn
 asdf install yarn ${VERSION_YARN}
 asdf global yarn ${VERSION_YARN}
 echo "================================================================================"
-ls -ll ~/.asdf/installs/yarn/*/*
+ls -ll ~/.asdf/installs/yarn
 echo "================================================================================"
 echo "Current Yarn version is: $(yarn --version)"
 echo "================================================================================"
