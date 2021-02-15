@@ -196,10 +196,13 @@ echo "==========================================================================
 echo "--------------------------------------------------------------------------------"
 echo "Step: Install Node - Version ${VERSION_NODEJS}"
 echo "--------------------------------------------------------------------------------"
-wget -q -O- https://deb.nodesource.com/setup_${VERSION_NODE} | sudo -E bash -
-sudo apt update
-sudo apt install -qy nodejs
-sudo apt install -qy npm
+asdf plugin add nodejs
+# asdf list all nodejs
+bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
+asdf install nodejs ${VERSION_NODEJS}
+asdf global nodejs ${VERSION_NODEJS}
+echo "================================================================================"
+ls -ll /root/.asdf/installs/nodejs/${VERSION_NODEJS} \
 echo "================================================================================"
 echo "Current Node version is: $(node --version)"
 echo "Current npm version is: $(npm --version)"
@@ -329,8 +332,10 @@ echo "=====================================================================> Ver
 echo "Current version of cURL: $(curl --version)"
 echo "=====================================================================> Version  Docker Compose: "
 echo "Current version of Docker Compose: $(docker-compose version)"
-echo "=====================================================================> Version  Docker Desktop: "
-echo "Current version of Docker Desktop: $(docker version)"
+if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
+    echo "=====================================================================> Version  Docker Desktop: "
+    echo "Current version of Docker Desktop: $(docker version)"
+fi
 echo "=====================================================================> Version  dos2unix: "
 echo "Current version of dos2unix: $(dos2unix --version)"
 echo "=====================================================================> Version  Eclipse: "
