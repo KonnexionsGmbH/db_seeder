@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  * Test Data Generator for a Database - Abstract Generated Seeder.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 2.7.0
+ * @version 2.7.1
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 

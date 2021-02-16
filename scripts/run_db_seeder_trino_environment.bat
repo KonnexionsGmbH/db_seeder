@@ -71,6 +71,7 @@ echo ---------------------------------------------------------------------------
 echo DB Seeder - Generating Trino catalog properties files.
 echo --------------------------------------------------------------------------------
 echo DBMS_DEFAULT                  : %DB_SEEDER_DBMS_DEFAULT%
+echo DB_SEEDER_DBMS                : %DB_SEEDER_DBMS%
 echo DIRECTORY_CATALOG_PROPERTY    : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
 echo JAVA_CLASSPATH                : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------

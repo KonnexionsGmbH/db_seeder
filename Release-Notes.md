@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.1.svg)
 
 ## 1. Current Issues
 
@@ -11,21 +11,11 @@
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
-### 1.2 Exasol
-
-- JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
-    
-- Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
-    
-### 1.3 Mimer SQL & DBeaver
+### 1.2 Mimer SQL & DBeaver
 
 - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-### 1.4 Oracle Database
-
-- Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
-
-### 1.5 Trino Distributed Query Engine
+### 1.3 Trino Distributed Query Engine
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
@@ -64,9 +54,9 @@
             ... 16 more
     Processing of the script was aborted, error code=1
     
-  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/4764)).
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
-### 1.6 YugabyteDB
+### 1.4 YugabyteDB
 
 - Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
 
@@ -163,11 +153,17 @@ n/a
 
 - CUBRID: JDBC 11.0.0.0248
 
+- Exasol: DBMS 7.0.7
+
 - MariaDB Server: JDBC 2.7.1
 
 - Microsoft SQL Server: JDBC 9.2.0.jre15
 
 - MonetDB: DBMS Oct2020-SP2
+
+- Oracle Database: JDBC 21.1.0.0
+
+- PostgreSQL Database: DBMS 13.2
 
 - Trino Distributed Query Engine: DBMS 352 / JDBC 352
 
