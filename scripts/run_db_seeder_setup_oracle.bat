@@ -45,8 +45,8 @@ lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Oracle Database %DB_SEEDER_VERSION%)
 
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
-docker create -e         INIT_PGA_SIZE=256 ^
-              -e         INIT_SGA_SIZE=768 ^
+docker create -e         INIT_PGA_SIZE=256MB ^
+              -e         INIT_SGA_SIZE=768MB ^
               -e         ORACLE_PWD=oracle ^
               --name     db_seeder_db ^
               --network  db_seeder_net ^

@@ -462,8 +462,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
     echo "Docker create db_seeder_db (Oracle ${DB_SEEDER_VERSION})"
 
     docker network create db_seeder_net  2>/dev/null || true
-    docker create -e         INIT_PGA_SIZE=256 \
-                  -e         INIT_SGA_SIZE=768 \
+    docker create -e         INIT_PGA_SIZE=256MB \
+                  -e         INIT_SGA_SIZE=768MB \
                   -e         ORACLE_PWD=oracle \
                   --name     db_seeder_db \
                   --network  db_seeder_net \
