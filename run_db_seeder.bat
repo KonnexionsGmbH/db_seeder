@@ -395,7 +395,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle_trino"] (
     set DB_SEEDER_VERSION=db_12_2_ee
     set DB_SEEDER_VERSION=db_18_3_ee
     set DB_SEEDER_VERSION=db_19_3_ee
-    set DB_SEEDER_VERSION=db_18_3_ee
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (

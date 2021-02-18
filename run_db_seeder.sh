@@ -377,7 +377,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
-    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
