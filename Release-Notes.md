@@ -153,17 +153,17 @@ n/a
 
 - CUBRID: JDBC 11.0.0.0248
 
-- Exasol: DBMS 7.0.7
+- Exasol: DBMS 7.0.7 / JDBC 7.0.7
 
 - MariaDB Server: JDBC 2.7.1
 
 - Microsoft SQL Server: JDBC 9.2.0.jre15
 
-- MonetDB: DBMS Oct2020-SP2
+- MonetDB: DBMS Oct2020-SP3 / JDBC 3.0.jre8
 
 - Oracle Database: JDBC 21.1.0.0
 
-- PostgreSQL Database: DBMS 13.2
+- PostgreSQL Database: DBMS 13.2 / JDBC 42.2.19
 
 - Trino Distributed Query Engine: DBMS 352 / JDBC 352
 

@@ -174,7 +174,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CUBRID                          | cubrid             | 10.2                       | 11.0.0.0248         |
 | CrateDB                         | cratedb            | 4.1.6 - 4.4.1              | 2.6.0               |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.7           | 7.0.4               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.7           | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.2.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                      | 2.5.1               | 
@@ -183,11 +183,11 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.8           | 2.7.2               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.0.jre15         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                |
-| MonetDB                         | monetdb            | Oct2020-SP2                | 2.29.jre7           | 
+| MonetDB                         | monetdb            | Oct2020-SP3                | 3.0.jre8           | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.23            | 8.0.23              | 
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.23              | 
-| PostgreSQL Database             | postgresql         | 12.3 - 13.2                | 42.2.18             |
+| PostgreSQL Database             | postgresql         | 12.3 - 13.2                | 42.2.19             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | Trino Distributed Query Engine  | n/a                | 339 - 352                  | 352                 |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
@@ -827,7 +827,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 7.0.4
+  - version 7.0.7
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
@@ -1199,7 +1199,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull monetdb/monetdb:Oct2020-SP2`
+  - pull command: `docker pull monetdb/monetdb:Oct2020-SP3`
   - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1207,7 +1207,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Bugzilla](https://www.monetdb.org/bugzilla/)
 
 - **JDBC driver (latest)**:
-  - version 2.29
+  - version 3.0.jre8
   - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java/)
 
 - **privileged database access**:
@@ -1366,7 +1366,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [pgsql-bugs](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
-  - version 42.2.18
+  - version 42.2.19
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)

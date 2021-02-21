@@ -328,6 +328,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_USER_SYS=monetdb
     export DB_SEEDER_VERSION=Jun2020-SP1
     export DB_SEEDER_VERSION=Oct2020-SP2
+    export DB_SEEDER_VERSION=Oct2020-SP3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
