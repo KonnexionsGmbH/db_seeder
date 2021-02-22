@@ -50,7 +50,7 @@ export VERSION_AUTOCONF=2.71
 export VERSION_AUTOMAKE=1.16.3
 export VERSION_CMAKE=3.19.5
 export VERSION_CURL=7.75.0
-export VERSION_DOCKER_COMPOSE=1.28.2
+export VERSION_DOCKER_COMPOSE=1.28.4
 export VERSION_DOS2UNIX=7.4.2
 export VERSION_ECLIPSE_1=2020-12
 export VERSION_ECLIPSE_2=R
@@ -68,11 +68,11 @@ export VERSION_NODEJS=14.15.5
 export VERSION_OPENSSL=1_1_1j
 export VERSION_ORACLE_INSTANT_CLIENT_1=21
 export VERSION_ORACLE_INSTANT_CLIENT_2=1
-export VERSION_PYTHON=3.9.1
+export VERSION_PYTHON=3.9.2
 export VERSION_REBAR=3.14.3
 export VERSION_RUST=1.50.0
 export VERSION_TMUX=3.1c
-export VERSION_VIM=8.2.2501
+export VERSION_VIM=8.2.2541
 export VERSION_WGET=1.21.1
 export VERSION_YARN=1.22.10
 
@@ -209,40 +209,46 @@ eval echo 'export LANGUAGE=${LOCALE}' >> ~/.bashrc
 eval echo 'export LC_ALL=${LOCALE}' >> ~/.bashrc
 
 # from asdf ------------------------------------------------------------------------------
-export PATH_ADD_ON="/usr/.asdf/bin:/usr/.asdf/shims:${PATH_ADD_ON}"
+export PATH_ADD_ON=~/.asdf/bin:~/.asdf/shims:${PATH_ADD_ON}
 
 # from dos2unix --------------------------------------------------------------------------
-export PATH_ADD_ON="/root/dos2unix/bin:${PATH_ADD_ON}"
+# wwe export PATH_ADD_ON=/root/dos2unix/bin:${PATH_ADD_ON}
 
 # from Eclipse ---------------------------------------------------------------------------
-export PATH_ADD_ON="${HOME_ECLIPSE}/bin:${PATH_ADD_ON}"
+export PATH_ADD_ON=${HOME_ECLIPSE}/bin:${PATH_ADD_ON}
 
 # from Go --------------------------------------------------------------------------------
-export GOROOT="/usr/.asdf/installs/golang/${VERSION_GO}/go"
-export PATH_ADD_ON="${GOROOT}/bin:${PATH_ADD_ON}"
+export GOROOT=~/.asdf/installs/golang/${VERSION_GO}/go
+eval echo 'export GOROOT=~/.asdf/installs/golang/${VERSION_GO}/go' >> ~/.bashrc
+export PATH_ADD_ON=${GOROOT}/bin:${PATH_ADD_ON}
 
 # from Gradle ----------------------------------------------------------------------------
-export GRADLE_HOME="/opt/gradle/gradle-${VERSION_GRADLE}"
-export PATH_ADD_ON="${GRADLE_HOME}/bin:${PATH_ADD_ON}"
+export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}
+eval echo 'export GRADLE_HOME=/opt/gradle/gradle-${VERSION_GRADLE}'
+export PATH_ADD_ON=${GRADLE_HOME}/bin:${PATH_ADD_ON}
 
 # from Java SE Development Kit ------------------------------------------------------------
-export JAVA_HOME="/usr/.asdf/installs/java/${VERSION_JAVA}"
-export PATH_ADD_ON="${JAVA_HOME}/bin:${PATH_ADD_ON}"
+export JAVA_HOME=~/.asdf/installs/java/${VERSION_JAVA}
+eval echo 'export JAVA_HOME=~/.asdf/installs/java/${VERSION_JAVA}' >> ~/.bashrc
+export PATH_ADD_ON=${JAVA_HOME}/bin:${PATH_ADD_ON}
 
 # from Kotlin ----------------------------------------------------------------------------
-export KOTLIN_HOME="/usr/.asdf/installs/kotlin/${VERSION_KOTLIN}"
-export PATH_ADD_ON="${KOTLIN_HOME}/bin:${PATH_ADD_ON}"
+export KOTLIN_HOME=~/.asdf/installs/kotlin/${VERSION_KOTLIN}
+eval echo 'export KOTLIN_HOME=~/.asdf/installs/kotlin/${VERSION_KOTLIN}' >> ~/.bashrc
+export PATH_ADD_ON=${KOTLIN_HOME}/bin:${PATH_ADD_ON}
 
 # from Node ------------------------------------------------------------------------------
-export PATH_ADD_ON="/usr/local/lib/nodejs/bin":${PATH_ADD_ON}
+export PATH_ADD_ON=/usr/local/lib/nodejs/bin:${PATH_ADD_ON}
 
 # from Oracle Instant Client -------------------------------------------------------------
 export ORACLE_HOME=/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64
-export LD_LIBRARY_PATH="${ORACLE_HOME}/lib:${LD_LIBRARY_PATH}"
-    PATH_ADD_ON="${ORACLE_HOME}:${PATH_ADD_ON}"
+eval echo 'export ORACLE_HOME=/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64' >> ~/.bashrc
+export LD_LIBRARY_PATH=${ORACLE_HOME}/lib:${LD_LIBRARY_PATH}
+eval echo 'export LD_LIBRARY_PATH=${ORACLE_HOME}/lib:${LD_LIBRARY_PATH}' >> ~/.bashrc
+export PATH_ADD_ON=${ORACLE_HOME}:${PATH_ADD_ON}
 
 # from Rust ------------------------------------------------------------------------------
-export PATH_ADD_ON="/root/.cargo/bin:${PATH_ADD_ON}"
+export PATH_ADD_ON=${HOME}/.cargo/bin:${PATH_ADD_ON}
 
 echo "--------------------------------------------------------------------------------"
 echo "Step: Setting up the environment: 2. Initializing the interactive shell session"
@@ -252,15 +258,15 @@ echo 'alias python=python3' >> ~/.bashrc
 echo 'alias vi=vim' >> ~/.bashrc
 # from Stefans privater bash Erweiterung ------------------------------------------------
 echo '' >> ~/.bashrc
-echo '. ~/kxn_dev/.bashrc.stefan' >> ~/.bashrc
+eval echo '. ~/kxn_dev/.bashrc.stefan' >> ~/.bashrc
 # PATH variable -------------------------------------------------------------------------
 echo '' >> ~/.bashrc
 eval echo 'export PATH=${PATH_ORIG}:${PATH_ADD_ON}' >> ~/.bashrc
 eval echo 'export PATH_ORIG=${PATH_ORIG}' >> ~/.bashrc
 # from asdf -----------------------------------------------------------------------------
 echo '' >> ~/.bashrc
-echo '. /usr/.asdf/asdf.sh' >> ~/.bashrc
-echo '. /usr/.asdf/completions/asdf.bash' >> ~/.bashrc
+eval echo '. ~/.asdf/asdf.sh' >> ~/.bashrc
+eval echo '. ~/.asdf/completions/asdf.bash' >> ~/.bashrc
 if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     # from Docker Desktop -------------------------------------------------------------------
     echo '' >> ~/.bashrc
@@ -489,10 +495,10 @@ sudo apt-get install -qy coreutils \
                          libyaml-dev \
                          unixodbc \
                          unzip
-sudo rm -rf /usr/.asdf
-sudo git clone https://github.com/asdf-vm/asdf.git /usr/.asdf
-cd /usr/.asdf
-sudo git checkout "$(git describe --abbrev=0 --tags)"
+sudo rm -rf ~/.asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+cd ~/.asdf
+git checkout "$(git describe --abbrev=0 --tags)"
 cd ~/
 echo "================================================================================"
 

@@ -8,6 +8,7 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
+export PWD_PREVIOUS=${PWD}
 cd ~/
 
 echo ""
@@ -39,7 +40,51 @@ echo "Step: Install asdf - part 2"
 echo "--------------------------------------------------------------------------------"
 echo "Current asdf version is: $(asdf --version)"
 echo "================================================================================"
-rm -rf ~/.asdf
+sudo rm -rf ~/.asdf/downloads/cmake
+sudo rm -rf ~/.asdf/downloads/elixir
+sudo rm -rf ~/.asdf/downloads/erlang
+sudo rm -rf ~/.asdf/downloads/golang
+sudo rm -rf ~/.asdf/downloads/gradle
+sudo rm -rf ~/.asdf/downloads/java
+sudo rm -rf ~/.asdf/downloads/kotlin
+sudo rm -rf ~/.asdf/downloads/nodejs
+sudo rm -rf ~/.asdf/downloads/python
+sudo rm -rf ~/.asdf/downloads/rebar
+sudo rm -rf ~/.asdf/downloads/rust
+sudo rm -rf ~/.asdf/downloads/tmux
+sudo rm -rf ~/.asdf/downloads/vim
+sudo rm -rf ~/.asdf/downloads/yarn
+
+sudo rm -rf ~/.asdf/installs/cmake
+sudo rm -rf ~/.asdf/installs/elixir
+sudo rm -rf ~/.asdf/installs/erlang
+sudo rm -rf ~/.asdf/installs/golang
+sudo rm -rf ~/.asdf/installs/gradle
+sudo rm -rf ~/.asdf/installs/java
+sudo rm -rf ~/.asdf/installs/kotlin
+sudo rm -rf ~/.asdf/installs/nodejs
+sudo rm -rf ~/.asdf/installs/python
+sudo rm -rf ~/.asdf/installs/rebar
+sudo rm -rf ~/.asdf/installs/rust
+sudo rm -rf ~/.asdf/installs/tmux
+sudo rm -rf ~/.asdf/installs/vim
+sudo rm -rf ~/.asdf/installs/yarn
+
+sudo rm -rf ~/.asdf/plugins/cmake
+sudo rm -rf ~/.asdf/plugins/elixir
+sudo rm -rf ~/.asdf/plugins/erlang
+sudo rm -rf ~/.asdf/plugins/golang
+sudo rm -rf ~/.asdf/plugins/gradle
+sudo rm -rf ~/.asdf/plugins/java
+sudo rm -rf ~/.asdf/plugins/kotlin
+sudo rm -rf ~/.asdf/plugins/nodejs
+sudo rm -rf ~/.asdf/plugins/python
+sudo rm -rf ~/.asdf/plugins/rebar
+sudo rm -rf ~/.asdf/plugins/rust
+sudo rm -rf ~/.asdf/plugins/tmux
+sudo rm -rf ~/.asdf/plugins/vim
+sudo rm -rf ~/.asdf/plugins/yarn
+
 touch ~/.tool-versions
 # echo "================================================================================"
 # asdf plugin list all
@@ -236,6 +281,19 @@ echo "Current pip version is: $(pip --version)"
 echo "================================================================================"
 
 echo "--------------------------------------------------------------------------------"
+echo "Install Rust - Version ${VERSION_RUST}"
+echo "--------------------------------------------------------------------------------"
+asdf plugin add rust
+# asdf list all rust
+# asdf install rust ${VERSION_RUST}
+# asdf global rust ${VERSION_RUST}
+echo "================================================================================"
+# ls -ll ~/.asdf/installs/rust
+echo "================================================================================"
+# rustc --version
+echo "================================================================================"
+
+echo "--------------------------------------------------------------------------------"
 echo "Step: Install Rust - Version ${VERSION_RUST}"
 echo "--------------------------------------------------------------------------------"
 sudo curl -sSL https://sh.rustup.rs -sSf | sh -s -- -y
@@ -298,8 +356,9 @@ echo "==========================================================================
 ls -ll /
 echo "================================================================================"
 
+cd ${PWD_PREVIOUS}
 sudo mkdir -p /usr/opt/dderl
-sudo cp -r dderl/* /usr/opt/dderl/
+sudo cp -r dderl /usr/opt/dderl
 
 echo "=====================================================================> Current Date: "
 date
