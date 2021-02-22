@@ -127,8 +127,6 @@
     rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master.out': Permission denied
     rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/yugabyted.log': Permission denied
 
-
-
 ## 2. Version History
 
 ### 2.7.1
