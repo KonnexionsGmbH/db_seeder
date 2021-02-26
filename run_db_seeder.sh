@@ -300,6 +300,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.5.5
     export DB_SEEDER_VERSION=10.5.6
     export DB_SEEDER_VERSION=10.5.8
+    export DB_SEEDER_VERSION=10.5.9
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -510,6 +511,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.5.0.0-b2
     export DB_SEEDER_VERSION=2.5.1.0-b132
     export DB_SEEDER_VERSION=2.5.1.0-b153
+    export DB_SEEDER_VERSION=2.5.2.0-b104
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then

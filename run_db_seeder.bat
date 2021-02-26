@@ -299,6 +299,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.5
     set DB_SEEDER_VERSION=10.5.6
     set DB_SEEDER_VERSION=10.5.8
+    set DB_SEEDER_VERSION=10.5.9
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -509,6 +510,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.5.0.0-b2
     set DB_SEEDER_VERSION=2.5.1.0-b132
     set DB_SEEDER_VERSION=2.5.1.0-b153
+    set DB_SEEDER_VERSION=2.5.2.0-b104
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (

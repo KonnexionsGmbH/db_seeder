@@ -56,77 +56,6 @@
     
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
-### 1.4 YugabyteDB
-
-- Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
-
-    2021-01-13 19:47:01,235 [DatabaseSeeder.java] INFO  Start
-    2021-01-13 19:47:01,241 [DatabaseSeeder.java] INFO  tickerSymbolExtern='yugabyte'
-    2021-01-13 19:47:01,241 [DatabaseSeeder.java] INFO  Start YugabyteDB
-    SLF4J: Class path contains multiple SLF4J bindings.
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-    Jan. 13, 2021 7:47:03 PM org.postgresql.core.v3.ConnectionFactoryImpl log
-    WARNING: ConnectException occurred while connecting to localhost:5433
-    java.net.ConnectException: Connection refused: no further information
-            at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-            at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:660)
-            at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:549)
-            at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:597)
-            at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:333)
-            at java.base/java.net.Socket.connect(Socket.java:648)
-            at org.postgresql.core.PGStream.<init>(PGStream.java:69)
-            at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:156)
-            at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-            at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-            at org.postgresql.Driver.makeConnection(Driver.java:452)
-            at org.postgresql.Driver.connect(Driver.java:254)
-            at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
-            at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:246)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:152)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.setupPostgresql(AbstractJdbcSeeder.java:1597)
-            at ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder.setupDatabase(YugabyteSeeder.java:97)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:229)
-
-
-    Docker create db_seeder_db (YugabyteDB 2.5.1.0-b153)
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/conf/yugabyted.conf': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/master-info': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/consensus-meta/00000000000000000000000000000000': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/000003.log': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/CURRENT': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/IDENTITY': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/LOCK': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/MANIFEST-000001': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/OPTIONS-000005': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/000003.log': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/CURRENT': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/IDENTITY': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/LOCK': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/MANIFEST-000001': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/OPTIONS-000005': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.snapshots': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/instance': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.ERROR.20210113-184632.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.FATAL.20210113-184632.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.INFO.20210113-184631.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.WARNING.20210113-184631.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.ERROR': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.FATAL': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.FATAL.details.2021-01-13T18_46_32.pid18.txt': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.INFO': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.WARNING': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/tablet-meta/00000000000000000000000000000000': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/wals/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/wal-000000001': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master.err': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master.out': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/yugabyted.log': Permission denied
-
 ## 2. Version History
 
 ### 2.7.1
@@ -153,7 +82,7 @@ n/a
 
 - Exasol: DBMS 7.0.7 / JDBC 7.0.7
 
-- MariaDB Server: JDBC 2.7.1
+- MariaDB Server: DBMS 10.5.9 / JDBC 2.7.1
 
 - Microsoft SQL Server: JDBC 9.2.0.jre15
 
@@ -164,6 +93,8 @@ n/a
 - PostgreSQL Database: DBMS 13.2 / JDBC 42.2.19
 
 - Trino Distributed Query Engine: DBMS 352 / JDBC 352
+
+- YugabyteDB: DBMS 2.5.2.0-b104
 
 #### Deleted Features
 

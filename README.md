@@ -180,7 +180,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1                      | 2.5.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.0        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.8           | 2.7.2               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.9           | 2.7.2               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.0.jre15         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                |
 | MonetDB                         | monetdb            | Oct2020-SP3                | 3.0.jre8           | 
@@ -191,7 +191,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | Trino Distributed Query Engine  | n/a                | 339 - 352                  | 352                 |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.1.0-b153 | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.5.2.0-b104 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -1075,7 +1075,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.5.8`
+  - pull command: `docker pull mariadb:10.5.9`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1501,7 +1501,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.5.1.0-b153`
+  - pull command: `docker pull yugabytedb/yugabyte:2.5.2.0-b104`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: see PostgreSQL Database
