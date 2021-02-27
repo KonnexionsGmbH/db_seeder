@@ -1,0 +1,29 @@
+ticker symbol	DBMS	db type	runtime in ms	start time	end time	host name	no. cores	operating system
+agens	AgensGraph	client	3061	2021-02-27 09:25:20.541530100	2021-02-27 09:25:23.602979400	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+cratedb	CrateDB	client	3620	2021-02-27 09:26:05.854638100	2021-02-27 09:26:09.475060800	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+cubrid	CUBRID	client	4499	2021-02-27 09:26:42.039047300	2021-02-27 09:26:46.538220700	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+derby	Apache Derby	client	13636	2021-02-27 09:27:28.967901900	2021-02-27 09:27:42.604156100	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+derby_emb	Apache Derby	embedded	16180	2021-02-27 09:27:44.137114700	2021-02-27 09:28:00.317963400	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+exasol	Exasol	client	2737	2021-02-27 09:30:03.355436100	2021-02-27 09:30:06.093203500	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+firebird	Firebird	client	87642	2021-02-27 09:30:53.955998500	2021-02-27 09:32:21.598955600	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+h2	H2 Database Engine	client	4366	2021-02-27 09:32:53.974188100	2021-02-27 09:32:58.340801800	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+h2_emb	H2 Database Engine	embedded	1375	2021-02-27 09:32:59.885825100	2021-02-27 09:33:01.261009900	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+hsqldb	HyperSQL Database	client	18239	2021-02-27 09:33:34.092499500	2021-02-27 09:33:52.332382400	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+hsqldb_emb	HyperSQL Database	embedded	23084	2021-02-27 09:33:53.871842000	2021-02-27 09:34:16.956244000	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+ibmdb2	IBM Db2 Database	client	25311	2021-02-27 09:39:20.067555200	2021-02-27 09:39:45.378809100	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+informix	IBM Informix	client	12629	2021-02-27 09:43:44.482753100	2021-02-27 09:43:57.112289000	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+mariadb	MariaDB Server	client	2712	2021-02-27 09:44:39.519597700	2021-02-27 09:44:42.231644700	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+mimer	Mimer SQL	client	303845	2021-02-27 09:45:14.811073000	2021-02-27 09:50:18.657017400	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+monetdb	MonetDB	client	31105	2021-02-27 09:50:26.131472000	2021-02-27 09:50:57.236794400	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+mysql	MySQL Database	client	4792	2021-02-27 09:52:00.809307600	2021-02-27 09:52:05.602306800	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+mysql_trino	MySQL Database	trino	1323528	2021-02-27 09:53:42.320636500	2021-02-27 10:15:45.849393600	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+oracle	Oracle Database	client	10621	2021-02-27 10:17:50.153202600	2021-02-27 10:18:00.774521900	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+oracle_trino	Oracle Database	trino	1806578	2021-02-27 10:20:47.155073700	2021-02-27 10:50:53.733223900	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+percona	Percona Server for MySQL	client	4671	2021-02-27 10:52:08.983149000	2021-02-27 10:52:13.654944800	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+postgresql	PostgreSQL Database	client	2543	2021-02-27 10:52:47.807502600	2021-02-27 10:52:50.350662700	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+postgresql_trino	PostgreSQL Database	trino	743428	2021-02-27 10:53:53.917474800	2021-02-27 11:06:17.346387500	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+sqlite	SQLite	embedded	822	2021-02-27 11:06:18.966306600	2021-02-27 11:06:19.788731400	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+sqlserver	MS SQL Server	client	3404	2021-02-27 11:06:54.628641900	2021-02-27 11:06:58.033506700	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+sqlserver_trino	MS SQL Server	trino	1509312	2021-02-27 11:08:07.285596700	2021-02-27 11:33:16.597765800	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+voltdb	VoltDB	client	10806	2021-02-27 11:33:39.616812900	2021-02-27 11:33:50.423221300	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
+yugabyte	YugabyteDB	client	15586	2021-02-27 11:34:23.838689800	2021-02-27 11:34:39.425561800	jfww-win-dt-21	32	amd64 / Linux / 4.19.128-microsoft-standard
