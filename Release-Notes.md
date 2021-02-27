@@ -15,7 +15,51 @@
 
 - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-### 1.3 Trino Distributed Query Engine
+### 1.3 Oracle & Ubuntu
+
+- java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==).
+
+    2021-02-27 12:28:21,064 [DatabaseSeeder.java] INFO  Start
+    2021-02-27 12:28:21,071 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle'
+    2021-02-27 12:28:21,071 [DatabaseSeeder.java] INFO  Start Oracle Database
+    SLF4J: Class path contains multiple SLF4J bindings.
+    SLF4J: Found binding in [jar:file:/home/walter/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/home/walter/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: Actual binding is of type [org.slf4j.impl.SimpleLoggerFactory]
+    java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==)
+    at oracle.jdbc.driver.T4CConnection.handleLogonNetException(T4CConnection.java:874)
+    at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:679)
+    at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:1069)
+    at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:90)
+    at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:681)
+    at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:602)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:251)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:200)
+    at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:115)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:175)
+    Caused by: oracle.net.ns.NetException: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==)
+    at oracle.net.ns.NSProtocolNIO.doSocketRead(NSProtocolNIO.java:1121)
+    at oracle.net.ns.NIOPacket.readHeader(NIOPacket.java:267)
+    at oracle.net.ns.NIOPacket.readPacketFromSocketChannel(NIOPacket.java:199)
+    at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:141)
+    at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:114)
+    at oracle.net.ns.NIONSDataChannel.readDataFromSocketChannel(NIONSDataChannel.java:98)
+    at oracle.net.ano.AnoCommNIO.p(Unknown Source)
+    at oracle.net.ano.AnoCommNIO.e(Unknown Source)
+    at oracle.net.ano.AnoComm.readUB4(Unknown Source)
+    at oracle.net.ano.Ano.c(Unknown Source)
+    at oracle.net.ano.Ano.negotiation(Unknown Source)
+    at oracle.net.ns.NSProtocol.initializeAno(NSProtocol.java:613)
+    at oracle.net.ns.NSProtocol.connect(NSProtocol.java:355)
+    at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:2147)
+    at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:644)
+    ... 11 more
+
+### 1.4 Trino Distributed Query Engine
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
