@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a VoltDB DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.7.0
+ * @version 2.7.1
  */
 public abstract class AbstractGenVoltdbSchema extends AbstractGenSeeder {
 

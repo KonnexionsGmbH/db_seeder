@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.7.0
+set DB_SEEDER_RELEASE=2.7.1
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=351
+set DB_SEEDER_VERSION_TRINO=352
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -144,6 +144,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.3.2
     set DB_SEEDER_VERSION=4.3.3
     set DB_SEEDER_VERSION=4.3.4
+    set DB_SEEDER_VERSION=4.4.0
+    set DB_SEEDER_VERSION=4.4.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -192,6 +194,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.4
     set DB_SEEDER_VERSION=7.0.5
     set DB_SEEDER_VERSION=7.0.6
+    set DB_SEEDER_VERSION=7.0.7
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -296,6 +299,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.5
     set DB_SEEDER_VERSION=10.5.6
     set DB_SEEDER_VERSION=10.5.8
+    set DB_SEEDER_VERSION=10.5.9
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -323,6 +327,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=monetdb
     set DB_SEEDER_VERSION=Jun2020-SP1
+    set DB_SEEDER_VERSION=Oct2020-SP2
+    set DB_SEEDER_VERSION=Oct2020-SP3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
@@ -375,6 +381,10 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle_trino"] (
+    rem Bug in Trino
+    if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["2"] (
+        set DB_SEEDER_NO_CREATE_RUNS=1
+    )
     set DB_SEEDER_CONNECTION_PORT=1521
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
@@ -417,6 +427,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=12.4-alpine
     set DB_SEEDER_VERSION=13-alpine
     set DB_SEEDER_VERSION=13.1-alpine
+    set DB_SEEDER_VERSION=13.2-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
@@ -434,6 +445,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=12.4-alpine
     set DB_SEEDER_VERSION=13-alpine
     set DB_SEEDER_VERSION=13.1-alpine
+    set DB_SEEDER_VERSION=13.2-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
@@ -498,6 +510,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.5.0.0-b2
     set DB_SEEDER_VERSION=2.5.1.0-b132
     set DB_SEEDER_VERSION=2.5.1.0-b153
+    set DB_SEEDER_VERSION=2.5.2.0-b104
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
@@ -565,11 +578,15 @@ echo:| TIME
 echo ================================================================================
 
 docker login -u "%DOCKER_USERNAME%" -p "%DOCKER_PASSWORD%"
+if %ERRORLEVEL% NEQ 0 (
+    echo Processing of docker login was aborted, error code=%ERRORLEVEL%
+    exit %ERRORLEVEL%
+)
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
     call scripts\run_db_seeder_complete %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        echo Processing of the script run_db_seeder_complete was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
     
@@ -579,7 +596,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
     call scripts\run_db_seeder_complete_client %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        echo Processing of the script run_db_seeder_complete_client was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
 
@@ -589,7 +606,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
     call scripts\run_db_seeder_complete_emb %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        echo Processing of the script run_db_seeder_complete_emb was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
     
@@ -599,7 +616,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_trino"] (
     call scripts\run_db_seeder_complete_trino %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
-        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        echo Processing of the script run_db_seeder_complete_trino was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
     
@@ -610,20 +627,20 @@ if ["%DB_SEEDER_DBMS_TRINO%"] EQU ["yes"] (
     if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
         call scripts\run_db_seeder_trino_environment complete
         if %ERRORLEVEL% NEQ 0 (
-            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            echo Processing of the script run_db_seeder_trino_environment was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
         call scripts\run_db_seeder_setup_trino
         if %ERRORLEVEL% NEQ 0 (
-            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            echo Processing of the script run_db_seeder_setup_trino was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
-    )    
+    )
 )    
 
 call scripts\run_db_seeder_single %DB_SEEDER_DBMS%
 if %ERRORLEVEL% NEQ 0 (
-    echo Processing of the script was aborted, error code=%ERRORLEVEL%
+    echo Processing of the script run_db_seeder_single was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 

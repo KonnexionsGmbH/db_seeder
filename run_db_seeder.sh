@@ -10,14 +10,14 @@ set -e
 # ------------------------------------------------------------------------------
 
 mkdir -p $PWD/tmp
-sudo rm -rf $PWD/tmp/*
+rm -rf $PWD/tmp/* || sudo rm -rf $PWD/tmp/*
 
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.7.0
+export DB_SEEDER_RELEASE=2.7.1
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=351
+export DB_SEEDER_VERSION_TRINO=352
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -145,6 +145,8 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.3.2
     export DB_SEEDER_VERSION=4.3.3
     export DB_SEEDER_VERSION=4.3.4
+    export DB_SEEDER_VERSION=4.4.0
+    export DB_SEEDER_VERSION=4.4.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -193,6 +195,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.4
     export DB_SEEDER_VERSION=7.0.5
     export DB_SEEDER_VERSION=7.0.6
+    export DB_SEEDER_VERSION=7.0.7
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -297,6 +300,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.5.5
     export DB_SEEDER_VERSION=10.5.6
     export DB_SEEDER_VERSION=10.5.8
+    export DB_SEEDER_VERSION=10.5.9
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -324,6 +328,8 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=monetdb
     export DB_SEEDER_VERSION=Jun2020-SP1
+    export DB_SEEDER_VERSION=Oct2020-SP2
+    export DB_SEEDER_VERSION=Oct2020-SP3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
@@ -373,10 +379,13 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
-    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
+    # Bug in Trino
+    if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
+        export DB_SEEDER_NO_CREATE_RUNS=1
+    fi
     export DB_SEEDER_CONNECTION_PORT=1521
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
@@ -389,7 +398,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
-    export DB_SEEDER_VERSION=db_18_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
@@ -420,6 +428,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_VERSION=12.4-alpine
     export DB_SEEDER_VERSION=13-alpine
     export DB_SEEDER_VERSION=13.1-alpine
+    export DB_SEEDER_VERSION=13.2-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
@@ -437,6 +446,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_VERSION=12.4-alpine
     export DB_SEEDER_VERSION=13-alpine
     export DB_SEEDER_VERSION=13.1-alpine
+    export DB_SEEDER_VERSION=13.2-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
@@ -501,6 +511,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.5.0.0-b2
     export DB_SEEDER_VERSION=2.5.1.0-b132
     export DB_SEEDER_VERSION=2.5.1.0-b153
+    export DB_SEEDER_VERSION=2.5.2.0-b104
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
@@ -563,30 +574,32 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-docker login -u "${DOCKER_USERNAME}" -p "$DOCKER_PASSWORD"
+if ! ( docker login -u "${DOCKER_USERNAME}" -p "$DOCKER_PASSWORD" ); then
+    exit 255
+fi
 
 if [ "${DB_SEEDER_DBMS}" = "complete" ]; then
-    if ! ( ./scripts/run_db_seeder_complete.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+    if ! ( ./scripts/run_db_seeder_complete.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then
         exit 255
     fi
 elif [ "${DB_SEEDER_DBMS}" = "complete_client" ]; then
-    if ! ( ./scripts/run_db_seeder_complete_client.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+    if ! ( ./scripts/run_db_seeder_complete_client.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then
         exit 255
     fi    
 elif [ "${DB_SEEDER_DBMS}" = "complete_client_1" ]; then
-    if ! ( ./scripts/run_db_seeder_complete_client_1.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+    if ! ( ./scripts/run_db_seeder_complete_client_1.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then
         exit 255
     fi    
 elif [ "${DB_SEEDER_DBMS}" = "complete_client_2" ]; then
-    if ! ( ./scripts/run_db_seeder_complete_client_2.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+    if ! ( ./scripts/run_db_seeder_complete_client_2.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then
         exit 255
     fi    
 elif [ "${DB_SEEDER_DBMS}" = "complete_emb" ]; then
-    if ! ( ./scripts/run_db_seeder_complete_emb.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+    if ! ( ./scripts/run_db_seeder_complete_emb.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then
         exit 255
     fi    
 elif [ "${DB_SEEDER_DBMS}" = "complete_trino" ]; then
-    if ! ( ./scripts/run_db_seeder_complete_trino.sh ${DB_SEEDER_NO_CREATE_RUNS}); then
+    if ! ( ./scripts/run_db_seeder_complete_trino.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then
         exit 255
     fi    
 else

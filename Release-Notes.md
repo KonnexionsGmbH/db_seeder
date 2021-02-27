@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.1.svg)
 
 ## 1. Current Issues
 
@@ -11,88 +11,58 @@
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
-### 1.2 Exasol
-
-- JDBC Driver: java.sql.SQLException: Invalid character in connection string (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-java-sql-sqlexception-invalid-character-in/td-p/2224)).
-    
-- Ubuntu 20.10: com.exasol.jdbc.ConnectFailed: Connection reset (see [here](https://community.exasol.com/t5/discussion-forum/ubuntu-20-10-com-exasol-jdbc-connectfailed-connection-reset/td-p/2362))
-    
-### 1.3 Mimer SQL & DBeaver
+### 1.2 Mimer SQL & DBeaver
 
 - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-### 1.4 Oracle Database
+### 1.3 Oracle & Ubuntu
 
-- Database 19c: ORA-12637: Packet receive failed (see [here](https://github.com/KonnexionsGmbH/db_seeder/issues/87)).
+- java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==).
 
-### 1.5 Trino Distributed Query Engine
+    2021-02-27 12:28:21,064 [DatabaseSeeder.java] INFO  Start
+    2021-02-27 12:28:21,071 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle'
+    2021-02-27 12:28:21,071 [DatabaseSeeder.java] INFO  Start Oracle Database
+    SLF4J: Class path contains multiple SLF4J bindings.
+    SLF4J: Found binding in [jar:file:/home/walter/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/home/walter/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: Actual binding is of type [org.slf4j.impl.SimpleLoggerFactory]
+    java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==)
+    at oracle.jdbc.driver.T4CConnection.handleLogonNetException(T4CConnection.java:874)
+    at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:679)
+    at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:1069)
+    at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:90)
+    at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:681)
+    at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:602)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:251)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:200)
+    at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:115)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:175)
+    Caused by: oracle.net.ns.NetException: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==)
+    at oracle.net.ns.NSProtocolNIO.doSocketRead(NSProtocolNIO.java:1121)
+    at oracle.net.ns.NIOPacket.readHeader(NIOPacket.java:267)
+    at oracle.net.ns.NIOPacket.readPacketFromSocketChannel(NIOPacket.java:199)
+    at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:141)
+    at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:114)
+    at oracle.net.ns.NIONSDataChannel.readDataFromSocketChannel(NIONSDataChannel.java:98)
+    at oracle.net.ano.AnoCommNIO.p(Unknown Source)
+    at oracle.net.ano.AnoCommNIO.e(Unknown Source)
+    at oracle.net.ano.AnoComm.readUB4(Unknown Source)
+    at oracle.net.ano.Ano.c(Unknown Source)
+    at oracle.net.ano.Ano.negotiation(Unknown Source)
+    at oracle.net.ns.NSProtocol.initializeAno(NSProtocol.java:613)
+    at oracle.net.ns.NSProtocol.connect(NSProtocol.java:355)
+    at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:2147)
+    at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:644)
+    ... 11 more
+
+### 1.4 Trino Distributed Query Engine
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
-- Microsoft SQL Connector: SQL Server "Expected zero to one elements, but found multiple" (see [here](https://github.com/trinodb/trino/issues/6464)).
-
-    2021-01-13 19:42:51,763 [DatabaseSeeder.java] INFO  Start
-    2021-01-13 19:42:51,769 [DatabaseSeeder.java] INFO  tickerSymbolExtern='sqlserver_trino'
-    2021-01-13 19:42:51,769 [DatabaseSeeder.java] INFO  Start Microsoft SQL Server via Trino
-    SLF4J: Class path contains multiple SLF4J bindings.
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-    java.sql.SQLException: Query failed (#20210113_184254_00000_jve99): Expected zero to one elements, but found multiple
-            at io.trino.jdbc.AbstractTrinoResultSet.resultsException(AbstractTrinoResultSet.java:1912)
-            at io.trino.jdbc.TrinoResultSet.getColumns(TrinoResultSet.java:242)
-            at io.trino.jdbc.TrinoResultSet.create(TrinoResultSet.java:53)
-            at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:249)
-            at io.trino.jdbc.TrinoStatement.execute(TrinoStatement.java:227)
-            at io.trino.jdbc.TrinoStatement.executeQuery(TrinoStatement.java:76)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.countData(AbstractJdbcSeeder.java:289)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:364)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:331)
-            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:217)
-    Caused by: java.lang.IllegalStateException: Expected zero to one elements, but found multiple
-            at org.jdbi.v3.core.result.ResultIterable.findOne(ResultIterable.java:163)
-            at io.trino.plugin.sqlserver.SqlServerClient.getTableDataCompression(SqlServerClient.java:437)
-            at io.trino.plugin.sqlserver.SqlServerClient.getTableProperties(SqlServerClient.java:378)
-            at io.trino.plugin.jdbc.ForwardingJdbcClient.getTableProperties(ForwardingJdbcClient.java:288)
-            at io.trino.plugin.jdbc.jmx.StatisticsAwareJdbcClient.getTableProperties(StatisticsAwareJdbcClient.java:305)
-            at io.trino.plugin.jdbc.CachingJdbcClient.getTableProperties(CachingJdbcClient.java:365)
-            at io.trino.plugin.jdbc.CachingJdbcClient.getTableProperties(CachingJdbcClient.java:365)
-            at io.trino.plugin.jdbc.JdbcMetadata.getTableMetadata(JdbcMetadata.java:344)
-            at io.trino.metadata.MetadataManager.getTableMetadata(MetadataManager.java:508)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitTable(StatementAnalyzer.java:1231)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitTable(StatementAnalyzer.java:329)
-            at io.trino.sql.tree.Table.accept(Table.java:53)
-            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.analyzeFrom(StatementAnalyzer.java:2529)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuerySpecification(StatementAnalyzer.java:1553)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuerySpecification(StatementAnalyzer.java:329)
-            at io.trino.sql.tree.QuerySpecification.accept(QuerySpecification.java:144)
-            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:356)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuery(StatementAnalyzer.java:1061)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.visitQuery(StatementAnalyzer.java:329)
-            at io.trino.sql.tree.Query.accept(Query.java:107)
-            at io.trino.sql.tree.AstVisitor.process(AstVisitor.java:27)
-            at io.trino.sql.analyzer.StatementAnalyzer$Visitor.process(StatementAnalyzer.java:346)
-            at io.trino.sql.analyzer.StatementAnalyzer.analyze(StatementAnalyzer.java:315)
-            at io.trino.sql.analyzer.Analyzer.analyze(Analyzer.java:91)
-            at io.trino.sql.analyzer.Analyzer.analyze(Analyzer.java:83)
-            at io.trino.execution.SqlQueryExecution.analyze(SqlQueryExecution.java:263)
-            at io.trino.execution.SqlQueryExecution.<init>(SqlQueryExecution.java:186)
-            at io.trino.execution.SqlQueryExecution$SqlQueryExecutionFactory.createQueryExecution(SqlQueryExecution.java:768)
-            at io.trino.dispatcher.LocalDispatchQueryFactory.lambda$createDispatchQuery$0(LocalDispatchQueryFactory.java:129)
-            at io.trino.$gen.Trino_351____20210113_184151_2.call(Unknown Source)
-            at com.google.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleTask.runInterruptibly(TrustedListenableFutureTask.java:125)
-            at com.google.common.util.concurrent.InterruptibleTask.run(InterruptibleTask.java:69)
-            at com.google.common.util.concurrent.TrustedListenableFutureTask.run(TrustedListenableFutureTask.java:78)
-            at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-            at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-            at java.base/java.lang.Thread.run(Thread.java:834)
-    Processing of the script was aborted, error code=1
-
 - Oracle Connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
 
     2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
@@ -128,86 +98,57 @@
             ... 16 more
     Processing of the script was aborted, error code=1
     
-  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/4764)).
-
-### 1.6 YugabyteDB
-
-- Windows 10: Creation of Docker Container fails (see [here](https://github.com/yugabyte/yugabyte-db/issues/5497)).
-
-    2021-01-13 19:47:01,235 [DatabaseSeeder.java] INFO  Start
-    2021-01-13 19:47:01,241 [DatabaseSeeder.java] INFO  tickerSymbolExtern='yugabyte'
-    2021-01-13 19:47:01,241 [DatabaseSeeder.java] INFO  Start YugabyteDB
-    SLF4J: Class path contains multiple SLF4J bindings.
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-    Jan. 13, 2021 7:47:03 PM org.postgresql.core.v3.ConnectionFactoryImpl log
-    WARNING: ConnectException occurred while connecting to localhost:5433
-    java.net.ConnectException: Connection refused: no further information
-            at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-            at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:660)
-            at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:549)
-            at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:597)
-            at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:333)
-            at java.base/java.net.Socket.connect(Socket.java:648)
-            at org.postgresql.core.PGStream.<init>(PGStream.java:69)
-            at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:156)
-            at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-            at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-            at org.postgresql.Driver.makeConnection(Driver.java:452)
-            at org.postgresql.Driver.connect(Driver.java:254)
-            at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
-            at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:246)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:152)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.setupPostgresql(AbstractJdbcSeeder.java:1597)
-            at ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder.setupDatabase(YugabyteSeeder.java:97)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:229)
-
-
-    Docker create db_seeder_db (YugabyteDB 2.5.1.0-b153)
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/conf/yugabyted.conf': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/master-info': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/consensus-meta/00000000000000000000000000000000': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/000003.log': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/CURRENT': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/IDENTITY': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/LOCK': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/MANIFEST-000001': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/OPTIONS-000005': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/000003.log': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/CURRENT': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/IDENTITY': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/LOCK': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/MANIFEST-000001': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.intents/OPTIONS-000005': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/data/rocksdb/table-sys.catalog.uuid/tablet-00000000000000000000000000000000.snapshots': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/instance': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.ERROR.20210113-184632.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.FATAL.20210113-184632.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.INFO.20210113-184631.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.b2ff6eb1fb90.root.log.WARNING.20210113-184631.18': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.ERROR': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.FATAL': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.FATAL.details.2021-01-13T18_46_32.pid18.txt': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.INFO': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/logs/yb-master.WARNING': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/tablet-meta/00000000000000000000000000000000': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/data/yb-data/master/wals/table-sys.catalog.uuid/tablet-00000000000000000000000000000000/wal-000000001': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master.err': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/master.out': Permission denied
-    rm: cannot remove '/mnt/d/SoftDevelopment/Projects/db_seeder/tmp/yb_data/logs/yugabyted.log': Permission denied
-
-
+  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
 ## 2. Version History
 
+### 2.7.1
+
+Release Date: xx.02.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- CrateDB: DBMS 4.4.1
+
+- CUBRID: JDBC 11.0.0.0248
+
+- Exasol: DBMS 7.0.7 / JDBC 7.0.7
+
+- MariaDB Server: DBMS 10.5.9 / JDBC 2.7.1
+
+- Microsoft SQL Server: JDBC 9.2.0.jre15
+
+- MonetDB: DBMS Oct2020-SP3 / JDBC 3.0.jre8
+
+- Oracle Database: JDBC 21.1.0.0
+
+- PostgreSQL Database: DBMS 13.2 / JDBC 42.2.19
+
+- Trino Distributed Query Engine: DBMS 352 / JDBC 352
+
+- YugabyteDB: DBMS 2.5.2.0-b104
+
+#### Deleted Features
+
+n/a
+
+----------
+
 ### 2.7.0
 
-Release Date: xx.01.2021
+Release Date: 28.01.2021
 
 #### System Requirements
 
@@ -242,10 +183,6 @@ Rebranding of Presto to Trino
 - Trino Distributed Query Engine: DBMS 351 / JDBC 351
 
 - YugabyteDB: DBMS 2.5.1.0-b153
-
-#### Deleted Features
-
-n/a
 
 ----------
 

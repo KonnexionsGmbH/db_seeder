@@ -63,7 +63,7 @@ public final class TrinoEnvironment {
       entries.add("connection-password=" + password);
     }
 
-    // issue #4764
+    // issue #4764 wwe
     if ("oracle".equals(tickerSymbolLower)) {
       entries.add("oracle.number.default-scale=10");
     }

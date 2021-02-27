@@ -37,7 +37,7 @@ By default, 1000 rows are inserted in the following database table (PostgreSQL v
                                         UNIQUE
     )
 
-The Connector proprties files are located in the directory `resources/docker/presto/catalog`.  If adjustments are necessary, the scripts `scripts/run_db_seeder_presto_environment` and `scripts/run_db_seeder_setup_presto`must be run again. 
+The Connector proprties files are located in the directory `resources/docker/trino/catalog`.  If adjustments are necessary, the scripts `scripts/run_db_seeder_presto_environment` and `scripts/run_db_seeder_setup_presto`must be run again. 
 
 All driver and SQL relevant events are logged at the console.
 

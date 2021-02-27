@@ -21,11 +21,11 @@ echo "==========================================================================
 if [ ! -d "$HOME_DDERL" ]; then
     echo "Create the DDErl repository"
     echo "---------------------------------------------------------"
-    git clone https://walter-weinmann:8c476e183eefb890fab3e3e45c08a33bceb89602@github.com/KonnexionsGmbH/dderl.git
+    git clone https://walter-weinmann:56a0cdaecdcd70a22671509d5513f0bca13eedc7@github.com/KonnexionsGmbH/dderl.git
 
     echo "Create the snapshot directory"
     echo "---------------------------------------------------------"
-    mkdir -p $HOME_DDERL/snapshot
+    mkdir $HOME_DDERL/snapshot
     cp /usr/opt/dderl/backup_snapshot_docker_compose.zip $HOME_DDERL/snapshot
 
     echo "Create the frontend to DDErl"
