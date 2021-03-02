@@ -152,5 +152,8 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
       System.exit(1);
     }
 
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 }

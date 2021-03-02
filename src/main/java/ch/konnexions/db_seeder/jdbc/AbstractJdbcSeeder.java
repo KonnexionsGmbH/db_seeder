@@ -83,7 +83,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Statement     statement              = null;
 
-  protected String        urlTrino              = "";
+  protected String        urlTrino               = "";
   protected String        urlSys                 = "";
   protected String        urlUser                = "";
 
@@ -107,15 +107,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     if ("embedded".equals(dbmsOption)) {
       isClient   = false;
       isEmbedded = true;
-      isTrino   = false;
+      isTrino    = false;
     } else if ("trino".equals(dbmsOption)) {
       isClient   = false;
       isEmbedded = false;
-      isTrino   = true;
+      isTrino    = true;
     } else {
       isClient   = true;
       isEmbedded = false;
-      isTrino   = false;
+      isTrino    = false;
     }
 
     if (isDebug) {
@@ -351,11 +351,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if (dbmsEnum == DbmsEnum.MYSQL
-        || dbmsEnum == DbmsEnum.ORACLE
-        || dbmsEnum == DbmsEnum.PERCONA
-        || dbmsEnum == DbmsEnum.POSTGRESQL
-        || dbmsEnum == DbmsEnum.SQLSERVER) {
+    if (dbmsEnum == DbmsEnum.MYSQL || dbmsEnum == DbmsEnum.ORACLE || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.SQLSERVER) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -407,11 +403,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if (dbmsEnum == DbmsEnum.MYSQL
-        || dbmsEnum == DbmsEnum.ORACLE
-        || dbmsEnum == DbmsEnum.PERCONA
-        || dbmsEnum == DbmsEnum.POSTGRESQL
-        || dbmsEnum == DbmsEnum.SQLSERVER) {
+    if (dbmsEnum == DbmsEnum.MYSQL || dbmsEnum == DbmsEnum.ORACLE || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.SQLSERVER) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();

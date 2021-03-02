@@ -1,6 +1,7 @@
 package ch.konnexions.db_seeder;
 
 import ch.konnexions.db_seeder.jdbc.agens.AgensSeeder;
+import ch.konnexions.db_seeder.jdbc.cockroach.CockroachSeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
 import ch.konnexions.db_seeder.jdbc.cubrid.CubridSeeder;
 import ch.konnexions.db_seeder.jdbc.derby.DerbySeeder;
@@ -66,6 +67,12 @@ public final class DatabaseSeeder {
         AgensSeeder agensSeeder = new AgensSeeder(tickerSymbolExtern);
         agensSeeder.createData();
         logger.info("End   AgensGraph");
+        break;
+      case "cockroach":
+        logger.info("Start CockroachDB");
+        CockroachSeeder cockroachSeeder = new CockroachSeeder(tickerSymbolExtern);
+        cockroachSeeder.createData();
+        logger.info("End   CockroachDB");
         break;
       case "cratedb":
         logger.info("Start CrateDB");

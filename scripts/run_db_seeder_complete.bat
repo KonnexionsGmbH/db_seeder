@@ -24,6 +24,7 @@ if ["%1"] EQU [""] (
 )
 
 set DB_SEEDER_DBMS_AGENS=yes
+set DB_SEEDER_DBMS_COCKROACH=yes
 set DB_SEEDER_DBMS_CRATEDB=yes
 set DB_SEEDER_DBMS_CUBRID=yes
 set DB_SEEDER_DBMS_DERBY=yes
@@ -78,6 +79,7 @@ echo.
     echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
     echo --------------------------------------------------------------------------------
     echo DBMS_AGENS                      : %DB_SEEDER_DBMS_AGENS%
+    echo DBMS_COCKROACH                  : %DB_SEEDER_DBMS_COCKROACH%
     echo DBMS_CRATEDB                    : %DB_SEEDER_DBMS_CRATEDB%
     echo DBMS_CUBRID                     : %DB_SEEDER_DBMS_CUBRID%
     echo DBMS_DERBY                      : %DB_SEEDER_DBMS_DERBY%
@@ -139,6 +141,18 @@ echo.
         )
     )
     
+    rem ------------------------------------------------------------------------------
+    rem CockroachDB.
+    rem ------------------------------------------------------------------------------
+
+    if ["%DB_SEEDER_DBMS_COCKROACH%"] EQU ["yes"] (
+        call run_db_seeder.bat cockroach yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
+
     rem ------------------------------------------------------------------------------
     rem CrateDB.
     rem ------------------------------------------------------------------------------

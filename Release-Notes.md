@@ -120,7 +120,7 @@ Release Date: xx.03.2021
 
 #### New Features
 
-n/a
+- New DBMS: CockroachDB
 
 #### Modified Features
 

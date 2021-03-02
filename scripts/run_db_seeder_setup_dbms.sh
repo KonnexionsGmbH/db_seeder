@@ -63,6 +63,38 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# CockroachDB                     https://hub.docker.com/r/cockroachdb/cockroach
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "cockroach" ]; then
+    start=$(date +%s)
+    echo "CockroachDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (CockroachDB ${DB_SEEDER_VERSION})"
+
+    docker network create db_seeder_net  2>/dev/null || true
+    docker create --name     db_seeder_db \
+                  --net      db_seeder_net \
+                  -p         $DB_SEEDER_CONNECTION_PORT:$DB_SEEDER_CONTAINER_PORT \
+                  cockroachdb/cockroach:$DB_SEEDER_VERSION \
+                  start --insecure --join=db_seeder_db
+
+    echo "Docker start db_seeder_db (CockroachDB ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 30
+
+    if ! docker exec -it db_seeder_db ./cockroach init --insecure; then
+        exit 255
+    fi
+
+    end=$(date +%s)
+    echo "DOCKER CockroachDB was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
 # CrateDB                                         https://hub.docker.com/_/crate
 # ------------------------------------------------------------------------------
 

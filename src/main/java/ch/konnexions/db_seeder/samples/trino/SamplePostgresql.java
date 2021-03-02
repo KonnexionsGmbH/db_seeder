@@ -38,7 +38,7 @@ public final class SamplePostgresql {
   private static final String  databaseName        = "kxn_db";
   private static final String  databaseNameSys     = "kxn_db_sys";
   private static final String  driverOriginal      = "org.postgresql.Driver";
-  private static final String  driverTrino        = "io.trino.jdbc.TrinoDriver";
+  private static final String  driverTrino         = "io.trino.jdbc.TrinoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
   public static final String   FORMAT_ROW_SEC      = "%1$4d";
@@ -71,7 +71,7 @@ public final class SamplePostgresql {
 
   private static final String  urlSys              = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys + "?user="
       + userNameSys + "&password=" + password;
-  private static final String  urlTrino           = "jdbc:trino://localhost:8080/db_seeder_postgresql/public?user=trino";
+  private static final String  urlTrino            = "jdbc:trino://localhost:8080/db_seeder_postgresql/public?user=trino";
   private static final String  urlUser             = "jdbc:postgresql://" + connectionHost + ":" + connectionPort + "/" + databaseName + "?user=" + userName
       + "&password=" + password;
 
@@ -390,7 +390,7 @@ public final class SamplePostgresql {
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
                               rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                                                                             duration));
+                                                                                                        duration));
 
     logger.info("");
 
@@ -453,7 +453,7 @@ public final class SamplePostgresql {
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
                               rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                                                                             duration));
+                                                                                                        duration));
 
     logger.info("");
 

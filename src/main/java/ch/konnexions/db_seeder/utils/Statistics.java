@@ -69,7 +69,7 @@ public final class Statistics {
                                                    endDateTime).toMillis();
 
       logger.info("duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                          duration));
+                                                     duration));
 
       statisticsFile.printRecord(tickerSymbolExtern,
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
