@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a H2 DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.7.1
+ * @version 2.8.0
  */
 public abstract class AbstractGenH2Schema extends AbstractGenSeeder {
 
@@ -89,7 +89,7 @@ public abstract class AbstractGenH2Schema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_5        UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_KXN_6    UNIQUE      (fk_country_id, name)
                    )
                    """);
 

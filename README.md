@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.7.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.0.svg)
 ----
 
 ### Table of Contents
@@ -39,6 +39,12 @@ Currently the following database management systems are supported:
   - open source
   - relational model
   - **[see technical details here](#details_derby)**
+- [CockroachDB](https://www.cockroachlabs.com/)
+  - client only version
+  - commercial, open source
+  - compatible with PostgreSQL JDBC
+  - relational model
+  - **[see technical details here](#details_cratedb)**
 - [CrateDB](https://crate.io)
   - client only version
   - commercial, open source
@@ -172,6 +178,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1                     | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
+| CockroachDB                     | cockroach          | v20.2.5                    | see PostgreSQL      |
 | CUBRID                          | cubrid             | 10.2                       | 11.0.0.0248         |
 | CrateDB                         | cratedb            | 4.1.6 - 4.4.1              | 2.6.0               |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.7           | 7.0.7               |
@@ -182,11 +189,11 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.9           | 2.7.2               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.0.jre15         | 
-| Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                |
-| MonetDB                         | monetdb            | Oct2020-SP3                | 3.0.jre8           | 
+| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
+| MonetDB                         | monetdb            | Oct2020-SP3                | 3.0.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.23            | 8.0.23              | 
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
-| Percona Server for MySQL        | percona            | 5.7.14                     | 8.0.23              | 
+| Percona Server for MySQL        | percona            | 5.7.14                     | see MySQL           | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.2                | 42.2.19             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | Trino Distributed Query Engine  | n/a                | 339 - 352                  | 352                 |
@@ -586,7 +593,7 @@ db_seeder.user=
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                                                             | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | agens, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                            | privileged database name |
+| database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                 | privileged database name |
 | database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                                                             | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                                                                | directory and file name of the JSON file containing the database schema |
@@ -596,7 +603,7 @@ db_seeder.user=
 | file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all DBMS                                                                                                             | file name of the summary statistics file created in `run_db_seeder_statistics` |
 | file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all DBMS                                                                                                             | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver    | password of the privileged user |
-| password=<x...x>                          | PASSWORD                          | all DBMS except derby, ibmdb2, informix                                                                              | password of the normal user |
+| password=<x...x>                          | PASSWORD                          | all DBMS except cockroach, derby, ibmdb2, informix                                                                   | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte                                   | schema name |
 | user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, voltdb                                                                                        | name of the privileged user |
 | user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
@@ -612,7 +619,8 @@ db_seeder.user=
 Below are also DBeaver based connection parameter examples for each database management system. 
 
 **[AgensGraph](#details_agens)** / 
-**[Apache Derby](#details_derby)** / 
+**[Apache Derby](#details_derby)** /
+**[CockroachDB](#details_cockroach)** /
 **[CrateDB](#details_cratedb)** / 
 **[CUBRID](#details_cubrid)** / 
 **[Exasol](#details_exasol)** /  
@@ -712,6 +720,45 @@ Below are also DBeaver based connection parameter examples for each database man
   -- embedded version:
   
 ![](.README_images/DBeaver_DERBY_EMB.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_cratedb"></a> 5.3 CockroachDB
+
+- **data types**:
+
+| db seeder Type | CockroachDB Type |
+| ---            | ---              |
+| BIGINT         | INT              |
+| BLOB           | BYTES            |
+| CLOB           | STRING           |
+| TIMESTAMP      | TIMESTAMP        |
+| VARCHAR        | STRING             |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://www.cockroachlabs.com/docs/v20.2/create-database.html)
+  - [CREATE SCHEMA](https://www.cockroachlabs.com/docs/v20.2/create-schema.html)
+  - [CREATE TABLE](https://www.cockroachlabs.com/docs/v20.2/create-table.html)
+  - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
+
+- **Docker image (latest)**:
+  - pull command: `docker pull cockroachdb/cockroach:v20.2.5`
+  - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
+
+- **encoding**: by default `utf8` encoding
+
+- **issue tracking**: [GitHub](https://github.com/cockroachdb/cockroach/issues)
+
+- **JDBC driver (latest)**:
+  - same as PostgreSQL
+
+- **privileged database access**: user `root`
+
+- **source code**: [GitHub](https://github.com/cockroachdb/cockroach)
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_COCKROACHDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1161,7 +1208,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mimersql/mimersql_v11.0.4b`
+  - pull command: `docker pull mimersql/mimersql_v11.0.5a`
   - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
 
 - **encoding**: NCHAR, NVARCHAR

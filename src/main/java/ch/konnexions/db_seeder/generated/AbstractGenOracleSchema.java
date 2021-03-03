@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a Oracle DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.7.1
+ * @version 2.8.0
  */
 public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
 
@@ -89,7 +89,7 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
                        modified                         TIMESTAMP,
                        name                             VARCHAR2(100)             NOT NULL,
                        symbol                           VARCHAR2(50),
-                       CONSTRAINT CONSTRAINT_12       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_KXN_13   UNIQUE      (fk_country_id, name)
                    )
                    """);
 

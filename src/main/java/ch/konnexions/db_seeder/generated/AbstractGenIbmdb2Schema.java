@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a IBM Db2 DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.7.1
+ * @version 2.8.0
  */
 public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
 
@@ -89,7 +89,7 @@ public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_7        UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_KXN_8    UNIQUE      (fk_country_id, name)
                    )
                    """);
 

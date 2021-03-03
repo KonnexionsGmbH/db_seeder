@@ -38,7 +38,7 @@ public final class SampleMysql {
   private static final String  databaseName        = "kxn_db";
   private static final String  databaseNameSys     = "sys";
   private static final String  driverOriginal      = "com.mysql.cj.jdbc.Driver";
-  private static final String  driverTrino        = "io.trino.jdbc.TrinoDriver";
+  private static final String  driverTrino         = "io.trino.jdbc.TrinoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
   public static final String   FORMAT_ROW_SEC      = "%1$4d";
@@ -71,7 +71,7 @@ public final class SampleMysql {
 
   private static final String  urlSys              = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
-  private static final String  urlTrino           = "jdbc:trino://localhost:8080/db_seeder_mysql/kxn_db?user=trino";
+  private static final String  urlTrino            = "jdbc:trino://localhost:8080/db_seeder_mysql/kxn_db?user=trino";
   private static final String  urlUser             = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseName
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
 
@@ -390,7 +390,7 @@ public final class SampleMysql {
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
                               rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                                                                             duration));
+                                                                                                        duration));
 
     logger.info("");
 
@@ -453,7 +453,7 @@ public final class SampleMysql {
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
                               rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                                                                             duration));
+                                                                                                        duration));
 
     logger.info("");
 

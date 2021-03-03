@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a Mimer DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.7.1
+ * @version 2.8.0
  */
 public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
 
@@ -89,7 +89,7 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             NVARCHAR(100)             NOT NULL,
                        SYMBOL                           NVARCHAR(50),
-                       CONSTRAINT CONSTRAINT_9        UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_KXN_10   UNIQUE      (fk_country_id, name)
                    )
                    """);
 

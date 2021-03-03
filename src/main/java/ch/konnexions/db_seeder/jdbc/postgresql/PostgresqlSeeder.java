@@ -79,9 +79,9 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
     if (isTrino) {
       urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
-                                                  config.getConnectionHostTrino(),
-                                                  config.getConnectionPortTrino(),
-                                                  config.getSchema());
+                                                config.getConnectionHostTrino(),
+                                                config.getConnectionPortTrino(),
+                                                config.getSchema());
     }
 
     urlSys  = getUrl(config.getConnectionHost(),

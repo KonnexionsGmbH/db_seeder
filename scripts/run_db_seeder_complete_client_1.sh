@@ -26,6 +26,7 @@ else
 fi
 
 export DB_SEEDER_DBMS_AGENS=yes
+export DB_SEEDER_DBMS_COCKROACH=yes
 export DB_SEEDER_DBMS_CRATEDB=yes
 export DB_SEEDER_DBMS_CUBRID=yes
 export DB_SEEDER_DBMS_DERBY=yes
@@ -66,6 +67,7 @@ echo "FILE_STATISTICS_NAME            : ${DB_SEEDER_FILE_STATISTICS_NAME}"
 echo "NO_CREATE_RUNS                  : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_AGENS                      : $DB_SEEDER_DBMS_AGENS"
+echo "DBMS_COCKROACH                  : $DB_SEEDER_DBMS_COCKROACH"
 echo "DBMS_CRATEDB                    : $DB_SEEDER_DBMS_CRATEDB"
 echo "DBMS_CUBRID                     : $DB_SEEDER_DBMS_CUBRID"
 echo "DBMS_DERBY                      : $DB_SEEDER_DBMS_DERBY"
@@ -101,6 +103,16 @@ unset -f "${DB_SEEDER_DBMS}"=
 
 if [ "$DB_SEEDER_DBMS_AGENS" = "yes" ]; then
     if ! ( ./run_db_seeder.sh agens yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi
+fi
+
+# ------------------------------------------------------------------------------
+# CockroachDB.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_COCKROACH" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh cockroach yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi

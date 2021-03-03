@@ -82,9 +82,9 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
     if (isTrino) {
       urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
-                                                  config.getConnectionHostTrino(),
-                                                  config.getConnectionPortTrino(),
-                                                  config.getDatabase());
+                                                config.getConnectionHostTrino(),
+                                                config.getConnectionPortTrino(),
+                                                config.getDatabase());
     }
 
     urlSys  = getUrl(config.getConnectionHost(),

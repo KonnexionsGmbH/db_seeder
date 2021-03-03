@@ -83,7 +83,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Statement     statement              = null;
 
-  protected String        urlTrino              = "";
+  protected String        urlTrino               = "";
   protected String        urlSys                 = "";
   protected String        urlUser                = "";
 
@@ -107,15 +107,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     if ("embedded".equals(dbmsOption)) {
       isClient   = false;
       isEmbedded = true;
-      isTrino   = false;
+      isTrino    = false;
     } else if ("trino".equals(dbmsOption)) {
       isClient   = false;
       isEmbedded = false;
-      isTrino   = true;
+      isTrino    = true;
     } else {
       isClient   = true;
       isEmbedded = false;
-      isTrino   = false;
+      isTrino    = false;
     }
 
     if (isDebug) {

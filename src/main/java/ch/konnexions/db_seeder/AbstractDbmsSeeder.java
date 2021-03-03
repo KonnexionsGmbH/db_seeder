@@ -19,6 +19,9 @@ public abstract class AbstractDbmsSeeder {
     AGENS(
         "agens"
     ),
+    COCKROACH(
+        "cockroach"
+    ),
     CRATEDB(
         "cratedb"
     ),
@@ -125,6 +128,13 @@ public abstract class AbstractDbmsSeeder {
                         "AgensGraph",
                         "client",
                         "AgensGraph",
+                        "" });
+    dbmsDetails.put("cockroach",
+                    new String[] {
+                        "cockroach",
+                        "CockroachDB",
+                        "client",
+                        "CockroachDB",
                         "" });
     dbmsDetails.put("cratedb",
                     new String[] {
@@ -319,16 +329,16 @@ public abstract class AbstractDbmsSeeder {
     return dbmsDetails;
   }
 
-  protected final int   batchSize = 1000;
+  protected final int batchSize = 1000;
 
-  protected Config      config;
+  protected Config    config;
 
-  protected DbmsEnum    dbmsEnum;
+  protected DbmsEnum  dbmsEnum;
 
-  protected String      identifierDelimiter;
+  protected String    identifierDelimiter;
 
-  protected String      tickerSymbolExtern;
-  protected String      tickerSymbolLower;
+  protected String    tickerSymbolExtern;
+  protected String    tickerSymbolLower;
 
   /**
    * Initialises a new abstract DBMS seeder object.

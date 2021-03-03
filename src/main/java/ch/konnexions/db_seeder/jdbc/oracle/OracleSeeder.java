@@ -72,9 +72,9 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
 
     if (isTrino) {
       urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
-                                                  config.getConnectionHostTrino(),
-                                                  config.getConnectionPortTrino(),
-                                                  config.getUser());
+                                                config.getConnectionHostTrino(),
+                                                config.getConnectionPortTrino(),
+                                                config.getUser());
     }
 
     urlUser = getUrl(config.getConnectionHost(),

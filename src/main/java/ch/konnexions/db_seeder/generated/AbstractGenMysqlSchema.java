@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a MySQL DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.7.1
+ * @version 2.8.0
  */
 public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
 
@@ -89,7 +89,7 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
                        modified                         DATETIME,
                        name                             VARCHAR(100)              NOT NULL,
                        symbol                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_11       UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_KXN_12   UNIQUE      (fk_country_id, name)
                    )
                    """);
 

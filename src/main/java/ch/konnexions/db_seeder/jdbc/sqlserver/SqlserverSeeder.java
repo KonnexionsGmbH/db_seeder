@@ -81,9 +81,9 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
 
     if (isTrino) {
       urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
-                                                  config.getConnectionHostTrino(),
-                                                  config.getConnectionPortTrino(),
-                                                  "kxn_schema");
+                                                config.getConnectionHostTrino(),
+                                                config.getConnectionPortTrino(),
+                                                "kxn_schema");
     }
 
     urlSys  = getUrl(config.getConnectionHost(),

@@ -17,7 +17,7 @@ public final class I5648 {
   private static final int    connectionPort      = 1521;
 
   private static final String driverOriginal      = "oracle.jdbc.driver.OracleDriver";
-  private static final String driverTrino        = "io.trino.jdbc.TrinoDriver";
+  private static final String driverTrino         = "io.trino.jdbc.TrinoDriver";
 
   private static final Logger logger              = Logger.getLogger(I5648.class);
 
@@ -36,7 +36,7 @@ public final class I5648 {
   private static final String userNameSys         = "SYS AS SYSDBA";
 
   private static final String urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
-  private static final String urlTrino           = "jdbc:trino://localhost:8080/db_seeder_oracle/" + userName + "?user=trino";
+  private static final String urlTrino            = "jdbc:trino://localhost:8080/db_seeder_oracle/" + userName + "?user=trino";
   private static final String urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {

@@ -6,16 +6,16 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a CUBRID DBMS. <br>
+ * CREATE TABLE statements for a CockroachDB DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
  * @version 2.8.0
  */
-public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
+public abstract class AbstractGenCockroachSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
-  private static final Logger                 logger            = Logger.getLogger(AbstractGenCubridSchema.class);
+  private static final Logger                 logger            = Logger.getLogger(AbstractGenCockroachSchema.class);
 
   /**
    * Create the CREATE TABLE statements.
@@ -25,85 +25,85 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
 
     statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE "CITY" (
+                   CREATE TABLE CITY (
                        PK_CITY_ID                       INT                       NOT NULL
                                                                                   PRIMARY KEY,
-                       FK_COUNTRY_STATE_ID              INT                       REFERENCES "COUNTRY_STATE"                  (PK_COUNTRY_STATE_ID),
-                       CITY_MAP                         BLOB,
+                       FK_COUNTRY_STATE_ID              INT                       REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
+                       CITY_MAP                         BYTES,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       NAME                             STRING                    NOT NULL
                    )
                    """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
-                   CREATE TABLE "COMPANY" (
+                   CREATE TABLE COMPANY (
                        PK_COMPANY_ID                    INT                       NOT NULL
                                                                                   PRIMARY KEY,
                        FK_CITY_ID                       INT                       NOT NULL
-                                                                                  REFERENCES "CITY"                           (PK_CITY_ID),
-                       ACTIVE                           VARCHAR(1)                NOT NULL,
-                       ADDRESS1                         VARCHAR(50),
-                       ADDRESS2                         VARCHAR(50),
-                       ADDRESS3                         VARCHAR(50),
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
+                       ACTIVE                           STRING                    NOT NULL,
+                       ADDRESS1                         STRING,
+                       ADDRESS2                         STRING,
+                       ADDRESS3                         STRING,
                        CREATED                          TIMESTAMP                 NOT NULL,
-                       DIRECTIONS                       CLOB,
-                       EMAIL                            VARCHAR(100),
-                       FAX                              VARCHAR(50),
+                       DIRECTIONS                       STRING,
+                       EMAIL                            STRING,
+                       FAX                              STRING,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       NAME                             STRING                    NOT NULL
                                                                                   UNIQUE,
-                       PHONE                            VARCHAR(50),
-                       POSTAL_CODE                      VARCHAR(50),
-                       URL                              VARCHAR(250),
-                       VAT_ID_NUMBER                    VARCHAR(100)
+                       PHONE                            STRING,
+                       POSTAL_CODE                      STRING,
+                       URL                              STRING,
+                       VAT_ID_NUMBER                    STRING
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
-                   CREATE TABLE "COUNTRY" (
+                   CREATE TABLE COUNTRY (
                        PK_COUNTRY_ID                    INT                       NOT NULL
                                                                                   PRIMARY KEY,
-                       COUNTRY_MAP                      BLOB,
+                       COUNTRY_MAP                      BYTES,
                        CREATED                          TIMESTAMP                 NOT NULL,
-                       ISO3166                          VARCHAR(50),
+                       ISO3166                          STRING,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       NAME                             STRING                    NOT NULL
                                                                                   UNIQUE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE "COUNTRY_STATE" (
+                   CREATE TABLE COUNTRY_STATE (
                        PK_COUNTRY_STATE_ID              INT                       NOT NULL
                                                                                   PRIMARY KEY,
                        FK_COUNTRY_ID                    INT                       NOT NULL
-                                                                                  REFERENCES "COUNTRY"                        (PK_COUNTRY_ID),
+                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
                        FK_TIMEZONE_ID                   INT                       NOT NULL
-                                                                                  REFERENCES "TIMEZONE"                       (PK_TIMEZONE_ID),
-                       COUNTRY_STATE_MAP                BLOB,
+                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
+                       COUNTRY_STATE_MAP                BYTES,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL,
-                       SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_KXN_3    UNIQUE      ("fk_country_id", "name")
+                       NAME                             STRING                    NOT NULL,
+                       SYMBOL                           STRING,
+                       CONSTRAINT CONSTRAINT_KXN_2    UNIQUE      (fk_country_id, name)
                    )
                    """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
-                   CREATE TABLE "TIMEZONE" (
+                   CREATE TABLE TIMEZONE (
                        PK_TIMEZONE_ID                   INT                       NOT NULL
                                                                                   PRIMARY KEY,
-                       ABBREVIATION                     VARCHAR(50)               NOT NULL,
+                       ABBREVIATION                     STRING                    NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
+                       NAME                             STRING                    NOT NULL
                                                                                   UNIQUE,
-                       V_TIME_ZONE                      VARCHAR(4000)
+                       V_TIME_ZONE                      STRING
                    )
                    """);
 
@@ -113,21 +113,21 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new abstract CUBRID schema object.
+   * Initialises a new abstract CockroachDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public AbstractGenCubridSchema(String tickerSymbolExtern) {
+  public AbstractGenCockroachSchema(String tickerSymbolExtern) {
     this(tickerSymbolExtern, "client");
   }
 
   /**
-   * Initialises a new abstract CUBRID schema object.
+   * Initialises a new abstract CockroachDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption client, embedded or trino
    */
-  public AbstractGenCubridSchema(String tickerSymbolExtern, String dbmsOption) {
+  public AbstractGenCockroachSchema(String tickerSymbolExtern, String dbmsOption) {
     super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
@@ -135,7 +135,7 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
     }
 
     createColumnNames(true,
-                      false);
+                      true);
 
     if (isDebug) {
       logger.debug("End   Constructor");

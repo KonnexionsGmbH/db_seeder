@@ -36,7 +36,7 @@ public final class SampleOracle {
   private static final int     connectionPort      = 1521;
 
   private static final String  driverOriginal      = "oracle.jdbc.driver.OracleDriver";
-  private static final String  driverTrino        = "io.trino.jdbc.TrinoDriver";
+  private static final String  driverTrino         = "io.trino.jdbc.TrinoDriver";
 
   public static final String   FORMAT_ROW_NO       = "%1$6d";
   public static final String   FORMAT_ROW_SEC      = "%1$4d";
@@ -69,7 +69,7 @@ public final class SampleOracle {
   private static final String  userNameSys         = "SYS AS SYSDBA";
 
   private static final String  urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
-  private static final String  urlTrino           = "jdbc:trino://localhost:8080/db_seeder_oracle/" + userName + "?user=trino";
+  private static final String  urlTrino            = "jdbc:trino://localhost:8080/db_seeder_oracle/" + userName + "?user=trino";
   private static final String  urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
@@ -426,7 +426,7 @@ public final class SampleOracle {
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
                               rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                                                                             duration));
+                                                                                                        duration));
 
     logger.info("");
 
@@ -489,7 +489,7 @@ public final class SampleOracle {
     logger.info("");
     logger.info(String.format(FORMAT_ROW_NO,
                               rowMaxSize) + " rows inserted totally - duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                                                                             duration));
+                                                                                                        duration));
 
     logger.info("");
 

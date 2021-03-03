@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a AgensGraph DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.7.1
+ * @version 2.8.0
  */
 public abstract class AbstractGenAgensSchema extends AbstractGenSeeder {
 
@@ -89,7 +89,7 @@ public abstract class AbstractGenAgensSchema extends AbstractGenSeeder {
                        modified                         TIMESTAMP,
                        name                             VARCHAR(100)              NOT NULL,
                        symbol                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_1        UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_KXN_1    UNIQUE      (fk_country_id, name)
                    )
                    """);
 

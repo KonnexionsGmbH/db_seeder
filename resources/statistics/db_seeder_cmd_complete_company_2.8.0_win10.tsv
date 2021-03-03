@@ -1,0 +1,30 @@
+ticker symbol	DBMS	db type	runtime in ms	start time	end time	host name	no. cores	operating system
+agens	AgensGraph	client	3114	2021-03-02 20:27:13.572800500	2021-03-02 20:27:16.686913700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+cockroach	CockroachDB	client	3524	2021-03-02 20:28:07.990244800	2021-03-02 20:28:11.514281600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+cratedb	CrateDB	client	4236	2021-03-02 20:28:59.206715800	2021-03-02 20:29:03.443286400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+cubrid	CUBRID	client	5104	2021-03-02 20:29:51.820311300	2021-03-02 20:29:56.925280900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+derby	Apache Derby	client	14219	2021-03-02 20:31:01.571983000	2021-03-02 20:31:15.791190900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+derby_emb	Apache Derby	embedded	26560	2021-03-02 20:31:17.520902200	2021-03-02 20:31:44.081141200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+exasol	Exasol	client	3593	2021-03-02 20:35:31.388470700	2021-03-02 20:35:34.981702700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+firebird	Firebird	client	98817	2021-03-02 20:36:35.736967200	2021-03-02 20:38:14.554193400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+h2	H2 Database Engine	client	6330	2021-03-02 20:38:57.258095100	2021-03-02 20:39:03.588500800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+h2_emb	H2 Database Engine	embedded	2289	2021-03-02 20:39:05.265593100	2021-03-02 20:39:07.554778500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+hsqldb	HyperSQL Database	client	17538	2021-03-02 20:39:52.528363900	2021-03-02 20:40:10.066434800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+hsqldb_emb	HyperSQL Database	embedded	385631	2021-03-02 20:40:11.756503600	2021-03-02 20:46:37.387693900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+ibmdb2	IBM Db2 Database	client	39964	2021-03-02 20:52:43.173689700	2021-03-02 20:53:23.138340400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+informix	IBM Informix	client	19373	2021-03-02 20:57:37.139852400	2021-03-02 20:57:56.513117700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mariadb	MariaDB Server	client	3018	2021-03-02 20:58:47.483501300	2021-03-02 20:58:50.501664700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mimer	Mimer SQL	client	7705	2021-03-02 20:59:23.027170200	2021-03-02 20:59:30.732368700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+monetdb	MonetDB	client	33608	2021-03-02 21:00:01.744048100	2021-03-02 21:00:35.352682900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mysql	MySQL Database	client	7011	2021-03-02 21:01:50.306465600	2021-03-02 21:01:57.317501500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mysql_trino	MySQL Database	trino	1048964	2021-03-02 21:03:33.220401100	2021-03-02 21:21:02.184946300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+oracle	Oracle Database	client	11933	2021-03-02 21:26:16.661451400	2021-03-02 21:26:28.595168600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+oracle_trino	Oracle Database	trino	1100714	2021-03-02 21:29:13.251977800	2021-03-02 21:47:33.966037000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+percona	Percona Server for MySQL	client	4038	2021-03-02 21:48:55.219987900	2021-03-02 21:48:59.258968600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+postgresql	PostgreSQL Database	client	2639	2021-03-02 21:49:39.422787100	2021-03-02 21:49:42.062714200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+postgresql_trino	PostgreSQL Database	trino	578220	2021-03-02 21:50:45.774715700	2021-03-02 22:00:23.994798000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+sqlite	SQLite	embedded	3289	2021-03-02 22:00:25.711419100	2021-03-02 22:00:29.000482300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+sqlserver	MS SQL Server	client	5473	2021-03-02 22:01:25.955875900	2021-03-02 22:01:31.429675400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+sqlserver_trino	MS SQL Server	trino	1310489	2021-03-02 22:02:39.179874500	2021-03-02 22:24:29.669576200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+voltdb	VoltDB	client	12866	2021-03-02 22:25:13.680212900	2021-03-02 22:25:26.546864400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+yugabyte	YugabyteDB	client	15423	2021-03-03 07:13:01.723322100	2021-03-03 07:13:17.147050900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0

@@ -17,7 +17,7 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.7.1
+set DB_SEEDER_RELEASE=2.8.0
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_VERSION_TRINO=352
 
@@ -28,9 +28,10 @@ if ["%1"] EQU [""] (
     echo complete_emb       - All implemented embedded DBMSs
     echo complete_trino     - All implemented Trino enabled DBMSs
     echo ---------------------------------------------------------
-    echo agens              - AgensGraph [client]
+    echo agens              - AgensGraph
     echo derby              - Apache Derby [client]
     echo derby_emb          - Apache Derby [embedded]
+    echo cockroach          - CockroachDB
     echo cratedb            - CrateDB
     echo cubrid             - CUBRID
     echo exasol             - Exasol
@@ -123,6 +124,17 @@ if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=agens
     set DB_SEEDER_VERSION=v2.1.1
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
+    set DB_SEEDER_CONNECTION_PORT=26257
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    set DB_SEEDER_CONTAINER_PORT=26257
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=system
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=root
+    set DB_SEEDER_VERSION=v20.2.5
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -314,6 +326,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_USER_SYS=SYSADM
     set DB_SEEDER_VERSION=v11.0.3c
     set DB_SEEDER_VERSION=v11.0.4b
+    set DB_SEEDER_VERSION=v11.0.5a
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (

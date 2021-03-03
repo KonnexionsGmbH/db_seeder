@@ -185,9 +185,9 @@ public final class TrinoEnvironment {
     // -------------------------------------------------------------------------
 
     url = MysqlSeeder.getUrlTrino(connectionHost,
-                                   connectionPort,
-                                   connectionPrefix,
-                                   connectionSuffix);
+                                  connectionPort,
+                                  connectionPrefix,
+                                  connectionSuffix);
 
     createCatalog(tickerSymbolLower);
 
@@ -267,9 +267,9 @@ public final class TrinoEnvironment {
     // -------------------------------------------------------------------------
 
     url = OracleSeeder.getUrlTrino(connectionHost,
-                                    connectionPort,
-                                    connectionPrefix,
-                                    connectionService);
+                                   connectionPort,
+                                   connectionPrefix,
+                                   connectionService);
 
     createCatalog(tickerSymbolLower);
 
@@ -349,11 +349,11 @@ public final class TrinoEnvironment {
     // -------------------------------------------------------------------------
 
     url = PostgresqlSeeder.getUrlTrino(connectionHost,
-                                        connectionPort,
-                                        connectionPrefix,
-                                        database,
-                                        user,
-                                        password);
+                                       connectionPort,
+                                       connectionPrefix,
+                                       database,
+                                       user,
+                                       password);
 
     createCatalog(tickerSymbolLower);
 
@@ -433,11 +433,11 @@ public final class TrinoEnvironment {
     // -------------------------------------------------------------------------
 
     url = SqlserverSeeder.getUrlTrino(connectionHost,
-                                       connectionPort,
-                                       connectionPrefix,
-                                       database,
-                                       user,
-                                       password);
+                                      connectionPort,
+                                      connectionPrefix,
+                                      database,
+                                      user,
+                                      password);
 
     createCatalog(tickerSymbolLower);
 

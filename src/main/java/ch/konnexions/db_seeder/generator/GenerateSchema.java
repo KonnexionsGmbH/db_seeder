@@ -70,13 +70,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     return switch (column.getDataType().toUpperCase()) {
     case "BIGINT" -> switch (tickerSymbolLower) {
-      case "cubrid" -> "INT";
+      case "cockroach", "cubrid" -> "INT";
       case "firebird", "sqlite" -> "INTEGER";
       case "oracle" -> "NUMBER";
       default -> "BIGINT";
       };
     case "BLOB" -> switch (tickerSymbolLower) {
       case "agens", "postgresql", "yugabyte" -> "BYTEA";
+      case "cockroach" -> "BYTES";
       case "cratedb" -> "OBJECT";
       case "exasol" -> "VARCHAR(2000000)";
       case "mariadb", "mysql", "percona" -> "LONGBLOB";
@@ -86,6 +87,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       };
     case "CLOB" -> switch (tickerSymbolLower) {
       case "agens", "cratedb", "postgresql", "yugabyte" -> "TEXT";
+      case "cockroach" -> "STRING";
       case "exasol" -> "VARCHAR(2000000)";
       case "firebird" -> "BLOB SUB_TYPE 1";
       case "mariadb", "mysql", "percona" -> "LONGTEXT";
@@ -100,6 +102,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       default -> "TIMESTAMP";
       };
     case "VARCHAR" -> switch (tickerSymbolLower) {
+      case "cockroach" -> "STRING";
       case "cratedb" -> "TEXT";
       case "informix" -> column.getSize() > 254
           ? "LVARCHAR(" + column.getSize() + ")"
@@ -161,7 +164,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       if (!"informix".equals(tickerSymbolLower)) {
         workArea.append(String.format("%-31s",
-                                      "CONSTRAINT CONSTRAINT_" + ++constraintNumber));
+                                      "CONSTRAINT CONSTRAINT_KXN_" + ++constraintNumber));
       }
 
       switch (constraintType) {

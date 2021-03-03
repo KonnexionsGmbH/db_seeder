@@ -288,9 +288,9 @@ public final class Config {
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
     connectionHost              = propertiesConfiguration.getString("db_seeder.connection.host");
-    connectionHostTrino        = propertiesConfiguration.getString("db_seeder.connection.host.trino");
+    connectionHostTrino         = propertiesConfiguration.getString("db_seeder.connection.host.trino");
     connectionPort              = propertiesConfiguration.getInt("db_seeder.connection.port");
-    connectionPortTrino        = propertiesConfiguration.getInt("db_seeder.connection.port.trino");
+    connectionPortTrino         = propertiesConfiguration.getInt("db_seeder.connection.port.trino");
     connectionPrefix            = propertiesConfiguration.getString("db_seeder.connection.prefix");
     connectionService           = propertiesConfiguration.getString("db_seeder.connection.service");
     connectionSuffix            = propertiesConfiguration.getString("db_seeder.connection.suffix");
