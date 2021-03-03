@@ -105,7 +105,7 @@
 
 ### 2.8.0
 
-Release Date: xx.03.2021
+Release Date: 03.03.2021
 
 #### System Requirements
 
@@ -125,12 +125,6 @@ Release Date: xx.03.2021
 #### Modified Features
 
 - Mimer SQL: DBMS v11.0.5a
-
-- x...x: DBMS x...x / JDBC x...x
-
-#### Deleted Features
-
-n/a
 
 ----------
 
