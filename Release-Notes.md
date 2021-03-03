@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.1.svg)
 
 ## 1. Current Issues
 
@@ -102,6 +102,34 @@
 
 ## 2. Version History
 
+### 2.8.1
+
+Release Date: xx.03.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+
+- Gradle: 6.8.3   
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- x...x: DBMS x...x / JDBC x...x
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ### 2.8.0
 
@@ -113,7 +141,7 @@ Release Date: 03.03.2021
 - Docker Desktop Community: 3.0.4
 - Java Version 15 (e.g.: https://jdk.java.net/15/)
 
-- Gradle: 6.8.3   
+- Gradle: 6.8.3
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
