@@ -326,6 +326,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
     set DB_SEEDER_USER_SYS=SYSADM
     set DB_SEEDER_VERSION=v11.0.3c
     set DB_SEEDER_VERSION=v11.0.4b
+    set DB_SEEDER_VERSION=v11.0.5a
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (

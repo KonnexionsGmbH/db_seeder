@@ -327,6 +327,7 @@ if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
     export DB_SEEDER_USER_SYS=SYSADM
     export DB_SEEDER_VERSION=v11.0.3c
     export DB_SEEDER_VERSION=v11.0.4b
+    export DB_SEEDER_VERSION=v11.0.5a
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then

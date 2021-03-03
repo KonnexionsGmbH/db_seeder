@@ -124,6 +124,8 @@ Release Date: xx.03.2021
 
 #### Modified Features
 
+- Mimer SQL: DBMS v11.0.5a
+
 - x...x: DBMS x...x / JDBC x...x
 
 #### Deleted Features

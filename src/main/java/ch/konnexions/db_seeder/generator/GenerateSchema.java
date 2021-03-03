@@ -164,7 +164,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       if (!"informix".equals(tickerSymbolLower)) {
         workArea.append(String.format("%-31s",
-                                      "CONSTRAINT CONSTRAINT_" + ++constraintNumber));
+                                      "CONSTRAINT CONSTRAINT_KXN_" + ++constraintNumber));
       }
 
       switch (constraintType) {

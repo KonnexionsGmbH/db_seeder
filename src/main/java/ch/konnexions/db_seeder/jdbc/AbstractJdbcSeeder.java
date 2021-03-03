@@ -351,7 +351,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if (dbmsEnum == DbmsEnum.MYSQL || dbmsEnum == DbmsEnum.ORACLE || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.SQLSERVER) {
+    if (dbmsEnum == DbmsEnum.MYSQL
+        || dbmsEnum == DbmsEnum.ORACLE
+        || dbmsEnum == DbmsEnum.PERCONA
+        || dbmsEnum == DbmsEnum.POSTGRESQL
+        || dbmsEnum == DbmsEnum.SQLSERVER) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();
@@ -403,7 +407,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     String editedTableName;
 
-    if (dbmsEnum == DbmsEnum.MYSQL || dbmsEnum == DbmsEnum.ORACLE || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.SQLSERVER) {
+    if (dbmsEnum == DbmsEnum.MYSQL
+        || dbmsEnum == DbmsEnum.ORACLE
+        || dbmsEnum == DbmsEnum.PERCONA
+        || dbmsEnum == DbmsEnum.POSTGRESQL
+        || dbmsEnum == DbmsEnum.SQLSERVER) {
       editedTableName = tableName.toLowerCase();
     } else {
       editedTableName = tableName.toUpperCase();

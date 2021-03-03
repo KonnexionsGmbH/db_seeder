@@ -189,7 +189,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.5.9           | 2.7.2               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.0.jre15         | 
-| Mimer SQL                       | mimer              | v11.0.3c - v11.0.4b        | 3.40                |
+| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Oct2020-SP3                | 3.0.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.23            | 8.0.23              | 
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
@@ -1208,7 +1208,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mimersql/mimersql_v11.0.4b`
+  - pull command: `docker pull mimersql/mimersql_v11.0.5a`
   - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
 
 - **encoding**: NCHAR, NVARCHAR
