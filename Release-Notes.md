@@ -123,6 +123,18 @@ n/a
 
 #### Modified Features
 
+- CockroachDB: DBMS v20.2.6
+
+- CrateDB: DBMS 4.4.2
+
+- Exasol: DBMS 7.0.8
+
+- Microsoft SQL Server: JDBC 9.2.1.jre15
+
+- Trino Distributed Query Engine: DBMS 353 / JDBC 353
+
+- YugabyteDB: DBMS 2.5.3.1-b10
+
 - x...x: DBMS x...x / JDBC x...x
 
 #### Deleted Features

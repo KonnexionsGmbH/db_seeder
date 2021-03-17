@@ -17,7 +17,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.8.1
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=352
+export DB_SEEDER_VERSION_TRINO=353
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -136,6 +136,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=root
     export DB_SEEDER_VERSION=v20.2.5
+    export DB_SEEDER_VERSION=v20.2.6
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -159,6 +160,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.3.4
     export DB_SEEDER_VERSION=4.4.0
     export DB_SEEDER_VERSION=4.4.1
+    export DB_SEEDER_VERSION=4.4.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -208,6 +210,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.5
     export DB_SEEDER_VERSION=7.0.6
     export DB_SEEDER_VERSION=7.0.7
+    export DB_SEEDER_VERSION=7.0.8
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -525,6 +528,8 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.5.1.0-b132
     export DB_SEEDER_VERSION=2.5.1.0-b153
     export DB_SEEDER_VERSION=2.5.2.0-b104
+    export DB_SEEDER_VERSION=2.5.3.0-b30
+    export DB_SEEDER_VERSION=2.5.3.1-b10
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
