@@ -15,7 +15,7 @@
 
 - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-### 1.3 Oracle & Ubuntu
+### 1.3 Oracle & Ubuntu 20.04 LTS (via VMware)
 
 - java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==).
 
