@@ -7,19 +7,15 @@
 
 ## 1. Current Issues
 
-### 1.1 AgensGraph
-
-- Docker image v2.1.3: SEVERE: Connection error (see [here](https://github.com/bitnine-oss/agensgraph/issues/530).
-
-### 1.2 Apache Derby
+### 1.1 Apache Derby
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
-### 1.3 Mimer SQL & DBeaver
+### 1.2 Mimer SQL & DBeaver
 
 - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-### 1.4 Oracle & Ubuntu
+### 1.3 Oracle & Ubuntu
 
 - java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==).
 
@@ -63,7 +59,7 @@
     at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:644)
     ... 11 more
 
-### 1.5 Trino Distributed Query Engine
+### 1.4 Trino Distributed Query Engine
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
