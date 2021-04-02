@@ -123,15 +123,23 @@ n/a
 
 #### Modified Features
 
-- CockroachDB: DBMS v20.2.6
+- CockroachDB: DBMS v20.2.7
 
-- CrateDB: DBMS 4.4.2
+- CrateDB: DBMS 4.5.0
+
+- CUBRID: DBMS 11.0
 
 - Exasol: DBMS 7.0.8
 
+- Firebird: JDBC 4.0.3.java11
+
+- HyperSQL Database: DBMS 2.6.0
+
+- IBM Db2 Database: DBMS 11.5.5.1
+
 - Microsoft SQL Server: JDBC 9.2.1.jre15
 
-- Trino Distributed Query Engine: DBMS 353 / JDBC 353
+- Trino Distributed Query Engine: DBMS 354 / JDBC 354
 
 - YugabyteDB: DBMS 2.5.3.1-b10
 

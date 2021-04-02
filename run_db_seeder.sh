@@ -17,7 +17,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 export DB_SEEDER_RELEASE=2.8.1
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=353
+export DB_SEEDER_VERSION_TRINO=354
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -125,6 +125,7 @@ if [ "${DB_SEEDER_DBMS}" = "agens" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=agens
     export DB_SEEDER_VERSION=v2.1.1
+    export DB_SEEDER_VERSION=v2.1.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
@@ -137,6 +138,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_USER_SYS=root
     export DB_SEEDER_VERSION=v20.2.5
     export DB_SEEDER_VERSION=v20.2.6
+    export DB_SEEDER_VERSION=v20.2.7
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -161,6 +163,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.4.0
     export DB_SEEDER_VERSION=4.4.1
     export DB_SEEDER_VERSION=4.4.2
+    export DB_SEEDER_VERSION=4.5.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -171,7 +174,7 @@ if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
     export DB_SEEDER_PASSWORD=cubrid
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=DBA
-    export DB_SEEDER_VERSION=10.2
+    export DB_SEEDER_VERSION=11.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "derby" ]; then
@@ -260,6 +263,7 @@ if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=SA
     export DB_SEEDER_VERSION=2.5.1
+    export DB_SEEDER_VERSION=2.6.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
@@ -284,6 +288,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.0.0a
     export DB_SEEDER_VERSION=11.5.4.0
     export DB_SEEDER_VERSION=11.5.5.0
+    export DB_SEEDER_VERSION=11.5.5.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
