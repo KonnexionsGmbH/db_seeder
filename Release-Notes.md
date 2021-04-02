@@ -123,6 +123,8 @@ n/a
 
 #### Modified Features
 
+- AgensGraph: DBMS v2.1.3
+
 - CockroachDB: DBMS v20.2.7
 
 - CrateDB: DBMS 4.5.0
