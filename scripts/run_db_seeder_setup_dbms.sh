@@ -47,9 +47,11 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
     docker network create db_seeder_net  2>/dev/null || true
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
+                  -e        POSTGRES_PASSWORD=agens \
+                  -e        POSTGRES_USER=agens \
                   -p        ${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT} \
                   -t \
-                  bitnine/agensgraph:${DB_SEEDER_VERSION} agens
+                  bitnine/agensgraph:${DB_SEEDER_VERSION}
 
     echo "Docker start db_seeder_db (AgensGraph ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then

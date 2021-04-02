@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.8.0
+set DB_SEEDER_RELEASE=2.8.1
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=352
+set DB_SEEDER_VERSION_TRINO=354
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -124,6 +124,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=agens
     set DB_SEEDER_VERSION=v2.1.1
+    set DB_SEEDER_VERSION=v2.1.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
@@ -135,6 +136,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=v20.2.5
+    set DB_SEEDER_VERSION=v20.2.6
+    set DB_SEEDER_VERSION=v20.2.7
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -158,6 +161,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.3.4
     set DB_SEEDER_VERSION=4.4.0
     set DB_SEEDER_VERSION=4.4.1
+    set DB_SEEDER_VERSION=4.4.2
+    set DB_SEEDER_VERSION=4.5.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -169,6 +174,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=DBA
     set DB_SEEDER_VERSION=10.2
+    set DB_SEEDER_VERSION=11.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
@@ -207,6 +213,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.5
     set DB_SEEDER_VERSION=7.0.6
     set DB_SEEDER_VERSION=7.0.7
+    set DB_SEEDER_VERSION=7.0.8
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -256,6 +263,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SA
     set DB_SEEDER_VERSION=2.5.1
+    set DB_SEEDER_VERSION=2.6.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
@@ -280,6 +288,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.0.0a
     set DB_SEEDER_VERSION=11.5.4.0
     set DB_SEEDER_VERSION=11.5.5.0
+    set DB_SEEDER_VERSION=11.5.5.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
@@ -524,6 +533,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.5.1.0-b132
     set DB_SEEDER_VERSION=2.5.1.0-b153
     set DB_SEEDER_VERSION=2.5.2.0-b104
+    set DB_SEEDER_VERSION=2.5.3.0-b30
+    set DB_SEEDER_VERSION=2.5.3.1-b10
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (

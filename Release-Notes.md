@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.1.svg)
 
 ## 1. Current Issues
 
@@ -15,7 +15,7 @@
 
 - DBeaver: Previewing BLOB column shows "Error loading text value" (see [here](https://github.com/dbeaver/dbeaver/issues/9203)).
 
-### 1.3 Oracle & Ubuntu
+### 1.3 Oracle & Ubuntu 20.04 LTS (via VMware)
 
 - java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==).
 
@@ -102,6 +102,56 @@
 
 ## 2. Version History
 
+### 2.8.1
+
+Release Date: xx.03.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+
+- Gradle: 6.8.3   
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- AgensGraph: DBMS v2.1.3
+
+- CockroachDB: DBMS v20.2.7
+
+- CrateDB: DBMS 4.5.0
+
+- CUBRID: DBMS 11.0
+
+- Exasol: DBMS 7.0.8
+
+- Firebird: JDBC 4.0.3.java11
+
+- HyperSQL Database: DBMS 2.6.0
+
+- IBM Db2 Database: DBMS 11.5.5.1
+
+- Microsoft SQL Server: JDBC 9.2.1.jre15
+
+- Trino Distributed Query Engine: DBMS 354 / JDBC 354
+
+- YugabyteDB: DBMS 2.5.3.1-b10
+
+- x...x: DBMS x...x / JDBC x...x
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ### 2.8.0
 
@@ -113,7 +163,7 @@ Release Date: 03.03.2021
 - Docker Desktop Community: 3.0.4
 - Java Version 15 (e.g.: https://jdk.java.net/15/)
 
-- Gradle: 6.8.3   
+- Gradle: 6.8.3
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
