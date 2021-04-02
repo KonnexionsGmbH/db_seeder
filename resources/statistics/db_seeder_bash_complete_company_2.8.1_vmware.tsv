@@ -1,0 +1,28 @@
+ticker symbol	DBMS	db type	runtime in ms	start time	end time	host name	no. cores	operating system
+agens	AgensGraph	client	2662	2021-04-02 13:41:18.097747741	2021-04-02 13:41:20.760043013	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+cockroach	CockroachDB	client	4107	2021-04-02 13:41:53.621137374	2021-04-02 13:41:57.728545733	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+cratedb	CrateDB	client	3469	2021-04-02 13:42:30.581649434	2021-04-02 13:42:34.050699033	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+cubrid	CUBRID	client	6253	2021-04-02 13:43:06.860610226	2021-04-02 13:43:13.114380206	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+derby	Apache Derby	client	4886	2021-04-02 13:43:56.021841150	2021-04-02 13:44:00.908287907	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+derby_emb	Apache Derby	embedded	4682	2021-04-02 13:44:02.510513942	2021-04-02 13:44:07.192791589	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+exasol	Exasol	client	2552	2021-04-02 13:46:10.477312246	2021-04-02 13:46:13.029892838	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+firebird	Firebird	client	19869	2021-04-02 13:46:57.870930780	2021-04-02 13:47:17.740348470	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+h2	H2 Database Engine	client	3662	2021-04-02 13:47:50.489589270	2021-04-02 13:47:54.152004069	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+h2_emb	H2 Database Engine	embedded	1284	2021-04-02 13:47:55.805447174	2021-04-02 13:47:57.089689964	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+hsqldb	HyperSQL Database	client	5058	2021-04-02 13:48:30.482223047	2021-04-02 13:48:35.540390112	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+hsqldb_emb	HyperSQL Database	embedded	4513	2021-04-02 13:48:37.157959373	2021-04-02 13:48:41.671387129	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+ibmdb2	IBM Db2 Database	client	5196	2021-04-02 13:53:44.775142876	2021-04-02 13:53:49.971574123	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+informix	IBM Informix	client	9161	2021-04-02 13:57:58.577514471	2021-04-02 13:58:07.738588204	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+mariadb	MariaDB Server	client	2154	2021-04-02 13:58:50.507959971	2021-04-02 13:58:52.662105230	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+mimer	Mimer SQL	client	10622	2021-04-02 13:59:25.622554484	2021-04-02 13:59:36.245335051	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+monetdb	MonetDB	client	19253	2021-04-02 13:59:44.192321366	2021-04-02 14:00:03.445907396	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+mysql	MySQL Database	client	3581	2021-04-02 14:01:06.775612031	2021-04-02 14:01:10.356642544	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+mysql_trino	MySQL Database	trino	850986	2021-04-02 14:02:46.364248196	2021-04-02 14:16:57.350423965	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+percona	Percona Server for MySQL	client	3479	2021-04-02 14:18:11.641137621	2021-04-02 14:18:15.120350603	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+postgresql	PostgreSQL Database	client	2498	2021-04-02 14:18:56.563235563	2021-04-02 14:18:59.061758733	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+postgresql_trino	PostgreSQL Database	trino	649289	2021-04-02 14:20:03.496293997	2021-04-02 14:30:52.785756342	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+sqlite	SQLite	embedded	771	2021-04-02 14:30:54.410755302	2021-04-02 14:30:55.182360295	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+sqlserver	MS SQL Server	client	3005	2021-04-02 14:31:52.712428872	2021-04-02 14:31:55.717998457	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+sqlserver_trino	MS SQL Server	trino	1163864	2021-04-02 14:33:06.420063550	2021-04-02 14:52:30.284259849	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+voltdb	VoltDB	client	14135	2021-04-02 14:53:12.838286377	2021-04-02 14:53:26.974262532	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+yugabyte	YugabyteDB	client	12334	2021-04-02 14:54:36.009051584	2021-04-02 14:54:48.343730710	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
