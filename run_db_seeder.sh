@@ -126,6 +126,7 @@ if [ "${DB_SEEDER_DBMS}" = "agens" ]; then
     export DB_SEEDER_USER_SYS=agens
     export DB_SEEDER_VERSION=v2.1.1
     export DB_SEEDER_VERSION=v2.1.3
+    export DB_SEEDER_VERSION=v2.1.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
