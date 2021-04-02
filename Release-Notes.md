@@ -102,9 +102,40 @@
 
 ## 2. Version History
 
+### 2.8.2
+
+Release Date: xx.04.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 15 (e.g.: https://jdk.java.net/15/)
+
+- Gradle: 6.8.3
+- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+n/a
+
+- x...x: DBMS x...x / JDBC x...x
+
+#### Deleted Features
+
+n/a
+
+----------
+
 ### 2.8.1
 
-Release Date: xx.03.2021
+Release Date: 01.04.2021
 
 #### System Requirements
 
@@ -116,10 +147,6 @@ Release Date: xx.03.2021
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
-
-#### New Features
-
-n/a
 
 #### Modified Features
 
@@ -144,12 +171,6 @@ n/a
 - Trino Distributed Query Engine: DBMS 354 / JDBC 354
 
 - YugabyteDB: DBMS 2.5.3.1-b10
-
-- x...x: DBMS x...x / JDBC x...x
-
-#### Deleted Features
-
-n/a
 
 ----------
 
