@@ -26,7 +26,8 @@
 
 ## <a name="introduction"></a> 1. Introduction
 
-**`DBSeeder`** allows the generation of dummy data in different database management systems. 
+With **`DBSeeder`**, the same freely definable dummy data can be generated in currently 23 different relational database systems.
+The data generation process can be used to compare the performance of the different database systems under the same conditions.
 Currently the following database management systems are supported:
 - [AgensGraph](https://bitnine.net/agensgraph)
   - client only version
