@@ -1,4 +1,4 @@
-# db_seeder - Creation of Dummy Data in a Variety of Database Management Systems.
+# DBSeeder - Relational Database Performance Comparison.
 
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
@@ -26,7 +26,7 @@
 
 ## <a name="introduction"></a> 1. Introduction
 
-**`db_seeder`** allows the generation of dummy data in different database management systems. 
+**`DBSeeder`** allows the generation of dummy data in different database management systems. 
 Currently the following database management systems are supported:
 - [AgensGraph](https://bitnine.net/agensgraph)
   - client only version
@@ -158,7 +158,7 @@ Currently the following database management systems are supported:
 
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
 If the selected database, schema or user already exist, they are deleted with all including data. 
-**`db_seeder`** then creates the selected database, schema or user and generates the desired dummy data.
+**`DBSeeder`** then creates the selected database, schema or user and generates the desired dummy data.
 
 A maximum of 2 147 483 647 rows can be generated per database table.
 
@@ -378,7 +378,7 @@ Java method: `getContentVarchar`
 
 ## <a name="installation"></a> 3. Installation
 
-The easiest way is to download a current release of **`db_seeder`** from the GitHub repository.
+The easiest way is to download a current release of **`DBSeeder`** from the GitHub repository.
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 The system requirements are described in the respective release notes. 
 
@@ -394,7 +394,7 @@ With the command
 
     docker-compose up -d
 
-a `db_seeder` specific development container can be started, which performs the following processing:
+a **`DBSeeder`** specific development container can be started, which performs the following processing:
 
 - all client databases with the database schema `db_seeder_schema.company.json`
 - all client databases with the database schema `db_seeder_schema.syntax.json`
@@ -403,7 +403,7 @@ a `db_seeder` specific development container can be started, which performs the 
 
 For each of these runs, by default a statistics file is created in the file directory `Transfer` with the following file name structure:
 
-    db_seeder_compose_<db type>_<schema>_<db_seeder release>_<yyyy.mm.dd>_<hh24.mi.ss>.tsv
+    db_seeder_compose_<db type>_<schema>_<DBSeeder release>_<yyyy.mm.dd>_<hh24.mi.ss>.tsv
     
 If these files are to be included in the statistical analysis, they must be copied from the file directory `Transfer` to the file directory `resources/statistics`.    
 
@@ -411,7 +411,7 @@ If these files are to be included in the statistical analysis, they must be copi
 
 Using the Konnexions development Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) eliminates the need to install the runtime environment.
  
-With the script `run_db_seeder` the complete functionality of the **`db_seeder`** application can be used:
+With the script `run_db_seeder` the complete functionality of the **`DBSeeder`** application can be used:
 
 - Creating a suitable database
 - Generation of any number of dummy data.
@@ -421,7 +421,7 @@ To run the scripts, apart from the prerequisites as release notes (`ReleaseNotes
 only the libraries in the `lib` directory and the corresponding script of `run_db_seeder` are required. 
 The creation of the databases also requires a working access to [Docker Hub](https://hub.docker.com/).
  
-All control parameters used in **`db_seeder`** (see section 4.2) can be adapted in the scripts to specific needs.
+All control parameters used in **`DBSeeder`** (see section 4.2) can be adapted in the scripts to specific needs.
 
 The `run_db_seeder` script is controlled by the following script parameters:: 
 
@@ -436,7 +436,7 @@ The `run_db_seeder` script is controlled by the following script parameters::
 
 For the run variants `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources\statistics` by default:
 
-    db_seeder_<bash | cmd>_<db_type>_unknown_<db_seeder release>.tsv
+    db_seeder_<bash | cmd>_<db_type>_unknown_<DBSeeder release>.tsv
 
 An overview of the structure of the scripts used can be taken from the following diagram:
 
@@ -473,7 +473,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
   
     - run `export DOCKER_USERNAME=\<user name\>`
     - run `export DOCKER_PASSWORD=\<password\>`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
@@ -492,7 +492,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
     - run `export DOCKER_USERNAME=\<user name\>`
     - run `export DOCKER_PASSWORD=\<password\>`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `gradle copyJarToLib`
@@ -521,7 +521,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - **Requirements (continued)**:
     - run `export DOCKER_USERNAME=\<user name\>`
     - run `export DOCKER_PASSWORD=\<password\>`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
@@ -538,7 +538,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - **Requirements**:
     - run `set DOCKER_USERNAME=\<user name\>`
     - run `set DOCKER_PASSWORD=\<password\>`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the db_seeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
 - **Execution**: run `run_db_seeder.bat`
 - **Issues**:
@@ -550,7 +550,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
  
 #### 4.3.1 Supported Parameters
 
-The flow control parameters for **`db_seeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the scripts.
+The flow control parameters for **`DBSeeder`** are stored in the properties file `src/main/resources/db_seeder.properties` and can all be overridden by the environment variables defined in the scripts.
 The following control parameters are currently supported:
 
 ```
@@ -595,7 +595,7 @@ db_seeder.user=
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                                                             | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                 | privileged database name |
 | database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                                                             | database name |
-| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the db_seeder configuration file |
+| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the DBSeeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                                                                | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
@@ -1574,7 +1574,7 @@ The [Trino](https://trino.io/) distributed query engine can integrate the follow
 - Oracle via the [Oracle Connector](https://trinodb.io/docs/current/connector/oracle.html), and
 - PostgreSQL via the [PostgreSQL Connector](https://trinodb.io/docs/current/connector/postgresql.html).
 
-**`db_seeder`** makes it possible to use Trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
+**`DBSeeder`** makes it possible to use Trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
 To use the Trino JDBC driver, a Trino server is required.
 With the script `db_seeder_trino_environment` a Trino server can be set up.
 Since Trino does not support the Windows operating system, a suitable Docker image is created for Windows.
