@@ -17,8 +17,9 @@ if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
 )
 
 if ["%DB_SEEDER_VERSION%"] EQU [""] (
-    docker ps    | grep "db_seeder_db" && docker stop db_seeder_db
-    docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
+    docker ps | find "db_seeder_db" && docker exec -ti db_seeder_db dwad_client stop-wait DB1
+    docker ps | find "db_seeder_db" && docker stop db_seeder_db
+    docker ps -a | find "db_seeder_db" && docker rm --force db_seeder_db
     set DB_SEEDER_VERSION=latest
 )
 

@@ -15,9 +15,9 @@ rm -rf $PWD/tmp/* || sudo rm -rf $PWD/tmp/*
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.8.1
+export DB_SEEDER_RELEASE=2.8.2
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=354
+export DB_SEEDER_VERSION_TRINO=355
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -214,6 +214,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.6
     export DB_SEEDER_VERSION=7.0.7
     export DB_SEEDER_VERSION=7.0.8
+    export DB_SEEDER_VERSION=7.0.9
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -351,6 +352,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Jun2020-SP1
     export DB_SEEDER_VERSION=Oct2020-SP2
     export DB_SEEDER_VERSION=Oct2020-SP3
+    export DB_SEEDER_VERSION=Oct2020-SP4
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
@@ -368,6 +370,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_VERSION=8.0.21
     export DB_SEEDER_VERSION=8.0.22
     export DB_SEEDER_VERSION=8.0.23
+    export DB_SEEDER_VERSION=8.0.24
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
@@ -386,6 +389,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_VERSION=8.0.21
     export DB_SEEDER_VERSION=8.0.22
     export DB_SEEDER_VERSION=8.0.23
+    export DB_SEEDER_VERSION=8.0.24
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
@@ -535,6 +539,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.5.2.0-b104
     export DB_SEEDER_VERSION=2.5.3.0-b30
     export DB_SEEDER_VERSION=2.5.3.1-b10
+    export DB_SEEDER_VERSION=2.7.0.0-b17
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then

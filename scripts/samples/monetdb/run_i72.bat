@@ -16,8 +16,8 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------
 
-docker ps    | grep "db_seeder_db" && docker stop db_seeder_db
-docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
+docker ps    | find "db_seeder_db" && docker stop db_seeder_db
+docker ps -a | find "db_seeder_db" && docker rm --force db_seeder_db
 docker create --name db_seeder_db -p 50000:50000/tcp monetdb/monetdb:latest
 docker start db_seeder_db
 docker ps

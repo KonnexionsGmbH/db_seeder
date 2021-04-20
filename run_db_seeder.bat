@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.8.1
+set DB_SEEDER_RELEASE=2.8.2
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=354
+set DB_SEEDER_VERSION_TRINO=355
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -214,6 +214,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.6
     set DB_SEEDER_VERSION=7.0.7
     set DB_SEEDER_VERSION=7.0.8
+    set DB_SEEDER_VERSION=7.0.9
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -351,6 +352,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_VERSION=Jun2020-SP1
     set DB_SEEDER_VERSION=Oct2020-SP2
     set DB_SEEDER_VERSION=Oct2020-SP3
+    set DB_SEEDER_VERSION=Oct2020-SP4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
@@ -368,6 +370,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.21
     set DB_SEEDER_VERSION=8.0.22
     set DB_SEEDER_VERSION=8.0.23
+    set DB_SEEDER_VERSION=8.0.24
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
@@ -386,6 +389,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.21
     set DB_SEEDER_VERSION=8.0.22
     set DB_SEEDER_VERSION=8.0.23
+    set DB_SEEDER_VERSION=8.0.24
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
@@ -535,6 +539,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.5.2.0-b104
     set DB_SEEDER_VERSION=2.5.3.0-b30
     set DB_SEEDER_VERSION=2.5.3.1-b10
+    set DB_SEEDER_VERSION=2.7.0.0-b17
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
