@@ -104,7 +104,7 @@
 
 ### 2.8.2
 
-Release Date: xx.04.2021
+Release Date: 21.04.2021
 
 #### System Requirements
 
@@ -112,8 +112,7 @@ Release Date: xx.04.2021
 - Docker Desktop Community: 3.0.4
 - Java Version 15 (e.g.: https://jdk.java.net/15/)
 
-- Gradle: 6.8.3
-- grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
+- Gradle: 7.0
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
@@ -123,9 +122,19 @@ n/a
 
 #### Modified Features
 
-n/a
+- in Windows 10: replacing `grep` by `find`
 
-- x...x: DBMS x...x / JDBC x...x
+- Exasol: DBMS 7.0.8 & shutting down the database in the Docker container
+
+- HyperSQL Database: JDBC 2.6.0
+
+- MonetDB: DBMS Oct2020-SP4
+
+- MySQL Database: DBMS 8.0.24 / JDBC 8.0.24
+
+- Trino Distributed Query Engine: DBMS 355 / JDBC 355
+
+- YugabyteDB: DBMS 2.7.0.0-b17
 
 #### Deleted Features
 

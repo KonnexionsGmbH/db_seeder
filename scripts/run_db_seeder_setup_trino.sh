@@ -27,14 +27,16 @@ echo Stop and delete existing containers.
 echo --------------------------------------------------------------------------------
 
 echo "Docker stop/rm db_seeder_trino .............................. before:"
-docker ps    | grep "db_seeder_trino" && docker stop db_seeder_trino
-docker ps -a | grep "db_seeder_trino" && docker rm db_seeder_trino
+docker ps -a
+docker ps | grep "db_seeder_trino" && docker stop db_seeder_trino
+docker ps -a | grep "db_seeder_trino" && docker rm --force db_seeder_trino
 echo "............................................................. after:"
 docker ps -a
 
 echo "Docker stop/rm db_seeder_db ................................. before:"
-docker ps    | grep "db_seeder_db" && docker stop db_seeder_db
-docker ps -a | grep "db_seeder_db" && docker rm db_seeder_db
+docker ps -a
+docker ps | grep "db_seeder_db" && docker stop db_seeder_db
+docker ps -a | grep "db_seeder_db" && docker rm --force db_seeder_db
 echo "............................................................. after:"
 docker ps -a
 
