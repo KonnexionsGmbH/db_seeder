@@ -194,7 +194,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP4  | 3.0.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.24            | 8.0.24              | 
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
-| Percona Server for MySQL        | percona            | 5.7.14                     | see MySQL           | 
+| Percona Server for MySQL        | percona            | 8.0                     | see MySQL           | 
 | PostgreSQL Database             | postgresql         | 12.3 - 13.2                | 42.2.19             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | Trino Distributed Query Engine  | n/a                | 339 - 355                  | 355                 |
@@ -1368,7 +1368,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull store/percona/percona-server:5.7.14`
+  - pull command: `docker pull percona/percona-server:8.0`
   - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed

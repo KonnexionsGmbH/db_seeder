@@ -437,6 +437,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=5.7.14
+    set DB_SEEDER_VERSION=8.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
