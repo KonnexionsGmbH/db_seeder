@@ -539,7 +539,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        $DB_SEEDER_CONNECTION_PORT:$DB_SEEDER_CONTAINER_PORT/tcp \
-                  store/percona/percona-server:$DB_SEEDER_VERSION
+                  percona/percona-server:$DB_SEEDER_VERSION
 
     echo "Docker start db_seeder_db (Percona Server ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then

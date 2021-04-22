@@ -437,6 +437,7 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=root
     export DB_SEEDER_VERSION=5.7.14
+    export DB_SEEDER_VERSION=8.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then

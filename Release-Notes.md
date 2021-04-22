@@ -132,6 +132,8 @@ n/a
 
 - MySQL Database: DBMS 8.0.24 / JDBC 8.0.24
 
+- Percona Server for MySQL: DBMS 8.0
+
 - Trino Distributed Query Engine: DBMS 355 / JDBC 355
 
 - YugabyteDB: DBMS 2.7.0.0-b17
