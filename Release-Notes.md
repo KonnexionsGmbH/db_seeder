@@ -28,36 +28,38 @@
     SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
     SLF4J: Actual binding is of type [org.slf4j.impl.SimpleLoggerFactory]
     java.sql.SQLRecoverableException: IO Error: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==)
-    at oracle.jdbc.driver.T4CConnection.handleLogonNetException(T4CConnection.java:874)
-    at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:679)
-    at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:1069)
-    at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:90)
-    at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:681)
-    at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:602)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:251)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:200)
-    at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:115)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:175)
+  
+      at oracle.jdbc.driver.T4CConnection.handleLogonNetException(T4CConnection.java:874)
+      at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:679)
+      at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:1069)
+      at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:90)
+      at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:681)
+      at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:602)
+      at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+      at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:251)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:200)
+      at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:115)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+      at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:175)
     Caused by: oracle.net.ns.NetException: Got minus one from a read call (CONNECTION_ID=me3gzsaDSc+aE0SrM+FEjw==)
-    at oracle.net.ns.NSProtocolNIO.doSocketRead(NSProtocolNIO.java:1121)
-    at oracle.net.ns.NIOPacket.readHeader(NIOPacket.java:267)
-    at oracle.net.ns.NIOPacket.readPacketFromSocketChannel(NIOPacket.java:199)
-    at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:141)
-    at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:114)
-    at oracle.net.ns.NIONSDataChannel.readDataFromSocketChannel(NIONSDataChannel.java:98)
-    at oracle.net.ano.AnoCommNIO.p(Unknown Source)
-    at oracle.net.ano.AnoCommNIO.e(Unknown Source)
-    at oracle.net.ano.AnoComm.readUB4(Unknown Source)
-    at oracle.net.ano.Ano.c(Unknown Source)
-    at oracle.net.ano.Ano.negotiation(Unknown Source)
-    at oracle.net.ns.NSProtocol.initializeAno(NSProtocol.java:613)
-    at oracle.net.ns.NSProtocol.connect(NSProtocol.java:355)
-    at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:2147)
-    at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:644)
-    ... 11 more
+  
+      at oracle.net.ns.NSProtocolNIO.doSocketRead(NSProtocolNIO.java:1121)
+      at oracle.net.ns.NIOPacket.readHeader(NIOPacket.java:267)
+      at oracle.net.ns.NIOPacket.readPacketFromSocketChannel(NIOPacket.java:199)
+      at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:141)
+      at oracle.net.ns.NIOPacket.readFromSocketChannel(NIOPacket.java:114)
+      at oracle.net.ns.NIONSDataChannel.readDataFromSocketChannel(NIONSDataChannel.java:98)
+      at oracle.net.ano.AnoCommNIO.p(Unknown Source)
+      at oracle.net.ano.AnoCommNIO.e(Unknown Source)
+      at oracle.net.ano.AnoComm.readUB4(Unknown Source)
+      at oracle.net.ano.Ano.c(Unknown Source)
+      at oracle.net.ano.Ano.negotiation(Unknown Source)
+      at oracle.net.ns.NSProtocol.initializeAno(NSProtocol.java:613)
+      at oracle.net.ns.NSProtocol.connect(NSProtocol.java:355)
+      at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:2147)
+      at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:644)
+      ... 11 more
 
 ### 1.4 Trino Distributed Query Engine
 
@@ -75,24 +77,25 @@
     SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
     java.sql.SQLSyntaxErrorException: ORA-01940: Ein Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
     
-            at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:509)
-            at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:461)
-            at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1104)
-            at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:553)
-            at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:269)
-            at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:655)
-            at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:229)
-            at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:41)
-            at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:928)
-            at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1205)
-            at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:1823)
-            at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:1778)
-            at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:303)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropUser(AbstractJdbcSeeder.java:795)
-            at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:133)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:181)
-    Caused by: Error : 1940, Position : 0, Sql = DROP USER  KXN_USER CASCADE, OriginalSql = DROP USER  KXN_USER CASCADE, Error Msg = ORA-01940: Ein Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
+      at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:509)
+      at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:461)
+      at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1104)
+      at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:553)
+      at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:269)
+      at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:655)
+      at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:229)
+      at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:41)
+      at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:928)
+      at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1205)
+      at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:1823)
+      at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:1778)
+      at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:303)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropUser(AbstractJdbcSeeder.java:795)
+      at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:133)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+      at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:181)
+    Caused by: Error : 1940, Position : 0, Sql = DROP USER  KXN_USER CASCADE, OriginalSql = DROP USER  KXN_USER CASCADE, Error Msg = ORA-01940: Ein
+     Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
     
             at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:513)
             ... 16 more
@@ -114,38 +117,38 @@ SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
 java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
 
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-            at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
-            at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
-            at java.base/java.lang.Thread.run(Thread.java:831)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+      at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
+      at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
+      at java.base/java.lang.Thread.run(Thread.java:831)
 Apr. 23, 2021 3:51:10 PM org.voltcore.logging.VoltUtilLoggingLogger log
 SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
 java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
 
-            at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
-            at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
-            at java.base/java.lang.Thread.run(Thread.java:831)
+      at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
+      at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
+      at java.base/java.lang.Thread.run(Thread.java:831)
 Apr. 23, 2021 3:51:10 PM org.voltcore.logging.VoltUtilLoggingLogger log
 SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
 Apr. 23, 2021 3:53:11 PM org.voltcore.logging.VoltUtilLoggingLogger log
 WARNING: Connection to VoltDB node at: localhost:21212 was lost.
 java.sql.SQLException: Connection closed (CONNECTION_LOST): 'Connection to database host (localhost/127.0.0.1:21212) was lost before a response was received'
 
-            at org.voltdb.jdbc.SQLError.get(SQLError.java:60)
-            at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:133)
-            at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:376)
-            at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:387)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropAllTablesIfExists(AbstractJdbcSeeder.java:638)
-            at ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder.setupDatabase(VoltdbSeeder.java:102)
-            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:230)
-            Caused by: org.voltdb.client.ProcCallException: Connection to database host (localhost/127.0.0.1:21212) was lost before a response was received
-            at org.voltdb.client.ClientImpl.internalSyncCallProcedure(ClientImpl.java:461)
-            at org.voltdb.client.ClientImpl.callProcedureWithClientTimeoutImpl(ClientImpl.java:311)
-            at org.voltdb.client.ClientImpl.callProcedureWithClientTimeout(ClientImpl.java:285)
-            at org.voltdb.jdbc.JDBC4ClientConnection.execute(JDBC4ClientConnection.java:351)
-            at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:122)
-            ... 6 more`
+      at org.voltdb.jdbc.SQLError.get(SQLError.java:60)
+      at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:133)
+      at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:376)
+      at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:387)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropAllTablesIfExists(AbstractJdbcSeeder.java:638)
+      at ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder.setupDatabase(VoltdbSeeder.java:102)
+      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+      at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:230)
+      Caused by: org.voltdb.client.ProcCallException: Connection to database host (localhost/127.0.0.1:21212) was lost before a response was received
+      at org.voltdb.client.ClientImpl.internalSyncCallProcedure(ClientImpl.java:461)
+      at org.voltdb.client.ClientImpl.callProcedureWithClientTimeoutImpl(ClientImpl.java:311)
+      at org.voltdb.client.ClientImpl.callProcedureWithClientTimeout(ClientImpl.java:285)
+      at org.voltdb.jdbc.JDBC4ClientConnection.execute(JDBC4ClientConnection.java:351)
+      at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:122)
+      ... 6 more`
 Processing of the script was aborted, error code=1
 
 ## 2. Version History
