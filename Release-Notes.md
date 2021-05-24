@@ -155,17 +155,17 @@ Processing of the script was aborted, error code=1
 
 ### 2.8.2
 
-Release Date: 21.04.2021
+Release Date: xx.xx.2021
 
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Docker Desktop Community: 3.0.4
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Docker Desktop Community: 3.3.3
+- Java Version 16 (e.g.: https://jdk.java.net/16/)
 
-- Gradle: 7.0
+- Gradle: 7.0.2
 
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
 #### New Features
 
@@ -175,19 +175,27 @@ n/a
 
 - in Windows 10: replacing `grep` by `find`
 
+- CockroachDB: DBMS v21.1.0
+
+- CrateDB: DBMS 4.5.1
+
 - Exasol: DBMS 7.0.8 & shutting down the database in the Docker container
 
 - HyperSQL Database: JDBC 2.6.0
 
-- MonetDB: DBMS Oct2020-SP4
+- MariaDB Server: DBMS 10.6.0 / JDBC 2.7.3
 
-- MySQL Database: DBMS 8.0.24 / JDBC 8.0.24
+- MonetDB: DBMS Oct2020-SP5
 
-- Percona Server for MySQL: DBMS 8.0
+- MySQL Database: DBMS 8.0.25 / JDBC 8.0.25
 
-- Trino Distributed Query Engine: DBMS 355 / JDBC 355
+- Percona Server for MySQL: DBMS 8.0.23-14
 
-- YugabyteDB: DBMS 2.7.0.0-b17
+- PostgreSQL Database: DBMS 13.3 / JDBC 42.2.20
+
+- Trino Distributed Query Engine: DBMS 356 / JDBC 356
+
+- YugabyteDB: DBMS 2.7.1.0-b131
 
 #### Deleted Features
 
@@ -281,7 +289,7 @@ Release Date: 27.02.2021
 
 - Exasol: DBMS 7.0.7 / JDBC 7.0.7
 
-- MariaDB Server: DBMS 10.5.9 / JDBC 2.7.1
+- MariaDB Server: DBMS 10.5.9 / JDBC 2.7.2
 
 - Microsoft SQL Server: JDBC 9.2.0.jre15
 

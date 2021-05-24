@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=2.8.2
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=355
+set DB_SEEDER_VERSION_TRINO=356
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -138,6 +138,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v20.2.5
     set DB_SEEDER_VERSION=v20.2.6
     set DB_SEEDER_VERSION=v20.2.7
+    set DB_SEEDER_VERSION=v20.2.10
+    set DB_SEEDER_VERSION=v21.1.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -163,6 +165,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.4.1
     set DB_SEEDER_VERSION=4.4.2
     set DB_SEEDER_VERSION=4.5.0
+    set DB_SEEDER_VERSION=4.5.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -322,6 +325,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.6
     set DB_SEEDER_VERSION=10.5.8
     set DB_SEEDER_VERSION=10.5.9
+    set DB_SEEDER_VERSION=10.6.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -353,6 +357,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_VERSION=Oct2020-SP2
     set DB_SEEDER_VERSION=Oct2020-SP3
     set DB_SEEDER_VERSION=Oct2020-SP4
+    set DB_SEEDER_VERSION=Oct2020-SP5
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
@@ -371,6 +376,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.22
     set DB_SEEDER_VERSION=8.0.23
     set DB_SEEDER_VERSION=8.0.24
+    set DB_SEEDER_VERSION=8.0.25
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
@@ -390,6 +396,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.22
     set DB_SEEDER_VERSION=8.0.23
     set DB_SEEDER_VERSION=8.0.24
+    set DB_SEEDER_VERSION=8.0.25
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
@@ -438,6 +445,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_USER_SYS=root
     set DB_SEEDER_VERSION=5.7.14
     set DB_SEEDER_VERSION=8.0
+    set DB_SEEDER_VERSION=8.0.23-14
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
@@ -455,6 +463,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=13-alpine
     set DB_SEEDER_VERSION=13.1-alpine
     set DB_SEEDER_VERSION=13.2-alpine
+    set DB_SEEDER_VERSION=13.3-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
@@ -473,6 +482,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=13-alpine
     set DB_SEEDER_VERSION=13.1-alpine
     set DB_SEEDER_VERSION=13.2-alpine
+    set DB_SEEDER_VERSION=13.3-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
@@ -541,6 +551,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.5.3.0-b30
     set DB_SEEDER_VERSION=2.5.3.1-b10
     set DB_SEEDER_VERSION=2.7.0.0-b17
+    set DB_SEEDER_VERSION=2.7.1.0-b131
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
