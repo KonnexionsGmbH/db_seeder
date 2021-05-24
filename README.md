@@ -179,27 +179,27 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v20.2.7          | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.0          | see PostgreSQL      |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.0.0248         |
-| CrateDB                         | cratedb            | 4.1.6 - 4.5.0              | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.9           | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.5.9           | 2.7.2               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.0           | 2.7.3               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP4  | 3.0.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.24            | 8.0.24              | 
+| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
-| Percona Server for MySQL        | percona            | 8.0                     | see MySQL           | 
-| PostgreSQL Database             | postgresql         | 12.3 - 13.2                | 42.2.19             |
+| Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
+| PostgreSQL Database             | postgresql         | 12.3 - 13.3                | 42.2.20             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| Trino Distributed Query Engine  | n/a                | 339 - 355                  | 355                 |
+| Trino Distributed Query Engine  | n/a                | 339 - 356                  | 356                 |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.0.0-b17  | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.1.0-b131 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -743,7 +743,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v20.2.7`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.0`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -782,7 +782,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.5.0`
+  - pull command: `docker pull crate:4.5.1`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -1123,7 +1123,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.5.9`
+  - pull command: `docker pull mariadb:10.6.0`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1247,7 +1247,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull monetdb/monetdb:Oct2020-SP4`
+  - pull command: `docker pull monetdb/monetdb:Oct2020-SP5`
   - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1290,7 +1290,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.24`
+  - pull command: `docker pull mysql:8.0.25`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1298,7 +1298,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
 
 - **JDBC driver (latest)**:
-  - version 8.0.24
+  - version 8.0.25
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1368,7 +1368,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull percona/percona-server:8.0`
+  - pull command: `docker pull percona/percona-server:8.0.23-14`
   - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1406,7 +1406,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:13.2-alpine`
+  - pull command: `docker pull postgres:13.3-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
@@ -1483,7 +1483,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:355`
+  - pull command: `docker pull trinodb/trino:356`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1491,7 +1491,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 355
+  - version 356
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
@@ -1549,7 +1549,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.7.0.0-b17`
+  - pull command: `docker pull yugabytedb/yugabyte:2.7.1.0-b131`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
 - **encoding**: see PostgreSQL Database
