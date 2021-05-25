@@ -52,7 +52,7 @@ export DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
 export DB_SEEDER_DBMS_SQLITE=yes
 export DB_SEEDER_DBMS_SQLSERVER=yes
 export DB_SEEDER_DBMS_SQLSERVER_TRINO=yes
-export DB_SEEDER_DBMS_VOLTDB=yes
+export DB_SEEDER_DBMS_VOLTDB=no
 export DB_SEEDER_DBMS_YUGABYTE=yes
 
 # ------------------------------------------------------------------------------
