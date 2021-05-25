@@ -1,29 +1,29 @@
 ticker symbol	DBMS	db type	runtime in ms	start time	end time	host name	no. cores	operating system
-agens	AgensGraph	client	7226	2021-05-24 15:12:05.940243300	2021-05-24 15:12:13.166539800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-cockroach	CockroachDB	client	8425	2021-05-24 15:12:47.952749900	2021-05-24 15:12:56.378141800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-cratedb	CrateDB	client	8573	2021-05-24 15:13:30.890900900	2021-05-24 15:13:39.464732300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-cubrid	CUBRID	client	9337	2021-05-24 15:14:26.086933400	2021-05-24 15:14:35.424696100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-derby	Apache Derby	client	18695	2021-05-24 15:15:41.589956000	2021-05-24 15:16:00.285343600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-derby_emb	Apache Derby	embedded	18851	2021-05-24 15:16:02.464024200	2021-05-24 15:16:21.315953200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-exasol	Exasol	client	7778	2021-05-24 15:19:52.333971400	2021-05-24 15:20:00.112764100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-firebird	Firebird	client	97849	2021-05-24 15:21:01.851254600	2021-05-24 15:22:39.700974900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-h2	H2 Database Engine	client	10640	2021-05-24 15:23:27.821601100	2021-05-24 15:23:38.462234200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-h2_emb	H2 Database Engine	embedded	7764	2021-05-24 15:23:40.668230800	2021-05-24 15:23:48.433216100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-hsqldb	HyperSQL Database	client	48984	2021-05-24 15:24:39.400861500	2021-05-24 15:25:28.385161700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-hsqldb_emb	HyperSQL Database	embedded	210208	2021-05-24 15:25:30.623308400	2021-05-24 15:29:00.831651600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-ibmdb2	IBM Db2 Database	client	28070	2021-05-24 15:34:53.831860600	2021-05-24 15:35:21.902230700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-informix	IBM Informix	client	23207	2021-05-24 15:39:34.080787500	2021-05-24 15:39:57.288719400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-mariadb	MariaDB Server	client	6928	2021-05-24 15:40:51.816797700	2021-05-24 15:40:58.744971000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-mimer	Mimer SQL	client	13533	2021-05-24 15:41:46.850170900	2021-05-24 15:42:00.383171200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-monetdb	MonetDB	client	40292	2021-05-24 15:42:32.440747300	2021-05-24 15:43:12.733624600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-mysql	MySQL Database	client	9084	2021-05-24 15:44:29.819021900	2021-05-24 15:44:38.903205400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-mysql_trino	MySQL Database	trino	1084194	2021-05-24 15:46:19.238838500	2021-05-24 16:04:23.433835800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-oracle	Oracle Database	client	18801	2021-05-24 16:06:32.419862900	2021-05-24 16:06:51.221763700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-oracle_trino	Oracle Database	trino	1035426	2021-05-24 16:09:41.330008800	2021-05-24 16:26:56.756850900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-percona	Percona Server for MySQL	client	9690	2021-05-24 16:28:23.402515100	2021-05-24 16:28:33.092995200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-postgresql	PostgreSQL Database	client	7090	2021-05-24 16:29:10.156335800	2021-05-24 16:29:17.247118400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-postgresql_trino	PostgreSQL Database	trino	491619	2021-05-24 16:30:25.551370600	2021-05-24 16:38:37.170715900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-sqlite	SQLite	embedded	6465	2021-05-24 16:38:39.389354200	2021-05-24 16:38:45.854763200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-sqlserver	MS SQL Server	client	7923	2021-05-24 16:39:39.462839300	2021-05-24 16:39:47.385913900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-sqlserver_trino	MS SQL Server	trino	1069251	2021-05-24 16:40:56.976000000	2021-05-24 16:58:46.227368000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-yugabyte	YugabyteDB	client	16441	2021-05-24 17:00:23.401392300	2021-05-24 17:00:39.843006400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+agens	AgensGraph	client	2706	2021-05-25 04:16:37.591898200	2021-05-25 04:16:40.298818200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+cockroach	CockroachDB	client	3689	2021-05-25 04:17:15.006840400	2021-05-25 04:17:18.696174500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+cratedb	CrateDB	client	4052	2021-05-25 04:17:53.283658800	2021-05-25 04:17:57.336369500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+cubrid	CUBRID	client	4948	2021-05-25 04:18:32.012217000	2021-05-25 04:18:36.960744700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+derby	Apache Derby	client	14009	2021-05-25 04:19:30.296249500	2021-05-25 04:19:44.305305500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+derby_emb	Apache Derby	embedded	15413	2021-05-25 04:19:46.452161800	2021-05-25 04:20:01.865661300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+exasol	Exasol	client	3161	2021-05-25 04:22:08.354648900	2021-05-25 04:22:11.515722500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+firebird	Firebird	client	132223	2021-05-25 04:23:06.484773400	2021-05-25 04:25:18.708224300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+h2	H2 Database Engine	client	6074	2021-05-25 04:26:01.884447500	2021-05-25 04:26:07.958566300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+h2_emb	H2 Database Engine	embedded	3297	2021-05-25 04:26:10.108253100	2021-05-25 04:26:13.405652800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+hsqldb	HyperSQL Database	client	16508	2021-05-25 04:26:57.117075100	2021-05-25 04:27:13.625959200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+hsqldb_emb	HyperSQL Database	embedded	193857	2021-05-25 04:27:15.787075900	2021-05-25 04:30:29.644359900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+ibmdb2	IBM Db2 Database	client	21723	2021-05-25 04:35:34.569301100	2021-05-25 04:35:56.293120300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+informix	IBM Informix	client	23543	2021-05-25 04:39:56.634600700	2021-05-25 04:40:20.178019100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mariadb	MariaDB Server	client	3135	2021-05-25 04:41:05.214139400	2021-05-25 04:41:08.349645900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mimer	Mimer SQL	client	7819	2021-05-25 04:41:43.325797200	2021-05-25 04:41:51.144836000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+monetdb	MonetDB	client	33213	2021-05-25 04:42:01.524126100	2021-05-25 04:42:34.737929100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mysql	MySQL Database	client	5393	2021-05-25 04:43:40.601778800	2021-05-25 04:43:45.995370200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+mysql_trino	MySQL Database	trino	985061	2021-05-25 04:45:26.591931900	2021-05-25 05:01:51.653929000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+oracle	Oracle Database	client	12308	2021-05-25 05:03:58.253997300	2021-05-25 05:04:10.562717400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+oracle_trino	Oracle Database	trino	998276	2021-05-25 05:07:00.430104000	2021-05-25 05:23:38.706469400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+percona	Percona Server for MySQL	client	5631	2021-05-25 05:24:54.376986700	2021-05-25 05:25:00.008306600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+postgresql	PostgreSQL Database	client	2651	2021-05-25 05:25:37.729634300	2021-05-25 05:25:40.381516500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+postgresql_trino	PostgreSQL Database	trino	473127	2021-05-25 05:26:48.744412000	2021-05-25 05:34:41.871717200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+sqlite	SQLite	embedded	2550	2021-05-25 05:34:44.084620500	2021-05-25 05:34:46.634838200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+sqlserver	MS SQL Server	client	3825	2021-05-25 05:35:22.437863800	2021-05-25 05:35:26.263272200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+sqlserver_trino	MS SQL Server	trino	1116493	2021-05-25 05:36:37.642174800	2021-05-25 05:55:14.135506200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+yugabyte	YugabyteDB	client	12263	2021-05-25 05:55:50.293211700	2021-05-25 05:56:02.556344100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
