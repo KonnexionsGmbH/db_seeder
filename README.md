@@ -180,8 +180,8 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.0          | see PostgreSQL      |
-| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.0.0248         |
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
+| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.0.0248         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.9           | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
