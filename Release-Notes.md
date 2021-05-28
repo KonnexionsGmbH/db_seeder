@@ -117,10 +117,6 @@ Release Date: 28.05.2021
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
-#### New Features
-
-n/a
-
 #### Modified Features
 
 - in Windows 10: replacing `grep` by `find`
@@ -146,10 +142,6 @@ n/a
 - Trino Distributed Query Engine: DBMS 356 / JDBC 356
 
 - YugabyteDB: DBMS 2.7.1.0-b131
-
-#### Deleted Features
-
-n/a
 
 ----------
 
