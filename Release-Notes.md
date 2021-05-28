@@ -103,6 +103,34 @@ Processing of the script was aborted, error code=1
 
 ## 2. Version History
 
+### 2.8.3
+
+Release Date: dd.mm.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 16 (e.g.: 16.0.1 from https://jdk.java.net/16/)
+
+- Gradle: 7 (e.g.: v7.0.2 from https://gradle.org/releases/)
+
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- xxx: DBMS 999 / JDBC 999
+
+#### Deleted Features
+
+n/a
+
+----------
+
 ### 2.8.2
 
 Release Date: 28.05.2021
