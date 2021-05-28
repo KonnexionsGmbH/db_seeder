@@ -28,7 +28,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * @return the connection URL
    */
   private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService +"?oracle.net.disableOob=true";
   }
 
   /**
@@ -41,7 +41,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
    * @return the connection URL for non-privileged access
    */
   public static String getUrlTrino(String connectionHost, int connectionPort, String connectionPrefix, String connectionService) {
-    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService;
+    return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService+"?oracle.net.disableOob=true";
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
