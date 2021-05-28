@@ -48,31 +48,31 @@ eval echo 'export LOCALE=${LOCALE}' >> ~/.bashrc
 
 export VERSION_AUTOCONF=2.71
 export VERSION_AUTOMAKE=1.16.3
-export VERSION_CMAKE=3.19.5
-export VERSION_CURL=7.75.0
-export VERSION_DOCKER_COMPOSE=1.28.4
+export VERSION_CMAKE=3.20.2
+export VERSION_CURL=7.76.1
+export VERSION_DOCKER_COMPOSE=1.29.2
 export VERSION_DOS2UNIX=7.4.2
-export VERSION_ECLIPSE_1=2020-12
+export VERSION_ECLIPSE_1=2021-03
 export VERSION_ECLIPSE_2=R
-export VERSION_ELIXIR=1.11.3-otp-23
-export VERSION_ERLANG=23.2.5
+export VERSION_ELIXIR=1.12.0-otp-24
+export VERSION_ERLANG=24.0.1
 export VERSION_GCC=10
 export VERSION_GCC_ORIG=9
-export VERSION_GO=1.16
-export VERSION_GRADLE=6.8.2
+export VERSION_GO=1.16.4
+export VERSION_GRADLE=7.0.2
 export VERSION_HTOP=3.0.5
-export VERSION_JAVA=openjdk-15.0.2
-export VERSION_KOTLIN=1.4.30
+export VERSION_JAVA=openjdk-16.0.1
+export VERSION_KOTLIN=1.5.0
 export VERSION_MAKE=4.3
-export VERSION_NODEJS=14.15.5
-export VERSION_OPENSSL=1_1_1j
+export VERSION_NODEJS=14.17.0
+export VERSION_OPENSSL=1_1_1k
 export VERSION_ORACLE_INSTANT_CLIENT_1=21
 export VERSION_ORACLE_INSTANT_CLIENT_2=1
-export VERSION_PYTHON=3.9.2
-export VERSION_REBAR=3.14.3
-export VERSION_RUST=1.50.0
-export VERSION_TMUX=3.1c
-export VERSION_VIM=8.2.2541
+export VERSION_PYTHON=3.10.0b1
+export VERSION_REBAR=3.15.1
+export VERSION_RUST=1.52.1
+export VERSION_TMUX=3.2
+export VERSION_VIM=8.2.2876
 export VERSION_WGET=1.21.1
 export VERSION_YARN=1.22.10
 
@@ -107,7 +107,7 @@ eval echo 'export VERSION_VIM=${VERSION_VIM}' >> ~/.bashrc
 eval echo 'export VERSION_WGET=${VERSION_WGET}' >> ~/.bashrc
 eval echo 'export VERSION_YARN=${VERSION_YARN}' >> ~/.bashrc
 
-export VERSION_KXN_DEV=2.0.1
+export VERSION_KXN_DEV=2.0.3
 
 echo '' >> ~/.bashrc
 eval echo 'export VERSION_KXN_DEV=${VERSION_KXN_DEV}' >> ~/.bashrc
@@ -130,14 +130,14 @@ fi
 echo '' >> ~/.bashrc
 eval echo 'export HOST_ENVIRONMENT=${HOST_ENVIRONMENT}' >> ~/.bashrc
 
-echo ""
+echo " "
 echo "Script $0 is now running"
 
 export LOG_FILE=run_install_4_vm_wsl2_1.log
 
-echo ""
+echo " "
 echo "You can find the run log in the file ${LOG_FILE}"
-echo ""
+echo " "
 
 exec &> >(tee -i ${LOG_FILE}) 2>&1
 sleep .1
@@ -196,7 +196,9 @@ sudo apt-get install -qy locales \
 sudo ln -fs /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 sudo dpkg-reconfigure --frontend noninteractive tzdata
 sudo locale-gen "${LOCALE}"
-sudo dpkg-reconfigure locales
+sudo update-locale "LANG=de_CH.UTF-8 UTF-8"
+sudo locale-gen --purge "de_CH.UTF-8"
+sudo dpkg-reconfigure --frontend noninteractive locales
 
 echo "--------------------------------------------------------------------------------"
 echo "Step: Setting up the environment: 1. Setting the environment variables"
@@ -239,6 +241,9 @@ export PATH_ADD_ON=${KOTLIN_HOME}/bin:${PATH_ADD_ON}
 
 # from Node ------------------------------------------------------------------------------
 export PATH_ADD_ON=/usr/local/lib/nodejs/bin:${PATH_ADD_ON}
+
+# from Microsoft ODBC --------------------------------------------------------------------
+export PATH="/opt/mssql-tools/bin:${PATH}"
 
 # from Oracle Instant Client -------------------------------------------------------------
 export ORACLE_HOME=/usr/lib/oracle/${VERSION_ORACLE_INSTANT_CLIENT_1}/client64
@@ -413,15 +418,20 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     echo "Step: Install Docker Desktop"
     echo "--------------------------------------------------------------------------------"
     sudo apt-get install -qy lsb-release \
-                             python-apt \
                              software-properties-common
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" --yes
     sudo apt-key fingerprint 0EBFCD88
     sudo apt-get install -qy docker-ce \
                              docker-ce-cli \
                              containerd.io
     sudo chmod 666 /var/run/docker.sock
+#   if ! [ $(grep -q docker /etc/group) ]; then
+#       sudo groupadd docker
+#   fi
+    if ! [ $(getent group docker | grep -q "\b$USER\b") ]; then
+        sudo usermod -aG docker $USER
+    fi
     echo "================================================================================"
     echo "Current Docker Desktop version is: $(docker version)"
     echo "================================================================================"
@@ -464,6 +474,20 @@ echo "Current Git version is: $(git --version)"
 echo "================================================================================"
 
 echo "--------------------------------------------------------------------------------"
+echo "Step: Install ODBC"
+echo "--------------------------------------------------------------------------------"
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > my_prod.list
+sudo mv my_prod.list /etc/apt/sources.list.d/mssql-release.list
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17
+sudo ACCEPT_EULA=Y apt-get install -y mssql-tools
+sudo apt-get install -y unixodbc-dev
+echo "================================================================================"
+echo "Current version of ODBC: $(odbcinst -j)"
+echo "================================================================================"
+
+echo "--------------------------------------------------------------------------------"
 echo "Step: Install Oracle Instant Client - Version ${VERSION_ORACLE_INSTANT_CLIENT_1}.${VERSION_ORACLE_INSTANT_CLIENT_2}.0.0.0"
 echo "--------------------------------------------------------------------------------"
 sudo apt-get install -qy alien \
@@ -502,7 +526,7 @@ git checkout "$(git describe --abbrev=0 --tags)"
 cd ~/
 echo "================================================================================"
 
-echo ""
+echo " "
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"

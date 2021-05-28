@@ -11,14 +11,14 @@ set -e
 export PWD_PREVIOUS=${PWD}
 cd ~/
 
-echo ""
+echo " "
 echo "Script $0 is now running"
 
 export LOG_FILE=run_install_4_vm_wsl2_2.log
 
-echo ""
+echo " "
 echo "You can find the run log in the file ${LOG_FILE}"
-echo ""
+echo " "
 
 exec &> >(tee -i ${LOG_FILE}) 2>&1
 sleep .1
@@ -192,7 +192,10 @@ sudo gcc --version
 sudo apt install -qy gcc-${VERSION_GCC} \
                      g++-${VERSION_GCC}
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${VERSION_GCC} 100 --slave /usr/bin/g++ g++ /usr/bin/g++-${VERSION_GCC} --slave /usr/bin/gcov gcov /usr/bin/gcov-${VERSION_GCC}
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${VERSION_GCC_ORIG} 90 --slave /usr/bin/g++ g++ /usr/bin/g++-${VERSION_GCC_ORIG} --slave /usr/bin/gcov gcov /usr/bin/gcov-${VERSION_GCC_ORIG}
+
+if [ -d "/usr/bin/gcc-${VERSION_GCC_ORIG}" ]; then
+    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${VERSION_GCC_ORIG} 90 --slave /usr/bin/g++ g++ /usr/bin/g++-${VERSION_GCC_ORIG} --slave /usr/bin/gcov gcov /usr/bin/gcov-${VERSION_GCC_ORIG}
+fi
 echo "================================================================================"
 echo "Current GCC version is: $(gcc --version)"
 echo "Current G++ version is: $(g++ --version)"
@@ -457,7 +460,7 @@ echo "Current version of Wget: $(wget --version)"
 echo "=====================================================================> Version  Yarn: "
 echo "Current version of Yarn: $(yarn --version)"
 
-echo ""
+echo " "
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"

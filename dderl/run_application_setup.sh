@@ -21,7 +21,7 @@ echo "==========================================================================
 if [ ! -d "$HOME_DDERL" ]; then
     echo "Create the DDErl repository"
     echo "---------------------------------------------------------"
-    git clone https://walter-weinmann:56a0cdaecdcd70a22671509d5513f0bca13eedc7@github.com/KonnexionsGmbH/dderl.git
+    git clone https://github.com/KonnexionsGmbH/dderl.git
 
     echo "Create the snapshot directory"
     echo "---------------------------------------------------------"
@@ -41,7 +41,7 @@ echo "Compile and start DDErl"
 echo "---------------------------------------------------------"
 rebar3 shell
 
-echo ""
+echo " "
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"
