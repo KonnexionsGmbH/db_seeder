@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.8.2
+set DB_SEEDER_RELEASE=2.8.3
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=356
+set DB_SEEDER_VERSION_TRINO=357
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -52,8 +52,8 @@ if ["%1"] EQU [""] (
     echo oracle             - Oracle Database
     echo oracle_trino       - Oracle Database via Trino
     echo percona            - Percona Server for MySQL
-    echo postgresql         - PostgreSQL Database
-    echo postgresql_trino   - PostgreSQL Database via Trino
+    echo postgresql         - PostgreSQL
+    echo postgresql_trino   - PostgreSQL via Trino
     echo sqlite             - SQLite [embedded]
     echo voltdb             - VoltDB
     echo yugabyte           - YugabyteDB
@@ -140,6 +140,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v20.2.7
     set DB_SEEDER_VERSION=v20.2.10
     set DB_SEEDER_VERSION=v21.1.0
+    set DB_SEEDER_VERSION=v21.1.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -326,6 +327,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.8
     set DB_SEEDER_VERSION=10.5.9
     set DB_SEEDER_VERSION=10.6.0
+    set DB_SEEDER_VERSION=10.6.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -552,6 +554,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.5.3.1-b10
     set DB_SEEDER_VERSION=2.7.0.0-b17
     set DB_SEEDER_VERSION=2.7.1.0-b131
+    set DB_SEEDER_VERSION=2.7.1.1-b1
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (

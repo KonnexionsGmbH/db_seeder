@@ -552,12 +552,12 @@ if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# PostgreSQL Database                          https://hub.docker.com/_/postgres
+# PostgreSQL                                   https://hub.docker.com/_/postgres
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
     start=$(date +%s)
-    echo "PostgreSQL Database."
+    echo "PostgreSQL."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (PostgreSQL ${DB_SEEDER_VERSION})"
 
@@ -581,7 +581,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
     docker network inspect db_seeder_net
 
     end=$(date +%s)
-    echo "DOCKER PostgreSQL Database was ready in $((end - start)) seconds"
+    echo "DOCKER PostgreSQL was ready in $((end - start)) seconds"
 fi
 
 # ------------------------------------------------------------------------------

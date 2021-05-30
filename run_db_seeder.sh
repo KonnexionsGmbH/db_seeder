@@ -15,9 +15,9 @@ rm -rf $PWD/tmp/* || sudo rm -rf $PWD/tmp/*
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.8.2
+export DB_SEEDER_RELEASE=2.8.3
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=356
+export DB_SEEDER_VERSION_TRINO=357
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -50,8 +50,8 @@ if [ -z "$1" ]; then
     echo "oracle             - Oracle Database"
     echo "oracle_trino       - Oracle Database via Trino"
     echo "percona            - Percona Server for MySQL"
-    echo "postgresql         - PostgreSQL Database"
-    echo "postgresql_trino   - PostgreSQL Database via Trino"
+    echo "postgresql         - PostgreSQL"
+    echo "postgresql_trino   - PostgreSQL via Trino"
     echo "sqlite             - SQLite [embedded]"
     echo "voltdb             - VoltDB"
     echo "yugabyte           - YugabyteDB"
@@ -141,6 +141,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v20.2.7
     export DB_SEEDER_VERSION=v20.2.10
     export DB_SEEDER_VERSION=v21.1.0
+    export DB_SEEDER_VERSION=v21.1.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -326,6 +327,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.5.8
     export DB_SEEDER_VERSION=10.5.9
     export DB_SEEDER_VERSION=10.6.0
+    export DB_SEEDER_VERSION=10.6.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -552,6 +554,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.5.3.1-b10
     export DB_SEEDER_VERSION=2.7.0.0-b17
     export DB_SEEDER_VERSION=2.7.1.0-b131
+    export DB_SEEDER_VERSION=2.7.1.1-b1
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then

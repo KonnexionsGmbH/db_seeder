@@ -273,7 +273,7 @@ if [ "$DB_SEEDER_DBMS_PERCONA" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# PostgreSQL Database.
+# PostgreSQL.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then

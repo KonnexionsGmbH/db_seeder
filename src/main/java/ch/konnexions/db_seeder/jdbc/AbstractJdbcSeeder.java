@@ -57,13 +57,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private final String    BLOB_FILE              = Paths.get("src",
                                                              "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+                                                             "resources").toAbsolutePath() + File.separator + "blob.png";
   private final byte[]    BLOB_DATA_BYTES        = readBlobFile2Bytes();
   private final String    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
 
   private final String    CLOB_FILE              = Paths.get("src",
                                                              "main",
-                                                             "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+                                                             "resources").toAbsolutePath() + File.separator + "clob.md";
   private final String    CLOB_DATA              = readClobFile();
   protected Connection    connection             = null;
 
@@ -264,7 +264,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     if (isDebug) {
-      logger.debug("End   [" + connection.toString() + "]");
+      logger.debug("End   [" + connection + "]");
     }
 
     return connection;

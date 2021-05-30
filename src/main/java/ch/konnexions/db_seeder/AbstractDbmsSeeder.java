@@ -279,14 +279,14 @@ public abstract class AbstractDbmsSeeder {
     dbmsDetails.put("postgresql",
                     new String[] {
                         "postgresql",
-                        "PostgreSQL Database",
+                        "PostgreSQL",
                         "client",
                         "PostgreSQL",
                         "" });
     dbmsDetails.put("postgresql_trino",
                     new String[] {
                         "postgresql",
-                        "PostgreSQL Database",
+                        "PostgreSQL",
                         "trino",
                         "PostgreSQL",
                         "" });

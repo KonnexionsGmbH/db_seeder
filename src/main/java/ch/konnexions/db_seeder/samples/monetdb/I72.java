@@ -53,7 +53,7 @@ public class I72 {
                                      new Timestamp(System.currentTimeMillis()));
       preparedStatement.setTimestamp(columnNo++,
                                      new Timestamp(System.currentTimeMillis()));
-      preparedStatement.setString(columnNo++,
+      preparedStatement.setString(columnNo,
                                   "name_" + i);
 
       preparedStatement.addBatch();
@@ -112,7 +112,7 @@ public class I72 {
                                   "iso3166_" + i);
       preparedStatement.setTimestamp(columnNo++,
                                      new Timestamp(System.currentTimeMillis()));
-      preparedStatement.setString(columnNo++,
+      preparedStatement.setString(columnNo,
                                   "name_" + i);
 
       preparedStatement.addBatch();
@@ -177,7 +177,7 @@ public class I72 {
                                      new Timestamp(System.currentTimeMillis()));
       preparedStatement.setString(columnNo++,
                                   "name_" + i);
-      preparedStatement.setString(columnNo++,
+      preparedStatement.setString(columnNo,
                                   "symbol_" + i);
 
       preparedStatement.addBatch();
@@ -234,7 +234,7 @@ public class I72 {
                                      new Timestamp(System.currentTimeMillis()));
       preparedStatement.setString(columnNo++,
                                   "name_" + i);
-      preparedStatement.setString(columnNo++,
+      preparedStatement.setString(columnNo,
                                   "v_time_zone_" + i);
 
       preparedStatement.addBatch();

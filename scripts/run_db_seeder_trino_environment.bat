@@ -18,7 +18,7 @@ if ["%1"] EQU [""] (
     echo sqlserver          - Microsoft SQL Server
     echo mysql              - MySQL Database
     echo oracle             - Oracle Database
-    echo postgresql         - PostgreSQL Database
+    echo postgresql         - PostgreSQL
     echo -----------------------------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 

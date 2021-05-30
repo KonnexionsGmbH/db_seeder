@@ -342,7 +342,7 @@ if [ "$DB_SEEDER_DBMS_PERCONA" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# PostgreSQL Database.
+# PostgreSQL.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
@@ -352,7 +352,7 @@ if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# PostgreSQL Database.
+# PostgreSQL.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL_TRINO" = "yes" ]; then

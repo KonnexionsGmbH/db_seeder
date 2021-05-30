@@ -415,7 +415,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     String            identifierDelimiter = getIdentifierDelimiter(tickerSymbolLower);
 
-    StringBuffer      workArea;
+    StringBuilder workArea;
 
     try {
       bw.append("package ch.konnexions.db_seeder.generated;");
@@ -513,7 +513,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           boolean isNewLineRequired = false;
 
-          workArea = new StringBuffer(" ".repeat(23));
+          workArea = new StringBuilder(" ".repeat(23));
           workArea.append(String.format("%-33s",
                                         editedColumnName));
           workArea.append(String.format("%-26s",
@@ -541,7 +541,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             if (isNewLineRequired) {
               bw.append(workArea.toString());
               bw.newLine();
-              workArea = new StringBuffer(" ".repeat(82));
+              workArea = new StringBuilder(" ".repeat(82));
             }
 
             workArea.append("NOT NULL");
@@ -555,7 +555,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
             if (isNewLineRequired) {
               bw.append(workArea.toString());
               bw.newLine();
-              workArea = new StringBuffer(" ".repeat(82));
+              workArea = new StringBuilder(" ".repeat(82));
             }
 
             workArea.append("PRIMARY KEY");
@@ -575,7 +575,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                 if (isNewLineRequired) {
                   bw.append(workArea.toString());
                   bw.newLine();
-                  workArea = new StringBuffer(" ".repeat(82));
+                  workArea = new StringBuilder(" ".repeat(82));
                 }
 
                 if ("agens".equals(tickerSymbolLower)
@@ -610,7 +610,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
                 bw.newLine();
-                workArea = new StringBuffer(" ".repeat(82));
+                workArea = new StringBuilder(" ".repeat(82));
               }
 
               workArea.append("UNIQUE");
@@ -624,7 +624,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
                 bw.newLine();
-                workArea = new StringBuffer(" ".repeat(82));
+                workArea = new StringBuilder(" ".repeat(82));
               }
 
               workArea.append("DEFAULT ");

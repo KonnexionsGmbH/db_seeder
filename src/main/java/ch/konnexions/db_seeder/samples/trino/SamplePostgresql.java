@@ -24,12 +24,12 @@ public final class SamplePostgresql {
 
   private static final String  BLOB_FILE           = Paths.get("src",
                                                                "main",
-                                                               "resources").toAbsolutePath().toString() + File.separator + "blob.png";
+                                                               "resources").toAbsolutePath() + File.separator + "blob.png";
   private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
   private static final String  CLOB_FILE           = Paths.get("src",
                                                                "main",
-                                                               "resources").toAbsolutePath().toString() + File.separator + "clob.md";
+                                                               "resources").toAbsolutePath() + File.separator + "clob.md";
   private static final String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
   private static final String  connectionHost      = "localhost";
@@ -142,7 +142,7 @@ public final class SamplePostgresql {
                                    new java.sql.Timestamp(System.currentTimeMillis() + new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)).nextInt(
                                                                                                                                                              2147483647)));
 
-    preparedStatement.setString(columnPos++,
+    preparedStatement.setString(columnPos,
                                 "varchar column #" + rowNo);
   }
 

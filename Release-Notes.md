@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.3.svg)
 
 ## 1. Current Issues
 
@@ -123,6 +123,16 @@ n/a
 
 #### Modified Features
 
+- CockroachDB: DBMS v21.1.1
+
+- CUBRID: JDBC 11.0.1.0286
+
+- MariaDB Server: DBMS 10.6.1
+
+- Trino Distributed Query Engine: DBMS 357 / JDBC 357
+
+- YugabyteDB: DBMS 2.7.1.1-b1
+
 - xxx: DBMS 999 / JDBC 999
 
 #### Deleted Features
@@ -165,7 +175,7 @@ Release Date: 28.05.2021
 
 - Percona Server for MySQL: DBMS 8.0.23-14
 
-- PostgreSQL Database: DBMS 13.3 / JDBC 42.2.20
+- PostgreSQL: DBMS 13.3 / JDBC 42.2.20
 
 - Trino Distributed Query Engine: DBMS 356 / JDBC 356
 
@@ -267,7 +277,7 @@ Release Date: 27.02.2021
 
 - Oracle Database: JDBC 21.1.0.0
 
-- PostgreSQL Database: DBMS 13.2 / JDBC 42.2.19
+- PostgreSQL: DBMS 13.2 / JDBC 42.2.19
 
 - Trino Distributed Query Engine: DBMS 352 / JDBC 352
 
@@ -366,7 +376,7 @@ Release Date: 28.11.2020
 
 - MySQL Database: DBMS 8.0.23 / JDBC 8.0.23
 
-- PostgreSQL Database: DBMS 13.1
+- PostgreSQL: DBMS 13.1
 
 - Presto Distributed Query Engine: DBMS 347 / JDBC 347
 
@@ -435,7 +445,7 @@ Release Date: 27.10.2020
 
 - Oracle Database: JDBC 19.8.0.0
 
-- PostgreSQL Database: JDBC 42.2.18
+- PostgreSQL: JDBC 42.2.18
 
 - Presto Distributed Query Engine: DBMS 345 / JDBC 345
 
@@ -531,7 +541,7 @@ Release Date: 29.09.2020
 
 - MariaDB Server: JDBC 2.7.0
 
-- PostgreSQL Database: DBMS 13
+- PostgreSQL: DBMS 13
 
 - Presto Distributed Query Engine: DBMS 343
 - Presto Distributed Query Engine: JDBC 343
@@ -651,8 +661,7 @@ Release Date: 26.08.2020
 
 - CrateDB: DBMS 4.2.3
 
-- PostgreSQL Database: DBMS 12.4
-- PostgreSQL Database: JDBC 42.2.15
+- PostgreSQL: DBMS 12.4 / JDBC 42.2.15
 
 ----------
 
@@ -722,7 +731,7 @@ Release Date: 17.08.2020
 
 #### Modified Features
 
-- PostgreSQL Database: JDBC 42.2.15
+- PostgreSQL: JDBC 42.2.15
 
 - Presto Distributed Query Engine: use of Docker network
 
@@ -1196,7 +1205,7 @@ Release Date: 10.06.2020
 
 #### New Features
 
-- New DBMS: PostgreSQL Database
+- New DBMS: PostgreSQL
 
 ----------
 
