@@ -53,6 +53,96 @@
     
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
+- Oracle Connector: ORA-04031.
+
+2021-05-31 18:06:40,467 [DatabaseSeeder.java] INFO  Start Oracle Database via Trino
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2021-05-31 18:07:49,018 [AbstractJdbcSeeder.java] INFO  database table COUNTRY           -        200 rows in total
+2021-05-31 18:07:51,642 [AbstractJdbcSeeder.java] INFO  database table TIMEZONE          -         11 rows in total
+2021-05-31 18:10:55,972 [AbstractJdbcSeeder.java] INFO  database table CITY              -        500 rows so far
+2021-05-31 18:10:56,014 [AbstractJdbcSeeder.java] INFO  database table CITY              -       1000 rows so far
+2021-05-31 18:13:57,943 [AbstractJdbcSeeder.java] INFO  database table CITY              -       1500 rows so far
+2021-05-31 18:15:24,106 [AbstractJdbcSeeder.java] INFO  database table CITY              -       1800 rows in total
+2021-05-31 18:15:24,155 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -        500 rows so far
+2021-05-31 18:15:24,183 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       1000 rows so far
+2021-05-31 18:17:32,691 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       1500 rows so far
+2021-05-31 18:17:32,699 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       2000 rows so far
+2021-05-31 18:19:48,647 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       2500 rows so far
+2021-05-31 18:19:48,655 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       3000 rows so far
+java.sql.SQLException: Query failed (#20210531_162053_05090_p42ic): Failed to insert data: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
+
+        at io.trino.jdbc.AbstractTrinoResultSet.resultsException(AbstractTrinoResultSet.java:1912)
+        at io.trino.jdbc.TrinoResultSet$ResultsPageIterator.computeNext(TrinoResultSet.java:218)
+        at io.trino.jdbc.TrinoResultSet$ResultsPageIterator.computeNext(TrinoResultSet.java:178)
+        at io.trino.jdbc.$internal.guava.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:141)
+        at io.trino.jdbc.$internal.guava.collect.AbstractIterator.hasNext(AbstractIterator.java:136)
+        at java.base/java.util.Spliterators$IteratorSpliterator.tryAdvance(Spliterators.java:1811)
+        at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:294)
+        at java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)
+        at java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:161)
+        at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:300)
+        at java.base/java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)
+        at io.trino.jdbc.TrinoResultSet$AsyncIterator.lambda$new$0(TrinoResultSet.java:124)
+        at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1800)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+        at java.base/java.lang.Thread.run(Thread.java:831)
+Caused by: io.trino.spi.TrinoException: Failed to insert data: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
+
+        at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:174)
+        at io.trino.operator.TableWriterOperator.finish(TableWriterOperator.java:208)
+        at io.trino.operator.Driver.processInternal(Driver.java:405)
+        at io.trino.operator.Driver.lambda$processFor$9(Driver.java:291)
+        at io.trino.operator.Driver.tryWithLock(Driver.java:683)
+        at io.trino.operator.Driver.processFor(Driver.java:284)
+        at io.trino.execution.SqlTaskExecution$DriverSplitRunner.processFor(SqlTaskExecution.java:1075)
+        at io.trino.execution.executor.PrioritizedSplitRunner.process(PrioritizedSplitRunner.java:163)
+        at io.trino.execution.executor.TaskExecutor$TaskRunner.run(TaskExecutor.java:484)
+        at io.trino.$gen.Trino_357____20210531_160412_2.run(Unknown Source)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: java.sql.BatchUpdateException: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
+
+        at oracle.jdbc.driver.OraclePreparedStatement.executeLargeBatch(OraclePreparedStatement.java:9711)
+        at oracle.jdbc.driver.T4CPreparedStatement.executeLargeBatch(T4CPreparedStatement.java:1447)
+        at oracle.jdbc.driver.OraclePreparedStatement.executeBatch(OraclePreparedStatement.java:9487)
+        at oracle.jdbc.driver.OracleStatementWrapper.executeBatch(OracleStatementWrapper.java:237)
+        at oracle.ucp.jdbc.proxy.oracle$1ucp$1jdbc$1proxy$1oracle$1StatementProxy$2oracle$1jdbc$1internal$1OraclePreparedStatement$$$Proxy.executeBatch(Unknown Source)
+        at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:159)
+        ... 12 more
+        Suppressed: java.lang.Exception: Next SQLException
+                at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:170)
+                ... 12 more
+        Caused by: java.sql.SQLException: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
+
+                at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:509)
+                at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:461)
+                at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1104)
+                at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:550)
+                at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:268)
+                at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:655)
+                at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:270)
+                at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:91)
+                at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:970)
+                at oracle.jdbc.driver.OraclePreparedStatement.executeForRowsWithTimeout(OraclePreparedStatement.java:9452)
+                at oracle.jdbc.driver.OraclePreparedStatement.executeLargeBatch(OraclePreparedStatement.java:9556)
+                at oracle.jdbc.driver.T4CPreparedStatement.executeLargeBatch(T4CPreparedStatement.java:1447)
+                at oracle.jdbc.driver.OraclePreparedStatement.executeBatch(OraclePreparedStatement.java:9487)
+                at oracle.jdbc.driver.OracleStatementWrapper.executeBatch(OracleStatementWrapper.java:237)
+                at oracle.ucp.jdbc.proxy.oracle$1ucp$1jdbc$1proxy$1oracle$1StatementProxy$2oracle$1jdbc$1internal$1OraclePreparedStatement$$$Proxy.executeBatch(Unknown Source)
+                at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:159)
+                ... 12 more
+        Caused by: oracle.jdbc.OracleDatabaseException: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
+
+                at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:513)
+                ... 27 more
+Processing of the script was aborted, error code=1
+
 ### 1.3 VoltDB
 
 - java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null

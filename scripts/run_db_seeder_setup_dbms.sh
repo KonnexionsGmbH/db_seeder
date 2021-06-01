@@ -504,7 +504,6 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
                   --name     db_seeder_db \
                   --network  db_seeder_net \
                   -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  --shm-size 1G \
                   konnexionsgmbh/${DB_SEEDER_VERSION}
 
     echo "Docker start db_seeder_db (Oracle ${DB_SEEDER_VERSION}) ..."
