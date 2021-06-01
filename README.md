@@ -197,7 +197,10 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| Trino Distributed Query Engine  | n/a                | 339 - 357                  | 357                 |
+| Trino Distributed Query Engine  | mysql_trino,       | 339 - 357                  | 357                 |
+|                                 | oracle_trino,      |                            |                     |
+|                                 | postgresql_trino,  |                            |                     |
+|                                 | sqlserver_trino    |                            |                     |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.1.1-b1   | 42.2.7-yb-3         |
 
