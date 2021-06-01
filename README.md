@@ -183,7 +183,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.9           | 7.0.7               |
-| Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.3.java11        | 
+| Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
@@ -905,7 +905,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:3.0.7`
+  - pull command: `docker pull jacobalberty/firebird:v4.0.0rc1`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`

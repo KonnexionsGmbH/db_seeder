@@ -217,6 +217,8 @@ n/a
 
 - CUBRID: JDBC 11.0.1.0286
 
+- Firebird: DBMS v4.0.0rc1
+
 - MariaDB Server: DBMS 10.6.1
 
 - Trino Distributed Query Engine: DBMS 357 / JDBC 357
