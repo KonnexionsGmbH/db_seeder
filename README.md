@@ -281,7 +281,7 @@ Only either a range restriction (`lowerRange...`, `upperRange...`) or a value re
 
 #### 2.1.2 Mapping of Data Types in the JDBC Driver 
 
-| Data Typ  e | JDBC Method                                                |
+| Data Type   | JDBC Method                                                |
 | ---         | ---                                                        |
 | `BIGINT`    | `setLong`                                                  |
 | `BLOB`      | `setBytes`                                                 |
