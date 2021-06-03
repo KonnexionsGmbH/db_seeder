@@ -116,7 +116,7 @@ Currently the following database management systems are supported:
   - open source
   - relational model
   - **[see technical details here](#details_mysql)**
-- [OmniSciDB](ttps://www.omnisci.com)
+- [OmniSciDB](https://www.omnisci.com)
   - client only version
   - commercial, open source
   - GPU and CPU version
@@ -1330,13 +1330,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | OmniSciDB Type         |
-| ---            | ---                    |
-| BIGINT         | BIGINT                 |
-| BLOB           | TEXT ENCODING DICT(16) |
-| CLOB           | TEXT ENCODING DICT(16) |
-| TIMESTAMP      | TIMESTAMP(0)           |
-| VARCHAR        | TEXT ENCODING DICT     |
+| db seeder Type | OmniSciDB Type     |
+| ---            | ---                |
+| BIGINT         | BIGINT             |
+| BLOB           | TEXT ENCODING NONE |
+| CLOB           | TEXT ENCODING NONE |
+| TIMESTAMP      | TIMESTAMP(0)       |
+| VARCHAR        | TEXT ENCODING NONE |
 
 - **DDL syntax**:
   - [CREATE DATABASE](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
@@ -1373,7 +1373,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_omnisci.png)
+![](.README_images/DBeaver_OmniSciDB.png)
 
 [//]: # (===========================================================================================)
 
