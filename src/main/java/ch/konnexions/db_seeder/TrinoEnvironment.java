@@ -487,9 +487,9 @@ public final class TrinoEnvironment {
         logger.info("End   Oracle Database");
         break;
       case "postgresql":
-        logger.info("Start PostgreSQL Database");
+        logger.info("Start PostgreSQL");
         createCatalogFilePostgresql(tickerSymbolExtern);
-        logger.info("End   PostgreSQL Database");
+        logger.info("End   PostgreSQL");
         break;
       case "sqlserver":
         logger.info("Start Microsoft SQL Server");

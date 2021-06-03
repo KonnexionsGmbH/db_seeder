@@ -1,3 +1,0 @@
-pip==21.1.1
-cx-Oracle==8.2.0
-PyYAML==5.4.1

@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.0.svg)
 ----
 
 ### Table of Contents
@@ -40,7 +40,7 @@ Currently the following database management systems are supported:
   - open source
   - relational model
   - **[see technical details here](#details_derby)**
-- [CockroachDB](https://www.cockroachlabs.com/)
+- [CockroachDB](https://www.cockroachlabs.com)
   - client only version
   - commercial, open source
   - compatible with PostgreSQL JDBC
@@ -116,6 +116,12 @@ Currently the following database management systems are supported:
   - open source
   - relational model
   - **[see technical details here](#details_mysql)**
+- [OmniSciDB](ttps://www.omnisci.com)
+  - client only version
+  - commercial, open source
+  - GPU and CPU version
+  - relational model
+  - **[see technical details here](#details_omnisci)**
 - [Oracle Database](https://www.oracle.com/database)
   - client only version
   - commercial
@@ -127,12 +133,12 @@ Currently the following database management systems are supported:
   - derived from MySQL
   - relational model
   - **[see technical details here](#details_percona)**
-- [PostgreSQL Database](https://www.postgresql.org)
+- [PostgreSQL](https://www.postgresql.org)
   - client only version
   - open source
   - relational model
   - **[see technical details here](#details_postgresql)**
-- [Trino Distributed Query Engine](https://trino.io/)
+- [Trino Distributed Query Engine](https://trino.io)
   - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
   - open source
@@ -179,27 +185,31 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.0          | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.1          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.0.0248         |
+| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.9           | 7.0.7               |
-| Firebird                        | firebird           | 3.0.5 - 3.0.7              | 4.0.3.java11        | 
+| Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.0           | 2.7.3               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
 | Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
+| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0            |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
-| PostgreSQL Database             | postgresql         | 12.3 - 13.3                | 42.2.20             |
+| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| Trino Distributed Query Engine  | n/a                | 339 - 356                  | 356                 |
+| Trino Distributed Query Engine  | mysql_trino,       | 339 - 357                  | 357                 |
+|                                 | oracle_trino,      |                            |                     |
+|                                 | postgresql_trino,  |                            |                     |
+|                                 | sqlserver_trino    |                            |                     |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.1.0-b131 | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.1.1-b1   | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -278,7 +288,7 @@ Only either a range restriction (`lowerRange...`, `upperRange...`) or a value re
 
 #### 2.1.2 Mapping of Data Types in the JDBC Driver 
 
-| Data Typ  e | JDBC Method                                                |
+| Data Type   | JDBC Method                                                |
 | ---         | ---                                                        |
 | `BIGINT`    | `setLong`                                                  |
 | `BLOB`      | `setBytes`                                                 |
@@ -585,30 +595,32 @@ db_seeder.user=
 
 #### 4.3.2 Explanation and Cross-reference
 
-| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                                                              | Description |     
-| ---                                       | ---                               | ---                                                                                                                  | --- |
-| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                                                     | host name or ip address of the database server |
-| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | Trino                                                                                                                | host name or ip address of the Trino distributed query engine |
-| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                                                     | port number of the database server |
-| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | Trino                                                                                                                | port number of the Trino distributed query engine |
-| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                                                            | prefix of the database connection string |
-| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                                                               | service name of the database connection string |
-| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                                                             | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, percona, postgresql, sqlserver, yugabyte                 | privileged database name |
-| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                                                             | database name |
-| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                                                  | directory and file name of the DBSeeder configuration file |
-| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                                                                | directory and file name of the JSON file containing the database schema |
-| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                                                             | separator of the statistics file created in `run_db_seeder` |
-| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                                                             | header line of the statistics file created in `run_db_seeder` |
-| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                                                             | file name of the statistics file created in `run_db_seeder` |
-| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all DBMS                                                                                                             | file name of the summary statistics file created in `run_db_seeder_statistics` |
-| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all DBMS                                                                                                             | directory name(s) (separated by semicolon) of the source directories containing statistics files |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, oracle, percona, postgresql, sqlserver    | password of the privileged user |
-| password=<x...x>                          | PASSWORD                          | all DBMS except cockroach, derby, ibmdb2, informix                                                                   | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte                                   | schema name |
-| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, voltdb                                                                                        | name of the privileged user |
-| user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                                                              | name of the normal user |
-|                                           |                                   |                                                                                                                      |     |
+| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                            | Description |     
+| ---                                       | ---                               | ---                                                                                | --- |
+| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                   | host name or ip address of the database server |
+| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | Trino                                                                              | host name or ip address of the Trino distributed query engine |
+| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                   | port number of the database server |
+| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | Trino                                                                              | port number of the Trino distributed query engine |
+| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                          | prefix of the database connection string |
+| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                             | service name of the database connection string |
+| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                           | suffix of the database connection string |
+| database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
+|                                           |                                   | postgresql, sqlserver, yugabyte                                                    |     |
+| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                           | database name |
+| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the DBSeeder configuration file |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
+| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                           | separator of the statistics file created in `run_db_seeder` |
+| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                           | header line of the statistics file created in `run_db_seeder` |
+| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                           | file name of the statistics file created in `run_db_seeder` |
+| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all DBMS                                                                           | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all DBMS                                                                           | directory name(s) (separated by semicolon) of the source directories containing statistics files |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
+|                                           |                                   | oracle, percona, postgresql, sqlserver                                             | password of the privileged user |
+| password=<x...x>                          | PASSWORD                          | all DBMS except cockroach, derby, ibmdb2, informix                                 | password of the normal user |
+| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte | schema name |
+| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, voltdb                                                      | name of the privileged user |
+| user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                            | name of the normal user |
+|                                           |                                   |                                                                                    |     |
 
 [//]: # (===========================================================================================)
 
@@ -635,9 +647,10 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Mimer SQL](#details_mimer)** / 
 **[MonetDB](#details_monetdb)** / 
 **[MySQL Database](#details_mysql)** / 
-**[Oracle Database](#details_oracle)** / 
+**[OmniSciDB](#details_omnisci)** /
+**[Oracle Database](#details_oracle)** /
 **[Percona Server for MySQL](#details_percona)** / 
-**[PostgreSQL Database](#details_postgresql)** / 
+**[PostgreSQL](#details_postgresql)** / 
 **[SQLite](#details_sqlite)** /
 **[Trino distributed Query Engine](#details_trino)** /
 **[VoltDB](#details_voltdb)** /
@@ -658,16 +671,16 @@ Below are also DBeaver based connection parameter examples for each database man
 | VARCHAR        | VARCHAR                  |
 
 - **DDL syntax**:
-  - CREATE DATABASE: see PostgreSQL Database 
-  - CREATE SCHEMA: see PostgreSQL Database
-  - CREATE TABLE: see PostgreSQL Database 
-  - CREATE USER: see PostgreSQL Database 
+  - CREATE DATABASE: see PostgreSQL 
+  - CREATE SCHEMA: see PostgreSQL
+  - CREATE TABLE: see PostgreSQL 
+  - CREATE USER: see PostgreSQL 
 
 - **Docker image (latest)**:
   - pull command: `docker pull bitnine/agensgraph:v2.1.3`
   - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
 
-- **encoding**: see PostgreSQL Database
+- **encoding**: see PostgreSQL
   
 - **issue tracking**: [GitHub](https://github.com/bitnine-oss/agensgraph/issues)
   
@@ -743,7 +756,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.0`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.1`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -838,7 +851,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [reddit](https://www.reddit.com/r/CUBRID)
 
 - **JDBC driver (latest)**:
-  - version 11.0.0.0248
+  - version 11.0.1.0286
   - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
   
 - **privileged database access**: users `DBA` and `PUBLIC`
@@ -905,7 +918,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:3.0.7`
+  - pull command: `docker pull jacobalberty/firebird:v4.0.0rc1`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
@@ -1123,7 +1136,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.6.0`
+  - pull command: `docker pull mariadb:10.6.1`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1313,7 +1326,58 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.16 Oracle Database
+### <a name="details_omnisci"></a> 5.16 OmniSciDB
+
+- **data types**:
+
+| db seeder Type | OmniSciDB Type         |
+| ---            | ---                    |
+| BIGINT         | BIGINT                 |
+| BLOB           | TEXT ENCODING DICT(16) |
+| CLOB           | TEXT ENCODING DICT(16) |
+| TIMESTAMP      | TIMESTAMP(0)           |
+| VARCHAR        | TEXT ENCODING DICT     |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://docs-new.omnisci.com/sql/data-definition-ddl/tables)
+  - [CREATE USER](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
+
+- **Docker image (latest)**:
+  - pull command: `docker pull omnisci/core-os-cpu`
+  - [DockerHub](https://hub.docker.com/_/omnisci-open-source-edition)
+
+- **encoding**: no special configuration should be needed
+
+- **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
+
+- **JDBC driver (latest)**:
+  - version 5.6.0
+  - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
+
+- **privileged database access**:
+  - database: `omnisci`
+  - user: `admin`
+
+- **restrictions**: 
+  - column and table names case sensitive
+  - max. column length 32767 bytes  
+  - no binary columns
+  - no constraints, e.g. unique keys
+  - no foreign / referential keys
+  - no primary key
+  - no triggerss
+
+- **source code**: [GitHub](https://github.com/omnisci/omniscidb)
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_omnisci.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_oracle"></a> 5.17 Oracle Database
 
 - **data types**:
 
@@ -1349,7 +1413,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_percona"></a> 5.17 Percona Server for MySQL
+### <a name="details_percona"></a> 5.18 Percona Server for MySQL
 
 - **data types**:
 
@@ -1387,17 +1451,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.18 PostgreSQL Database
+### <a name="details_postgresql"></a> 5.19 PostgreSQL
 
 - **data types**:
 
-| db seeder Type | PostgreSQL Database Type |
-| ---            | ---                      |
-| BIGINT         | BIGINT                   |
-| BLOB           | BYTEA                    |
-| CLOB           | TEXT                     |
-| TIMESTAMP      | TIMESTAMP                |
-| VARCHAR        | VARCHAR                  |
+| db seeder Type | PostgreSQL Type |
+| ---            | ---             |
+| BIGINT         | BIGINT          |
+| BLOB           | BYTEA           |
+| CLOB           | TEXT            |
+| TIMESTAMP      | TIMESTAMP       |
+| VARCHAR        | VARCHAR         |
 
 - **DDL syntax**:
   - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
@@ -1425,7 +1489,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.19 SQLite
+### <a name="details_sqlite"></a> 5.20 SQLite
 
 - **data types**:
 
@@ -1464,7 +1528,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_trino"></a> 5.20 Trino Distributed Query Engine
+### <a name="details_trino"></a> 5.21 Trino Distributed Query Engine
 
 - **data types**:
 
@@ -1483,7 +1547,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:356`
+  - pull command: `docker pull trinodb/trino:357`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1491,14 +1555,14 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 356
+  - version 357
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
 
 [//]: # (===========================================================================================)
 
-### <a name="details_voltdb"></a> 5.21 VoltDB
+### <a name="details_voltdb"></a> 5.22 VoltDB
 
 - **data types**:
 
@@ -1530,7 +1594,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_yugabyte"></a> 5.22 YugabyteDB
+### <a name="details_yugabyte"></a> 5.23 YugabyteDB
 
 - **data types**:
 
@@ -1549,10 +1613,10 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.7.1.0-b131`
+  - pull command: `docker pull yugabytedb/yugabyte:2.7.1.1-b1`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
 
-- **encoding**: see PostgreSQL Database
+- **encoding**: see PostgreSQL
   
 - **issue tracking**: [GitHub](https://github.com/yugabyte/yugabyte-db/issues)
 

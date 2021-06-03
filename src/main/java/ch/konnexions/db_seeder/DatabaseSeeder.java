@@ -15,6 +15,7 @@ import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mimer.MimerSeeder;
 import ch.konnexions.db_seeder.jdbc.monetdb.MonetdbSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
+import ch.konnexions.db_seeder.jdbc.omnisci.OmnisciSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.percona.PerconaSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
@@ -176,6 +177,12 @@ public final class DatabaseSeeder {
         mysqlSeederTrino.createData();
         logger.info("End   MySQL Database via Trino");
         break;
+      case "omnisci":
+        logger.info("Start OmniSciDB");
+        OmnisciSeeder omnisciSeeder = new OmnisciSeeder(tickerSymbolExtern);
+        omnisciSeeder.createData();
+        logger.info("End   OmniSciDB");
+        break;
       case "oracle":
         logger.info("Start Oracle Database");
         OracleSeeder oracleSeeder = new OracleSeeder(tickerSymbolExtern);
@@ -195,16 +202,16 @@ public final class DatabaseSeeder {
         logger.info("End   Percona Server for MySQL");
         break;
       case "postgresql":
-        logger.info("Start PostgreSQL Database");
+        logger.info("Start PostgreSQL");
         PostgresqlSeeder postgresqlSeeder = new PostgresqlSeeder(tickerSymbolExtern);
         postgresqlSeeder.createData();
-        logger.info("End   PostgreSQL Database");
+        logger.info("End   PostgreSQL");
         break;
       case "postgresql_trino":
-        logger.info("Start PostgreSQL Database via Trino");
+        logger.info("Start PostgreSQL via Trino");
         PostgresqlSeeder postgresqlSeederTrino = new PostgresqlSeeder(tickerSymbolExtern, "trino");
         postgresqlSeederTrino.createData();
-        logger.info("End   PostgreSQL Database via Trino");
+        logger.info("End   PostgreSQL via Trino");
         break;
       case "sqlite":
         logger.info("Start SQLite");

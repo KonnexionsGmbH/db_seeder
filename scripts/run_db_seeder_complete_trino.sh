@@ -92,7 +92,7 @@ if [ "$DB_SEEDER_DBMS_ORACLE_TRINO" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# PostgreSQL Database.
+# PostgreSQL.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_POSTGRESQL_TRINO" = "yes" ]; then
