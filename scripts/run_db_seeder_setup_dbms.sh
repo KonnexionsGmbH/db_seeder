@@ -490,6 +490,39 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# OmniSciDB                 https://hub.docker.com/_/omnisci-open-source-edition
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
+    start=$(date +%s)
+    echo "OmniSciDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION})"
+
+    rm    -rf tmp/omnisci-docker-storage
+    mkdir     tmp/omnisci-docker-storage
+
+    docker network create db_seeder_net  2>/dev/null || true
+    docker create --name    db_seeder_db \
+                  --network db_seeder_net \
+                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                  -v        tmp/omnisci-docker-storage \
+                  omnisci/core-os-cpu
+
+    echo "Docker start db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 30
+
+    docker network ls
+    docker network inspect db_seeder_net
+
+    end=$(date +%s)
+fi
+
+# ------------------------------------------------------------------------------
 # Oracle Database.
 # ------------------------------------------------------------------------------
 

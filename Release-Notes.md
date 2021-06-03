@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.8.3.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.0.svg)
 
 ## 1. Current Issues
 
@@ -193,7 +193,7 @@ Processing of the script was aborted, error code=1
 
 ## 2. Version History
 
-### 2.8.3
+### 2.9.0
 
 Release Date: dd.mm.2021
 
@@ -209,7 +209,7 @@ Release Date: dd.mm.2021
 
 #### New Features
 
-n/a
+- OmniSciDB: DBMS 5.6.1 / JDBC 5.6.0
 
 #### Modified Features
 

@@ -61,6 +61,9 @@ public abstract class AbstractDbmsSeeder {
     MYSQL(
         "mysql"
     ),
+    OMNISCI(
+        "omnisci"
+    ),
     ORACLE(
         "oracle"
     ),
@@ -254,6 +257,13 @@ public abstract class AbstractDbmsSeeder {
                         "MySQL Database",
                         "trino",
                         "MySQL",
+                        "" });
+    dbmsDetails.put("omnisci",
+                    new String[] {
+                        "omnisci",
+                        "OmniSciDB",
+                        "client",
+                        "OmniSciDB",
                         "" });
     dbmsDetails.put("oracle",
                     new String[] {

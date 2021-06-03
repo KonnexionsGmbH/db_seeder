@@ -15,6 +15,7 @@ import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mimer.MimerSeeder;
 import ch.konnexions.db_seeder.jdbc.monetdb.MonetdbSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
+import ch.konnexions.db_seeder.jdbc.omnisci.OmnisciSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.percona.PerconaSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
@@ -175,6 +176,12 @@ public final class DatabaseSeeder {
         MysqlSeeder mysqlSeederTrino = new MysqlSeeder(tickerSymbolExtern, "trino");
         mysqlSeederTrino.createData();
         logger.info("End   MySQL Database via Trino");
+        break;
+      case "omnisci":
+        logger.info("Start OmniSciDB");
+        OmnisciSeeder omnisciSeeder = new OmnisciSeeder(tickerSymbolExtern);
+        omnisciSeeder.createData();
+        logger.info("End   OmniSciDB");
         break;
       case "oracle":
         logger.info("Start Oracle Database");

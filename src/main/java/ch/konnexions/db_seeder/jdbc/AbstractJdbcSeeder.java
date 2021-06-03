@@ -26,9 +26,11 @@ import java.util.Random;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX = 3;
+  private static final int    ENCODING_MAX     = 3;
 
-  private static final Logger logger       = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger           = Logger.getLogger(AbstractJdbcSeeder.class);
+
+  private static final int    XLOB_OMNISCI_MAX = 32767 / 2;
 
   /**
    * Gets the catalog name.
@@ -352,6 +354,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     String editedTableName;
 
     if (dbmsEnum == DbmsEnum.MYSQL
+        || dbmsEnum == DbmsEnum.OMNISCI
         || dbmsEnum == DbmsEnum.ORACLE
         || dbmsEnum == DbmsEnum.PERCONA
         || dbmsEnum == DbmsEnum.POSTGRESQL
@@ -408,6 +411,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     String editedTableName;
 
     if (dbmsEnum == DbmsEnum.MYSQL
+        || dbmsEnum == DbmsEnum.OMNISCI
         || dbmsEnum == DbmsEnum.ORACLE
         || dbmsEnum == DbmsEnum.PERCONA
         || dbmsEnum == DbmsEnum.POSTGRESQL
@@ -417,7 +421,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       editedTableName = tableName.toUpperCase();
     }
 
-    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
+    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + (dbmsEnum == DbmsEnum.OMNISCI
+        ? dmlStatements.get(tableName).toLowerCase()
+        : dmlStatements.get(tableName)) + ")";
 
     if (isDebug) {
       logger.debug("sql='" + sqlStmnt + "'");
@@ -582,7 +588,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       for (String tableName : TABLE_NAMES_DROP) {
         String queryStmnt = sqlStmnt.replace("?",
-                                             dbmsEnum == DbmsEnum.CRATEDB
+                                             dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.OMNISCI
+
                                                  ? tableName.toLowerCase()
                                                  : tableName.toUpperCase());
 
@@ -1067,6 +1074,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                     getContentBlobString(tableName,
                                                          columnName,
                                                          rowNo));
+      } else if (dbmsEnum == DbmsEnum.OMNISCI) {
+        String dataValue = getContentBlobString(tableName,
+                                                columnName,
+                                                rowNo);
+        preparedStatement.setString(columnPos,
+                                    dataValue.substring(0,
+                                                        Math.min(dataValue.length(),
+                                                                 XLOB_OMNISCI_MAX)));
       } else {
         preparedStatement.setBytes(columnPos,
                                    getContentBlob(tableName,
@@ -1130,10 +1145,20 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      preparedStatement.setString(columnPos,
-                                  getContentClob(tableName,
-                                                 columnName,
-                                                 rowNo));
+      if (dbmsEnum == DbmsEnum.OMNISCI) {
+        String dataValue = getContentClob(tableName,
+                                          columnName,
+                                          rowNo);
+        preparedStatement.setString(columnPos,
+                                    dataValue.substring(0,
+                                                        Math.min(dataValue.length(),
+                                                                 XLOB_OMNISCI_MAX)));
+      } else {
+        preparedStatement.setString(columnPos,
+                                    getContentClob(tableName,
+                                                   columnName,
+                                                   rowNo));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -1190,7 +1215,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                       int columnPos,
                                       long rowNo,
                                       ArrayList<Object> fkList) {
+
     try {
+      if (dbmsEnum == DbmsEnum.OMNISCI) {
+        preparedStatement.setInt(columnPos,
+                                 4711);
+        return;
+      }
+
       preparedStatement.setObject(columnPos,
                                   getContentFk(tableName,
                                                columnName,

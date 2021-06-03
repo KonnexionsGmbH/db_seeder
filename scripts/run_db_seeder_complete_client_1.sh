@@ -40,6 +40,7 @@ export DB_SEEDER_DBMS_MARIADB=no
 export DB_SEEDER_DBMS_MIMER=no
 export DB_SEEDER_DBMS_MONETDB=no
 export DB_SEEDER_DBMS_MYSQL=no
+export DB_SEEDER_DBMS_OMNISCI=no
 export DB_SEEDER_DBMS_ORACLE=no
 export DB_SEEDER_DBMS_PERCONA=no
 export DB_SEEDER_DBMS_POSTGRESQL=no
@@ -81,6 +82,7 @@ echo "DBMS_MARIADB                    : $DB_SEEDER_DBMS_MARIADB"
 echo "DBMS_MIMER                      : $DB_SEEDER_DBMS_MIMER"
 echo "DBMS_MONETDB                    : $DB_SEEDER_DBMS_MONETDB"
 echo "DBMS_MYSQL                      : $DB_SEEDER_DBMS_MYSQL"
+echo "DBMS_OMNISCI                    : $DB_SEEDER_DBMS_OMNISCI"
 echo "DBMS_ORACLE                     : $DB_SEEDER_DBMS_ORACLE"
 echo "DBMS_PERCONA                    : $DB_SEEDER_DBMS_PERCONA"
 echo "DBMS_POSTGRESQL                 : $DB_SEEDER_DBMS_POSTGRESQL"
@@ -243,6 +245,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
     if ! ( ./run_db_seeder.sh mysql yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi
+fi
+
+# ------------------------------------------------------------------------------
+# OmniSciDB.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_OMNISCI" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh omnisci yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi

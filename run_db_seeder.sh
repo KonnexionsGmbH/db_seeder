@@ -15,7 +15,7 @@ rm -rf $PWD/tmp/* || sudo rm -rf $PWD/tmp/*
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.8.3
+export DB_SEEDER_RELEASE=2.9.0
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_VERSION_TRINO=357
 
@@ -47,6 +47,7 @@ if [ -z "$1" ]; then
     echo "sqlserver_trino    - Microsoft SQL Server via Trino"
     echo "mysql              - MySQL Database"
     echo "mysql_trino        - MySQL Database via Trino"
+    echo "omnisci            - OmniSciDB"
     echo "oracle             - Oracle Database"
     echo "oracle_trino       - Oracle Database via Trino"
     echo "percona            - Percona Server for MySQL"
@@ -400,6 +401,19 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_VERSION=8.0.23
     export DB_SEEDER_VERSION=8.0.24
     export DB_SEEDER_VERSION=8.0.25
+fi
+
+if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
+    export DB_SEEDER_CONNECTION_PORT=6274
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:omnisci:
+    export DB_SEEDER_CONTAINER_PORT=6274
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=omnisci
+    export DB_SEEDER_PASSWORD=omnisci
+    export DB_SEEDER_PASSWORD_SYS=HyperInteractive
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=admin
+    export DB_SEEDER_VERSION=5.6.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then

@@ -17,7 +17,7 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.8.3
+set DB_SEEDER_RELEASE=2.9.0
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_VERSION_TRINO=357
 
@@ -49,6 +49,7 @@ if ["%1"] EQU [""] (
     echo sqlserver_trino    - Microsoft SQL Server via Trino
     echo mysql              - MySQL Database
     echo mysql_trino        - MySQL Database via Trino
+    echo omnisci            - OmniSciDB
     echo oracle             - Oracle Database
     echo oracle_trino       - Oracle Database via Trino
     echo percona            - Percona Server for MySQL
@@ -400,6 +401,19 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.23
     set DB_SEEDER_VERSION=8.0.24
     set DB_SEEDER_VERSION=8.0.25
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
+    set DB_SEEDER_CONNECTION_PORT=6274
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:omnisci:
+    set DB_SEEDER_CONTAINER_PORT=6274
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=omnisci
+    set DB_SEEDER_PASSWORD=omnisci
+    set DB_SEEDER_PASSWORD_SYS=HyperInteractive
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=admin
+    set DB_SEEDER_VERSION=5.6.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (

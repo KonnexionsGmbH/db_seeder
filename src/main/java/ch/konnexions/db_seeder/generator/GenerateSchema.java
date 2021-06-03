@@ -72,6 +72,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     case "BIGINT" -> switch (tickerSymbolLower) {
       case "cockroach", "cubrid" -> "INT";
       case "firebird", "sqlite" -> "INTEGER";
+      case "omnisci" -> column.isNotNull()
+          ? "BIGINT NOT NULL"
+          : "BIGINT";
       case "oracle" -> "NUMBER";
       default -> "BIGINT";
       };
@@ -81,6 +84,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "cratedb" -> "OBJECT";
       case "exasol" -> "VARCHAR(2000000)";
       case "mariadb", "mysql", "percona" -> "LONGBLOB";
+      case "omnisci" -> column.isNotNull()
+          ? "TEXT NOT NULL ENCODING NONE"
+          : "TEXT ENCODING NONE";
       case "sqlserver" -> "VARBINARY(MAX)";
       case "voltdb" -> "VARBINARY(1048576)";
       default -> "BLOB";
@@ -91,6 +97,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "exasol" -> "VARCHAR(2000000)";
       case "firebird" -> "BLOB SUB_TYPE 1";
       case "mariadb", "mysql", "percona" -> "LONGTEXT";
+      case "omnisci" -> column.isNotNull()
+          ? "TEXT NOT NULL ENCODING NONE"
+          : "TEXT ENCODING NONE";
       case "sqlserver" -> "VARCHAR(MAX)";
       case "voltdb" -> "VARCHAR(1048576)";
       default -> "CLOB";
@@ -98,6 +107,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     case "TIMESTAMP" -> switch (tickerSymbolLower) {
       case "informix" -> "DATETIME YEAR TO FRACTION";
       case "mariadb", "mysql", "percona", "sqlite" -> "DATETIME";
+      case "omnisci" -> column.isNotNull()
+          ? "TIMESTAMP(0) NOT NULL"
+          : "TIMESTAMP(0)";
       case "sqlserver" -> "DATETIME2";
       default -> "TIMESTAMP";
       };
@@ -108,6 +120,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           ? "LVARCHAR(" + column.getSize() + ")"
           : "VARCHAR(" + column.getSize() + ")";
       case "mimer" -> "NVARCHAR(" + column.getSize() + ")";
+      case "omnisci" -> column.isNotNull()
+          ? "TEXT NOT NULL ENCODING NONE"
+          : "TEXT ENCODING NONE";
       case "oracle", "sqlite" -> "VARCHAR2(" + column.getSize() + ")";
       default -> "VARCHAR(" + column.getSize() + ")";
       };
@@ -154,6 +169,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       constraintType = tableConstraint.getConstraintType().toUpperCase();
 
+      if ("omnisci".equals(tickerSymbolLower)) {
+        continue;
+      }
+
       if ("UNIQUE".equals(constraintType)) {
         if ("exasol".equals(tickerSymbolLower)) {
           continue;
@@ -199,6 +218,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
         if ("agens".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
+            || "omnisci".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
             || "percona".equals(tickerSymbolLower)
             || "postgresql".equals(tickerSymbolLower)
@@ -415,7 +435,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     String            identifierDelimiter = getIdentifierDelimiter(tickerSymbolLower);
 
-    StringBuilder workArea;
+    StringBuilder     workArea;
 
     try {
       bw.append("package ch.konnexions.db_seeder.generated;");
@@ -465,6 +485,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       for (String tableName : genTableNames) {
         if ("agens".equals(tickerSymbolLower)
             || "mysql".equals(tickerSymbolLower)
+            || "omnisci".equals(tickerSymbolLower)
             || "oracle".equals(tickerSymbolLower)
             || "percona".equals(tickerSymbolLower)
             || "postgresql".equals(tickerSymbolLower)
@@ -497,6 +518,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           if ("agens".equals(tickerSymbolLower)
               || "mysql".equals(tickerSymbolLower)
+              || "omnisci".equals(tickerSymbolLower)
               || "oracle".equals(tickerSymbolLower)
               || "percona".equals(tickerSymbolLower)
               || "postgresql".equals(tickerSymbolLower)
@@ -537,35 +559,39 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // NOT NULL ..........................................................
 
-          if (column.isNotNull() || column.isPrimaryKey() || column.isUnique()) {
-            if (isNewLineRequired) {
-              bw.append(workArea.toString());
-              bw.newLine();
-              workArea = new StringBuilder(" ".repeat(82));
+          if (!("omnisci".equals(tickerSymbolLower))) {
+            if (column.isNotNull() || column.isPrimaryKey() || column.isUnique()) {
+              if (isNewLineRequired) {
+                bw.append(workArea.toString());
+                bw.newLine();
+                workArea = new StringBuilder(" ".repeat(82));
+              }
+
+              workArea.append("NOT NULL");
+
+              isNewLineRequired = true;
             }
-
-            workArea.append("NOT NULL");
-
-            isNewLineRequired = true;
           }
 
           // PRIMARY KEY .......................................................
 
-          if (column.isPrimaryKey()) {
-            if (isNewLineRequired) {
-              bw.append(workArea.toString());
-              bw.newLine();
-              workArea = new StringBuilder(" ".repeat(82));
+          if (!("omnisci".equals(tickerSymbolLower))) {
+            if (column.isPrimaryKey()) {
+              if (isNewLineRequired) {
+                bw.append(workArea.toString());
+                bw.newLine();
+                workArea = new StringBuilder(" ".repeat(82));
+              }
+
+              workArea.append("PRIMARY KEY");
+
+              isNewLineRequired = true;
             }
-
-            workArea.append("PRIMARY KEY");
-
-            isNewLineRequired = true;
           }
 
           // REFERENCES .......................................................
 
-          if (!("cratedb".equals(tickerSymbolLower))) {
+          if (!("cratedb".equals(tickerSymbolLower) || "omnisci".equals(tickerSymbolLower))) {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               ArrayList<References> references = column.getReferences();
 
@@ -580,6 +606,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
                 if ("agens".equals(tickerSymbolLower)
                     || "mysql".equals(tickerSymbolLower)
+                    || "omnisci".equals(tickerSymbolLower)
                     || "oracle".equals(tickerSymbolLower)
                     || "percona".equals(tickerSymbolLower)
                     || "postgresql".equals(tickerSymbolLower)
@@ -605,7 +632,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // UNIQUE ............................................................
 
-          if (!("cratedb".equals(tickerSymbolLower) || "exasol".equals(tickerSymbolLower))) {
+          if (!("cratedb".equals(tickerSymbolLower) || "exasol".equals(tickerSymbolLower) || "omnisci".equals(tickerSymbolLower))) {
             if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
