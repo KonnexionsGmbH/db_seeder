@@ -26,9 +26,35 @@
 
 ## <a name="introduction"></a> 1. Introduction
 
-With **`DBSeeder`**, the same freely definable dummy data can be generated in currently 23 different relational database systems.
-The data generation process can be used to compare the performance of the different database systems under the same conditions.
-Currently the following database management systems are supported:
+**`DBSeeder`** allows the flexible generation of dummy data for selected relational databases.
+
+The database schema underlying the data generation can be freely defined.
+The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions.
+If the selected database, schema or user already exist, they are deleted with all including data.
+**`DBSeeder`** then creates the selected database, schema or user and generates the desired dummy data.
+A maximum of 2 147 483 647 rows can be generated per database table.
+The database schema to be used, that is, the required database tables can be user defined using a JSON file.
+Details can be found here: [2.1 Database Schema](#database_schema).
+
+Currently, depending on the capabilities of the specific DBMS, the following functionalities and data types are supported:
+- constraints
+  - foreign (referential) key
+  - not null constraint
+  - primary key
+  - unique (alternate) key
+- data types
+  - BIGINT - large integer
+  - BLOB - large binary object
+  - CLOB - large character Object
+  - TIMESTAMP - timestamp including date
+  - VARCHAR - variable text
+
+The database systems considered meet the following conditions:
+1 The database system is freely available in a documented docker image for testing purposes.
+1 The database system provides a well documented JDBC interface.
+1 A complete documentation of the SQL commands is available.
+
+Currently the following database systems are included in DBSeeder:
 - [AgensGraph](https://bitnine.net/agensgraph)
   - client only version
   - commercial, open source
@@ -163,14 +189,7 @@ Currently the following database management systems are supported:
   - relational model
   - **[see technical details here](#details_yugabyte)**
 
-The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions. 
-If the selected database, schema or user already exist, they are deleted with all including data. 
-**`DBSeeder`** then creates the selected database, schema or user and generates the desired dummy data.
-
-A maximum of 2 147 483 647 rows can be generated per database table.
-
-The database schema to be used, that is, the required database tables can be user defined using a JSON file. 
-Details can be found here: [2.1 Database Schema](#database_schema). 
+An interesting side effect of working with DBSeeder is the ability to compare the performance of test data generation (INSERT) between the databases.   
 
 For the DBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
 The prerequisite for this is that Trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
@@ -204,7 +223,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| Trino Distributed Query Engine  | mysql_trino,       | 339 - 357                  | 357                 |
+| Trino Distributed Query Engine  | mysql_trino,       | 339 - 358                  | 358                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
@@ -1547,7 +1566,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:357`
+  - pull command: `docker pull trinodb/trino:358`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1555,7 +1574,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 357
+  - version 358
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
