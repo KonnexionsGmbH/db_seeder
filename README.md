@@ -1,4 +1,4 @@
-# DBSeeder - Relational Database Performance Comparison.
+# DBSeeder - Relational Database Data Generator.
 
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
@@ -189,7 +189,7 @@ The following database systems are included in the current version of **`DBSeede
   - relational model
   - **[see technical details here](#details_yugabyte)**
 
-An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of test data generation (`INSERT`) between the databases.   
+An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of test data generation (`INSERT`) between the databases (e.g. Version 2.9.0 Windows 10):   
 
 ![](.README_images/Company_2.9.0_win10.png)
 
