@@ -1,0 +1,30 @@
+ticker symbol	DBMS	db type	runtime in ms	start time	end time	host name	no. cores	operating system
+agens	AgensGraph	client	3667	2021-06-04 14:10:15.688763288	2021-06-04 14:10:19.355931695	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+cockroach	CockroachDB	client	4524	2021-06-04 14:10:59.840090860	2021-06-04 14:11:04.364171186	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+cratedb	CrateDB	client	5446	2021-06-04 14:11:50.018180881	2021-06-04 14:11:55.464225591	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+cubrid	CUBRID	client	7567	2021-06-04 14:12:36.464560089	2021-06-04 14:12:44.032037953	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+derby	Apache Derby	client	5544	2021-06-04 14:13:39.403755823	2021-06-04 14:13:44.948718720	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+derby_emb	Apache Derby	embedded	5498	2021-06-04 14:13:46.886132022	2021-06-04 14:13:52.384997298	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+exasol	Exasol	client	2420	2021-06-04 14:17:17.687541209	2021-06-04 14:17:20.107593166	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+firebird	Firebird	client	19552	2021-06-04 14:18:11.209349180	2021-06-04 14:18:30.761644641	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+h2	H2 Database Engine	client	3902	2021-06-04 14:19:07.254031289	2021-06-04 14:19:11.156698025	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+h2_emb	H2 Database Engine	embedded	1193	2021-06-04 14:19:13.076292689	2021-06-04 14:19:14.269378083	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+hsqldb	HyperSQL Database	client	5109	2021-06-04 14:19:51.985414821	2021-06-04 14:19:57.095101989	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+hsqldb_emb	HyperSQL Database	embedded	5275	2021-06-04 14:19:59.004285052	2021-06-04 14:20:04.279455030	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+ibmdb2	IBM Db2 Database	client	4696	2021-06-04 14:25:53.831889979	2021-06-04 14:25:58.528307344	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+informix	IBM Informix	client	8018	2021-06-04 14:30:16.862886392	2021-06-04 14:30:24.881072101	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+mariadb	MariaDB Server	client	2429	2021-06-04 14:31:17.852567663	2021-06-04 14:31:20.282381909	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+mimer	Mimer SQL	client	12043	2021-06-04 14:32:01.223975764	2021-06-04 14:32:13.267656847	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+monetdb	MonetDB	client	18668	2021-06-04 14:32:35.725466070	2021-06-04 14:32:54.393527440	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+mysql	MySQL Database	client	3126	2021-06-04 14:34:09.802863271	2021-06-04 14:34:12.929032924	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+mysql_trino	MySQL Database	trino	698194	2021-06-04 14:35:47.754031892	2021-06-04 14:47:25.948521226	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+omnisci	OmniSciDB	client	3211	2021-06-04 14:48:00.327281288	2021-06-04 14:48:03.539141959	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+oracle	Oracle Database	client	4299	2021-06-04 14:52:43.909001631	2021-06-04 14:52:48.208805822	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+oracle_trino	Oracle Database	trino	764569	2021-06-04 14:55:32.784130670	2021-06-04 15:08:17.353170954	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+percona	Percona Server for MySQL	client	3497	2021-06-04 15:14:06.864858979	2021-06-04 15:14:10.362520112	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+postgresql	PostgreSQL	client	2541	2021-06-04 15:14:51.139286325	2021-06-04 15:14:53.681232907	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+postgresql_trino	PostgreSQL	trino	519700	2021-06-04 15:15:57.867840807	2021-06-04 15:24:37.568106695	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+sqlite	SQLite	embedded	737	2021-06-04 15:24:39.503975746	2021-06-04 15:24:40.241228876	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+sqlserver	MS SQL Server	client	2798	2021-06-04 15:25:33.183175045	2021-06-04 15:25:35.981656608	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+sqlserver_trino	MS SQL Server	trino	869955	2021-06-04 15:26:45.528164428	2021-06-04 15:41:15.484001089	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
+yugabyte	YugabyteDB	client	12239	2021-06-04 15:47:50.182685595	2021-06-04 15:48:02.421927616	ubuntu	8	amd64 / Linux / 5.8.0-53-generic
