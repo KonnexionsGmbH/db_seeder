@@ -9,7 +9,7 @@
 ### Table of Contents
 
 **[1. Introduction](#introduction)**<br>
-**[1.1 Relational Database Management Systems](#rdbms)**<br>
+**[1.1 RDBMS Versions](#rdbms)**<br>
 **[2. Data](#data)**<br>
 **[2.1 Database Schema](#data_database_schema)**<br>
 **[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
@@ -19,14 +19,14 @@
 **[4.2 Execution Variations](#operating_instructions_execution)**<br>
 **[4.3 Control Parameters](#operating_instructions_control)**<br>
 **[4.4 Statistics](#operating_instructions_statistics)**<br>
-**[5. DBMS Specific Technical Details](#dbms_specifica)**<br>
+**[5. RDBMS Specific Technical Details](#rdbms_specifica)**<br>
 **[6. Trino - Distributed Query Engine](#trino)**<br>
 
 ----
 
 ## <a name="introduction"></a> 1. Introduction
 
-**`DBSeeder`** allows the flexible generation of dummy data for selected relational databases.
+**`DBSeeder`** allows the flexible generation of dummy data for selected relational database management systems (RDBMS).
 
 The database schema underlying the data generation can be freely defined.
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions.
@@ -36,7 +36,7 @@ A maximum of 2 147 483 647 rows can be generated per database table.
 The database schema to be used, that is, the required database tables can be user defined using a JSON file.
 Details can be found here: [2.1 Database Schema](#database_schema).
 
-Currently, depending on the capabilities of the specific DBMS, the following functionalities and data types are supported:
+Currently, depending on the capabilities of the specific RDBMS, the following functionalities and data types are supported:
 - constraints
   - foreign (referential) key
   - not null constraint
@@ -50,11 +50,11 @@ Currently, depending on the capabilities of the specific DBMS, the following fun
   - VARCHAR - variable text
 
 The database systems considered meet the following conditions:
-1 The database system is freely available in a documented docker image for testing purposes.
-1 The database system provides a well documented JDBC interface.
-1 A complete documentation of the SQL commands is available.
+1. The database system is freely available in a documented docker image for testing purposes.
+1. The database system provides a well documented JDBC interface.
+1. A complete documentation of the SQL commands is available.
 
-Currently the following database systems are included in DBSeeder:
+The following database systems are included in the current version of **`DBSeeder`**:
 - [AgensGraph](https://bitnine.net/agensgraph)
   - client only version
   - commercial, open source
@@ -189,18 +189,18 @@ Currently the following database systems are included in DBSeeder:
   - relational model
   - **[see technical details here](#details_yugabyte)**
 
-An interesting side effect of working with DBSeeder is the ability to compare the performance of test data generation (INSERT) between the databases.   
+An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of test data generation (`INSERT`) between the databases.   
 
-For the DBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
+For the RDBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
 The prerequisite for this is that Trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
 Details can be found here: [6. Trino - Distributed Query Engine](#trino). 
 
 
 [//]: # (===========================================================================================)
 
-### <a name="rdbms"></a> 1.1 Relational Database Management Systems
+### <a name="rdbms"></a> 1.1 RDBMS Versions
 
-| DBMS                            | Ticker Symbol(s)   | DBMS Versions              | Latest JDBC         |
+| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions             | Latest JDBC         |
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
@@ -455,7 +455,7 @@ All control parameters used in **`DBSeeder`** (see section 4.2) can be adapted i
 
 The `run_db_seeder` script is controlled by the following script parameters:: 
 
-- `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system (default value `sqlite`) or `complete` for all implemented DBMS.
+- `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system (default value `sqlite`) or `complete` for all implemented RDBMS.
 - `DB_SEEDER_SETUP_DBMS`: should an empty database be created:
   - `yes`: a new database is created based on a suitable Docker image
   - otherwise: no database is created 
@@ -480,7 +480,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 **Example content:**
 
-    ticker symbol	DBMS	version	creator	db type	schema	runtime in ms	start time	end time	host name	no. cores	operating system	file_name
+    ticker symbol	RDBMS version	creator	db type	schema	runtime in ms	start time	end time	host name	no. cores	operating system	file_name
     agens	AgensGraph	v2.6.0	bash	client	unknown	14	2020-10-05 16:09:36.618076382	2020-10-05 16:09:51.570013623	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
     cratedb	CrateDB	v2.6.0	bash	client	unknown	24	2020-10-05 16:11:40.160409347	2020-10-05 16:12:04.695790414	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
     cubrid	CUBRID	v2.6.0	bash	client	unknown	50	2020-10-05 16:13:22.287362093	2020-10-05 16:14:12.339067275	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
@@ -598,7 +598,7 @@ db_seeder.database=
 db_seeder.file.configuration.name=
 db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
 db_seeder.file.statistics.delimiter=\t
-db_seeder.file.statistics.header=ticker symbol;DBMS;db type;runtime in ms;start time;end time;host name;no. cores;operating system
+db_seeder.file.statistics.header=ticker symbol;RDBMS;db type;runtime in ms;start time;end time;host name;no. cores;operating system
 db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
 db_seeder.file.statistics.summary.name=resources/statistics/db_seeder_summary.tsv
 db_seeder.file.statistics.summary.source=resources/statistics;Transfer
@@ -625,27 +625,27 @@ db_seeder.user=
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                           | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
 |                                           |                                   | postgresql, sqlserver, yugabyte                                                    |     |
-| database=<x...x>                          | DATABASE                          | all DBMS except cratedb, exasol, monetdb, oracle, voltdb                           | database name |
+| database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                           | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the DBSeeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
-| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all DBMS                                                                           | separator of the statistics file created in `run_db_seeder` |
-| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all DBMS                                                                           | header line of the statistics file created in `run_db_seeder` |
-| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all DBMS                                                                           | file name of the statistics file created in `run_db_seeder` |
-| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all DBMS                                                                           | file name of the summary statistics file created in `run_db_seeder_statistics` |
-| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all DBMS                                                                           | directory name(s) (separated by semicolon) of the source directories containing statistics files |
+| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                           | separator of the statistics file created in `run_db_seeder` |
+| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                           | header line of the statistics file created in `run_db_seeder` |
+| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                           | file name of the statistics file created in `run_db_seeder` |
+| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all RDBMS                                                                           | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all RDBMS                                                                           | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
 |                                           |                                   | oracle, percona, postgresql, sqlserver                                             | password of the privileged user |
-| password=<x...x>                          | PASSWORD                          | all DBMS except cockroach, derby, ibmdb2, informix                                 | password of the normal user |
+| password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                                 | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte | schema name |
-| user.sys=<x...x>                          | USER_SYS                          | all DBMS except derby, voltdb                                                      | name of the privileged user |
-| user=kxn_user                             | USER                              | all DBMS except derby, ibmdb2, informix                                            | name of the normal user |
+| user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                      | name of the privileged user |
+| user=kxn_user                             | USER                              | all RDBMS except derby, ibmdb2, informix                                            | name of the normal user |
 |                                           |                                   |                                                                                    |     |
 
 [//]: # (===========================================================================================)
 
 ### <a name="operating_instructions_statistics"></a> 4.4 Statistics
  
-## <a name="dbms_specifica"></a> 5. DBMS Specific Technical Details
+## <a name="rdbms_specifica"></a> 5. RDBMS Specific Technical Details
 
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
