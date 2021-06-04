@@ -191,6 +191,8 @@ The following database systems are included in the current version of **`DBSeede
 
 An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of test data generation (`INSERT`) between the databases.   
 
+![](.README_images/Company_2.9.0_win10.png)
+
 For the RDBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
 The prerequisite for this is that Trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
 Details can be found here: [6. Trino - Distributed Query Engine](#trino). 

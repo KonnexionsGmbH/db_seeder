@@ -221,7 +221,7 @@ Release Date: dd.mm.2021
 
 - MariaDB Server: DBMS 10.6.1
 
-- Trino Distributed Query Engine: DBMS 357 / JDBC 357
+- Trino Distributed Query Engine: DBMS 358 / JDBC 358
 
 - YugabyteDB: DBMS 2.7.1.1-b1
 

@@ -885,6 +885,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return fkList.get(random.nextInt(fkList.size()));
   }
 
+  private int getContentFkInt(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
+    Random random = new Random();
+
+    return random.nextInt(fkList.size());
+  }
+
   protected Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
 
     return new java.sql.Timestamp(System.currentTimeMillis() + randomInt.nextInt(2147483647));
@@ -1218,8 +1224,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       if (dbmsEnum == DbmsEnum.OMNISCI) {
-        preparedStatement.setInt(columnPos,
-                                 4711);
+        preparedStatement.setLong(columnPos,
+                getContentFkInt(tableName,
+                        columnName,
+                        rowNo,
+                        fkList));
         return;
       }
 
