@@ -1225,10 +1225,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       if (dbmsEnum == DbmsEnum.OMNISCI) {
         preparedStatement.setLong(columnPos,
-                getContentFkInt(tableName,
-                        columnName,
-                        rowNo,
-                        fkList));
+                                  getContentFkInt(tableName,
+                                                  columnName,
+                                                  rowNo,
+                                                  fkList));
         return;
       }
 
