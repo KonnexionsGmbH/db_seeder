@@ -12,7 +12,7 @@ export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
 # export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax.json
 
-export DB_SEEDER_RELEASE=2.8.0
+export DB_SEEDER_RELEASE=2.9.0
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 if [ -z "${HOME_ECLIPSE}" ]; then
@@ -24,6 +24,7 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DB Seeder - Generation of database schema."
 echo "--------------------------------------------------------------------------------"
+echo "FILE_CONFIGURATION_NAME   : ${DB_SEEDER_FILE_CONFIGURATION_NAME}"
 echo "FILE_JSON_NAME            : ${DB_SEEDER_FILE_JSON_NAME}"
 echo "HOME_ECLIPSE              : ${HOME_ECLIPSE}"
 echo "JAVA_CLASSPATH            : ${DB_SEEDER_JAVA_CLASSPATH}"
