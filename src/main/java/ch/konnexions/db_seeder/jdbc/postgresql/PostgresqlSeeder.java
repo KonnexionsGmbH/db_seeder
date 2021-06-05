@@ -32,7 +32,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
   }
 
   /**
-   * Gets the connection URL for Trino (used by TrinoEnvironment).
+   * Gets the connection URL for trino (used by TrinoEnvironment).
    *
    * @param connectionHost   the connection host name
    * @param connectionPort   the connection port number
@@ -125,7 +125,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
                                  urlUser);
 
     // -----------------------------------------------------------------------
-    // Disconnect and reconnect - Trino.
+    // Disconnect and reconnect - trino.
     // -----------------------------------------------------------------------
 
     if (isTrino) {

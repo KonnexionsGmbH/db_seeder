@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder_trino_environment.sh: Generating Trino catalog properties files.
+# run_db_seeder_trino_environment.sh: Generating trino catalog properties files.
 #
 # ------------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ export DB_SEEDER_DBMS_DEFAULT=complete
 
 if [ -z "$1" ]; then
     echo "========================================================="
-    echo "complete           - All implemented Trino enabled DBMSs"
+    echo "complete           - All implemented trino enabled DBMSs"
     echo "mysql              - MySQL Database"
     echo "oracle             - Oracle Database"
     echo "postgresql         - PostgreSQL"
@@ -68,7 +68,7 @@ export DB_SEEDER_SQLSERVER_USER=kxn_user
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - Generating Trino catalog properties files."
+echo "DB Seeder - Generating trino catalog properties files."
 echo "--------------------------------------------------------------------------------"
 echo "DBMS_DEFAULT                  : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DB_SEEDER_DBMS                : ${DB_SEEDER_DBMS}"

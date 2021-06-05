@@ -20,7 +20,7 @@
 **[4.3 Control Parameters](#operating_instructions_control)**<br>
 **[4.4 Statistics](#operating_instructions_statistics)**<br>
 **[5. RDBMS Specific Technical Details](#rdbms_specifica)**<br>
-**[6. Trino - Distributed Query Engine](#trino)**<br>
+**[6. trino](#trino)**<br>
 
 ----
 
@@ -169,7 +169,7 @@ The following database systems are included in the current version of **`DBSeede
   - derived from Adaptive Server Enterprise
   - relational model
   - **[see technical details here](#details_sqlserver)**
-- [Trino Distributed Query Engine](https://trino.io)
+- [trino](https://trino.io)
   - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
   - open source
@@ -193,9 +193,9 @@ An interesting side effect of working with **`DBSeeder`** is the ability to comp
 
 ![](.README_images/Company_2.9.0_win10.png)
 
-For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
-The prerequisite for this is that Trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
-Details can be found here: [6. Trino - Distributed Query Engine](#trino). 
+For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver. 
+The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
+Details can be found here: [6. trino](#trino). 
 
 
 [//]: # (===========================================================================================)
@@ -219,13 +219,13 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
-| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0            |
+| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
-| Trino Distributed Query Engine  | mysql_trino,       | 339 - 358                  | 358                 |
+| trino                           | mysql_trino,       | 339 - 358                  | 358                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
@@ -431,7 +431,7 @@ a **`DBSeeder`** specific development container can be started, which performs t
 - all client databases with the database schema `db_seeder_schema.company.json`
 - all client databases with the database schema `db_seeder_schema.syntax.json`
 - all embeded databases with the database schema `db_seeder_schema.company.json`
-- all Trino databases with the database schema `db_seeder_schema.company.json`
+- all trino databases with the database schema `db_seeder_schema.company.json`
 
 For each of these runs, by default a statistics file is created in the file directory `Transfer` with the following file name structure:
 
@@ -514,7 +514,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
-    - Trino Distributed Query Engine and SQL Server Connector
+    - trino and SQL Server Connector
     - YugabyteDB and Docker image
 
 #### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
@@ -530,7 +530,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: `./run_db_seeder.sh`
 - **Issues**:
-  - Trino Distributed Query Engine and SQL Server Connector
+  - trino and SQL Server Connector
 
 #### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
 
@@ -562,7 +562,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
-    - Trino Distributed Query Engine and SQL Server Connector
+    - trino and SQL Server Connector
     - YugabyteDB and Docker image
 
 #### 4.2.3 Windows 10 Pro
@@ -574,7 +574,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `cd db_seeder`
 - **Execution**: run `run_db_seeder.bat`
 - **Issues**:
-    - Trino Distributed Query Engine and SQL Server Connector
+    - trino and SQL Server Connector
     - YugabyteDB and Docker image
 
 
@@ -619,9 +619,9 @@ db_seeder.user=
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                            | Description |     
 | ---                                       | ---                               | ---                                                                                | --- |
 | connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                   | host name or ip address of the database server |
-| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | Trino                                                                              | host name or ip address of the Trino distributed query engine |
+| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | trino                                                                              | host name or ip address of the trino |
 | connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                   | port number of the database server |
-| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | Trino                                                                              | port number of the Trino distributed query engine |
+| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | trino                                                                              | port number of the trino |
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                          | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                             | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                           | suffix of the database connection string |
@@ -673,7 +673,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[PostgreSQL](#details_postgresql)** / 
 **[SQLite](#details_sqlite)** /
 **[SQL Server](#details_sqlserver)** /
-**[Trino distributed Query Engine](#details_trino)** /
+**[trino](#details_trino)** /
 **[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
 
@@ -1551,17 +1551,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_trino"></a> 5.21 Trino Distributed Query Engine
+### <a name="details_trino"></a> 5.21 trino
 
 - **data types**:
 
-| DBSeeder Type  | Trino Database Type |
-| ---            | ---                 |
-| BIGINT         | BIGINT              |
-| BLOB           | BLOB                |
-| CLOB           | CLOB                |
-| TIMESTAMP      | TIMESTAMP           |
-| VARCHAR        | VARCHAR             |
+| DBSeeder Type  | trino Type |
+| ---            | ---        |
+| BIGINT         | BIGINT     |
+| BLOB           | BLOB       |
+| CLOB           | CLOB       |
+| TIMESTAMP      | TIMESTAMP  |
+| VARCHAR        | VARCHAR    |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a
@@ -1653,17 +1653,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_YUGABYTE.png)
 
-## <a name="trino"></a> 6. Trino - Distributed Query Engine
+## <a name="trino"></a> 6. trino
 
-The [Trino](https://trino.io/) distributed query engine can integrate the following DBMS, among others:
+[trino](https://trino.io/) can integrate the following DBMS, among others:
 
 - MySQL via the [MySQL Connector](https://trinodb.io/docs/current/connector/mysql.html),
 - Oracle via the [Oracle Connector](https://trinodb.io/docs/current/connector/oracle.html), and
 - PostgreSQL via the [PostgreSQL Connector](https://trinodb.io/docs/current/connector/postgresql.html).
 - SQL Server via the [SQL Server Connector](https://trinodb.io/docs/current/connector/sqlserver.html),
 
-**`DBSeeder`** makes it possible to use Trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
-To use the Trino JDBC driver, a Trino server is required.
-With the script `db_seeder_trino_environment` a Trino server can be set up.
-Since Trino does not support the Windows operating system, a suitable Docker image is created for Windows.
-For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the Trino server.
+**`DBSeeder`** makes it possible to use trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
+To use the trino JDBC driver, a trino server is required.
+With the script `db_seeder_trino_environment` a trino server can be set up.
+Since trino does not support the Windows operating system, a suitable Docker image is created for Windows.
+For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the trino server.

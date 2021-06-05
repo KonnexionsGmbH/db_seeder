@@ -304,7 +304,7 @@ if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# MySQL Database - via Trino.
+# MySQL Database - via trino.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MYSQL_TRINO" = "yes" ]; then
@@ -334,7 +334,7 @@ if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Oracle Database - via Trino.
+# Oracle Database - via trino.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_ORACLE_TRINO" = "yes" ]; then

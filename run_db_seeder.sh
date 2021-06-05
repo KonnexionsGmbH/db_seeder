@@ -24,7 +24,7 @@ if [ -z "$1" ]; then
     echo "complete           - All implemented DBMSs"
     echo "complete_client    - All implemented client DBMSs"
     echo "complete_emb       - All implemented embedded DBMSs"
-    echo "complete_trino     - All implemented Trino enabled DBMSs"
+    echo "complete_trino     - All implemented trino enabled DBMSs"
     echo "---------------------------------------------------------"
     echo "agens              - AgensGraph"
     echo "derby              - Apache Derby [client]"
@@ -44,16 +44,16 @@ if [ -z "$1" ]; then
     echo "mimer              - Mimer SQL"
     echo "monetdb            - MonetDB"
     echo "mysql              - MySQL Database"
-    echo "mysql_trino        - MySQL Database via Trino"
+    echo "mysql_trino        - MySQL Database via trino"
     echo "omnisci            - OmniSciDB"
     echo "oracle             - Oracle Database"
-    echo "oracle_trino       - Oracle Database via Trino"
+    echo "oracle_trino       - Oracle Database via trino"
     echo "percona            - Percona Server for MySQL"
     echo "postgresql         - PostgreSQL"
-    echo "postgresql_trino   - PostgreSQL via Trino"
+    echo "postgresql_trino   - PostgreSQL via trino"
     echo "sqlite             - SQLite [embedded]"
     echo "sqlserver          - SQL Server"
-    echo "sqlserver_trino    - SQL Server via Trino"
+    echo "sqlserver_trino    - SQL Server via trino"
     echo "voltdb             - VoltDB"
     echo "yugabyte           - YugabyteDB"
     echo "---------------------------------------------------------"
@@ -431,7 +431,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
-    # Bug in Trino
+    # Bug in trino
     if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
         export DB_SEEDER_NO_CREATE_RUNS=1
     fi

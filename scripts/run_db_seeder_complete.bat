@@ -348,7 +348,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem MySQL Database - via Trino.
+    rem MySQL Database - via trino.
     rem ------------------------------------------------------------------------------
 
     if ["%DB_SEEDER_DBMS_MYSQL_TRINO%"] EQU ["yes"] (
@@ -384,7 +384,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Oracle Database - via Trino.
+    rem Oracle Database - via trino.
     rem ------------------------------------------------------------------------------
 
     if ["%DB_SEEDER_DBMS_ORACLE_TRINO%"] EQU ["yes"] (

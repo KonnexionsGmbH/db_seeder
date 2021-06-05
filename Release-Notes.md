@@ -19,7 +19,7 @@
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
-### 1.2 Trino Distributed Query Engine
+### 1.2 trino
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
@@ -27,7 +27,7 @@
 
     2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
     2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle_trino'
-    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  Start Oracle Database via Trino
+    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  Start Oracle Database via trino
     SLF4J: Class path contains multiple SLF4J bindings.
     SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
     SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
@@ -167,7 +167,7 @@ Release Date: 04.06.2021
 
 - MariaDB Server: DBMS 10.6.1
 
-- Trino Distributed Query Engine: DBMS 358 / JDBC 358
+- trino: DBMS 358 / JDBC 358
 
 - YugabyteDB: DBMS 2.7.1.1-b1
 
@@ -211,7 +211,7 @@ Release Date: 28.05.2021
 
 - PostgreSQL: DBMS 13.3 / JDBC 42.2.20
 
-- Trino Distributed Query Engine: DBMS 356 / JDBC 356
+- trino: DBMS 356 / JDBC 356
 
 - YugabyteDB: DBMS 2.7.1.0-b131
 
@@ -252,7 +252,7 @@ Release Date: 01.04.2021
 
 - SQL Server: JDBC 9.2.1.jre15
 
-- Trino Distributed Query Engine: DBMS 354 / JDBC 354
+- trino: DBMS 354 / JDBC 354
 
 - YugabyteDB: DBMS 2.5.3.1-b10
 
@@ -313,7 +313,7 @@ Release Date: 27.02.2021
 
 - SQL Server: JDBC 9.2.0.jre15
 
-- Trino Distributed Query Engine: DBMS 352 / JDBC 352
+- trino: DBMS 352 / JDBC 352
 
 - YugabyteDB: DBMS 2.5.2.0-b104
 
@@ -333,7 +333,7 @@ Release Date: 28.01.2021
 
 #### New Features
 
-Rebranding of Presto to Trino
+Rebranding of Presto to trino
 
 #### Modified Features
 
@@ -353,7 +353,7 @@ Rebranding of Presto to Trino
 
 - SQLite: DBMS 3.34.0 / JDBC 3.34.0
 
-- Trino Distributed Query Engine: DBMS 351 / JDBC 351
+- trino: DBMS 351 / JDBC 351
 
 - YugabyteDB: DBMS 2.5.1.0-b153
 
