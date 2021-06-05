@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a Oracle DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.8.0
+ * @version 2.9.0
  */
 public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
 

@@ -195,15 +195,15 @@ Processing of the script was aborted, error code=1
 
 ### 2.9.0
 
-Release Date: dd.mm.2021
+Release Date: 04.06.2021
 
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 16 (e.g.: 16.0.1 from https://jdk.java.net/16/)
+- Java Version 16 (e.g.: 16.0.1 from [https://jdk.java.net/16/](https://jdk.java.net/16/))
 
-- Gradle: 7 (e.g.: v7.0.2 from https://gradle.org/releases/)
+- Gradle: 7 (e.g.: v7.0.2 from [https://gradle.org/releases/](https://gradle.org/releases/))
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
@@ -221,15 +221,11 @@ Release Date: dd.mm.2021
 
 - MariaDB Server: DBMS 10.6.1
 
-- Trino Distributed Query Engine: DBMS 357 / JDBC 357
+- Trino Distributed Query Engine: DBMS 358 / JDBC 358
 
 - YugabyteDB: DBMS 2.7.1.1-b1
 
 - xxx: DBMS 999 / JDBC 999
-
-#### Deleted Features
-
-n/a
 
 ----------
 
@@ -241,9 +237,9 @@ Release Date: 28.05.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 16 (e.g.: 16.0.1 from https://jdk.java.net/16/)
+- Java Version 16 (e.g.: 16.0.1 from [https://jdk.java.net/16/](https://jdk.java.net/16/))
 
-- Gradle: 7 (e.g.: v7.0.2 from https://gradle.org/releases/)
+- Gradle: 7 (e.g.: v7.0.2 from [https://gradle.org/releases/](https://gradle.org/releases/))
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
@@ -283,7 +279,7 @@ Release Date: 01.04.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 
 - Gradle: 6.8.3   
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
@@ -324,7 +320,7 @@ Release Date: 03.03.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 
 - Gradle: 6.8.3
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
@@ -349,7 +345,7 @@ Release Date: 27.02.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
@@ -385,7 +381,7 @@ Release Date: 28.01.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4  
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
@@ -424,7 +420,7 @@ Release Date: 28.11.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -487,7 +483,7 @@ Release Date: 27.10.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -550,7 +546,7 @@ Release Date: 05.10.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -597,7 +593,7 @@ Release Date: 29.09.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: https://jdk.java.net/15/)
+- Java Version 15 (e.g.: [https://jdk.java.net/15/](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -647,7 +643,7 @@ Release Date: 30.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -686,7 +682,7 @@ Release Date: 27.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -722,7 +718,7 @@ Release Date: 26.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -764,7 +760,7 @@ Release Date: 18.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -803,7 +799,7 @@ Release Date: 17.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -838,7 +834,7 @@ Release Date: 13.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -870,7 +866,7 @@ Release Date: 13.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -902,7 +898,7 @@ Release Date: 13.08.2020
 - solved: PostgreSQL Connector: Cannot insert BLOB using Presto JDBC (see [here](https://github.com/prestosql/presto/issues/4751)).
 - solved: SQL Server Connector: Login failed (see [here](https://github.com/prestosql/presto/issues/4757)).
 
-- solved: gradle warning with http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727)).
+- solved: gradle warning with [http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727](http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727))).
 
 ----------
 
@@ -913,7 +909,7 @@ Release Date: 11.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -924,7 +920,7 @@ Release Date: 11.08.2020
 
 - CUBRID
 
-  - gradle warning with http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727)).
+  - gradle warning with [http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727](http://maven.cubrid.org (see [here](http://jira.cubrid.org/browse/CBRD-23727))).
 
 - Mimer SQL & DBeaver
 
@@ -955,7 +951,7 @@ Release Date: 02.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -987,7 +983,7 @@ Release Date: 14.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -1015,7 +1011,7 @@ Release Date: 13.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -1045,7 +1041,7 @@ Release Date: 10.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -1089,7 +1085,7 @@ Release Date: 06.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1110,7 +1106,7 @@ Release Date: 01.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1131,7 +1127,7 @@ Release Date: 29.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1152,7 +1148,7 @@ Release Date: 26.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1175,7 +1171,7 @@ Release Date: 26.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1200,7 +1196,7 @@ Release Date: 21.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1233,7 +1229,7 @@ Release Date: 16.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1248,7 +1244,7 @@ Release Date: 15.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1263,7 +1259,7 @@ Release Date: 14.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1278,7 +1274,7 @@ Release Date: 12.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1293,7 +1289,7 @@ Release Date: 10.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1308,7 +1304,7 @@ Release Date: 06.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1333,7 +1329,7 @@ Release Date: 01.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot)
+- Java Version 14 (e.g.: [https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 

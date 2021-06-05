@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * CREATE TABLE statements for a IBM Db2 DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.8.0
+ * @version 2.9.0
  */
 public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
 

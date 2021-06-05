@@ -506,7 +506,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  -v        tmp/omnisci-docker-storage \
+                  -v        $PWD/tmp/omnisci-docker-storage:/omnisci-storage \
                   omnisci/core-os-cpu
 
     echo "Docker start db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION}) ..."
