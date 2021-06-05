@@ -96,11 +96,11 @@ The following database systems are included in the current version of **`DBSeede
   - **[see technical details here](#details_firebird)**
 - [H2 Database Engine](https://www.h2database.com/html/main.html) 
   - client and embedded version
-  - compatible with HyperSQL, PostgreSQL
+  - compatible with HSQLDB, PostgreSQL
   - open source
   - relational model
   - **[see technical details here](#details_h2)**
-- [HyperSQL Database](https://hsqldb.org) 
+- [HSQLDB](https://hsqldb.org) 
   - client and embedded version
   - open source
   - relational model
@@ -177,7 +177,7 @@ The following database systems are included in the current version of **`DBSeede
 - [VoltDB](https://www.voltdb.com)
   - client only version
   - commercial, open source
-  - derived from H-Store, HyperSQL
+  - derived from H-Store, HSQLDB
   - in-memory relational model
   - **[see technical details here](#details_voltdb)**
 - [YugabyteDB](https://www.yugabyte.com)
@@ -212,7 +212,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.9           | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
-| HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
@@ -660,7 +660,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Exasol](#details_exasol)** /  
 **[Firebird](#details_firebird)** /  
 **[H2 Database Engine](#details_h2)** /  
-**[HyperSQL Database](#details_hsqldb)** /  
+**[HSQLDB](#details_hsqldb)** /  
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
@@ -683,7 +683,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | AgensGraph Database Type |
+| DBSeeder Type  | AgensGraph Database Type |
 | ---            | ---                      |
 | BIGINT         | BIGINT                   |
 | BLOB           | BYTEA                    |
@@ -717,7 +717,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Apache Derby Type |
+| DBSeeder Type  | Apache Derby Type |
 | ---            | ---               |
 | BIGINT         | BIGINT            |
 | BLOB           | BLOB              |
@@ -762,7 +762,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | CockroachDB Type |
+| DBSeeder Type  | CockroachDB Type |
 | ---            | ---              |
 | BIGINT         | INT              |
 | BLOB           | BYTES            |
@@ -801,7 +801,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | CrateDB Type |
+| DBSeeder Type  | CrateDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | OBJECT       |
@@ -847,7 +847,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | CUBRID Type |
+| DBSeeder Type  | CUBRID Type |
 | ---            | ---         |
 | BIGINT         | INT         |
 | BLOB           | BLOB        |
@@ -890,7 +890,7 @@ Below are also DBeaver based connection parameter examples for each database man
 ### <a name="details_exasol"></a> 5.5 Exasol
 - **data types**:
 
-| db seeder Type | Exasol Type      |
+| DBSeeder Type  | Exasol Type      |
 | ---            | ---              |
 | BIGINT         | BIGINT           |
 | BLOB           | VARCHAR(2000000) |
@@ -924,7 +924,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Firebird Type   |
+| DBSeeder Type  | Firebird Type   |
 | ---            | ---             |
 | BIGINT         | INTEGER         |
 | BLOB           | BLOB            |
@@ -964,7 +964,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | H2 Database Engine Type |
+| DBSeeder Type  | H2 Database Engine Type |
 | ---            | ---                     |
 | BIGINT         | BIGINT                  |
 | BLOB           | BLOB                    |
@@ -1006,17 +1006,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_hsqldb"></a> 5.8 HyperSQL Database
+### <a name="details_hsqldb"></a> 5.8 HSQLDB
 
 - **data types**:
 
-| db seeder Type | HyperSQL Database Type |
-| ---            | ---                    |
-| BIGINT         | BIGINT                 |
-| BLOB           | BLOB                   |
-| CLOB           | CLOB                   |
-| TIMESTAMP      | TIMESTAMP              |
-| VARCHAR        | VARCHAR                |
+| DBSeeder Type  | HSQLDB Type |
+| ---            | ---         |
+| BIGINT         | BIGINT      |
+| BLOB           | BLOB        |
+| CLOB           | CLOB        |
+| TIMESTAMP      | TIMESTAMP   |
+| VARCHAR        | VARCHAR     |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a  
@@ -1056,7 +1056,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | IBM Db2 Database Type |
+| DBSeeder Type  | IBM Db2 Database Type |
 | ---            | ---                   |
 | BIGINT         | BIGINT                |
 | BLOB           | BLOB                  |
@@ -1099,7 +1099,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | IBM Informix Database Type |
+| DBSeeder Type  | IBM Informix Database Type |
 | ---            | ---                        |
 | BIGINT         | BIGINT                     |
 | BLOB           | BLOB                       |
@@ -1142,7 +1142,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | MariaDB Type |
+| DBSeeder Type  | MariaDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | LONGBLOB     |
@@ -1188,7 +1188,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Microsoft SQL Server Type |
+| DBSeeder Type  | Microsoft SQL Server Type |
 | ---            | ---                       |
 | BIGINT         | BIGINT                    |
 | BLOB           | VARBINARY (MAX)           |
@@ -1228,7 +1228,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | MimerSQL Type |
+| DBSeeder Type  | MimerSQL Type |
 | ---            | ---           |
 | BIGINT         | BIGINT        |
 | BLOB           | BLOB          |
@@ -1266,7 +1266,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | MonetDB Type |
+| DBSeeder Type  | MonetDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | BLOB         |
@@ -1309,7 +1309,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | MySQL Database Type |
+| DBSeeder Type  | MySQL Database Type |
 | ---            | ---                 |
 | BIGINT         | BIGINT              |
 | BLOB           | LONGBLOB            |
@@ -1351,7 +1351,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | OmniSciDB Type     |
+| DBSeeder Type  | OmniSciDB Type     |
 | ---            | ---                |
 | BIGINT         | BIGINT             |
 | BLOB           | TEXT ENCODING NONE |
@@ -1402,7 +1402,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Oracle Database Type |
+| DBSeeder Type  | Oracle Database Type |
 | ---            | ---                  |
 | BIGINT         | NUMBER               |
 | BLOB           | BLOB                 |
@@ -1438,7 +1438,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Percona Sercver Type |
+| DBSeeder Type  | Percona Sercver Type |
 | ---            | ---                  |
 | BIGINT         | BIGINT               |
 | BLOB           | LONGBLOB             |
@@ -1476,7 +1476,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | PostgreSQL Type |
+| DBSeeder Type  | PostgreSQL Type |
 | ---            | ---             |
 | BIGINT         | BIGINT          |
 | BLOB           | BYTEA           |
@@ -1514,7 +1514,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | SQLite Type |
+| DBSeeder Type  | SQLite Type |
 | ---            | ---         |
 | BIGINT         | INTEGER     |
 | BLOB           | BLOB        |
@@ -1553,7 +1553,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Trino Database Type |
+| DBSeeder Type  | Trino Database Type |
 | ---            | ---                 |
 | BIGINT         | BIGINT              |
 | BLOB           | BLOB                |
@@ -1587,7 +1587,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | VoltDB Type        |
+| DBSeeder Type  | VoltDB Type        |
 | ---            | ---                |
 | BIGINT         | BIGINT             |
 | BLOB           | VARBINARY(1048576) |
@@ -1619,7 +1619,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | YugabyteDB Database Type |
+| DBSeeder Type  | YugabyteDB Database Type |
 | ---            | ---                      |
 | BIGINT         | BIGINT                   |
 | BLOB           | BYTEA                    |

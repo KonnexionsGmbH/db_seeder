@@ -52,7 +52,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new HyperSQL seeder object.
+   * Initialises a new HSQLDB seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
@@ -61,7 +61,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   }
 
   /**
-   * Initialises a new HyperSQL seeder object.
+   * Initialises a new HSQLDB seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino

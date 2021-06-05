@@ -38,8 +38,8 @@ if ["%1"] EQU [""] (
     echo firebird           - Firebird
     echo h2                 - H2 Database Engine [client]
     echo h2_emb             - H2 Database Engine [embedded]
-    echo hsqldb             - HyperSQL Database [client]
-    echo hsqldb_emb         - HyperSQL Database [embedded]
+    echo hsqldb             - HSQLDB [client]
+    echo hsqldb_emb         - HSQLDB [embedded]
     echo ibmdb2             - IBM Db2 Database
     echo informix           - IBM Informix
     echo mariadb            - MariaDB Server

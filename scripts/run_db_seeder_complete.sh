@@ -224,7 +224,7 @@ if [ "$DB_SEEDER_DBMS_H2_EMB" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# HyperSQL Database - client version.
+# HSQLDB - client version.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
@@ -234,7 +234,7 @@ if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# HyperSQL Database - embedded version.
+# HSQLDB - embedded version.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB_EMB" = "yes" ]; then

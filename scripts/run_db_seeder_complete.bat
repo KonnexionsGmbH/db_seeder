@@ -252,7 +252,7 @@ echo.
     )
 
     rem ------------------------------------------------------------------------------
-    rem HyperSQL Database - client version.
+    rem HSQLDB - client version.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
@@ -264,7 +264,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem HyperSQL Database - embedded version.
+    rem HSQLDB - embedded version.
     rem ------------------------------------------------------------------------------
 
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (

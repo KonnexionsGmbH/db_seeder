@@ -124,16 +124,16 @@ public final class DatabaseSeeder {
         logger.info("End   H2 Database Engine [embedded]");
         break;
       case "hsqldb":
-        logger.info("Start HyperSQL Database [client]");
+        logger.info("Start HSQLDB [client]");
         HsqldbSeeder hsqldbSeeder = new HsqldbSeeder(tickerSymbolExtern);
         hsqldbSeeder.createData();
-        logger.info("End   HyperSQL Database [client]");
+        logger.info("End   HSQLDB [client]");
         break;
       case "hsqldb_emb":
-        logger.info("Start HyperSQL Database [embedded]");
+        logger.info("Start HSQLDB [embedded]");
         HsqldbSeeder hsqldbSeederEmbedded = new HsqldbSeeder(tickerSymbolExtern, "embedded");
         hsqldbSeederEmbedded.createData();
-        logger.info("End   HyperSQL Database [embedded]");
+        logger.info("End   HSQLDB [embedded]");
         break;
       case "ibmdb2":
         logger.info("Start IBM Db2 Database");

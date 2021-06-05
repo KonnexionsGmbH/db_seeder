@@ -280,15 +280,15 @@ if [ "${DB_SEEDER_DBMS_DB}" = "h2" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# HyperSQL Database
+# HSQLDB
 #      https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "hsqldb" ]; then
-    echo "HyperSQL Database"
+    echo "HSQLDB"
     echo "--------------------------------------------------------------------------------"
     start=$(date +%s)
-    echo "Docker create db_seeder_db (HyperSQL Database ${DB_SEEDER_VERSION})"
+    echo "Docker create db_seeder_db (HSQLDB ${DB_SEEDER_VERSION})"
 
     docker network create db_seeder_net  2>/dev/null || true
     docker create --name    db_seeder_db \
@@ -296,7 +296,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "hsqldb" ]; then
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
                   konnexionsgmbh/hypersql_database:"${DB_SEEDER_VERSION}"
 
-    echo "Docker start db_seeder_db (HyperSQL Database ${DB_SEEDER_VERSION}) ..."
+    echo "Docker start db_seeder_db (HSQLDB ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
         exit 255
     fi
@@ -307,7 +307,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "hsqldb" ]; then
     fi
 
     end=$(date +%s)
-    echo "DOCKER HyperSQL Database was ready in $((end - start)) seconds"
+    echo "DOCKER HSQLDB was ready in $((end - start)) seconds"
 fi
 
 ## -----------------------------------------------------------------------------
