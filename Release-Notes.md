@@ -4,8 +4,16 @@
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.0.svg)
+----
 
-## 1. Current Issues
+### Table of Contents
+
+**[1. Current Issues](#current_issues)**<br>
+**[2. Version History](#version_history)**<br>
+
+----
+
+## <a name="current_issues"></a> 1. Current Issues
 
 ### 1.1 Apache Derby
 
@@ -191,7 +199,35 @@ java.sql.SQLException: Connection closed (CONNECTION_LOST): 'Connection to datab
       ... 6 more`
 Processing of the script was aborted, error code=1
 
-## 2. Version History
+## <a name="version_history"></a> 2. Version History
+
+### 2.9.1
+
+Release Date: dd.mm.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 16 (e.g.: 16.0.1 from https://jdk.java.net/16/)
+
+- Gradle: 7 (e.g.: v7.0.2 from https://gradle.org/releases/)
+
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- xxx: DBMS 999 / JDBC 999
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ### 2.9.0
 
