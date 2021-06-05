@@ -384,7 +384,7 @@ if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
@@ -394,7 +394,7 @@ if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER_TRINO" = "yes" ]; then

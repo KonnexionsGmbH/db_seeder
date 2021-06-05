@@ -295,7 +295,7 @@ if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then

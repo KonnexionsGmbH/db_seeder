@@ -102,7 +102,7 @@ if [ "$DB_SEEDER_DBMS_POSTGRESQL_TRINO" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER_TRINO" = "yes" ]; then

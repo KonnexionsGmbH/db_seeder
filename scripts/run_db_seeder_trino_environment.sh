@@ -13,10 +13,10 @@ export DB_SEEDER_DBMS_DEFAULT=complete
 if [ -z "$1" ]; then
     echo "========================================================="
     echo "complete           - All implemented Trino enabled DBMSs"
-    echo "sqlserver          - Microsoft SQL Server"
     echo "mysql              - MySQL Database"
     echo "oracle             - Oracle Database"
     echo "postgresql         - PostgreSQL"
+    echo "sqlserver          - SQL Server"
     echo "---------------------------------------------------------"
     read -p "Enter the desired database management system [default: ${DB_SEEDER_DBMS_DEFAULT}] " DB_SEEDER_DBMS
     export DB_SEEDER_DBMS=${DB_SEEDER_DBMS}

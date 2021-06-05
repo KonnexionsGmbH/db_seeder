@@ -220,16 +220,16 @@ public final class DatabaseSeeder {
         logger.info("End   SQLite");
         break;
       case "sqlserver":
-        logger.info("Start Microsoft SQL Server");
+        logger.info("Start SQL Server");
         SqlserverSeeder sqlserverSeeder = new SqlserverSeeder(tickerSymbolExtern);
         sqlserverSeeder.createData();
-        logger.info("End   Microsoft SQL Server");
+        logger.info("End   SQL Server");
         break;
       case "sqlserver_trino":
-        logger.info("Start Microsoft SQL Server via Trino");
+        logger.info("Start SQL Server via Trino");
         SqlserverSeeder sqlserverSeederTrino = new SqlserverSeeder(tickerSymbolExtern, "trino");
         sqlserverSeederTrino.createData();
-        logger.info("End   Microsoft SQL Server via Trino");
+        logger.info("End   SQL Server via Trino");
         break;
       case "voltdb":
         logger.info("Start VoltDB");

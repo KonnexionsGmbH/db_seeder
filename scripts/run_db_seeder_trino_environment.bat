@@ -15,10 +15,10 @@ set DB_SEEDER_DBMS_DEFAULT=complete
 if ["%1"] EQU [""] (
     echo ============================================================
     echo complete           - All implemented Trino enabled DBMSs
-    echo sqlserver          - Microsoft SQL Server
     echo mysql              - MySQL Database
     echo oracle             - Oracle Database
     echo postgresql         - PostgreSQL
+    echo sqlserver          - SQL Server
     echo -----------------------------------------------------------
     set /P DB_SEEDER_DBMS="Enter the desired database management system [default: %DB_SEEDER_DBMS_DEFAULT%] "
 

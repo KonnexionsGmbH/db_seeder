@@ -8,7 +8,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenSqlserverSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * Test Data Generator for a Microsoft SQL Server DBMS.
+ * Test Data Generator for a SQL Server DBMS.
  * <br>
  *
  * @author walter@konnexions.ch
@@ -56,7 +56,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Instantiates a new Microsoft SQL Server seeder object.
+   * Instantiates a new SQL Server seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
@@ -65,7 +65,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   }
 
   /**
-   * Instantiates a new Microsoft SQL Server seeder object.
+   * Instantiates a new SQL Server seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino

@@ -121,12 +121,6 @@ The following database systems are included in the current version of **`DBSeede
   - open source
   - relational model
   - **[see technical details here](#details_mariadb)**
-- [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
-  - client only version
-  - commercial
-  - derived from Adaptive Server Enterprise
-  - relational model
-  - **[see technical details here](#details_sqlserver)**
 - [Mimer SQL](https://www.mimer.com) 
   - client only version
   - commercial
@@ -164,16 +158,22 @@ The following database systems are included in the current version of **`DBSeede
   - open source
   - relational model
   - **[see technical details here](#details_postgresql)**
-- [Trino Distributed Query Engine](https://trino.io)
-  - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
-  - distributed query engine
-  - open source
-  - **[see technical details here](#details_trino)**
 - [SQLite](https://www.sqlite.org)
   - commercial, open source
   - embedded only version
   - relational model
   - **[see technical details here](#details_sqlite)**
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019)
+  - client only version
+  - commercial
+  - derived from Adaptive Server Enterprise
+  - relational model
+  - **[see technical details here](#details_sqlserver)**
+- [Trino Distributed Query Engine](https://trino.io)
+  - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
+  - distributed query engine
+  - open source
+  - **[see technical details here](#details_trino)**
 - [VoltDB](https://www.voltdb.com)
   - client only version
   - commercial, open source
@@ -193,7 +193,7 @@ An interesting side effect of working with **`DBSeeder`** is the ability to comp
 
 ![](.README_images/Company_2.9.0_win10.png)
 
-For the RDBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
+For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
 The prerequisite for this is that Trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
 Details can be found here: [6. Trino - Distributed Query Engine](#trino). 
 
@@ -216,7 +216,6 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
-| Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
@@ -225,6 +224,7 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
+| SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | Trino Distributed Query Engine  | mysql_trino,       | 339 - 358                  | 358                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
@@ -514,7 +514,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - Trino Distributed Query Engine and SQL Server Connector
     - YugabyteDB and Docker image
 
 #### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
@@ -530,7 +530,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: `./run_db_seeder.sh`
 - **Issues**:
-  - Trino Distributed Query Engine and Microsoft SQL Connector
+  - Trino Distributed Query Engine and SQL Server Connector
 
 #### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
 
@@ -562,7 +562,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - Trino Distributed Query Engine and SQL Server Connector
     - YugabyteDB and Docker image
 
 #### 4.2.3 Windows 10 Pro
@@ -574,7 +574,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `cd db_seeder`
 - **Execution**: run `run_db_seeder.bat`
 - **Issues**:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - Trino Distributed Query Engine and SQL Server Connector
     - YugabyteDB and Docker image
 
 
@@ -664,7 +664,6 @@ Below are also DBeaver based connection parameter examples for each database man
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
-**[Microsoft SQL Server](#details_sqlserver)** / 
 **[Mimer SQL](#details_mimer)** / 
 **[MonetDB](#details_monetdb)** / 
 **[MySQL Database](#details_mysql)** / 
@@ -673,6 +672,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Percona Server for MySQL](#details_percona)** / 
 **[PostgreSQL](#details_postgresql)** / 
 **[SQLite](#details_sqlite)** /
+**[SQL Server](#details_sqlserver)** /
 **[Trino distributed Query Engine](#details_trino)** /
 **[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
@@ -1184,47 +1184,9 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_sqlserver"></a> 5.12 Microsoft SQL Server
-
-- **data types**:
-
-| DBSeeder Type  | Microsoft SQL Server Type |
-| ---            | ---                       |
-| BIGINT         | BIGINT                    |
-| BLOB           | VARBINARY (MAX)           |
-| CLOB           | VARCHAR (MAX)             |
-| TIMESTAMP      | DATETIME2                 |
-| VARCHAR        | VARCHAR                   |
-
-- **DDL syntax**:
-  - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15) 
-  - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
-  - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15) 
-  - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15) 
-
-- **Docker image (latest)**:
-  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
-  - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
-
-- **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
-  
-- **JDBC driver (latest)**:
-  - version 9.2.1.jre15
-  - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
-
-- **privileged database access**:
-  - database: `master`
-  - user: `sa`
-
-- **restrictions**: no full UTF-8 support in the given Docker images
-
-- **DBeaver database connection settings**:
-
-![](.README_images/DBeaver_SQLSERVER.png)
-
 [//]: # (===========================================================================================)
 
-### <a name="details_mimer"></a> 5.13 Mimer SQL
+### <a name="details_mimer"></a> 5.12 Mimer SQL
 
 - **data types**:
 
@@ -1262,7 +1224,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_monetdb"></a> 5.14 MonetDB
+### <a name="details_monetdb"></a> 5.13 MonetDB
 
 - **data types**:
 
@@ -1305,7 +1267,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.15 MySQL Database
+### <a name="details_mysql"></a> 5.14 MySQL Database
 
 - **data types**:
 
@@ -1347,7 +1309,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_omnisci"></a> 5.16 OmniSciDB
+### <a name="details_omnisci"></a> 5.15 OmniSciDB
 
 - **data types**:
 
@@ -1398,7 +1360,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.17 Oracle Database
+### <a name="details_oracle"></a> 5.16 Oracle Database
 
 - **data types**:
 
@@ -1434,7 +1396,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_percona"></a> 5.18 Percona Server for MySQL
+### <a name="details_percona"></a> 5.17 Percona Server for MySQL
 
 - **data types**:
 
@@ -1472,7 +1434,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.19 PostgreSQL
+### <a name="details_postgresql"></a> 5.18 PostgreSQL
 
 - **data types**:
 
@@ -1510,7 +1472,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.20 SQLite
+### <a name="details_sqlite"></a> 5.19 SQLite
 
 - **data types**:
 
@@ -1546,6 +1508,46 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLITE.png)
+
+[//]: # (===========================================================================================)
+
+###  <a name="details_sqlserver"></a> 5.20 SQL Server
+
+- **data types**:
+
+| DBSeeder Type  | SQL Server Type |
+| ---            | ---             |
+| BIGINT         | BIGINT          |
+| BLOB           | VARBINARY (MAX) |
+| CLOB           | VARCHAR (MAX)   |
+| TIMESTAMP      | DATETIME2       |
+| VARCHAR        | VARCHAR         |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15)
+  - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
+  - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15)
+  - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
+
+- **Docker image (latest)**:
+  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
+  - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
+
+- **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
+
+- **JDBC driver (latest)**:
+  - version 9.2.1.jre15
+  - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
+
+- **privileged database access**:
+  - database: `master`
+  - user: `sa`
+
+- **restrictions**: no full UTF-8 support in the given Docker images
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_SQLSERVER.png)
 
 [//]: # (===========================================================================================)
 
@@ -1655,10 +1657,10 @@ Below are also DBeaver based connection parameter examples for each database man
 
 The [Trino](https://trino.io/) distributed query engine can integrate the following DBMS, among others:
 
-- Microsoft SQL Server via the [SQL Server Connector](https://trinodb.io/docs/current/connector/sqlserver.html),
 - MySQL via the [MySQL Connector](https://trinodb.io/docs/current/connector/mysql.html),
 - Oracle via the [Oracle Connector](https://trinodb.io/docs/current/connector/oracle.html), and
 - PostgreSQL via the [PostgreSQL Connector](https://trinodb.io/docs/current/connector/postgresql.html).
+- SQL Server via the [SQL Server Connector](https://trinodb.io/docs/current/connector/sqlserver.html),
 
 **`DBSeeder`** makes it possible to use Trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
 To use the Trino JDBC driver, a Trino server is required.

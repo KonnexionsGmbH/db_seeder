@@ -45,8 +45,6 @@ if ["%1"] EQU [""] (
     echo mariadb            - MariaDB Server
     echo mimer              - Mimer SQL
     echo monetdb            - MonetDB
-    echo sqlserver          - Microsoft SQL Server
-    echo sqlserver_trino    - Microsoft SQL Server via Trino
     echo mysql              - MySQL Database
     echo mysql_trino        - MySQL Database via Trino
     echo omnisci            - OmniSciDB
@@ -56,6 +54,8 @@ if ["%1"] EQU [""] (
     echo postgresql         - PostgreSQL
     echo postgresql_trino   - PostgreSQL via Trino
     echo sqlite             - SQLite [embedded]
+    echo sqlserver          - SQL Server
+    echo sqlserver_trino    - SQL Server via Trino
     echo voltdb             - VoltDB
     echo yugabyte           - YugabyteDB
     echo ---------------------------------------------------------

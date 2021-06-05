@@ -250,7 +250,7 @@ Release Date: 01.04.2021
 
 - IBM Db2 Database: DBMS 11.5.5.1
 
-- Microsoft SQL Server: JDBC 9.2.1.jre15
+- SQL Server: JDBC 9.2.1.jre15
 
 - Trino Distributed Query Engine: DBMS 354 / JDBC 354
 
@@ -305,13 +305,13 @@ Release Date: 27.02.2021
 
 - MariaDB Server: DBMS 10.5.9 / JDBC 2.7.2
 
-- Microsoft SQL Server: JDBC 9.2.0.jre15
-
 - MonetDB: DBMS Oct2020-SP3 / JDBC 3.0.jre8
 
 - Oracle Database: JDBC 21.1.0.0
 
 - PostgreSQL: DBMS 13.2 / JDBC 42.2.19
+
+- SQL Server: JDBC 9.2.0.jre15
 
 - Trino Distributed Query Engine: DBMS 352 / JDBC 352
 
@@ -617,7 +617,7 @@ Release Date: 30.08.2020
 
 #### Modified Features
 
-- Microsoft SQL Server: JDBC 8.4.1.jre14
+- SQL Server: JDBC 8.4.1.jre14
 
 ----------
 
@@ -886,7 +886,7 @@ Release Date: 11.08.2020
 
 - MariaDB Server: JDBC 2.6.2
 
-- Microsoft SQL Server: JDBC 8.4.0.jre14
+- SQL Server: JDBC 8.4.0.jre14
 
 ----------
 
@@ -1256,7 +1256,7 @@ Release Date: 06.06.2020
 
 - Documentation
 
-- New DBMS: Microsoft SQL Server
+- New DBMS: SQL Server
 
 - Travis CI Integration
 
