@@ -227,7 +227,7 @@ public final class SamplePostgresql {
       logger.debug("Start");
     }
 
-    logger.info("Run the demo with the Trino JDBC driver");
+    logger.info("Run the demo with the trino JDBC driver");
     logger.info("");
 
     resetDatabase();
@@ -265,7 +265,7 @@ public final class SamplePostgresql {
       logger.debug("Start");
     }
 
-    logger.info("Run the demo with the Trino JDBC driver - with batch operations");
+    logger.info("Run the demo with the trino JDBC driver - with batch operations");
     logger.info("");
 
     resetDatabase();
@@ -483,8 +483,8 @@ public final class SamplePostgresql {
       logger.info("----------------------------------------------");
       logger.info("1 - Run the demo with the original JDBC driver");
       logger.info("2 - Run the demo with the original JDBC driver - with batch operations");
-      logger.info("3 - Run the demo with the Trino JDBC driver");
-      logger.info("4 - Run the demo with the Trino JDBC driver - with batch operations");
+      logger.info("3 - Run the demo with the trino JDBC driver");
+      logger.info("4 - Run the demo with the trino JDBC driver - with batch operations");
       logger.info("8 - Run all demos");
       logger.info("9 - Terminate the processing");
       logger.info("----------------------------------------------");

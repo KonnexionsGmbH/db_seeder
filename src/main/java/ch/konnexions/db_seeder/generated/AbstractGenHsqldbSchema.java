@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 /**
- * CREATE TABLE statements for a HyperSQL DBMS. <br>
+ * CREATE TABLE statements for a HSQLDB. <br>
  * 
  * @author  CreateSummaryFile.class
  * @version 2.9.0
@@ -113,7 +113,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new abstract HyperSQL schema object.
+   * Initialises a new abstract HSQLDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */
@@ -122,7 +122,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
   }
 
   /**
-   * Initialises a new abstract HyperSQL schema object.
+   * Initialises a new abstract HSQLDB schema object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption client, embedded or trino

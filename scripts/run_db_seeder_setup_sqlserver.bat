@@ -2,8 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_sqlserver.bat: Setup a Microsoft SQL Server Docker
-rem                                    container.
+rem run_db_seeder_setup_sqlserver.bat: Setup a SQL Server Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -26,7 +25,7 @@ if ["%DB_SEEDER_VERSION%"] EQU [""] (
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a Microsoft SQL Server Docker container.
+echo DB Seeder - setup a SQL Server Docker container.
 echo --------------------------------------------------------------------------------
 echo DBMS_TRINO                : %DB_SEEDER_DBMS_TRINO%
 echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%
@@ -37,13 +36,13 @@ echo:| TIME
 echo ================================================================================
 
 rem ------------------------------------------------------------------------------
-rem Microsoft SQL Server           https://hub.docker.com/_/microsoft-mssql-server
+rem SQL Server                     https://hub.docker.com/_/microsoft-mssql-server
 rem ------------------------------------------------------------------------------
 
-echo Microsoft SQL Server
+echo SQL Server
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
-echo Docker create db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%)
+echo Docker create db_seeder_db (SQL Server %DB_SEEDER_VERSION%)
 
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        "ACCEPT_EULA=Y" ^
@@ -53,7 +52,7 @@ docker create -e        "ACCEPT_EULA=Y" ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               mcr.microsoft.com/mssql/server:%DB_SEEDER_VERSION%
 
-echo Docker start db_seeder_db (Microsoft SQL Server %DB_SEEDER_VERSION%) ...
+echo Docker start db_seeder_db (SQL Server %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
 ping -n 30 127.0.0.1>nul
@@ -62,7 +61,7 @@ docker network ls
 docker network inspect db_seeder_net
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
-echo DOCKER Microsoft SQL Server was ready in %CONSUMED%
+echo DOCKER SQL Server was ready in %CONSUMED%
 
 docker ps
 

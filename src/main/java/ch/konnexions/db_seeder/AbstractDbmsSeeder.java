@@ -198,16 +198,16 @@ public abstract class AbstractDbmsSeeder {
     dbmsDetails.put("hsqldb",
                     new String[] {
                         "hsqldb",
-                        "HyperSQL Database",
+                        "HSQLDB",
                         "client",
-                        "HyperSQL",
+                        "HSQLDB",
                         "" });
     dbmsDetails.put("hsqldb_emb",
                     new String[] {
                         "hsqldb",
-                        "HyperSQL Database",
+                        "HSQLDB",
                         "embedded",
-                        "HyperSQL",
+                        "HSQLDB",
                         "" });
     dbmsDetails.put("ibmdb2",
                     new String[] {

@@ -363,7 +363,7 @@ public final class TrinoEnvironment {
   }
 
   /**
-   * Create the Microsoft SQL Server catalog file.
+   * Create the SQL Server catalog file.
    *
    * @param tickerSymbolExtern the DBMS ticker symbol
    */
@@ -492,9 +492,9 @@ public final class TrinoEnvironment {
         logger.info("End   PostgreSQL");
         break;
       case "sqlserver":
-        logger.info("Start Microsoft SQL Server");
+        logger.info("Start SQL Server");
         createCatalogFileSqlserver(tickerSymbolExtern);
-        logger.info("End   Microsoft SQL Server");
+        logger.info("End   SQL Server");
         break;
       case "":
         MessageHandling.abortProgram(logger,

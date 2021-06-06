@@ -77,7 +77,7 @@ public final class I5648 {
   }
 
   private static void demonstrateTrino() {
-    logger.info("Run the demo with the Trino JDBC driver ======================");
+    logger.info("Run the demo with the trino JDBC driver ======================");
 
     connection = connect(urlTrino,
                          driverTrino,

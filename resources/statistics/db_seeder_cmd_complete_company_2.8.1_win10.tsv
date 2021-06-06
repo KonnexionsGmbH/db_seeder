@@ -9,8 +9,8 @@ exasol	Exasol	client	3494	2021-04-01 19:16:55.649366200	2021-04-01 19:16:59.1435
 firebird	Firebird	client	87096	2021-04-01 19:17:58.408053100	2021-04-01 19:19:25.504656000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
 h2	H2 Database Engine	client	6042	2021-04-01 19:20:12.718801400	2021-04-01 19:20:18.760984800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
 h2_emb	H2 Database Engine	embedded	2273	2021-04-01 19:20:20.546506000	2021-04-01 19:20:22.819782100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-hsqldb	HyperSQL Database	client	16238	2021-04-01 19:21:06.373497800	2021-04-01 19:21:22.612279700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
-hsqldb_emb	HyperSQL Database	embedded	396795	2021-04-01 19:21:24.412460100	2021-04-01 19:28:01.207633300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+hsqldb	HSQLDB	client	16238	2021-04-01 19:21:06.373497800	2021-04-01 19:21:22.612279700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
+hsqldb_emb	HSQLDB	embedded	396795	2021-04-01 19:21:24.412460100	2021-04-01 19:28:01.207633300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
 ibmdb2	IBM Db2 Database	client	22321	2021-04-01 19:33:07.864543700	2021-04-01 19:33:30.186006100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
 informix	IBM Informix	client	17481	2021-04-01 19:37:46.422155900	2021-04-01 19:38:03.903815800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0
 mariadb	MariaDB Server	client	2877	2021-04-01 19:38:59.839053500	2021-04-01 19:39:02.716054100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0

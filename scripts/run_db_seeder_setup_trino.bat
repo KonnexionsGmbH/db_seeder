@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_setup_trino.bat: Setup a Trino Distributed Query Engine Docker container.
+rem run_db_seeder_setup_trino.bat: Setup a trino Docker container.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ if ["%DB_SEEDER_VERSION_TRINO%"] EQU [""] (
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a Trino Distributed Query Engine Docker container.
+echo DB Seeder - setup a trino Docker container.
 echo --------------------------------------------------------------------------------
 echo VERSION_TRINO                     : %DB_SEEDER_VERSION_TRINO%
 echo "--------------------------------------------------------------------------------"
@@ -43,10 +43,10 @@ echo ............................................................. after:
 docker ps -a
 
 echo --------------------------------------------------------------------------------
-echo Start Trino Distributed Query Engine - creating and starting the container
+echo Start trino - creating and starting the container
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
-echo Docker create trino (Trino Distributed Query Engine)
+echo Docker create trino (trino)
 
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --name    db_seeder_trino ^
@@ -55,7 +55,7 @@ docker create --name    db_seeder_trino ^
               -v        %cd%/resources/docker/trino:/etc/trino ^
               trinodb/trino:%DB_SEEDER_VERSION_TRINO%
 
-echo Docker start trino (Trino Distributed Query Engine) ...
+echo Docker start trino (trino) ...
 docker start db_seeder_trino
 
 ping -n 30 127.0.0.1>nul
@@ -64,7 +64,7 @@ docker network ls
 docker network inspect db_seeder_net
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
-echo Docker Trino Distributed Query Engine was ready in %CONSUMED%
+echo Docker trino was ready in %CONSUMED%
 
 docker ps
 

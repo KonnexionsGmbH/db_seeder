@@ -9,8 +9,8 @@ exasol	Exasol	client	2552	2021-04-02 13:46:10.477312246	2021-04-02 13:46:13.0298
 firebird	Firebird	client	19869	2021-04-02 13:46:57.870930780	2021-04-02 13:47:17.740348470	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
 h2	H2 Database Engine	client	3662	2021-04-02 13:47:50.489589270	2021-04-02 13:47:54.152004069	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
 h2_emb	H2 Database Engine	embedded	1284	2021-04-02 13:47:55.805447174	2021-04-02 13:47:57.089689964	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
-hsqldb	HyperSQL Database	client	5058	2021-04-02 13:48:30.482223047	2021-04-02 13:48:35.540390112	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
-hsqldb_emb	HyperSQL Database	embedded	4513	2021-04-02 13:48:37.157959373	2021-04-02 13:48:41.671387129	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+hsqldb	HSQLDB	client	5058	2021-04-02 13:48:30.482223047	2021-04-02 13:48:35.540390112	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
+hsqldb_emb	HSQLDB	embedded	4513	2021-04-02 13:48:37.157959373	2021-04-02 13:48:41.671387129	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
 ibmdb2	IBM Db2 Database	client	5196	2021-04-02 13:53:44.775142876	2021-04-02 13:53:49.971574123	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
 informix	IBM Informix	client	9161	2021-04-02 13:57:58.577514471	2021-04-02 13:58:07.738588204	ubuntu	8	amd64 / Linux / 5.8.0-48-generic
 mariadb	MariaDB Server	client	2154	2021-04-02 13:58:50.507959971	2021-04-02 13:58:52.662105230	ubuntu	8	amd64 / Linux / 5.8.0-48-generic

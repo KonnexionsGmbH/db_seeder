@@ -43,13 +43,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Gets the Trino URL string.
+   * Gets the trino URL string.
    *
    * @param tickerSymbolLower the lower case DBMS ticker symbol
    * @param connectionHost    the connection host name
    * @param connectionPort    the connection port
    * @param databaseSchema    the database schema
-   * @return the Trino URL string
+   * @return the trino URL string
    */
   public static String getUrlTrino(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
     return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=trino";

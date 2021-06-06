@@ -224,7 +224,7 @@ if [ "$DB_SEEDER_DBMS_H2_EMB" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# HyperSQL Database - client version.
+# HSQLDB - client version.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
@@ -234,7 +234,7 @@ if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# HyperSQL Database - embedded version.
+# HSQLDB - embedded version.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB_EMB" = "yes" ]; then
@@ -304,7 +304,7 @@ if [ "$DB_SEEDER_DBMS_MYSQL" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# MySQL Database - via Trino.
+# MySQL Database - via trino.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MYSQL_TRINO" = "yes" ]; then
@@ -334,7 +334,7 @@ if [ "$DB_SEEDER_DBMS_ORACLE" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Oracle Database - via Trino.
+# Oracle Database - via trino.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_ORACLE_TRINO" = "yes" ]; then
@@ -374,17 +374,7 @@ if [ "$DB_SEEDER_DBMS_POSTGRESQL_TRINO" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# SQLite.
-# ------------------------------------------------------------------------------
-
-if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlite yes $DB_SEEDER_NO_CREATE_RUNS ); then
-        exit 255
-    fi
-fi
-
-# ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
@@ -394,11 +384,21 @@ if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER_TRINO" = "yes" ]; then
     if ! ( ./run_db_seeder.sh sqlserver_trino yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi
+fi
+
+# ------------------------------------------------------------------------------
+# SQLite.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlite yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi

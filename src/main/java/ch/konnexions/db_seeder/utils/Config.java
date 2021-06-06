@@ -111,7 +111,7 @@ public final class Config {
   }
 
   /**
-   * @return the host name where the Trino server is listening for requests
+   * @return the host name where the trino server is listening for requests
    */
   public String getConnectionHostTrino() {
     return connectionHostTrino;
@@ -125,7 +125,7 @@ public final class Config {
   }
 
   /**
-   * @return the port number where the Trino server is listening for requests
+   * @return the port number where the trino server is listening for requests
    */
   public final int getConnectionPortTrino() {
     return connectionPortTrino;

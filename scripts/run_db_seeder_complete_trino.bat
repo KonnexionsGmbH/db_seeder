@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_complete_trino.bat: Run all Trino DBMS variations.
+rem run_db_seeder_complete_trino.bat: Run all trino DBMS variations.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ echo.
     )
 
     rem ------------------------------------------------------------------------------
-    rem MySQL Database - via Trino.
+    rem MySQL Database - via trino.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_MYSQL_TRINO%"] EQU ["yes"] (
@@ -92,7 +92,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Oracle Database - via Trino.
+    rem Oracle Database - via trino.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_ORACLE_TRINO%"] EQU ["yes"] (
@@ -116,7 +116,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Microsoft SQL Server.
+    rem SQL Server.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_SQLSERVER_TRINO%"] EQU ["yes"] (

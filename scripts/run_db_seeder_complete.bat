@@ -252,7 +252,7 @@ echo.
     )
 
     rem ------------------------------------------------------------------------------
-    rem HyperSQL Database - client version.
+    rem HSQLDB - client version.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_HSQLDB%"] EQU ["yes"] (
@@ -264,7 +264,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem HyperSQL Database - embedded version.
+    rem HSQLDB - embedded version.
     rem ------------------------------------------------------------------------------
 
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
@@ -348,7 +348,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem MySQL Database - via Trino.
+    rem MySQL Database - via trino.
     rem ------------------------------------------------------------------------------
 
     if ["%DB_SEEDER_DBMS_MYSQL_TRINO%"] EQU ["yes"] (
@@ -384,7 +384,7 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Oracle Database - via Trino.
+    rem Oracle Database - via trino.
     rem ------------------------------------------------------------------------------
 
     if ["%DB_SEEDER_DBMS_ORACLE_TRINO%"] EQU ["yes"] (
@@ -432,19 +432,7 @@ echo.
     )
 
     rem ------------------------------------------------------------------------------
-    rem SQLite.
-    rem ------------------------------------------------------------------------------
-
-    if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
-        call run_db_seeder.bat sqlite yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
-            echo Processing of the script was aborted, error code=%ERRORLEVEL%
-            exit %ERRORLEVEL%
-        )
-    )
-
-    rem ------------------------------------------------------------------------------
-    rem Microsoft SQL Server.
+    rem SQL Server.
     rem ------------------------------------------------------------------------------
     
     if ["%DB_SEEDER_DBMS_SQLSERVER%"] EQU ["yes"] (
@@ -456,11 +444,23 @@ echo.
     )
     
     rem ------------------------------------------------------------------------------
-    rem Microsoft SQL Server.
+    rem SQL Server.
     rem ------------------------------------------------------------------------------
 
     if ["%DB_SEEDER_DBMS_SQLSERVER_TRINO%"] EQU ["yes"] (
         call run_db_seeder.bat sqlserver_trino yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
+
+    rem ------------------------------------------------------------------------------
+    rem SQLite.
+    rem ------------------------------------------------------------------------------
+
+    if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
+        call run_db_seeder.bat sqlite yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%

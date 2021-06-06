@@ -20,7 +20,7 @@
 **[4.3 Control Parameters](#operating_instructions_control)**<br>
 **[4.4 Statistics](#operating_instructions_statistics)**<br>
 **[5. RDBMS Specific Technical Details](#rdbms_specifica)**<br>
-**[6. Trino - Distributed Query Engine](#trino)**<br>
+**[6. trino](#trino)**<br>
 
 ----
 
@@ -96,11 +96,11 @@ The following database systems are included in the current version of **`DBSeede
   - **[see technical details here](#details_firebird)**
 - [H2 Database Engine](https://www.h2database.com/html/main.html) 
   - client and embedded version
-  - compatible with HyperSQL, PostgreSQL
+  - compatible with HSQLDB, PostgreSQL
   - open source
   - relational model
   - **[see technical details here](#details_h2)**
-- [HyperSQL Database](https://hsqldb.org) 
+- [HSQLDB](https://hsqldb.org) 
   - client and embedded version
   - open source
   - relational model
@@ -121,12 +121,6 @@ The following database systems are included in the current version of **`DBSeede
   - open source
   - relational model
   - **[see technical details here](#details_mariadb)**
-- [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019) 
-  - client only version
-  - commercial
-  - derived from Adaptive Server Enterprise
-  - relational model
-  - **[see technical details here](#details_sqlserver)**
 - [Mimer SQL](https://www.mimer.com) 
   - client only version
   - commercial
@@ -164,20 +158,26 @@ The following database systems are included in the current version of **`DBSeede
   - open source
   - relational model
   - **[see technical details here](#details_postgresql)**
-- [Trino Distributed Query Engine](https://trino.io)
-  - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
-  - distributed query engine
-  - open source
-  - **[see technical details here](#details_trino)**
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019)
+  - client only version
+  - commercial
+  - derived from Adaptive Server Enterprise
+  - relational model
+  - **[see technical details here](#details_sqlserver)**
 - [SQLite](https://www.sqlite.org)
   - commercial, open source
   - embedded only version
   - relational model
   - **[see technical details here](#details_sqlite)**
+- [trino](https://trino.io)
+  - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
+  - distributed query engine
+  - open source
+  - **[see technical details here](#details_trino)**
 - [VoltDB](https://www.voltdb.com)
   - client only version
   - commercial, open source
-  - derived from H-Store, HyperSQL
+  - derived from H-Store, HSQLDB
   - in-memory relational model
   - **[see technical details here](#details_voltdb)**
 - [YugabyteDB](https://www.yugabyte.com)
@@ -193,9 +193,9 @@ An interesting side effect of working with **`DBSeeder`** is the ability to comp
 
 ![](.README_images/Company_2.9.0_win10.png)
 
-For the RDBMS Microsoft SQL Server, MySQL, Oracle and PostgreSQL the JDBC driver from Trino can optionally be used instead of the original JDBC driver. 
-The prerequisite for this is that Trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
-Details can be found here: [6. Trino - Distributed Query Engine](#trino). 
+For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver. 
+The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
+Details can be found here: [6. trino](#trino). 
 
 
 [//]: # (===========================================================================================)
@@ -212,20 +212,20 @@ Details can be found here: [6. Trino - Distributed Query Engine](#trino).
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.9           | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
-| HyperSQL Database               | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
-| Microsoft SQL Server            | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
-| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0            |
+| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
+| SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| Trino Distributed Query Engine  | mysql_trino,       | 339 - 358                  | 358                 |
+| trino                           | mysql_trino,       | 339 - 358                  | 358                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
@@ -431,7 +431,7 @@ a **`DBSeeder`** specific development container can be started, which performs t
 - all client databases with the database schema `db_seeder_schema.company.json`
 - all client databases with the database schema `db_seeder_schema.syntax.json`
 - all embeded databases with the database schema `db_seeder_schema.company.json`
-- all Trino databases with the database schema `db_seeder_schema.company.json`
+- all trino databases with the database schema `db_seeder_schema.company.json`
 
 For each of these runs, by default a statistics file is created in the file directory `Transfer` with the following file name structure:
 
@@ -514,7 +514,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - trino and SQL Server Connector
     - YugabyteDB and Docker image
 
 #### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
@@ -530,7 +530,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: `./run_db_seeder.sh`
 - **Issues**:
-  - Trino Distributed Query Engine and Microsoft SQL Connector
+  - trino and SQL Server Connector
 
 #### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
 
@@ -562,7 +562,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
 - **Issues**:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - trino and SQL Server Connector
     - YugabyteDB and Docker image
 
 #### 4.2.3 Windows 10 Pro
@@ -574,7 +574,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `cd db_seeder`
 - **Execution**: run `run_db_seeder.bat`
 - **Issues**:
-    - Trino Distributed Query Engine and Microsoft SQL Connector
+    - trino and SQL Server Connector
     - YugabyteDB and Docker image
 
 
@@ -619,9 +619,9 @@ db_seeder.user=
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                            | Description |     
 | ---                                       | ---                               | ---                                                                                | --- |
 | connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                   | host name or ip address of the database server |
-| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | Trino                                                                              | host name or ip address of the Trino distributed query engine |
+| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | trino                                                                              | host name or ip address of the trino |
 | connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                   | port number of the database server |
-| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | Trino                                                                              | port number of the Trino distributed query engine |
+| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | trino                                                                              | port number of the trino |
 | connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                          | prefix of the database connection string |
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                             | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                           | suffix of the database connection string |
@@ -655,16 +655,15 @@ Below are also DBeaver based connection parameter examples for each database man
 **[AgensGraph](#details_agens)** / 
 **[Apache Derby](#details_derby)** /
 **[CockroachDB](#details_cockroach)** /
-**[CrateDB](#details_cratedb)** / 
-**[CUBRID](#details_cubrid)** / 
+**[CrateDB](#details_cratedb)** /
+**[CUBRID](#details_cubrid)** /
 **[Exasol](#details_exasol)** /  
 **[Firebird](#details_firebird)** /  
 **[H2 Database Engine](#details_h2)** /  
-**[HyperSQL Database](#details_hsqldb)** /  
+**[HSQLDB](#details_hsqldb)** /  
 **[IBM Db2 Database](#details_ibmdb2)** / 
 **[IBM Informix](#details_informix)** / 
 **[MariaDB Server](#details_mariadb)** / 
-**[Microsoft SQL Server](#details_sqlserver)** / 
 **[Mimer SQL](#details_mimer)** / 
 **[MonetDB](#details_monetdb)** / 
 **[MySQL Database](#details_mysql)** / 
@@ -672,8 +671,9 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Oracle Database](#details_oracle)** /
 **[Percona Server for MySQL](#details_percona)** / 
 **[PostgreSQL](#details_postgresql)** / 
+**[SQL Server](#details_sqlserver)** /
 **[SQLite](#details_sqlite)** /
-**[Trino distributed Query Engine](#details_trino)** /
+**[trino](#details_trino)** /
 **[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
 
@@ -683,7 +683,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | AgensGraph Database Type |
+| DBSeeder Type  | AgensGraph Database Type |
 | ---            | ---                      |
 | BIGINT         | BIGINT                   |
 | BLOB           | BYTEA                    |
@@ -717,7 +717,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Apache Derby Type |
+| DBSeeder Type  | Apache Derby Type |
 | ---            | ---               |
 | BIGINT         | BIGINT            |
 | BLOB           | BLOB              |
@@ -737,14 +737,14 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
 
-- **issue tracking**: [Jira](https://issues.apache.org/jira/secure/Dashboard.jspa)
+- **issue tracking**: [Jira](https://issues.apache.org/jira/projects/DERBY/issues/DERBY-7013?filter=allopenissues)
   
 - **JDBC driver (latest)**:
   - version 10.15.2.0
   - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
   - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
-- **source code**: [GitHub](https://github.com/apache/derby)
+- **source code**: [Apache Derby](https://db.apache.org/derby/dev/derby_source.html)
 
 - **DBeaver database connection settings**:
 
@@ -762,7 +762,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | CockroachDB Type |
+| DBSeeder Type  | CockroachDB Type |
 | ---            | ---              |
 | BIGINT         | INT              |
 | BLOB           | BYTES            |
@@ -801,7 +801,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | CrateDB Type |
+| DBSeeder Type  | CrateDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | OBJECT       |
@@ -847,7 +847,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | CUBRID Type |
+| DBSeeder Type  | CUBRID Type |
 | ---            | ---         |
 | BIGINT         | INT         |
 | BLOB           | BLOB        |
@@ -868,8 +868,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
 - **issue tracking**: 
-  - [Jira](https://jira.cubrid.org/secure/Dashboard.jspa)
-  - [reddit](https://www.reddit.com/r/CUBRID)
+  - [Jira](http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&orderby=created+DESC)
 
 - **JDBC driver (latest)**:
   - version 11.0.1.0286
@@ -890,7 +889,7 @@ Below are also DBeaver based connection parameter examples for each database man
 ### <a name="details_exasol"></a> 5.5 Exasol
 - **data types**:
 
-| db seeder Type | Exasol Type      |
+| DBSeeder Type  | Exasol Type      |
 | ---            | ---              |
 | BIGINT         | BIGINT           |
 | BLOB           | VARCHAR(2000000) |
@@ -924,7 +923,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | Firebird Type   |
+| DBSeeder Type  | Firebird Type   |
 | ---            | ---             |
 | BIGINT         | INTEGER         |
 | BLOB           | BLOB            |
@@ -944,7 +943,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
   
-- **issue tracking**: [Jira](https://www.atlassian.com/software/jira)
+- **issue tracking**: [GitHub](https://github.com/FirebirdSQL/firebird/issues)
 
 - **JDBC driver (latest)**:
   - version 4.0.3.java11
@@ -964,7 +963,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | H2 Database Engine Type |
+| DBSeeder Type  | H2 Database Engine Type |
 | ---            | ---                     |
 | BIGINT         | BIGINT                  |
 | BLOB           | BLOB                    |
@@ -1006,17 +1005,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_hsqldb"></a> 5.8 HyperSQL Database
+### <a name="details_hsqldb"></a> 5.8 HSQLDB
 
 - **data types**:
 
-| db seeder Type | HyperSQL Database Type |
-| ---            | ---                    |
-| BIGINT         | BIGINT                 |
-| BLOB           | BLOB                   |
-| CLOB           | CLOB                   |
-| TIMESTAMP      | TIMESTAMP              |
-| VARCHAR        | VARCHAR                |
+| DBSeeder Type  | HSQLDB Type |
+| ---            | ---         |
+| BIGINT         | BIGINT      |
+| BLOB           | BLOB        |
+| CLOB           | CLOB        |
+| TIMESTAMP      | TIMESTAMP   |
+| VARCHAR        | VARCHAR     |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a  
@@ -1056,7 +1055,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | IBM Db2 Database Type |
+| DBSeeder Type  | IBM Db2 Database Type |
 | ---            | ---                   |
 | BIGINT         | BIGINT                |
 | BLOB           | BLOB                  |
@@ -1099,7 +1098,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | IBM Informix Database Type |
+| DBSeeder Type  | IBM Informix Database Type |
 | ---            | ---                        |
 | BIGINT         | BIGINT                     |
 | BLOB           | BLOB                       |
@@ -1142,7 +1141,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | MariaDB Type |
+| DBSeeder Type  | MariaDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | LONGBLOB     |
@@ -1166,7 +1165,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - table level: `CHARACTER SET 'utf8'`
   - column level: `CHARACTER SET 'greek'`
   
-- **issue tracking**: [Jira](https://jira.mariadb.org/projects/MDEV/issues/MDEV-22621?filter=allopenissues)
+- **issue tracking**: [Jira](https://jira.mariadb.org/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
   - version 2.7.2
@@ -1184,51 +1183,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_sqlserver"></a> 5.12 Microsoft SQL Server
+### <a name="details_mimer"></a> 5.12 Mimer SQL
 
 - **data types**:
 
-| db seeder Type | Microsoft SQL Server Type |
-| ---            | ---                       |
-| BIGINT         | BIGINT                    |
-| BLOB           | VARBINARY (MAX)           |
-| CLOB           | VARCHAR (MAX)             |
-| TIMESTAMP      | DATETIME2                 |
-| VARCHAR        | VARCHAR                   |
-
-- **DDL syntax**:
-  - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15) 
-  - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
-  - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15) 
-  - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15) 
-
-- **Docker image (latest)**:
-  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
-  - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
-
-- **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
-  
-- **JDBC driver (latest)**:
-  - version 9.2.1.jre15
-  - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
-
-- **privileged database access**:
-  - database: `master`
-  - user: `sa`
-
-- **restrictions**: no full UTF-8 support in the given Docker images
-
-- **DBeaver database connection settings**:
-
-![](.README_images/DBeaver_SQLSERVER.png)
-
-[//]: # (===========================================================================================)
-
-### <a name="details_mimer"></a> 5.13 Mimer SQL
-
-- **data types**:
-
-| db seeder Type | MimerSQL Type |
+| DBSeeder Type  | MimerSQL Type |
 | ---            | ---           |
 | BIGINT         | BIGINT        |
 | BLOB           | BLOB          |
@@ -1262,11 +1221,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_monetdb"></a> 5.14 MonetDB
+### <a name="details_monetdb"></a> 5.13 MonetDB
 
 - **data types**:
 
-| db seeder Type | MonetDB Type |
+| DBSeeder Type  | MonetDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | BLOB         |
@@ -1286,7 +1245,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: no special configuration should be needed
   
-- **issue tracking**: [Bugzilla](https://www.monetdb.org/bugzilla/)
+- **issue tracking**: [GitHub](https://github.com/MonetDB/MonetDB/issues)
 
 - **JDBC driver (latest)**:
   - version 3.0.jre8
@@ -1297,7 +1256,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - user: `monetdb`
   - password: `monetdb`
 
-- **source code**: [monetdb.org](https://www.monetdb.org/downloads/sources/)
+- **source code**: [GitHub](https://github.com/MonetDB/MonetDB)
 
 - **DBeaver database connection settings**:
 
@@ -1305,11 +1264,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.15 MySQL Database
+### <a name="details_mysql"></a> 5.14 MySQL Database
 
 - **data types**:
 
-| db seeder Type | MySQL Database Type |
+| DBSeeder Type  | MySQL Database Type |
 | ---            | ---                 |
 | BIGINT         | BIGINT              |
 | BLOB           | LONGBLOB            |
@@ -1329,8 +1288,6 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
-- **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
-
 - **JDBC driver (latest)**:
   - version 8.0.25
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -1347,11 +1304,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_omnisci"></a> 5.16 OmniSciDB
+### <a name="details_omnisci"></a> 5.15 OmniSciDB
 
 - **data types**:
 
-| db seeder Type | OmniSciDB Type     |
+| DBSeeder Type  | OmniSciDB Type     |
 | ---            | ---                |
 | BIGINT         | BIGINT             |
 | BLOB           | TEXT ENCODING NONE |
@@ -1398,11 +1355,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.17 Oracle Database
+### <a name="details_oracle"></a> 5.16 Oracle Database
 
 - **data types**:
 
-| db seeder Type | Oracle Database Type |
+| DBSeeder Type  | Oracle Database Type |
 | ---            | ---                  |
 | BIGINT         | NUMBER               |
 | BLOB           | BLOB                 |
@@ -1434,11 +1391,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_percona"></a> 5.18 Percona Server for MySQL
+### <a name="details_percona"></a> 5.17 Percona Server for MySQL
 
 - **data types**:
 
-| db seeder Type | Percona Sercver Type |
+| DBSeeder Type  | Percona Sercver Type |
 | ---            | ---                  |
 | BIGINT         | BIGINT               |
 | BLOB           | LONGBLOB             |
@@ -1472,11 +1429,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.19 PostgreSQL
+### <a name="details_postgresql"></a> 5.18 PostgreSQL
 
 - **data types**:
 
-| db seeder Type | PostgreSQL Type |
+| DBSeeder Type  | PostgreSQL Type |
 | ---            | ---             |
 | BIGINT         | BIGINT          |
 | BLOB           | BYTEA           |
@@ -1496,7 +1453,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
 
-- **issue tracking**: [pgsql-bugs](https://www.postgresql.org/list/pgsql-bugs)
+- **issue tracking**: [PostgreSQL](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
   - version 42.2.19
@@ -1510,11 +1467,51 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
+###  <a name="details_sqlserver"></a> 5.19 SQL Server
+
+- **data types**:
+
+| DBSeeder Type  | SQL Server Type |
+| ---            | ---             |
+| BIGINT         | BIGINT          |
+| BLOB           | VARBINARY (MAX) |
+| CLOB           | VARCHAR (MAX)   |
+| TIMESTAMP      | DATETIME2       |
+| VARCHAR        | VARCHAR         |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15)
+  - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
+  - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15)
+  - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
+
+- **Docker image (latest)**:
+  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
+  - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
+
+- **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
+
+- **JDBC driver (latest)**:
+  - version 9.2.1.jre15
+  - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
+
+- **privileged database access**:
+  - database: `master`
+  - user: `sa`
+
+- **restrictions**: no full UTF-8 support in the given Docker images
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_SQLSERVER.png)
+
+[//]: # (===========================================================================================)
+
 ### <a name="details_sqlite"></a> 5.20 SQLite
 
 - **data types**:
 
-| db seeder Type | SQLite Type |
+| DBSeeder Type  | SQLite Type |
 | ---            | ---         |
 | BIGINT         | INTEGER     |
 | BLOB           | BLOB        |
@@ -1530,7 +1527,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following parameter: `PRAGMA encoding='UTF-8';`
   
-- **issue tracking**: [SQLite Forum](https://www.sqlite.org/forum/about)
+- **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
 
 - **JDBC driver (latest)**:
   - version 3.34.0
@@ -1541,7 +1538,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - no Docker image necessary, hence not available
   - no user management 
 
-- **source code**: [Fossil](https://sqlite.org/src/doc/trunk/README.md)
+- **source code**: [SQLite](https://sqlite.org/src/doc/trunk/README.md)
 
 - **DBeaver database connection settings**:
 
@@ -1549,17 +1546,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_trino"></a> 5.21 Trino Distributed Query Engine
+### <a name="details_trino"></a> 5.21 trino
 
 - **data types**:
 
-| db seeder Type | Trino Database Type |
-| ---            | ---                 |
-| BIGINT         | BIGINT              |
-| BLOB           | BLOB                |
-| CLOB           | CLOB                |
-| TIMESTAMP      | TIMESTAMP           |
-| VARCHAR        | VARCHAR             |
+| DBSeeder Type  | trino Type |
+| ---            | ---        |
+| BIGINT         | BIGINT     |
+| BLOB           | BLOB       |
+| CLOB           | CLOB       |
+| TIMESTAMP      | TIMESTAMP  |
+| VARCHAR        | VARCHAR    |
 
 - **DDL syntax**:
   - CREATE DATABASE - n/a
@@ -1587,7 +1584,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | VoltDB Type        |
+| DBSeeder Type  | VoltDB Type        |
 | ---            | ---                |
 | BIGINT         | BIGINT             |
 | BLOB           | VARBINARY(1048576) |
@@ -1619,7 +1616,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| db seeder Type | YugabyteDB Database Type |
+| DBSeeder Type  | YugabyteDB Database Type |
 | ---            | ---                      |
 | BIGINT         | BIGINT                   |
 | BLOB           | BYTEA                    |
@@ -1651,17 +1648,17 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ![](.README_images/DBeaver_YUGABYTE.png)
 
-## <a name="trino"></a> 6. Trino - Distributed Query Engine
+## <a name="trino"></a> 6. trino
 
-The [Trino](https://trino.io/) distributed query engine can integrate the following DBMS, among others:
+[trino](https://trino.io/) can integrate the following DBMS, among others:
 
-- Microsoft SQL Server via the [SQL Server Connector](https://trinodb.io/docs/current/connector/sqlserver.html),
 - MySQL via the [MySQL Connector](https://trinodb.io/docs/current/connector/mysql.html),
 - Oracle via the [Oracle Connector](https://trinodb.io/docs/current/connector/oracle.html), and
 - PostgreSQL via the [PostgreSQL Connector](https://trinodb.io/docs/current/connector/postgresql.html).
+- SQL Server via the [SQL Server Connector](https://trinodb.io/docs/current/connector/sqlserver.html),
 
-**`DBSeeder`** makes it possible to use Trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
-To use the Trino JDBC driver, a Trino server is required.
-With the script `db_seeder_trino_environment` a Trino server can be set up.
-Since Trino does not support the Windows operating system, a suitable Docker image is created for Windows.
-For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the Trino server.
+**`DBSeeder`** makes it possible to use trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
+To use the trino JDBC driver, a trino server is required.
+With the script `db_seeder_trino_environment` a trino server can be set up.
+Since trino does not support the Windows operating system, a suitable Docker image is created for Windows.
+For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the trino server.

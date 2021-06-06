@@ -4,14 +4,22 @@
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.0.svg)
+----
 
-## 1. Current Issues
+### Table of Contents
+
+**[1. Current Issues](#current_issues)**<br>
+**[2. Version History](#version_history)**<br>
+
+----
+
+## <a name="current_issues"></a> 1. Current Issues
 
 ### 1.1 Apache Derby
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
-### 1.2 Trino Distributed Query Engine
+### 1.2 trino
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
@@ -19,7 +27,7 @@
 
     2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
     2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle_trino'
-    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  Start Oracle Database via Trino
+    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  Start Oracle Database via trino
     SLF4J: Class path contains multiple SLF4J bindings.
     SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
     SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
@@ -52,96 +60,6 @@
     Processing of the script was aborted, error code=1
     
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
-
-- Oracle Connector: ORA-04031.
-
-2021-05-31 18:06:40,467 [DatabaseSeeder.java] INFO  Start Oracle Database via Trino
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-2021-05-31 18:07:49,018 [AbstractJdbcSeeder.java] INFO  database table COUNTRY           -        200 rows in total
-2021-05-31 18:07:51,642 [AbstractJdbcSeeder.java] INFO  database table TIMEZONE          -         11 rows in total
-2021-05-31 18:10:55,972 [AbstractJdbcSeeder.java] INFO  database table CITY              -        500 rows so far
-2021-05-31 18:10:56,014 [AbstractJdbcSeeder.java] INFO  database table CITY              -       1000 rows so far
-2021-05-31 18:13:57,943 [AbstractJdbcSeeder.java] INFO  database table CITY              -       1500 rows so far
-2021-05-31 18:15:24,106 [AbstractJdbcSeeder.java] INFO  database table CITY              -       1800 rows in total
-2021-05-31 18:15:24,155 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -        500 rows so far
-2021-05-31 18:15:24,183 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       1000 rows so far
-2021-05-31 18:17:32,691 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       1500 rows so far
-2021-05-31 18:17:32,699 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       2000 rows so far
-2021-05-31 18:19:48,647 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       2500 rows so far
-2021-05-31 18:19:48,655 [AbstractJdbcSeeder.java] INFO  database table COMPANY           -       3000 rows so far
-java.sql.SQLException: Query failed (#20210531_162053_05090_p42ic): Failed to insert data: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
-
-        at io.trino.jdbc.AbstractTrinoResultSet.resultsException(AbstractTrinoResultSet.java:1912)
-        at io.trino.jdbc.TrinoResultSet$ResultsPageIterator.computeNext(TrinoResultSet.java:218)
-        at io.trino.jdbc.TrinoResultSet$ResultsPageIterator.computeNext(TrinoResultSet.java:178)
-        at io.trino.jdbc.$internal.guava.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:141)
-        at io.trino.jdbc.$internal.guava.collect.AbstractIterator.hasNext(AbstractIterator.java:136)
-        at java.base/java.util.Spliterators$IteratorSpliterator.tryAdvance(Spliterators.java:1811)
-        at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:294)
-        at java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)
-        at java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:161)
-        at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:300)
-        at java.base/java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)
-        at io.trino.jdbc.TrinoResultSet$AsyncIterator.lambda$new$0(TrinoResultSet.java:124)
-        at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1800)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
-        at java.base/java.lang.Thread.run(Thread.java:831)
-Caused by: io.trino.spi.TrinoException: Failed to insert data: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
-
-        at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:174)
-        at io.trino.operator.TableWriterOperator.finish(TableWriterOperator.java:208)
-        at io.trino.operator.Driver.processInternal(Driver.java:405)
-        at io.trino.operator.Driver.lambda$processFor$9(Driver.java:291)
-        at io.trino.operator.Driver.tryWithLock(Driver.java:683)
-        at io.trino.operator.Driver.processFor(Driver.java:284)
-        at io.trino.execution.SqlTaskExecution$DriverSplitRunner.processFor(SqlTaskExecution.java:1075)
-        at io.trino.execution.executor.PrioritizedSplitRunner.process(PrioritizedSplitRunner.java:163)
-        at io.trino.execution.executor.TaskExecutor$TaskRunner.run(TaskExecutor.java:484)
-        at io.trino.$gen.Trino_357____20210531_160412_2.run(Unknown Source)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-        at java.base/java.lang.Thread.run(Thread.java:829)
-Caused by: java.sql.BatchUpdateException: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
-
-        at oracle.jdbc.driver.OraclePreparedStatement.executeLargeBatch(OraclePreparedStatement.java:9711)
-        at oracle.jdbc.driver.T4CPreparedStatement.executeLargeBatch(T4CPreparedStatement.java:1447)
-        at oracle.jdbc.driver.OraclePreparedStatement.executeBatch(OraclePreparedStatement.java:9487)
-        at oracle.jdbc.driver.OracleStatementWrapper.executeBatch(OracleStatementWrapper.java:237)
-        at oracle.ucp.jdbc.proxy.oracle$1ucp$1jdbc$1proxy$1oracle$1StatementProxy$2oracle$1jdbc$1internal$1OraclePreparedStatement$$$Proxy.executeBatch(Unknown Source)
-        at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:159)
-        ... 12 more
-        Suppressed: java.lang.Exception: Next SQLException
-                at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:170)
-                ... 12 more
-        Caused by: java.sql.SQLException: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
-
-                at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:509)
-                at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:461)
-                at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1104)
-                at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:550)
-                at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:268)
-                at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:655)
-                at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:270)
-                at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:91)
-                at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:970)
-                at oracle.jdbc.driver.OraclePreparedStatement.executeForRowsWithTimeout(OraclePreparedStatement.java:9452)
-                at oracle.jdbc.driver.OraclePreparedStatement.executeLargeBatch(OraclePreparedStatement.java:9556)
-                at oracle.jdbc.driver.T4CPreparedStatement.executeLargeBatch(T4CPreparedStatement.java:1447)
-                at oracle.jdbc.driver.OraclePreparedStatement.executeBatch(OraclePreparedStatement.java:9487)
-                at oracle.jdbc.driver.OracleStatementWrapper.executeBatch(OracleStatementWrapper.java:237)
-                at oracle.ucp.jdbc.proxy.oracle$1ucp$1jdbc$1proxy$1oracle$1StatementProxy$2oracle$1jdbc$1internal$1OraclePreparedStatement$$$Proxy.executeBatch(Unknown Source)
-                at io.trino.plugin.jdbc.JdbcPageSink.finish(JdbcPageSink.java:159)
-                ... 12 more
-        Caused by: oracle.jdbc.OracleDatabaseException: ORA-04031: unable to allocate 13224 bytes of shared memory ("shared pool","unknown object","KTSL subheap","ktsl_load_disp-2")
-
-                at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:513)
-                ... 27 more
-Processing of the script was aborted, error code=1
 
 ### 1.3 VoltDB
 
@@ -191,7 +109,35 @@ java.sql.SQLException: Connection closed (CONNECTION_LOST): 'Connection to datab
       ... 6 more`
 Processing of the script was aborted, error code=1
 
-## 2. Version History
+## <a name="version_history"></a> 2. Version History
+
+### 2.9.1
+
+Release Date: dd.mm.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Java Version 16 (e.g.: 16.0.1 from https://jdk.java.net/16/)
+
+- Gradle: 7 (e.g.: v7.0.2 from https://gradle.org/releases/)
+
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- xxx: DBMS 999 / JDBC 999
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ### 2.9.0
 
@@ -221,7 +167,7 @@ Release Date: 04.06.2021
 
 - MariaDB Server: DBMS 10.6.1
 
-- Trino Distributed Query Engine: DBMS 358 / JDBC 358
+- trino: DBMS 358 / JDBC 358
 
 - YugabyteDB: DBMS 2.7.1.1-b1
 
@@ -253,7 +199,7 @@ Release Date: 28.05.2021
 
 - Exasol: DBMS 7.0.8 & shutting down the database in the Docker container
 
-- HyperSQL Database: JDBC 2.6.0
+- HSQLDB: JDBC 2.6.0
 
 - MariaDB Server: DBMS 10.6.0 / JDBC 2.7.3
 
@@ -265,7 +211,7 @@ Release Date: 28.05.2021
 
 - PostgreSQL: DBMS 13.3 / JDBC 42.2.20
 
-- Trino Distributed Query Engine: DBMS 356 / JDBC 356
+- trino: DBMS 356 / JDBC 356
 
 - YugabyteDB: DBMS 2.7.1.0-b131
 
@@ -300,13 +246,13 @@ Release Date: 01.04.2021
 
 - Firebird: JDBC 4.0.3.java11
 
-- HyperSQL Database: DBMS 2.6.0
+- HSQLDB: DBMS 2.6.0
 
 - IBM Db2 Database: DBMS 11.5.5.1
 
-- Microsoft SQL Server: JDBC 9.2.1.jre15
+- SQL Server: JDBC 9.2.1.jre15
 
-- Trino Distributed Query Engine: DBMS 354 / JDBC 354
+- trino: DBMS 354 / JDBC 354
 
 - YugabyteDB: DBMS 2.5.3.1-b10
 
@@ -359,15 +305,15 @@ Release Date: 27.02.2021
 
 - MariaDB Server: DBMS 10.5.9 / JDBC 2.7.2
 
-- Microsoft SQL Server: JDBC 9.2.0.jre15
-
 - MonetDB: DBMS Oct2020-SP3 / JDBC 3.0.jre8
 
 - Oracle Database: JDBC 21.1.0.0
 
 - PostgreSQL: DBMS 13.2 / JDBC 42.2.19
 
-- Trino Distributed Query Engine: DBMS 352 / JDBC 352
+- SQL Server: JDBC 9.2.0.jre15
+
+- trino: DBMS 352 / JDBC 352
 
 - YugabyteDB: DBMS 2.5.2.0-b104
 
@@ -387,7 +333,7 @@ Release Date: 28.01.2021
 
 #### New Features
 
-Rebranding of Presto to Trino
+Rebranding of Presto to trino
 
 #### Modified Features
 
@@ -407,7 +353,7 @@ Rebranding of Presto to Trino
 
 - SQLite: DBMS 3.34.0 / JDBC 3.34.0
 
-- Trino Distributed Query Engine: DBMS 351 / JDBC 351
+- trino: DBMS 351 / JDBC 351
 
 - YugabyteDB: DBMS 2.5.1.0-b153
 
@@ -671,7 +617,7 @@ Release Date: 30.08.2020
 
 #### Modified Features
 
-- Microsoft SQL Server: JDBC 8.4.1.jre14
+- SQL Server: JDBC 8.4.1.jre14
 
 ----------
 
@@ -940,7 +886,7 @@ Release Date: 11.08.2020
 
 - MariaDB Server: JDBC 2.6.2
 
-- Microsoft SQL Server: JDBC 8.4.0.jre14
+- SQL Server: JDBC 8.4.0.jre14
 
 ----------
 
@@ -1310,7 +1256,7 @@ Release Date: 06.06.2020
 
 - Documentation
 
-- New DBMS: Microsoft SQL Server
+- New DBMS: SQL Server
 
 - Travis CI Integration
 

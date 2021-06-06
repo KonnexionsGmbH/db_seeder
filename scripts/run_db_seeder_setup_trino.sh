@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder_setup_trino.sh: Setup a Trino Distributed Query Engine Docker container.
+# run_db_seeder_setup_trino.sh: Setup a trino Docker container.
 #
 # ------------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ fi
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - setup a Trino Distributed Query Engine Docker container."
+echo "DB Seeder - setup a trino Docker container."
 echo "--------------------------------------------------------------------------------"
 echo "VERSION_TRINO                     : ${DB_SEEDER_VERSION_TRINO}"
 echo "--------------------------------------------------------------------------------"
@@ -41,10 +41,10 @@ echo "............................................................. after:"
 docker ps -a
 
 echo "--------------------------------------------------------------------------------"
-echo "Start Trino Distributed Query Engine - creating and starting the container"
+echo "Start trino - creating and starting the container"
 echo "--------------------------------------------------------------------------------"
 start=$(date +%s)
-echo "Docker create trino (Trino Distributed Query Engine)"
+echo "Docker create trino"
 
 docker network create db_seeder_net  2>/dev/null || true
 docker create --name    db_seeder_trino \
@@ -53,7 +53,7 @@ docker create --name    db_seeder_trino \
               -v        $PWD/resources/docker/trino:/etc/trino \
               trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
-echo "Docker start trino (Trino Distributed Query Engine) ..."
+echo "Docker start trino ..."
 docker start db_seeder_trino
 
 sleep 30
@@ -62,7 +62,7 @@ docker network ls
 docker network inspect db_seeder_net
 
 end=$(date +%s)
-echo "Docker Trino Distributed Query Engine was ready in in $((end - start)) seconds"
+echo "Docker trino was ready in in $((end - start)) seconds"
 
 docker ps
 

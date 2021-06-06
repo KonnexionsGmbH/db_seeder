@@ -185,7 +185,7 @@ if [ "$DB_SEEDER_DBMS_H2" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# HyperSQL Database - client version.
+# HSQLDB - client version.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_HSQLDB" = "yes" ]; then
@@ -295,7 +295,7 @@ if [ "$DB_SEEDER_DBMS_POSTGRESQL" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER" = "yes" ]; then

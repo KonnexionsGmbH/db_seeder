@@ -32,7 +32,7 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new HyperSQL seeder object.
+   * Initialises a new HSQLDB seeder object.
    *
    * @param tickerSymbolExtern the external DBMS ticker symbol
    */

@@ -124,16 +124,16 @@ public final class DatabaseSeeder {
         logger.info("End   H2 Database Engine [embedded]");
         break;
       case "hsqldb":
-        logger.info("Start HyperSQL Database [client]");
+        logger.info("Start HSQLDB [client]");
         HsqldbSeeder hsqldbSeeder = new HsqldbSeeder(tickerSymbolExtern);
         hsqldbSeeder.createData();
-        logger.info("End   HyperSQL Database [client]");
+        logger.info("End   HSQLDB [client]");
         break;
       case "hsqldb_emb":
-        logger.info("Start HyperSQL Database [embedded]");
+        logger.info("Start HSQLDB [embedded]");
         HsqldbSeeder hsqldbSeederEmbedded = new HsqldbSeeder(tickerSymbolExtern, "embedded");
         hsqldbSeederEmbedded.createData();
-        logger.info("End   HyperSQL Database [embedded]");
+        logger.info("End   HSQLDB [embedded]");
         break;
       case "ibmdb2":
         logger.info("Start IBM Db2 Database");
@@ -172,10 +172,10 @@ public final class DatabaseSeeder {
         logger.info("End   MySQL Database");
         break;
       case "mysql_trino":
-        logger.info("Start MySQL Database via Trino");
+        logger.info("Start MySQL Database via trino");
         MysqlSeeder mysqlSeederTrino = new MysqlSeeder(tickerSymbolExtern, "trino");
         mysqlSeederTrino.createData();
-        logger.info("End   MySQL Database via Trino");
+        logger.info("End   MySQL Database via trino");
         break;
       case "omnisci":
         logger.info("Start OmniSciDB");
@@ -190,10 +190,10 @@ public final class DatabaseSeeder {
         logger.info("End   Oracle Database");
         break;
       case "oracle_trino":
-        logger.info("Start Oracle Database via Trino");
+        logger.info("Start Oracle Database via trino");
         OracleSeeder oracleSeederTrino = new OracleSeeder(tickerSymbolExtern, "trino");
         oracleSeederTrino.createData();
-        logger.info("End   Oracle Database via Trino");
+        logger.info("End   Oracle Database via trino");
         break;
       case "percona":
         logger.info("Start Percona Server for MySQL");
@@ -208,10 +208,10 @@ public final class DatabaseSeeder {
         logger.info("End   PostgreSQL");
         break;
       case "postgresql_trino":
-        logger.info("Start PostgreSQL via Trino");
+        logger.info("Start PostgreSQL via trino");
         PostgresqlSeeder postgresqlSeederTrino = new PostgresqlSeeder(tickerSymbolExtern, "trino");
         postgresqlSeederTrino.createData();
-        logger.info("End   PostgreSQL via Trino");
+        logger.info("End   PostgreSQL via trino");
         break;
       case "sqlite":
         logger.info("Start SQLite");
@@ -220,16 +220,16 @@ public final class DatabaseSeeder {
         logger.info("End   SQLite");
         break;
       case "sqlserver":
-        logger.info("Start Microsoft SQL Server");
+        logger.info("Start SQL Server");
         SqlserverSeeder sqlserverSeeder = new SqlserverSeeder(tickerSymbolExtern);
         sqlserverSeeder.createData();
-        logger.info("End   Microsoft SQL Server");
+        logger.info("End   SQL Server");
         break;
       case "sqlserver_trino":
-        logger.info("Start Microsoft SQL Server via Trino");
+        logger.info("Start SQL Server via trino");
         SqlserverSeeder sqlserverSeederTrino = new SqlserverSeeder(tickerSymbolExtern, "trino");
         sqlserverSeederTrino.createData();
-        logger.info("End   Microsoft SQL Server via Trino");
+        logger.info("End   SQL Server via trino");
         break;
       case "voltdb":
         logger.info("Start VoltDB");

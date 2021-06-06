@@ -7,7 +7,7 @@ sleep .1
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder_complete_trino.sh: Run all Trino DBMS variations.
+# run_db_seeder_complete_trino.sh: Run all trino DBMS variations.
 #
 # ------------------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ fi
 unset -f "${DB_SEEDER_DBMS}"=
 
 # ------------------------------------------------------------------------------
-# MySQL Database - via Trino.
+# MySQL Database - via trino.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_MYSQL_TRINO" = "yes" ]; then
@@ -82,7 +82,7 @@ if [ "$DB_SEEDER_DBMS_MYSQL_TRINO" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Oracle Database - via Trino.
+# Oracle Database - via trino.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_ORACLE_TRINO" = "yes" ]; then
@@ -102,7 +102,7 @@ if [ "$DB_SEEDER_DBMS_POSTGRESQL_TRINO" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# Microsoft SQL Server.
+# SQL Server.
 # ------------------------------------------------------------------------------
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER_TRINO" = "yes" ]; then
