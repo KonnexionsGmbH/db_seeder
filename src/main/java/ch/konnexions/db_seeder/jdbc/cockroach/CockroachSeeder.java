@@ -1,9 +1,11 @@
 package ch.konnexions.db_seeder.jdbc.cockroach;
 
-import ch.konnexions.db_seeder.generated.AbstractGenCockroachSchema;
-import org.apache.log4j.Logger;
-
 import java.sql.SQLException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.generated.AbstractGenCockroachSchema;
 
 /**
  * Test Data Generator for a CockroachDB DBMS.
@@ -14,7 +16,7 @@ import java.sql.SQLException;
  */
 public final class CockroachSeeder extends AbstractGenCockroachSchema {
 
-  private static final Logger logger = Logger.getLogger(CockroachSeeder.class);
+  private static final Logger logger = LogManager.getLogger(CockroachSeeder.class);
 
   /**
    * Gets the connection URL.

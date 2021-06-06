@@ -1,12 +1,14 @@
 package ch.konnexions.db_seeder.jdbc;
 
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 
 /**
  * Test Data Generator for a Database - Abstract JDBC Schema.
@@ -19,7 +21,7 @@ abstract class AbstractJdbcSchema extends AbstractDbmsSeeder {
 
   protected static Map<String, String>                      dmlStatements;
 
-  private static final Logger                               logger      = Logger.getLogger(AbstractJdbcSchema.class);
+  private static final Logger                               logger      = LogManager.getLogger(AbstractJdbcSchema.class);
   protected static Map<String, Integer>                     maxRowSizes;
 
   protected static final HashMap<String, ArrayList<Object>> pkLists     = new HashMap<>();

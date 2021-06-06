@@ -4,17 +4,18 @@
 
 package ch.konnexions.db_seeder.utils;
 
-import org.apache.commons.configuration2.PropertiesConfiguration;
-import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.fluent.Parameters;
-import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.apache.log4j.Logger;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The configuration parameters for the supported database management systems.
@@ -26,7 +27,7 @@ import java.util.Map;
  */
 public final class Config {
 
-  private static final Logger     logger     = Logger.getLogger(Config.class);
+  private static final Logger     logger     = LogManager.getLogger(Config.class);
   //  private final boolean           isDebug    = logger.isDebugEnabled();
 
   private String                  connectionHost;

@@ -1,9 +1,11 @@
 package ch.konnexions.db_seeder.jdbc.voltdb;
 
-import ch.konnexions.db_seeder.generated.AbstractGenVoltdbSchema;
-import org.apache.log4j.Logger;
-
 import java.sql.SQLException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.generated.AbstractGenVoltdbSchema;
 
 /**
  * Test Data Generator for a HyperQL Database DBMS.
@@ -14,7 +16,7 @@ import java.sql.SQLException;
  */
 public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
 
-  private static final Logger logger = Logger.getLogger(VoltdbSeeder.class);
+  private static final Logger logger = LogManager.getLogger(VoltdbSeeder.class);
 
   /**
    * Gets the connection URL.

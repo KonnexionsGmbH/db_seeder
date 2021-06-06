@@ -1,6 +1,7 @@
 package ch.konnexions.db_seeder.jdbc.yugabyte;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenYugabyteSchema;
 
@@ -13,7 +14,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenYugabyteSchema;
  */
 public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
 
-  private static final Logger logger = Logger.getLogger(YugabyteSeeder.class);
+  private static final Logger logger = LogManager.getLogger(YugabyteSeeder.class);
 
   /**
    * Gets the connection URL.

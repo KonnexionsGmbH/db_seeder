@@ -1,15 +1,26 @@
 package ch.konnexions.db_seeder;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
-import org.apache.log4j.Logger;
-
-import java.io.*;
-import java.util.*;
 
 /**
  * Test Data Generator for a Database - Application.
@@ -31,7 +42,7 @@ public final class TrinoEnvironment {
 
   private static final ArrayList<String>   entries       = new ArrayList<>();
 
-  private static final Logger              logger        = Logger.getLogger(TrinoEnvironment.class);
+  private static final Logger              logger        = LogManager.getLogger(TrinoEnvironment.class);
   private static final boolean             isDebug       = logger.isDebugEnabled();
 
   private static final Map<String, String> osEnvironment = System.getenv();

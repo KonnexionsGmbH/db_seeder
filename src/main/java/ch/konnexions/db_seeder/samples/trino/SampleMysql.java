@@ -1,17 +1,29 @@
 package ch.konnexions.db_seeder.samples.trino;
 
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
-import ch.konnexions.db_seeder.utils.MessageHandling;
-import org.apache.log4j.Logger;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Random;
 import java.util.Scanner;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
  * Demonstration program for Issues MySQL Connector.
@@ -43,7 +55,7 @@ public final class SampleMysql {
   public static final String   FORMAT_ROW_NO       = "%1$6d";
   public static final String   FORMAT_ROW_SEC      = "%1$4d";
 
-  private static final Logger  logger              = Logger.getLogger(SampleMysql.class);
+  private static final Logger  logger              = LogManager.getLogger(SampleMysql.class);
   private final static boolean isDebug             = logger.isDebugEnabled();
 
   private static final int     nullFactor          = 4;

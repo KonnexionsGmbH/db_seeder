@@ -1,6 +1,7 @@
 package ch.konnexions.db_seeder.jdbc.agens;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenAgensSchema;
 
@@ -13,7 +14,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenAgensSchema;
  */
 public final class AgensSeeder extends AbstractGenAgensSchema {
 
-  private static final Logger logger = Logger.getLogger(AgensSeeder.class);
+  private static final Logger logger = LogManager.getLogger(AgensSeeder.class);
 
   /**
    * Gets the connection URL.

@@ -1,21 +1,35 @@
 package ch.konnexions.db_seeder.jdbc;
 
-import ch.konnexions.db_seeder.utils.Config;
-import ch.konnexions.db_seeder.utils.MessageHandling;
-import ch.konnexions.db_seeder.utils.Statistics;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.log4j.Logger;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.utils.Config;
+import ch.konnexions.db_seeder.utils.MessageHandling;
+import ch.konnexions.db_seeder.utils.Statistics;
 
 /**
  * Test Data Generator for a Database - Abstract JDBC Seeder.
@@ -28,7 +42,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private static final int    ENCODING_MAX     = 3;
 
-  private static final Logger logger           = Logger.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger           = LogManager.getLogger(AbstractJdbcSeeder.class);
 
   private static final int    XLOB_OMNISCI_MAX = 32767 / 2;
 

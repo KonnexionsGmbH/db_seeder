@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.sqlserver;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenSqlserverSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
@@ -16,7 +17,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
 
-  private static final Logger logger = Logger.getLogger(SqlserverSeeder.class);
+  private static final Logger logger = LogManager.getLogger(SqlserverSeeder.class);
 
   /**
    * Gets the connection URL.

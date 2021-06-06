@@ -1,6 +1,7 @@
 package ch.konnexions.db_seeder.jdbc.postgresql;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
@@ -14,7 +15,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
 
-  private static final Logger logger = Logger.getLogger(PostgresqlSeeder.class);
+  private static final Logger logger = LogManager.getLogger(PostgresqlSeeder.class);
 
   /**
    * Gets the connection URL.

@@ -1,10 +1,11 @@
 package ch.konnexions.db_seeder.jdbc.omnisci;
 
-import ch.konnexions.db_seeder.generated.AbstractGenOmnisciSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
-import org.apache.log4j.Logger;
-
 import java.sql.SQLException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.generated.AbstractGenOmnisciSchema;
 
 /**
  * Test Data Generator for an OmniSci DBMS.
@@ -15,7 +16,7 @@ import java.sql.SQLException;
  */
 public final class OmnisciSeeder extends AbstractGenOmnisciSchema {
 
-  private static final Logger logger = Logger.getLogger(OmnisciSeeder.class);
+  private static final Logger logger = LogManager.getLogger(OmnisciSeeder.class);
 
   /**
    * Gets the connection URL.

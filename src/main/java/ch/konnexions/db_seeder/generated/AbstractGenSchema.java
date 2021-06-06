@@ -3,7 +3,8 @@ package ch.konnexions.db_seeder.generated;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
@@ -11,18 +12,18 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Test Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 2.9.0
+ * @version 2.9.1
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
-  protected static final String TABLE_NAME_CITY          = "CITY";
-  protected static final String TABLE_NAME_COMPANY       = "COMPANY";
-  protected static final String TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected static final String TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected static final String TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  protected static final String TABLE_NAME_CITY                           = "CITY";
+  protected static final String TABLE_NAME_COMPANY                        = "COMPANY";
+  protected static final String TABLE_NAME_COUNTRY                        = "COUNTRY";
+  protected static final String TABLE_NAME_COUNTRY_STATE                  = "COUNTRY_STATE";
+  protected static final String TABLE_NAME_TIMEZONE                       = "TIMEZONE";
 
-  private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);
-  private final boolean         isDebug                  = logger.isDebugEnabled();
+  private static final Logger   logger                   = LogManager.getLogger(AbstractGenSchema.class);
+  private final boolean          isDebug                  = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated schema object.

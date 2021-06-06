@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.percona;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenPerconaSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenPerconaSchema;
  */
 public final class PerconaSeeder extends AbstractGenPerconaSchema {
 
-  private static final Logger logger = Logger.getLogger(PerconaSeeder.class);
+  private static final Logger logger = LogManager.getLogger(PerconaSeeder.class);
 
   /**
    * Gets the connection URL.

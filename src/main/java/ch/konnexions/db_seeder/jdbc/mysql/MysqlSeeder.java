@@ -1,10 +1,12 @@
 package ch.konnexions.db_seeder.jdbc.mysql;
 
+import java.sql.SQLException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.konnexions.db_seeder.generated.AbstractGenMysqlSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
-import org.apache.log4j.Logger;
-
-import java.sql.SQLException;
 
 /**
  * Test Data Generator for a MySQL DBMS.
@@ -15,7 +17,7 @@ import java.sql.SQLException;
  */
 public final class MysqlSeeder extends AbstractGenMysqlSchema {
 
-  private static final Logger logger = Logger.getLogger(MysqlSeeder.class);
+  private static final Logger logger = LogManager.getLogger(MysqlSeeder.class);
 
   /**
    * Gets the connection URL.

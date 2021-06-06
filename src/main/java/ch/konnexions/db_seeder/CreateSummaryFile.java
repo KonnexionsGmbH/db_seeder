@@ -1,17 +1,25 @@
 package ch.konnexions.db_seeder;
 
-import ch.konnexions.db_seeder.utils.Config;
-import ch.konnexions.db_seeder.utils.MessageHandling;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.*;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import ch.konnexions.db_seeder.utils.Config;
+import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
  * Test Data Generator for a Database - Create a summary file from the benchmark data.
@@ -31,7 +39,7 @@ public final class CreateSummaryFile {
   private static String         fileStatisticsSummaryNameExt;
   private static String         fileStatisticsSummaryNameNoPath;
 
-  private static final Logger   logger                 = Logger.getLogger(CreateSummaryFile.class);
+  private static final Logger   logger                 = LogManager.getLogger(CreateSummaryFile.class);
   private final static boolean  isDebug                = logger.isDebugEnabled();
 
   private static final int      MAX_FILE_NAME_TOKENS   = 7;

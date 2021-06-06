@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.firebird;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
  */
 public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
 
-  private static final Logger logger = Logger.getLogger(FirebirdSeeder.class);
+  private static final Logger logger = LogManager.getLogger(FirebirdSeeder.class);
 
   /**
    * Gets the connection URL.

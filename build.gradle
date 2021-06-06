@@ -28,10 +28,9 @@ dependencies {
     implementation 'org.apache.derby:derbyclient:10.15.2.0'
     implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
     implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1'
     implementation 'org.firebirdsql.jdbc:jaybird:4.0.3.java11'
-    implementation 'org.slf4j:slf4j-log4j12:1.7.30'
     implementation 'org.xerial:sqlite-jdbc:3.34.0'
-    testImplementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1'
 }
 
 jar {
