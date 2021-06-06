@@ -50,7 +50,7 @@ docker network create db_seeder_net  2>/dev/null || true
 docker create --name    db_seeder_trino \
               --network db_seeder_net \
               -p        8080:8080/tcp \
-              -v        $PWD/resources/docker/trino:/etc/trino \
+              -v        "$PWD/resources/docker/trino":/etc/trino \
               trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
 echo "Docker start trino ..."

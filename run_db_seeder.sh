@@ -9,8 +9,8 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-mkdir -p $PWD/tmp
-sudo rm -rf $PWD/tmp/* || sudo rm -rf $PWD/tmp/*
+mkdir -p "$PWD/tmp"
+sudo rm -rf "$PWD/tmp/*" || sudo rm -rf "$PWD/tmp/*"
 
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
@@ -68,22 +68,22 @@ else
 fi
 
 if [ -z "$2" ]; then
-    read -p "Setup the DBMS (yes/no) [default: $DB_SEEDER_SETUP_DBMS_DEFAULT] " DB_SEEDER_SETUP_DBMS
+    read -p "Setup the DBMS (yes/no) [default: ${DB_SEEDER_SETUP_DBMS_DEFAULT}] " DB_SEEDER_SETUP_DBMS
     export DB_SEEDER_SETUP_DBMS=${DB_SEEDER_SETUP_DBMS}
 
     if [ -z "${DB_SEEDER_SETUP_DBMS}" ]; then
-        export DB_SEEDER_SETUP_DBMS=$DB_SEEDER_SETUP_DBMS_DEFAULT
+        export DB_SEEDER_SETUP_DBMS=${DB_SEEDER_SETUP_DBMS_DEFAULT}
     fi
 else
     export DB_SEEDER_SETUP_DBMS=$2
 fi
 
 if [ -z "$3" ]; then
-    read -p "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
+    read -p "Number of data creation runs (0-2) [default: ${DB_SEEDER_NO_CREATE_RUNS_DEFAULT}] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS}
 
     if [ -z "${DB_SEEDER_NO_CREATE_RUNS}" ]; then
-        export DB_SEEDER_NO_CREATE_RUNS=$DB_SEEDER_NO_CREATE_RUNS_DEFAULT
+        export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS_DEFAULT}
     fi
 else
     export DB_SEEDER_NO_CREATE_RUNS=$3
@@ -183,7 +183,7 @@ if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "derby" ]; then
-    export DB_SEEDER_CONNECTION_PORT=$DB_SEEDER_CONNECTION_PORT_DEFAULT
+    export DB_SEEDER_CONNECTION_PORT=${DB_SEEDER_CONNECTION_PORT_DEFAULT}
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_CONTAINER_PORT=1527
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
