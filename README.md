@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.1.svg)
 ----
 
 ### Table of Contents
@@ -209,7 +209,7 @@ Details can be found here: [6. trino](#trino).
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.1          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.9           | 7.0.7               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.10          | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
@@ -904,7 +904,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.9`
+  - pull command: `docker pull exasol/docker-db:7.0.10`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:

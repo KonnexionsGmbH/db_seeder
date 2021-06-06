@@ -15,7 +15,7 @@ sudo rm -rf $PWD/tmp/* || sudo rm -rf $PWD/tmp/*
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.9.0
+export DB_SEEDER_RELEASE=2.9.1
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_VERSION_TRINO=358
 
@@ -220,6 +220,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.7
     export DB_SEEDER_VERSION=7.0.8
     export DB_SEEDER_VERSION=7.0.9
+    export DB_SEEDER_VERSION=7.0.10
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
