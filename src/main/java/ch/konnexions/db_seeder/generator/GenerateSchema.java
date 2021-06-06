@@ -625,7 +625,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
                 if ("agens".equals(tickerSymbolLower)
                     || "mysql".equals(tickerSymbolLower)
-                    || "omnisci".equals(tickerSymbolLower)
                     || "oracle".equals(tickerSymbolLower)
                     || "percona".equals(tickerSymbolLower)
                     || "postgresql".equals(tickerSymbolLower)
