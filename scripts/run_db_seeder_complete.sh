@@ -374,16 +374,6 @@ if [ "$DB_SEEDER_DBMS_POSTGRESQL_TRINO" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# SQLite.
-# ------------------------------------------------------------------------------
-
-if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlite yes $DB_SEEDER_NO_CREATE_RUNS ); then
-        exit 255
-    fi
-fi
-
-# ------------------------------------------------------------------------------
 # SQL Server.
 # ------------------------------------------------------------------------------
 
@@ -399,6 +389,16 @@ fi
 
 if [ "$DB_SEEDER_DBMS_SQLSERVER_TRINO" = "yes" ]; then
     if ! ( ./run_db_seeder.sh sqlserver_trino yes $DB_SEEDER_NO_CREATE_RUNS ); then
+        exit 255
+    fi
+fi
+
+# ------------------------------------------------------------------------------
+# SQLite.
+# ------------------------------------------------------------------------------
+
+if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlite yes $DB_SEEDER_NO_CREATE_RUNS ); then
         exit 255
     fi
 fi

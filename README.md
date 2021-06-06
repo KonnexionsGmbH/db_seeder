@@ -158,17 +158,17 @@ The following database systems are included in the current version of **`DBSeede
   - open source
   - relational model
   - **[see technical details here](#details_postgresql)**
-- [SQLite](https://www.sqlite.org)
-  - commercial, open source
-  - embedded only version
-  - relational model
-  - **[see technical details here](#details_sqlite)**
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019)
   - client only version
   - commercial
   - derived from Adaptive Server Enterprise
   - relational model
   - **[see technical details here](#details_sqlserver)**
+- [SQLite](https://www.sqlite.org)
+  - commercial, open source
+  - embedded only version
+  - relational model
+  - **[see technical details here](#details_sqlite)**
 - [trino](https://trino.io)
   - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
@@ -223,8 +223,8 @@ Details can be found here: [6. trino](#trino).
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
-| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
+| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | trino                           | mysql_trino,       | 339 - 358                  | 358                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
@@ -655,8 +655,8 @@ Below are also DBeaver based connection parameter examples for each database man
 **[AgensGraph](#details_agens)** / 
 **[Apache Derby](#details_derby)** /
 **[CockroachDB](#details_cockroach)** /
-**[CrateDB](#details_cratedb)** / 
-**[CUBRID](#details_cubrid)** / 
+**[CrateDB](#details_cratedb)** /
+**[CUBRID](#details_cubrid)** /
 **[Exasol](#details_exasol)** /  
 **[Firebird](#details_firebird)** /  
 **[H2 Database Engine](#details_h2)** /  
@@ -671,8 +671,8 @@ Below are also DBeaver based connection parameter examples for each database man
 **[Oracle Database](#details_oracle)** /
 **[Percona Server for MySQL](#details_percona)** / 
 **[PostgreSQL](#details_postgresql)** / 
-**[SQLite](#details_sqlite)** /
 **[SQL Server](#details_sqlserver)** /
+**[SQLite](#details_sqlite)** /
 **[trino](#details_trino)** /
 **[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
@@ -737,14 +737,14 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
 
-- **issue tracking**: [Jira](https://issues.apache.org/jira/secure/Dashboard.jspa)
+- **issue tracking**: [Jira](https://issues.apache.org/jira/projects/DERBY/issues/DERBY-7013?filter=allopenissues)
   
 - **JDBC driver (latest)**:
   - version 10.15.2.0
   - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
   - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
-- **source code**: [GitHub](https://github.com/apache/derby)
+- **source code**: [Apache Derby](https://db.apache.org/derby/dev/derby_source.html)
 
 - **DBeaver database connection settings**:
 
@@ -868,8 +868,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
 - **issue tracking**: 
-  - [Jira](https://jira.cubrid.org/secure/Dashboard.jspa)
-  - [reddit](https://www.reddit.com/r/CUBRID)
+  - [Jira](http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&orderby=created+DESC)
 
 - **JDBC driver (latest)**:
   - version 11.0.1.0286
@@ -944,7 +943,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
   
-- **issue tracking**: [Jira](https://www.atlassian.com/software/jira)
+- **issue tracking**: [GitHub](https://github.com/FirebirdSQL/firebird/issues)
 
 - **JDBC driver (latest)**:
   - version 4.0.3.java11
@@ -1166,7 +1165,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - table level: `CHARACTER SET 'utf8'`
   - column level: `CHARACTER SET 'greek'`
   
-- **issue tracking**: [Jira](https://jira.mariadb.org/projects/MDEV/issues/MDEV-22621?filter=allopenissues)
+- **issue tracking**: [Jira](https://jira.mariadb.org/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
   - version 2.7.2
@@ -1181,8 +1180,6 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_MARIADB.png)
-
-[//]: # (===========================================================================================)
 
 [//]: # (===========================================================================================)
 
@@ -1248,7 +1245,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: no special configuration should be needed
   
-- **issue tracking**: [Bugzilla](https://www.monetdb.org/bugzilla/)
+- **issue tracking**: [GitHub](https://github.com/MonetDB/MonetDB/issues)
 
 - **JDBC driver (latest)**:
   - version 3.0.jre8
@@ -1259,7 +1256,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - user: `monetdb`
   - password: `monetdb`
 
-- **source code**: [monetdb.org](https://www.monetdb.org/downloads/sources/)
+- **source code**: [GitHub](https://github.com/MonetDB/MonetDB)
 
 - **DBeaver database connection settings**:
 
@@ -1291,8 +1288,6 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
-- **issue tracking**: [GitHub](https://github.com/mysqljs/mysql)
-
 - **JDBC driver (latest)**:
   - version 8.0.25
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
@@ -1458,7 +1453,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
 
-- **issue tracking**: [pgsql-bugs](https://www.postgresql.org/list/pgsql-bugs)
+- **issue tracking**: [PostgreSQL](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
   - version 42.2.19
@@ -1472,46 +1467,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.19 SQLite
-
-- **data types**:
-
-| DBSeeder Type  | SQLite Type |
-| ---            | ---         |
-| BIGINT         | INTEGER     |
-| BLOB           | BLOB        |
-| CLOB           | CLOB        |
-| TIMESTAMP      | DATETIME    |
-| VARCHAR        | VARCHAR2    |
-
-- **DDL syntax**:
-  - CREATE DATABASE - n/a
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://sqlite.org/lang_createtable.html) 
-  - CREATE USER - n/a     
-
-- **encoding**: by using the following parameter: `PRAGMA encoding='UTF-8';`
-  
-- **issue tracking**: [SQLite Forum](https://www.sqlite.org/forum/about)
-
-- **JDBC driver (latest)**:
-  - version 3.34.0
-  - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
-  - determines also the DBMS version
-
-- **restrictions**:
-  - no Docker image necessary, hence not available
-  - no user management 
-
-- **source code**: [Fossil](https://sqlite.org/src/doc/trunk/README.md)
-
-- **DBeaver database connection settings**:
-
-![](.README_images/DBeaver_SQLITE.png)
-
-[//]: # (===========================================================================================)
-
-###  <a name="details_sqlserver"></a> 5.20 SQL Server
+###  <a name="details_sqlserver"></a> 5.19 SQL Server
 
 - **data types**:
 
@@ -1548,6 +1504,45 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_SQLSERVER.png)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_sqlite"></a> 5.20 SQLite
+
+- **data types**:
+
+| DBSeeder Type  | SQLite Type |
+| ---            | ---         |
+| BIGINT         | INTEGER     |
+| BLOB           | BLOB        |
+| CLOB           | CLOB        |
+| TIMESTAMP      | DATETIME    |
+| VARCHAR        | VARCHAR2    |
+
+- **DDL syntax**:
+  - CREATE DATABASE - n/a
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://sqlite.org/lang_createtable.html) 
+  - CREATE USER - n/a     
+
+- **encoding**: by using the following parameter: `PRAGMA encoding='UTF-8';`
+  
+- **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
+
+- **JDBC driver (latest)**:
+  - version 3.34.0
+  - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
+  - determines also the DBMS version
+
+- **restrictions**:
+  - no Docker image necessary, hence not available
+  - no user management 
+
+- **source code**: [SQLite](https://sqlite.org/src/doc/trunk/README.md)
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_SQLITE.png)
 
 [//]: # (===========================================================================================)
 

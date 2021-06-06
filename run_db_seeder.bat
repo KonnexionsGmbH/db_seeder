@@ -53,9 +53,9 @@ if ["%1"] EQU [""] (
     echo percona            - Percona Server for MySQL
     echo postgresql         - PostgreSQL
     echo postgresql_trino   - PostgreSQL via trino
-    echo sqlite             - SQLite [embedded]
     echo sqlserver          - SQL Server
     echo sqlserver_trino    - SQL Server via trino
+    echo sqlite             - SQLite [embedded]
     echo voltdb             - VoltDB
     echo yugabyte           - YugabyteDB
     echo ---------------------------------------------------------
