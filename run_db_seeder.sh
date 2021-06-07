@@ -10,7 +10,7 @@ set -e
 # ------------------------------------------------------------------------------
 
 mkdir -p "$PWD/tmp"
-sudo rm -rf "$PWD/tmp/*" || sudo rm -rf "$PWD/tmp/*"
+rm -rf "$PWD/tmp/*" || sudo rm -rf "$PWD/tmp/*"
 
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
