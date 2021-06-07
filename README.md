@@ -9,8 +9,9 @@
 ### Table of Contents
 
 **[1. Introduction](#introduction)**<br>
-**[1.1 RDBMS Overview](#rdbms)**<br>
-**[1.2 RDBMS Directory](#rdbms)**<br>
+**[1.1 RDBMS Overview](#rdbms_overview)**<br>
+**[1.2 RDBMS Directory](#rdbms_directory)**<br>
+**[1.3 Performance Example](#rperformance_example)**<br>
 **[2. Data](#data)**<br>
 **[2.1 Database Schema](#data_database_schema)**<br>
 **[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
@@ -57,7 +58,7 @@ The database systems considered meet the following conditions:
 
 [//]: # (===========================================================================================)
 
-### <a name="rdbms"></a> 1.1 RDBMS Overview
+### <a name="rdbms_overview"></a> 1.1 RDBMS Overview
 
 | RDBMS                           | Ticker Symbol(s)   | RDBMS Versions             | Latest JDBC         |
 |---                              |---                 |---                         |---                  |
@@ -91,7 +92,7 @@ The database systems considered meet the following conditions:
 
 [//]: # (===========================================================================================)
 
-### <a name="rdbms"></a> 1.2 RDBMS Directory
+### <a name="rdbms_directory"></a> 1.2 RDBMS Directory
 
 The following database systems are included in the current version of **`DBSeeder`**:
 - [AgensGraph](https://bitnine.net/agensgraph)
@@ -228,6 +229,10 @@ The following database systems are included in the current version of **`DBSeede
   - relational model
   - **[see technical details here](#details_yugabyte)**
 
+[//]: # (===========================================================================================)
+
+### <a name="Performance_example"></a> 1.3 Performance Example
+
 An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of test data generation (`INSERT`) between the databases (e.g. Version 2.9.0 Windows 10):   
 
 ![](.README_images/Company_2.9.0_win10.png)
@@ -235,7 +240,6 @@ An interesting side effect of working with **`DBSeeder`** is the ability to comp
 For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver. 
 The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
 Details can be found here: [6. trino](#trino). 
-
 
 [//]: # (===========================================================================================)
 
