@@ -214,6 +214,11 @@ The following database systems are included in the current version of **`DBSeede
   - distributed query engine
   - open source
   - **[see technical details here](#details_trino)**
+
+For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver.
+The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
+Details can be found here: [6. trino](#trino).
+
 - [VoltDB](https://www.voltdb.com)
   - client only version
   - commercial, open source
@@ -236,10 +241,6 @@ The following database systems are included in the current version of **`DBSeede
 An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of test data generation (`INSERT`) between the databases (e.g. Version 2.9.0 Windows 10):   
 
 ![](.README_images/Company_2.9.0_win10.png)
-
-For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver. 
-The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
-Details can be found here: [6. trino](#trino). 
 
 [//]: # (===========================================================================================)
 
