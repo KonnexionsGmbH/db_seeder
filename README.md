@@ -9,7 +9,8 @@
 ### Table of Contents
 
 **[1. Introduction](#introduction)**<br>
-**[1.1 RDBMS Versions](#rdbms)**<br>
+**[1.1 RDBMS Overview](#rdbms)**<br>
+**[1.2 RDBMS Directory](#rdbms)**<br>
 **[2. Data](#data)**<br>
 **[2.1 Database Schema](#data_database_schema)**<br>
 **[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
@@ -53,6 +54,44 @@ The database systems considered meet the following conditions:
 1. The database system is freely available in a documented docker image for testing purposes.
 1. The database system provides a well documented JDBC interface.
 1. A complete documentation of the SQL commands is available.
+
+[//]: # (===========================================================================================)
+
+### <a name="rdbms"></a> 1.1 RDBMS Overview
+
+| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions             | Latest JDBC         |
+|---                              |---                 |---                         |---                  |
+| AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
+| Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.1          | see PostgreSQL      |
+| CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
+| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.10          | 7.0.7               |
+| Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
+| H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
+| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
+| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
+| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
+| Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
+| Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
+| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
+| SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
+| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
+| trino                           | mysql_trino,       | 339 - 358                  | 358                 |
+|                                 | oracle_trino,      |                            |                     |
+|                                 | postgresql_trino,  |                            |                     |
+|                                 | sqlserver_trino    |                            |                     |
+| VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.1.1-b1   | 42.2.7-yb-3         |
+
+[//]: # (===========================================================================================)
+
+### <a name="rdbms"></a> 1.2 RDBMS Directory
 
 The following database systems are included in the current version of **`DBSeeder`**:
 - [AgensGraph](https://bitnine.net/agensgraph)
@@ -200,40 +239,6 @@ Details can be found here: [6. trino](#trino).
 
 [//]: # (===========================================================================================)
 
-### <a name="rdbms"></a> 1.1 RDBMS Versions
-
-| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions             | Latest JDBC         |
-|---                              |---                 |---                         |---                  |
-| AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
-| Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.1          | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.10          | 7.0.7               |
-| Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
-| H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
-| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
-| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
-| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
-| Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
-| Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
-| SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
-| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| trino                           | mysql_trino,       | 339 - 358                  | 358                 |
-|                                 | oracle_trino,      |                            |                     |
-|                                 | postgresql_trino,  |                            |                     |
-|                                 | sqlserver_trino    |                            |                     |
-| VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.1.1-b1   | 42.2.7-yb-3         |
-
-[//]: # (===========================================================================================)
-
 ## <a name="data"></a> 2. Data 
 
 ### <a name="data_database_schema"></a> 2.1 Database Schema
@@ -249,7 +254,7 @@ The definition of a database schema consists of the object `global` with the glo
 
 - `defaultNumberOfRows` - default value for the number of table rows to be generated, if no value is specified in the table definition
 - `encodingISO_8859_1` - a string with Western Latin characters is inserted into generated character columns
-- `encodingUTF_8` - a string with simplified Chines characters is inserted into generated character columns
+- `encodingUTF_8` - a string with simplified Chinese characters is inserted into generated character columns
  specified in the table definition
 - `nullFactor` - determines the proportion of NULL values in optional columns and must be between 2 and 99 (inclusive): 2 means 50%, 4 means 25%, 10 means 10%, etc., default value is 4
 
