@@ -20,7 +20,7 @@ set DB_SEEDER_RELEASE=2.9.1
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Generation of database schema.
+echo DBSeeder - Generation of database schema.
 echo --------------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_JSON_NAME          : %DB_SEEDER_FILE_JSON_NAME%

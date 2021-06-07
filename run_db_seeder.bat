@@ -592,8 +592,8 @@ rem ----------------------------------------------------------------------------
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Creation of dummy data in an empty databases, database users or 
-echo             schemas.
+echo DBSeeder - Creation of dummy data in an empty databases, database users or 
+echo            schemas.
 echo --------------------------------------------------------------------------------
 echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
 echo DBMS                            : %DB_SEEDER_DBMS%

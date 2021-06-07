@@ -13,7 +13,7 @@ set ERRORLEVEL=
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Creation of dummy data in an empty database.
+echo DBSeeder - Creation of dummy data in an empty database.
 echo --------------------------------------------------------------------------------
 echo DBMS                            : %DB_SEEDER_DBMS%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%

@@ -451,7 +451,7 @@ If these files are to be included in the statistical analysis, they must be copi
 
 #### 4.1.2 Script `run_db_seeder`
 
-Using the Konnexions development Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)) eliminates the need to install the runtime environment.
+Using the DBSeeder development and operational Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)) eliminates the need to install the runtime environment.
  
 With the script `run_db_seeder` the complete functionality of the **`DBSeeder`** application can be used:
 
@@ -527,11 +527,11 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - trino and SQL Server Connector
     - YugabyteDB and Docker image
 
-#### 4.2.1 Ubuntu 20.04 LTS and [kxn_dev Image](https://hub.docker.com/repository/docker/konnexionsgmbh/kxn_dev)
+#### 4.2.1 Ubuntu 20.04 LTS and [DBSeeder Image](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)
 
 - **Requirements**:
-    - pull the `kxn_dev` image from DockerHub: `docker pull konnexionsgmbh/kxn_dev:latest`
-    - create an appropriate container: `docker run -it --name kxn_dev -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/kxn_dev:latest bash`
+    - pull the `DBSeeder` image from DockerHub: `docker pull konnexionsgmbh/db_seeder:latest`
+    - create an appropriate container: `docker run -it --name db_seeder -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/db_seeder:latest bash`
     - run `export DOCKER_USERNAME=\<user name\>`
     - run `export DOCKER_PASSWORD=\<password\>`
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)

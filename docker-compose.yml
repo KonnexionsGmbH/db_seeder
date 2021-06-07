@@ -6,7 +6,7 @@ services:
       ./usr/opt/db_seeder/run_application_setup.sh
       "
     container_name: db_seeder_dev
-    image: konnexionsgmbh/kxn_dev:latest
+    image: konnexionsgmbh/db_seeder:latest
     networks:
       - net
     tty: true

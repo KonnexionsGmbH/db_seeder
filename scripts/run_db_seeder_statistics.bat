@@ -15,7 +15,7 @@ set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Creation of the benchmark data summary file.
+echo DBSeeder - Creation of the benchmark data summary file.
 echo --------------------------------------------------------------------------------
 echo FILE_CONFIGURATION_NAME        : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_STATISTICS_SUMMARY_NAME   : %DB_SEEDER_FILE_STATISTICS_SUMMARY_NAME%

@@ -25,7 +25,7 @@ if ["%DB_SEEDER_VERSION%"] EQU [""] (
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setup a monetdb Docker container.
+echo DBSeeder - setup a monetdb Docker container.
 echo --------------------------------------------------------------------------------
 echo DBMS_TRINO                : %DB_SEEDER_DBMS_TRINO%
 echo DB_SEEDER_CONNECTION_PORT : %DB_SEEDER_CONNECTION_PORT%

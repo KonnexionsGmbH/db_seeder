@@ -53,7 +53,7 @@ fi
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - Run a single DBMS variation."
+echo "DBSeeder - Run a single DBMS variation."
 echo "--------------------------------------------------------------------------------"
 echo "COMPLETE_RUN                      : ${DB_SEEDER_COMPLETE_RUN}"
 echo "DBMS                              : ${DB_SEEDER_DBMS}"

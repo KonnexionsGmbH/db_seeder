@@ -1,6 +1,6 @@
 {
-  "$schema"    : "http://json-schema.org/draft-07/schema#", "title": "DB Seeder Schema",
-  "description": "The DB Seeder schema to verify the database table definitions", "type": "object", "properties": {
+  "$schema"    : "http://json-schema.org/draft-07/schema#", "title": "DBSeeder Schema",
+  "description": "The DBSeeder schema to verify the database table definitions", "type": "object", "properties": {
   "globals"  : {
     "type": "object", "properties": {
       "defaultNumberOfRows"  : {
