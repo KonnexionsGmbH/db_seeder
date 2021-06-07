@@ -11,7 +11,7 @@
 **[1. Introduction](#introduction)**<br>
 **[1.1 RDBMS Overview](#rdbms_overview)**<br>
 **[1.2 RDBMS Directory](#rdbms_directory)**<br>
-**[1.3 Performance Example](#rperformance_example)**<br>
+**[1.3 Performance Example](#performance_example)**<br>
 **[2. Data](#data)**<br>
 **[2.1 Database Schema](#data_database_schema)**<br>
 **[2.2 Construction of the Dummy Data Content](#data_construction)**<br>
@@ -231,7 +231,7 @@ The following database systems are included in the current version of **`DBSeede
 
 [//]: # (===========================================================================================)
 
-### <a name="Performance_example"></a> 1.3 Performance Example
+### <a name="performance_example"></a> 1.3 Performance Example
 
 An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of test data generation (`INSERT`) between the databases (e.g. Version 2.9.0 Windows 10):   
 
