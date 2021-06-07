@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.h2;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
  */
 public final class H2Seeder extends AbstractGenH2Schema {
 
-  private static final Logger logger = Logger.getLogger(H2Seeder.class);
+  private static final Logger logger = LogManager.getLogger(H2Seeder.class);
 
   /**
    * Gets the connection URL.

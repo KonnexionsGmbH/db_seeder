@@ -1,17 +1,29 @@
 package ch.konnexions.db_seeder.generator;
 
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
-import ch.konnexions.db_seeder.schema.SchemaPojo;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column.References;
-import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
-import ch.konnexions.db_seeder.utils.MessageHandling;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-import org.apache.log4j.Logger;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.loader.SchemaLoader;
@@ -19,14 +31,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+import ch.konnexions.db_seeder.schema.SchemaPojo;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table.Column.References;
+import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
+import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
  * Test Data Generator for a Database - Transform JSON to POJO.
@@ -36,7 +52,7 @@ import java.util.stream.Collectors;
  */
 public final class GenerateSchema extends AbstractDbmsSeeder {
 
-  private static final Logger                               logger                    = Logger.getLogger(GenerateSchema.class);
+  private static final Logger                               logger                    = LogManager.getLogger(GenerateSchema.class);
   private final boolean                                     isDebug                   = logger.isDebugEnabled();
 
   private int                                               constraintNumber          = 0;
@@ -442,10 +458,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.newLine();
       bw.append("import java.util.HashMap;");
+      bw.newLine();
       bw.append("import java.util.Properties;");
       bw.newLine();
       bw.newLine();
-      bw.append("import org.apache.log4j.Logger;");
+      bw.append("import org.apache.logging.log4j.Logger;");
+      bw.newLine();
+      bw.append("import org.apache.logging.log4j.LogManager;");
       bw.newLine();
       bw.newLine();
       bw.append("/**");
@@ -466,8 +485,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("  public static final HashMap<String, String> createTableStmnts = createTableStmnts();");
       bw.newLine();
       bw.newLine();
-      bw.append("  private static final Logger                 logger            = Logger.getLogger(AbstractGen").append(tickerSymbolPascal).append(
-                                                                                                                                                    "Schema.class);");
+      bw.append("  private static final Logger                 logger            = LogManager.getLogger(AbstractGen").append(tickerSymbolPascal).append(
+                                                                                                                                                        "Schema.class);");
       bw.newLine();
       bw.newLine();
       bw.append("  /**");
@@ -606,7 +625,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
                 if ("agens".equals(tickerSymbolLower)
                     || "mysql".equals(tickerSymbolLower)
-                    || "omnisci".equals(tickerSymbolLower)
                     || "oracle".equals(tickerSymbolLower)
                     || "percona".equals(tickerSymbolLower)
                     || "postgresql".equals(tickerSymbolLower)
@@ -848,7 +866,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("import java.util.HashMap;");
       bw.newLine();
       bw.newLine();
-      bw.append("import org.apache.log4j.Logger;");
+      bw.append("import org.apache.logging.log4j.Logger;");
+      bw.newLine();
+      bw.append("import org.apache.logging.log4j.LogManager;");
       bw.newLine();
       bw.newLine();
       bw.append("import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;");
@@ -877,7 +897,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       }
 
       bw.newLine();
-      bw.append("  private static final Logger   logger                   = Logger.getLogger(AbstractGenSchema.class);");
+      bw.append("  private static final Logger   logger                   = LogManager.getLogger(AbstractGenSchema.class);");
       bw.newLine();
       bw.append("  private final boolean          isDebug                  = logger.isDebugEnabled();");
       bw.newLine();
@@ -1092,7 +1112,9 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("import java.util.List;");
       bw.newLine();
       bw.newLine();
-      bw.append("import org.apache.log4j.Logger;");
+      bw.append("import org.apache.logging.log4j.Logger;");
+      bw.newLine();
+      bw.append("import org.apache.logging.log4j.LogManager;");
       bw.newLine();
       bw.newLine();
       bw.append("/**");
@@ -1110,7 +1132,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.append("abstract class AbstractGenSeeder extends AbstractGenSchema {");
       bw.newLine();
       bw.newLine();
-      bw.append("  private static final Logger logger = Logger.getLogger(AbstractGenSeeder.class);");
+      bw.append("  private static final Logger logger = LogManager.getLogger(AbstractGenSeeder.class);");
       bw.newLine();
       bw.append("  private final boolean     isDebug      = logger.isDebugEnabled();");
       bw.newLine();

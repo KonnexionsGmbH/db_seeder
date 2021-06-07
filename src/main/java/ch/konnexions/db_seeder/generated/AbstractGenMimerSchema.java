@@ -3,19 +3,20 @@ package ch.konnexions.db_seeder.generated;
 import java.util.HashMap;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * CREATE TABLE statements for a Mimer DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.9.0
+ * @version 2.9.1
  */
 public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
-  private static final Logger                 logger            = Logger.getLogger(AbstractGenMimerSchema.class);
+  private static final Logger                 logger            = LogManager.getLogger(AbstractGenMimerSchema.class);
 
   /**
    * Create the CREATE TABLE statements.

@@ -15,11 +15,11 @@ export DB_SEEDER_COMPLETE_RUN=yes
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 
 if [ -z "$1" ]; then
-    read -p "Number of data creation runs (0-2) [default: $DB_SEEDER_NO_CREATE_RUNS_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
+    read -p "Number of data creation runs (0-2) [default: ${DB_SEEDER_NO_CREATE_RUNS}_DEFAULT] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS}
 
     if [ -z "${DB_SEEDER_NO_CREATE_RUNS}" ]; then
-        export DB_SEEDER_NO_CREATE_RUNS=$DB_SEEDER_NO_CREATE_RUNS_DEFAULT
+        export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS}_DEFAULT
     fi
 else
     export DB_SEEDER_NO_CREATE_RUNS=$1
@@ -38,7 +38,7 @@ if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
         export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_bash_embedded_unknown_${DB_SEEDER_RELEASE}.tsv
 fi
 
-rm -f ${DB_SEEDER_FILE_STATISTICS_NAME}
+rm -f "${DB_SEEDER_FILE_STATISTICS_NAME}"
 
 echo "================================================================================"
 echo "Start $0"
@@ -50,10 +50,10 @@ echo "FILE_STATISTICS_NAME            : ${DB_SEEDER_FILE_STATISTICS_NAME}"
 echo "NO_CREATE_RUNS                  : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "TRAVIS                          : ${TRAVIS}"
 echo "--------------------------------------------------------------------------------"
-echo "DBMS_DERBY_EMB                  : $DB_SEEDER_DBMS_DERBY_EMB"
-echo "DBMS_H2_EMB                     : $DB_SEEDER_DBMS_H2_EMB"
-echo "DBMS_HSQLDB_EMB                 : $DB_SEEDER_DBMS_HSQLDB_EMB"
-echo "DBMS_SQLITE                     : $DB_SEEDER_DBMS_SQLITE"
+echo "DBMS_DERBY_EMB                  : ${DB_SEEDER_DBMS_DERBY_EMB}"
+echo "DBMS_H2_EMB                     : ${DB_SEEDER_DBMS_H2_EMB}"
+echo "DBMS_HSQLDB_EMB                 : ${DB_SEEDER_DBMS_HSQLDB_EMB}"
+echo "DBMS_SQLITE                     : ${DB_SEEDER_DBMS_SQLITE}"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
@@ -68,8 +68,8 @@ unset -f "${DB_SEEDER_DBMS}"=
 # Apache Derby - embedded version.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_DERBY_EMB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh derby_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "${DB_SEEDER_DBMS_DERBY_EMB}" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh derby_emb yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    
 fi
@@ -78,8 +78,8 @@ fi
 # H2 Database Engine - embedded version.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_H2_EMB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh h2_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "${DB_SEEDER_DBMS_H2_EMB}" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh h2_emb yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    
 fi
@@ -88,8 +88,8 @@ fi
 # HSQLDB - embedded version.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_HSQLDB_EMB" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh hsqldb_emb yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "${DB_SEEDER_DBMS_HSQLDB_EMB}" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh hsqldb_emb yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    
 fi
@@ -98,8 +98,8 @@ fi
 # SQLite.
 # ------------------------------------------------------------------------------
 
-if [ "$DB_SEEDER_DBMS_SQLITE" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh sqlite yes $DB_SEEDER_NO_CREATE_RUNS ); then
+if [ "${DB_SEEDER_DBMS_SQLITE}" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh sqlite yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    
 fi

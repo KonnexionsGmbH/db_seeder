@@ -5,17 +5,18 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Test Data Generator for a Database - Abstract Generated Seeder.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 2.9.0
+ * @version 2.9.1
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
-  private static final Logger logger  = Logger.getLogger(AbstractGenSeeder.class);
+  private static final Logger logger  = LogManager.getLogger(AbstractGenSeeder.class);
   private final boolean       isDebug = logger.isDebugEnabled();
 
   /**
@@ -66,15 +67,14 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                                         Integer lowerRange,
                                         Integer upperRange,
                                         List<Integer> validValues) {
-    long result = super.getContentBigint(tableName,
-                                         columnName,
-                                         rowNo,
-                                         defaultValue,
-                                         lowerRange,
-                                         upperRange,
-                                         validValues);
 
-    return result;
+    return super.getContentBigint(tableName,
+                                  columnName,
+                                  rowNo,
+                                  defaultValue,
+                                  lowerRange,
+                                  upperRange,
+                                  validValues);
   }
 
   /**
@@ -86,11 +86,10 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected final byte[] getContentBlob(String tableName, String columnName, long rowNo) {
-    byte[] result = super.getContentBlob(tableName,
-                                         columnName,
-                                         rowNo);
 
-    return result;
+    return super.getContentBlob(tableName,
+                                columnName,
+                                rowNo);
   }
 
   /**
@@ -102,11 +101,10 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected final String getContentClob(String tableName, String columnName, long rowNo) {
-    String result = super.getContentClob(tableName,
-                                         columnName,
-                                         rowNo);
 
-    return result;
+    return super.getContentClob(tableName,
+                                columnName,
+                                rowNo);
   }
 
   /**
@@ -118,11 +116,10 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    */
   @Override
   protected final Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
-    Timestamp result = super.getContentTimestamp(tableName,
-                                                 columnName,
-                                                 rowNo);
 
-    return result;
+    return super.getContentTimestamp(tableName,
+                                     columnName,
+                                     rowNo);
   }
 
   /**
@@ -146,16 +143,15 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                                            String lowerRange,
                                            String upperRange,
                                            List<String> validValues) {
-    String result = super.getContentVarchar(tableName,
-                                            columnName,
-                                            rowNo,
-                                            size,
-                                            defaultValue,
-                                            lowerRange,
-                                            upperRange,
-                                            validValues);
 
-    return result;
+    return super.getContentVarchar(tableName,
+                                   columnName,
+                                   rowNo,
+                                   size,
+                                   defaultValue,
+                                   lowerRange,
+                                   upperRange,
+                                   validValues);
   }
 
   protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final long rowNo) {

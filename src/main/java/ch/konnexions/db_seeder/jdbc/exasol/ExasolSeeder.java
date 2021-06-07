@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.exasol;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenExasolSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenExasolSchema;
  */
 public final class ExasolSeeder extends AbstractGenExasolSchema {
 
-  private static final Logger logger = Logger.getLogger(ExasolSeeder.class);
+  private static final Logger logger = LogManager.getLogger(ExasolSeeder.class);
 
   /**
    * Gets the connection URL.

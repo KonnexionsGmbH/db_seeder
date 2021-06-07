@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.informix;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenInformixSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenInformixSchema;
  */
 public final class InformixSeeder extends AbstractGenInformixSchema {
 
-  private static final Logger logger = Logger.getLogger(InformixSeeder.class);
+  private static final Logger logger = LogManager.getLogger(InformixSeeder.class);
 
   /**
    * Gets the connection URL.

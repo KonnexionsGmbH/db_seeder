@@ -1,8 +1,14 @@
 package ch.konnexions.db_seeder.samples.trino;
 
-import org.apache.log4j.Logger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import java.sql.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Example program for Issues Oracle Connector.
@@ -19,7 +25,7 @@ public final class I5648 {
   private static final String driverOriginal      = "oracle.jdbc.driver.OracleDriver";
   private static final String driverTrino         = "io.trino.jdbc.TrinoDriver";
 
-  private static final Logger logger              = Logger.getLogger(I5648.class);
+  private static final Logger logger              = LogManager.getLogger(I5648.class);
 
   private static final String password            = "oracle";
 

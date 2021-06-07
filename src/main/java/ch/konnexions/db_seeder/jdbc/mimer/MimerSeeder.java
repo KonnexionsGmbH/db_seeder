@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.mimer;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
  */
 public final class MimerSeeder extends AbstractGenMimerSchema {
 
-  private static final Logger logger = Logger.getLogger(MimerSeeder.class);
+  private static final Logger logger = LogManager.getLogger(MimerSeeder.class);
 
   /**
    * Gets the connection URL.

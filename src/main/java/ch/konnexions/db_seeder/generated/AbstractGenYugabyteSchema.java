@@ -3,19 +3,20 @@ package ch.konnexions.db_seeder.generated;
 import java.util.HashMap;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * CREATE TABLE statements for a YugabyteDB DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.9.0
+ * @version 2.9.1
  */
 public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
 
   public static final HashMap<String, String> createTableStmnts = createTableStmnts();
 
-  private static final Logger                 logger            = Logger.getLogger(AbstractGenYugabyteSchema.class);
+  private static final Logger                 logger            = LogManager.getLogger(AbstractGenYugabyteSchema.class);
 
   /**
    * Create the CREATE TABLE statements.

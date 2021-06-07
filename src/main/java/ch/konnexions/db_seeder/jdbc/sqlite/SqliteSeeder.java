@@ -1,9 +1,11 @@
 package ch.konnexions.db_seeder.jdbc.sqlite;
 
-import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
-import org.apache.log4j.Logger;
-
 import java.sql.SQLException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
 
 /**
  * Test Data Generator for am SQLite DBMS.
@@ -14,7 +16,7 @@ import java.sql.SQLException;
  */
 public final class SqliteSeeder extends AbstractGenSqliteSchema {
 
-  private static final Logger logger = Logger.getLogger(SqliteSeeder.class);
+  private static final Logger logger = LogManager.getLogger(SqliteSeeder.class);
 
   /**
    * Gets the connection URL.
@@ -63,6 +65,31 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     return AbstractGenSqliteSchema.createTableStmnts.get(tableName);
   }
 
+  private void printDatabaseVersion() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    String sqlStmnt = "SELECT sqlite_version()";
+
+    try {
+      resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        logger.info("SQLite version is " + resultSet.getString(1));
+      }
+
+      resultSet.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
   /**
    * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
@@ -103,31 +130,6 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
       createSchema(connection);
 
       statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  private void printDatabaseVersion() {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    String sqlStmnt = "SELECT sqlite_version()";
-
-    try {
-      resultSet = statement.executeQuery(sqlStmnt);
-
-      while (resultSet.next()) {
-        logger.info("SQLite version is " + resultSet.getString(1));
-      }
-
-      resultSet.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);

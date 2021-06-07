@@ -1,9 +1,15 @@
 package ch.konnexions.db_seeder.samples.monetdb;
 
-import org.apache.log4j.Logger;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.Random;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Demonstration program for Issue 72.
@@ -21,7 +27,7 @@ public class I72 {
   private static final int    ROW_MAX_COUNTRY_STATE = 600;
   private static final int    ROW_MAX_TIMEZONE      = 11;
 
-  private static final Logger logger                = Logger.getLogger(I72.class);
+  private static final Logger logger                = LogManager.getLogger(I72.class);
 
   private static void insertCities(Connection connection, Statement statement) throws Exception {
     statement.execute("""

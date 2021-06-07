@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.mariadb;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenMariadbSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMariadbSchema;
  */
 public final class MariadbSeeder extends AbstractGenMariadbSchema {
 
-  private static final Logger logger = Logger.getLogger(MariadbSeeder.class);
+  private static final Logger logger = LogManager.getLogger(MariadbSeeder.class);
 
   /**
    * Gets the connection URL.

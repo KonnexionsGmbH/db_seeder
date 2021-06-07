@@ -1,5 +1,13 @@
 package ch.konnexions.db_seeder;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.konnexions.db_seeder.jdbc.agens.AgensSeeder;
 import ch.konnexions.db_seeder.jdbc.cockroach.CockroachSeeder;
 import ch.konnexions.db_seeder.jdbc.cratedb.CratedbSeeder;
@@ -24,12 +32,6 @@ import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder;
 import ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
-import org.apache.log4j.Logger;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Test Data Generator for a Database - Application.
@@ -40,7 +42,7 @@ import java.util.Objects;
 @SuppressWarnings("ucd")
 public final class DatabaseSeeder {
 
-  private static final Logger logger = Logger.getLogger(DatabaseSeeder.class);
+  private static final Logger logger = LogManager.getLogger(DatabaseSeeder.class);
 
   /**
    * The main method.

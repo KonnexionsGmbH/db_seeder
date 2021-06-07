@@ -1,10 +1,12 @@
 package ch.konnexions.db_seeder;
 
-import ch.konnexions.db_seeder.utils.Config;
-import org.apache.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.utils.Config;
 
 /**
  * Test Data Generator for a Database - Abstract DBMS Seeder.
@@ -110,7 +112,7 @@ public abstract class AbstractDbmsSeeder {
   // protected static final String   FORMAT_IDENTIFIER_RIGHT  = "%010d";
   public static final String                FORMAT_ROW_NO                     = "%1$10d";
   protected static final String             FORMAT_TABLE_NAME                 = "%-17s";
-  private static final Logger               logger                            = Logger.getLogger(AbstractDbmsSeeder.class);
+  private static final Logger               logger                            = LogManager.getLogger(AbstractDbmsSeeder.class);
 
   /**
    * Initialises the DBMS details.

@@ -40,7 +40,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
     export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
-if [ -n "$DB_SEEDER_DATABASE_INTERN" ]; then
+if [ -n "${DB_SEEDER_DATABASE_INTERN}" ]; then
     if [ -d "${DB_SEEDER_DATABASE}" ]; then 
         echo ""
         echo "............................................................ before:"

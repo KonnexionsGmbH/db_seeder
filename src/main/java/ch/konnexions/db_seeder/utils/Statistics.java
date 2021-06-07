@@ -4,11 +4,6 @@
 
 package ch.konnexions.db_seeder.utils;
 
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.log4j.Logger;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,11 +16,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
+
 /**
  * This class is used to record the statisticss of the db_seeder runs.
  */
 public final class Statistics {
-  private static final Logger         logger    = Logger.getLogger(Statistics.class);
+  private static final Logger         logger    = LogManager.getLogger(Statistics.class);
   private final boolean               isDebug   = logger.isDebugEnabled();
 
   private final Config                config;

@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.cratedb;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
  */
 public final class CratedbSeeder extends AbstractGenCratedbSchema {
 
-  private static final Logger logger = Logger.getLogger(CratedbSeeder.class);
+  private static final Logger logger = LogManager.getLogger(CratedbSeeder.class);
 
   /**
    * Gets the connection UR.

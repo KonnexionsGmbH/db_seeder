@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.ibmdb2;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
  */
 public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
 
-  private static final Logger logger = Logger.getLogger(Ibmdb2Seeder.class);
+  private static final Logger logger = LogManager.getLogger(Ibmdb2Seeder.class);
 
   /**
    * Gets the connection URL.

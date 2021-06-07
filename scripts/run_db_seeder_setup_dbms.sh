@@ -22,7 +22,7 @@ echo ---------------------------------------------------------------------------
 if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "no" ]; then
     echo "Docker stop/rm db_seeder_db ................................ before:"
     docker ps -a
-    if [ "${DB_SEEDER_DBMS_DBdocker}" = "exasol" ]; then
+    if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
         docker ps | grep "db_seeder_db" && docker exec -ti db_seeder_db dwad_client stop-wait DB1
     fi
     docker ps | grep "db_seeder_db" && docker stop db_seeder_db
@@ -53,9 +53,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
                   --network db_seeder_net \
                   -e        POSTGRES_PASSWORD=agens \
                   -e        POSTGRES_USER=agens \
-                  -p        ${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT} \
+                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
                   -t \
-                  bitnine/agensgraph:${DB_SEEDER_VERSION}
+                  bitnine/agensgraph:"${DB_SEEDER_VERSION}"
 
     echo "Docker start db_seeder_db (AgensGraph ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -81,8 +81,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "cockroach" ]; then
     docker network create db_seeder_net  2>/dev/null || true
     docker create --name     db_seeder_db \
                   --net      db_seeder_net \
-                  -p         $DB_SEEDER_CONNECTION_PORT:$DB_SEEDER_CONTAINER_PORT \
-                  cockroachdb/cockroach:$DB_SEEDER_VERSION \
+                  -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
+                  cockroachdb/cockroach:"${DB_SEEDER_VERSION}" \
                   start --insecure --join=db_seeder_db
 
     echo "Docker start db_seeder_db (CockroachDB ${DB_SEEDER_VERSION}) ..."
@@ -201,9 +201,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
     docker run --detach \
                --name       db_seeder_db \
                --network    db_seeder_net \
-               -p           127.0.0.1:${DB_SEEDER_CONNECTION_PORT}:${DB_SEEDER_CONTAINER_PORT}/tcp \
+               -p           127.0.0.1:"${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
                --privileged \
-               exasol/docker-db:${DB_SEEDER_VERSION}
+               exasol/docker-db:"${DB_SEEDER_VERSION}"
 
     echo "Docker start db_seeder_db (Exasol ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -506,7 +506,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  -v        $PWD/tmp/omnisci-docker-storage:/omnisci-storage \
+                  -v        "$PWD/tmp/omnisci-docker-storage":/omnisci-storage \
                   omnisci/core-os-cpu
 
     echo "Docker start db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION}) ..."
@@ -537,7 +537,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
                   --name     db_seeder_db \
                   --network  db_seeder_net \
                   -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  konnexionsgmbh/${DB_SEEDER_VERSION}
+                  konnexionsgmbh/"${DB_SEEDER_VERSION}"
 
     echo "Docker start db_seeder_db (Oracle ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -570,8 +570,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
     docker create -e        MYSQL_ROOT_PASSWORD=percona \
                   --name    db_seeder_db \
                   --network db_seeder_net \
-                  -p        $DB_SEEDER_CONNECTION_PORT:$DB_SEEDER_CONTAINER_PORT/tcp \
-                  percona/percona-server:$DB_SEEDER_VERSION
+                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                  percona/percona-server:"${DB_SEEDER_VERSION}"
 
     echo "Docker start db_seeder_db (Percona Server ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -664,8 +664,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "voltdb" ]; then
                --name    db_seeder_db \
                --network db_seeder_net \
                -p        21212:21212 \
-               -v        $PWD/resources/voltdb/deployment.xml:/tmp/deployment.xml \
-               voltdb/voltdb-community:${DB_SEEDER_VERSION}
+               -v        "$PWD/resources/voltdb/deployment.xml":/tmp/deployment.xml \
+               voltdb/voltdb-community:"${DB_SEEDER_VERSION}"
 
     echo "Docker start db_seeder_db (VoltDB ${DB_SEEDER_VERSION}) ..."
 
@@ -685,8 +685,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION})"
 
-    rm -rf $PWD/tmp/yb_data
-    mkdir -p $PWD/tmp/yb_data
+    rm -rf "$PWD/tmp/yb_data"
+    mkdir -p "$PWD/tmp/yb_data"
 
     docker network create db_seeder_net  2>/dev/null || true
     docker run -d \
@@ -696,8 +696,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
                -p        7000:7000 \
                -p        9001:9000 \
                -p        9042:9042 \
-               -v        $PWD/tmp/yb_data:/home/yugabyte/var \
-               yugabytedb/yugabyte:$DB_SEEDER_VERSION bin/yugabyted start --daemon=false
+               -v        "$PWD/tmp/yb_data":/home/yugabyte/var \
+               yugabytedb/yugabyte:"${DB_SEEDER_VERSION}" bin/yugabyted start --daemon=false
 
     echo "Docker start db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION}) ..."
 

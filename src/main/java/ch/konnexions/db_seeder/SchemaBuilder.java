@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generator.GenerateSchema;
 import ch.konnexions.db_seeder.utils.Config;
@@ -17,7 +18,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 @SuppressWarnings("ucd")
 public final class SchemaBuilder {
 
-  private static final Logger logger = Logger.getLogger(SchemaBuilder.class);
+  private static final Logger logger = LogManager.getLogger(SchemaBuilder.class);
 
   /**
    * The main method.

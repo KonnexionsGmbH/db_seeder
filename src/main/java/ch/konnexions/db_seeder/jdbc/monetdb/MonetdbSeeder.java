@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.monetdb;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenMonetdbSchema;
 
@@ -15,7 +16,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMonetdbSchema;
  */
 public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
 
-  private static final Logger logger = Logger.getLogger(MonetdbSeeder.class);
+  private static final Logger logger = LogManager.getLogger(MonetdbSeeder.class);
 
   /**
    * Gets the connection URL.

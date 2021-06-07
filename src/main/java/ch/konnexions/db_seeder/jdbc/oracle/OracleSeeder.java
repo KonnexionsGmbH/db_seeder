@@ -2,7 +2,8 @@ package ch.konnexions.db_seeder.jdbc.oracle;
 
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ch.konnexions.db_seeder.generated.AbstractGenOracleSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
@@ -16,7 +17,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 public final class OracleSeeder extends AbstractGenOracleSchema {
 
-  private static final Logger logger = Logger.getLogger(OracleSeeder.class);
+  private static final Logger logger = LogManager.getLogger(OracleSeeder.class);
 
   /**
    * Gets the connection URL.
