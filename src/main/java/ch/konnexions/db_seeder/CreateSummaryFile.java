@@ -206,7 +206,7 @@ public final class CreateSummaryFile {
                        0,
                        fileNameTokensNet.length);
 
-      if (fileNameTokens[2] == null || (!(fileNameTokens[2].equals("bash") || fileNameTokens[2].equals("cmd") || fileNameTokens[2].equals("compose")))) {
+      if (fileNameTokens[2] == null || (!(fileNameTokens[2].equals("bash") || fileNameTokens[2].equals("cmd")))) {
         fileNameTokens[2] = "unknown";
       }
 

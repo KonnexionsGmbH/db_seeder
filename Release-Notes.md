@@ -139,7 +139,7 @@ n/a
 
 #### Deleted Features
 
-n/a
+- Docker Compose functionality removed
 
 ----------
 
@@ -174,8 +174,6 @@ Release Date: 04.06.2021
 - trino: DBMS 358 / JDBC 358
 
 - YugabyteDB: DBMS 2.7.1.1-b1
-
-- xxx: DBMS 999 / JDBC 999
 
 ----------
 
