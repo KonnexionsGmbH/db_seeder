@@ -423,9 +423,9 @@ Java method: `getContentVarchar`
 The easiest way is to download a current release of **`DBSeeder`** from the GitHub repository.
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 
-To download the repository [Git](https://git-scm.com) is needed and for compilation the [Gradle Build Tool](https://gradle.org) and the [oppen-source JDK](https://openjdk.java.net) are needed.
+To download the repository [Git](https://git-scm.com) is needed and for compilation the [Gradle Build Tool](https://gradle.org) and the [open-source JDK](https://openjdk.java.net) are needed.
 For changes to the **`DBSeeder`** repository it is best to use an editor (e.g. [Vim](https://www.vim.org)) or an IDE (e.g. [Eclipse IDE](https://www.eclipse.org)).
-For using the Docker Images database in operational mode, [Docker Desktop](https://www.docker.com/products/docker-desktop) must also be installed.
+For using the Docker Image based databases in operational mode, [Docker Desktop](https://www.docker.com/products/docker-desktop) must also be installed.
 For the respective software versions, please consult the document [release notes](Release-Notes.md).
 
 [//]: # (===========================================================================================)
