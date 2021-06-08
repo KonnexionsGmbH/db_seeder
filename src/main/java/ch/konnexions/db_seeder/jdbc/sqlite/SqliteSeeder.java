@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenSqliteSchema;
 
 /**
- * Test Data Generator for am SQLite DBMS.
+ * Data Generator for am SQLite DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

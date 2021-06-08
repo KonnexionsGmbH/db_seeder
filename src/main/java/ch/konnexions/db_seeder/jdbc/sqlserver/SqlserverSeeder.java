@@ -9,7 +9,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenSqlserverSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * Test Data Generator for a SQL Server DBMS.
+ * Data Generator for a SQL Server DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

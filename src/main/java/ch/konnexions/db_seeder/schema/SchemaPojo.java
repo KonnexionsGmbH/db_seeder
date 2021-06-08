@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 /**
- * Test Data Generator for a Database - Complete schema POJO.
+ * Data Generator for a Database - Complete schema POJO.
  * <br>
  *
  * @author walter@konnexions.ch

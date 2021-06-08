@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenH2Schema;
 
 /**
- * Test Data Generator for a H2 Database Engine DBMS.
+ * Data Generator for a H2 Database Engine DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

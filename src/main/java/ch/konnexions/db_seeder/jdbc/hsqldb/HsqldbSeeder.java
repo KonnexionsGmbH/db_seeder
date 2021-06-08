@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenHsqldbSchema;
 
 /**
- * Test Data Generator for a HyperQL Database DBMS.
+ * Data Generator for a HyperQL Database DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

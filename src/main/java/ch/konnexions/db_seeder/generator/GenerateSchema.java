@@ -45,7 +45,7 @@ import ch.konnexions.db_seeder.schema.SchemaPojo.Table.TableConstraint;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
- * Test Data Generator for a Database - Transform JSON to POJO.
+ * Data Generator for a Database - Transform JSON to POJO.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-07-15
@@ -876,7 +876,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("/**");
       bw.newLine();
-      bw.append(" * Test Data Generator for a Database - Abstract Generated Schema.");
+      bw.append(" * Data Generator for a Database - Abstract Generated Schema.");
       bw.newLine();
       bw.append(" * <br>");
       bw.newLine();
@@ -1119,7 +1119,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("/**");
       bw.newLine();
-      bw.append(" * Test Data Generator for a Database - Abstract Generated Seeder.");
+      bw.append(" * Data Generator for a Database - Abstract Generated Seeder.");
       bw.newLine();
       bw.append(" * <br>");
       bw.newLine();
@@ -1622,7 +1622,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   }
 
   /**
-  * Test Data Generator for a Database - Generate a complete schema.
+  * Data Generator for a Database - Generate a complete schema.
    *
    * @param release the release identification
    * @param fileJsonName the name of the db_seeder schema definition file

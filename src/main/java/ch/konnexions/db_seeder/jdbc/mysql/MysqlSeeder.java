@@ -9,7 +9,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenMysqlSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * Test Data Generator for a MySQL DBMS.
+ * Data Generator for a MySQL DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

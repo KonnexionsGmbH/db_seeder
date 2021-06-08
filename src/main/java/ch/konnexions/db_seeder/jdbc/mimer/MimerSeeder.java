@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenMimerSchema;
 
 /**
- * Test Data Generator for a Mimer SQL DBMS.
+ * Data Generator for a Mimer SQL DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenOmnisciSchema;
 
 /**
- * Test Data Generator for an OmniSci DBMS.
+ * Data Generator for an OmniSci DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

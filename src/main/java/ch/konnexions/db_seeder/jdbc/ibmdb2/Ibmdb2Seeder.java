@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenIbmdb2Schema;
 
 /**
- * Test Data Generator for an IBM Db2 DBMS.
+ * Data Generator for an IBM Db2 DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

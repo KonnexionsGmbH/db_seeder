@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenMariadbSchema;
 
 /**
- * Test Data Generator for a MariaDB DBMS.
+ * Data Generator for a MariaDB DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

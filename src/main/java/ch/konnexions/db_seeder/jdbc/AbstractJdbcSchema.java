@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 
 /**
- * Test Data Generator for a Database - Abstract JDBC Schema.
+ * Data Generator for a Database - Abstract JDBC Schema.
  * <br>
  *
  * @author walter@konnexions.ch

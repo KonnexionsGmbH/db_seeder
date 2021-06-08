@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.utils.Config;
 
 /**
- * Test Data Generator for a Database - Abstract DBMS Seeder.
+ * Data Generator for a Database - Abstract DBMS Seeder.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01

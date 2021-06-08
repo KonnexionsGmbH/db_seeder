@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenFirebirdSchema;
 
 /**
- * Test Data Generator for a Firebird DBMS.
+ * Data Generator for a Firebird DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

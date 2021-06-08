@@ -7,7 +7,7 @@ import ch.konnexions.db_seeder.generated.AbstractGenPostgresqlSchema;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * Test Data Generator for a PostgreSQL DBMS.
+ * Data Generator for a PostgreSQL DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

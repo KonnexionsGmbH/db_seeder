@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenCratedbSchema;
 
 /**
- * Test Data Generator for a CrateDB DBMS.
+ * Data Generator for a CrateDB DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

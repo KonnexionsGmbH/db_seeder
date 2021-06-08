@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenAgensSchema;
 
 /**
- * Test Data Generator for a AgensGraph DBMS.
+ * Data Generator for a AgensGraph DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

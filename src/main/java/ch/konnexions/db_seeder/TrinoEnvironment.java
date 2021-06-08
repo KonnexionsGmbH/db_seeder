@@ -23,7 +23,7 @@ import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
- * Test Data Generator for a Database - Application.
+ * Data Generator for a Database - Application.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-07-15
