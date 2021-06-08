@@ -448,7 +448,7 @@ To run the scripts, apart from the prerequisites as release notes (`ReleaseNotes
 only the libraries in the `lib` directory and the corresponding script of `run_db_seeder` are required. 
 The creation of the databases also requires a working access to [Docker Hub](https://hub.docker.com/).
  
-All control parameters used in **`DBSeeder`** (see section 4.2) can be adapted in the scripts to specific needs.
+All control parameters used in **`DBSeeder`** (see section 4.3) can be adapted in the scripts to specific needs.
 
 The `run_db_seeder` script is controlled by the following script parameters:: 
 
@@ -461,9 +461,9 @@ The `run_db_seeder` script is controlled by the following script parameters::
   - 2: two runs
   - otherwise: no run
 
-For the run variants `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources\statistics` by default:
+For the run variants `complete`, `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources/statistics` by default:
 
-    db_seeder_<bash | cmd>_<db_type>_unknown_<DBSeeder release>.tsv
+    db_seeder_<bash | cmd>_<run variant>_unknown_<DBSeeder release>.tsv
 
 An overview of the structure of the scripts used can be taken from the following diagram:
 
