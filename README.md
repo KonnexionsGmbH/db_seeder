@@ -28,7 +28,7 @@
 
 ## <a name="introduction"></a> 1. Introduction
 
-**`DBSeeder`** allows the flexible generation of dummy data for selected relational database management systems (RDBMS).
+**`DBSeeder`** allows the generation of large amounts of anonymized random dummy data for selected relational database systems (RDBMS) - useful e.g. for stress testing.
 
 The database schema underlying the data generation can be freely defined.
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions.
@@ -432,7 +432,7 @@ The system requirements are described in the respective release notes.
 
 #### 4.1.1 Script `run_db_seeder`
 
-Using the DBSeeder development and operational Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)) eliminates the need to install the runtime environment.
+Using the **`DBSeeder`** development and operational Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)) eliminates the need to install the runtime environment.
  
 With the script `run_db_seeder` the complete functionality of the **`DBSeeder`** application can be used:
 
@@ -494,7 +494,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
               source ~/.bashrc
           fi
   
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
@@ -511,7 +511,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - **Requirements**:
     - pull the `DBSeeder` image from DockerHub: `docker pull konnexionsgmbh/db_seeder:latest`
     - create an appropriate container: `docker run -it --name db_seeder -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/db_seeder:latest bash`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `gradle copyJarToLib`
@@ -538,7 +538,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 ![](.README_images/Docker_Desktop_Settings_2.png)
 
 - **Requirements (continued)**:
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
@@ -553,7 +553,7 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.3 Windows 10 Pro
 
 - **Requirements**:
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
+    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
 - **Execution**: run `run_db_seeder.bat`
 - **Issues**:
@@ -615,7 +615,7 @@ db_seeder.user=
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
 |                                           |                                   | postgresql, sqlserver, yugabyte                                                    |     |
 | database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                          | database name |
-| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the DBSeeder configuration file |
+| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the **`DBSeeder`** configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                          | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                          | header line of the statistics file created in `run_db_seeder` |
@@ -670,7 +670,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | AgensGraph Database Type |
+| **`DBSeeder`** Type | AgensGraph Database Type |
 | ---            | ---                      |
 | BIGINT         | BIGINT                   |
 | BLOB           | BYTEA                    |
@@ -704,7 +704,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | Apache Derby Type |
+| **`DBSeeder`** Type | Apache Derby Type |
 | ---            | ---               |
 | BIGINT         | BIGINT            |
 | BLOB           | BLOB              |
@@ -749,7 +749,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | CockroachDB Type |
+| **`DBSeeder`** Type | CockroachDB Type |
 | ---            | ---              |
 | BIGINT         | INT              |
 | BLOB           | BYTES            |
@@ -788,7 +788,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | CrateDB Type |
+| **`DBSeeder`** Type | CrateDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | OBJECT       |
@@ -834,7 +834,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | CUBRID Type |
+| **`DBSeeder`** Type | CUBRID Type |
 | ---            | ---         |
 | BIGINT         | INT         |
 | BLOB           | BLOB        |
@@ -876,7 +876,7 @@ Below are also DBeaver based connection parameter examples for each database man
 ### <a name="details_exasol"></a> 5.5 Exasol
 - **data types**:
 
-| DBSeeder Type  | Exasol Type      |
+| **`DBSeeder`** Type | Exasol Type      |
 | ---            | ---              |
 | BIGINT         | BIGINT           |
 | BLOB           | VARCHAR(2000000) |
@@ -910,7 +910,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | Firebird Type   |
+| **`DBSeeder`** Type | Firebird Type   |
 | ---            | ---             |
 | BIGINT         | INTEGER         |
 | BLOB           | BLOB            |
@@ -950,7 +950,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | H2 Database Engine Type |
+| **`DBSeeder`** Type | H2 Database Engine Type |
 | ---            | ---                     |
 | BIGINT         | BIGINT                  |
 | BLOB           | BLOB                    |
@@ -996,7 +996,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | HSQLDB Type |
+| **`DBSeeder`** Type | HSQLDB Type |
 | ---            | ---         |
 | BIGINT         | BIGINT      |
 | BLOB           | BLOB        |
@@ -1042,7 +1042,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | IBM Db2 Database Type |
+| **`DBSeeder`** Type | IBM Db2 Database Type |
 | ---            | ---                   |
 | BIGINT         | BIGINT                |
 | BLOB           | BLOB                  |
@@ -1085,7 +1085,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | IBM Informix Database Type |
+| **`DBSeeder`** Type | IBM Informix Database Type |
 | ---            | ---                        |
 | BIGINT         | BIGINT                     |
 | BLOB           | BLOB                       |
@@ -1128,7 +1128,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | MariaDB Type |
+| **`DBSeeder`** Type | MariaDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | LONGBLOB     |
@@ -1174,7 +1174,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | MimerSQL Type |
+| **`DBSeeder`** Type | MimerSQL Type |
 | ---            | ---           |
 | BIGINT         | BIGINT        |
 | BLOB           | BLOB          |
@@ -1212,7 +1212,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | MonetDB Type |
+| **`DBSeeder`** Type | MonetDB Type |
 | ---            | ---          |
 | BIGINT         | BIGINT       |
 | BLOB           | BLOB         |
@@ -1255,7 +1255,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | MySQL Database Type |
+| **`DBSeeder`** Type | MySQL Database Type |
 | ---            | ---                 |
 | BIGINT         | BIGINT              |
 | BLOB           | LONGBLOB            |
@@ -1295,7 +1295,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | OmniSciDB Type     |
+| **`DBSeeder`** Type | OmniSciDB Type     |
 | ---            | ---                |
 | BIGINT         | BIGINT             |
 | BLOB           | TEXT ENCODING NONE |
@@ -1346,7 +1346,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | Oracle Database Type |
+| **`DBSeeder`** Type | Oracle Database Type |
 | ---            | ---                  |
 | BIGINT         | NUMBER               |
 | BLOB           | BLOB                 |
@@ -1382,7 +1382,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | Percona Sercver Type |
+| **`DBSeeder`** Type | Percona Sercver Type |
 | ---            | ---                  |
 | BIGINT         | BIGINT               |
 | BLOB           | LONGBLOB             |
@@ -1420,7 +1420,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | PostgreSQL Type |
+| **`DBSeeder`** Type | PostgreSQL Type |
 | ---            | ---             |
 | BIGINT         | BIGINT          |
 | BLOB           | BYTEA           |
@@ -1458,7 +1458,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | SQL Server Type |
+| **`DBSeeder`** Type | SQL Server Type |
 | ---            | ---             |
 | BIGINT         | BIGINT          |
 | BLOB           | VARBINARY (MAX) |
@@ -1498,7 +1498,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | SQLite Type |
+| **`DBSeeder`** Type | SQLite Type |
 | ---            | ---         |
 | BIGINT         | INTEGER     |
 | BLOB           | BLOB        |
@@ -1537,7 +1537,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | trino Type |
+| **`DBSeeder`** Type | trino Type |
 | ---            | ---        |
 | BIGINT         | BIGINT     |
 | BLOB           | BLOB       |
@@ -1571,7 +1571,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | VoltDB Type        |
+| **`DBSeeder`** Type | VoltDB Type        |
 | ---            | ---                |
 | BIGINT         | BIGINT             |
 | BLOB           | VARBINARY(1048576) |
@@ -1603,7 +1603,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **data types**:
 
-| DBSeeder Type  | YugabyteDB Database Type |
+| **`DBSeeder`** Type | YugabyteDB Database Type |
 | ---            | ---                      |
 | BIGINT         | BIGINT                   |
 | BLOB           | BYTEA                    |
