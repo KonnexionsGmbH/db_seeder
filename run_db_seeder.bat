@@ -134,6 +134,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v20.2.10
     set DB_SEEDER_VERSION=v21.1.0
     set DB_SEEDER_VERSION=v21.1.1
+    set DB_SEEDER_VERSION=v21.1.2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (

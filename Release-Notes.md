@@ -131,6 +131,8 @@ n/a
 
 #### Modified Features
 
+- CockroachDB: DBMS v21.1.2
+
 - Exasol: DBMS 7.0.10
 
 - xxx: DBMS 999 / JDBC 999
