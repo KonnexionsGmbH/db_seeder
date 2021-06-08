@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows 10 Pro 2004] 
- - Java: [e.g. "14" 2020-03-17]
+ - Java SDK: [e.g. "14" 2020-03-17]
 
 **Database (please complete the following information):**
  - DBMS name: [e.g. Apache Derby]
