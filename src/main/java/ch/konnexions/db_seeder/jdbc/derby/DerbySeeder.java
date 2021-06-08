@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenDerbySchema;
 
 /**
- * Test Data Generator for a Apache Derby DBMS.
+ * Data Generator for a Apache Derby DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

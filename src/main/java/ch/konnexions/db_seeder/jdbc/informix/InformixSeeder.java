@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenInformixSchema;
 
 /**
- * Test Data Generator for an IBM Informix DBMS.
+ * Data Generator for an IBM Informix DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

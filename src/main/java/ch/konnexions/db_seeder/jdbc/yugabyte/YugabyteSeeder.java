@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenYugabyteSchema;
 
 /**
- * Test Data Generator for a YugabyteDB DBMS.
+ * Data Generator for a YugabyteDB DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

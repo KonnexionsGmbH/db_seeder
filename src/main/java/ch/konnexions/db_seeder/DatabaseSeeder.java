@@ -34,7 +34,7 @@ import ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
- * Test Data Generator for a Database - Application.
+ * Data Generator for a Database - Application.
  * <br>
  * @author  walter@konnexions.ch
  * @since   2020-05-01

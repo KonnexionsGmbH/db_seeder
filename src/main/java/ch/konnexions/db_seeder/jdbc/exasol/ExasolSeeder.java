@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenExasolSchema;
 
 /**
- * Test Data Generator for a Exasol DBMS.
+ * Data Generator for a Exasol DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

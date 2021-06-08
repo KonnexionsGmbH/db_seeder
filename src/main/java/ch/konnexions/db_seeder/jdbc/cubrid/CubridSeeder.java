@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenCubridSchema;
 
 /**
- * Test Data Generator for a CUBRID DBMS.
+ * Data Generator for a CUBRID DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

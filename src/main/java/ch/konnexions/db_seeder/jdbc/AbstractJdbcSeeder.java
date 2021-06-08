@@ -32,7 +32,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 import ch.konnexions.db_seeder.utils.Statistics;
 
 /**
- * Test Data Generator for a Database - Abstract JDBC Seeder.
+ * Data Generator for a Database - Abstract JDBC Seeder.
  * <br>
  *
  * @author walter@konnexions.ch
@@ -332,7 +332,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   protected abstract void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8);
 
   /**
-   * Create the test data for all database valTableNames.
+   * Create the data for all database valTableNames.
    */
   public final void createData() {
     if (isDebug) {
@@ -382,8 +382,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     if (countExisting != 0) {
       if (isDebug) {
-        logger.debug("found existing test data in database table " + String.format(FORMAT_TABLE_NAME,
-                                                                                   tableName));
+        logger.debug("found existing data in database table " + String.format(FORMAT_TABLE_NAME,
+                                                                              tableName));
       }
 
       return;

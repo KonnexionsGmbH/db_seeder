@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenMonetdbSchema;
 
 /**
- * Test Data Generator for a MonetDB DBMS.
+ * Data Generator for a MonetDB DBMS.
  * <br>
  *
  * @author walter@konnexions.ch

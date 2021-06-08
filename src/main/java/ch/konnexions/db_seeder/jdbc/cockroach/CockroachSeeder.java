@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.generated.AbstractGenCockroachSchema;
 
 /**
- * Test Data Generator for a CockroachDB DBMS.
+ * Data Generator for a CockroachDB DBMS.
  * <br>
  *
  * @author walter@konnexions.ch
