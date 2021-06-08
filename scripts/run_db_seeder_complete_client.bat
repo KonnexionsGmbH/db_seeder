@@ -65,7 +65,7 @@ echo.
     echo ================================================================================
     echo Start %0
     echo --------------------------------------------------------------------------------
-    echo DB Seeder - Run all DBMS variations.
+    echo DBSeeder - Run all DBMS variations.
     echo --------------------------------------------------------------------------------
     echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
     echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%

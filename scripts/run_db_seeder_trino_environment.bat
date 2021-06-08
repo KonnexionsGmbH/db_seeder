@@ -68,7 +68,7 @@ set DB_SEEDER_SQLSERVER_USER=kxn_user
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Generating trino catalog properties files.
+echo DBSeeder - Generating trino catalog properties files.
 echo --------------------------------------------------------------------------------
 echo DBMS_DEFAULT                  : %DB_SEEDER_DBMS_DEFAULT%
 echo DB_SEEDER_DBMS                : %DB_SEEDER_DBMS%

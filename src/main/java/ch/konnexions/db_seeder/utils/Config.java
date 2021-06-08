@@ -30,6 +30,8 @@ public final class Config {
   private static final Logger     logger     = LogManager.getLogger(Config.class);
   //  private final boolean           isDebug    = logger.isDebugEnabled();
 
+  private String                  characterSetServer;
+  private String                  collationServer;
   private String                  connectionHost;
   private String                  connectionHostTrino;
   private int                     connectionPort;
@@ -101,6 +103,20 @@ public final class Config {
   //
   //    return list;
   //  }
+
+  /**
+   * @return the default server character set
+   */
+  public final String getCharacterSetServer() {
+    return characterSetServer;
+  }
+
+  /**
+   * @return the default server collation
+   */
+  public final String getCollationServer() {
+    return collationServer;
+  }
 
   // CONNECTION -------------------------------------------------------
 
@@ -288,6 +304,8 @@ public final class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
+    characterSetServer          = propertiesConfiguration.getString("db_seeder.character.set.server");
+    collationServer             = propertiesConfiguration.getString("db_seeder.collation.server");
     connectionHost              = propertiesConfiguration.getString("db_seeder.connection.host");
     connectionHostTrino         = propertiesConfiguration.getString("db_seeder.connection.host.trino");
     connectionPort              = propertiesConfiguration.getInt("db_seeder.connection.port");
@@ -321,6 +339,18 @@ public final class Config {
     Map<String, String> environmentVariables = System.getenv();
 
     // CONNECTION -------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_CHARACTER_SET_SERVER")) {
+      characterSetServer = environmentVariables.get("DB_SEEDER_CHARACTER_SET_SERVER");
+      propertiesConfiguration.setProperty("db_seeder.character.set.server",
+                                          characterSetServer);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_COLLATION_SERVER")) {
+      collationServer = environmentVariables.get("DB_SEEDER_COLLATION_SERVER");
+      propertiesConfiguration.setProperty("db_seeder.collation.server",
+                                          collationServer);
+    }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_HOST")) {
       connectionHost = environmentVariables.get("DB_SEEDER_CONNECTION_HOST");

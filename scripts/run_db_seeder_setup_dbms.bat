@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - setting up the DBMS.
+echo DBSeeder - setting up the DBMS.
 echo --------------------------------------------------------------------------------
 echo DBMS_DB                   : %DB_SEEDER_DBMS_DB%
 echo DBMS_EMBEDDED             : %DB_SEEDER_DBMS_EMBEDDED%

@@ -11,7 +11,7 @@ setlocal EnableDelayedExpansion
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Demonstration Issues Presto PostgreSQL Connector.
+echo DBSeeder - Demonstration Issues Presto PostgreSQL Connector.
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo --------------------------------------------------------------------------------

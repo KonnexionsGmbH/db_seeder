@@ -88,14 +88,6 @@ if ["%3"] EQU [""] (
     set DB_SEEDER_NO_CREATE_RUNS=%3
 )
 
-if ["%DOCKER_USERNAME%"] EQU [""] (
-    set /P DOCKER_USERNAME="Enter the docker username "
-)
-
-if ["%DOCKER_PASSWORD%"] EQU [""] (
-    set /P DOCKER_PASSWORD="Enter the docker password "
-)
-
 set DB_SEEDER_JAVA_CLASSPATH=%CLASSPATH%;lib/*
 
 rem ------------------------------------------------------------------------------
@@ -142,6 +134,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v20.2.10
     set DB_SEEDER_VERSION=v21.1.0
     set DB_SEEDER_VERSION=v21.1.1
+    set DB_SEEDER_VERSION=v21.1.2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -573,6 +566,14 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.7.1.1-b1
 )
 
+if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (
+    set DB_SEEDER_CHARACTER_SET_SERVER=utf8mb4
+)
+
+if ["%DB_SEEDER_COLLATION_SERVER%"] EQU [""] (
+    set DB_SEEDER_COLLATION_SERVER=utf8mb4_unicode_ci
+)
+
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (
     set DB_SEEDER_CONNECTION_HOST=localhost
 )
@@ -592,8 +593,8 @@ rem ----------------------------------------------------------------------------
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DB Seeder - Creation of dummy data in an empty databases, database users or 
-echo             schemas.
+echo DBSeeder - Creation of dummy data in an empty databases, database users or 
+echo            schemas.
 echo --------------------------------------------------------------------------------
 echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
 echo DBMS                            : %DB_SEEDER_DBMS%
@@ -601,7 +602,6 @@ echo DBMS_DB                         : %DB_SEEDER_DBMS_DB%
 echo DBMS_DEFAULT                    : %DB_SEEDER_DBMS_DEFAULT%
 echo DBMS_EMBEDDED                   : %DB_SEEDER_DBMS_EMBEDDED%
 echo DBMS_TRINO                      : %DB_SEEDER_DBMS_TRINO%
-echo DOCKER_USERNAME                 : %DOCKER_USERNAME%
 echo DIRECTORY_CATALOG_PROPERTY      : %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%
 echo FILE_CONFIGURATION_NAME         : %DB_SEEDER_FILE_CONFIGURATION_NAME%
 echo FILE_JSON_NAME                  : %DB_SEEDER_FILE_JSON_NAME%
@@ -619,6 +619,8 @@ echo CONNECTION_PORT_TRINO           : %DB_SEEDER_CONNECTION_PORT_TRINO%
 echo --------------------------------------------------------------------------------
 echo CATALOG                         : %DB_SEEDER_CATALOG%
 echo CATALOG_SYS                     : %DB_SEEDER_CATALOG_SYS%
+echo CHARACTER_SET_SERVER            : %DB_SEEDER_CHARACTER_SET_SERVER%
+echo COLLATION_SERVER                : %DB_SEEDER_COLLATION_SERVER%
 echo CONNECTION_HOST                 : %DB_SEEDER_CONNECTION_HOST%
 echo CONNECTION_PORT                 : %DB_SEEDER_CONNECTION_PORT%
 echo CONNECTION_PREFIX               : %DB_SEEDER_CONNECTION_PREFIX%
@@ -636,12 +638,6 @@ echo VERSION                         : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
-
-docker login -u "%DOCKER_USERNAME%" -p "%DOCKER_PASSWORD%"
-if %ERRORLEVEL% NEQ 0 (
-    echo Processing of docker login was aborted, error code=%ERRORLEVEL%
-    exit %ERRORLEVEL%
-)
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
     call scripts\run_db_seeder_complete %DB_SEEDER_NO_CREATE_RUNS%

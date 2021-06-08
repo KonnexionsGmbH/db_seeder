@@ -59,7 +59,7 @@ All driver and SQL relevant events are logged at the console.
     ================================================================================
     Start scripts\samples\presto\run_sample_postgresql
     --------------------------------------------------------------------------------
-    DB Seeder - Demonstration Issues Presto PostgreSQL Connector.
+    DBSeeder - Demonstration Issues Presto PostgreSQL Connector.
     --------------------------------------------------------------------------------
     The current time is: 17:03:09.92
     Enter the new time:

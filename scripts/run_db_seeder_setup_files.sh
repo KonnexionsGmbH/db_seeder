@@ -11,7 +11,7 @@ set -e
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DB Seeder - creating database files or directories."
+echo "DBSeeder - creating database files or directories."
 echo "--------------------------------------------------------------------------------"
 echo "DATABASE                  : ${DB_SEEDER_DATABASE}"
 echo "DBMS                      : ${DB_SEEDER_DBMS}"
