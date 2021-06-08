@@ -89,16 +89,6 @@ else
     export DB_SEEDER_NO_CREATE_RUNS=$3
 fi
 
-if [ -z "${DOCKER_USERNAME}" ]; then
-    read -p "Enter the docker username " DOCKER_USERNAME
-    export DOCKER_USERNAME=${DOCKER_USERNAME}
-fi
-
-if [ -z "${DOCKER_PASSWORD}" ]; then
-    read -p "Enter the docker password " DOCKER_PASSWORD
-    export DOCKER_PASSWORD=${DOCKER_PASSWORD}
-fi
-
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 # ------------------------------------------------------------------------------
@@ -313,6 +303,8 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
+    export DB_SEEDER_CHARACTER_SET_SERVER=utf8mb4
+    export DB_SEEDER_COLLATION_SERVER=utf8mb4_unicode_ci
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mariadb://
     export DB_SEEDER_CONTAINER_PORT=3306
@@ -598,7 +590,6 @@ echo "DBMS_DEFAULT                      : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DBMS_EMBEDDED                     : ${DB_SEEDER_DBMS_EMBEDDED}"
 echo "DBMS_TRINO                        : ${DB_SEEDER_DBMS_TRINO}"
 echo "DIRECTORY_CATALOG_PROPERTY        : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
-echo "DOCKER_USERNAME                   : ${DOCKER_USERNAME}"
 echo "FILE_CONFIGURATION_NAME           : ${DB_SEEDER_FILE_CONFIGURATION_NAME}"
 echo "FILE_JSON_NAME                    : ${DB_SEEDER_FILE_JSON_NAME}"
 echo "FILE_STATISTICS_DELIMITER         : ${DB_SEEDER_FILE_STATISTICS_DELIMITER}"
@@ -615,6 +606,8 @@ echo "CONNECTION_PORT_TRINO             : ${DB_SEEDER_CONNECTION_PORT_TRINO}"
 echo "--------------------------------------------------------------------------------"
 echo "CATALOG                           : ${DB_SEEDER_CATALOG}"
 echo "CATALOG_SYS                       : ${DB_SEEDER_CATALOG_SYS}"
+echo "CHARACTER_SET_SERVER              : ${DB_SEEDER_CHARACTER_SET_SERVER}"
+echo "COLLATION_SERVER                  : ${DB_SEEDER_COLLATION_SERVER}"
 echo "CONNECTION_HOST                   : ${DB_SEEDER_CONNECTION_HOST}"
 echo "CONNECTION_PORT                   : ${DB_SEEDER_CONNECTION_PORT}"
 echo "CONNECTION_PREFIX                 : ${DB_SEEDER_CONNECTION_PREFIX}"
@@ -632,10 +625,6 @@ echo "VERSION                           : ${DB_SEEDER_VERSION}"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
-
-if ! ( docker login -u "${DOCKER_USERNAME}" -p "$DOCKER_PASSWORD" ); then
-    exit 255
-fi
 
 if [ "${DB_SEEDER_DBMS}" = "complete" ]; then
     if ! ( ./scripts/run_db_seeder_complete.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then

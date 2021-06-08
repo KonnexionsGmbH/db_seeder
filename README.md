@@ -430,26 +430,7 @@ The system requirements are described in the respective release notes.
 
 ### <a name="operating_instructions_scripts"></a> 4.1 Scripts
 
-#### 4.1.1 Docker Compose
-
-With the command
-
-    docker-compose up -d
-
-a **`DBSeeder`** specific development container can be started, which performs the following processing:
-
-- all client databases with the database schema `db_seeder_schema.company.json`
-- all client databases with the database schema `db_seeder_schema.syntax.json`
-- all embeded databases with the database schema `db_seeder_schema.company.json`
-- all trino databases with the database schema `db_seeder_schema.company.json`
-
-For each of these runs, by default a statistics file is created in the file directory `Transfer` with the following file name structure:
-
-    db_seeder_compose_<db type>_<schema>_<DBSeeder release>_<yyyy.mm.dd>_<hh24.mi.ss>.tsv
-    
-If these files are to be included in the statistical analysis, they must be copied from the file directory `Transfer` to the file directory `resources/statistics`.    
-
-#### 4.1.2 Script `run_db_seeder`
+#### 4.1.1 Script `run_db_seeder`
 
 Using the DBSeeder development and operational Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)) eliminates the need to install the runtime environment.
  
@@ -484,7 +465,7 @@ An overview of the structure of the scripts used can be taken from the following
 
 ![](.README_images/script_structure.png)
 
-#### 4.1.3 Script `scripts/run_db_seeder_statistics`
+#### 4.1.2 Script `scripts/run_db_seeder_statistics`
 
 This script aggregates the existing statistics files into a single overall file. 
 The file name of this overall file is defined with parameter `db_seeder.file.statistics.summary.name` and the existing statistics files are searched in the file directories according to parameter `db_seeder.file.statistics.summary.source`.
@@ -513,8 +494,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
               source ~/.bashrc
           fi
   
-    - run `export DOCKER_USERNAME=\<user name\>`
-    - run `export DOCKER_PASSWORD=\<password\>`
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
@@ -532,8 +511,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 - **Requirements**:
     - pull the `DBSeeder` image from DockerHub: `docker pull konnexionsgmbh/db_seeder:latest`
     - create an appropriate container: `docker run -it --name db_seeder -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/db_seeder:latest bash`
-    - run `export DOCKER_USERNAME=\<user name\>`
-    - run `export DOCKER_PASSWORD=\<password\>`
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
@@ -561,8 +538,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 ![](.README_images/Docker_Desktop_Settings_2.png)
 
 - **Requirements (continued)**:
-    - run `export DOCKER_USERNAME=\<user name\>`
-    - run `export DOCKER_PASSWORD=\<password\>`
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
@@ -578,8 +553,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 #### 4.2.3 Windows 10 Pro
 
 - **Requirements**:
-    - run `set DOCKER_USERNAME=\<user name\>`
-    - run `set DOCKER_PASSWORD=\<password\>`
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the DBSeeder repository)
     - run `cd db_seeder`
 - **Execution**: run `run_db_seeder.bat`

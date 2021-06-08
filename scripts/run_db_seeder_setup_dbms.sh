@@ -391,8 +391,10 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mariadb" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  mariadb:"${DB_SEEDER_VERSION}" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-
+                  mariadb:"${DB_SEEDER_VERSION}" \
+                  --character-set-server=${DB_SEEDER_CHARACTER_SET_SERVER} \
+                  --collation-server=${DB_SEEDER_COLLATION_SERVER}
+                  
     echo "Docker start db_seeder_db (MariaDB Server ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
         exit 255
