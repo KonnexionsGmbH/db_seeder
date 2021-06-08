@@ -306,8 +306,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
-    set DB_SEEDER_CHARACTER_SET_SERVER=utf8mb4
-    set DB_SEEDER_COLLATION_SERVER=utf8mb4_unicode_ci
     set DB_SEEDER_CONNECTION_PORT=3306
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:mariadb://
     set DB_SEEDER_CONTAINER_PORT=3306
@@ -566,6 +564,14 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.7.0.0-b17
     set DB_SEEDER_VERSION=2.7.1.0-b131
     set DB_SEEDER_VERSION=2.7.1.1-b1
+)
+
+if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (
+    set DB_SEEDER_CHARACTER_SET_SERVER=utf8mb4
+)
+
+if ["%DB_SEEDER_COLLATION_SERVER%"] EQU [""] (
+    set DB_SEEDER_COLLATION_SERVER=utf8mb4_unicode_ci
 )
 
 if ["%DB_SEEDER_CONNECTION_HOST%"] EQU [""] (

@@ -569,6 +569,8 @@ The flow control parameters for **`DBSeeder`** are stored in the properties file
 The following control parameters are currently supported:
 
 ```
+db_seeder_character_set_server=
+db_seeder_collation_server=
 db_seeder.connection.host=
 db_seeder.connection.host.trino=
 db_seeder.connection.port=0
@@ -601,6 +603,8 @@ db_seeder.user=
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                            | Description |     
 | ---                                       | ---                               | ---                                                                                | --- |
+| character.set.server=<x...x>              | CHARACTER_SET_SERVER              | mariadb                                                                            | default server character set |
+| collation.server=<x...x>                  | COLLATION_SERVER                  | mariadb                                                                            | default server collation |
 | connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                   | host name or ip address of the database server |
 | connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | trino                                                                              | host name or ip address of the trino |
 | connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                   | port number of the database server |
@@ -610,20 +614,20 @@ db_seeder.user=
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                           | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
 |                                           |                                   | postgresql, sqlserver, yugabyte                                                    |     |
-| database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                           | database name |
+| database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                          | database name |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the DBSeeder configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
-| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                           | separator of the statistics file created in `run_db_seeder` |
-| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                           | header line of the statistics file created in `run_db_seeder` |
-| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                           | file name of the statistics file created in `run_db_seeder` |
-| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all RDBMS                                                                           | file name of the summary statistics file created in `run_db_seeder_statistics` |
-| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all RDBMS                                                                           | directory name(s) (separated by semicolon) of the source directories containing statistics files |
+| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                          | separator of the statistics file created in `run_db_seeder` |
+| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                          | header line of the statistics file created in `run_db_seeder` |
+| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                          | file name of the statistics file created in `run_db_seeder` |
+| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
 |                                           |                                   | oracle, percona, postgresql, sqlserver                                             | password of the privileged user |
-| password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                                 | password of the normal user |
+| password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                                | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte | schema name |
-| user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                      | name of the privileged user |
-| user=kxn_user                             | USER                              | all RDBMS except derby, ibmdb2, informix                                            | name of the normal user |
+| user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                     | name of the privileged user |
+| user=kxn_user                             | USER                              | all RDBMS except derby, ibmdb2, informix                                           | name of the normal user |
 |                                           |                                   |                                                                                    |     |
 
 [//]: # (===========================================================================================)

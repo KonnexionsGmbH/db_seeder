@@ -304,8 +304,6 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
-    export DB_SEEDER_CHARACTER_SET_SERVER=utf8mb4
-    export DB_SEEDER_COLLATION_SERVER=utf8mb4_unicode_ci
     export DB_SEEDER_CONNECTION_PORT=3306
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:mariadb://
     export DB_SEEDER_CONTAINER_PORT=3306
@@ -564,6 +562,14 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.7.0.0-b17
     export DB_SEEDER_VERSION=2.7.1.0-b131
     export DB_SEEDER_VERSION=2.7.1.1-b1
+fi
+
+if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then
+    export DB_SEEDER_CHARACTER_SET_SERVER=utf8mb4
+fi
+
+if [ -z "${DB_SEEDER_COLLATION_SERVER}" ]; then
+    export DB_SEEDER_COLLATION_SERVER=utf8mb4_unicode_ci
 fi
 
 if [ -z "${DB_SEEDER_CONNECTION_HOST}" ]; then
