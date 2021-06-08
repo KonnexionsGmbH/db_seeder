@@ -120,11 +120,11 @@ Release Date: dd.mm.2021
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 
 - Docker Desktop Community: 3.0.4
-- Eclipse: 2021.03 (from ) 
-- Gradle: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
-- Java Version 16 (e.g.: 16.0.1 from [here](https://jdk.java.net/16))
+- Eclipse IDE: 2021.03 (from ) 
+- Gradle Build Tool: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
+- open-source JDK Version 16 (e.g.: 16.0.1 from [here](https://jdk.java.net/16))
 
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
 #### New Features
 
@@ -152,11 +152,11 @@ Release Date: 04.06.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 16 (e.g.: 16.0.1 from [here](https://jdk.java.net/16/))
+- open-source JDK Version 16 (e.g.: 16.0.1 from [here](https://jdk.java.net/16/))
 
-- Gradle: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
+- Gradle Build Tool: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
 
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
 #### New Features
 
@@ -186,11 +186,11 @@ Release Date: 28.05.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 16 (e.g.: 16.0.1 from [here](https://jdk.java.net/16/))
+- open-source JDK Version 16 (e.g.: 16.0.1 from [here](https://jdk.java.net/16/))
 
-- Gradle: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
+- Gradle Build Tool: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
 
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
 #### Modified Features
 
@@ -228,12 +228,12 @@ Release Date: 01.04.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 
-- Gradle: 6.8.3   
+- Gradle Build Tool: 6.8.3   
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
 #### Modified Features
 
@@ -269,12 +269,12 @@ Release Date: 03.03.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 
-- Gradle: 6.8.3
+- Gradle Build Tool: 6.8.3
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
 #### New Features
 
@@ -294,9 +294,9 @@ Release Date: 27.02.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
 #### Modified Features
 
@@ -330,9 +330,9 @@ Release Date: 28.01.2021
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4  
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2020-12\eclipse`
 
 #### New Features
 
@@ -369,7 +369,7 @@ Release Date: 28.11.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -432,7 +432,7 @@ Release Date: 27.10.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -495,7 +495,7 @@ Release Date: 05.10.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -542,7 +542,7 @@ Release Date: 29.09.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 15 (e.g.: from [here](https://jdk.java.net/15/))
+- open-source JDK Version 15 (e.g.: from [here](https://jdk.java.net/15/))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -592,7 +592,7 @@ Release Date: 30.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -631,7 +631,7 @@ Release Date: 27.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -667,7 +667,7 @@ Release Date: 26.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -709,7 +709,7 @@ Release Date: 18.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -748,7 +748,7 @@ Release Date: 17.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -783,7 +783,7 @@ Release Date: 13.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -815,7 +815,7 @@ Release Date: 13.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -858,7 +858,7 @@ Release Date: 11.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -900,7 +900,7 @@ Release Date: 02.08.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -932,7 +932,7 @@ Release Date: 14.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -960,7 +960,7 @@ Release Date: 13.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -990,7 +990,7 @@ Release Date: 10.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 - grep utility, e.g. for Windows from [here](http://gnuwin32.sourceforge.net/packages/grep.htm)
 
 #### Current Issues
@@ -1034,7 +1034,7 @@ Release Date: 06.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1055,7 +1055,7 @@ Release Date: 01.07.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1076,7 +1076,7 @@ Release Date: 29.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1097,7 +1097,7 @@ Release Date: 26.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1120,7 +1120,7 @@ Release Date: 26.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1145,7 +1145,7 @@ Release Date: 21.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### Current Issues
 
@@ -1178,7 +1178,7 @@ Release Date: 16.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1193,7 +1193,7 @@ Release Date: 15.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1208,7 +1208,7 @@ Release Date: 14.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1223,7 +1223,7 @@ Release Date: 12.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1238,7 +1238,7 @@ Release Date: 10.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1253,7 +1253,7 @@ Release Date: 06.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 
@@ -1278,7 +1278,7 @@ Release Date: 01.06.2020
 #### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Java Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
+- open-source JDK Version 14 (e.g.: from [here](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot))
 
 #### New Features
 

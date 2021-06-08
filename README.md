@@ -28,7 +28,7 @@
 
 ## <a name="introduction"></a> 1. Introduction
 
-**`DBSeeder`** allows the generation of large amounts of anonymized random dummy data for selected relational database systems (RDBMS) - useful e.g. for stress testing.
+**`DBSeeder`** allows the flexible generation of large amounts of anonymised random dummy data for selected relational database systems (RDBMS) - useful e.g. for stress testing.
 
 The database schema underlying the data generation can be freely defined.
 The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions.
@@ -238,7 +238,7 @@ Details can be found here: [6. trino](#trino).
 
 ### <a name="performance_example"></a> 1.3 Performance Example
 
-An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of data generation (`INSERT`) between the databases (e.g. Version 2.9.0 Windows 10):   
+An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.0 Windows 10):   
 
 ![](.README_images/Company_2.9.0_win10.png)
 
@@ -422,7 +422,11 @@ Java method: `getContentVarchar`
 
 The easiest way is to download a current release of **`DBSeeder`** from the GitHub repository.
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
-The system requirements are described in the respective release notes. 
+
+To download the repository [Git](https://git-scm.com) is needed and for compilation the [Gradle Build Tool](https://gradle.org) and the [oppen-source JDK](https://openjdk.java.net) are needed.
+For changes to the **`DBSeeder`** repository it is best to use an editor (e.g. [Vim](https://www.vim.org)) or an IDE (e.g. [Eclipse IDE](https://www.eclipse.org)).
+For using the Docker Images database in operational mode, [Docker Desktop](https://www.docker.com/products/docker-desktop) must also be installed.
+For the respective software versions, please consult the document [release notes](Release-Notes.md).
 
 [//]: # (===========================================================================================)
 

@@ -8,9 +8,9 @@
 
 ## 2. Compiling
 
-The best way to compile is with Gradle and the statement `build copyJarToLib`. 
+The best way to compile is with the Gradle Build Tool and the statement `build copyJarToLib`. 
 This creates the JAR file `db_seeder.jar` in the directory `lib`.
-Java must be installed at least in version 15.
+The open-source JDK must be installed at least in version 15.
 
 ## 3. Running
 
