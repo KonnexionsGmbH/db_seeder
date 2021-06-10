@@ -473,60 +473,28 @@ Besides one of the two operating systems, these are the minimum requirements for
 
 Details on the required software versions can be found in the [release notes](Release-Notes.md).
 
-#### 4.2.1 Ubuntu 20.04 LTS (including VMware)
+#### 4.2.1 Special Features for the Operation with Ubuntu
 
-- **Requirements**:
+- A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
+
+- In the directory `scripts` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
     - Ubuntu 20.04 installed directly or via VMware
     - run `sudo apt update`
     - run `sudo apt install dos2unix git`
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
-    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
+    - run `./scripts/run_install_4_vm_wsl2_1.sh`
     - close the Ubuntu shell and reopen it again
     - run `cd db_seeder`
+    - run `./scripts/run_install_4_vm_wsl2_2.sh`
     - run `gradle copyJarToLib`
-- **Execution**: run `./run_db_seeder.sh`
+    - run `./run_db_seeder.sh`
 
-#### 4.2.1 Ubuntu 20.04 LTS and [DBSeeder Image](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)
+- If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
-- **Requirements**:
-    - pull the `DBSeeder` image from DockerHub: `docker pull konnexionsgmbh/db_seeder:latest`
-    - create an appropriate container: `docker run -it --name db_seeder -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/db_seeder:latest bash`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - run `gradle copyJarToLib`
-- **Execution**: `./run_db_seeder.sh`
-
-#### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
-
-- **Requirements**:
-    - install Ubuntu 20.04 from Microsoft Marketplace
-    - run `sudo apt update`  
-    - run `sudo apt install dos2unix`
-    - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
-   
 ![](.README_images/Docker_Desktop_Settings_1.png)
 
 ![](.README_images/Docker_Desktop_Settings_2.png)
-
-- **Requirements (continued)**:
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
-    - close the Ubuntu shell and reopen it again
-    - run `cd db_seeder`
-    - run `gradle copyJarToLib`
-- **Execution**: run `./run_db_seeder.sh`
-
-#### 4.2.3 Windows 10 Pro
-
-- **Requirements**:
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-- **Execution**: run `run_db_seeder.bat`
 
 ### <a name="operating_instructions_control"></a> 4.3 Control Parameters
  
