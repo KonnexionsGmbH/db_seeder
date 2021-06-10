@@ -273,7 +273,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
     set DB_SEEDER_DATABASE=.\tmp\hsqldb_kxn_db
     set DB_SEEDER_DBMS_EMBEDDED=yes
     set DB_SEEDER_PASSWORD=hsqldb
-    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SA
 )

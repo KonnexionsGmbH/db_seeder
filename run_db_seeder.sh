@@ -271,7 +271,6 @@ if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
     export DB_SEEDER_DATABASE=./tmp/hsqldb_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
     export DB_SEEDER_PASSWORD=hsqldb
-    export DB_SEEDER_SCHEMA=kxn_schema
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=SA
 fi

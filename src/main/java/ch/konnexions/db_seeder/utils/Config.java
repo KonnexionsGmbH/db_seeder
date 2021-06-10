@@ -377,7 +377,8 @@ public final class Config {
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_PREFIX")) {
-      connectionPrefix = environmentVariables.get("DB_SEEDER_CONNECTION_PREFIX");
+      connectionPrefix = environmentVariables.get("DB_SEEDER_CONNECTION_PREFIX").replace("\"",
+                                                                                         "");
       propertiesConfiguration.setProperty("db_seeder.connection.prefix",
                                           connectionPrefix);
     }
@@ -389,7 +390,8 @@ public final class Config {
     }
 
     if (environmentVariables.containsKey("DB_SEEDER_CONNECTION_SUFFIX")) {
-      connectionSuffix = environmentVariables.get("DB_SEEDER_CONNECTION_SUFFIX");
+      connectionSuffix = environmentVariables.get("DB_SEEDER_CONNECTION_SUFFIX").replace("\"",
+                                                                                         "");
       propertiesConfiguration.setProperty("db_seeder.connection.suffix",
                                           connectionSuffix);
     }
