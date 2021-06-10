@@ -28,7 +28,7 @@ fi
 export DB_SEEDER_DBMS_DERBY_EMB=yes
 export DB_SEEDER_DBMS_H2_EMB=yes
 export DB_SEEDER_DBMS_HSQLDB_EMB=yes
-export DB_SEEDER_DBMS_SQLITE=yes
+export DB_SEEDER_DBMS_SQLITE_EMB=yes
 
 # ------------------------------------------------------------------------------
 # Initialise Statistics.
@@ -53,7 +53,7 @@ echo "--------------------------------------------------------------------------
 echo "DBMS_DERBY_EMB                  : ${DB_SEEDER_DBMS_DERBY_EMB}"
 echo "DBMS_H2_EMB                     : ${DB_SEEDER_DBMS_H2_EMB}"
 echo "DBMS_HSQLDB_EMB                 : ${DB_SEEDER_DBMS_HSQLDB_EMB}"
-echo "DBMS_SQLITE                     : ${DB_SEEDER_DBMS_SQLITE}"
+echo "DBMS_SQLITE_EMB                 : ${DB_SEEDER_DBMS_SQLITE_EMB}"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
@@ -98,7 +98,7 @@ fi
 # SQLite.
 # ------------------------------------------------------------------------------
 
-if [ "${DB_SEEDER_DBMS_SQLITE}" = "yes" ]; then
+if [ "${DB_SEEDER_DBMS_SQLITE_EMB}" = "yes" ]; then
     if ! ( ./run_db_seeder.sh sqlite yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi    

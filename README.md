@@ -575,9 +575,9 @@ Performance data for the different versions of **`DBSeeder`** can be found in th
 
 The different file name patterns result from the following operating system environments:
 
-- `..._vmware.tsv`: Ubuntu 21.04.2.0 LTS with VMware Workstation Player on Windows 10
-- `...._win10.tsv`: Windows 10
-- `....._wsl2.tsv`: Ubuntu 21.04.2.0 LTS with Windows Subsystem for Linux on Windows 10
+- `..._vmware.tsv`: Ubuntu with VMware Workstation Player on Windows
+- `...._win10.tsv`: Windows
+- `....._wsl2.tsv`: Ubuntu LTS with Windows Subsystem for Linux on Windows
 
 [//]: # (===========================================================================================)
 

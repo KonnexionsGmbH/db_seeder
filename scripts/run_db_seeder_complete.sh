@@ -50,7 +50,7 @@ export DB_SEEDER_DBMS_ORACLE_TRINO=yes
 export DB_SEEDER_DBMS_PERCONA=yes
 export DB_SEEDER_DBMS_POSTGRESQL=yes
 export DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
-export DB_SEEDER_DBMS_SQLITE=yes
+export DB_SEEDER_DBMS_SQLITE_EMB=yes
 export DB_SEEDER_DBMS_SQLSERVER=yes
 export DB_SEEDER_DBMS_SQLSERVER_TRINO=yes
 export DB_SEEDER_DBMS_VOLTDB=no
@@ -100,7 +100,7 @@ echo "DBMS_ORACLE_TRINO               : ${DB_SEEDER_DBMS_ORACLE_TRINO}"
 echo "DBMS_PERCONA                    : ${DB_SEEDER_DBMS_PERCONA}"
 echo "DBMS_POSTGRESQL                 : ${DB_SEEDER_DBMS_POSTGRESQL}"
 echo "DBMS_POSTGRESQL_TRINO           : ${DB_SEEDER_DBMS_POSTGRESQL_TRINO}"
-echo "DBMS_SQLITE                     : ${DB_SEEDER_DBMS_SQLITE}"
+echo "DBMS_SQLITE_EMB                 : ${DB_SEEDER_DBMS_SQLITE_EMB}"
 echo "DBMS_SQLSERVER                  : ${DB_SEEDER_DBMS_SQLSERVER}"
 echo "DBMS_SQLSERVER_TRINO            : ${DB_SEEDER_DBMS_SQLSERVER_TRINO}"
 echo "DBMS_VOLTDB                     : ${DB_SEEDER_DBMS_VOLTDB}"
@@ -397,7 +397,7 @@ fi
 # SQLite.
 # ------------------------------------------------------------------------------
 
-if [ "${DB_SEEDER_DBMS_SQLITE}" = "yes" ]; then
+if [ "${DB_SEEDER_DBMS_SQLITE_EMB}" = "yes" ]; then
     if ! ( ./run_db_seeder.sh sqlite yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi

@@ -254,7 +254,7 @@ fi
 if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
     export DB_SEEDER_CONNECTION_PORT=9001
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
-    export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
+    export DB_SEEDER_CONNECTION_SUFFIX=";hsqldb.default_table_type=cached;ifexists=false;shutdown=true"
     export DB_SEEDER_CONTAINER_PORT=9001
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_PASSWORD=hsqldb
@@ -267,7 +267,7 @@ fi
 
 if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
-    export DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
+    export DB_SEEDER_CONNECTION_SUFFIX=";hsqldb.default_table_type=cached;ifexists=false;shutdown=true"
     export DB_SEEDER_DATABASE=./tmp/hsqldb_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes
     export DB_SEEDER_PASSWORD=hsqldb

@@ -48,7 +48,7 @@ set DB_SEEDER_DBMS_ORACLE_TRINO=yes
 set DB_SEEDER_DBMS_PERCONA=yes
 set DB_SEEDER_DBMS_POSTGRESQL=yes
 set DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
-set DB_SEEDER_DBMS_SQLITE=yes
+set DB_SEEDER_DBMS_SQLITE_EMB=yes
 set DB_SEEDER_DBMS_SQLSERVER=yes
 set DB_SEEDER_DBMS_SQLSERVER_TRINO=yes
 set DB_SEEDER_DBMS_VOLTDB=yes
@@ -104,7 +104,7 @@ echo.
     echo DBMS_PERCONA                    : %DB_SEEDER_DBMS_PERCONA%
     echo DBMS_POSTGRESQL                 : %DB_SEEDER_DBMS_POSTGRESQL%
     echo DBMS_POSTGRESQL_TRINO           : %DB_SEEDER_DBMS_POSTGRESQL_TRINO%
-    echo DBMS_SQLITE                     : %DB_SEEDER_DBMS_SQLITE%
+    echo DBMS_SQLITE_EMB                 : %DB_SEEDER_DBMS_SQLITE_EMB%
     echo DBMS_SQLSERVER                  : %DB_SEEDER_DBMS_SQLSERVER%
     echo DBMS_SQLSERVER_TRINO            : %DB_SEEDER_DBMS_SQLSERVER_TRINO%
     echo DBMS_VOLTDB                     : %DB_SEEDER_DBMS_VOLTDB%
@@ -459,7 +459,7 @@ echo.
     rem SQLite.
     rem ------------------------------------------------------------------------------
 
-    if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
+    if ["%DB_SEEDER_DBMS_SQLITE_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat sqlite yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%

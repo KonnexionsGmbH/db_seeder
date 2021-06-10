@@ -26,7 +26,7 @@ if ["%1"] EQU [""] (
 set DB_SEEDER_DBMS_DERBY_EMB=yes
 set DB_SEEDER_DBMS_H2_EMB=yes
 set DB_SEEDER_DBMS_HSQLDB_EMB=yes
-set DB_SEEDER_DBMS_SQLITE=yes
+set DB_SEEDER_DBMS_SQLITE_EMB=yes
 
 echo.
 echo Script %0 is now running
@@ -56,7 +56,7 @@ echo.
     echo DBMS_DERBY_EMB                  : %DB_SEEDER_DBMS_DERBY_EMB%
     echo DBMS_H2_EMB                     : %DB_SEEDER_DBMS_H2_EMB%
     echo DBMS_HSQLDB_EMB                 : %DB_SEEDER_DBMS_HSQLDB_EMB%
-    echo DBMS_SQLITE                     : %DB_SEEDER_DBMS_SQLITE%
+    echo DBMS_SQLITE_EMB                 : %DB_SEEDER_DBMS_SQLITE_EMB%
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
@@ -101,7 +101,7 @@ echo.
     rem SQLite.
     rem ------------------------------------------------------------------------------
     
-    if ["%DB_SEEDER_DBMS_SQLITE%"] EQU ["yes"] (
+    if ["%DB_SEEDER_DBMS_SQLITE_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat sqlite yes %DB_SEEDER_NO_CREATE_RUNS%
         if %ERRORLEVEL% NEQ 0 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
