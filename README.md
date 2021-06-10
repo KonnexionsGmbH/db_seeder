@@ -18,7 +18,7 @@
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
-**[4.2 Execution Variations](#operating_instructions_execution)**<br>
+**[4.2 Operation Possibilities](#operation_possibilities)**<br>
 **[4.3 Control Parameters](#operating_instructions_control)**<br>
 **[4.4 Statistics](#operating_instructions_statistics)**<br>
 **[5. RDBMS Specific Technical Details](#rdbms_specifica)**<br>
@@ -266,53 +266,29 @@ The definition of a database schema consists of the object `global` with the glo
 ##### 2.1.1.2 `tables` - Database Table Definitions
 
 - `tableName` - database table name
-
 - `numberOfRows` - number of table rows to be generated
-
 - `columns` - an array of column definitions
-
   - `columnName` - column name
-
   - `dataType` - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR
-
   - `size` - for data type VARCHAR the maximum size of the column value 
-
   - `precision` - currently not used
-
   - `notNull` - is a NULL value allowed ?
-
   - `primaryKey` - is this the primary key column ?
-
   - `references` - an array of foreign key definitions
-
     - `referenceTable` - name of the reference database table
-
     - `referenceColumn` - name of the reference column 
-
   - `defaultValueInteger` - default value for integer columns
-
   - `defaultValueString` - default value for alphanumeric columns
-
   - `lowerRangeInteger` - lower limit for an integer column, requires also an upper limit
-
   - `lowerRangeString` - lower limit for an alphanumeric column, requires also an upper limit
-
   - `upperRangeInteger` - upper limit for an integer column
-
   - `upperRangeString` - upper limit for an alphanumeric column
-
   - `validValuesInteger` - valid values for an integer column
-
   - `validValuesString` - valid values for an alphanumeric column
-
 - `tableConstraints` - an array of table constraint definitions
-
   - `constraintType` - constraint type, is one of FOREIGN, PRIMARY or UNIQUE
-
   - `columns` - an arry with the names of the affected columns
-
   - `referenceTable` - name of the reference database table, only for foreign keys
-
   - `referenceColumns` - an arry with the names of the affected reference columns, only for foreign keys
 
 Only either a range restriction (`lowerRange...`, `upperRange...`) or a value restriction (`validValues...`) may be specified for each column.
@@ -484,7 +460,18 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 [//]: # (===========================================================================================)
 
-### <a name="operating_instructions_execution"></a> 4.2 Execution Variations
+### <a name="operation_possibilities"></a> 4.2 Operation Possibilities
+
+**`DBSeeder`** is tested under [Ubuntu](https://ubuntu.com) and [Microsoft Windows](https://en.wikipedia.org/wiki/Microsoft_Windows).
+In addition, tests are always performed in Windows with Ubuntu under the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl).
+Besides one of the two operating systems, these are the minimum requirements for running **`DBSeeder`**:
+
+- [Docker Desktop Community](https://www.docker.com/products/docker-desktop)
+- [Eclipse IDE](https://www.eclipse.org)
+- [Gradle Build Tool](https://gradle.org)
+- [Java Development Kit](https://en.wikipedia.org/wiki/Java_Development_Kit)
+
+Details on the required software versions can be found in the [release notes](Release-Notes.md).
 
 #### 4.2.1 Ubuntu 20.04 LTS (including VMware)
 
@@ -492,12 +479,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - Ubuntu 20.04 installed directly or via VMware
     - run `sudo apt update`
     - run `sudo apt install dos2unix git`
-    - add the following lines to `.bash_profile`:
-  
-          if [ -f ~/.bashrc ]; then
-              source ~/.bashrc
-          fi
-  
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
@@ -506,9 +487,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `cd db_seeder`
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
-- **Issues**:
-    - trino and SQL Server Connector
-    - YugabyteDB and Docker image
 
 #### 4.2.1 Ubuntu 20.04 LTS and [DBSeeder Image](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)
 
@@ -520,8 +498,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
     - run `gradle copyJarToLib`
 - **Execution**: `./run_db_seeder.sh`
-- **Issues**:
-  - trino and SQL Server Connector
 
 #### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
 
@@ -529,12 +505,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - install Ubuntu 20.04 from Microsoft Marketplace
     - run `sudo apt update`  
     - run `sudo apt install dos2unix`
-    - add the following lines to `.bash_profile`:
-      
-          if [ -f ~/.bashrc ]; then
-              source ~/.bashrc
-          fi
-      
     - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
    
 ![](.README_images/Docker_Desktop_Settings_1.png)
@@ -550,9 +520,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `cd db_seeder`
     - run `gradle copyJarToLib`
 - **Execution**: run `./run_db_seeder.sh`
-- **Issues**:
-    - trino and SQL Server Connector
-    - YugabyteDB and Docker image
 
 #### 4.2.3 Windows 10 Pro
 
@@ -560,10 +527,6 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
 - **Execution**: run `run_db_seeder.bat`
-- **Issues**:
-    - trino and SQL Server Connector
-    - YugabyteDB and Docker image
-
 
 ### <a name="operating_instructions_control"></a> 4.3 Control Parameters
  

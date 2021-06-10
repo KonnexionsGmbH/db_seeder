@@ -120,9 +120,9 @@ Release Date: dd.mm.2021
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 
 - Docker Desktop Community: 3.0.4
-- Eclipse IDE: 2021.03 (from ) 
+- Eclipse IDE: 2021.03 (from [Eclipse Download Page](https://www.eclipse.org/downloads/)) 
 - Gradle Build Tool: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
-- open-source JDK Version 16 (e.g.: 16.0.1 from [here](https://jdk.java.net/16))
+- Java Development Kit 16, (e.g. open-source JDK Version 16.0.1 from [here](https://jdk.java.net/16))
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
