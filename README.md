@@ -473,7 +473,7 @@ Besides one of the two operating systems, these are the minimum requirements for
 
 Details on the required software versions can be found in the [release notes](Release-Notes.md).
 
-#### 4.2.1 Special Features for the Operation with Ubuntu
+#### Special Features for the Operation with Ubuntu
 
 - A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
 
@@ -568,7 +568,19 @@ db_seeder.user=
 [//]: # (===========================================================================================)
 
 ### <a name="operating_instructions_statistics"></a> 4.4 Statistics
- 
+
+Performance data for the different versions of **`DBSeeder`** can be found in the file directory `resources/statistics`:
+
+![](.README_images/Statistics_Directory.png)
+
+The different file name patterns result from the following system environments:
+
+- `..._vmware.tsv`: Ubuntu 21.04.2.0 LTS with VMware Workstation Player on Windows 10
+- `...._win10.tsv`: Windows 10
+- `....._wsl2.tsv`: Ubuntu 21.04.2.0 LTS with Windows Subsystem for Linux on Windows 10
+
+[//]: # (===========================================================================================)
+
 ## <a name="rdbms_specifica"></a> 5. RDBMS Specific Technical Details
 
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
