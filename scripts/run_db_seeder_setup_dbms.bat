@@ -22,9 +22,6 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
     echo Docker stop/rm db_seeder_db ................................ before:
     echo "1 docker ps -a"
     docker ps -a
-    if ["%DB_SEEDER_DBMS_DB%"] == ["exasol"] (
-        docker ps | find "db_seeder_db" && docker exec -ti db_seeder_db dwad_client stop-wait DB1
-    )
     docker ps | find "db_seeder_db" && docker stop db_seeder_db
     docker ps -a | find "db_seeder_db" && docker rm --force db_seeder_db
     echo ............................................................. after:
