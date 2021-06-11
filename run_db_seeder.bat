@@ -78,6 +78,12 @@ if ["%2"] EQU [""] (
     set DB_SEEDER_SETUP_DBMS=%2
 )
 
+if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
+    if ["%DB_SEEDER_SETUP_DBMS%"] NEQ ["yes"] (
+        set DB_SEEDER_SETUP_DBMS=yes
+    )
+)
+
 if ["%3"] EQU [""] (
     set /P DB_SEEDER_NO_CREATE_RUNS="Number of data creation runs (0-2) [default: %DB_SEEDER_NO_CREATE_RUNS_DEFAULT%] "
 

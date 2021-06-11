@@ -238,9 +238,9 @@ Details can be found here: [6. trino](#trino).
 
 ### <a name="performance_example"></a> 1.3 Performance Example
 
-An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.0 Windows 10):   
+An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.1 Windows 10):   
 
-![](.README_images/Company_2.9.0_win10.png)
+![](.README_images/Company_9.9.9_win10.png)
 
 [//]: # (===========================================================================================)
 

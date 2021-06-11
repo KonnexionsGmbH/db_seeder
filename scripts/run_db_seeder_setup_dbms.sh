@@ -516,7 +516,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
         exit 255
     fi
 
-    sleep 30
+    sleep 60
 
     docker network ls
     docker network inspect db_seeder_net
