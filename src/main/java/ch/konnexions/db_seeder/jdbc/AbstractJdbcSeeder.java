@@ -472,10 +472,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         if (rowNo % batchSize == 0) {
           preparedStatement.executeBatch();
           isToBeExecuted = false;
-
-          if (dbmsEnum == DbmsEnum.MONETDB) {
-            preparedStatement.clearBatch();
-          }
         } else {
           isToBeExecuted = true;
         }
@@ -490,10 +486,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       if (isToBeExecuted) {
         preparedStatement.executeBatch();
-
-        if (dbmsEnum == DbmsEnum.MONETDB) {
-          preparedStatement.clearBatch();
-        }
       }
 
       preparedStatement.close();

@@ -131,8 +131,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     connection = connect(urlUser,
                          null,
                          userName,
-                         password,
-                         true);
+                         password);
 
     try {
       statement = connection.createStatement();

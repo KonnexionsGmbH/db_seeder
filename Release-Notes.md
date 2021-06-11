@@ -61,54 +61,6 @@
     
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
-### 1.3 VoltDB
-
-- java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
-
-2021-04-23 15:51:09,814 [DatabaseSeeder.java] INFO  Start
-2021-04-23 15:51:09,827 [DatabaseSeeder.java] INFO  tickerSymbolExtern='voltdb'
-2021-04-23 15:51:09,828 [DatabaseSeeder.java] INFO  Start VoltDB
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
-
-      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-      at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
-      at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
-      at java.base/java.lang.Thread.run(Thread.java:831)
-Apr. 23, 2021 3:51:10 PM org.voltcore.logging.VoltUtilLoggingLogger log
-SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
-java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
-
-      at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
-      at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
-      at java.base/java.lang.Thread.run(Thread.java:831)
-Apr. 23, 2021 3:51:10 PM org.voltcore.logging.VoltUtilLoggingLogger log
-SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
-Apr. 23, 2021 3:53:11 PM org.voltcore.logging.VoltUtilLoggingLogger log
-WARNING: Connection to VoltDB node at: localhost:21212 was lost.
-java.sql.SQLException: Connection closed (CONNECTION_LOST): 'Connection to database host (localhost/127.0.0.1:21212) was lost before a response was received'
-
-      at org.voltdb.jdbc.SQLError.get(SQLError.java:60)
-      at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:133)
-      at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:376)
-      at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:387)
-      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropAllTablesIfExists(AbstractJdbcSeeder.java:638)
-      at ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder.setupDatabase(VoltdbSeeder.java:102)
-      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-      at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:230)
-      Caused by: org.voltdb.client.ProcCallException: Connection to database host (localhost/127.0.0.1:21212) was lost before a response was received
-      at org.voltdb.client.ClientImpl.internalSyncCallProcedure(ClientImpl.java:461)
-      at org.voltdb.client.ClientImpl.callProcedureWithClientTimeoutImpl(ClientImpl.java:311)
-      at org.voltdb.client.ClientImpl.callProcedureWithClientTimeout(ClientImpl.java:285)
-      at org.voltdb.jdbc.JDBC4ClientConnection.execute(JDBC4ClientConnection.java:351)
-      at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:122)
-      ... 6 more`
-Processing of the script was aborted, error code=1
-
 ## <a name="version_history"></a> 2. Version History
 
 ### 2.9.1
@@ -122,7 +74,7 @@ Release Date: dd.mm.2021
 - Docker Desktop Community: 3.0.4
 - Eclipse IDE: 2021.03 (from [Eclipse Download Page](https://www.eclipse.org/downloads/)) 
 - Gradle Build Tool: 7 (e.g.: v7.0.2 from [here](https://gradle.org/releases/))
-- Java Development Kit 16, (e.g. open-source JDK Version 16.0.1 from [here](https://jdk.java.net/16))
+- Java Development Kit 15, (e.g. open-source JDK Version 15 from [here](https://jdk.java.net/java-se-ri/15))
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
@@ -135,6 +87,10 @@ n/a
 - CockroachDB: DBMS v21.1.2
 
 - Exasol: DBMS 7.0.10
+
+- HSQLDB embedded: very big performance improvement after fixing a bug
+
+- MonetDB: big performance improvement after introducing manual commit
 
 - xxx: DBMS 999 / JDBC 999
 

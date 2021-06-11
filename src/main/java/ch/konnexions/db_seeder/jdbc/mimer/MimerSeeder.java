@@ -145,8 +145,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         true);
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();
