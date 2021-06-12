@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
 /**
- * Test Data Generator for a Database - Abstract Generated Schema.
+ * Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  CreateSummaryFile.class
  * @version 2.9.1

@@ -22,9 +22,6 @@ echo ---------------------------------------------------------------------------
 if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "no" ]; then
     echo "Docker stop/rm db_seeder_db ................................ before:"
     docker ps -a
-    if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
-        docker ps | grep "db_seeder_db" && docker exec -ti db_seeder_db dwad_client stop-wait DB1
-    fi
     docker ps | grep "db_seeder_db" && docker stop db_seeder_db
     docker ps -a | grep "db_seeder_db" && docker rm --force db_seeder_db
     echo "............................................................. after:"
@@ -516,7 +513,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
         exit 255
     fi
 
-    sleep 30
+    sleep 60
 
     docker network ls
     docker network inspect db_seeder_net

@@ -267,7 +267,7 @@ public class I72 {
   }
 
   public static void main(String[] args) throws Exception {
-    Class.forName("nl.cwi.monetdb.jdbc.MonetDriver");
+    Class.forName("org.monetdb.jdbc.MonetDriver");
     String     url        = "jdbc:monetdb://localhost:50000/demo";
     Connection connection = DriverManager.getConnection(url,
                                                         "monetdb",

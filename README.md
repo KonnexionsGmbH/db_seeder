@@ -18,7 +18,7 @@
 **[3. Installation](#installation)**<br>
 **[4. Operating Instructions](#operating_instructions)**<br>
 **[4.1 Scripts](#operating_instructions_scripts)**<br>
-**[4.2 Execution Variations](#operating_instructions_execution)**<br>
+**[4.2 Operation Possibilities](#operation_possibilities)**<br>
 **[4.3 Control Parameters](#operating_instructions_control)**<br>
 **[4.4 Statistics](#operating_instructions_statistics)**<br>
 **[5. RDBMS Specific Technical Details](#rdbms_specifica)**<br>
@@ -238,9 +238,9 @@ Details can be found here: [6. trino](#trino).
 
 ### <a name="performance_example"></a> 1.3 Performance Example
 
-An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.0 Windows 10):   
+An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.1 Windows 10):   
 
-![](.README_images/Company_2.9.0_win10.png)
+![](.README_images/Company_9.9.9_win10.png)
 
 [//]: # (===========================================================================================)
 
@@ -266,53 +266,29 @@ The definition of a database schema consists of the object `global` with the glo
 ##### 2.1.1.2 `tables` - Database Table Definitions
 
 - `tableName` - database table name
-
 - `numberOfRows` - number of table rows to be generated
-
 - `columns` - an array of column definitions
-
   - `columnName` - column name
-
   - `dataType` - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR
-
   - `size` - for data type VARCHAR the maximum size of the column value 
-
   - `precision` - currently not used
-
   - `notNull` - is a NULL value allowed ?
-
   - `primaryKey` - is this the primary key column ?
-
   - `references` - an array of foreign key definitions
-
     - `referenceTable` - name of the reference database table
-
     - `referenceColumn` - name of the reference column 
-
   - `defaultValueInteger` - default value for integer columns
-
   - `defaultValueString` - default value for alphanumeric columns
-
   - `lowerRangeInteger` - lower limit for an integer column, requires also an upper limit
-
   - `lowerRangeString` - lower limit for an alphanumeric column, requires also an upper limit
-
   - `upperRangeInteger` - upper limit for an integer column
-
   - `upperRangeString` - upper limit for an alphanumeric column
-
   - `validValuesInteger` - valid values for an integer column
-
   - `validValuesString` - valid values for an alphanumeric column
-
 - `tableConstraints` - an array of table constraint definitions
-
   - `constraintType` - constraint type, is one of FOREIGN, PRIMARY or UNIQUE
-
   - `columns` - an arry with the names of the affected columns
-
   - `referenceTable` - name of the reference database table, only for foreign keys
-
   - `referenceColumns` - an arry with the names of the affected reference columns, only for foreign keys
 
 Only either a range restriction (`lowerRange...`, `upperRange...`) or a value restriction (`validValues...`) may be specified for each column.
@@ -423,9 +399,9 @@ Java method: `getContentVarchar`
 The easiest way is to download a current release of **`DBSeeder`** from the GitHub repository.
 You can find the necessary link [here](https://github.com/KonnexionsGmbH/db_seeder).
 
-To download the repository [Git](https://git-scm.com) is needed and for compilation the [Gradle Build Tool](https://gradle.org) and the [oppen-source JDK](https://openjdk.java.net) are needed.
+To download the repository [Git](https://git-scm.com) is needed and for compilation the [Gradle Build Tool](https://gradle.org) and the [open-source JDK](https://openjdk.java.net) are needed.
 For changes to the **`DBSeeder`** repository it is best to use an editor (e.g. [Vim](https://www.vim.org)) or an IDE (e.g. [Eclipse IDE](https://www.eclipse.org)).
-For using the Docker Images database in operational mode, [Docker Desktop](https://www.docker.com/products/docker-desktop) must also be installed.
+For using the Docker Image based databases in operational mode, [Docker Desktop](https://www.docker.com/products/docker-desktop) must also be installed.
 For the respective software versions, please consult the document [release notes](Release-Notes.md).
 
 [//]: # (===========================================================================================)
@@ -448,7 +424,7 @@ To run the scripts, apart from the prerequisites as release notes (`ReleaseNotes
 only the libraries in the `lib` directory and the corresponding script of `run_db_seeder` are required. 
 The creation of the databases also requires a working access to [Docker Hub](https://hub.docker.com/).
  
-All control parameters used in **`DBSeeder`** (see section 4.2) can be adapted in the scripts to specific needs.
+All control parameters used in **`DBSeeder`** (see section 4.3) can be adapted in the scripts to specific needs.
 
 The `run_db_seeder` script is controlled by the following script parameters:: 
 
@@ -461,9 +437,9 @@ The `run_db_seeder` script is controlled by the following script parameters::
   - 2: two runs
   - otherwise: no run
 
-For the run variants `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources\statistics` by default:
+For the run variants `complete`, `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources/statistics` by default:
 
-    db_seeder_<bash | cmd>_<db_type>_unknown_<DBSeeder release>.tsv
+    db_seeder_<bash | cmd>_<run variant>_unknown_<DBSeeder release>.tsv
 
 An overview of the structure of the scripts used can be taken from the following diagram:
 
@@ -484,86 +460,41 @@ The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statisti
 
 [//]: # (===========================================================================================)
 
-### <a name="operating_instructions_execution"></a> 4.2 Execution Variations
+### <a name="operation_possibilities"></a> 4.2 Operation Possibilities
 
-#### 4.2.1 Ubuntu 20.04 LTS (including VMware)
+**`DBSeeder`** is tested under [Ubuntu](https://ubuntu.com) and [Microsoft Windows](https://en.wikipedia.org/wiki/Microsoft_Windows).
+In addition, tests are always performed in Windows with Ubuntu under the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl).
+Besides one of the two operating systems, these are the minimum requirements for running **`DBSeeder`**:
 
-- **Requirements**:
+- [Docker Desktop Community](https://www.docker.com/products/docker-desktop)
+- [Eclipse IDE](https://www.eclipse.org)
+- [Gradle Build Tool](https://gradle.org)
+- [Java Development Kit](https://en.wikipedia.org/wiki/Java_Development_Kit)
+
+Details on the required software versions can be found in the [release notes](Release-Notes.md).
+
+#### Special Features for the Operation with Ubuntu
+
+- A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
+
+- In the directory `scripts` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
     - Ubuntu 20.04 installed directly or via VMware
     - run `sudo apt update`
     - run `sudo apt install dos2unix git`
-    - add the following lines to `.bash_profile`:
-  
-          if [ -f ~/.bashrc ]; then
-              source ~/.bashrc
-          fi
-  
     - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
     - run `cd db_seeder`
-    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
+    - run `./scripts/run_install_4_vm_wsl2_1.sh`
     - close the Ubuntu shell and reopen it again
     - run `cd db_seeder`
+    - run `./scripts/run_install_4_vm_wsl2_2.sh`
     - run `gradle copyJarToLib`
-- **Execution**: run `./run_db_seeder.sh`
-- **Issues**:
-    - trino and SQL Server Connector
-    - YugabyteDB and Docker image
+    - run `./run_db_seeder.sh`
 
-#### 4.2.1 Ubuntu 20.04 LTS and [DBSeeder Image](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)
+- If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
-- **Requirements**:
-    - pull the `DBSeeder` image from DockerHub: `docker pull konnexionsgmbh/db_seeder:latest`
-    - create an appropriate container: `docker run -it --name db_seeder -v /var/run/docker.sock:/var/run/docker.sock konnexionsgmbh/db_seeder:latest bash`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - run `gradle copyJarToLib`
-- **Execution**: `./run_db_seeder.sh`
-- **Issues**:
-  - trino and SQL Server Connector
-
-#### 4.2.2 Ubuntu 20.04 LTS and Windows Subsystem Linux 2
-
-- **Requirements**:
-    - install Ubuntu 20.04 from Microsoft Marketplace
-    - run `sudo apt update`  
-    - run `sudo apt install dos2unix`
-    - add the following lines to `.bash_profile`:
-      
-          if [ -f ~/.bashrc ]; then
-              source ~/.bashrc
-          fi
-      
-    - activate the `WSL INTEGRATION` for Ubuntu 20.04 in Docker
-   
 ![](.README_images/Docker_Desktop_Settings_1.png)
 
 ![](.README_images/Docker_Desktop_Settings_2.png)
-
-- **Requirements (continued)**:
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-    - run `./scripts/run_prep_bash_scripts.sh` (preparing the shell scripts)
-    - run `./scripts/run_install_4_ubuntu_20.04_vm_wsl2.sh` (setting up the WSL2 environment)
-    - close the Ubuntu shell and reopen it again
-    - run `cd db_seeder`
-    - run `gradle copyJarToLib`
-- **Execution**: run `./run_db_seeder.sh`
-- **Issues**:
-    - trino and SQL Server Connector
-    - YugabyteDB and Docker image
-
-#### 4.2.3 Windows 10 Pro
-
-- **Requirements**:
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-- **Execution**: run `run_db_seeder.bat`
-- **Issues**:
-    - trino and SQL Server Connector
-    - YugabyteDB and Docker image
-
 
 ### <a name="operating_instructions_control"></a> 4.3 Control Parameters
  
@@ -637,7 +568,19 @@ db_seeder.user=
 [//]: # (===========================================================================================)
 
 ### <a name="operating_instructions_statistics"></a> 4.4 Statistics
- 
+
+Performance data for the different versions of **`DBSeeder`** can be found in the file directory `resources/statistics`:
+
+![](.README_images/Statistics_Directory.png)
+
+The different file name patterns result from the following operating system environments:
+
+- `..._vmware.tsv`: Ubuntu with VMware Workstation Player on Windows
+- `...._win10.tsv`: Windows
+- `....._wsl2.tsv`: Ubuntu LTS with Windows Subsystem for Linux on Windows
+
+[//]: # (===========================================================================================)
+
 ## <a name="rdbms_specifica"></a> 5. RDBMS Specific Technical Details
 
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 

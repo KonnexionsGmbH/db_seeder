@@ -78,6 +78,12 @@ if ["%2"] EQU [""] (
     set DB_SEEDER_SETUP_DBMS=%2
 )
 
+if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
+    if ["%DB_SEEDER_SETUP_DBMS%"] NEQ ["yes"] (
+        set DB_SEEDER_SETUP_DBMS=yes
+    )
+)
+
 if ["%3"] EQU [""] (
     set /P DB_SEEDER_NO_CREATE_RUNS="Number of data creation runs (0-2) [default: %DB_SEEDER_NO_CREATE_RUNS_DEFAULT%] "
 
@@ -256,7 +262,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_CONNECTION_PORT=9001
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
-    set DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
+    set DB_SEEDER_CONNECTION_SUFFIX=";hsqldb.default_table_type=cached;ifexists=false;shutdown=true"
     set DB_SEEDER_CONTAINER_PORT=9001
     set DB_SEEDER_DATABASE=kxn_db
     set DB_SEEDER_PASSWORD=hsqldb
@@ -269,11 +275,10 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
 
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
-    set DB_SEEDER_CONNECTION_SUFFIX=";ifexists=false;shutdown=true"
+    set DB_SEEDER_CONNECTION_SUFFIX=";hsqldb.default_table_type=cached;ifexists=false;shutdown=true"
     set DB_SEEDER_DATABASE=.\tmp\hsqldb_kxn_db
     set DB_SEEDER_DBMS_EMBEDDED=yes
     set DB_SEEDER_PASSWORD=hsqldb
-    set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SA
 )

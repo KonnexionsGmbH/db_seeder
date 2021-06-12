@@ -9,11 +9,11 @@ rem ----------------------------------------------------------------------------
 setlocal EnableDelayedExpansion
 
 if ["%DB_SEEDER_CONNECTION_PORT%"] EQU [""] (
-    set DB_SEEDER_CONNECTION_PORT=5432
+    set DB_SEEDER_CONNECTION_PORT=6274
 )
 
 if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
-    set DB_SEEDER_CONTAINER_PORT=5432
+    set DB_SEEDER_CONTAINER_PORT=6274
 )
 
 if ["%DB_SEEDER_VERSION%"] EQU [""] (
@@ -57,7 +57,7 @@ docker create --name    db_seeder_db ^
 echo Docker start db_seeder_db (OmniSciDB %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
-ping -n 30 127.0.0.1>nul
+ping -n 60 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"
 echo DOCKER OmniSciDB was ready in %CONSUMED%

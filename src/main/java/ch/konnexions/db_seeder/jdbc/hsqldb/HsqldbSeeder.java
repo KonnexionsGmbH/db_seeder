@@ -44,7 +44,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
           ? ""
           : ";password=" + password) + connectionSuffix;
     } else {
-      return connectionPrefix + "file:" + database + ";user=" + user + ("".equals(password)
+      return connectionPrefix + "mem:" + database + ";user=" + user + ("".equals(password)
           ? ""
           : ";password=" + password) + connectionSuffix;
     }
@@ -87,14 +87,22 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
                       config.getUserSys().toUpperCase(),
                       "");
 
-    urlUser  = getUrl(isClient,
-                      config.getConnectionHost(),
-                      config.getConnectionPort(),
-                      config.getConnectionPrefix(),
-                      config.getConnectionSuffix(),
-                      config.getDatabase(),
-                      config.getUser().toUpperCase(),
-                      config.getPassword());
+    if (isDebug) {
+      logger.info("wwe urlSys='" + urlSys + "'");
+    }
+
+    urlUser = getUrl(isClient,
+                     config.getConnectionHost(),
+                     config.getConnectionPort(),
+                     config.getConnectionPrefix(),
+                     config.getConnectionSuffix(),
+                     config.getDatabase(),
+                     config.getUser().toUpperCase(),
+                     config.getPassword());
+
+    if (isDebug) {
+      logger.info("wwe urlUser='" + urlUser + "'");
+    }
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -131,8 +139,13 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
                          true);
 
     String password   = config.getPassword();
-    String schemaName = config.getSchema().toUpperCase();
-    String userName   = config.getUser().toUpperCase();
+
+    String schemaName = "PUBLIC";
+    if (isClient) {
+      schemaName = config.getSchema().toUpperCase();
+    }
+
+    String userName = config.getUser().toUpperCase();
 
     // -----------------------------------------------------------------------
     // Tear down an existing schema.
@@ -145,10 +158,12 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
       System.exit(1);
     }
 
-    dropSchema(schemaName,
-               "CASCADE",
-               "INFORMATION_SCHEMA.SYSTEM_SCHEMAS",
-               "table_schem");
+    if (isClient) {
+      dropSchema(schemaName,
+                 "CASCADE",
+                 "INFORMATION_SCHEMA.SYSTEM_SCHEMAS",
+                 "table_schem");
+    }
 
     dropUser(userName,
              "",
@@ -160,9 +175,11 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
-                       "CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
-                       "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
+      if (isClient) {
+        executeDdlStmnts(statement,
+                         "CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
+                         "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
+      }
 
       statement.close();
     } catch (SQLException e) {

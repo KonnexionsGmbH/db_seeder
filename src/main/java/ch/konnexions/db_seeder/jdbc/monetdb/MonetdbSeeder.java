@@ -49,7 +49,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
 
     dbmsEnum = DbmsEnum.MONETDB;
 
-    driver   = "nl.cwi.monetdb.jdbc.MonetDriver";
+    driver   = "org.monetdb.jdbc.MonetDriver";
 
     urlSys   = getUrl(config.getConnectionHost(),
                       config.getConnectionPort(),
@@ -186,8 +186,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
 
     disconnect(connection);
 
-    connection = connect(urlUser,
-                         true);
+    connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();
