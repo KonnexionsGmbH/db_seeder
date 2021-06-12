@@ -65,7 +65,7 @@
 
 ### 2.9.1
 
-Release Date: dd.mm.2021
+Release Date: 12.06.2021
 
 #### System Requirements
 
@@ -78,21 +78,15 @@ Release Date: dd.mm.2021
 
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
 
-#### New Features
-
-n/a
-
 #### Modified Features
 
 - CockroachDB: DBMS v21.1.2
 
 - Exasol: DBMS 7.0.10
 
-- HSQLDB embedded: very big performance improvement after fixing a bug
+- HSQLDB embedded: big performance improvement after fixing a bug
 
 - MonetDB: big performance improvement after introducing manual commit
-
-- xxx: DBMS 999 / JDBC 999
 
 #### Deleted Features
 
