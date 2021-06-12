@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.2.svg)
 ----
 
 ### Table of Contents
@@ -62,6 +62,35 @@
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
 ## <a name="version_history"></a> 2. Version History
+
+### 2.9.2
+
+Release Date: dd.mm.2021
+
+#### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+
+- Docker Desktop Community: 3.0.4
+- Eclipse IDE: 2021.03 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads/))
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases/))
+- Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
+
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+
+#### New Features
+
+n/a
+
+#### Modified Features
+
+- xxx: DBMS 999 / JDBC 999
+
+#### Deleted Features
+
+n/a
+
+----------
 
 ### 2.9.1
 

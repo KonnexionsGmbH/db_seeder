@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a MS SQL Server DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.9.1
+ * @version 2.9.2
  */
 public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
 
