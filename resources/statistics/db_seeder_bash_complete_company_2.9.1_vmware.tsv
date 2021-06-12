@@ -1,0 +1,31 @@
+ticker symbol	DBMS	db type	runtime in ms	start time	end time	host name	no. cores	operating system
+agens	AgensGraph	client	4659	2021-06-12 03:13:52.262248442	2021-06-12 03:13:56.922040587	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+cockroach	CockroachDB	client	7496	2021-06-12 03:14:35.751909023	2021-06-12 03:14:43.247959125	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+cratedb	CrateDB	client	6801	2021-06-12 03:15:14.825328594	2021-06-12 03:15:21.626345280	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+cubrid	CUBRID	client	7929	2021-06-12 03:15:53.087116972	2021-06-12 03:16:01.016883570	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+derby	Apache Derby	client	6232	2021-06-12 03:16:42.517320918	2021-06-12 03:16:48.749411960	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+derby_emb	Apache Derby	embedded	6058	2021-06-12 03:16:49.320389631	2021-06-12 03:16:55.379144830	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+exasol	Exasol	client	3579	2021-06-12 03:18:57.318980726	2021-06-12 03:19:00.898334398	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+firebird	Firebird	client	21908	2021-06-12 03:19:44.452583581	2021-06-12 03:20:06.360862703	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+h2	H2 Database Engine	client	5203	2021-06-12 03:20:37.853670411	2021-06-12 03:20:43.056894206	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+h2_emb	H2 Database Engine	embedded	2607	2021-06-12 03:20:43.623071100	2021-06-12 03:20:46.230763251	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+hsqldb	HSQLDB	client	6538	2021-06-12 03:21:18.195133613	2021-06-12 03:21:24.733736346	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+hsqldb_emb	HSQLDB	embedded	2998	2021-06-12 03:21:25.298799680	2021-06-12 03:21:28.297628073	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+ibmdb2	IBM Db2 Database	client	6457	2021-06-12 03:26:29.839374950	2021-06-12 03:26:36.296642857	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+informix	IBM Informix	client	9358	2021-06-12 03:30:34.603996411	2021-06-12 03:30:43.962657522	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+mariadb	MariaDB Server	client	3685	2021-06-12 03:31:25.382471178	2021-06-12 03:31:29.068003641	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+mimer	Mimer SQL	client	20048	2021-06-12 03:32:00.819840250	2021-06-12 03:32:20.867857152	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+monetdb	MonetDB	client	16880	2021-06-12 03:32:27.419216472	2021-06-12 03:32:44.300151105	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+mysql	MySQL Database	client	4580	2021-06-12 03:33:46.758362421	2021-06-12 03:33:51.338907946	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+mysql_trino	MySQL Database	trino	720580	2021-06-12 03:35:25.930119629	2021-06-12 03:47:26.510249374	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+omnisci	OmniSciDB	client	6408	2021-06-12 03:48:29.377518369	2021-06-12 03:48:35.785532473	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+oracle	Oracle Database	client	5594	2021-06-12 03:50:47.495264869	2021-06-12 03:50:53.089505017	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+oracle_trino	Oracle Database	trino	753172	2021-06-12 03:53:36.441778850	2021-06-12 04:06:09.614336556	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+percona	Percona Server for MySQL	client	5094	2021-06-12 04:07:21.460938841	2021-06-12 04:07:26.555178593	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+postgresql	PostgreSQL	client	4144	2021-06-12 04:07:59.162366394	2021-06-12 04:08:03.306876791	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+postgresql_trino	PostgreSQL	trino	534067	2021-06-12 04:09:06.595679753	2021-06-12 04:18:00.663323844	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+sqlserver	MS SQL Server	client	4151	2021-06-12 04:18:32.581440475	2021-06-12 04:18:36.732752642	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+sqlserver_trino	MS SQL Server	trino	883178	2021-06-12 04:19:45.292787578	2021-06-12 04:34:28.471560281	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+sqlite	SQLite	embedded	2183	2021-06-12 04:34:29.136985954	2021-06-12 04:34:31.320382144	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+voltdb	VoltDB	client	16005	2021-06-12 04:35:08.632394311	2021-06-12 04:35:24.637776966	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
+yugabyte	YugabyteDB	client	13902	2021-06-12 04:35:56.787280555	2021-06-12 04:36:10.690210210	ubuntu	8	amd64 / Linux / 5.8.0-55-generic
