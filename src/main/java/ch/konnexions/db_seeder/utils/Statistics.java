@@ -28,8 +28,8 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
  */
 public final class Statistics {
   private static final Logger         logger    = LogManager.getLogger(Statistics.class);
-  private final boolean               isDebug   = logger.isDebugEnabled();
 
+  private final boolean               isDebug   = logger.isDebugEnabled();
   private final Config                config;
 
   private final Map<String, String[]> dbmsValues;
@@ -37,8 +37,9 @@ public final class Statistics {
   private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
   private final LocalDateTime         startDateTime;
-  private CSVPrinter                  statisticsFile;
 
+  private LocalDateTime               startDateTimeDML;
+  private CSVPrinter                  statisticsFile;
   private final String                tickerSymbolExtern;
 
   /**
@@ -65,18 +66,24 @@ public final class Statistics {
     }
 
     try {
-      LocalDateTime endDateTime = LocalDateTime.now();
+      LocalDateTime endDateTime   = LocalDateTime.now();
 
-      long          duration    = Duration.between(startDateTime,
-                                                   endDateTime).toMillis();
+      long          durationTotal = Duration.between(startDateTime,
+                                                     endDateTime).toMillis();
 
-      logger.info("duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                     duration));
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                Duration.between(startDateTime,
+                                                 startDateTimeDML).toMillis()) + " ms - total DDL");
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                Duration.between(startDateTimeDML,
+                                                 endDateTime).toMillis()) + " ms - total DML");
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                durationTotal) + " ms - total");
 
       statisticsFile.printRecord(tickerSymbolExtern,
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
-                                 duration,
+                                 durationTotal,
                                  startDateTime.format(formatter),
                                  endDateTime.format(formatter),
                                  InetAddress.getLocalHost().getHostName(),
@@ -153,5 +160,12 @@ public final class Statistics {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  /**
+   * Sets the start date time of DML opeations.
+   */
+  public void setStartDateTimeDML() {
+    startDateTimeDML = LocalDateTime.now();
   }
 }

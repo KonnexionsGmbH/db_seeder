@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import ch.konnexions.db_seeder.utils.Config;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 import ch.konnexions.db_seeder.utils.Statistics;
@@ -343,8 +345,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     setupDatabase();
 
+    statistics.setStartDateTimeDML();
+
     for (String tableName : TABLE_NAMES_CREATE) {
+      LocalDateTime startDateTime = LocalDateTime.now();
       createData(tableName);
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                Duration.between(startDateTime,
+                                                 LocalDateTime.now()).toMillis()) + " ms - total DML database table " + tableName);
     }
 
     disconnect(connection);
