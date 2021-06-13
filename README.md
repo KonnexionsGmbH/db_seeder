@@ -516,6 +516,7 @@ db_seeder.connection.suffix=
 
 db_seeder.database.sys=
 db_seeder.database=
+db_seeder.drop.constraints=
 
 db_seeder.file.configuration.name=
 db_seeder.file.json.name=resources/json/db_seeder_schema.company.json

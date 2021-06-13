@@ -90,6 +90,7 @@ echo CONNECTION_SUFFIX               : %DB_SEEDER_CONNECTION_SUFFIX%
 echo CONTAINER_PORT                  : %DB_SEEDER_CONTAINER_PORT%
 echo DATABASE                        : %DB_SEEDER_DATABASE%
 echo DATABASE_SYS                    : %DB_SEEDER_DATABASE_SYS%
+echo DROP_CONSTRAINTS                : %DB_SEEDER_DROP_CONSTRAINTS%
 echo PASSWORD                        : %DB_SEEDER_PASSWORD%
 echo PASSWORD_SYS                    : %DB_SEEDER_PASSWORD_SYS%
 echo SCHEMA                          : %DB_SEEDER_SCHEMA%

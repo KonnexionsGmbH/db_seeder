@@ -53,13 +53,12 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 public final class GenerateSchema extends AbstractDbmsSeeder {
 
   private static final Logger                               logger                    = LogManager.getLogger(GenerateSchema.class);
-  private final boolean                                     isDebug                   = logger.isDebugEnabled();
-
   private int                                               constraintNumber          = 0;
 
   private int                                               errors                    = 0;
 
   private int                                               genDefaultNumberOfRows;
+
   private boolean                                           genIsEncodingISO_8859_1;
   private boolean                                           genIsEncodingUTF_8;
   private int                                               genNullFactor;
@@ -70,10 +69,11 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   private final HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
   private final HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
   private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
+  private final boolean                                     isDebug                   = logger.isDebugEnabled();
 
+  private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
   private Set<Table>                                        valTables;
   private HashMap<String, HashSet<String>>                  valTablesColumns;
-  private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
 
   /**
    * Instantiates a new CreateSummaryFile object.

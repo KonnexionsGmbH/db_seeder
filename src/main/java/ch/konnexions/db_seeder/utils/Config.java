@@ -42,6 +42,7 @@ public final class Config {
 
   private String                  database;
   private String                  databaseSys;
+  private String                  dropConstraints;
 
   private String                  fileConfigurationName;
   private String                  fileJsonName;
@@ -188,6 +189,15 @@ public final class Config {
   // -------------------------------------------------------------------------
 
   /**
+   * @return drop the constraints during DML operations
+   */
+  public final String getDropConstraints() {
+    return dropConstraints;
+  }
+
+  // -------------------------------------------------------------------------
+
+  /**
    * @return the file JSON name
    */
   public final String getFileJsonName() {
@@ -316,6 +326,7 @@ public final class Config {
 
     database                    = propertiesConfiguration.getString("db_seeder.database");
     databaseSys                 = propertiesConfiguration.getString("db_seeder.database.sys");
+    dropConstraints             = propertiesConfiguration.getString("db_seeder.drop.constraints");
 
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
     fileJsonName                = propertiesConfiguration.getString("db_seeder.file.json.name");
@@ -408,6 +419,14 @@ public final class Config {
       databaseSys = environmentVariables.get("DB_SEEDER_DATABASE_SYS");
       propertiesConfiguration.setProperty("db_seeder.database.sys",
                                           databaseSys);
+    }
+
+    // Drop Constraints ---------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_DROP_CONSTRAINTS")) {
+      dropConstraints = environmentVariables.get("DB_SEEDER_DROP_CONSTRAINTS");
+      propertiesConfiguration.setProperty("db_seeder.drop.constraints",
+                                          dropConstraints);
     }
 
     // File Configuration -------------------------------------------------------

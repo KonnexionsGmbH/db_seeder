@@ -1,5 +1,6 @@
 package ch.konnexions.db_seeder.jdbc.voltdb;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -68,6 +69,18 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
   @Override
   protected final String createDdlStmnt(String tableName) {
     return AbstractGenVoltdbSchema.createTableStmnts.get(tableName);
+  }
+
+  @Override
+  protected void dropTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  protected void restoreTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
   }
 
   /**

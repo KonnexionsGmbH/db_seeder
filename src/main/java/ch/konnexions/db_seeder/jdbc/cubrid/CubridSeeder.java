@@ -1,5 +1,6 @@
 package ch.konnexions.db_seeder.jdbc.cubrid;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -92,6 +93,18 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
   @Override
   protected final String createDdlStmnt(String tableName) {
     return AbstractGenCubridSchema.createTableStmnts.get(tableName);
+  }
+
+  @Override
+  protected void dropTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  protected void restoreTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
   }
 
   /**

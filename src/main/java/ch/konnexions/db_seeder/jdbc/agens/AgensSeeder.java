@@ -1,5 +1,7 @@
 package ch.konnexions.db_seeder.jdbc.agens;
 
+import java.sql.Connection;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -87,6 +89,18 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
   @Override
   protected final String createDdlStmnt(String tableName) {
     return AbstractGenAgensSchema.createTableStmnts.get(tableName);
+  }
+
+  @Override
+  protected void dropTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  protected void restoreTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
   }
 
   @Override

@@ -29,12 +29,12 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 public final class Statistics {
   private static final Logger         logger    = LogManager.getLogger(Statistics.class);
 
-  private final boolean               isDebug   = logger.isDebugEnabled();
   private final Config                config;
-
   private final Map<String, String[]> dbmsValues;
 
   private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
+
+  private final boolean               isDebug   = logger.isDebugEnabled();
 
   private final LocalDateTime         startDateTime;
 
@@ -104,6 +104,7 @@ public final class Statistics {
   /**
    * Create a new statistics file if none exists yet.
    */
+  @SuppressWarnings("resource")
   private void createStatisticsFile() {
     if (isDebug) {
       logger.debug("Start");

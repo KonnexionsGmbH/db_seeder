@@ -22,12 +22,12 @@ import org.apache.logging.log4j.Logger;
 public class I72 {
   private static final int    BATCH_SIZE            = 1000;
 
+  private static final Logger logger                = LogManager.getLogger(I72.class);
   private static final int    ROW_MAX_CITY          = 1800;
   private static final int    ROW_MAX_COUNTRY       = 200;
   private static final int    ROW_MAX_COUNTRY_STATE = 600;
-  private static final int    ROW_MAX_TIMEZONE      = 11;
 
-  private static final Logger logger                = LogManager.getLogger(I72.class);
+  private static final int    ROW_MAX_TIMEZONE      = 11;
 
   private static void insertCities(Connection connection, Statement statement) throws Exception {
     statement.execute("""

@@ -1,5 +1,6 @@
 package ch.konnexions.db_seeder.jdbc.monetdb;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -81,6 +82,12 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     return AbstractGenMonetdbSchema.createTableStmnts.get(tableName);
   }
 
+  @Override
+  protected void dropTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
+  }
+
   /**
    * Drop the database user and schema.
    *
@@ -125,6 +132,12 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     if (isDebug) {
       logger.debug("End");
     }
+  }
+
+  @Override
+  protected void restoreTableConstraints(Connection connection) {
+    // TODO Auto-generated method stub
+
   }
 
   /**

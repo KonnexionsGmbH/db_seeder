@@ -39,7 +39,6 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-05-01
  */
-@SuppressWarnings("ucd")
 public final class DatabaseSeeder {
 
   private static final Logger logger = LogManager.getLogger(DatabaseSeeder.class);

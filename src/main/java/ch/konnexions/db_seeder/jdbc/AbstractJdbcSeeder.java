@@ -71,8 +71,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=trino";
   }
 
-  private final boolean   isDebug                = logger.isDebugEnabled();
-
   private final String    BLOB_FILE              = Paths.get("src",
                                                              "main",
                                                              "resources").toAbsolutePath() + File.separator + "blob.png";
@@ -83,15 +81,17 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                              "main",
                                                              "resources").toAbsolutePath() + File.separator + "clob.md";
   private final String    CLOB_DATA              = readClobFile();
-  protected Connection    connection             = null;
 
+  protected Connection    connection             = null;
   protected String        driver                 = "";
+
   protected final String  driver_trino           = "io.trino.jdbc.TrinoDriver";
   protected String        dropTableStmnt         = "";
-
   protected Properties    encodedColumnNames     = new Properties();
 
   protected final boolean isClient;
+
+  private final boolean   isDebug                = logger.isDebugEnabled();
   protected final boolean isTrino;
 
   protected int           nullFactor;
@@ -101,8 +101,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Statement     statement              = null;
 
-  protected String        urlTrino               = "";
   protected String        urlSys                 = "";
+  protected String        urlTrino               = "";
   protected String        urlUser                = "";
 
   /**
@@ -341,18 +341,45 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
+    LocalDateTime startDateTime;
+
+    Statistics    statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
 
     setupDatabase();
 
     statistics.setStartDateTimeDML();
 
+    // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+    if ("yes".equals(config.getDropConstraints())) {
+      startDateTime = LocalDateTime.now();
+
+      dropTableConstraints(connection);
+
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                Duration.between(startDateTime,
+                                                 LocalDateTime.now()).toMillis()) + " ms - total DDL constraints (FK, PK, UK) dropped");
+    }
+
+    // Perform the DML statements
     for (String tableName : TABLE_NAMES_CREATE) {
-      LocalDateTime startDateTime = LocalDateTime.now();
+      startDateTime = LocalDateTime.now();
+
       createData(tableName);
+
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                 Duration.between(startDateTime,
                                                  LocalDateTime.now()).toMillis()) + " ms - total DML database table " + tableName);
+    }
+
+    // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+    if ("yes".equals(config.getDropConstraints())) {
+      startDateTime = LocalDateTime.now();
+
+      restoreTableConstraints(connection);
+
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                Duration.between(startDateTime,
+                                                 LocalDateTime.now()).toMillis()) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
     }
 
     disconnect(connection);
@@ -773,6 +800,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
+   * Drops the following constraint types in a database table: FOREIGN KEY, PRIMARY KEY and UNIQUE KEY.
+   *
+   * @param connection the database connection
+   */
+  protected abstract void dropTableConstraints(Connection connection);
+
+  /**
    * Drop the database user.
    *
    * @param userName        the user name
@@ -1041,7 +1075,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param upperRange        the upper range
    * @param validValues       the valid values
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
                                              String tableName,
                                              String columnName,
@@ -1123,7 +1156,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (dbmsEnum == DbmsEnum.CRATEDB) {
@@ -1194,7 +1226,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
@@ -1267,7 +1298,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    * @param fkList            the existing foreign keys
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColFkOpt(PreparedStatement preparedStatement,
                                          String tableName,
                                          String columnName,
@@ -1323,7 +1353,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
@@ -1542,6 +1571,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     return clobData.toString();
   }
+
+  /**
+   * Restores the previously dropped constraints for a database table..
+   *
+   * @param connection the database connection
+   */
+  protected abstract void restoreTableConstraints(Connection connection);
 
   /**
    * Delete any existing relevant database schema objects (database, user,
