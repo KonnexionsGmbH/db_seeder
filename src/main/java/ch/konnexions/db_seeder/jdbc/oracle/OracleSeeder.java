@@ -204,8 +204,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
                          WHERE ac.constraint_type IN ('F', 'P', 'U')
                            AND ac.table_name IN ('tableNames')
                            AND ac.owner = 'user'
-                         ORDER BY ac.constraint_type DESC,
-                                  ac.constraint_name,
+                         ORDER BY ac.constraint_name,
                                   acc.position
                         """.replace("tableNames",
                                     String.join("','",
