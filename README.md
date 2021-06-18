@@ -75,12 +75,12 @@ The database systems considered meet the following conditions:
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
+| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
 | OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
+| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.22             |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
 | trino                           | mysql_trino,       | 339 - 358                  | 358                 |
@@ -1184,7 +1184,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/MonetDB/MonetDB/issues)
 
 - **JDBC driver (latest)**:
-  - version 3.0.jre8
+  - version 3.1.jre8
   - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java/)
 
 - **privileged database access**:

@@ -1,9 +1,10 @@
-# Release Notes
+# DBSeeder - Release Notes
 
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.2.svg)
+
 ----
 
 ### Table of Contents
@@ -61,6 +62,8 @@
     
   - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
+----
+
 ## <a name="version_history"></a> 2. Version History
 
 ### 2.9.2
@@ -83,6 +86,10 @@ Release Date: dd.mm.2021
 n/a
 
 #### Modified Features
+
+- MonetDB: JDBC 3.1.jre8
+
+- PostgreSQL: JDBC 42.2.22
 
 - xxx: DBMS 999 / JDBC 999
 
