@@ -45,14 +45,14 @@ if [ -n "${DB_SEEDER_DATABASE_INTERN}" ]; then
         echo ""
         echo "............................................................ before:"
         ls -ll "${DB_SEEDER_DATABASE}"
-        rm -rf "${DB_SEEDER_DATABASE}"
+        rm -rf "${DB_SEEDER_DATABASE}" ¦¦ sudo rm -rf "${DB_SEEDER_DATABASE}"
     fi    
 
     if [ -f "${DB_SEEDER_DATABASE}" ] || [ -f "${DB_SEEDER_DATABASE}".lobs ]; then 
         echo ""
         echo "............................................................ before:"
         ls -ll "${DB_SEEDER_DATABASE}"*
-        rm -f "${DB_SEEDER_DATABASE}"*
+        rm -f "${DB_SEEDER_DATABASE}"* ¦¦ sudo rm -f "${DB_SEEDER_DATABASE}"*
     fi    
     
     if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then

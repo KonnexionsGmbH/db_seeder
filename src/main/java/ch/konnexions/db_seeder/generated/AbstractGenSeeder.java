@@ -16,8 +16,17 @@ import org.apache.logging.log4j.LogManager;
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 
-  private static final Logger logger  = LogManager.getLogger(AbstractGenSeeder.class);
-  private final boolean       isDebug = logger.isDebugEnabled();
+  private static final Logger logger = LogManager.getLogger(AbstractGenSeeder.class);
+  private final boolean     isDebug      = logger.isDebugEnabled();
+
+  /**
+   * Initialises a new abstract generated seeder object.
+   *
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   */
+  public AbstractGenSeeder(String tickerSymbolExtern) {
+    this(tickerSymbolExtern, "client");
+  }
 
   /**
    * Initialises a new abstract generated seeder object.
@@ -51,13 +60,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param validValues       the valid values
    */
   @Override
-  protected final long getContentBigint(String tableName,
-                                        String columnName,
-                                        long rowNo,
-                                        Integer defaultValue,
-                                        Integer lowerRange,
-                                        Integer upperRange,
-                                        List<Integer> validValues) {
+  protected final long getContentBigint(String tableName,                                        String columnName,                                        long rowNo,                                        Integer defaultValue,                                        Integer lowerRange,                                        Integer upperRange,                                        List<Integer> validValues) {
     long result = super.getContentBigint(tableName,
                                          columnName,
                                          rowNo,
@@ -130,14 +133,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
    * @param validValues       the valid values
    */
   @Override
-  protected final String getContentVarchar(String tableName,
-                                           String columnName,
-                                           long rowNo,
-                                           int size,
-                                           String defaultValue,
-                                           String lowerRange,
-                                           String upperRange,
-                                           List<String> validValues) {
+  protected final String getContentVarchar(String tableName,                                           String columnName,                                           long rowNo,                                           int size,                                           String defaultValue,                                           String lowerRange,                                           String upperRange,                                           List<String> validValues) {
     String result = super.getContentVarchar(tableName,
                                             columnName,
                                             rowNo,
@@ -150,7 +146,9 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     return result;
   }
 
-  protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final long rowNo) {
+  protected final void insertTable(PreparedStatement preparedStatement,
+                                   final String tableName,
+                                   final long rowNo) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -159,13 +157,13 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     case TABLE_NAME_CITY -> prepDmlStmntInsertCity(preparedStatement,
                                                    rowNo);
     case TABLE_NAME_COMPANY -> prepDmlStmntInsertCompany(preparedStatement,
-                                                         rowNo);
+                                                   rowNo);
     case TABLE_NAME_COUNTRY -> prepDmlStmntInsertCountry(preparedStatement,
-                                                         rowNo);
+                                                   rowNo);
     case TABLE_NAME_COUNTRY_STATE -> prepDmlStmntInsertCountryState(preparedStatement,
-                                                                    rowNo);
+                                                   rowNo);
     case TABLE_NAME_TIMEZONE -> prepDmlStmntInsertTimezone(preparedStatement,
-                                                           rowNo);
+                                                   rowNo);
     default -> throw new RuntimeException("Not yet implemented - database table : " + String.format(FORMAT_TABLE_NAME,
                                                                                                     tableName));
     }
@@ -183,45 +181,45 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "CITY",
-                       "PK_CITY_ID",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
+                              "CITY",
+                              "PK_CITY_ID",
+                              ++i,
+                              rowNo,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColFkOpt(preparedStatement,
-                      "CITY",
-                      "FK_COUNTRY_STATE_ID",
-                      ++i,
-                      rowNo,
-                      pkLists.get(TABLE_NAME_COUNTRY_STATE));
+                            "CITY",
+                            "FK_COUNTRY_STATE_ID",
+                            ++i,
+                            rowNo,
+                            pkLists.get(TABLE_NAME_COUNTRY_STATE));
     prepStmntColBlobOpt(preparedStatement,
-                        "CITY",
-                        "CITY_MAP",
-                        ++i,
-                        rowNo);
+                              "CITY",
+                              "CITY_MAP",
+                              ++i,
+                              rowNo);
     prepStmntColTimestamp(preparedStatement,
-                          "CITY",
-                          "CREATED",
-                          ++i,
-                          rowNo);
+                               "CITY",
+                               "CREATED",
+                               ++i,
+                               rowNo);
     prepStmntColTimestampOpt(preparedStatement,
-                             "CITY",
-                             "MODIFIED",
-                             ++i,
-                             rowNo);
+                               "CITY",
+                               "MODIFIED",
+                               ++i,
+                               rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "CITY",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null,
-                        null);
+                             "CITY",
+                             "NAME",
+                             ++i,
+                             rowNo,
+                             100,
+                             null,
+                             null,
+                             null,
+                             null);
     if (isDebug) {
       logger.debug("End");
     }
@@ -235,146 +233,145 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "COMPANY",
-                       "PK_COMPANY_ID",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
+                              "COMPANY",
+                              "PK_COMPANY_ID",
+                              ++i,
+                              rowNo,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColFk(preparedStatement,
-                   "COMPANY",
-                   "FK_CITY_ID",
-                   ++i,
-                   rowNo,
-                   pkLists.get(TABLE_NAME_CITY));
+                            "COMPANY",
+                            "FK_CITY_ID",
+                            ++i,
+                            rowNo,
+                            pkLists.get(TABLE_NAME_CITY));
     prepStmntColVarchar(preparedStatement,
-                        "COMPANY",
-                        "ACTIVE",
-                        ++i,
-                        rowNo,
-                        1,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList("N",
-                                      "Y"));
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "ADDRESS1",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "ADDRESS2",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "ADDRESS3",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
-    prepStmntColTimestamp(preparedStatement,
-                          "COMPANY",
-                          "CREATED",
-                          ++i,
-                          rowNo);
-    prepStmntColClobOpt(preparedStatement,
-                        "COMPANY",
-                        "DIRECTIONS",
-                        ++i,
-                        rowNo);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "EMAIL",
-                           ++i,
-                           rowNo,
-                           100,
-                           null,
-                           null,
-                           null,
-                           null);
-    prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "FAX",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
-    prepStmntColTimestampOpt(preparedStatement,
                              "COMPANY",
-                             "MODIFIED",
+                             "ACTIVE",
                              ++i,
-                             rowNo);
+                             rowNo,
+                             1,
+                             null,
+                             null,
+                             null,
+                             Arrays.asList("N","Y"));
+    prepStmntColVarcharOpt(preparedStatement,
+                             "COMPANY",
+                             "ADDRESS1",
+                             ++i,
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
+    prepStmntColVarcharOpt(preparedStatement,
+                             "COMPANY",
+                             "ADDRESS2",
+                             ++i,
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
+    prepStmntColVarcharOpt(preparedStatement,
+                             "COMPANY",
+                             "ADDRESS3",
+                             ++i,
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
+    prepStmntColTimestamp(preparedStatement,
+                               "COMPANY",
+                               "CREATED",
+                               ++i,
+                               rowNo);
+      prepStmntColClobOpt(preparedStatement,
+                                "COMPANY",
+                                "DIRECTIONS",
+                                ++i,
+                                rowNo);
+    prepStmntColVarcharOpt(preparedStatement,
+                             "COMPANY",
+                             "EMAIL",
+                             ++i,
+                             rowNo,
+                             100,
+                             null,
+                             null,
+                             null,
+                             null);
+    prepStmntColVarcharOpt(preparedStatement,
+                             "COMPANY",
+                             "FAX",
+                             ++i,
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
+    prepStmntColTimestampOpt(preparedStatement,
+                               "COMPANY",
+                               "MODIFIED",
+                               ++i,
+                               rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "COMPANY",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null,
-                        null);
+                             "COMPANY",
+                             "NAME",
+                             ++i,
+                             rowNo,
+                             100,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "PHONE",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
+                             "COMPANY",
+                             "PHONE",
+                             ++i,
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "POSTAL_CODE",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
+                             "COMPANY",
+                             "POSTAL_CODE",
+                             ++i,
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "URL",
-                           ++i,
-                           rowNo,
-                           250,
-                           null,
-                           null,
-                           null,
-                           null);
+                             "COMPANY",
+                             "URL",
+                             ++i,
+                             rowNo,
+                             250,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COMPANY",
-                           "VAT_ID_NUMBER",
-                           ++i,
-                           rowNo,
-                           100,
-                           null,
-                           null,
-                           null,
-                           null);
+                             "COMPANY",
+                             "VAT_ID_NUMBER",
+                             ++i,
+                             rowNo,
+                             100,
+                             null,
+                             null,
+                             null,
+                             null);
     if (isDebug) {
       logger.debug("End");
     }
@@ -388,49 +385,49 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "COUNTRY",
-                       "PK_COUNTRY_ID",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
+                              "COUNTRY",
+                              "PK_COUNTRY_ID",
+                              ++i,
+                              rowNo,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColBlobOpt(preparedStatement,
-                        "COUNTRY",
-                        "COUNTRY_MAP",
-                        ++i,
-                        rowNo);
+                              "COUNTRY",
+                              "COUNTRY_MAP",
+                              ++i,
+                              rowNo);
     prepStmntColTimestamp(preparedStatement,
-                          "COUNTRY",
-                          "CREATED",
-                          ++i,
-                          rowNo);
+                               "COUNTRY",
+                               "CREATED",
+                               ++i,
+                               rowNo);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COUNTRY",
-                           "ISO3166",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
-    prepStmntColTimestampOpt(preparedStatement,
                              "COUNTRY",
-                             "MODIFIED",
+                             "ISO3166",
                              ++i,
-                             rowNo);
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
+    prepStmntColTimestampOpt(preparedStatement,
+                               "COUNTRY",
+                               "MODIFIED",
+                               ++i,
+                               rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "COUNTRY",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null,
-                        null);
+                             "COUNTRY",
+                             "NAME",
+                             ++i,
+                             rowNo,
+                             100,
+                             null,
+                             null,
+                             null,
+                             null);
     if (isDebug) {
       logger.debug("End");
     }
@@ -444,61 +441,61 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "COUNTRY_STATE",
-                       "PK_COUNTRY_STATE_ID",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
+                              "COUNTRY_STATE",
+                              "PK_COUNTRY_STATE_ID",
+                              ++i,
+                              rowNo,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColFk(preparedStatement,
-                   "COUNTRY_STATE",
-                   "FK_COUNTRY_ID",
-                   ++i,
-                   rowNo,
-                   pkLists.get(TABLE_NAME_COUNTRY));
+                            "COUNTRY_STATE",
+                            "FK_COUNTRY_ID",
+                            ++i,
+                            rowNo,
+                            pkLists.get(TABLE_NAME_COUNTRY));
     prepStmntColFk(preparedStatement,
-                   "COUNTRY_STATE",
-                   "FK_TIMEZONE_ID",
-                   ++i,
-                   rowNo,
-                   pkLists.get(TABLE_NAME_TIMEZONE));
+                            "COUNTRY_STATE",
+                            "FK_TIMEZONE_ID",
+                            ++i,
+                            rowNo,
+                            pkLists.get(TABLE_NAME_TIMEZONE));
     prepStmntColBlobOpt(preparedStatement,
-                        "COUNTRY_STATE",
-                        "COUNTRY_STATE_MAP",
-                        ++i,
-                        rowNo);
+                              "COUNTRY_STATE",
+                              "COUNTRY_STATE_MAP",
+                              ++i,
+                              rowNo);
     prepStmntColTimestamp(preparedStatement,
-                          "COUNTRY_STATE",
-                          "CREATED",
-                          ++i,
-                          rowNo);
+                               "COUNTRY_STATE",
+                               "CREATED",
+                               ++i,
+                               rowNo);
     prepStmntColTimestampOpt(preparedStatement,
-                             "COUNTRY_STATE",
-                             "MODIFIED",
-                             ++i,
-                             rowNo);
+                               "COUNTRY_STATE",
+                               "MODIFIED",
+                               ++i,
+                               rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "COUNTRY_STATE",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null,
-                        null);
+                             "COUNTRY_STATE",
+                             "NAME",
+                             ++i,
+                             rowNo,
+                             100,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "COUNTRY_STATE",
-                           "SYMBOL",
-                           ++i,
-                           rowNo,
-                           50,
-                           null,
-                           null,
-                           null,
-                           null);
+                             "COUNTRY_STATE",
+                             "SYMBOL",
+                             ++i,
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
     if (isDebug) {
       logger.debug("End");
     }
@@ -512,57 +509,58 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
     int i = 0;
 
     prepStmntColBigint(preparedStatement,
-                       "TIMEZONE",
-                       "PK_TIMEZONE_ID",
-                       ++i,
-                       rowNo,
-                       null,
-                       null,
-                       null,
-                       null);
+                              "TIMEZONE",
+                              "PK_TIMEZONE_ID",
+                              ++i,
+                              rowNo,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColVarchar(preparedStatement,
-                        "TIMEZONE",
-                        "ABBREVIATION",
-                        ++i,
-                        rowNo,
-                        50,
-                        null,
-                        null,
-                        null,
-                        null);
-    prepStmntColTimestamp(preparedStatement,
-                          "TIMEZONE",
-                          "CREATED",
-                          ++i,
-                          rowNo);
-    prepStmntColTimestampOpt(preparedStatement,
                              "TIMEZONE",
-                             "MODIFIED",
+                             "ABBREVIATION",
                              ++i,
-                             rowNo);
+                             rowNo,
+                             50,
+                             null,
+                             null,
+                             null,
+                             null);
+    prepStmntColTimestamp(preparedStatement,
+                               "TIMEZONE",
+                               "CREATED",
+                               ++i,
+                               rowNo);
+    prepStmntColTimestampOpt(preparedStatement,
+                               "TIMEZONE",
+                               "MODIFIED",
+                               ++i,
+                               rowNo);
     prepStmntColVarchar(preparedStatement,
-                        "TIMEZONE",
-                        "NAME",
-                        ++i,
-                        rowNo,
-                        100,
-                        null,
-                        null,
-                        null,
-                        null);
+                             "TIMEZONE",
+                             "NAME",
+                             ++i,
+                             rowNo,
+                             100,
+                             null,
+                             null,
+                             null,
+                             null);
     prepStmntColVarcharOpt(preparedStatement,
-                           "TIMEZONE",
-                           "V_TIME_ZONE",
-                           ++i,
-                           rowNo,
-                           4000,
-                           null,
-                           null,
-                           null,
-                           null);
+                             "TIMEZONE",
+                             "V_TIME_ZONE",
+                             ++i,
+                             rowNo,
+                             4000,
+                             null,
+                             null,
+                             null,
+                             null);
     if (isDebug) {
       logger.debug("End");
     }
   }
 
 }
+
