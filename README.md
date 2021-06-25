@@ -64,7 +64,7 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.2          | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.3          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.10          | 7.0.7               |
@@ -73,7 +73,7 @@ The database systems considered meet the following conditions:
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.2           | 2.7.3               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
@@ -713,7 +713,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.2`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.3`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -1092,7 +1092,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.6.1`
+  - pull command: `docker pull mariadb:10.6.2`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:

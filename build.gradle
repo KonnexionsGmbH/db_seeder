@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.12.2'
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
-    implementation 'commons-io:commons-io:2.9.0'
+    implementation 'commons-io:commons-io:2.10.0'
     implementation 'io.crate:crate-jdbc:2.6.0'
     implementation 'org.apache.commons:commons-configuration2:2.7'
     implementation 'org.apache.commons:commons-csv:1.8'

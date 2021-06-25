@@ -141,6 +141,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.0
     export DB_SEEDER_VERSION=v21.1.1
     export DB_SEEDER_VERSION=v21.1.2
+    export DB_SEEDER_VERSION=v21.1.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -328,6 +329,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.5.9
     export DB_SEEDER_VERSION=10.6.0
     export DB_SEEDER_VERSION=10.6.1
+    export DB_SEEDER_VERSION=10.6.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then

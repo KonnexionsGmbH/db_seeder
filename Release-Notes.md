@@ -87,6 +87,10 @@ n/a
 
 #### Modified Features
 
+- CockroachDB: DBMS v21.1.3
+
+- MariaDB Server: DBMS 10.6.2
+
 - MonetDB: JDBC 3.1.jre8
 
 - PostgreSQL: JDBC 42.2.22

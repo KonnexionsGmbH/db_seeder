@@ -142,6 +142,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.0
     set DB_SEEDER_VERSION=v21.1.1
     set DB_SEEDER_VERSION=v21.1.2
+    set DB_SEEDER_VERSION=v21.1.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -330,6 +331,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.9
     set DB_SEEDER_VERSION=10.6.0
     set DB_SEEDER_VERSION=10.6.1
+    set DB_SEEDER_VERSION=10.6.2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
