@@ -169,6 +169,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.4.2
     set DB_SEEDER_VERSION=4.5.0
     set DB_SEEDER_VERSION=4.5.1
+    set DB_SEEDER_VERSION=4.5.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -296,6 +297,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.0.0a
     set DB_SEEDER_VERSION=11.5.4.0
     set DB_SEEDER_VERSION=11.5.5.0
+    set DB_SEEDER_VERSION=11.5.5.1
+    set DB_SEEDER_VERSION=11.5.6.0
     set DB_SEEDER_VERSION=11.5.5.1
 )
 

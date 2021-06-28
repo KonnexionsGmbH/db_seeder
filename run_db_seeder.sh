@@ -168,6 +168,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.4.2
     export DB_SEEDER_VERSION=4.5.0
     export DB_SEEDER_VERSION=4.5.1
+    export DB_SEEDER_VERSION=4.5.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -295,6 +296,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.4.0
     export DB_SEEDER_VERSION=11.5.5.0
     export DB_SEEDER_VERSION=11.5.5.1
+    export DB_SEEDER_VERSION=11.5.6.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "informix" ]; then

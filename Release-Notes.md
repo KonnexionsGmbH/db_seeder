@@ -89,11 +89,17 @@ n/a
 
 - CockroachDB: DBMS v21.1.3
 
+- CrateDB: DBMS 4.5.3
+
+- IBM Db2 Database: DBMS 11.5.6.0
+
 - MariaDB Server: DBMS 10.6.2
 
 - MonetDB: JDBC 3.1.jre8
 
 - PostgreSQL: JDBC 42.2.22
+
+- SQLite: DBMS 3.36.0 / JDBC 3.36.0
 
 - xxx: DBMS 999 / JDBC 999
 
