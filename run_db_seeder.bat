@@ -426,7 +426,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     set DB_SEEDER_CONTAINER_PORT=1521
-    set DB_SEEDER_DROP_CONSTRAINTS=yes
+    set DB_SEEDER_DROP_CONSTRAINTS=no
     set DB_SEEDER_PASSWORD=oracle
     set DB_SEEDER_PASSWORD_SYS=oracle
     set DB_SEEDER_USER=kxn_user
@@ -446,7 +446,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle_trino"] (
     set DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     set DB_SEEDER_CONTAINER_PORT=1521
     set DB_SEEDER_DBMS_TRINO=yes
-    set DB_SEEDER_DROP_CONSTRAINTS=yes
+    set DB_SEEDER_DROP_CONSTRAINTS=no
     set DB_SEEDER_PASSWORD=oracle
     set DB_SEEDER_PASSWORD_SYS=oracle
     set DB_SEEDER_USER=kxn_user

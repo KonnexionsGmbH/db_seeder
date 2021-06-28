@@ -10,7 +10,6 @@ set -e
 # ------------------------------------------------------------------------------
 
 mkdir -p "$PWD/tmp"
-rm -rf "$PWD/tmp/*" || sudo rm -rf "$PWD/tmp/*"
 
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
@@ -423,7 +422,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     export DB_SEEDER_CONTAINER_PORT=1521
-    export DB_SEEDER_DROP_CONSTRAINTS=yes
+    export DB_SEEDER_DROP_CONSTRAINTS=no
     export DB_SEEDER_PASSWORD=oracle
     export DB_SEEDER_PASSWORD_SYS=oracle
     export DB_SEEDER_USER=kxn_user
@@ -443,7 +442,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     export DB_SEEDER_CONTAINER_PORT=1521
     export DB_SEEDER_DBMS_TRINO=yes
-    export DB_SEEDER_DROP_CONSTRAINTS=yes
+    export DB_SEEDER_DROP_CONSTRAINTS=no
     export DB_SEEDER_PASSWORD=oracle
     export DB_SEEDER_PASSWORD_SYS=oracle
     export DB_SEEDER_USER=kxn_user

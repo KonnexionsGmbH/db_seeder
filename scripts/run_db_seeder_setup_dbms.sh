@@ -35,12 +35,13 @@ if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "yes" ] ||
     ( ./scripts/run_db_seeder_setup_files.sh "${DB_SEEDER_DBMS_DB}" )
 fi
 
+start=$(date +%s)
+
 # ------------------------------------------------------------------------------
 # AgensGraph                         https://hub.docker.com/r/bitnine/agensgraph
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
-    start=$(date +%s)
     echo "AgensGraph."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (AgensGraph ${DB_SEEDER_VERSION})"
@@ -70,7 +71,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "cockroach" ]; then
-    start=$(date +%s)
     echo "CockroachDB."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (CockroachDB ${DB_SEEDER_VERSION})"
@@ -102,7 +102,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "cratedb" ]; then
-    start=$(date +%s)
     echo "CrateDB."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (CrateDB ${DB_SEEDER_VERSION})"
@@ -130,7 +129,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "cubrid" ]; then
-    start=$(date +%s)
     echo "CUBRID."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (CUBRID ${DB_SEEDER_VERSION})"
@@ -159,9 +157,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "derby" ]; then
+    rm -rf tmp/derby_kxn_db ¦¦ sudo rm -rf tmp/derby_kxn_db
     echo "Apache Derby"
     echo "--------------------------------------------------------------------------------"
-    start=$(date +%s)
     echo "Docker create db_seeder_db (Apache Derby ${DB_SEEDER_VERSION})"
 
     docker network create db_seeder_net  2>/dev/null || true
@@ -189,7 +187,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
-    start=$(date +%s)
     echo "Exasol."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Exasol ${DB_SEEDER_VERSION})"
@@ -218,7 +215,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "firebird" ]; then
-    start=$(date +%s)
     echo "Firebird."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Firebird ${DB_SEEDER_VERSION})"
@@ -251,9 +247,9 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "h2" ]; then
+    rm -rf tmp/h2_kxn_db.mv.db ¦¦ sudo rm -rf tmp/h2_kxn_db.mv.db
     echo "H2 Database Engine"
     echo "--------------------------------------------------------------------------------"
-    start=$(date +%s)
     echo "Docker create db_seeder_db (H2 Database Engine ${DB_SEEDER_VERSION})"
 
     docker network create db_seeder_net  2>/dev/null || true
@@ -284,7 +280,6 @@ fi
 if [ "${DB_SEEDER_DBMS_DB}" = "hsqldb" ]; then
     echo "HSQLDB"
     echo "--------------------------------------------------------------------------------"
-    start=$(date +%s)
     echo "Docker create db_seeder_db (HSQLDB ${DB_SEEDER_VERSION})"
 
     docker network create db_seeder_net  2>/dev/null || true
@@ -312,7 +307,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "ibmdb2" ]; then
-    start=$(date +%s)
     echo "IBM Db2 Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM Db2 ${DB_SEEDER_VERSION})"
@@ -343,7 +337,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "informix" ]; then
-    start=$(date +%s)
     echo "IBM Informix."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (IBM Informix ${DB_SEEDER_VERSION})"
@@ -378,7 +371,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "mariadb" ]; then
-    start=$(date +%s)
     echo "MariaDB Server."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MariaDB Server ${DB_SEEDER_VERSION})"
@@ -408,7 +400,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "mimer" ]; then
-    start=$(date +%s)
     echo "Mimer SQL."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Mimer SQL ${DB_SEEDER_VERSION})"
@@ -438,7 +429,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "monetdb" ]; then
-    start=$(date +%s)
     echo "MonetDB."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MonetDB ${DB_SEEDER_VERSION})"
@@ -463,7 +453,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
-    start=$(date +%s)
     echo "MySQL Database."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (MySQL ${DB_SEEDER_VERSION})"
@@ -493,7 +482,7 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
-    start=$(date +%s)
+    rm -rf tmp/omnisci-docker-storage ¦¦ sudo rm -rf tmp/omnisci-docker-storage
     echo "OmniSciDB."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION})"
@@ -528,7 +517,6 @@ fi
 if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
     echo "Oracle Database"
     echo "--------------------------------------------------------------------------------"
-    start=$(date +%s)
     echo "Docker create db_seeder_db (Oracle ${DB_SEEDER_VERSION})"
 
     docker network create db_seeder_net  2>/dev/null || true
@@ -560,7 +548,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
-    start=$(date +%s)
     echo "Percona Server."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (Percona Server ${DB_SEEDER_VERSION})"
@@ -587,7 +574,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
-    start=$(date +%s)
     echo "PostgreSQL."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (PostgreSQL ${DB_SEEDER_VERSION})"
@@ -620,7 +606,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
-    start=$(date +%s)
     echo "SQL Server."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (SQL Server ${DB_SEEDER_VERSION})"
@@ -652,7 +637,6 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "voltdb" ]; then
-    start=$(date +%s)
     echo "VoltDB."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (VoltDB ${DB_SEEDER_VERSION})"
@@ -679,12 +663,11 @@ fi
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
-    start=$(date +%s)
     echo "YugabyteDB."
     echo "--------------------------------------------------------------------------------"
     echo "Docker create db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION})"
 
-    rm -rf "$PWD/tmp/yb_data"
+    rm -rf "$PWD/tmp/yb_data" ¦¦ sudo rm -rf "$PWD/tmp/yb_data"
     mkdir -p "$PWD/tmp/yb_data"
 
     docker network create db_seeder_net  2>/dev/null || true

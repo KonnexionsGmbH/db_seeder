@@ -122,7 +122,7 @@ if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
-    rm -rf "${DB_SEEDER_DATABASE}" 2>/dev/null
+    rm -rf "${DB_SEEDER_DATABASE}" ¦¦ sudo rm -rf "${DB_SEEDER_DATABASE}"
 fi
 
 echo "--------------------------------------------------------------------------------"

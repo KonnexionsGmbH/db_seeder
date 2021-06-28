@@ -38,7 +38,7 @@ if ! (java -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.SchemaBui
 fi    
 
 if [ -d "eclipse_workspace" ]; then 
-    rm -Rf eclipse_workspace
+    rm -rf eclipse_workspace ¦¦ sudo rm -rf eclipse_workspace
 fi
 
 mkdir -p eclipse_workspace
