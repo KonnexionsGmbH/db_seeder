@@ -87,9 +87,11 @@ n/a
 
 #### Modified Features
 
-- CockroachDB: DBMS v21.1.3
+- CockroachDB: DBMS v21.1.4
 
 - CrateDB: DBMS 4.5.3
+
+- Firebird: DBMS v4.0.0
 
 - IBM Db2 Database: DBMS 11.5.6.0
 
@@ -99,7 +101,7 @@ n/a
 
 - PostgreSQL: JDBC 42.2.22
 
-- SQLite: DBMS 3.36.0 / JDBC 3.36.0
+- SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
 
 - xxx: DBMS 999 / JDBC 999
 

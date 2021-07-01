@@ -143,6 +143,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.1
     set DB_SEEDER_VERSION=v21.1.2
     set DB_SEEDER_VERSION=v21.1.3
+    set DB_SEEDER_VERSION=v21.1.4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -237,7 +238,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_USER_SYS=SYSDBA
     set DB_SEEDER_VERSION=3.0.5
     set DB_SEEDER_VERSION=3.0.7
-    set DB_SEEDER_VERSION=v4.0.0rc1
+    set DB_SEEDER_VERSION=v4.0.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
@@ -299,7 +300,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.5.0
     set DB_SEEDER_VERSION=11.5.5.1
     set DB_SEEDER_VERSION=11.5.6.0
-    set DB_SEEDER_VERSION=11.5.5.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (

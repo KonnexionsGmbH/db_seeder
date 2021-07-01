@@ -141,6 +141,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.1
     export DB_SEEDER_VERSION=v21.1.2
     export DB_SEEDER_VERSION=v21.1.3
+    export DB_SEEDER_VERSION=v21.1.4
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -234,7 +235,7 @@ if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
     export DB_SEEDER_USER_SYS=SYSDBA
     export DB_SEEDER_VERSION=3.0.5
     export DB_SEEDER_VERSION=3.0.7
-    export DB_SEEDER_VERSION=v4.0.0rc1
+    export DB_SEEDER_VERSION=v4.0.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
