@@ -64,14 +64,14 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.4          | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.5          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.3              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.10          | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.6.0        | 11.5.5.0            |                                                    
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.2           | 2.7.3               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
@@ -83,7 +83,7 @@ The database systems considered meet the following conditions:
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.22             |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.36.0.1            |
-| trino                           | mysql_trino,       | 339 - 358                  | 358                 |
+| trino                           | mysql_trino,       | 339 - 359                  | 359                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
@@ -713,7 +713,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.4`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.5`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -1006,7 +1006,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/db2:11.5.6.0`
+  - pull command: `docker pull ibmcom/db2:11.5.5.1`
   - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
 - **encoding**:
@@ -1501,7 +1501,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:358`
+  - pull command: `docker pull trinodb/trino:359`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1509,7 +1509,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 358
+  - version 359
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)

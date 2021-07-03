@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=2.9.2
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=358
+set DB_SEEDER_VERSION_TRINO=359
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -144,6 +144,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.2
     set DB_SEEDER_VERSION=v21.1.3
     set DB_SEEDER_VERSION=v21.1.4
+    set DB_SEEDER_VERSION=v21.1.5
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -299,7 +300,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.4.0
     set DB_SEEDER_VERSION=11.5.5.0
     set DB_SEEDER_VERSION=11.5.5.1
-    set DB_SEEDER_VERSION=11.5.6.0
+    set DB_SEEDER_VERSION=11.5.5.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (

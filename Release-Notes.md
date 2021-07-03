@@ -20,7 +20,50 @@
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
-### 1.2 trino
+### 1.2 IBM Db2
+
+- Version 11.5.6.0:
+
+`2021-07-03 05:31:17,235 [DatabaseSeeder.java] INFO  Start
+2021-07-03 05:31:17,237 [DatabaseSeeder.java] INFO  tickerSymbolExtern='ibmdb2'
+2021-07-03 05:31:17,237 [DatabaseSeeder.java] INFO  Start IBM Db2 Database
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+com.ibm.db2.jcc.am.DisconnectNonTransientConnectionException: [jcc][t4][2030][11211][4.29.24] A communication error occurred during operations on the connection's underlying socket, socket input stream,
+or socket output stream.  Error location: Reply.fill() - insufficient data (-1).  Message: Insufficient data. ERRORCODE=-4499, SQLSTATE=08001
+at com.ibm.db2.jcc.am.b7.a(b7.java:338)
+at com.ibm.db2.jcc.t4.a.a(a.java:573)
+at com.ibm.db2.jcc.t4.a.a(a.java:557)
+at com.ibm.db2.jcc.t4.a.a(a.java:552)
+at com.ibm.db2.jcc.t4.y.b(y.java:315)
+at com.ibm.db2.jcc.t4.y.c(y.java:342)
+at com.ibm.db2.jcc.t4.y.c(y.java:455)
+at com.ibm.db2.jcc.t4.y.v(y.java:1230)
+at com.ibm.db2.jcc.t4.z.a(z.java:53)
+at com.ibm.db2.jcc.t4.b.c(b.java:1482)
+at com.ibm.db2.jcc.t4.b.b(b.java:1354)
+at com.ibm.db2.jcc.t4.b.b(b.java:889)
+at com.ibm.db2.jcc.t4.b.a(b.java:860)
+at com.ibm.db2.jcc.t4.b.a(b.java:455)
+at com.ibm.db2.jcc.t4.b.a(b.java:428)
+at com.ibm.db2.jcc.t4.b.<init>(b.java:366)
+at com.ibm.db2.jcc.DB2SimpleDataSource.getConnection(DB2SimpleDataSource.java:243)
+at com.ibm.db2.jcc.DB2SimpleDataSource.getConnection(DB2SimpleDataSource.java:200)
+at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:491)
+at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:117)
+at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:264)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:155)
+at ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder.setupDatabase(Ibmdb2Seeder.java:104)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:348)
+at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:142)
+Processing of the script was aborted, error code=1`
+
+### 1.3 trino
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
@@ -87,13 +130,13 @@ n/a
 
 #### Modified Features
 
-- CockroachDB: DBMS v21.1.4
+- CockroachDB: DBMS v21.1.5
 
 - CrateDB: DBMS 4.5.3
 
 - Firebird: DBMS v4.0.0
 
-- IBM Db2 Database: DBMS 11.5.6.0
+- IBM Db2 Database: JDBC 11.5.6.0
 
 - MariaDB Server: DBMS 10.6.2
 
@@ -102,6 +145,8 @@ n/a
 - PostgreSQL: JDBC 42.2.22
 
 - SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
+
+- trino: DBMS 359 / JDBC 359
 
 - xxx: DBMS 999 / JDBC 999
 
