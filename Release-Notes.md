@@ -142,7 +142,7 @@ n/a
 
 - MonetDB: JDBC 3.1.jre8
 
-- PostgreSQL: JDBC 42.2.22
+- PostgreSQL: JDBC 42.2.23
 
 - SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
 

@@ -80,7 +80,7 @@ The database systems considered meet the following conditions:
 | OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.22             |
+| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.36.0.1            |
 | trino                           | mysql_trino,       | 339 - 359                  | 359                 |
