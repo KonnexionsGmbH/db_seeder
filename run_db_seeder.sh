@@ -222,6 +222,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.8
     export DB_SEEDER_VERSION=7.0.9
     export DB_SEEDER_VERSION=7.0.10
+    export DB_SEEDER_VERSION=7.0.11
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -333,6 +334,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.6.0
     export DB_SEEDER_VERSION=10.6.1
     export DB_SEEDER_VERSION=10.6.2
+    export DB_SEEDER_VERSION=10.6.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -468,6 +470,7 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
     export DB_SEEDER_VERSION=5.7.14
     export DB_SEEDER_VERSION=8.0
     export DB_SEEDER_VERSION=8.0.23-14
+    export DB_SEEDER_VERSION=8.0.25-15
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then

@@ -67,19 +67,19 @@ The database systems considered meet the following conditions:
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.5          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.3              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.10          | 7.0.7               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.2           | 2.7.3               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.3           | 2.7.3               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
 | OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
-| Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
+| Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.36.0.1            |
@@ -840,7 +840,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.10`
+  - pull command: `docker pull exasol/docker-db:7.0.11`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -1092,7 +1092,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.6.2`
+  - pull command: `docker pull mariadb:10.6.3`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1346,7 +1346,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull percona/percona-server:8.0.23-14`
+  - pull command: `docker pull percona/percona-server:8.0.25-15`
   - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed

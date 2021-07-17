@@ -134,13 +134,17 @@ n/a
 
 - CrateDB: DBMS 4.5.3
 
+- Exasol: DBMS 7.0.11
+
 - Firebird: DBMS v4.0.0
 
 - IBM Db2 Database: JDBC 11.5.6.0
 
-- MariaDB Server: DBMS 10.6.2
+- MariaDB Server: DBMS 10.6.3
 
 - MonetDB: JDBC 3.1.jre8
+
+- Percona Server for MySQL: DBMS 8.0.25-15
 
 - PostgreSQL: JDBC 42.2.23
 
