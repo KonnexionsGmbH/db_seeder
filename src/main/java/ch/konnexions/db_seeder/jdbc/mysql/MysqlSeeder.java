@@ -1,6 +1,5 @@
 package ch.konnexions.db_seeder.jdbc.mysql;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -120,18 +119,6 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   @Override
   protected final String createDdlStmnt(String tableName) {
     return AbstractGenMysqlSchema.createTableStmnts.get(tableName);
-  }
-
-  @Override
-  protected void dropTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  protected void restoreTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
   }
 
   /**

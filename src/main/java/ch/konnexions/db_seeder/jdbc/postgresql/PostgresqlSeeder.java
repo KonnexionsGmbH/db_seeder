@@ -1,7 +1,5 @@
 package ch.konnexions.db_seeder.jdbc.postgresql;
 
-import java.sql.Connection;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -115,18 +113,6 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
   @Override
   protected final String createDdlStmnt(String tableName) {
     return AbstractGenPostgresqlSchema.createTableStmnts.get(tableName);
-  }
-
-  @Override
-  protected void dropTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  protected void restoreTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
   }
 
   @Override

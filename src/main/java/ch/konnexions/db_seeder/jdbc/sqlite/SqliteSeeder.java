@@ -1,6 +1,5 @@
 package ch.konnexions.db_seeder.jdbc.sqlite;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -66,12 +65,6 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     return AbstractGenSqliteSchema.createTableStmnts.get(tableName);
   }
 
-  @Override
-  protected void dropTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
-  }
-
   private void printDatabaseVersion() {
     if (isDebug) {
       logger.debug("Start");
@@ -95,12 +88,6 @@ public final class SqliteSeeder extends AbstractGenSqliteSchema {
     if (isDebug) {
       logger.debug("End");
     }
-  }
-
-  @Override
-  protected void restoreTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
   }
 
   /**

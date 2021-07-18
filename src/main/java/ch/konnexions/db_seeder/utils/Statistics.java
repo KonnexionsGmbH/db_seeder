@@ -24,21 +24,21 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 
 /**
- * This class is used to record the statisticss of the db_seeder runs.
+ * This class is used to record the statistics of the db_seeder runs.
  */
 public final class Statistics {
   private static final Logger         logger    = LogManager.getLogger(Statistics.class);
 
   private final Config                config;
   private final Map<String, String[]> dbmsValues;
+  private long                        durationDML;
 
   private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
   private final boolean               isDebug   = logger.isDebugEnabled();
 
-  private final LocalDateTime         startDateTime;
-
   private LocalDateTime               startDateTimeDML;
+  private final LocalDateTime         startDateTimeTotal;
   private CSVPrinter                  statisticsFile;
   private final String                tickerSymbolExtern;
 
@@ -52,7 +52,7 @@ public final class Statistics {
   public Statistics(Config config, String tickerSymbolExtern, Map<String, String[]> dbmsValues) {
     this.config             = config;
     this.dbmsValues         = dbmsValues;
-    this.startDateTime      = LocalDateTime.now();
+    this.startDateTimeTotal = LocalDateTime.now();
     this.tickerSymbolExtern = tickerSymbolExtern;
 
     createStatisticsFile();
@@ -65,18 +65,15 @@ public final class Statistics {
       logger.debug("Start");
     }
 
+    LocalDateTime endDateTimeTotal = LocalDateTime.now();
     try {
-      LocalDateTime endDateTime   = LocalDateTime.now();
-
-      long          durationTotal = Duration.between(startDateTime,
-                                                     endDateTime).toMillis();
+      long durationTotal = Duration.between(startDateTimeTotal,
+                                            endDateTimeTotal).toMillis();
 
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                Duration.between(startDateTime,
-                                                 startDateTimeDML).toMillis()) + " ms - total DDL");
+                                durationTotal - durationDML) + " ms - total DDL");
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                Duration.between(startDateTimeDML,
-                                                 endDateTime).toMillis()) + " ms - total DML");
+                                durationDML) + " ms - total DML");
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                 durationTotal) + " ms - total");
 
@@ -84,8 +81,8 @@ public final class Statistics {
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
                                  durationTotal,
-                                 startDateTime.format(formatter),
-                                 endDateTime.format(formatter),
+                                 startDateTimeTotal.format(formatter),
+                                 endDateTimeTotal.format(formatter),
                                  InetAddress.getLocalHost().getHostName(),
                                  Integer.toString(Runtime.getRuntime().availableProcessors()),
                                  System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"));
@@ -164,7 +161,15 @@ public final class Statistics {
   }
 
   /**
-   * Sets the start date time of DML opeations.
+   * Sets the duration in ms of DML operations.
+   */
+  public void setDurationDML() {
+    durationDML = Duration.between(startDateTimeDML,
+                                   LocalDateTime.now()).toMillis();
+  }
+
+  /**
+   * Sets the start date time of DML operations.
    */
   public void setStartDateTimeDML() {
     startDateTimeDML = LocalDateTime.now();

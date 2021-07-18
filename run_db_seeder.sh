@@ -106,7 +106,6 @@ fi
 
 export DB_SEEDER_DBMS_EMBEDDED=no
 export DB_SEEDER_DBMS_TRINO=no
-export DB_SEEDER_DROP_CONSTRAINTS=no
 
 export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
 
@@ -426,7 +425,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     export DB_SEEDER_CONTAINER_PORT=1521
-    export DB_SEEDER_DROP_CONSTRAINTS=no
     export DB_SEEDER_PASSWORD=oracle
     export DB_SEEDER_PASSWORD_SYS=oracle
     export DB_SEEDER_USER=kxn_user
@@ -446,7 +444,6 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
     export DB_SEEDER_CONNECTION_SERVICE=orclpdb1
     export DB_SEEDER_CONTAINER_PORT=1521
     export DB_SEEDER_DBMS_TRINO=yes
-    export DB_SEEDER_DROP_CONSTRAINTS=no
     export DB_SEEDER_PASSWORD=oracle
     export DB_SEEDER_PASSWORD_SYS=oracle
     export DB_SEEDER_USER=kxn_user

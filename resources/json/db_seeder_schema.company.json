@@ -3,7 +3,7 @@
     "defaultNumberOfRows": 1000, "encodingISO_8859_1": true, "encodingUTF_8": true, "nullFactor": 4
   }, "tables": [
   {
-    "tableName": "city", "numberOfRows": 1800, "columns": [
+    "tableName": "city", "numberOfRows": 3600, "columns": [
     {
       "columnName": "pk_city_id", "dataType": "bigint", "primaryKey": true
     }, {
@@ -19,7 +19,7 @@
     }
   ]
   }, {
-    "tableName": "company", "numberOfRows": 5400, "columns": [
+    "tableName": "company", "numberOfRows": 10800, "columns": [
       {
         "columnName": "pk_company_id", "dataType": "bigint", "primaryKey": true
       }, {
@@ -57,7 +57,7 @@
       }
     ]
   }, {
-    "tableName": "country", "numberOfRows": 200, "columns": [
+    "tableName": "country", "numberOfRows": 400, "columns": [
       {
         "columnName": "pk_country_id", "dataType": "bigint", "primaryKey": true
       }, {
@@ -73,7 +73,7 @@
       }
     ]
   }, {
-    "tableName"          : "country_state", "numberOfRows": 600, "columns": [
+    "tableName"          : "country_state", "numberOfRows": 1200, "columns": [
       {
         "columnName": "pk_country_state_id", "dataType": "bigint", "primaryKey": true
       }, {
@@ -100,7 +100,7 @@
       }
     ]
   }, {
-    "tableName": "timezone", "numberOfRows": 11, "columns": [
+    "tableName": "timezone", "numberOfRows": 22, "columns": [
       {
         "columnName": "pk_timezone_id", "dataType": "bigint", "primaryKey": true
       }, {

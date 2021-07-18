@@ -1,13 +1,7 @@
 package ch.konnexions.db_seeder.jdbc.oracle;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.WeakHashMap;
 
-import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,69 +16,6 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * @since 2020-05-01
  */
 public final class OracleSeeder extends AbstractGenOracleSchema {
-
-  private class Constraint {
-    private LinkedHashSet<String> columnNames    = new LinkedHashSet<String>();
-    private String                constraintName;
-    private String                constraintType;
-    private LinkedHashSet<String> refColumnNames = new LinkedHashSet<String>();
-    private String                refTableName;
-    private String                tableName;
-
-    public String getDropStatement() {
-      return "ALTER TABLE " + tableName + " DROP CONSTRAINT " + constraintName + " CASCADE";
-    }
-
-    public String getRestoreStatement() {
-      String restoreStatement = "ALTER TABLE " + tableName + " ADD CONSTRAINT " + constraintName;
-
-      switch (constraintType) {
-      case "P":
-        restoreStatement = restoreStatement + " PRIMARY KEY (";
-        break;
-      case "R":
-        restoreStatement = restoreStatement + " FOREIGN KEY (";
-        break;
-      case "U":
-        restoreStatement = restoreStatement + " UNIQUE (";
-      }
-
-      restoreStatement = restoreStatement + String.join(",",
-                                                        columnNames) + ")";
-
-      if ("R".equals(constraintType)) {
-        restoreStatement = restoreStatement + " REFERENCES " + refTableName + " (" + String.join(",",
-                                                                                                 refColumnNames) + ")";
-      }
-
-      return restoreStatement + " ENABLE";
-    }
-
-    public void setColumnName(String column) {
-      this.columnNames.add(column);
-    }
-
-    public void setConstraintName(String constraintName) {
-      this.constraintName = constraintName;
-    }
-
-    public void setConstraintType(String constraintType) {
-      this.constraintType = constraintType;
-    }
-
-    public void setRefColumnName(String refColumnName) {
-      this.refColumnNames.add(refColumnName);
-    }
-
-    public void setRefTableName(String refTableName) {
-      this.refTableName = refTableName;
-    }
-
-    public void setTableName(String tableName) {
-      this.tableName = tableName;
-
-    }
-  }
 
   private static final Logger logger = LogManager.getLogger(OracleSeeder.class);
 
@@ -114,9 +45,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     return connectionPrefix + connectionHost + ":" + connectionPort + "/" + connectionService + "?oracle.net.disableOob=true";
   }
 
-  private WeakHashMap<String, Constraint> constraints;
-
-  private final boolean                   isDebug = logger.isDebugEnabled();
+  private final boolean isDebug = logger.isDebugEnabled();
 
   /**
    * Instantiates a new Oracle seeder object.
@@ -168,141 +97,6 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   @Override
   protected final String createDdlStmnt(String tableName) {
     return AbstractGenOracleSchema.createTableStmnts.get(tableName);
-  }
-
-  @Override
-  protected void dropTableConstraints(Connection connection) {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    LocalDateTime startDateTime       = LocalDateTime.now();
-
-    final int     POS_TABLE_NAME      = 1;
-    final int     POS_CONSTRAINT_NAME = 2;
-    final int     POS_CONSTRAINT_TYPE = 3;
-    final int     POS_COLUMN_NAME     = 4;
-    final int     POS_POSITION        = 5;
-    final int     POS_REF_TABLE_NAME  = 6;
-    final int     POS_REF_COLUMN_NAME = 7;
-
-    try {
-      statement = connection.createStatement();
-
-      String sqlStmnt = """
-                        SELECT ac.table_name,
-                               ac.constraint_name,
-                               ac.constraint_type,
-                               acc.column_name,
-                               acc.POSITION,
-                               ac_r.TABLE_NAME,
-                               acc_r.COLUMN_NAME
-                          FROM                 all_constraints ac
-                               LEFT OUTER JOIN all_cons_columns acc   ON ac.constraint_name = acc.constraint_name
-                               LEFT OUTER JOIN all_constraints  ac_r  ON ac.R_CONSTRAINT_NAME = ac_r.constraint_name
-                               LEFT OUTER JOIN all_cons_columns acc_r ON ac.r_constraint_name = acc_r.constraint_name
-                         WHERE ac.constraint_type IN ('F', 'P', 'U')
-                           AND ac.table_name IN ('tableNames')
-                           AND ac.owner = 'user'
-                         ORDER BY ac.constraint_name,
-                                  acc.position
-                        """.replace("tableNames",
-                                    String.join("','",
-                                                TABLE_NAMES_CREATE)).replace("user",
-                                                                             config.getUser().toUpperCase());
-
-      if (isDebug) {
-        logger.debug("sqlStmnt='" + sqlStmnt + "'");
-      }
-
-      resultSet = statement.executeQuery(sqlStmnt);
-
-      while (resultSet.next()) {
-        String     constraintName = resultSet.getString(POS_CONSTRAINT_NAME);
-        String     columnName     = resultSet.getString(POS_COLUMN_NAME);
-        int        position       = resultSet.getInt(POS_POSITION);
-        String     refColumnName  = resultSet.getString(POS_REF_COLUMN_NAME);
-
-        Constraint constraint;
-
-        if (position == 1) {
-          constraint = new Constraint();
-
-          constraint.setTableName(resultSet.getString(POS_TABLE_NAME));
-          constraint.setConstraintName(constraintName);
-          constraint.setConstraintType(resultSet.getString(POS_CONSTRAINT_TYPE));
-          constraint.setColumnName(columnName);
-          constraint.setRefTableName(resultSet.getString(POS_REF_TABLE_NAME));
-          constraint.setRefColumnName(refColumnName);
-        } else {
-          constraint = constraints.get(constraintName);
-
-          constraint.setColumnName(columnName);
-          constraint.setRefColumnName(refColumnName);
-        }
-
-        constraints.put(constraintName,
-                        constraint);
-      }
-
-      resultSet.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    logger.info("      " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                         Duration.between(startDateTime,
-                                                          LocalDateTime.now()).toMillis()) + " ms - total DDL constraints (FK, PK, UK) retrieved");
-
-    for (String tableName : TABLE_NAMES_DROP) {
-      for (Constraint constraint : constraints.values()) {
-        if (tableName.equals(constraint.tableName)) {
-          executeDdlStmnts(statement,
-                           constraint.getDropStatement());
-        }
-      }
-    }
-
-    try {
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
-  }
-
-  @Override
-  protected void restoreTableConstraints(Connection connection) {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    try {
-      statement = connection.createStatement();
-
-      for (String tableName : TABLE_NAMES_CREATE) {
-        for (Constraint constraint : constraints.values()) {
-          if (tableName.equals(constraint.tableName)) {
-            executeDdlStmnts(statement,
-                             constraint.getRestoreStatement());
-          }
-        }
-      }
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
   }
 
   /**
@@ -393,8 +187,6 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
                            driver_trino,
                            true);
     }
-
-    constraints = new WeakHashMap<String, Constraint>();
 
     if (isDebug) {
       logger.debug("End");

@@ -1,7 +1,5 @@
 package ch.konnexions.db_seeder.jdbc.yugabyte;
 
-import java.sql.Connection;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -89,18 +87,6 @@ public final class YugabyteSeeder extends AbstractGenYugabyteSchema {
   @Override
   protected final String createDdlStmnt(String tableName) {
     return AbstractGenYugabyteSchema.createTableStmnts.get(tableName);
-  }
-
-  @Override
-  protected void dropTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  protected void restoreTableConstraints(Connection connection) {
-    // TODO Auto-generated method stub
-
   }
 
   @Override

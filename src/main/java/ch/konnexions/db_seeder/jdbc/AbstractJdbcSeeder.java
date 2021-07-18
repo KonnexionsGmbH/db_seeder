@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -42,11 +43,17 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX     = 3;
+  private WeakHashMap<String, Constraint> constraints;
 
-  private static final Logger logger           = LogManager.getLogger(AbstractJdbcSeeder.class);
+  long                                    durationDDL      = 0;
+  long                                    durationDML      = 0;
+  long                                    durationTotal    = 0;
 
-  private static final int    XLOB_OMNISCI_MAX = 32767 / 2;
+  private static final int                ENCODING_MAX     = 3;
+
+  private static final Logger             logger           = LogManager.getLogger(AbstractJdbcSeeder.class);
+
+  private static final int                XLOB_OMNISCI_MAX = 32767 / 2;
 
   /**
    * Gets the catalog name.
@@ -118,7 +125,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    config = new Config();
+    config          = new Config();
+
+    batchSize       = config.getBatchSize();
+    dropConstraints = config.getDropConstraints();
 
     boolean isEmbedded;
 
@@ -341,45 +351,53 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    LocalDateTime startDateTime;
-
-    Statistics    statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
+    Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
 
     setupDatabase();
 
-    statistics.setStartDateTimeDML();
+    constraints = new WeakHashMap<String, Constraint>();
 
     // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
-    if ("yes".equals(config.getDropConstraints())) {
-      startDateTime = LocalDateTime.now();
+    if ("yes".equals(dropConstraints)) {
+      LocalDateTime startDateTime = LocalDateTime.now();
 
       dropTableConstraints(connection);
 
+      long duration = Duration.between(startDateTime,
+                                       LocalDateTime.now()).toMillis();
+
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                Duration.between(startDateTime,
-                                                 LocalDateTime.now()).toMillis()) + " ms - total DDL constraints (FK, PK, UK) dropped");
+                                duration) + " ms - total DDL constraints (FK, PK, UK) dropped");
     }
+
+    statistics.setStartDateTimeDML();
 
     // Perform the DML statements
     for (String tableName : TABLE_NAMES_CREATE) {
-      startDateTime = LocalDateTime.now();
+      LocalDateTime startDateTime = LocalDateTime.now();
 
       createData(tableName);
 
+      long duration = Duration.between(startDateTime,
+                                       LocalDateTime.now()).toMillis();
+
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                Duration.between(startDateTime,
-                                                 LocalDateTime.now()).toMillis()) + " ms - total DML database table " + tableName);
+                                duration) + " ms - total DML database table " + tableName);
     }
 
+    statistics.setDurationDML();
+
     // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
-    if ("yes".equals(config.getDropConstraints())) {
-      startDateTime = LocalDateTime.now();
+    if ("yes".equals(dropConstraints)) {
+      LocalDateTime startDateTime = LocalDateTime.now();
 
       restoreTableConstraints(connection);
 
+      long duration = Duration.between(startDateTime,
+                                       LocalDateTime.now()).toMillis();
+
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                Duration.between(startDateTime,
-                                                 LocalDateTime.now()).toMillis()) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
+                                duration) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
     }
 
     disconnect(connection);
@@ -504,9 +522,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       try {
         preparedStatement.addBatch();
 
-        if (rowNo % batchSize == 0) {
+        if ((batchSize > 0) && (rowNo % batchSize == 0)) {
           preparedStatement.executeBatch();
+
           isToBeExecuted = false;
+          logger.info("Batch processing finished - number of SQL statements: " + batchSize);
         } else {
           isToBeExecuted = true;
         }
@@ -804,7 +824,104 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @param connection the database connection
    */
-  protected abstract void dropTableConstraints(Connection connection);
+  protected void dropTableConstraints(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    final int POS_TABLE_NAME      = 1;
+    final int POS_CONSTRAINT_NAME = 2;
+    final int POS_CONSTRAINT_TYPE = 3;
+    final int POS_COLUMN_NAME     = 4;
+    final int POS_POSITION        = 5;
+    final int POS_REF_TABLE_NAME  = 6;
+    final int POS_REF_COLUMN_NAME = 7;
+
+    try {
+      statement = connection.createStatement();
+
+      String sqlStmnt = """
+                        SELECT ac.table_name,
+                               ac.constraint_name,
+                               ac.constraint_type,
+                               acc.column_name,
+                               acc.POSITION,
+                               ac_r.TABLE_NAME,
+                               acc_r.COLUMN_NAME
+                          FROM                 all_constraints ac
+                               LEFT OUTER JOIN all_cons_columns acc   ON ac.constraint_name = acc.constraint_name
+                               LEFT OUTER JOIN all_constraints  ac_r  ON ac.R_CONSTRAINT_NAME = ac_r.constraint_name
+                               LEFT OUTER JOIN all_cons_columns acc_r ON ac.r_constraint_name = acc_r.constraint_name
+                         WHERE ac.constraint_type IN ('F', 'P', 'U')
+                           AND ac.table_name IN ('tableNames')
+                           AND ac.owner = 'user'
+                         ORDER BY ac.constraint_name,
+                                  acc.position
+                        """.replace("tableNames",
+                                    String.join("','",
+                                                TABLE_NAMES_CREATE)).replace("user",
+                                                                             config.getUser().toUpperCase());
+
+      if (isDebug) {
+        logger.debug("sqlStmnt='" + sqlStmnt + "'");
+      }
+
+      resultSet = statement.executeQuery(sqlStmnt);
+
+      while (resultSet.next()) {
+        String     constraintName = resultSet.getString(POS_CONSTRAINT_NAME);
+        String     columnName     = resultSet.getString(POS_COLUMN_NAME);
+        int        position       = resultSet.getInt(POS_POSITION);
+        String     refColumnName  = resultSet.getString(POS_REF_COLUMN_NAME);
+
+        Constraint constraint;
+
+        if (position == 1) {
+          constraint = new Constraint();
+
+          constraint.setTableName(resultSet.getString(POS_TABLE_NAME));
+          constraint.setConstraintName(constraintName);
+          constraint.setConstraintType(resultSet.getString(POS_CONSTRAINT_TYPE));
+          constraint.setColumnName(columnName);
+          constraint.setRefTableName(resultSet.getString(POS_REF_TABLE_NAME));
+          constraint.setRefColumnName(refColumnName);
+        } else {
+          constraint = constraints.get(constraintName);
+
+          constraint.setColumnName(columnName);
+          constraint.setRefColumnName(refColumnName);
+        }
+
+        constraints.put(constraintName,
+                        constraint);
+      }
+
+      resultSet.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    for (String tableName : TABLE_NAMES_DROP) {
+      for (Constraint constraint : constraints.values()) {
+        if (tableName.equals(constraint.getTableName())) {
+          executeDdlStmnts(statement,
+                           constraint.getDropStatement());
+        }
+      }
+    }
+
+    try {
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
 
   /**
    * Drop the database user.
@@ -974,9 +1091,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     } else {
       columnValue = (columnName + "_" + encodedColumnNames.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
                                                                                                                                 rowNo)).stripTrailing();
-      if (getLengthUTF_8(columnValue) > size) {
-        return columnValue.substring(columnValue.length() - size);
-      }
+      int columnValueSize = getLengthUTF_8(columnValue);
+      if (columnValueSize > size)
+        return columnValue.substring(columnValueSize - size + 1);
+      else
+        return columnValue;
     }
 
     if (isDebug) {
@@ -1577,7 +1696,33 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @param connection the database connection
    */
-  protected abstract void restoreTableConstraints(Connection connection);
+  protected void restoreTableConstraints(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      statement = connection.createStatement();
+
+      for (String tableName : TABLE_NAMES_CREATE) {
+        for (Constraint constraint : constraints.values()) {
+          if (tableName.equals(constraint.getTableName())) {
+            executeDdlStmnts(statement,
+                             constraint.getRestoreStatement());
+          }
+        }
+      }
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
 
   /**
    * Delete any existing relevant database schema objects (database, user,

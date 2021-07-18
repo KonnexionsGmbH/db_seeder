@@ -30,6 +30,8 @@ public final class Config {
   private static final Logger     logger     = LogManager.getLogger(Config.class);
   //  private final boolean           isDebug    = logger.isDebugEnabled();
 
+  private int                     batchSize;
+
   private String                  characterSetServer;
   private String                  collationServer;
   private String                  connectionHost;
@@ -95,15 +97,16 @@ public final class Config {
     }
   }
 
-  //  private ArrayList<String> getBooleanProperties() {
-  //
-  //    ArrayList<String> list = new ArrayList<>();
-  //
-  //    list.add("db_seeder.encoding.iso_8859_1");
-  //    list.add("db_seeder.encoding.utf_8");
-  //
-  //    return list;
-  //  }
+  // BULK OPERATION ---------------------------------------------------
+
+  /**
+   * @return the maximum batch size
+   */
+  public final int getBatchSize() {
+    return batchSize;
+  }
+
+  // ENCODING ---------------------------------------------------------
 
   /**
    * @return the default server character set
@@ -256,19 +259,6 @@ public final class Config {
     return keysSorted;
   }
 
-  // -------------------------------------------------------------------------
-
-  //  private ArrayList<String> getNumericProperties() {
-  //
-  //    ArrayList<String> list = new ArrayList<>();
-  //
-  //    list.add("db_seeder.connection.port");
-  //    list.add("db_seeder.connection.port.trino");
-  //    list.add("db_seeder.null.factor");
-  //
-  //    return list;
-  //  }
-
   // PASSWORD ---------------------------------------------------------
 
   /**
@@ -314,6 +304,8 @@ public final class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
+    batchSize                   = propertiesConfiguration.getInt("db_seeder.batch.size");
+
     characterSetServer          = propertiesConfiguration.getString("db_seeder.character.set.server");
     collationServer             = propertiesConfiguration.getString("db_seeder.collation.server");
     connectionHost              = propertiesConfiguration.getString("db_seeder.connection.host");
@@ -348,6 +340,14 @@ public final class Config {
   private void updatePropertiesFromOs() {
 
     Map<String, String> environmentVariables = System.getenv();
+
+    // BULK OPERATION ---------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_BATCH_SIZE")) {
+      batchSize = Integer.parseInt(environmentVariables.get("DB_SEEDER_BATCH_SIZE"));
+      propertiesConfiguration.setProperty("db_seeder.batch.size",
+                                          batchSize);
+    }
 
     // CONNECTION -------------------------------------------------------
 
