@@ -170,15 +170,16 @@ Release Date: dd.mm.2021
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 
 - Docker Desktop Community: 3.0.4
-- Eclipse IDE: 2021.03 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads/))
+- Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads/))
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases/))
 - Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
 
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-03\eclipse`
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
 
 #### New Features
 
-n/a
+- new control parameter `DB_SEEDER_BATCH_SIZE`: the maximum number of DML operations of type `addBatch` - `0` represents all DML operations
+- new control parameter `DB_SEEDER_DROP_CONSTRAINTS`: if the value is `yes`, all constraints of the types FOREIGN KEY, PRIMARY KEY and UNIQUE KEY are removed before the first DML operation and are enabled again after the last DML operation
 
 #### Modified Features
 
