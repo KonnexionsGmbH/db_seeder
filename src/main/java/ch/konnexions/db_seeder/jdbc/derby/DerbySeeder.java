@@ -170,7 +170,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

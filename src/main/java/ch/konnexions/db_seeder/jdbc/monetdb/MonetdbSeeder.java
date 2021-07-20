@@ -184,7 +184,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

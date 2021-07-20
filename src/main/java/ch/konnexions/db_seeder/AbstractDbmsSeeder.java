@@ -1,5 +1,6 @@
 package ch.konnexions.db_seeder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -404,5 +405,45 @@ public abstract class AbstractDbmsSeeder {
    */
   public final String getIdentifierDelimiter(String tickerSymbolLower) {
     return dbmsDetails.get(tickerSymbolLower)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+  }
+
+  /**
+   * Put the identifier in the correct case.
+   *
+   * @param identifier the identifier
+   * 
+   * @return the converted identifier
+   */
+  public final String setCaseIdentifier(String identifier) {
+    if ("agens".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "omnisci".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "percona".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)
+        || "sqlserver".equals(tickerSymbolLower)) {
+      return identifier.toLowerCase();
+    }
+
+    return identifier.toUpperCase();
+  }
+
+  /**
+   * Put the identifier list in the correct case.
+   *
+   * @param identifiers the identifier list
+   */
+  public final void setCaseIdentifiers(ArrayList<String> identifiers) {
+    if ("agens".equals(tickerSymbolLower)
+        || "mysql".equals(tickerSymbolLower)
+        || "omnisci".equals(tickerSymbolLower)
+        || "oracle".equals(tickerSymbolLower)
+        || "percona".equals(tickerSymbolLower)
+        || "postgresql".equals(tickerSymbolLower)
+        || "sqlserver".equals(tickerSymbolLower)) {
+      identifiers.forEach(String::toLowerCase);
+    }
+
+    identifiers.forEach(String::toUpperCase);
   }
 }

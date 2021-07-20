@@ -149,7 +149,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

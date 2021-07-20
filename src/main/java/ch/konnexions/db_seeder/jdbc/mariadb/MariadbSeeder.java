@@ -135,7 +135,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

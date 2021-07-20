@@ -191,7 +191,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

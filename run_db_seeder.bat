@@ -171,6 +171,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.5.0
     set DB_SEEDER_VERSION=4.5.1
     set DB_SEEDER_VERSION=4.5.3
+    set DB_SEEDER_VERSION=4.5.4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -388,6 +389,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.23
     set DB_SEEDER_VERSION=8.0.24
     set DB_SEEDER_VERSION=8.0.25
+    set DB_SEEDER_VERSION=8.0.26
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
@@ -408,6 +410,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.23
     set DB_SEEDER_VERSION=8.0.24
     set DB_SEEDER_VERSION=8.0.25
+    set DB_SEEDER_VERSION=8.0.26
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (

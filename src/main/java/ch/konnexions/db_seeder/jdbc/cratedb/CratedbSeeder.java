@@ -137,7 +137,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          true);

@@ -134,7 +134,7 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          null,

@@ -18,7 +18,59 @@
 
 ### 1.1 Apache Derby
 
+#### 1.1.1 Issue with cecond run
+
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
+
+#### 1.1.2 Issue with ALTER TABLE ... DROP CONSTRANT
+
+**DDL Statement:**
+
+`CREATE TABLE KXN_SCHEMA.COUNTRY_STATE (
+PK_COUNTRY_STATE_ID BIGINT NOT NULL,
+FK_COUNTRY_ID BIGINT NOT NULL,
+FK_TIMEZONE_ID BIGINT NOT NULL,
+COUNTRY_STATE_MAP BLOB,
+CREATED TIMESTAMP NOT NULL,
+MODIFIED TIMESTAMP,
+NAME VARCHAR(100) NOT NULL,
+SYMBOL VARCHAR(50),
+CONSTRAINT CONSTRAINT_KXN_4 UNIQUE (),
+CONSTRAINT "SQL0000000111-2c5f8294-017a-c260-be49-00000016e126" PRIMARY KEY (),
+CONSTRAINT "SQL0000000112-15048295-017a-c260-be49-00000016e126" FOREIGN KEY () REFERENCES KXN_SCHEMA.COUNTRY(),
+CONSTRAINT "SQL0000000113-3da9c296-017a-c260-be49-00000016e126" FOREIGN KEY () REFERENCES KXN_SCHEMA.TIMEZONE()
+);
+CREATE INDEX "SQL0000000112-15048295-017a-c260-be49-00000016e126" ON KXN_SCHEMA.COUNTRY_STATE (FK_COUNTRY_ID);
+CREATE INDEX "SQL0000000113-3da9c296-017a-c260-be49-00000016e126" ON KXN_SCHEMA.COUNTRY_STATE (FK_TIMEZONE_ID);
+CREATE UNIQUE INDEX "SQL0000000114-a041429a-017a-c260-be49-00000016e126" ON KXN_SCHEMA.COUNTRY_STATE (FK_COUNTRY_ID,NAME);`
+
+**Statement DROP CONSTRAINT:**
+
+`ALTER TABLE COUNTRY_STATE DROP CONSTRAINT "SQL0000000114-a041429a-017a-c260-be49-00000016e126"`
+
+**Error message:**
+
+`java.sql.SQLSyntaxErrorException: ALTER TABLE failed. There is no constraint 'KXN_SCHEMA.SQL0000000114-a041429a-017a-c260-be49-00000016e126' on table '"KXN_SCHEMA"."COUNTRY_STATE"'.
+at org.apache.derby.client.am.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:94)
+at org.apache.derby.client.am.SqlException.getSQLException(SqlException.java:325)
+at org.apache.derby.client.am.ClientStatement.execute(ClientStatement.java:997)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1213)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1126)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:411)
+at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:94)
+Caused by: ERROR 42X86: ALTER TABLE failed. There is no constraint 'KXN_SCHEMA.SQL0000000114-a041429a-017a-c260-be49-00000016e126' on table '"KXN_SCHEMA"."COUNTRY_STATE"'.
+at org.apache.derby.client.am.ClientStatement.completeSqlca(ClientStatement.java:2116)
+at org.apache.derby.client.am.ClientStatement.completeExecuteImmediate(ClientStatement.java:1683)
+at org.apache.derby.client.net.NetStatementReply.parseEXCSQLIMMreply(NetStatementReply.java:209)
+at org.apache.derby.client.net.NetStatementReply.readExecuteImmediate(NetStatementReply.java:60)
+at org.apache.derby.client.net.StatementReply.readExecuteImmediate(StatementReply.java:47)
+at org.apache.derby.client.net.NetStatement.readExecuteImmediate_(NetStatement.java:142)
+at org.apache.derby.client.am.ClientStatement.readExecuteImmediate(ClientStatement.java:1679)
+at org.apache.derby.client.am.ClientStatement.flowExecute(ClientStatement.java:2408)
+at org.apache.derby.client.am.ClientStatement.executeX(ClientStatement.java:1002)
+at org.apache.derby.client.am.ClientStatement.execute(ClientStatement.java:988)
+... 4 more
+Processing of the script was aborted, error code=1`
 
 ### 1.2 IBM Db2
 
@@ -132,7 +184,7 @@ n/a
 
 - CockroachDB: DBMS v21.1.5
 
-- CrateDB: DBMS 4.5.3
+- CrateDB: DBMS 4.5.4
 
 - Exasol: DBMS 7.0.11
 
@@ -143,6 +195,8 @@ n/a
 - MariaDB Server: DBMS 10.6.3
 
 - MonetDB: JDBC 3.1.jre8
+
+- MySQL Database: DBMS 8.0.26 / JDBC 8.0.26
 
 - Percona Server for MySQL: DBMS 8.0.25-15
 

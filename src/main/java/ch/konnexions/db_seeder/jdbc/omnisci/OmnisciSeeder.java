@@ -146,7 +146,7 @@ public final class OmnisciSeeder extends AbstractGenOmnisciSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          driver,

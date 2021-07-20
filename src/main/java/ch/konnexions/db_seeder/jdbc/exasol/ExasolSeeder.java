@@ -126,7 +126,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          null,

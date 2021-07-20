@@ -179,7 +179,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
@@ -199,7 +199,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     // -----------------------------------------------------------------------
 
     if (isTrino) {
-      disconnect(connection);
+      disconnectDDL(connection);
 
       connection = connect(urlTrino,
                            driver_trino,

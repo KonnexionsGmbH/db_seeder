@@ -158,7 +158,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          null,
@@ -181,7 +181,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // -----------------------------------------------------------------------
 
     if (isTrino) {
-      disconnect(connection);
+      disconnectDDL(connection);
 
       connection = connect(urlTrino,
                            driver_trino,

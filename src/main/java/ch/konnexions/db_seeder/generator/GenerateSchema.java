@@ -159,7 +159,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     ArrayList<String> columns;
     String            constraintType;
 
-    String            editedReferenceTable;
+    String            editedReferenceTable = null;
 
     StringBuilder     workArea;
 
@@ -212,16 +212,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       columns = tableConstraint.getColumns();
 
-      if ("agens".equals(tickerSymbolLower)
-          || "mysql".equals(tickerSymbolLower)
-          || "oracle".equals(tickerSymbolLower)
-          || "percona".equals(tickerSymbolLower)
-          || "postgresql".equals(tickerSymbolLower)
-          || "sqlserver".equals(tickerSymbolLower)) {
-        columns.forEach(String::toLowerCase);
-      } else {
-        columns.forEach(String::toUpperCase);
-      }
+      setCaseIdentifiers(columns);
 
       workArea.append(String.join(identifierDelimiter + ", " + identifierDelimiter,
                                   columns)).append(identifierDelimiter).append(")");
@@ -232,19 +223,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
         columns  = tableConstraint.getReferenceColumns();
 
-        if ("agens".equals(tickerSymbolLower)
-            || "mysql".equals(tickerSymbolLower)
-            || "omnisci".equals(tickerSymbolLower)
-            || "oracle".equals(tickerSymbolLower)
-            || "percona".equals(tickerSymbolLower)
-            || "postgresql".equals(tickerSymbolLower)
-            || "sqlserver".equals(tickerSymbolLower)) {
-          editedReferenceTable = tableConstraint.getReferenceTable().toLowerCase();
-          columns.forEach(String::toLowerCase);
-        } else {
-          editedReferenceTable = tableConstraint.getReferenceTable().toUpperCase();
-          columns.forEach(String::toUpperCase);
-        }
+        setCaseIdentifiers(columns);
 
         workArea.append("REFERENCES ").append(String.format("%-33s",
                                                             identifierDelimiter + editedReferenceTable + identifierDelimiter));
@@ -502,17 +481,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        if ("agens".equals(tickerSymbolLower)
-            || "mysql".equals(tickerSymbolLower)
-            || "omnisci".equals(tickerSymbolLower)
-            || "oracle".equals(tickerSymbolLower)
-            || "percona".equals(tickerSymbolLower)
-            || "postgresql".equals(tickerSymbolLower)
-            || "sqlserver".equals(tickerSymbolLower)) {
-          editedTableName = tableName.toLowerCase();
-        } else {
-          editedTableName = tableName.toUpperCase();
-        }
+        editedTableName        = setCaseIdentifier(tableName);
 
         columns                = genTablesColumns.get(tableName);
 
@@ -533,22 +502,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         }
 
         for (Column column : columns) {
-          columnNameUpper = column.getColumnName().toUpperCase();
+          columnNameUpper  = column.getColumnName().toUpperCase();
 
-          if ("agens".equals(tickerSymbolLower)
-              || "mysql".equals(tickerSymbolLower)
-              || "omnisci".equals(tickerSymbolLower)
-              || "oracle".equals(tickerSymbolLower)
-              || "percona".equals(tickerSymbolLower)
-              || "postgresql".equals(tickerSymbolLower)
-              || "sqlserver".equals(tickerSymbolLower)) {
-            editedColumnName = column.getColumnName().toLowerCase();
-          } else {
-            editedColumnName = column.getColumnName().toUpperCase();
-          }
+          editedColumnName = setCaseIdentifier(column.getColumnName());
 
-          editedDataType = editDataType(tickerSymbolLower,
-                                        column);
+          editedDataType   = editDataType(tickerSymbolLower,
+                                          column);
 
           // Column start ......................................................
 
@@ -623,18 +582,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                   workArea = new StringBuilder(" ".repeat(82));
                 }
 
-                if ("agens".equals(tickerSymbolLower)
-                    || "mysql".equals(tickerSymbolLower)
-                    || "oracle".equals(tickerSymbolLower)
-                    || "percona".equals(tickerSymbolLower)
-                    || "postgresql".equals(tickerSymbolLower)
-                    || "sqlserver".equals(tickerSymbolLower)) {
-                  editedReferenceTable  = reference.getReferenceTable().toLowerCase();
-                  editedReferenceColumn = reference.getReferenceColumn().toLowerCase();
-                } else {
-                  editedReferenceTable  = reference.getReferenceTable().toUpperCase();
-                  editedReferenceColumn = reference.getReferenceColumn().toUpperCase();
-                }
+                editedReferenceTable  = setCaseIdentifier(reference.getReferenceTable());
+                editedReferenceColumn = setCaseIdentifier(reference.getReferenceColumn());
 
                 workArea.append("REFERENCES ");
                 workArea.append(String.format("%-33s",

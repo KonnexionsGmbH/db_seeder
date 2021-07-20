@@ -156,7 +156,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

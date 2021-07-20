@@ -137,7 +137,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

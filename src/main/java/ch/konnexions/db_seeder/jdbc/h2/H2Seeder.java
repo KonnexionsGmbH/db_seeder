@@ -170,7 +170,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

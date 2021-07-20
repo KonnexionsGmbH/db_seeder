@@ -113,7 +113,21 @@ public final class Statistics {
     try {
       Path statisticsPath = Paths.get(statisticsName);
 
-      Files.createDirectories(statisticsPath.getParent());
+      if (statisticsPath == null) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: The file path for the statistics file is missing (null)");
+        System.exit(1);
+      }
+
+      Path statisticsPathParent = statisticsPath.getParent();
+
+      if (statisticsPathParent == null) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: The directory path for the statistics file is missing (null)");
+        System.exit(1);
+      }
+
+      Files.createDirectories(statisticsPathParent);
 
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 

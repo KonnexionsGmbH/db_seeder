@@ -65,7 +65,7 @@ The database systems considered meet the following conditions:
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.5          | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.5.3              | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.5.4              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
@@ -76,7 +76,7 @@ The database systems considered meet the following conditions:
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.3           | 2.7.3               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.1.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
 | OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
@@ -1222,13 +1222,13 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.25`
+  - pull command: `docker pull mysql:8.0.26`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
 - **JDBC driver (latest)**:
-  - version 8.0.25
+  - version 8.0.26
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:

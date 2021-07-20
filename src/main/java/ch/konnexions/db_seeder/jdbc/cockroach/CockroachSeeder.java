@@ -139,7 +139,7 @@ public final class CockroachSeeder extends AbstractGenCockroachSchema {
     // Connect non-priviledged user.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

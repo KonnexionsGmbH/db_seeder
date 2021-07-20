@@ -143,7 +143,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

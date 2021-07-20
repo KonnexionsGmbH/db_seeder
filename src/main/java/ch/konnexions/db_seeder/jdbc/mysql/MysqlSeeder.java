@@ -140,7 +140,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     // -----------------------------------------------------------------------
 
     if (isTrino) {
-      disconnect(connection);
+      disconnectDDL(connection);
 
       connection = connect(urlTrino,
                            driver_trino,

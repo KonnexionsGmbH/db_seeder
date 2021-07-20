@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,9 +21,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -43,17 +49,11 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private WeakHashMap<String, Constraint> constraints;
+  private static final int    ENCODING_MAX     = 3;
 
-  long                                    durationDDL      = 0;
-  long                                    durationDML      = 0;
-  long                                    durationTotal    = 0;
+  private static final Logger logger           = LogManager.getLogger(AbstractJdbcSeeder.class);
 
-  private static final int                ENCODING_MAX     = 3;
-
-  private static final Logger             logger           = LogManager.getLogger(AbstractJdbcSeeder.class);
-
-  private static final int                XLOB_OMNISCI_MAX = 32767 / 2;
+  private static final int    XLOB_OMNISCI_MAX = 32767 / 2;
 
   /**
    * Gets the catalog name.
@@ -78,39 +78,40 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=trino";
   }
 
-  private final String    BLOB_FILE              = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath() + File.separator + "blob.png";
-  private final byte[]    BLOB_DATA_BYTES        = readBlobFile2Bytes();
-  private final String    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
+  private final String                    BLOB_FILE              = Paths.get("src",
+                                                                             "main",
+                                                                             "resources").toAbsolutePath() + File.separator + "blob.png";
+  private final byte[]                    BLOB_DATA_BYTES        = readBlobFile2Bytes();
+  private final String                    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
 
-  private final String    CLOB_FILE              = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath() + File.separator + "clob.md";
-  private final String    CLOB_DATA              = readClobFile();
+  private final String                    CLOB_FILE              = Paths.get("src",
+                                                                             "main",
+                                                                             "resources").toAbsolutePath() + File.separator + "clob.md";
+  private final String                    CLOB_DATA              = readClobFile();
 
-  protected Connection    connection             = null;
-  protected String        driver                 = "";
+  protected Connection                    connection             = null;
+  private WeakHashMap<String, Constraint> constraints;
 
-  protected final String  driver_trino           = "io.trino.jdbc.TrinoDriver";
-  protected String        dropTableStmnt         = "";
-  protected Properties    encodedColumnNames     = new Properties();
+  protected String                        driver                 = "";
+  protected final String                  driver_trino           = "io.trino.jdbc.TrinoDriver";
+  protected String                        dropTableStmnt         = "";
+  protected Properties                    encodedColumnNames     = new Properties();
 
-  protected final boolean isClient;
+  protected final boolean                 isClient;
 
-  private final boolean   isDebug                = logger.isDebugEnabled();
-  protected final boolean isTrino;
+  private final boolean                   isDebug                = logger.isDebugEnabled();
+  protected final boolean                 isTrino;
 
-  protected int           nullFactor;
+  protected int                           nullFactor;
 
-  private final Random    randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  protected ResultSet     resultSet              = null;
+  private final Random                    randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  protected ResultSet                     resultSet              = null;
 
-  protected Statement     statement              = null;
+  protected Statement                     statement              = null;
 
-  protected String        urlSys                 = "";
-  protected String        urlTrino               = "";
-  protected String        urlUser                = "";
+  protected String                        urlSys                 = "";
+  protected String                        urlTrino               = "";
+  protected String                        urlUser                = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
@@ -152,6 +153,54 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("trino  =" + isTrino);
 
       logger.debug("End   Constructor");
+    }
+  }
+
+  /**
+   * Commit the previous DDL operations.
+   *
+   * @param connection the database connection
+   */
+  private void commitDDL(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    if (!("cratedb".equals(tickerSymbolExtern) || "firebird".equals(tickerSymbolExtern) || "oracle".equals(tickerSymbolExtern) || "oracle_trino".equals(tickerSymbolExtern))) {
+      try {
+        connection.commit();
+      } catch (SQLException ec) {
+        ec.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Commit the previous DML operations.
+   *
+   * @param connection the database connection
+   */
+  private void commitDML(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    if (!("cratedb".equals(tickerSymbolExtern))) {
+      try {
+        connection.commit();
+      } catch (SQLException ec) {
+        ec.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 
@@ -355,25 +404,34 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     setupDatabase();
 
-    constraints = new WeakHashMap<String, Constraint>();
+    if (!("derby".equals(tickerSymbolExtern) || "derby_emb".equals(tickerSymbolExtern))) {
+      // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+      if ("yes".equals(dropConstraints)) {
+        LocalDateTime startDateTime = LocalDateTime.now();
 
-    // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
-    if ("yes".equals(dropConstraints)) {
-      LocalDateTime startDateTime = LocalDateTime.now();
+        constraints = new WeakHashMap<String, Constraint>();
 
-      dropTableConstraints(connection);
+        try {
+          dropTableConstraints(connection);
+        } catch (SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
 
-      long duration = Duration.between(startDateTime,
-                                       LocalDateTime.now()).toMillis();
+        long duration = Duration.between(startDateTime,
+                                         LocalDateTime.now()).toMillis();
 
-      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                duration) + " ms - total DDL constraints (FK, PK, UK) dropped");
+        logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                  duration) + " ms - total DDL constraints (FK, PK, UK) dropped");
+      }
     }
 
     statistics.setStartDateTimeDML();
 
     // Perform the DML statements
-    for (String tableName : TABLE_NAMES_CREATE) {
+    for (
+
+    String tableName : TABLE_NAMES_CREATE) {
       LocalDateTime startDateTime = LocalDateTime.now();
 
       createData(tableName);
@@ -387,20 +445,22 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     statistics.setDurationDML();
 
-    // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
-    if ("yes".equals(dropConstraints)) {
-      LocalDateTime startDateTime = LocalDateTime.now();
+    if (!("derby".equals(tickerSymbolExtern) || "derby_emb".equals(tickerSymbolExtern))) {
+      // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+      if ("yes".equals(dropConstraints)) {
+        LocalDateTime startDateTime = LocalDateTime.now();
 
-      restoreTableConstraints(connection);
+        restoreTableConstraints(connection);
 
-      long duration = Duration.between(startDateTime,
-                                       LocalDateTime.now()).toMillis();
+        long duration = Duration.between(startDateTime,
+                                         LocalDateTime.now()).toMillis();
 
-      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                duration) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
+        logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                  duration) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
+      }
     }
 
-    disconnect(connection);
+    disconnectDML(connection);
 
     statistics.createMeasuringEntry();
 
@@ -448,14 +508,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                      rowMaxSize,
                      pkList);
 
-    try {
-      if (!(connection.getAutoCommit())) {
-        connection.commit();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    commitDML(connection);
 
     pkLists.put(tableName,
                 pkList);
@@ -598,6 +651,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         statement.execute(sqlStmnt);
 
         statement.close();
+
+        commitDDL(connection);
       } catch (SQLException e) {
         e.printStackTrace();
         System.exit(1);
@@ -610,18 +665,45 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Close the database connection.
+   * Close the database connection after DDL operations.
    *
    * @param connection the database connection
    */
-  protected final void disconnect(Connection connection) {
+  protected final void disconnectDDL(Connection connection) {
     if (isDebug) {
       logger.debug("Start [" + connection.toString() + "]");
     }
 
     try {
       if (!(connection.getAutoCommit())) {
-        connection.commit();
+        commitDDL(connection);
+      }
+
+      connection.close();
+
+    } catch (SQLException ec) {
+      ec.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Close the database connection after DML operations.
+   *
+   * @param connection the database connection
+   */
+  protected final void disconnectDML(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start [" + connection.toString() + "]");
+    }
+
+    try {
+      if (!(connection.getAutoCommit())) {
+        commitDML(connection);
       }
 
       connection.close();
@@ -823,77 +905,97 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Drops the following constraint types in a database table: FOREIGN KEY, PRIMARY KEY and UNIQUE KEY.
    *
    * @param connection the database connection
+   * @throws SQLException 
    */
-  protected void dropTableConstraints(Connection connection) {
+  protected void dropTableConstraints(Connection connection) throws SQLException {
     if (isDebug) {
       logger.debug("Start");
     }
 
-    final int POS_TABLE_NAME      = 1;
-    final int POS_CONSTRAINT_NAME = 2;
-    final int POS_CONSTRAINT_TYPE = 3;
-    final int POS_COLUMN_NAME     = 4;
-    final int POS_POSITION        = 5;
-    final int POS_REF_TABLE_NAME  = 6;
-    final int POS_REF_COLUMN_NAME = 7;
+    TreeMap<Integer, String> columns      = new TreeMap<Integer, String>();
+    String                   constraintName;
+    String                   constraintNamePrev;
+
+    DatabaseMetaData         dbMetaData   = null;
+
+    TreeMap<Integer, String> refColumns   = new TreeMap<Integer, String>();
+    String                   refTableName = "";
 
     try {
-      statement = connection.createStatement();
+      dbMetaData = connection.getMetaData();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      String sqlStmnt = """
-                        SELECT ac.table_name,
-                               ac.constraint_name,
-                               ac.constraint_type,
-                               acc.column_name,
-                               acc.POSITION,
-                               ac_r.TABLE_NAME,
-                               acc_r.COLUMN_NAME
-                          FROM                 all_constraints ac
-                               LEFT OUTER JOIN all_cons_columns acc   ON ac.constraint_name = acc.constraint_name
-                               LEFT OUTER JOIN all_constraints  ac_r  ON ac.R_CONSTRAINT_NAME = ac_r.constraint_name
-                               LEFT OUTER JOIN all_cons_columns acc_r ON ac.r_constraint_name = acc_r.constraint_name
-                         WHERE ac.constraint_type IN ('F', 'P', 'U')
-                           AND ac.table_name IN ('tableNames')
-                           AND ac.owner = 'user'
-                         ORDER BY ac.constraint_name,
-                                  acc.position
-                        """.replace("tableNames",
-                                    String.join("','",
-                                                TABLE_NAMES_CREATE)).replace("user",
-                                                                             config.getUser().toUpperCase());
+    // =========================================================================
+    // FOREIGN KEY constraints
+    // =========================================================================
 
-      if (isDebug) {
-        logger.debug("sqlStmnt='" + sqlStmnt + "'");
-      }
+    try {
+      for (String tableName : TABLE_NAMES_CREATE) {
+        resultSet          = dbMetaData.getImportedKeys(null,
+                                                        null,
+                                                        tableName);
 
-      resultSet = statement.executeQuery(sqlStmnt);
+        constraintNamePrev = "";
 
-      while (resultSet.next()) {
-        String     constraintName = resultSet.getString(POS_CONSTRAINT_NAME);
-        String     columnName     = resultSet.getString(POS_COLUMN_NAME);
-        int        position       = resultSet.getInt(POS_POSITION);
-        String     refColumnName  = resultSet.getString(POS_REF_COLUMN_NAME);
+        while (resultSet.next()) {
+          if (isDebug) {
+            logger.debug("PKTABLE_CAT  =" + resultSet.getString("PKTABLE_CAT"));
+            logger.debug("PKTABLE_SCHEM=" + resultSet.getString("PKTABLE_SCHEM"));
+            logger.debug("PKTABLE_NAME =" + resultSet.getString("PKTABLE_NAME"));
+            logger.debug("PKCOLUMN_NAME=" + resultSet.getString("PKCOLUMN_NAME"));
+            logger.debug("FKTABLE_CAT  =" + resultSet.getString("FKTABLE_CAT"));
+            logger.debug("FKTABLE_SCHEM=" + resultSet.getString("FKTABLE_SCHEM"));
+            logger.debug("FKTABLE_NAME =" + resultSet.getString("FKTABLE_NAME"));
+            logger.debug("FKCOLUMN_NAME=" + resultSet.getString("FKCOLUMN_NAME"));
+            logger.debug("KEY_SEQ      =" + resultSet.getInt("KEY_SEQ"));
+            logger.debug("UPDATE_RULE  =" + resultSet.getInt("UPDATE_RULE"));
+            logger.debug("DELETE_RULE  =" + resultSet.getInt("DELETE_RULE"));
+            logger.debug("FK_NAME      =" + resultSet.getString("FK_NAME"));
+            logger.debug("PK_NAME      =" + resultSet.getString("PK_NAME"));
+            logger.debug("DEFERRABILITY=" + resultSet.getInt("DEFERRABILITY"));
+          }
 
-        Constraint constraint;
+          constraintName = resultSet.getString("FK_NAME");
 
-        if (position == 1) {
-          constraint = new Constraint();
+          // First foreign key
+          if ("".equals(constraintNamePrev)) {
+            columns            = new TreeMap<Integer, String>();
+            constraintNamePrev = constraintName;
+            refColumns         = new TreeMap<Integer, String>();
+            refTableName       = resultSet.getString("PKTABLE_NAME");
+            // New foreign key
+          } else if (!(constraintNamePrev.equals(constraintName))) {
+            storeConstraint(tableName,
+                            refTableName,
+                            constraintNamePrev,
+                            "R",
+                            columns,
+                            refColumns);
 
-          constraint.setTableName(resultSet.getString(POS_TABLE_NAME));
-          constraint.setConstraintName(constraintName);
-          constraint.setConstraintType(resultSet.getString(POS_CONSTRAINT_TYPE));
-          constraint.setColumnName(columnName);
-          constraint.setRefTableName(resultSet.getString(POS_REF_TABLE_NAME));
-          constraint.setRefColumnName(refColumnName);
-        } else {
-          constraint = constraints.get(constraintName);
+            columns            = new TreeMap<Integer, String>();
+            constraintNamePrev = constraintName;
+            refColumns         = new TreeMap<Integer, String>();
+            refTableName       = resultSet.getString("PKTABLE_NAME");
+          }
 
-          constraint.setColumnName(columnName);
-          constraint.setRefColumnName(refColumnName);
+          columns.put(resultSet.getInt("KEY_SEQ"),
+                      resultSet.getString("FKCOLUMN_NAME"));
+          refColumns.put(resultSet.getInt("KEY_SEQ"),
+                         resultSet.getString("PKCOLUMN_NAME"));
         }
 
-        constraints.put(constraintName,
-                        constraint);
+        // Last foreign key
+        if (!("".equals(constraintNamePrev))) {
+          storeConstraint(tableName,
+                          refTableName,
+                          constraintNamePrev,
+                          "R",
+                          columns,
+                          refColumns);
+        }
       }
 
       resultSet.close();
@@ -902,16 +1004,140 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       System.exit(1);
     }
 
-    for (String tableName : TABLE_NAMES_DROP) {
-      for (Constraint constraint : constraints.values()) {
-        if (tableName.equals(constraint.getTableName())) {
-          executeDdlStmnts(statement,
-                           constraint.getDropStatement());
+    // =========================================================================
+    // PRIMARY KEY constraints
+    // =========================================================================
+
+    try {
+      for (String tableName : TABLE_NAMES_CREATE) {
+        resultSet      = dbMetaData.getPrimaryKeys(null,
+                                                   null,
+                                                   tableName);
+
+        constraintName = "";
+
+        while (resultSet.next()) {
+          if (isDebug) {
+            logger.debug("TABLE_CAT    =" + resultSet.getString("TABLE_CAT"));
+            logger.debug("TABLE_SCHEM  =" + resultSet.getString("TABLE_SCHEM"));
+            logger.debug("TABLE_NAME   =" + resultSet.getString("TABLE_NAME"));
+            logger.debug("COLUMN_NAME  =" + resultSet.getString("COLUMN_NAME"));
+            logger.debug("KEY_SEQ      =" + resultSet.getInt("KEY_SEQ"));
+            logger.debug("PK_NAME      =" + resultSet.getString("PK_NAME"));
+          }
+
+          // First primary key column
+          if ("".equals(constraintName)) {
+            columns        = new TreeMap<Integer, String>();
+            constraintName = resultSet.getString("PK_NAME");
+          }
+
+          columns.put(resultSet.getInt("KEY_SEQ"),
+                      resultSet.getString("COLUMN_NAME"));
+        }
+
+        if (!("".equals(constraintName))) {
+          storeConstraint(tableName,
+                          null,
+                          constraintName,
+                          "P",
+                          columns,
+                          null);
         }
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // =========================================================================
+    // UNIQUE KEY constraints
+    // =========================================================================
+
+    try {
+      for (String tableName : TABLE_NAMES_CREATE) {
+        resultSet          = dbMetaData.getIndexInfo(null,
+                                                     null,
+                                                     tableName,
+                                                     true,
+                                                     true);
+
+        constraintNamePrev = "";
+
+        while (resultSet.next()) {
+          if (isDebug) {
+            logger.debug("TABLE_CAT       =" + resultSet.getString("TABLE_CAT"));
+            logger.debug("TABLE_SCHEM     =" + resultSet.getString("TABLE_SCHEM"));
+            logger.debug("TABLE_NAME      =" + resultSet.getString("TABLE_NAME"));
+            logger.debug("NON_UNIQUE      =" + resultSet.getBoolean("NON_UNIQUE"));
+            logger.debug("INDEX_QUALIFIER =" + resultSet.getString("INDEX_QUALIFIER"));
+            logger.debug("INDEX_NAME      =" + resultSet.getString("INDEX_NAME"));
+            logger.debug("TYPE            =" + resultSet.getInt("TYPE"));
+            logger.debug("ORDINAL_POSITION=" + resultSet.getInt("ORDINAL_POSITION"));
+            logger.debug("COLUMN_NAME     =" + resultSet.getString("COLUMN_NAME"));
+            logger.debug("ASC_OR_DESC     =" + resultSet.getString("ASC_OR_DESC"));
+            logger.debug("CARDINALITY     =" + resultSet.getInt("CARDINALITY"));
+            logger.debug("PAGES           =" + resultSet.getInt("PAGES"));
+            logger.debug("FILTER_CONDITION=" + resultSet.getString("FILTER_CONDITION"));
+          }
+
+          constraintName = resultSet.getString("INDEX_NAME");
+
+          // Irrelevant entries
+          if ((constraintName == null) || (constraints.containsKey(constraintName))) {
+            continue;
+          }
+
+          // First unique key
+          if ("".equals(constraintNamePrev)) {
+            columns            = new TreeMap<Integer, String>();
+            constraintNamePrev = constraintName;
+            // New unique key
+          } else if (!(constraintNamePrev.equals(constraintName))) {
+            storeConstraint(tableName,
+                            null,
+                            constraintNamePrev,
+                            "U",
+                            columns,
+                            null);
+
+            columns            = new TreeMap<Integer, String>();
+            constraintNamePrev = constraintName;
+          }
+
+          columns.put(resultSet.getInt("ORDINAL_POSITION"),
+                      resultSet.getString("COLUMN_NAME"));
+        }
+
+        // Last unique key
+        if (!("".equals(constraintNamePrev))) {
+          storeConstraint(tableName,
+                          null,
+                          constraintNamePrev,
+                          "U",
+                          columns,
+                          null);
+        }
+      }
+
+      resultSet.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
     }
 
     try {
+      statement = connection.createStatement();
+
+      for (String tableName : TABLE_NAMES_DROP) {
+        for (Constraint constraint : constraints.values()) {
+          if (tableName.equals(constraint.getTableName())) {
+            executeDdlStmnts(statement,
+                             constraint.getDropConstraintStatement(tickerSymbolExtern));
+          }
+        }
+      }
+
       statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -1021,9 +1247,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                   Integer upperRange,
                                   List<Integer> validValues) {
     if (validValues != null) {
-      return validValues.get(new Random().nextInt(validValues.size()));
+      return validValues.get(randomInt.nextInt(validValues.size()));
     } else if (lowerRange != null) {
-      return new Random().nextInt(upperRange - lowerRange + 1) + lowerRange - 1;
+      return randomInt.nextInt(upperRange - lowerRange + 1) + lowerRange - 1;
     }
 
     return rowNo;
@@ -1045,15 +1271,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   private Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
-    Random random = new Random();
-
-    return fkList.get(random.nextInt(fkList.size()));
+    return fkList.get(randomInt.nextInt(fkList.size()));
   }
 
   private int getContentFkInt(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
-    Random random = new Random();
-
-    return random.nextInt(fkList.size());
+    return randomInt.nextInt(fkList.size());
   }
 
   protected Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
@@ -1076,7 +1298,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     String columnValue;
 
     if (validValues != null) {
-      return validValues.get(new Random().nextInt(validValues.size())).stripTrailing();
+      return validValues.get(randomInt.nextInt(validValues.size())).stripTrailing();
     } else if (lowerRange != null) {
       columnValue = RandomStringUtils.randomGraph(1,
                                                   size + 1);
@@ -1708,7 +1930,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         for (Constraint constraint : constraints.values()) {
           if (tableName.equals(constraint.getTableName())) {
             executeDdlStmnts(statement,
-                             constraint.getRestoreStatement());
+                             constraint.getAddConstraintStatement(tickerSymbolExtern));
           }
         }
       }
@@ -1790,7 +2012,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
@@ -1873,7 +2095,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
@@ -1897,6 +2119,45 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     return connection;
+  }
+
+  private void storeConstraint(String tableName,
+                               String refTableName,
+                               String constraintName,
+                               String constraintType,
+                               TreeMap<Integer, String> columns,
+                               TreeMap<Integer, String> refColumns) {
+    Constraint constraint = new Constraint();
+
+    constraint.setTableName(tableName);
+
+    if ("R".equals(constraintType)) {
+      constraint.setRefTableName(refTableName);
+    }
+
+    constraint.setConstraintName(constraintName);
+    constraint.setConstraintType(constraintType);
+
+    Set<Entry<Integer, String>>      columnsSet      = columns.entrySet();
+    Iterator<Entry<Integer, String>> columnsIterator = columnsSet.iterator();
+
+    while (columnsIterator.hasNext()) {
+      Map.Entry<Integer, String> mapEntry = columnsIterator.next();
+      constraint.setColumnName(mapEntry.getValue());
+    }
+
+    if ("R".equals(constraintType)) {
+      Set<Entry<Integer, String>>      refColumnsSet      = refColumns.entrySet();
+      Iterator<Entry<Integer, String>> refColumnsIterator = refColumnsSet.iterator();
+
+      while (refColumnsIterator.hasNext()) {
+        Map.Entry<Integer, String> mapEntry = refColumnsIterator.next();
+        constraint.setRefColumnName(mapEntry.getValue());
+      }
+    }
+
+    constraints.put(constraintName,
+                    constraint);
   }
 
   private void validateNumberRows(String tableName, int expectedRows) {
