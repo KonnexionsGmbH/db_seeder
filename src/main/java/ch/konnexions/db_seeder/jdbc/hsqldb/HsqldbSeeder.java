@@ -87,22 +87,14 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
                       config.getUserSys().toUpperCase(),
                       "");
 
-    if (isDebug) {
-      logger.info("wwe urlSys='" + urlSys + "'");
-    }
-
-    urlUser = getUrl(isClient,
-                     config.getConnectionHost(),
-                     config.getConnectionPort(),
-                     config.getConnectionPrefix(),
-                     config.getConnectionSuffix(),
-                     config.getDatabase(),
-                     config.getUser().toUpperCase(),
-                     config.getPassword());
-
-    if (isDebug) {
-      logger.info("wwe urlUser='" + urlUser + "'");
-    }
+    urlUser  = getUrl(isClient,
+                      config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix(),
+                      config.getDatabase(),
+                      config.getUser().toUpperCase(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");

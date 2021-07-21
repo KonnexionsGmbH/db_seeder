@@ -31,6 +31,7 @@ import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
 import ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder;
 import ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder;
+import ch.konnexions.db_seeder.utils.Config;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 
 /**
@@ -60,8 +61,22 @@ public final class DatabaseSeeder {
 
     Collections.sort(tickerSymbolsExtern);
 
+    Config config = new Config();
+
     for (String tickerSymbolExtern : tickerSymbolsExtern) {
       logger.info("tickerSymbolExtern='" + tickerSymbolExtern + "'");
+
+      if ("yes".equals(config.getDropConstraints())) {
+        switch (tickerSymbolExtern) {
+        case "cockroach":
+          logger.info("==============================================================================================================================");
+          logger.info("The run variant with parameter 'DB_SEEDER_DROP_CONSTRAINTS=yes' is not yet supported by the DBMS '" + tickerSymbolExtern + "'!");
+          logger.info("==============================================================================================================================");
+          logger.info("End");
+          System.exit(0);
+        default:
+        }
+      }
 
       switch (Objects.requireNonNull(tickerSymbolExtern)) {
       case "agens":

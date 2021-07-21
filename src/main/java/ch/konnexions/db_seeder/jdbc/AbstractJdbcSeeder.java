@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,7 +30,6 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -78,40 +78,40 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=trino";
   }
 
-  private final String                    BLOB_FILE              = Paths.get("src",
-                                                                             "main",
-                                                                             "resources").toAbsolutePath() + File.separator + "blob.png";
-  private final byte[]                    BLOB_DATA_BYTES        = readBlobFile2Bytes();
-  private final String                    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
+  private final String                      BLOB_FILE              = Paths.get("src",
+                                                                               "main",
+                                                                               "resources").toAbsolutePath() + File.separator + "blob.png";
+  private final byte[]                      BLOB_DATA_BYTES        = readBlobFile2Bytes();
+  private final String                      BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
 
-  private final String                    CLOB_FILE              = Paths.get("src",
-                                                                             "main",
-                                                                             "resources").toAbsolutePath() + File.separator + "clob.md";
-  private final String                    CLOB_DATA              = readClobFile();
+  private final String                      CLOB_FILE              = Paths.get("src",
+                                                                               "main",
+                                                                               "resources").toAbsolutePath() + File.separator + "clob.md";
+  private final String                      CLOB_DATA              = readClobFile();
 
-  protected Connection                    connection             = null;
-  private WeakHashMap<String, Constraint> constraints;
+  protected Connection                      connection             = null;
+  private LinkedHashMap<String, Constraint> constraints;
 
-  protected String                        driver                 = "";
-  protected final String                  driver_trino           = "io.trino.jdbc.TrinoDriver";
-  protected String                        dropTableStmnt         = "";
-  protected Properties                    encodedColumnNames     = new Properties();
+  protected String                          driver                 = "";
+  protected final String                    driver_trino           = "io.trino.jdbc.TrinoDriver";
+  protected String                          dropTableStmnt         = "";
+  protected Properties                      encodedColumnNames     = new Properties();
 
-  protected final boolean                 isClient;
+  protected final boolean                   isClient;
 
-  private final boolean                   isDebug                = logger.isDebugEnabled();
-  protected final boolean                 isTrino;
+  private final boolean                     isDebug                = logger.isDebugEnabled();
+  protected final boolean                   isTrino;
 
-  protected int                           nullFactor;
+  protected int                             nullFactor;
 
-  private final Random                    randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  protected ResultSet                     resultSet              = null;
+  private final Random                      randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  protected ResultSet                       resultSet              = null;
 
-  protected Statement                     statement              = null;
+  protected Statement                       statement              = null;
 
-  protected String                        urlSys                 = "";
-  protected String                        urlTrino               = "";
-  protected String                        urlUser                = "";
+  protected String                          urlSys                 = "";
+  protected String                          urlTrino               = "";
+  protected String                          urlUser                = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
@@ -412,7 +412,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       if ("yes".equals(dropConstraints)) {
         LocalDateTime startDateTime = LocalDateTime.now();
 
-        constraints = new WeakHashMap<String, Constraint>();
+        constraints = new LinkedHashMap<String, Constraint>();
 
         try {
           dropTableConstraints(connection);
@@ -912,6 +912,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
+    String                   catalog      = null;
     TreeMap<Integer, String> columns      = new TreeMap<Integer, String>();
     String                   constraintName;
     String                   constraintNamePrev;
@@ -921,22 +922,23 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     TreeMap<Integer, String> refColumns   = new TreeMap<Integer, String>();
     String                   refTableName = "";
 
-    String                   catalog      = "*";
-    String                   schema;
+    String                   schema       = null;
+    String                   table;
 
     switch (tickerSymbolExtern) {
-    case "monetdb":
-      schema = config.getSchema().toLowerCase();
+    case "cockroach":
+      catalog = config.getDatabase();
       break;
-    case "oracle":
-      schema = config.getUser().toUpperCase();
+    case "monetdb":
+      schema = config.getSchema();
+      break;
+    case "postgresql":
+    case "postgresql_trino":
+      catalog = config.getDatabase();
+      schema = config.getSchema();
       break;
     default:
-      schema = "*";
     }
-
-    logger.info("wwe catalog=" + catalog);
-    logger.info("wwe schema =" + schema);
 
     try {
       dbMetaData = connection.getMetaData();
@@ -951,14 +953,28 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
+        switch (tickerSymbolExtern) {
+        case "cockroach":
+        case "monetdb":
+          table = tableName.toLowerCase();
+          break;
+        case "postgresql":
+        case "postgresql_trino":
+          table = setCaseIdentifier(tableName);
+          break;
+        default:
+          table = tableName.toUpperCase();
+        }
+
         resultSet          = dbMetaData.getImportedKeys(catalog,
                                                         schema,
-                                                        tableName);
+                                                        table);
 
         constraintNamePrev = "";
 
         while (resultSet.next()) {
           if (isDebug) {
+            logger.debug("getImportedKeys(catalog=" + catalog + " schema=" + schema + " table=" + table + ")");
             logger.debug("PKTABLE_CAT  =" + resultSet.getString("PKTABLE_CAT"));
             logger.debug("PKTABLE_SCHEM=" + resultSet.getString("PKTABLE_SCHEM"));
             logger.debug("PKTABLE_NAME =" + resultSet.getString("PKTABLE_NAME"));
@@ -1027,14 +1043,27 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
+        switch (tickerSymbolExtern) {
+        case "cockroach":
+          table = tableName.toLowerCase();
+          break;
+        case "postgresql":
+        case "postgresql_trino":
+          table = setCaseIdentifier(tableName);
+          break;
+        default:
+          table = tableName.toUpperCase();
+        }
+
         resultSet      = dbMetaData.getPrimaryKeys(catalog,
                                                    schema,
-                                                   tableName);
+                                                   table);
 
         constraintName = "";
 
         while (resultSet.next()) {
           if (isDebug) {
+            logger.debug("getPrimaryKeys(catalog=" + catalog + " schema=" + schema + " table=" + table + ")");
             logger.debug("TABLE_CAT    =" + resultSet.getString("TABLE_CAT"));
             logger.debug("TABLE_SCHEM  =" + resultSet.getString("TABLE_SCHEM"));
             logger.debug("TABLE_NAME   =" + resultSet.getString("TABLE_NAME"));
@@ -1073,9 +1102,21 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
+        switch (tickerSymbolExtern) {
+        case "cockroach":
+          table = tableName.toLowerCase();
+          break;
+        case "postgresql":
+        case "postgresql_trino":
+          table = setCaseIdentifier(tableName);
+          break;
+        default:
+          table = tableName.toUpperCase();
+        }
+
         resultSet          = dbMetaData.getIndexInfo(catalog,
                                                      schema,
-                                                     tableName,
+                                                     table,
                                                      true,
                                                      true);
 
@@ -1083,6 +1124,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
         while (resultSet.next()) {
           if (isDebug) {
+            logger.debug("getIndexInfo(catalog=" + catalog + " schema=" + schema + " table=" + table + ")");
             logger.debug("TABLE_CAT       =" + resultSet.getString("TABLE_CAT"));
             logger.debug("TABLE_SCHEM     =" + resultSet.getString("TABLE_SCHEM"));
             logger.debug("TABLE_NAME      =" + resultSet.getString("TABLE_NAME"));
@@ -1143,17 +1185,32 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       System.exit(1);
     }
 
+    // =========================================================================
+    // Drop the constraints found 
+    // =========================================================================
+
+    if (constraints.isEmpty()) {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: no constraints found to be dropped");
+    }
+
     try {
       statement = connection.createStatement();
 
-      for (String tableName : TABLE_NAMES_DROP) {
-        for (Constraint constraint : constraints.values()) {
-          if (tableName.equals(constraint.getTableName())) {
-            executeDdlStmnts(statement,
-                             constraint.getDropConstraintStatement(tickerSymbolExtern));
-          }
-        }
+      for (Constraint constraint : constraints.values()) {
+        executeDdlStmnts(statement,
+                         constraint.getDropConstraintStatement(tickerSymbolExtern));
       }
+
+      // wwe
+      //      for (String tableName : TABLE_NAMES_DROP) {
+      //        for (Constraint constraint : constraints.values()) {
+      //          if (tableName.equals(constraint.getTableName())) {
+      //            executeDdlStmnts(statement,
+      //                             constraint.getDropConstraintStatement(tickerSymbolExtern));
+      //          }
+      //        }
+      //      }
 
       statement.close();
     } catch (SQLException e) {
@@ -1238,7 +1295,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
 
       statement.execute(firstDdlStmnt);
-      logger.info("DDL statement=" + firstDdlStmnt);
 
       for (String sqlStmnt : remainingDdlStmnts) {
 
@@ -1247,8 +1303,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         }
 
         statement.execute(sqlStmnt);
-
-        logger.info("DDL statement=" + sqlStmnt);
       }
     } catch (SQLException e) {
       e.printStackTrace();

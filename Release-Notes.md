@@ -72,7 +72,37 @@ at org.apache.derby.client.am.ClientStatement.execute(ClientStatement.java:988)
 ... 4 more
 Processing of the script was aborted, error code=1`
 
-### 1.2 IBM Db2
+### 1.2 CockroachDB
+
+Issue with dropping constraints:
+
+`2021-07-21 09:10:46,058 [DatabaseSeeder.java] INFO  Start
+2021-07-21 09:10:46,061 [DatabaseSeeder.java] INFO  tickerSymbolExtern='cockroach'
+2021-07-21 09:10:46,061 [DatabaseSeeder.java] INFO  Start CockroachDB
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+org.postgresql.util.PSQLException: ERROR: unimplemented: cannot drop UNIQUE constraint "country_name_key" using ALTER TABLE DROP CONSTRAINT, use DROP INDEX CASCADE instead
+Hint: You have attempted to use a feature that is not yet implemented.
+See: https://go.crdb.dev/issue-v/42840/v21.1
+at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2434)
+at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2179)
+at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:307)
+at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:441)
+at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:365)
+at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:307)
+at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:293)
+at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:270)
+at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:266)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1287)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1191)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:418)
+at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:76)
+Processing of the script was aborted, error code=1`
+
+### 1.3 IBM Db2
 
 - Version 11.5.6.0:
 
@@ -115,7 +145,7 @@ at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder
 at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:142)
 Processing of the script was aborted, error code=1`
 
-### 1.3 trino
+### 1.4 trino
 
 - All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     

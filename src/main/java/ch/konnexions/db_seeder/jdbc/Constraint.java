@@ -31,6 +31,7 @@ class Constraint {
     String addConstraintName;
 
     switch (tickerSymbolExtern) {
+    case "cockroach":
     case "derby":
     case "derby_emb":
       addConstraintName = "\"" + constraintName + "\"";
@@ -60,7 +61,21 @@ class Constraint {
                                                                              refColumnNames) + ")";
     }
 
-    return restoreStatement + " ENABLE";
+    switch (tickerSymbolExtern) {
+    case "cockroach":
+    case "postgresql":
+    case "postgresql_trino":
+      if ("R".equals(constraintType)) {
+        restoreStatement += ", VALIDATE CONSTRAINT " + addConstraintName;
+      }
+      break;
+    case "monetdb":
+      break;
+    default:
+      restoreStatement += " ENABLE";
+    }
+
+    return restoreStatement;
   }
 
   /**
@@ -73,6 +88,7 @@ class Constraint {
     String dropConstraintName;
 
     switch (tickerSymbolExtern) {
+    case "cockroach":
     case "derby":
     case "derby_emb":
       dropConstraintName = "\"" + constraintName + "\"";
