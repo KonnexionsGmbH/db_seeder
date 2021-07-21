@@ -1,0 +1,120 @@
+{
+  "globals"  : {
+    "defaultNumberOfRows": 1000, "encodingISO_8859_1": true, "encodingUTF_8": true, "nullFactor": 4
+  }, "tables": [
+  {
+    "tableName": "city", "numberOfRows": 3, "columns": [
+    {
+      "columnName": "pk_city_id", "dataType": "bigint", "primaryKey": true
+    }, {
+      "columnName": "fk_country_state_id", "dataType": "bigint", "references": [{"referenceTable": "country_state", "referenceColumn": "pk_country_state_id"}]
+    }, {
+      "columnName": "city_map", "dataType": "blob"
+    }, {
+      "columnName": "created", "dataType": "timestamp", "notNull": true
+    }, {
+      "columnName": "modified", "dataType": "timestamp"
+    }, {
+      "columnName": "name", "dataType": "varchar", "size": 100, "notNull": true
+    }
+  ]
+  }, {
+    "tableName": "company", "numberOfRows": 3, "columns": [
+      {
+        "columnName": "pk_company_id", "dataType": "bigint", "primaryKey": true
+      }, {
+        "columnName": "fk_city_id", "dataType": "bigint", "notNull": true, "references": [{"referenceTable": "city", "referenceColumn": "pk_city_id"}]
+      }, {
+        "columnName": "active", "dataType": "varchar", "size": 1, "notNull": true, "validValuesString": [
+          "N", "Y"
+        ]
+      }, {
+        "columnName": "address1", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "address2", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "address3", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "created", "dataType": "timestamp", "notNull": true
+      }, {
+        "columnName": "directions", "dataType": "clob"
+      }, {
+        "columnName": "email", "dataType": "varchar", "size": 100
+      }, {
+        "columnName": "fax", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "unique": true
+      }, {
+        "columnName": "phone", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "postal_code", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "url", "dataType": "varchar", "size": 250
+      }, {
+        "columnName": "vat_id_number", "dataType": "varchar", "size": 100
+      }
+    ]
+  }, {
+    "tableName": "country", "numberOfRows": 3, "columns": [
+      {
+        "columnName": "pk_country_id", "dataType": "bigint", "primaryKey": true
+      }, {
+        "columnName": "country_map", "dataType": "blob"
+      }, {
+        "columnName": "created", "dataType": "timestamp", "notNull": true
+      }, {
+        "columnName": "iso3166", "dataType": "varchar", "size": 50
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "unique": true
+      }
+    ]
+  }, {
+    "tableName"          : "country_state", "numberOfRows": 3, "columns": [
+      {
+        "columnName": "pk_country_state_id", "dataType": "bigint", "primaryKey": true
+      }, {
+        "columnName": "fk_country_id", "dataType": "bigint", "notNull": true, "references": [{"referenceTable": "country", "referenceColumn": "pk_country_id"}]
+      }, {
+        "columnName": "fk_timezone_id", "dataType": "bigint", "notNull": true,
+        "references": [{"referenceTable": "timezone", "referenceColumn": "pk_timezone_id"}]
+      }, {
+        "columnName": "country_state_map", "dataType": "blob"
+      }, {
+        "columnName": "created", "dataType": "timestamp", "notNull": true
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "notNull": true
+      }, {
+        "columnName": "symbol", "dataType": "varchar", "size": 50
+      }
+    ], "tableConstraints": [
+      {
+        "constraintType": "unique", "columns": [
+        "fk_country_id", "name"
+      ]
+      }
+    ]
+  }, {
+    "tableName": "timezone", "numberOfRows": 3, "columns": [
+      {
+        "columnName": "pk_timezone_id", "dataType": "bigint", "primaryKey": true
+      }, {
+        "columnName": "abbreviation", "dataType": "varchar", "size": 50, "notNull": true
+      }, {
+        "columnName": "created", "dataType": "timestamp", "notNull": true
+      }, {
+        "columnName": "modified", "dataType": "timestamp"
+      }, {
+        "columnName": "name", "dataType": "varchar", "size": 100, "unique": true
+      }, {
+        "columnName": "v_time_zone", "dataType": "varchar", "size": 4000
+      }
+    ]
+  }
+]
+}

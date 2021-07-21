@@ -26,73 +26,73 @@ public abstract class AbstractGenOmnisciSchema extends AbstractGenSeeder {
 
     statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE city (
-                       pk_city_id                       BIGINT,
-                       fk_country_state_id              BIGINT,
-                       city_map                         TEXT ENCODING NONE,
-                       created                          TIMESTAMP(0) NOT NULL,
-                       modified                         TIMESTAMP(0),
-                       name                             TEXT NOT NULL ENCODING NONE
+                   CREATE TABLE CITY (
+                       PK_CITY_ID                       BIGINT,
+                       FK_COUNTRY_STATE_ID              BIGINT,
+                       CITY_MAP                         TEXT ENCODING NONE,
+                       CREATED                          TIMESTAMP(0) NOT NULL,
+                       MODIFIED                         TIMESTAMP(0),
+                       NAME                             TEXT NOT NULL ENCODING NONE
                    )
                    """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
-                   CREATE TABLE company (
-                       pk_company_id                    BIGINT,
-                       fk_city_id                       BIGINT NOT NULL,
-                       active                           TEXT NOT NULL ENCODING NONE,
-                       address1                         TEXT ENCODING NONE,
-                       address2                         TEXT ENCODING NONE,
-                       address3                         TEXT ENCODING NONE,
-                       created                          TIMESTAMP(0) NOT NULL,
-                       directions                       TEXT ENCODING NONE,
-                       email                            TEXT ENCODING NONE,
-                       fax                              TEXT ENCODING NONE,
-                       modified                         TIMESTAMP(0),
-                       name                             TEXT ENCODING NONE,
-                       phone                            TEXT ENCODING NONE,
-                       postal_code                      TEXT ENCODING NONE,
-                       url                              TEXT ENCODING NONE,
-                       vat_id_number                    TEXT ENCODING NONE
+                   CREATE TABLE COMPANY (
+                       PK_COMPANY_ID                    BIGINT,
+                       FK_CITY_ID                       BIGINT NOT NULL,
+                       ACTIVE                           TEXT NOT NULL ENCODING NONE,
+                       ADDRESS1                         TEXT ENCODING NONE,
+                       ADDRESS2                         TEXT ENCODING NONE,
+                       ADDRESS3                         TEXT ENCODING NONE,
+                       CREATED                          TIMESTAMP(0) NOT NULL,
+                       DIRECTIONS                       TEXT ENCODING NONE,
+                       EMAIL                            TEXT ENCODING NONE,
+                       FAX                              TEXT ENCODING NONE,
+                       MODIFIED                         TIMESTAMP(0),
+                       NAME                             TEXT ENCODING NONE,
+                       PHONE                            TEXT ENCODING NONE,
+                       POSTAL_CODE                      TEXT ENCODING NONE,
+                       URL                              TEXT ENCODING NONE,
+                       VAT_ID_NUMBER                    TEXT ENCODING NONE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
-                   CREATE TABLE country (
-                       pk_country_id                    BIGINT,
-                       country_map                      TEXT ENCODING NONE,
-                       created                          TIMESTAMP(0) NOT NULL,
-                       iso3166                          TEXT ENCODING NONE,
-                       modified                         TIMESTAMP(0),
-                       name                             TEXT ENCODING NONE
+                   CREATE TABLE COUNTRY (
+                       PK_COUNTRY_ID                    BIGINT,
+                       COUNTRY_MAP                      TEXT ENCODING NONE,
+                       CREATED                          TIMESTAMP(0) NOT NULL,
+                       ISO3166                          TEXT ENCODING NONE,
+                       MODIFIED                         TIMESTAMP(0),
+                       NAME                             TEXT ENCODING NONE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE country_state (
-                       pk_country_state_id              BIGINT,
-                       fk_country_id                    BIGINT NOT NULL,
-                       fk_timezone_id                   BIGINT NOT NULL,
-                       country_state_map                TEXT ENCODING NONE,
-                       created                          TIMESTAMP(0) NOT NULL,
-                       modified                         TIMESTAMP(0),
-                       name                             TEXT NOT NULL ENCODING NONE,
-                       symbol                           TEXT ENCODING NONE
+                   CREATE TABLE COUNTRY_STATE (
+                       PK_COUNTRY_STATE_ID              BIGINT,
+                       FK_COUNTRY_ID                    BIGINT NOT NULL,
+                       FK_TIMEZONE_ID                   BIGINT NOT NULL,
+                       COUNTRY_STATE_MAP                TEXT ENCODING NONE,
+                       CREATED                          TIMESTAMP(0) NOT NULL,
+                       MODIFIED                         TIMESTAMP(0),
+                       NAME                             TEXT NOT NULL ENCODING NONE,
+                       SYMBOL                           TEXT ENCODING NONE
                    )
                    """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
-                   CREATE TABLE timezone (
-                       pk_timezone_id                   BIGINT,
-                       abbreviation                     TEXT NOT NULL ENCODING NONE,
-                       created                          TIMESTAMP(0) NOT NULL,
-                       modified                         TIMESTAMP(0),
-                       name                             TEXT ENCODING NONE,
-                       v_time_zone                      TEXT ENCODING NONE
+                   CREATE TABLE TIMEZONE (
+                       PK_TIMEZONE_ID                   BIGINT,
+                       ABBREVIATION                     TEXT NOT NULL ENCODING NONE,
+                       CREATED                          TIMESTAMP(0) NOT NULL,
+                       MODIFIED                         TIMESTAMP(0),
+                       NAME                             TEXT ENCODING NONE,
+                       V_TIME_ZONE                      TEXT ENCODING NONE
                    )
                    """);
 

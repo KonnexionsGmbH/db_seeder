@@ -166,7 +166,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    if (!("cratedb".equals(tickerSymbolExtern) || "firebird".equals(tickerSymbolExtern) || "oracle".equals(tickerSymbolExtern) || "oracle_trino".equals(tickerSymbolExtern))) {
+    if (!("cratedb".equals(tickerSymbolExtern)
+        || "firebird".equals(tickerSymbolExtern)
+        || "oracle".equals(tickerSymbolExtern)
+        || "oracle_trino".equals(tickerSymbolExtern))) {
       try {
         connection.commit();
       } catch (SQLException ec) {
@@ -429,9 +432,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     statistics.setStartDateTimeDML();
 
     // Perform the DML statements
-    for (
-
-    String tableName : TABLE_NAMES_CREATE) {
+    for (String tableName : TABLE_NAMES_CREATE) {
       LocalDateTime startDateTime = LocalDateTime.now();
 
       createData(tableName);
@@ -648,7 +649,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeDdlStmnts(statement,
+                         sqlStmnt);
 
         statement.close();
 
@@ -773,23 +775,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    try {
-      for (String tableName : TABLE_NAMES_DROP) {
-        String sqlStmnt = "DROP TABLE" + (dbmsEnum == DbmsEnum.VOLTDB
-            ? " " + identifierDelimiter + tableName + identifierDelimiter + " "
-            : " ") + "IF EXISTS" + (dbmsEnum == DbmsEnum.VOLTDB
-                ? ""
-                : " " + identifierDelimiter + tableName + identifierDelimiter);
+    for (String tableName : TABLE_NAMES_DROP) {
+      String sqlStmnt = "DROP TABLE" + (dbmsEnum == DbmsEnum.VOLTDB
+          ? " " + identifierDelimiter + tableName + identifierDelimiter + " "
+          : " ") + "IF EXISTS" + (dbmsEnum == DbmsEnum.VOLTDB
+              ? ""
+              : " " + identifierDelimiter + tableName + identifierDelimiter);
 
-        if (isDebug) {
-          logger.debug("next SQL statement=" + sqlStmnt);
-        }
-
-        statement.execute(sqlStmnt);
+      if (isDebug) {
+        logger.debug("next SQL statement=" + sqlStmnt);
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
+
+      executeDdlStmnts(statement,
+                       sqlStmnt);
     }
 
     if (isDebug) {
@@ -838,7 +836,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeDdlStmnts(statement,
+                         sqlStmnt);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -889,7 +888,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeDdlStmnts(statement,
+                         sqlStmnt);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -921,6 +921,23 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     TreeMap<Integer, String> refColumns   = new TreeMap<Integer, String>();
     String                   refTableName = "";
 
+    String                   catalog      = "*";
+    String                   schema;
+
+    switch (tickerSymbolExtern) {
+    case "monetdb":
+      schema = config.getSchema().toLowerCase();
+      break;
+    case "oracle":
+      schema = config.getUser().toUpperCase();
+      break;
+    default:
+      schema = "*";
+    }
+
+    logger.info("wwe catalog=" + catalog);
+    logger.info("wwe schema =" + schema);
+
     try {
       dbMetaData = connection.getMetaData();
     } catch (SQLException e) {
@@ -934,8 +951,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        resultSet          = dbMetaData.getImportedKeys(null,
-                                                        null,
+        resultSet          = dbMetaData.getImportedKeys(catalog,
+                                                        schema,
                                                         tableName);
 
         constraintNamePrev = "";
@@ -1010,8 +1027,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        resultSet      = dbMetaData.getPrimaryKeys(null,
-                                                   null,
+        resultSet      = dbMetaData.getPrimaryKeys(catalog,
+                                                   schema,
                                                    tableName);
 
         constraintName = "";
@@ -1056,8 +1073,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        resultSet          = dbMetaData.getIndexInfo(null,
-                                                     null,
+        resultSet          = dbMetaData.getIndexInfo(catalog,
+                                                     schema,
                                                      tableName,
                                                      true,
                                                      true);
@@ -1190,7 +1207,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeDdlStmnts(statement,
+                         sqlStmnt);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -1220,6 +1238,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
 
       statement.execute(firstDdlStmnt);
+      logger.info("DDL statement=" + firstDdlStmnt);
 
       for (String sqlStmnt : remainingDdlStmnts) {
 
@@ -1228,6 +1247,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         }
 
         statement.execute(sqlStmnt);
+
+        logger.info("DDL statement=" + sqlStmnt);
       }
     } catch (SQLException e) {
       e.printStackTrace();

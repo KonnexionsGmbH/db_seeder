@@ -26,85 +26,85 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
 
     statements.put(TABLE_NAME_CITY,
                    """
-                   CREATE TABLE city (
-                       pk_city_id                       NUMBER                    NOT NULL
+                   CREATE TABLE CITY (
+                       PK_CITY_ID                       NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       fk_country_state_id              NUMBER                    REFERENCES country_state                    (pk_country_state_id),
-                       city_map                         BLOB,
-                       created                          TIMESTAMP                 NOT NULL,
-                       modified                         TIMESTAMP,
-                       name                             VARCHAR2(100)             NOT NULL
+                       FK_COUNTRY_STATE_ID              NUMBER                    REFERENCES COUNTRY_STATE                    (PK_COUNTRY_STATE_ID),
+                       CITY_MAP                         BLOB,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR2(100)             NOT NULL
                    )
                    """);
 
     statements.put(TABLE_NAME_COMPANY,
                    """
-                   CREATE TABLE company (
-                       pk_company_id                    NUMBER                    NOT NULL
+                   CREATE TABLE COMPANY (
+                       PK_COMPANY_ID                    NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       fk_city_id                       NUMBER                    NOT NULL
-                                                                                  REFERENCES city                             (pk_city_id),
-                       active                           VARCHAR2(1)               NOT NULL,
-                       address1                         VARCHAR2(50),
-                       address2                         VARCHAR2(50),
-                       address3                         VARCHAR2(50),
-                       created                          TIMESTAMP                 NOT NULL,
-                       directions                       CLOB,
-                       email                            VARCHAR2(100),
-                       fax                              VARCHAR2(50),
-                       modified                         TIMESTAMP,
-                       name                             VARCHAR2(100)             NOT NULL
+                       FK_CITY_ID                       NUMBER                    NOT NULL
+                                                                                  REFERENCES CITY                             (PK_CITY_ID),
+                       ACTIVE                           VARCHAR2(1)               NOT NULL,
+                       ADDRESS1                         VARCHAR2(50),
+                       ADDRESS2                         VARCHAR2(50),
+                       ADDRESS3                         VARCHAR2(50),
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       DIRECTIONS                       CLOB,
+                       EMAIL                            VARCHAR2(100),
+                       FAX                              VARCHAR2(50),
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR2(100)             NOT NULL
                                                                                   UNIQUE,
-                       phone                            VARCHAR2(50),
-                       postal_code                      VARCHAR2(50),
-                       url                              VARCHAR2(250),
-                       vat_id_number                    VARCHAR2(100)
+                       PHONE                            VARCHAR2(50),
+                       POSTAL_CODE                      VARCHAR2(50),
+                       URL                              VARCHAR2(250),
+                       VAT_ID_NUMBER                    VARCHAR2(100)
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY,
                    """
-                   CREATE TABLE country (
-                       pk_country_id                    NUMBER                    NOT NULL
+                   CREATE TABLE COUNTRY (
+                       PK_COUNTRY_ID                    NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       country_map                      BLOB,
-                       created                          TIMESTAMP                 NOT NULL,
-                       iso3166                          VARCHAR2(50),
-                       modified                         TIMESTAMP,
-                       name                             VARCHAR2(100)             NOT NULL
+                       COUNTRY_MAP                      BLOB,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       ISO3166                          VARCHAR2(50),
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR2(100)             NOT NULL
                                                                                   UNIQUE
                    )
                    """);
 
     statements.put(TABLE_NAME_COUNTRY_STATE,
                    """
-                   CREATE TABLE country_state (
-                       pk_country_state_id              NUMBER                    NOT NULL
+                   CREATE TABLE COUNTRY_STATE (
+                       PK_COUNTRY_STATE_ID              NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       fk_country_id                    NUMBER                    NOT NULL
-                                                                                  REFERENCES country                          (pk_country_id),
-                       fk_timezone_id                   NUMBER                    NOT NULL
-                                                                                  REFERENCES timezone                         (pk_timezone_id),
-                       country_state_map                BLOB,
-                       created                          TIMESTAMP                 NOT NULL,
-                       modified                         TIMESTAMP,
-                       name                             VARCHAR2(100)             NOT NULL,
-                       symbol                           VARCHAR2(50),
+                       FK_COUNTRY_ID                    NUMBER                    NOT NULL
+                                                                                  REFERENCES COUNTRY                          (PK_COUNTRY_ID),
+                       FK_TIMEZONE_ID                   NUMBER                    NOT NULL
+                                                                                  REFERENCES TIMEZONE                         (PK_TIMEZONE_ID),
+                       COUNTRY_STATE_MAP                BLOB,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR2(100)             NOT NULL,
+                       SYMBOL                           VARCHAR2(50),
                        CONSTRAINT CONSTRAINT_KXN_13   UNIQUE      (fk_country_id, name)
                    )
                    """);
 
     statements.put(TABLE_NAME_TIMEZONE,
                    """
-                   CREATE TABLE timezone (
-                       pk_timezone_id                   NUMBER                    NOT NULL
+                   CREATE TABLE TIMEZONE (
+                       PK_TIMEZONE_ID                   NUMBER                    NOT NULL
                                                                                   PRIMARY KEY,
-                       abbreviation                     VARCHAR2(50)              NOT NULL,
-                       created                          TIMESTAMP                 NOT NULL,
-                       modified                         TIMESTAMP,
-                       name                             VARCHAR2(100)             NOT NULL
+                       ABBREVIATION                     VARCHAR2(50)              NOT NULL,
+                       CREATED                          TIMESTAMP                 NOT NULL,
+                       MODIFIED                         TIMESTAMP,
+                       NAME                             VARCHAR2(100)             NOT NULL
                                                                                   UNIQUE,
-                       v_time_zone                      VARCHAR2(4000)
+                       V_TIME_ZONE                      VARCHAR2(4000)
                    )
                    """);
 

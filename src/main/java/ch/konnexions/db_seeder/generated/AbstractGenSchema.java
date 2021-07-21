@@ -81,15 +81,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     maxRowSizes        = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
-                               3600);
+                               3);
                            put(TABLE_NAME_COMPANY,
-                               10800);
+                               3);
                            put(TABLE_NAME_COUNTRY,
-                               400);
+                               3);
                            put(TABLE_NAME_COUNTRY_STATE,
-                               1200);
+                               3);
                            put(TABLE_NAME_TIMEZONE,
-                               22);
+                               3);
                          }
                        };
 
