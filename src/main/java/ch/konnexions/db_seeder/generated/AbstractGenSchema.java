@@ -16,14 +16,14 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
-  protected static final String TABLE_NAME_CITY          = "CITY";
-  protected static final String TABLE_NAME_COMPANY       = "COMPANY";
-  protected static final String TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected static final String TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected static final String TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  protected static final String TABLE_NAME_CITY                           = "CITY";
+  protected static final String TABLE_NAME_COMPANY                        = "COMPANY";
+  protected static final String TABLE_NAME_COUNTRY                        = "COUNTRY";
+  protected static final String TABLE_NAME_COUNTRY_STATE                  = "COUNTRY_STATE";
+  protected static final String TABLE_NAME_TIMEZONE                       = "TIMEZONE";
 
   private static final Logger   logger                   = LogManager.getLogger(AbstractGenSchema.class);
-  private final boolean         isDebug                  = logger.isDebugEnabled();
+  private final boolean          isDebug                  = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated schema object.
@@ -81,15 +81,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     maxRowSizes        = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
-                               3);
+                               1800);
                            put(TABLE_NAME_COMPANY,
-                               3);
+                               5400);
                            put(TABLE_NAME_COUNTRY,
-                               3);
+                               200);
                            put(TABLE_NAME_COUNTRY_STATE,
-                               3);
+                               600);
                            put(TABLE_NAME_TIMEZONE,
-                               3);
+                               11);
                          }
                        };
 
