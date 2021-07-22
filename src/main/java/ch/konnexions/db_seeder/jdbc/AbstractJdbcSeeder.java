@@ -58,24 +58,24 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Gets the catalog name.
    *
-   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param tickerSymbol the lower case DBMS ticker symbol
    * @return the catalog name
    */
-  public static String getCatalogName(String tickerSymbolLower) {
-    return "db_seeder_" + tickerSymbolLower;
+  public static String getCatalogName(String tickerSymbol) {
+    return "db_seeder_" + tickerSymbol;
   }
 
   /**
    * Gets the trino URL string.
    *
-   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param tickerSymbol the lower case DBMS ticker symbol
    * @param connectionHost    the connection host name
    * @param connectionPort    the connection port
    * @param databaseSchema    the database schema
    * @return the trino URL string
    */
-  public static String getUrlTrino(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
-    return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=trino";
+  public static String getUrlTrino(String tickerSymbol, String connectionHost, int connectionPort, String databaseSchema) {
+    return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbol) + "/" + databaseSchema + "?user=trino";
   }
 
   private final String                      BLOB_FILE              = Paths.get("src",
@@ -116,14 +116,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public AbstractJdbcSeeder(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public AbstractJdbcSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     config          = new Config();
@@ -166,10 +166,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    if (!("cratedb".equals(tickerSymbolExtern)
-        || "firebird".equals(tickerSymbolExtern)
-        || "oracle".equals(tickerSymbolExtern)
-        || "oracle_trino".equals(tickerSymbolExtern))) {
+    if (!("cratedb".equals(tickerSymbol) || "firebird".equals(tickerSymbol) || "oracle".equals(tickerSymbol) || "oracle_trino".equals(tickerSymbol))) {
       try {
         connection.commit();
       } catch (SQLException ec) {
@@ -193,7 +190,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    if (!("cratedb".equals(tickerSymbolExtern))) {
+    if (!("cratedb".equals(tickerSymbol))) {
       try {
         connection.commit();
       } catch (SQLException ec) {
@@ -403,11 +400,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
+    Statistics statistics = new Statistics(config, tickerSymbol, dbmsDetails);
 
     setupDatabase();
 
-    if (!("derby".equals(tickerSymbolExtern) || "derby_emb".equals(tickerSymbolExtern))) {
+    if (!("derby".equals(tickerSymbol) || "derby_emb".equals(tickerSymbol))) {
       // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
       if ("yes".equals(dropConstraints)) {
         LocalDateTime startDateTime = LocalDateTime.now();
@@ -446,7 +443,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     statistics.setDurationDML();
 
-    if (!("derby".equals(tickerSymbolExtern) || "derby_emb".equals(tickerSymbolExtern))) {
+    if (!("derby".equals(tickerSymbol) || "derby_emb".equals(tickerSymbol))) {
       // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
       if ("yes".equals(dropConstraints)) {
         LocalDateTime startDateTime = LocalDateTime.now();
@@ -479,18 +476,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                                                                 rowMaxSize) + " rows to be created");
     }
 
-    String editedTableName;
-
-    if (dbmsEnum == DbmsEnum.MYSQL
-        || dbmsEnum == DbmsEnum.OMNISCI
-        || dbmsEnum == DbmsEnum.ORACLE
-        || dbmsEnum == DbmsEnum.PERCONA
-        || dbmsEnum == DbmsEnum.POSTGRESQL
-        || dbmsEnum == DbmsEnum.SQLSERVER) {
-      editedTableName = tableName.toLowerCase();
-    } else {
-      editedTableName = tableName.toUpperCase();
-    }
+    String editedTableName = setCaseIdentifier(tableName);
+    logger.info("wwe editedTableName=" + editedTableName);
 
     final int countExisting = countData(editedTableName);
 
@@ -550,10 +537,25 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("sql='" + sqlStmnt + "'");
     }
 
+    if (dbmsEnum == DbmsEnum.MONETDB) {
+      try {
+        statement = connection.createStatement();
+
+        executeDdlStmnts(statement,
+                         "SET optimizer='minimal_pipe';");
+
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
     PreparedStatement preparedStatement = null;
 
     try {
       preparedStatement = connection.prepareStatement(sqlStmnt);
+
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -607,7 +609,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       try {
         statement = connection.createStatement();
 
-        statement.execute("REFRESH TABLE " + editedTableName);
+        executeDdlStmnts(statement,
+                         "REFRESH TABLE " + editedTableName);
 
         statement.close();
       } catch (SQLException e) {
@@ -698,7 +701,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @param connection the database connection
    */
-  protected final void disconnectDML(Connection connection) {
+  private final void disconnectDML(Connection connection) {
     if (isDebug) {
       logger.debug("Start [" + connection.toString() + "]");
     }
@@ -751,7 +754,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("next SQL statement=" + dropStmnt);
           }
 
-          statement.execute(dropStmnt);
+          executeDdlStmnts(statement,
+                           dropStmnt);
         }
 
         resultSet.close();
@@ -907,7 +911,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param connection the database connection
    * @throws SQLException 
    */
-  protected void dropTableConstraints(Connection connection) throws SQLException {
+  private void dropTableConstraints(Connection connection) throws SQLException {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -925,17 +929,24 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     String                   schema       = null;
     String                   table;
 
-    switch (tickerSymbolExtern) {
-    case "cockroach":
-      catalog = config.getDatabase();
-      break;
-    case "monetdb":
-      schema = config.getSchema();
-      break;
+    switch (tickerSymbol) {
+    case "agens":
     case "postgresql":
     case "postgresql_trino":
       catalog = config.getDatabase();
       schema = config.getSchema();
+      break;
+    case "cockroach":
+      catalog = config.getDatabase();
+      break;
+    case "cratedb":
+      schema = "doc";
+      break;
+    case "monetdb":
+      schema = config.getSchema();
+      break;
+    case "mysql":
+      schema = config.getDatabase();
       break;
     default:
     }
@@ -953,18 +964,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        switch (tickerSymbolExtern) {
-        case "cockroach":
-        case "monetdb":
-          table = tableName.toLowerCase();
-          break;
-        case "postgresql":
-        case "postgresql_trino":
-          table = setCaseIdentifier(tableName);
-          break;
-        default:
-          table = tableName.toUpperCase();
-        }
+        table              = setCaseTableName(tableName);
 
         resultSet          = dbMetaData.getImportedKeys(catalog,
                                                         schema,
@@ -1043,17 +1043,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        switch (tickerSymbolExtern) {
-        case "cockroach":
-          table = tableName.toLowerCase();
-          break;
-        case "postgresql":
-        case "postgresql_trino":
-          table = setCaseIdentifier(tableName);
-          break;
-        default:
-          table = tableName.toUpperCase();
-        }
+        table          = setCaseTableName(tableName);
 
         resultSet      = dbMetaData.getPrimaryKeys(catalog,
                                                    schema,
@@ -1102,17 +1092,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        switch (tickerSymbolExtern) {
-        case "cockroach":
-          table = tableName.toLowerCase();
-          break;
-        case "postgresql":
-        case "postgresql_trino":
-          table = setCaseIdentifier(tableName);
-          break;
-        default:
-          table = tableName.toUpperCase();
-        }
+        table              = setCaseTableName(tableName);
 
         resultSet          = dbMetaData.getIndexInfo(catalog,
                                                      schema,
@@ -1199,18 +1179,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       for (Constraint constraint : constraints.values()) {
         executeDdlStmnts(statement,
-                         constraint.getDropConstraintStatement(tickerSymbolExtern));
+                         constraint.getDropConstraintStatement(tickerSymbol));
       }
-
-      // wwe
-      //      for (String tableName : TABLE_NAMES_DROP) {
-      //        for (Constraint constraint : constraints.values()) {
-      //          if (tableName.equals(constraint.getTableName())) {
-      //            executeDdlStmnts(statement,
-      //                             constraint.getDropConstraintStatement(tickerSymbolExtern));
-      //          }
-      //        }
-      //      }
 
       statement.close();
     } catch (SQLException e) {
@@ -1335,7 +1305,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return BLOB_DATA_BYTES;
   }
 
-  protected String getContentBlobString(String tableName, String columnName, long rowNo) {
+  private String getContentBlobString(String tableName, String columnName, long rowNo) {
 
     return BLOB_DATA_BYTES_STRING;
   }
@@ -1478,54 +1448,55 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  /**
-   * Sets the designated optional column to a BIGINT value or to NULL.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   * @param defaultValue      the lower value
-   * @param lowerRange        the lower range
-   * @param upperRange        the upper range
-   * @param validValues       the valid values
-   */
-  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
-                                             String tableName,
-                                             String columnName,
-                                             int columnPos,
-                                             long rowNo,
-                                             Integer defaultValue,
-                                             Integer lowerRange,
-                                             Integer upperRange,
-                                             List<Integer> validValues) {
-    try {
-      if (rowNo % nullFactor == 0) {
-        if (defaultValue == null) {
-          preparedStatement.setNull(columnPos,
-                                    java.sql.Types.INTEGER);
-        } else {
-          preparedStatement.setLong(columnPos,
-                                    defaultValue);
-        }
-        return;
-      }
-
-      prepStmntColBigint(preparedStatement,
-                         tableName,
-                         columnName,
-                         columnPos,
-                         rowNo,
-                         defaultValue,
-                         lowerRange,
-                         upperRange,
-                         validValues);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
+  // ToDo 
+  //  /**
+  //   * Sets the designated optional column to a BIGINT value or to NULL.
+  //   *
+  //   * @param preparedStatement the prepared statement
+  //   * @param tableName         the table name
+  //   * @param columnName        the column name
+  //   * @param columnPos         the column position
+  //   * @param rowNo             the current row number
+  //   * @param defaultValue      the lower value
+  //   * @param lowerRange        the lower range
+  //   * @param upperRange        the upper range
+  //   * @param validValues       the valid values
+  //   */
+  //  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
+  //                                             String tableName,
+  //                                             String columnName,
+  //                                             int columnPos,
+  //                                             long rowNo,
+  //                                             Integer defaultValue,
+  //                                             Integer lowerRange,
+  //                                             Integer upperRange,
+  //                                             List<Integer> validValues) {
+  //    try {
+  //      if (rowNo % nullFactor == 0) {
+  //        if (defaultValue == null) {
+  //          preparedStatement.setNull(columnPos,
+  //                                    java.sql.Types.INTEGER);
+  //        } else {
+  //          preparedStatement.setLong(columnPos,
+  //                                    defaultValue);
+  //        }
+  //        return;
+  //      }
+  //
+  //      prepStmntColBigint(preparedStatement,
+  //                         tableName,
+  //                         columnName,
+  //                         columnPos,
+  //                         rowNo,
+  //                         defaultValue,
+  //                         lowerRange,
+  //                         upperRange,
+  //                         validValues);
+  //    } catch (SQLException e) {
+  //      e.printStackTrace();
+  //      System.exit(1);
+  //    }
+  //  }
 
   /**
    * Sets the designated column to a BLOB value.
@@ -1993,7 +1964,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @param connection the database connection
    */
-  protected void restoreTableConstraints(Connection connection) {
+  private void restoreTableConstraints(Connection connection) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -2005,7 +1976,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         for (Constraint constraint : constraints.values()) {
           if (tableName.equals(constraint.getTableName())) {
             executeDdlStmnts(statement,
-                             constraint.getAddConstraintStatement(tickerSymbolExtern));
+                             constraint.getAddConstraintStatement(tickerSymbol));
           }
         }
       }
@@ -2018,6 +1989,21 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     if (isDebug) {
       logger.debug("End");
+    }
+  }
+
+  private String setCaseTableName(String tableName) {
+    switch (tickerSymbol) {
+    case "agens":
+    case "postgresql":
+    case "postgresql_trino":
+      return setCaseIdentifier(tableName);
+    case "cockroach":
+    case "cratedb":
+    case "monetdb":
+      return tableName.toLowerCase();
+    default:
+      return tableName.toUpperCase();
     }
   }
 

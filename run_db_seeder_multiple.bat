@@ -28,6 +28,10 @@ echo.
     echo:| TIME
     echo ================================================================================
     
+    run_db_seeder agens      yes 1
+rem run_db_seeder cockroach  yes 1
+    run_db_seeder derby      yes 1
+    run_db_seeder derby_emb  yes 1
     run_db_seeder monetdb    yes 1
     run_db_seeder oracle     yes 1
     run_db_seeder postgresql yes 1

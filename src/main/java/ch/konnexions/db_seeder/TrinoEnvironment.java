@@ -48,7 +48,7 @@ public final class TrinoEnvironment {
 
   private static String                    password;
 
-  private static String                    tickerSymbolLower;
+  // wwe private static String                    tickerSymbol;
 
   private static String                    url;
   private static String                    user;
@@ -56,29 +56,29 @@ public final class TrinoEnvironment {
   /**
    * Create the catalog data and the catalog file.
    *
-   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param tickerSymbol the lower case DBMS ticker symbol
    */
-  private static void createCatalog(String tickerSymbolLower) {
+  private static void createCatalog(String tickerSymbol) {
     if (isDebug) {
-      logger.debug("Start tickerSymbolLower='" + tickerSymbolLower + "'");
+      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
     }
 
     entries.clear();
 
-    entries.add("connector.name=" + tickerSymbolLower);
+    entries.add("connector.name=" + tickerSymbol);
     entries.add("connection-url=" + url.replace("\"",
                                                 ""));
-    if (!("postgresql".equals(tickerSymbolLower) || "sqlserver".equals(tickerSymbolLower))) {
+    if (!("postgresql".equals(tickerSymbol) || "sqlserver".equals(tickerSymbol))) {
       entries.add("connection-user=" + user);
       entries.add("connection-password=" + password);
     }
 
     // issue #4764 wwe
-    if ("oracle".equals(tickerSymbolLower)) {
+    if ("oracle".equals(tickerSymbol)) {
       entries.add("oracle.number.default-scale=10");
     }
 
-    createCatalogFile(tickerSymbolLower,
+    createCatalogFile(tickerSymbol,
                       entries);
 
     if (isDebug) {
@@ -89,16 +89,16 @@ public final class TrinoEnvironment {
   /**
    * Create a catalog file.
    *
-   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param tickerSymbol the lower case DBMS ticker symbol
    * @param entries the catalog entries
    */
-  private static void createCatalogFile(String tickerSymbolLower, ArrayList<String> entries) {
+  private static void createCatalogFile(String tickerSymbol, ArrayList<String> entries) {
     if (isDebug) {
-      logger.debug("Start tickerSymbolLower='\"+tickerSymbolLower+\"'\"");
+      logger.debug("Start tickerSymbol='\"+tickerSymbol+\"'\"");
     }
 
     try {
-      String fileName = directoryCatalogProperty + File.separator + AbstractJdbcSeeder.getCatalogName(tickerSymbolLower) + ".properties";
+      String fileName = directoryCatalogProperty + File.separator + AbstractJdbcSeeder.getCatalogName(tickerSymbol) + ".properties";
 
       if (isDebug) {
         logger.debug("fileName='" + fileName + "'");
@@ -127,11 +127,11 @@ public final class TrinoEnvironment {
   /**
    * Create the MySQL catalog file.
    *
-   * @param tickerSymbolExtern the DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    */
-  private static void createCatalogFileMysql(String tickerSymbolExtern) {
+  private static void createCatalogFileMysql(String tickerSymbol) {
     if (isDebug) {
-      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
     }
 
     // =========================================================================
@@ -199,7 +199,7 @@ public final class TrinoEnvironment {
                                   connectionPrefix,
                                   connectionSuffix);
 
-    createCatalog(tickerSymbolLower);
+    createCatalog(tickerSymbol);
 
     if (isDebug) {
       logger.debug("End");
@@ -209,11 +209,11 @@ public final class TrinoEnvironment {
   /**
    * Create the Oracle catalog file.
    *
-   * @param tickerSymbolExtern the DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    */
-  private static void createCatalogFileOracle(String tickerSymbolExtern) {
+  private static void createCatalogFileOracle(String tickerSymbol) {
     if (isDebug) {
-      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
     }
 
     // =========================================================================
@@ -281,7 +281,7 @@ public final class TrinoEnvironment {
                                    connectionPrefix,
                                    connectionService);
 
-    createCatalog(tickerSymbolLower);
+    createCatalog(tickerSymbol);
 
     if (isDebug) {
       logger.debug("End");
@@ -291,11 +291,11 @@ public final class TrinoEnvironment {
   /**
    * Create the PostgreSQL catalog file.
    *
-   * @param tickerSymbolExtern the DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    */
-  private static void createCatalogFilePostgresql(String tickerSymbolExtern) {
+  private static void createCatalogFilePostgresql(String tickerSymbol) {
     if (isDebug) {
-      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
     }
 
     // =========================================================================
@@ -365,7 +365,7 @@ public final class TrinoEnvironment {
                                        user,
                                        password);
 
-    createCatalog(tickerSymbolLower);
+    createCatalog(tickerSymbol);
 
     if (isDebug) {
       logger.debug("End");
@@ -375,11 +375,11 @@ public final class TrinoEnvironment {
   /**
    * Create the SQL Server catalog file.
    *
-   * @param tickerSymbolExtern the DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    */
-  private static void createCatalogFileSqlserver(String tickerSymbolExtern) {
+  private static void createCatalogFileSqlserver(String tickerSymbol) {
     if (isDebug) {
-      logger.debug("Start tickerSymbolExtern='" + tickerSymbolExtern + "'");
+      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
     }
 
     // =========================================================================
@@ -449,7 +449,7 @@ public final class TrinoEnvironment {
                                       user,
                                       password);
 
-    createCatalog(tickerSymbolLower);
+    createCatalog(tickerSymbol);
 
     if (isDebug) {
       logger.debug("End");
@@ -480,38 +480,38 @@ public final class TrinoEnvironment {
 
     Collections.sort(tickerSymbolsExtern);
 
-    for (String tickerSymbolExtern : tickerSymbolsExtern) {
-      logger.info("tickerSymbolExtern='" + tickerSymbolExtern + "'");
+    for (String tickerSymbol : tickerSymbolsExtern) {
+      logger.info("tickerSymbol='" + tickerSymbol + "'");
 
-      tickerSymbolLower = AbstractDbmsSeeder.dbmsDetails.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+      tickerSymbol = AbstractDbmsSeeder.dbmsDetails.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER];
 
-      switch (Objects.requireNonNull(tickerSymbolExtern)) {
+      switch (Objects.requireNonNull(tickerSymbol)) {
       case "mysql":
         logger.info("Start MySQL Database");
-        createCatalogFileMysql(tickerSymbolExtern);
+        createCatalogFileMysql(tickerSymbol);
         logger.info("End   MySQL Database");
         break;
       case "oracle":
         logger.info("Start Oracle Database");
-        createCatalogFileOracle(tickerSymbolExtern);
+        createCatalogFileOracle(tickerSymbol);
         logger.info("End   Oracle Database");
         break;
       case "postgresql":
         logger.info("Start PostgreSQL");
-        createCatalogFilePostgresql(tickerSymbolExtern);
+        createCatalogFilePostgresql(tickerSymbol);
         logger.info("End   PostgreSQL");
         break;
       case "sqlserver":
         logger.info("Start SQL Server");
-        createCatalogFileSqlserver(tickerSymbolExtern);
+        createCatalogFileSqlserver(tickerSymbol);
         logger.info("End   SQL Server");
         break;
       case "":
         MessageHandling.abortProgram(logger,
-                                     "Program abort: tickerSymbolExtern is null");
+                                     "Program abort: tickerSymbol is null");
       default:
         MessageHandling.abortProgram(logger,
-                                     "Program abort: unknown tickerSymbolExtern, e.g. not yet implemented");
+                                     "Program abort: unknown tickerSymbol, e.g. not yet implemented");
       }
     }
 

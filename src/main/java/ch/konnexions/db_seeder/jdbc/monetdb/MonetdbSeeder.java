@@ -38,13 +38,14 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
   /**
    * Instantiates a new MonetDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public MonetdbSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public MonetdbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MONETDB;

@@ -40,20 +40,20 @@ public final class Statistics {
   private LocalDateTime               startDateTimeDML;
   private final LocalDateTime         startDateTimeTotal;
   private CSVPrinter                  statisticsFile;
-  private final String                tickerSymbolExtern;
+  private final String                tickerSymbol;
 
   /**
    * Constructs a Statistics object using the given {@link Config} object.
    *
    * @param config             the {@link Config} object
    * @param dbmsValues         the DBMS related values DBMS name and db type remark
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    */
-  public Statistics(Config config, String tickerSymbolExtern, Map<String, String[]> dbmsValues) {
+  public Statistics(Config config, String tickerSymbol, Map<String, String[]> dbmsValues) {
     this.config             = config;
     this.dbmsValues         = dbmsValues;
     this.startDateTimeTotal = LocalDateTime.now();
-    this.tickerSymbolExtern = tickerSymbolExtern;
+    this.tickerSymbol       = tickerSymbol;
 
     createStatisticsFile();
 
@@ -77,9 +77,9 @@ public final class Statistics {
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                 durationTotal) + " ms - total");
 
-      statisticsFile.printRecord(tickerSymbolExtern,
-                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
-                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
+      statisticsFile.printRecord(tickerSymbol,
+                                 dbmsValues.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
+                                 dbmsValues.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
                                  durationTotal,
                                  startDateTimeTotal.format(formatter),
                                  endDateTimeTotal.format(formatter),

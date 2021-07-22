@@ -38,13 +38,14 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
   /**
    * Instantiates a new Mimer SQL seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public MimerSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public MimerSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MIMER;

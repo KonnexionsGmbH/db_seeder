@@ -38,13 +38,14 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
   /**
    * Instantiates a new MariaDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public MariadbSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public MariadbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MARIADB;

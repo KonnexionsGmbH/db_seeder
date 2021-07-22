@@ -38,13 +38,14 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
   /**
    * Instantiates a new IBM Db2 seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public Ibmdb2Seeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public Ibmdb2Seeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum       = DbmsEnum.IBMDB2;

@@ -351,8 +351,7 @@ public abstract class AbstractDbmsSeeder {
 
   protected String   identifierDelimiter;
 
-  protected String   tickerSymbolExtern;
-  protected String   tickerSymbolLower;
+  protected String   tickerSymbol;
 
   /**
    * Initialises a new abstract DBMS seeder object.
@@ -364,21 +363,19 @@ public abstract class AbstractDbmsSeeder {
   /**
    * Initialises a new abstract DBMS seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbol the DBMS ticker symbol 
    * @param dbmsOption client, embedded or trino
    */
-  public AbstractDbmsSeeder(String tickerSymbolExtern, String dbmsOption) {
+  public AbstractDbmsSeeder(String tickerSymbol, String dbmsOption) {
     super();
 
     boolean isDebug = logger.isDebugEnabled();
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
-    this.tickerSymbolExtern = tickerSymbolExtern;
-
-    identifierDelimiter     = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
-    tickerSymbolLower       = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+    identifierDelimiter = dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    this.tickerSymbol   = dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -388,23 +385,23 @@ public abstract class AbstractDbmsSeeder {
   /**
    * Gets the DBMS name.
    *
-   * @param tickerSymbolLower the lower case ticker symbol
+   * @param tickerSymbol the lower case ticker symbol
    *
    * @return the DBMS name
    */
-  public final String getDbmsName(String tickerSymbolLower) {
-    return dbmsDetails.get(tickerSymbolLower)[DBMS_DETAILS_NAME];
+  public final String getDbmsName(String tickerSymbol) {
+    return dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_NAME];
   }
 
   /**
    * Gets the identifier delimiter.
    *
-   * @param tickerSymbolLower the lower case ticker symbol
+   * @param tickerSymbol the lower case ticker symbol
    *
    * @return the identifier delimiter
    */
-  public final String getIdentifierDelimiter(String tickerSymbolLower) {
-    return dbmsDetails.get(tickerSymbolLower)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+  public final String getIdentifierDelimiter(String tickerSymbol) {
+    return dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
   }
 
   /**
@@ -415,13 +412,13 @@ public abstract class AbstractDbmsSeeder {
    * @return the converted identifier
    */
   public final String setCaseIdentifier(String identifier) {
-    if ("agens".equals(tickerSymbolLower)
-        || "mysql".equals(tickerSymbolLower)
-        || "omnisci".equals(tickerSymbolLower)
-        || "oracle".equals(tickerSymbolLower)
-        || "percona".equals(tickerSymbolLower)
-        || "postgresql".equals(tickerSymbolLower)
-        || "sqlserver".equals(tickerSymbolLower)) {
+    if ("agens".equals(tickerSymbol)
+        || "mysql".equals(tickerSymbol)
+        || "omnisci".equals(tickerSymbol)
+        || "oracle".equals(tickerSymbol)
+        || "percona".equals(tickerSymbol)
+        || "postgresql".equals(tickerSymbol)
+        || "sqlserver".equals(tickerSymbol)) {
       return identifier.toLowerCase();
     }
 
@@ -434,13 +431,13 @@ public abstract class AbstractDbmsSeeder {
    * @param identifiers the identifier list
    */
   public final void setCaseIdentifiers(ArrayList<String> identifiers) {
-    if ("agens".equals(tickerSymbolLower)
-        || "mysql".equals(tickerSymbolLower)
-        || "omnisci".equals(tickerSymbolLower)
-        || "oracle".equals(tickerSymbolLower)
-        || "percona".equals(tickerSymbolLower)
-        || "postgresql".equals(tickerSymbolLower)
-        || "sqlserver".equals(tickerSymbolLower)) {
+    if ("agens".equals(tickerSymbol)
+        || "mysql".equals(tickerSymbol)
+        || "omnisci".equals(tickerSymbol)
+        || "oracle".equals(tickerSymbol)
+        || "percona".equals(tickerSymbol)
+        || "postgresql".equals(tickerSymbol)
+        || "sqlserver".equals(tickerSymbol)) {
       identifiers.forEach(String::toLowerCase);
     }
 

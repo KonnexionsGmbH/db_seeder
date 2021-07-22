@@ -64,7 +64,7 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.5          | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.5.4              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.7               |
@@ -716,7 +716,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.5`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.6`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -736,7 +736,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_cratedb"></a> 5.3 CrateDB
+### <a name="details_cratedb"></a> 5.4 CrateDB
 
 - **data types**:
 
@@ -782,7 +782,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_cubrid"></a> 5.4 CUBRID
+### <a name="details_cubrid"></a> 5.5 CUBRID
 
 - **data types**:
 
@@ -825,7 +825,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_exasol"></a> 5.5 Exasol
+### <a name="details_exasol"></a> 5.6 Exasol
 - **data types**:
 
 | **`DBSeeder`** Type | Exasol Type      |
@@ -858,7 +858,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_firebird"></a> 5.6 Firebird
+### <a name="details_firebird"></a> 5.7 Firebird
 
 - **data types**:
 
@@ -898,7 +898,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_h2"></a> 5.7 H2 Database Engine
+### <a name="details_h2"></a> 5.8 H2 Database Engine
 
 - **data types**:
 
@@ -944,7 +944,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_hsqldb"></a> 5.8 HSQLDB
+### <a name="details_hsqldb"></a> 5.9 HSQLDB
 
 - **data types**:
 
@@ -990,7 +990,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_ibmdb2"></a> 5.9 IBM Db2 Database
+### <a name="details_ibmdb2"></a> 5.10 IBM Db2 Database
 
 - **data types**:
 
@@ -1033,7 +1033,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_informix"></a> 5.10 IBM Informix
+### <a name="details_informix"></a> 5.11 IBM Informix
 
 - **data types**:
 
@@ -1076,7 +1076,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mariadb"></a> 5.11 MariaDB Server
+### <a name="details_mariadb"></a> 5.12 MariaDB Server
 
 - **data types**:
 
@@ -1122,7 +1122,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mimer"></a> 5.12 Mimer SQL
+### <a name="details_mimer"></a> 5.13 Mimer SQL
 
 - **data types**:
 
@@ -1160,7 +1160,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_monetdb"></a> 5.13 MonetDB
+### <a name="details_monetdb"></a> 5.14 MonetDB
 
 - **data types**:
 
@@ -1203,7 +1203,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.14 MySQL Database
+### <a name="details_mysql"></a> 5.15 MySQL Database
 
 - **data types**:
 
@@ -1243,7 +1243,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_omnisci"></a> 5.15 OmniSciDB
+### <a name="details_omnisci"></a> 5.16 OmniSciDB
 
 - **data types**:
 
@@ -1294,7 +1294,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.16 Oracle Database
+### <a name="details_oracle"></a> 5.17 Oracle Database
 
 - **data types**:
 
@@ -1330,7 +1330,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_percona"></a> 5.17 Percona Server for MySQL
+### <a name="details_percona"></a> 5.18 Percona Server for MySQL
 
 - **data types**:
 
@@ -1368,7 +1368,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.18 PostgreSQL
+### <a name="details_postgresql"></a> 5.19 PostgreSQL
 
 - **data types**:
 
@@ -1406,7 +1406,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_sqlserver"></a> 5.19 SQL Server
+###  <a name="details_sqlserver"></a> 5.20 SQL Server
 
 - **data types**:
 
@@ -1446,7 +1446,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.20 SQLite
+### <a name="details_sqlite"></a> 5.21 SQLite
 
 - **data types**:
 
@@ -1485,7 +1485,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_trino"></a> 5.21 trino
+### <a name="details_trino"></a> 5.22 trino
 
 - **data types**:
 
@@ -1519,7 +1519,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_voltdb"></a> 5.22 VoltDB
+### <a name="details_voltdb"></a> 5.23 VoltDB
 
 - **data types**:
 
@@ -1551,7 +1551,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_yugabyte"></a> 5.23 YugabyteDB
+### <a name="details_yugabyte"></a> 5.24 YugabyteDB
 
 - **data types**:
 

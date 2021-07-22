@@ -24,23 +24,13 @@ class Constraint {
   /**
    * Get the ADD CONSTRAINT statement.
    *
-   * @param tickerSymbolExtern the external ticker symbol
+   * @param tickerSymbol the external ticker symbol
    * @return the ADD CONSTRAINT statement
    */
-  public String getAddConstraintStatement(String tickerSymbolExtern) {
-    String addConstraintName;
+  public String getAddConstraintStatement(String tickerSymbol) {
+    String addConstraintName = quoteConstraintName(tickerSymbol);
 
-    switch (tickerSymbolExtern) {
-    case "cockroach":
-    case "derby":
-    case "derby_emb":
-      addConstraintName = "\"" + constraintName + "\"";
-      break;
-    default:
-      addConstraintName = constraintName;
-    }
-
-    String restoreStatement = "ALTER TABLE " + tableName + " ADD CONSTRAINT " + addConstraintName;
+    String restoreStatement  = "ALTER TABLE " + tableName + " ADD CONSTRAINT " + addConstraintName;
 
     switch (constraintType) {
     case "P":
@@ -61,7 +51,7 @@ class Constraint {
                                                                              refColumnNames) + ")";
     }
 
-    switch (tickerSymbolExtern) {
+    switch (tickerSymbol) {
     case "cockroach":
     case "postgresql":
     case "postgresql_trino":
@@ -69,10 +59,10 @@ class Constraint {
         restoreStatement += ", VALIDATE CONSTRAINT " + addConstraintName;
       }
       break;
-    case "monetdb":
+    case "oracle":
+      restoreStatement += " ENABLE";
       break;
     default:
-      restoreStatement += " ENABLE";
     }
 
     return restoreStatement;
@@ -81,23 +71,24 @@ class Constraint {
   /**
    * Get the DROP CONSTRAINT statement.
    *
-   * @param tickerSymbolExtern the external ticker symbol
+   * @param tickerSymbol the external ticker symbol
    * @return the DROP CONSTRAINT statement
    */
-  public String getDropConstraintStatement(String tickerSymbolExtern) {
-    String dropConstraintName;
-
-    switch (tickerSymbolExtern) {
-    case "cockroach":
-    case "derby":
-    case "derby_emb":
-      dropConstraintName = "\"" + constraintName + "\"";
-      break;
+  public String getDropConstraintStatement(String tickerSymbol) {
+    switch (tickerSymbol) {
+    case "mysql":
+      String dropStatement = "ALTER TABLE " + tableName + " DROP ";
+      switch (constraintType) {
+      case "F":
+        return dropStatement + "FOREIGN KEY " + quoteConstraintName(tickerSymbol);
+      case "P":
+        return dropStatement + "PRIMARY KEY";
+      default:
+        return dropStatement + "INDEX " + quoteConstraintName(tickerSymbol);
+      }
     default:
-      dropConstraintName = constraintName;
+      return "ALTER TABLE " + tableName + " DROP CONSTRAINT " + quoteConstraintName(tickerSymbol);
     }
-
-    return "ALTER TABLE " + tableName + " DROP CONSTRAINT " + dropConstraintName;
   }
 
   /**
@@ -107,6 +98,21 @@ class Constraint {
    */
   public String getTableName() {
     return tableName;
+  }
+
+  private String quoteConstraintName(String tickerSymbol) {
+    String addConstraintName;
+
+    switch (tickerSymbol) {
+    case "cockroach":
+    case "derby":
+    case "derby_emb":
+      addConstraintName = "\"" + constraintName + "\"";
+      break;
+    default:
+      addConstraintName = constraintName;
+    }
+    return addConstraintName;
   }
 
   /**

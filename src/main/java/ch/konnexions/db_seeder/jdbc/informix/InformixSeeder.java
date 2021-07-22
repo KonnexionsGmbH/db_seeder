@@ -38,13 +38,14 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
   /**
    * Instantiates a new IBM Informix seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public InformixSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public InformixSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum       = DbmsEnum.INFORMIX;

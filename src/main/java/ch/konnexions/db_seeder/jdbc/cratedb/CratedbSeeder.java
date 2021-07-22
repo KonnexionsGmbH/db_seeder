@@ -40,13 +40,14 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
   /**
    * Instantiates a new CrateDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public CratedbSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public CratedbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum       = DbmsEnum.CRATEDB;

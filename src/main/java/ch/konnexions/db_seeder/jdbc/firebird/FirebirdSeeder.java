@@ -37,13 +37,14 @@ public final class FirebirdSeeder extends AbstractGenFirebirdSchema {
   /**
    * Instantiates a new Firebird seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public FirebirdSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public FirebirdSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum       = DbmsEnum.FIREBIRD;

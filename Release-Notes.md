@@ -18,72 +18,22 @@
 
 ### 1.1 Apache Derby
 
-#### 1.1.1 Issue with cecond run
+Issue with second run:
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
-
-#### 1.1.2 Issue with ALTER TABLE ... DROP CONSTRANT
-
-**DDL Statement:**
-
-`CREATE TABLE KXN_SCHEMA.COUNTRY_STATE (
-PK_COUNTRY_STATE_ID BIGINT NOT NULL,
-FK_COUNTRY_ID BIGINT NOT NULL,
-FK_TIMEZONE_ID BIGINT NOT NULL,
-COUNTRY_STATE_MAP BLOB,
-CREATED TIMESTAMP NOT NULL,
-MODIFIED TIMESTAMP,
-NAME VARCHAR(100) NOT NULL,
-SYMBOL VARCHAR(50),
-CONSTRAINT CONSTRAINT_KXN_4 UNIQUE (),
-CONSTRAINT "SQL0000000111-2c5f8294-017a-c260-be49-00000016e126" PRIMARY KEY (),
-CONSTRAINT "SQL0000000112-15048295-017a-c260-be49-00000016e126" FOREIGN KEY () REFERENCES KXN_SCHEMA.COUNTRY(),
-CONSTRAINT "SQL0000000113-3da9c296-017a-c260-be49-00000016e126" FOREIGN KEY () REFERENCES KXN_SCHEMA.TIMEZONE()
-);
-CREATE INDEX "SQL0000000112-15048295-017a-c260-be49-00000016e126" ON KXN_SCHEMA.COUNTRY_STATE (FK_COUNTRY_ID);
-CREATE INDEX "SQL0000000113-3da9c296-017a-c260-be49-00000016e126" ON KXN_SCHEMA.COUNTRY_STATE (FK_TIMEZONE_ID);
-CREATE UNIQUE INDEX "SQL0000000114-a041429a-017a-c260-be49-00000016e126" ON KXN_SCHEMA.COUNTRY_STATE (FK_COUNTRY_ID,NAME);`
-
-**Statement DROP CONSTRAINT:**
-
-`ALTER TABLE COUNTRY_STATE DROP CONSTRAINT "SQL0000000114-a041429a-017a-c260-be49-00000016e126"`
-
-**Error message:**
-
-`java.sql.SQLSyntaxErrorException: ALTER TABLE failed. There is no constraint 'KXN_SCHEMA.SQL0000000114-a041429a-017a-c260-be49-00000016e126' on table '"KXN_SCHEMA"."COUNTRY_STATE"'.
-at org.apache.derby.client.am.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:94)
-at org.apache.derby.client.am.SqlException.getSQLException(SqlException.java:325)
-at org.apache.derby.client.am.ClientStatement.execute(ClientStatement.java:997)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1213)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1126)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:411)
-at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:94)
-Caused by: ERROR 42X86: ALTER TABLE failed. There is no constraint 'KXN_SCHEMA.SQL0000000114-a041429a-017a-c260-be49-00000016e126' on table '"KXN_SCHEMA"."COUNTRY_STATE"'.
-at org.apache.derby.client.am.ClientStatement.completeSqlca(ClientStatement.java:2116)
-at org.apache.derby.client.am.ClientStatement.completeExecuteImmediate(ClientStatement.java:1683)
-at org.apache.derby.client.net.NetStatementReply.parseEXCSQLIMMreply(NetStatementReply.java:209)
-at org.apache.derby.client.net.NetStatementReply.readExecuteImmediate(NetStatementReply.java:60)
-at org.apache.derby.client.net.StatementReply.readExecuteImmediate(StatementReply.java:47)
-at org.apache.derby.client.net.NetStatement.readExecuteImmediate_(NetStatement.java:142)
-at org.apache.derby.client.am.ClientStatement.readExecuteImmediate(ClientStatement.java:1679)
-at org.apache.derby.client.am.ClientStatement.flowExecute(ClientStatement.java:2408)
-at org.apache.derby.client.am.ClientStatement.executeX(ClientStatement.java:1002)
-at org.apache.derby.client.am.ClientStatement.execute(ClientStatement.java:988)
-... 4 more
-Processing of the script was aborted, error code=1`
 
 ### 1.2 CockroachDB
 
 Issue with dropping constraints:
 
-`2021-07-21 09:10:46,058 [DatabaseSeeder.java] INFO  Start
-2021-07-21 09:10:46,061 [DatabaseSeeder.java] INFO  tickerSymbolExtern='cockroach'
-2021-07-21 09:10:46,061 [DatabaseSeeder.java] INFO  Start CockroachDB
+`2021-07-22 00:40:02,857 [DatabaseSeeder.java] INFO  Start
 SLF4J: Class path contains multiple SLF4J bindings.
 SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+2021-07-22 00:40:02,935 [DatabaseSeeder.java] INFO  tickerSymbolExtern='cockroach'
+2021-07-22 00:40:02,935 [DatabaseSeeder.java] INFO  Start CockroachDB
 org.postgresql.util.PSQLException: ERROR: unimplemented: cannot drop UNIQUE constraint "country_name_key" using ALTER TABLE DROP CONSTRAINT, use DROP INDEX CASCADE instead
 Hint: You have attempted to use a feature that is not yet implemented.
 See: https://go.crdb.dev/issue-v/42840/v21.1
@@ -96,10 +46,10 @@ at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:307)
 at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:293)
 at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:270)
 at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:266)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1287)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1191)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1297)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1201)
 at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:418)
-at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:76)
+at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:91)
 Processing of the script was aborted, error code=1`
 
 ### 1.3 IBM Db2
@@ -213,7 +163,7 @@ Release Date: dd.mm.2021
 
 #### Modified Features
 
-- CockroachDB: DBMS v21.1.5
+- CockroachDB: DBMS v21.1.6
 
 - CrateDB: DBMS 4.5.4
 
