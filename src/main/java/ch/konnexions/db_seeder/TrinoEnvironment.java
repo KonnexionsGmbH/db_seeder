@@ -48,8 +48,6 @@ public final class TrinoEnvironment {
 
   private static String                    password;
 
-  // wwe private static String                    tickerSymbol;
-
   private static String                    url;
   private static String                    user;
 

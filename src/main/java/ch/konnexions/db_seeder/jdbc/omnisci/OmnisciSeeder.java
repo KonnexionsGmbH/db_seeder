@@ -105,10 +105,6 @@ public final class OmnisciSeeder extends AbstractGenOmnisciSchema {
     try {
       statement = connection.createStatement();
 
-      // ToDo wwe      
-      //      executeDdlStmnts(statement,
-      //                       "DROP DATABASE IF EXISTS " + databaseName,
-      //                       "DROP USER " + userName);
       executeDdlStmnts(statement,
                        "DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {

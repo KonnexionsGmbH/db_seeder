@@ -28,13 +28,40 @@ echo.
     echo:| TIME
     echo ================================================================================
     
-    run_db_seeder agens      yes 1
-rem run_db_seeder cockroach  yes 1
-    run_db_seeder derby      yes 1
-    run_db_seeder derby_emb  yes 1
-    run_db_seeder monetdb    yes 1
-    run_db_seeder oracle     yes 1
-    run_db_seeder postgresql yes 1
+    echo setting environment variables - start ------------------------------------------
+    set DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_108000.json
+    set DB_SEEDER
+    echo setting environment variables - end   ------------------------------------------
+    
+    call scripts\run_db_seeder_generate_schema
+    
+@REM     echo setting environment variables - start ------------------------------------------
+@REM     set DB_SEEDER_DROP_CONSTRAINTS=no
+@REM     set DB_SEEDER
+@REM     echo setting environment variables - end   ------------------------------------------
+
+rem call run_db_seeder agens      yes 1
+rem call run_db_seeder cockroach  yes 1
+rem call run_db_seeder derby      yes 1
+rem call run_db_seeder derby_emb  yes 1
+    call run_db_seeder monetdb    yes 1
+    call run_db_seeder mysql      yes 1
+    call run_db_seeder oracle     yes 1
+    call run_db_seeder postgresql yes 1
+    
+@REM     echo setting environment variables - start ------------------------------------------
+@REM     set DB_SEEDER_DROP_CONSTRAINTS=yes
+@REM     set DB_SEEDER
+@REM     echo setting environment variables - end   ------------------------------------------
+@REM 
+@REM rem call run_db_seeder agens      yes 1
+@REM rem call run_db_seeder cockroach  yes 1
+@REM rem call run_db_seeder derby      yes 1
+@REM rem call run_db_seeder derby_emb  yes 1
+@REM     call run_db_seeder monetdb    yes 1
+@REM     call run_db_seeder mysql      yes 1
+@REM     call run_db_seeder oracle     yes 1
+@REM     call run_db_seeder postgresql yes 1
     
     echo --------------------------------------------------------------------------------
     echo:| TIME

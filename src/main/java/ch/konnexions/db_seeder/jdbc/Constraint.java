@@ -30,7 +30,14 @@ class Constraint {
   public String getAddConstraintStatement(String tickerSymbol) {
     String addConstraintName = quoteConstraintName(tickerSymbol);
 
-    String restoreStatement  = "ALTER TABLE " + tableName + " ADD CONSTRAINT " + addConstraintName;
+    String restoreStatement  = "ALTER TABLE " + tableName + " ADD CONSTRAINT ";
+
+    switch (tickerSymbol) {
+    case "mysql":
+      break;
+    default:
+      restoreStatement += addConstraintName;
+    }
 
     switch (constraintType) {
     case "P":

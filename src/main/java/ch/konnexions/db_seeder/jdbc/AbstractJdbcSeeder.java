@@ -476,10 +476,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                                                                 rowMaxSize) + " rows to be created");
     }
 
-    String editedTableName = setCaseIdentifier(tableName);
-    logger.info("wwe editedTableName=" + editedTableName);
+    String    editedTableName = setCaseIdentifier(tableName);
 
-    final int countExisting = countData(editedTableName);
+    final int countExisting   = countData(editedTableName);
 
     if (countExisting != 0) {
       if (isDebug) {
@@ -516,22 +515,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    String editedTableName;
+    String       editedTableName = setCaseIdentifier(tableName);
+    int          msgDivisor      = rowMaxSize > 500 * 10
+        ? rowMaxSize / 10
+        : 500;
 
-    if (dbmsEnum == DbmsEnum.MYSQL
-        || dbmsEnum == DbmsEnum.OMNISCI
-        || dbmsEnum == DbmsEnum.ORACLE
-        || dbmsEnum == DbmsEnum.PERCONA
-        || dbmsEnum == DbmsEnum.POSTGRESQL
-        || dbmsEnum == DbmsEnum.SQLSERVER) {
-      editedTableName = tableName.toLowerCase();
-    } else {
-      editedTableName = tableName.toUpperCase();
-    }
-
-    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + (dbmsEnum == DbmsEnum.OMNISCI
-        ? dmlStatements.get(tableName).toLowerCase()
-        : dmlStatements.get(tableName)) + ")";
+    final String sqlStmnt        = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + dmlStatements.get(tableName) + ")";
 
     if (isDebug) {
       logger.debug("sql='" + sqlStmnt + "'");
@@ -542,7 +531,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         statement = connection.createStatement();
 
         executeDdlStmnts(statement,
-                         "SET optimizer='minimal_pipe';");
+                         "SET sys.optimizer='minimal_pipe';");
 
         statement.close();
       } catch (SQLException e) {
@@ -565,7 +554,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
 
-      if (rowNo % 500 == 0) {
+      if (rowNo % msgDivisor == 0) {
         logger.info("database table " + String.format(FORMAT_TABLE_NAME,
                                                       tableName.toUpperCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
                                                                                                        rowNo));
@@ -964,7 +953,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        table              = setCaseTableName(tableName);
+        table              = setCaseIdentifierMetData(tableName);
 
         resultSet          = dbMetaData.getImportedKeys(catalog,
                                                         schema,
@@ -1043,7 +1032,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        table          = setCaseTableName(tableName);
+        table          = setCaseIdentifierMetData(tableName);
 
         resultSet      = dbMetaData.getPrimaryKeys(catalog,
                                                    schema,
@@ -1092,7 +1081,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     try {
       for (String tableName : TABLE_NAMES_CREATE) {
-        table              = setCaseTableName(tableName);
+        table              = setCaseIdentifierMetData(tableName);
 
         resultSet          = dbMetaData.getIndexInfo(catalog,
                                                      schema,
@@ -1992,18 +1981,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  private String setCaseTableName(String tableName) {
+  private String setCaseIdentifierMetData(String tableName) {
     switch (tickerSymbol) {
-    case "agens":
-    case "postgresql":
-    case "postgresql_trino":
-      return setCaseIdentifier(tableName);
-    case "cockroach":
-    case "cratedb":
     case "monetdb":
       return tableName.toLowerCase();
-    default:
+    case "oracle":
       return tableName.toUpperCase();
+    default:
+      return setCaseIdentifier(tableName);
     }
   }
 
