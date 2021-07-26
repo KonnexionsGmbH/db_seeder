@@ -15,7 +15,6 @@ public final class SchemaPojo {
   /*
    *  The globals object.
    */
-  @SuppressWarnings("ucd")
   public static final class Globals {
 
     private Integer defaultNumberOfRows;
@@ -61,13 +60,11 @@ public final class SchemaPojo {
   /*
    *  The table object.
    */
-  @SuppressWarnings("ucd")
   public static class Table {
 
     /*
      *  The column object.
      */
-    @SuppressWarnings("ucd")
     public static class Column {
 
       /*
@@ -213,7 +210,6 @@ public final class SchemaPojo {
         this.notNull = notNull;
       }
 
-      @SuppressWarnings("ucd")
       public final void setPrecision(Integer precision) {
         this.precision = precision;
       }

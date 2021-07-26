@@ -45,23 +45,14 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
   /**
    * Instantiates a new Percona Server seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
-   */
-  public PerconaSeeder(String tickerSymbolExtern) {
-    this(tickerSymbolExtern, "client");
-  }
-
-  /**
-   * Instantiates a new Percona Server seeder object.
-   *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  private PerconaSeeder(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public PerconaSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MYSQL;
@@ -127,7 +118,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS `" + userName + "`");
     } catch (SQLException e) {
@@ -140,7 +131,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",
@@ -156,7 +147,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

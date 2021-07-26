@@ -34,15 +34,15 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 public final class SampleSqlserver {
   private static final int     BATCH_SIZE          = 100;
 
+  private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
   private static final String  BLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath() + File.separator + "blob.png";
-  private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
+  private static final String  CLOB_DATA           = readClobFile();
   private static final String  CLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath() + File.separator + "clob.md";
-  private static final String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
   private static final String  connectionHost      = "localhost";
   private static final int     connectionPort      = 1433;
@@ -79,12 +79,12 @@ public final class SampleSqlserver {
   private static final String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
   private static Statement     statement;
 
-  private static final String  userName            = "kxn_user";
   private static final String  userNameSys         = "sa";
-
   private static final String  urlSys              = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseNameSys + ";user="
       + userNameSys + ";password=" + password;
   private static final String  urlTrino            = "jdbc:trino://localhost:8080/db_seeder_sqlserver/kxn_schema?user=trino";
+
+  private static final String  userName            = "kxn_user";
   private static final String  urlUser             = "jdbc:sqlserver://" + connectionHost + ":" + connectionPort + ";databaseName=" + databaseName + ";user="
       + userName + ";password=" + password;
 

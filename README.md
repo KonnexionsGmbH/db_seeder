@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.2.svg)
 ----
 
 ### Table of Contents
@@ -64,26 +64,26 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.2          | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.5.1              | 2.6.0               |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
+| CrateDB                         | cratedb            | 4.1.6 - 4.5.4              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.10          | 7.0.7               |
-| Firebird                        | firebird           | 3.0.5 - v4.0.0rc1          | 4.0.3.java11        | 
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.7               |
+| Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.5.0            |                                                    
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.1           | 2.7.3               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.3           | 2.7.3               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.0.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.25            | 8.0.25              | 
+| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.1.jre8            | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
 | OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
-| Percona Server for MySQL        | percona            | 8.0.23-14                  | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.20             |
+| Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
+| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
-| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.34.0              |
-| trino                           | mysql_trino,       | 339 - 358                  | 358                 |
+| SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.36.0.1            |
+| trino                           | mysql_trino,       | 339 - 359                  | 359                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
@@ -238,7 +238,7 @@ Details can be found here: [6. trino](#trino).
 
 ### <a name="performance_example"></a> 1.3 Performance Example
 
-An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.1 Windows 10):   
+An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.2 Windows 10):   
 
 ![](.README_images/Company_9.9.9_win10.png)
 
@@ -304,7 +304,7 @@ Only either a range restriction (`lowerRange...`, `upperRange...`) or a value re
 | `VARCHAR`   | `setNString` (Firebird, MariaDB, MS SQL SERVER and Oracle) |
 |             | `setString` (else)                                         |
 
-#### 2.1.3 Example File `db_seeder_schema.company.json` in the Directory `resources/json` 
+#### 2.1.3 Example File `db_seeder_schema.company_9...9.json` in the Directory `resources/json` 
 
 This file contains the definition of a simple database schema consisting of the database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE.  
 
@@ -504,6 +504,8 @@ The flow control parameters for **`DBSeeder`** are stored in the properties file
 The following control parameters are currently supported:
 
 ```
+db_seeder.batch.size=0
+
 db_seeder_character_set_server=
 db_seeder_collation_server=
 db_seeder.connection.host=
@@ -516,9 +518,10 @@ db_seeder.connection.suffix=
 
 db_seeder.database.sys=
 db_seeder.database=
+db_seeder.drop.constraints=
 
 db_seeder.file.configuration.name=
-db_seeder.file.json.name=resources/json/db_seeder_schema.company.json
+db_seeder.file.json.name=resources/json/db_seeder_schema.company_5400.json
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;RDBMS;db type;runtime in ms;start time;end time;host name;no. cores;operating system
 db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
@@ -538,6 +541,7 @@ db_seeder.user=
 
 | Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                            | Description |     
 | ---                                       | ---                               | ---                                                                                | --- |
+| batch.size=<9...9>                        | BATCH_SIZE                        | all RDBMS except                                                                   | number of insert operations for the bulk operation, default value 0 (a single bulk operation for each database table) |
 | character.set.server=<x...x>              | CHARACTER_SET_SERVER              | mariadb                                                                            | default server character set |
 | collation.server=<x...x>                  | COLLATION_SERVER                  | mariadb                                                                            | default server collation |
 | connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                   | host name or ip address of the database server |
@@ -550,6 +554,7 @@ db_seeder.user=
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
 |                                           |                                   | postgresql, sqlserver, yugabyte                                                    |     |
 | database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                          | database name |
+| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | oracle                                                                             | drop all contraints before the DML operations and recreate them afterwards |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the **`DBSeeder`** configuration file |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                          | separator of the statistics file created in `run_db_seeder` |
@@ -558,7 +563,7 @@ db_seeder.user=
 | file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_statistics` |
 | file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
-|                                           |                                   | oracle, percona, postgresql, sqlserver                                             | password of the privileged user |
+|                                           |                                   | oracle, percona, postgresql, sqlserver                                             |   |
 | password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                                | password of the normal user |
 | schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte | schema name |
 | user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                     | name of the privileged user |
@@ -711,7 +716,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.2`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.6`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -731,7 +736,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_cratedb"></a> 5.3 CrateDB
+### <a name="details_cratedb"></a> 5.4 CrateDB
 
 - **data types**:
 
@@ -750,7 +755,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.5.1`
+  - pull command: `docker pull crate:4.5.3`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -777,7 +782,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_cubrid"></a> 5.4 CUBRID
+### <a name="details_cubrid"></a> 5.5 CUBRID
 
 - **data types**:
 
@@ -820,7 +825,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_exasol"></a> 5.5 Exasol
+### <a name="details_exasol"></a> 5.6 Exasol
 - **data types**:
 
 | **`DBSeeder`** Type | Exasol Type      |
@@ -838,7 +843,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.10`
+  - pull command: `docker pull exasol/docker-db:7.0.11`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -853,7 +858,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_firebird"></a> 5.6 Firebird
+### <a name="details_firebird"></a> 5.7 Firebird
 
 - **data types**:
 
@@ -872,7 +877,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:v4.0.0rc1`
+  - pull command: `docker pull jacobalberty/firebird:v4.0.0`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
@@ -893,7 +898,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_h2"></a> 5.7 H2 Database Engine
+### <a name="details_h2"></a> 5.8 H2 Database Engine
 
 - **data types**:
 
@@ -939,7 +944,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_hsqldb"></a> 5.8 HSQLDB
+### <a name="details_hsqldb"></a> 5.9 HSQLDB
 
 - **data types**:
 
@@ -985,7 +990,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_ibmdb2"></a> 5.9 IBM Db2 Database
+### <a name="details_ibmdb2"></a> 5.10 IBM Db2 Database
 
 - **data types**:
 
@@ -1028,7 +1033,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_informix"></a> 5.10 IBM Informix
+### <a name="details_informix"></a> 5.11 IBM Informix
 
 - **data types**:
 
@@ -1071,7 +1076,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mariadb"></a> 5.11 MariaDB Server
+### <a name="details_mariadb"></a> 5.12 MariaDB Server
 
 - **data types**:
 
@@ -1090,7 +1095,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.6.1`
+  - pull command: `docker pull mariadb:10.6.3`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1117,7 +1122,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mimer"></a> 5.12 Mimer SQL
+### <a name="details_mimer"></a> 5.13 Mimer SQL
 
 - **data types**:
 
@@ -1155,7 +1160,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_monetdb"></a> 5.13 MonetDB
+### <a name="details_monetdb"></a> 5.14 MonetDB
 
 - **data types**:
 
@@ -1182,7 +1187,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/MonetDB/MonetDB/issues)
 
 - **JDBC driver (latest)**:
-  - version 3.0.jre8
+  - version 3.1.jre8
   - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java/)
 
 - **privileged database access**:
@@ -1198,7 +1203,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_mysql"></a> 5.14 MySQL Database
+### <a name="details_mysql"></a> 5.15 MySQL Database
 
 - **data types**:
 
@@ -1217,13 +1222,13 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.25`
+  - pull command: `docker pull mysql:8.0.26`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
 - **JDBC driver (latest)**:
-  - version 8.0.25
+  - version 8.0.26
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1238,7 +1243,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_omnisci"></a> 5.15 OmniSciDB
+### <a name="details_omnisci"></a> 5.16 OmniSciDB
 
 - **data types**:
 
@@ -1289,7 +1294,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_oracle"></a> 5.16 Oracle Database
+### <a name="details_oracle"></a> 5.17 Oracle Database
 
 - **data types**:
 
@@ -1325,7 +1330,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_percona"></a> 5.17 Percona Server for MySQL
+### <a name="details_percona"></a> 5.18 Percona Server for MySQL
 
 - **data types**:
 
@@ -1344,7 +1349,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull percona/percona-server:8.0.23-14`
+  - pull command: `docker pull percona/percona-server:8.0.25-15`
   - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1363,7 +1368,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_postgresql"></a> 5.18 PostgreSQL
+### <a name="details_postgresql"></a> 5.19 PostgreSQL
 
 - **data types**:
 
@@ -1401,7 +1406,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-###  <a name="details_sqlserver"></a> 5.19 SQL Server
+###  <a name="details_sqlserver"></a> 5.20 SQL Server
 
 - **data types**:
 
@@ -1441,7 +1446,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_sqlite"></a> 5.20 SQLite
+### <a name="details_sqlite"></a> 5.21 SQLite
 
 - **data types**:
 
@@ -1464,7 +1469,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
 
 - **JDBC driver (latest)**:
-  - version 3.34.0
+  - version 3.36.0.1
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
   - determines also the DBMS version
 
@@ -1480,7 +1485,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_trino"></a> 5.21 trino
+### <a name="details_trino"></a> 5.22 trino
 
 - **data types**:
 
@@ -1499,7 +1504,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:358`
+  - pull command: `docker pull trinodb/trino:359`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1507,14 +1512,14 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 358
+  - version 359
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
 
 [//]: # (===========================================================================================)
 
-### <a name="details_voltdb"></a> 5.22 VoltDB
+### <a name="details_voltdb"></a> 5.23 VoltDB
 
 - **data types**:
 
@@ -1546,7 +1551,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_yugabyte"></a> 5.23 YugabyteDB
+### <a name="details_yugabyte"></a> 5.24 YugabyteDB
 
 - **data types**:
 

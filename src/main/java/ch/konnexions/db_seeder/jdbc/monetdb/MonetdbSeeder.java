@@ -38,13 +38,14 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
   /**
    * Instantiates a new MonetDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public MonetdbSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public MonetdbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MONETDB;
@@ -110,7 +111,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
       resultSet.close();
 
       if (count > 0) {
-        executeDdlStmnts(statement,
+        executeSQLStmnts(statement,
                          "ALTER USER " + userName + " SET SCHEMA sys",
                          "DROP SCHEMA " + schemaName + " CASCADE",
                          "CREATE SCHEMA " + schemaName + " AUTHORIZATION monetdb;",
@@ -169,7 +170,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " WITH UNENCRYPTED PASSWORD '" + config.getPassword() + "' NAME 'Dbseeder User' SCHEMA sys",
                        "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName,
                        "ALTER USER " + userName + " SET SCHEMA " + schemaName);
@@ -184,7 +185,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

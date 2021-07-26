@@ -34,15 +34,15 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 public final class SampleMysql {
   private static final int     BATCH_SIZE          = 100;
 
+  private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
   private static final String  BLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath() + File.separator + "blob.png";
-  private static final byte[]  BLOB_DATA_BYTES     = readBlobFile2Bytes();
 
+  private static final String  CLOB_DATA           = readClobFile();
   private static final String  CLOB_FILE           = Paths.get("src",
                                                                "main",
                                                                "resources").toAbsolutePath() + File.separator + "clob.md";
-  private static final String  CLOB_DATA           = readClobFile();
   private static Connection    connection;
   private static final String  connectionHost      = "localhost";
   private static final int     connectionPort      = 3306;
@@ -78,14 +78,14 @@ public final class SampleMysql {
   private static final String  sqlStmntInsert      = "INSERT INTO issue_table (column_pk, column_blob, column_clob, column_timestamp, column_varchar) VALUES (?, ?, ?, ?, ?)";
   private static Statement     statement;
 
-  private static final String  userName            = "kxn_user";
-  private static final String  userNameSys         = "root";
-
   private static final String  urlSys              = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseNameSys
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
   private static final String  urlTrino            = "jdbc:trino://localhost:8080/db_seeder_mysql/kxn_db?user=trino";
+
   private static final String  urlUser             = "jdbc:mysql://" + connectionHost + ":" + connectionPort + "/" + databaseName
       + "?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
+  private static final String  userName            = "kxn_user";
+  private static final String  userNameSys         = "root";
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     if (isDebug) {

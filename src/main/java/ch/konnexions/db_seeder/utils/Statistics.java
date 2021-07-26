@@ -24,64 +24,77 @@ import org.apache.logging.log4j.Logger;
 import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 
 /**
- * This class is used to record the statisticss of the db_seeder runs.
+ * This class is used to record the statistics of the db_seeder runs.
  */
 public final class Statistics {
-  private static final Logger         logger    = LogManager.getLogger(Statistics.class);
-  private final boolean               isDebug   = logger.isDebugEnabled();
+  private static final Logger         logger                     = LogManager.getLogger(Statistics.class);
 
   private final Config                config;
-
   private final Map<String, String[]> dbmsValues;
+  private long                        durationDDLConstraintsAdd  = 0;
+  private long                        durationDDLConstraintsDrop = 0;
+  private long                        durationDML;
 
-  private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
+  private final DateTimeFormatter     formatter                  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
-  private final LocalDateTime         startDateTime;
+  private final boolean               isDebug                    = logger.isDebugEnabled();
+
+  private LocalDateTime               startDateTimeDML;
+  private final LocalDateTime         startDateTimeTotal;
   private CSVPrinter                  statisticsFile;
-
-  private final String                tickerSymbolExtern;
+  private final String                tickerSymbol;
 
   /**
    * Constructs a Statistics object using the given {@link Config} object.
    *
    * @param config             the {@link Config} object
    * @param dbmsValues         the DBMS related values DBMS name and db type remark
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    */
-  public Statistics(Config config, String tickerSymbolExtern, Map<String, String[]> dbmsValues) {
+  public Statistics(Config config, String tickerSymbol, Map<String, String[]> dbmsValues) {
     this.config             = config;
     this.dbmsValues         = dbmsValues;
-    this.startDateTime      = LocalDateTime.now();
-    this.tickerSymbolExtern = tickerSymbolExtern;
+    this.startDateTimeTotal = LocalDateTime.now();
+    this.tickerSymbol       = tickerSymbol;
 
     createStatisticsFile();
 
     openStatisticsFile();
   }
 
+  /**
+   * Creates the measuring entry.
+   */
   public final void createMeasuringEntry() {
     if (isDebug) {
       logger.debug("Start");
     }
 
+    LocalDateTime endDateTimeTotal = LocalDateTime.now();
     try {
-      LocalDateTime endDateTime = LocalDateTime.now();
+      long durationTotal = Duration.between(startDateTimeTotal,
+                                            endDateTimeTotal).toMillis();
 
-      long          duration    = Duration.between(startDateTime,
-                                                   endDateTime).toMillis();
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                durationTotal - durationDML) + " ms - total DDL");
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                durationDML) + " ms - total DML");
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                durationTotal) + " ms - total");
 
-      logger.info("duration in ms: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                                     duration));
-
-      statisticsFile.printRecord(tickerSymbolExtern,
-                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
-                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
-                                 duration,
-                                 startDateTime.format(formatter),
-                                 endDateTime.format(formatter),
+      statisticsFile.printRecord(tickerSymbol,
+                                 dbmsValues.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
+                                 dbmsValues.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
+                                 durationTotal,
+                                 startDateTimeTotal.format(formatter),
+                                 endDateTimeTotal.format(formatter),
                                  InetAddress.getLocalHost().getHostName(),
                                  Integer.toString(Runtime.getRuntime().availableProcessors()),
-                                 System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"));
+                                 System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"),
+                                 durationTotal - durationDML,
+                                 durationDDLConstraintsAdd,
+                                 durationDDLConstraintsDrop,
+                                 durationDML);
 
       statisticsFile.close();
     } catch (IOException e) {
@@ -97,6 +110,7 @@ public final class Statistics {
   /**
    * Create a new statistics file if none exists yet.
    */
+  @SuppressWarnings("resource")
   private void createStatisticsFile() {
     if (isDebug) {
       logger.debug("Start");
@@ -108,7 +122,21 @@ public final class Statistics {
     try {
       Path statisticsPath = Paths.get(statisticsName);
 
-      Files.createDirectories(statisticsPath.getParent());
+      if (statisticsPath == null) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: The file path for the statistics file is missing (null)");
+        System.exit(1);
+      }
+
+      Path statisticsPathParent = statisticsPath.getParent();
+
+      if (statisticsPathParent == null) {
+        MessageHandling.abortProgram(logger,
+                                     "Program abort: The directory path for the statistics file is missing (null)");
+        System.exit(1);
+      }
+
+      Files.createDirectories(statisticsPathParent);
 
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
 
@@ -153,5 +181,34 @@ public final class Statistics {
       e.printStackTrace();
       System.exit(1);
     }
+  }
+
+  /**
+   * Sets the duration in ms of all DDL operations to restore the constraints.
+   */
+  public void setDurationDDLConstraintsAdd(long duration) {
+    durationDDLConstraintsAdd = duration;
+  }
+
+  /**
+   * Sets the duration in ms of all DDL operations to drop the constraints.
+   */
+  public void setDurationDDLConstraintsDrop(long duration) {
+    durationDDLConstraintsDrop = duration;
+  }
+
+  /**
+   * Sets the duration in ms of all DML operations.
+   */
+  public void setDurationDML() {
+    durationDML = Duration.between(startDateTimeDML,
+                                   LocalDateTime.now()).toMillis();
+  }
+
+  /**
+   * Sets the start date time of DML operations.
+   */
+  public void setStartDateTimeDML() {
+    startDateTimeDML = LocalDateTime.now();
   }
 }

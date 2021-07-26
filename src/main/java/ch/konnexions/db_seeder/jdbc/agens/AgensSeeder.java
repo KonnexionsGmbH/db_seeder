@@ -36,23 +36,14 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
   /**
    * Instantiates a new AgensGraph seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
-   */
-  public AgensSeeder(String tickerSymbolExtern) {
-    this(tickerSymbolExtern, "client");
-  }
-
-  /**
-   * Instantiates a new AgensGraph seeder object.
-   *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public AgensSeeder(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public AgensSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.POSTGRESQL;

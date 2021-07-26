@@ -59,29 +59,20 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   /**
    * Instantiates a new SQL Server seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
-   */
-  public SqlserverSeeder(String tickerSymbolExtern) {
-    this(tickerSymbolExtern, "client");
-  }
-
-  /**
-   * Instantiates a new SQL Server seeder object.
-   *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public SqlserverSeeder(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public SqlserverSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.SQLSERVER;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbol,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 "kxn_schema");
@@ -145,7 +136,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -157,7 +148,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "sp_configure 'contained database authentication', 1",
                        "RECONFIGURE",
                        "USE master",
@@ -179,7 +170,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
@@ -199,7 +190,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     // -----------------------------------------------------------------------
 
     if (isTrino) {
-      disconnect(connection);
+      disconnectDDL(connection);
 
       connection = connect(urlTrino,
                            driver_trino,

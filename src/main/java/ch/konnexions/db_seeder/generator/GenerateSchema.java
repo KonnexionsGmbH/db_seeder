@@ -52,9 +52,6 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class GenerateSchema extends AbstractDbmsSeeder {
 
-  private static final Logger                               logger                    = LogManager.getLogger(GenerateSchema.class);
-  private final boolean                                     isDebug                   = logger.isDebugEnabled();
-
   private int                                               constraintNumber          = 0;
 
   private int                                               errors                    = 0;
@@ -71,9 +68,12 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   private final HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
   private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
 
+  private static final Logger                               logger                    = LogManager.getLogger(GenerateSchema.class);
+  private final boolean                                     isDebug                   = logger.isDebugEnabled();
+
+  private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
   private Set<Table>                                        valTables;
   private HashMap<String, HashSet<String>>                  valTablesColumns;
-  private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
 
   /**
    * Instantiates a new CreateSummaryFile object.
@@ -82,10 +82,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     super();
   }
 
-  private String editDataType(String tickerSymbolLower, Column column) {
+  private String editDataType(String tickerSymbol, Column column) {
 
     return switch (column.getDataType().toUpperCase()) {
-    case "BIGINT" -> switch (tickerSymbolLower) {
+    case "BIGINT" -> switch (tickerSymbol) {
       case "cockroach", "cubrid" -> "INT";
       case "firebird", "sqlite" -> "INTEGER";
       case "omnisci" -> column.isNotNull()
@@ -94,7 +94,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "oracle" -> "NUMBER";
       default -> "BIGINT";
       };
-    case "BLOB" -> switch (tickerSymbolLower) {
+    case "BLOB" -> switch (tickerSymbol) {
       case "agens", "postgresql", "yugabyte" -> "BYTEA";
       case "cockroach" -> "BYTES";
       case "cratedb" -> "OBJECT";
@@ -107,7 +107,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "voltdb" -> "VARBINARY(1048576)";
       default -> "BLOB";
       };
-    case "CLOB" -> switch (tickerSymbolLower) {
+    case "CLOB" -> switch (tickerSymbol) {
       case "agens", "cratedb", "postgresql", "yugabyte" -> "TEXT";
       case "cockroach" -> "STRING";
       case "exasol" -> "VARCHAR(2000000)";
@@ -120,7 +120,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "voltdb" -> "VARCHAR(1048576)";
       default -> "CLOB";
       };
-    case "TIMESTAMP" -> switch (tickerSymbolLower) {
+    case "TIMESTAMP" -> switch (tickerSymbol) {
       case "informix" -> "DATETIME YEAR TO FRACTION";
       case "mariadb", "mysql", "percona", "sqlite" -> "DATETIME";
       case "omnisci" -> column.isNotNull()
@@ -129,7 +129,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "sqlserver" -> "DATETIME2";
       default -> "TIMESTAMP";
       };
-    case "VARCHAR" -> switch (tickerSymbolLower) {
+    case "VARCHAR" -> switch (tickerSymbol) {
       case "cockroach" -> "STRING";
       case "cratedb" -> "TEXT";
       case "informix" -> column.getSize() > 254
@@ -146,13 +146,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     };
   }
 
-  private ArrayList<String> editTableConstraints(String tickerSymbolLower,
-                                                 String identifierDelimiter,
-                                                 String tableName,
-                                                 List<TableConstraint> tableConstraints) {
+  private ArrayList<String> editTableConstraints(String tickerSymbol, String identifierDelimiter, String tableName, List<TableConstraint> tableConstraints) {
     ArrayList<String> editedConstraints = new ArrayList<>();
 
-    if ("cratedb".equals(tickerSymbolLower) || tableConstraints == null) {
+    if ("cratedb".equals(tickerSymbol) || tableConstraints == null) {
       return editedConstraints;
     }
 
@@ -172,7 +169,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       constraintType = tableConstraint.getConstraintType().toUpperCase();
 
       if ("UNIQUE".equals(constraintType)) {
-        if ("exasol".equals(tickerSymbolLower)) {
+        if ("exasol".equals(tickerSymbol)) {
           continue;
         }
       }
@@ -185,19 +182,19 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       constraintType = tableConstraint.getConstraintType().toUpperCase();
 
-      if ("omnisci".equals(tickerSymbolLower)) {
+      if ("omnisci".equals(tickerSymbol)) {
         continue;
       }
 
       if ("UNIQUE".equals(constraintType)) {
-        if ("exasol".equals(tickerSymbolLower)) {
+        if ("exasol".equals(tickerSymbol)) {
           continue;
         }
       }
 
       workArea = new StringBuilder(" ".repeat(23));
 
-      if (!"informix".equals(tickerSymbolLower)) {
+      if (!"informix".equals(tickerSymbol)) {
         workArea.append(String.format("%-31s",
                                       "CONSTRAINT CONSTRAINT_KXN_" + ++constraintNumber));
       }
@@ -212,39 +209,19 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       columns = tableConstraint.getColumns();
 
-      if ("agens".equals(tickerSymbolLower)
-          || "mysql".equals(tickerSymbolLower)
-          || "oracle".equals(tickerSymbolLower)
-          || "percona".equals(tickerSymbolLower)
-          || "postgresql".equals(tickerSymbolLower)
-          || "sqlserver".equals(tickerSymbolLower)) {
-        columns.forEach(String::toLowerCase);
-      } else {
-        columns.forEach(String::toUpperCase);
-      }
+      setCaseIdentifiers(columns);
 
       workArea.append(String.join(identifierDelimiter + ", " + identifierDelimiter,
                                   columns)).append(identifierDelimiter).append(")");
 
       if ("FOREIGN".equals(constraintType)) {
         editedConstraints.add(workArea.toString());
-        workArea = new StringBuilder(" ".repeat(46));
+        workArea             = new StringBuilder(" ".repeat(46));
 
-        columns  = tableConstraint.getReferenceColumns();
+        columns              = tableConstraint.getReferenceColumns();
 
-        if ("agens".equals(tickerSymbolLower)
-            || "mysql".equals(tickerSymbolLower)
-            || "omnisci".equals(tickerSymbolLower)
-            || "oracle".equals(tickerSymbolLower)
-            || "percona".equals(tickerSymbolLower)
-            || "postgresql".equals(tickerSymbolLower)
-            || "sqlserver".equals(tickerSymbolLower)) {
-          editedReferenceTable = tableConstraint.getReferenceTable().toLowerCase();
-          columns.forEach(String::toLowerCase);
-        } else {
-          editedReferenceTable = tableConstraint.getReferenceTable().toUpperCase();
-          columns.forEach(String::toUpperCase);
-        }
+        editedReferenceTable = setCaseIdentifier(tableConstraint.getReferenceTable());
+        setCaseIdentifiers(columns);
 
         workArea.append("REFERENCES ").append(String.format("%-33s",
                                                             identifierDelimiter + editedReferenceTable + identifierDelimiter));
@@ -269,10 +246,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    *
    * @param release            the current release number
    * @param schemaPojo         the schema POJO
-   * @param tickerSymbolLower  the lower case ticker symbol
+   * @param tickerSymbol  the lower case ticker symbol
    * @param tickerSymbolPascal the Pascal case ticker symbol
    */
-  private void generateClassDbmsSchema(String release, SchemaPojo schemaPojo, String tickerSymbolLower, String tickerSymbolPascal) {
+  private void generateClassDbmsSchema(String release, SchemaPojo schemaPojo, String tickerSymbol, String tickerSymbolPascal) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -289,7 +266,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     generateCodeDbmsSchema(bufferedWriter,
                            release,
                            schemaPojo,
-                           tickerSymbolLower,
+                           tickerSymbol,
                            tickerSymbolPascal);
 
     try {
@@ -329,14 +306,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
     logger.info("===> Generated class: AbstractGenSeeder");
 
-    for (DbmsEnum tickerSymbol : DbmsEnum.values()) {
-      String tickerSymbolLower  = tickerSymbol.getTickerSymbol();
-      String tickerSymbolPascal = tickerSymbolLower.substring(0,
-                                                              1).toUpperCase() + tickerSymbolLower.substring(1);
+    for (DbmsEnum tickerSymbolEnum : DbmsEnum.values()) {
+      String tickerSymbol       = tickerSymbolEnum.getTickerSymbol();
+      String tickerSymbolPascal = tickerSymbol.substring(0,
+                                                         1).toUpperCase() + tickerSymbol.substring(1);
 
       generateClassDbmsSchema(release,
                               schemaPojo,
-                              tickerSymbolLower,
+                              tickerSymbol,
                               tickerSymbolPascal);
 
       logger.info("===> Generated class: Abstract" + tickerSymbolPascal + "GenSchema");
@@ -425,10 +402,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    *
    * @param release            the current release number
    * @param schemaPojo         the schema POJO
-   * @param tickerSymbolLower  the lower case ticker symbol
+   * @param tickerSymbol  the lower case ticker symbol
    * @param tickerSymbolPascal the Pascal case ticker symbol
    */
-  private void generateCodeDbmsSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo, String tickerSymbolLower, String tickerSymbolPascal) {
+  private void generateCodeDbmsSchema(BufferedWriter bw, String release, SchemaPojo schemaPojo, String tickerSymbol, String tickerSymbolPascal) {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -439,7 +416,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     ArrayList<Column> columns;
 
     //    String            dataType;
-    String            dbmsName            = getDbmsName(tickerSymbolLower);
+    String            dbmsName            = getDbmsName(tickerSymbol);
 
     //    ArrayList<String> editedColumnConstraints;
     String            editedColumnName;
@@ -449,7 +426,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     String            editedTableName;
     ArrayList<String> editedTableConstraints;
 
-    String            identifierDelimiter = getIdentifierDelimiter(tickerSymbolLower);
+    String            identifierDelimiter = getIdentifierDelimiter(tickerSymbol);
 
     StringBuilder     workArea;
 
@@ -502,21 +479,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
 
       for (String tableName : genTableNames) {
-        if ("agens".equals(tickerSymbolLower)
-            || "mysql".equals(tickerSymbolLower)
-            || "omnisci".equals(tickerSymbolLower)
-            || "oracle".equals(tickerSymbolLower)
-            || "percona".equals(tickerSymbolLower)
-            || "postgresql".equals(tickerSymbolLower)
-            || "sqlserver".equals(tickerSymbolLower)) {
-          editedTableName = tableName.toLowerCase();
-        } else {
-          editedTableName = tableName.toUpperCase();
-        }
-
+        editedTableName        = setCaseIdentifier(tableName);
         columns                = genTablesColumns.get(tableName);
 
-        editedTableConstraints = editTableConstraints(tickerSymbolLower,
+        editedTableConstraints = editTableConstraints(tickerSymbol,
                                                       identifierDelimiter,
                                                       tableName,
                                                       genTablesTableConstraints.get(tableName));
@@ -533,22 +499,11 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
         }
 
         for (Column column : columns) {
-          columnNameUpper = column.getColumnName().toUpperCase();
+          columnNameUpper  = column.getColumnName().toUpperCase();
 
-          if ("agens".equals(tickerSymbolLower)
-              || "mysql".equals(tickerSymbolLower)
-              || "omnisci".equals(tickerSymbolLower)
-              || "oracle".equals(tickerSymbolLower)
-              || "percona".equals(tickerSymbolLower)
-              || "postgresql".equals(tickerSymbolLower)
-              || "sqlserver".equals(tickerSymbolLower)) {
-            editedColumnName = column.getColumnName().toLowerCase();
-          } else {
-            editedColumnName = column.getColumnName().toUpperCase();
-          }
-
-          editedDataType = editDataType(tickerSymbolLower,
-                                        column);
+          editedColumnName = setCaseIdentifier(column.getColumnName());
+          editedDataType   = editDataType(tickerSymbol,
+                                          column);
 
           // Column start ......................................................
 
@@ -562,7 +517,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // DEFAULT ...........................................................
 
-          if (!("derby".equals(tickerSymbolLower))) {
+          if (!("derby".equals(tickerSymbol))) {
             if (column.getDefaultValueInteger() != null || column.getDefaultValueString() != null) {
               workArea.append("DEFAULT ");
 
@@ -578,7 +533,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // NOT NULL ..........................................................
 
-          if (!("omnisci".equals(tickerSymbolLower))) {
+          if (!("omnisci".equals(tickerSymbol))) {
             if (column.isNotNull() || column.isPrimaryKey() || column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -594,7 +549,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // PRIMARY KEY .......................................................
 
-          if (!("omnisci".equals(tickerSymbolLower))) {
+          if (!("omnisci".equals(tickerSymbol))) {
             if (column.isPrimaryKey()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -610,7 +565,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // REFERENCES .......................................................
 
-          if (!("cratedb".equals(tickerSymbolLower) || "omnisci".equals(tickerSymbolLower))) {
+          if (!("cratedb".equals(tickerSymbol) || "omnisci".equals(tickerSymbol))) {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               ArrayList<References> references = column.getReferences();
 
@@ -623,18 +578,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                   workArea = new StringBuilder(" ".repeat(82));
                 }
 
-                if ("agens".equals(tickerSymbolLower)
-                    || "mysql".equals(tickerSymbolLower)
-                    || "oracle".equals(tickerSymbolLower)
-                    || "percona".equals(tickerSymbolLower)
-                    || "postgresql".equals(tickerSymbolLower)
-                    || "sqlserver".equals(tickerSymbolLower)) {
-                  editedReferenceTable  = reference.getReferenceTable().toLowerCase();
-                  editedReferenceColumn = reference.getReferenceColumn().toLowerCase();
-                } else {
-                  editedReferenceTable  = reference.getReferenceTable().toUpperCase();
-                  editedReferenceColumn = reference.getReferenceColumn().toUpperCase();
-                }
+                editedReferenceTable  = setCaseIdentifier(reference.getReferenceTable());
+                editedReferenceColumn = setCaseIdentifier(reference.getReferenceColumn());
 
                 workArea.append("REFERENCES ");
                 workArea.append(String.format("%-33s",
@@ -650,7 +595,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // UNIQUE ............................................................
 
-          if (!("cratedb".equals(tickerSymbolLower) || "exasol".equals(tickerSymbolLower) || "omnisci".equals(tickerSymbolLower))) {
+          if (!("cratedb".equals(tickerSymbol) || "exasol".equals(tickerSymbol) || "omnisci".equals(tickerSymbol))) {
             if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -664,7 +609,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // DEFAULT ...........................................................
 
-          if ("derby".equals(tickerSymbolLower)) {
+          if ("derby".equals(tickerSymbol)) {
             if (column.getDefaultValueInteger() != null || column.getDefaultValueString() != null) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -716,43 +661,26 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol");
-      bw.newLine();
-      bw.append("   */");
-      bw.newLine();
-      bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String tickerSymbolExtern) {");
-      bw.newLine();
-      bw.append("    this(tickerSymbolExtern, \"client\");");
-      bw.newLine();
-      bw.append("  }");
-      bw.newLine();
-      bw.newLine();
-      bw.append("  /**");
-      bw.newLine();
-      bw.append("   * Initialises a new abstract ").append(dbmsName).append(" schema object.");
-      bw.newLine();
-      bw.append("   *");
-      bw.newLine();
-      bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol");
+      bw.append("   * @param tickerSymbol the DBMS ticker symbol");
       bw.newLine();
       bw.append("   * @param dbmsOption client, embedded or trino");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String tickerSymbolExtern, String dbmsOption) {");
+      bw.append("  public AbstractGen").append(tickerSymbolPascal).append("Schema(String tickerSymbol, String dbmsOption) {");
       bw.newLine();
-      bw.append("    super(tickerSymbolExtern, dbmsOption);");
+      bw.append("    super(tickerSymbol, dbmsOption);");
       bw.newLine();
       bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - tickerSymbolExtern=\" + tickerSymbolExtern + \" - dbmsOption=\" + dbmsOption);");
+      bw.append("      logger.debug(\"Start Constructor - tickerSymbol=\" + tickerSymbol + \" - dbmsOption=\" + dbmsOption);");
       bw.newLine();
       bw.append("    }");
       bw.newLine();
       bw.newLine();
 
-      if ("cubrid".equals(tickerSymbolLower) || "mimer".equals(tickerSymbolLower) || "sqlserver".equals(tickerSymbolLower)) {
+      if ("cubrid".equals(tickerSymbol) || "mimer".equals(tickerSymbol) || "sqlserver".equals(tickerSymbol)) {
         bw.append("    createColumnNames(").append(genIsEncodingISO_8859_1
             ? "true"
             : "false").append(", false);");
@@ -908,13 +836,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol ");
+      bw.append("   * @param tickerSymbol the DBMS ticker symbol ");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGenSchema(String tickerSymbolExtern) {");
+      bw.append("  public AbstractGenSchema(String tickerSymbol) {");
       bw.newLine();
-      bw.append("    this(tickerSymbolExtern, \"client\");");
+      bw.append("    this(tickerSymbol, \"client\");");
       bw.newLine();
       bw.append("  }");
       bw.newLine();
@@ -925,20 +853,20 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol ");
+      bw.append("   * @param tickerSymbol the DBMS ticker symbol ");
       bw.newLine();
       bw.append("   * @param dbmsOption client, embedded or trino");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGenSchema(String tickerSymbolExtern, String dbmsOption) {");
+      bw.append("  public AbstractGenSchema(String tickerSymbol, String dbmsOption) {");
       bw.newLine();
-      bw.append("    super(tickerSymbolExtern, dbmsOption);");
+      bw.append("    super(tickerSymbol, dbmsOption);");
       bw.newLine();
       bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - tickerSymbolExtern=\" + tickerSymbolExtern + \" - dbmsOption=\" + dbmsOption);");
+      bw.append("      logger.debug(\"Start Constructor - tickerSymbol=\" + tickerSymbol + \" - dbmsOption=\" + dbmsOption);");
       bw.newLine();
       bw.append("    }");
       bw.newLine();
@@ -1143,13 +1071,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol ");
+      bw.append("   * @param tickerSymbol the DBMS ticker symbol ");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGenSeeder(String tickerSymbolExtern) {");
+      bw.append("  public AbstractGenSeeder(String tickerSymbol) {");
       bw.newLine();
-      bw.append("    this(tickerSymbolExtern, \"client\");");
+      bw.append("    this(tickerSymbol, \"client\");");
       bw.newLine();
       bw.append("  }");
       bw.newLine();
@@ -1160,20 +1088,20 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       bw.newLine();
       bw.append("   *");
       bw.newLine();
-      bw.append("   * @param tickerSymbolExtern the external DBMS ticker symbol ");
+      bw.append("   * @param tickerSymbol the DBMS ticker symbol ");
       bw.newLine();
       bw.append("   * @param dbmsOption client, embedded or trino");
       bw.newLine();
       bw.append("   */");
       bw.newLine();
-      bw.append("  public AbstractGenSeeder(String tickerSymbolExtern, String dbmsOption) {");
+      bw.append("  public AbstractGenSeeder(String tickerSymbol, String dbmsOption) {");
       bw.newLine();
-      bw.append("    super(tickerSymbolExtern, dbmsOption);");
+      bw.append("    super(tickerSymbol, dbmsOption);");
       bw.newLine();
       bw.newLine();
       bw.append("    if (isDebug) {");
       bw.newLine();
-      bw.append("      logger.debug(\"Start Constructor - tickerSymbolExtern=\" + tickerSymbolExtern + \" - dbmsOption=\" + dbmsOption);");
+      bw.append("      logger.debug(\"Start Constructor - tickerSymbol=\" + tickerSymbol + \" - dbmsOption=\" + dbmsOption);");
       bw.newLine();
       bw.append("    }");
       bw.newLine();
@@ -1954,8 +1882,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             valTablesColumns.put(tableName,
                                  valColumnNames);
+
+            logger.info("Table " + String.format(FORMAT_TABLE_NAME,
+                                                 tableName) + " : " + String.format("%1$6d" + " rows to be inserted",
+                                                                                    numberOfRows));
           }
         }
+
+        logger.info("");
 
         // ---------------------------------------------------------------------
         // Column and table constraints

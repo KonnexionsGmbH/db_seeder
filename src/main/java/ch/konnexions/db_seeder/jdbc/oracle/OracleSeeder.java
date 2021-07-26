@@ -50,29 +50,20 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
   /**
    * Instantiates a new Oracle seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
-   */
-  public OracleSeeder(String tickerSymbolExtern) {
-    this(tickerSymbolExtern, "client");
-  }
-
-  /**
-   * Instantiates a new Oracle seeder object.
-   *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public OracleSeeder(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public OracleSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.ORACLE;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolLower,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbol,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 config.getUser());
@@ -141,7 +132,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " IDENTIFIED BY \"" + config.getPassword() + "\"",
                        "ALTER USER " + userName + " QUOTA UNLIMITED ON users",
                        "GRANT CREATE SESSION TO " + userName,
@@ -158,7 +149,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          null,
@@ -181,7 +172,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     // -----------------------------------------------------------------------
 
     if (isTrino) {
-      disconnect(connection);
+      disconnectDDL(connection);
 
       connection = connect(urlTrino,
                            driver_trino,

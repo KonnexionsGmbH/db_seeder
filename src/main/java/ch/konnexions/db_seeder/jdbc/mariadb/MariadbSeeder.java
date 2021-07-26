@@ -38,13 +38,14 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
   /**
    * Instantiates a new MariaDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public MariadbSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public MariadbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MARIADB;
@@ -105,7 +106,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS '" + userName + "'");
     } catch (SQLException e) {
@@ -118,7 +119,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER '" + userName + "'@'%' IDENTIFIED BY '" + config.getPassword() + "'",
@@ -135,7 +136,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

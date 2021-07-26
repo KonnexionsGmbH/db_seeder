@@ -12,39 +12,39 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 2.9.1
+ * @version 2.9.2
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
-  protected static final String TABLE_NAME_CITY                           = "CITY";
-  protected static final String TABLE_NAME_COMPANY                        = "COMPANY";
-  protected static final String TABLE_NAME_COUNTRY                        = "COUNTRY";
-  protected static final String TABLE_NAME_COUNTRY_STATE                  = "COUNTRY_STATE";
-  protected static final String TABLE_NAME_TIMEZONE                       = "TIMEZONE";
+  protected static final String TABLE_NAME_CITY          = "CITY";
+  protected static final String TABLE_NAME_COMPANY       = "COMPANY";
+  protected static final String TABLE_NAME_COUNTRY       = "COUNTRY";
+  protected static final String TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
+  protected static final String TABLE_NAME_TIMEZONE      = "TIMEZONE";
 
   private static final Logger   logger                   = LogManager.getLogger(AbstractGenSchema.class);
-  private final boolean          isDebug                  = logger.isDebugEnabled();
+  private final boolean         isDebug                  = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated schema object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbol the DBMS ticker symbol 
    */
-  public AbstractGenSchema(String tickerSymbolExtern) {
-    this(tickerSymbolExtern, "client");
+  public AbstractGenSchema(String tickerSymbol) {
+    this(tickerSymbol, "client");
   }
 
   /**
    * Initialises a new abstract generated schema object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbol the DBMS ticker symbol 
    * @param dbmsOption client, embedded or trino
    */
-  public AbstractGenSchema(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public AbstractGenSchema(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     initConstants();

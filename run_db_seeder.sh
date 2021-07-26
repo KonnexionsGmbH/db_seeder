@@ -10,14 +10,13 @@ set -e
 # ------------------------------------------------------------------------------
 
 mkdir -p "$PWD/tmp"
-rm -rf "$PWD/tmp/*" || sudo rm -rf "$PWD/tmp/*"
 
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.9.1
+export DB_SEEDER_RELEASE=2.9.2
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=358
+export DB_SEEDER_VERSION_TRINO=359
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -140,6 +139,10 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.0
     export DB_SEEDER_VERSION=v21.1.1
     export DB_SEEDER_VERSION=v21.1.2
+    export DB_SEEDER_VERSION=v21.1.3
+    export DB_SEEDER_VERSION=v21.1.4
+    export DB_SEEDER_VERSION=v21.1.5
+    export DB_SEEDER_VERSION=v21.1.6
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -166,6 +169,8 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.4.2
     export DB_SEEDER_VERSION=4.5.0
     export DB_SEEDER_VERSION=4.5.1
+    export DB_SEEDER_VERSION=4.5.3
+    export DB_SEEDER_VERSION=4.5.4
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -218,6 +223,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.8
     export DB_SEEDER_VERSION=7.0.9
     export DB_SEEDER_VERSION=7.0.10
+    export DB_SEEDER_VERSION=7.0.11
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -232,7 +238,7 @@ if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
     export DB_SEEDER_USER_SYS=SYSDBA
     export DB_SEEDER_VERSION=3.0.5
     export DB_SEEDER_VERSION=3.0.7
-    export DB_SEEDER_VERSION=v4.0.0rc1
+    export DB_SEEDER_VERSION=v4.0.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
@@ -293,6 +299,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.4.0
     export DB_SEEDER_VERSION=11.5.5.0
     export DB_SEEDER_VERSION=11.5.5.1
+    export DB_SEEDER_VERSION=11.5.5.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
@@ -327,6 +334,8 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.5.9
     export DB_SEEDER_VERSION=10.6.0
     export DB_SEEDER_VERSION=10.6.1
+    export DB_SEEDER_VERSION=10.6.2
+    export DB_SEEDER_VERSION=10.6.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -378,6 +387,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_VERSION=8.0.23
     export DB_SEEDER_VERSION=8.0.24
     export DB_SEEDER_VERSION=8.0.25
+    export DB_SEEDER_VERSION=8.0.26
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
@@ -398,6 +408,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_VERSION=8.0.23
     export DB_SEEDER_VERSION=8.0.24
     export DB_SEEDER_VERSION=8.0.25
+    export DB_SEEDER_VERSION=8.0.26
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
@@ -460,6 +471,7 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
     export DB_SEEDER_VERSION=5.7.14
     export DB_SEEDER_VERSION=8.0
     export DB_SEEDER_VERSION=8.0.23-14
+    export DB_SEEDER_VERSION=8.0.25-15
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
@@ -628,6 +640,7 @@ echo "CONNECTION_SUFFIX                 : ${DB_SEEDER_CONNECTION_SUFFIX}"
 echo "CONTAINER_PORT                    : ${DB_SEEDER_CONTAINER_PORT}"
 echo "DATABASE                          : ${DB_SEEDER_DATABASE}"
 echo "DATABASE_SYS                      : ${DB_SEEDER_DATABASE_SYS}"
+echo "DROP_CONSTRAINTS                  : ${DB_SEEDER_DROP_CONSTRAINTS}"
 echo "PASSWORD                          : ${DB_SEEDER_PASSWORD}"
 echo "PASSWORD_SYS                      : ${DB_SEEDER_PASSWORD_SYS}"
 echo "SCHEMA                            : ${DB_SEEDER_SCHEMA}"

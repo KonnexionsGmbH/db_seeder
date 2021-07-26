@@ -38,12 +38,12 @@ public final class I5648 {
   private static final String sqlStmntInsert      = "INSERT INTO issue_table (column_pk) VALUES (?)";
   private static Statement    statement;
 
-  private static final String userName            = "kxn_user";
-  private static final String userNameSys         = "SYS AS SYSDBA";
-
   private static final String urlSys              = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
+  private static final String userName            = "kxn_user";
   private static final String urlTrino            = "jdbc:trino://localhost:8080/db_seeder_oracle/" + userName + "?user=trino";
+
   private static final String urlUser             = "jdbc:oracle:thin:@//" + connectionHost + ":" + connectionPort + "/" + service;
+  private static final String userNameSys         = "SYS AS SYSDBA";
 
   private static Connection connect(String url, String driver, String user, String password, boolean autoCommit) {
     logger.info("connecting ...");

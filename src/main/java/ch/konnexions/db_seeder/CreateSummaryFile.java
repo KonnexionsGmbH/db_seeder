@@ -27,7 +27,6 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-07-15
  */
-@SuppressWarnings("ucd")
 public final class CreateSummaryFile {
 
   private static BufferedWriter bufferedWriter;

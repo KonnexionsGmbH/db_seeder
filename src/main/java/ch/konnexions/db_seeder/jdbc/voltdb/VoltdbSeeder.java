@@ -34,15 +34,16 @@ public final class VoltdbSeeder extends AbstractGenVoltdbSchema {
   private final boolean isDebug = logger.isDebugEnabled();
 
   /**
-   * Initialises a new HSQLDB seeder object.
+   * Instantiates a new VoltDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public VoltdbSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public VoltdbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.VOLTDB;

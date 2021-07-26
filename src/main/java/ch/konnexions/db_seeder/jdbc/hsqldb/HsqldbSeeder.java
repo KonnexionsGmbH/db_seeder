@@ -55,23 +55,14 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
   /**
    * Initialises a new HSQLDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
-   */
-  public HsqldbSeeder(String tickerSymbolExtern) {
-    this(tickerSymbolExtern, "client");
-  }
-
-  /**
-   * Initialises a new HSQLDB seeder object.
-   *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public HsqldbSeeder(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public HsqldbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.HSQLDB;
@@ -87,22 +78,14 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
                       config.getUserSys().toUpperCase(),
                       "");
 
-    if (isDebug) {
-      logger.info("wwe urlSys='" + urlSys + "'");
-    }
-
-    urlUser = getUrl(isClient,
-                     config.getConnectionHost(),
-                     config.getConnectionPort(),
-                     config.getConnectionPrefix(),
-                     config.getConnectionSuffix(),
-                     config.getDatabase(),
-                     config.getUser().toUpperCase(),
-                     config.getPassword());
-
-    if (isDebug) {
-      logger.info("wwe urlUser='" + urlUser + "'");
-    }
+    urlUser  = getUrl(isClient,
+                      config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix(),
+                      config.getDatabase(),
+                      config.getUser().toUpperCase(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -176,7 +159,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
     try {
       if (isClient) {
-        executeDdlStmnts(statement,
+        executeSQLStmnts(statement,
                          "CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
                          "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
       }
@@ -191,14 +174,14 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "SET SCHEMA " + schemaName);
 
       createSchema(connection);

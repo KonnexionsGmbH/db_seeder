@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO">
-    <Appenders>
-        # Console appender
+    <Loggers>
+        <Root level="ALL" />
+        <Logger name="ch.konnexions" level="ALL" additivity="false" >
+            <AppenderRef ref="Console" level="INFO" />
+            <AppenderRef ref="File" level="INFO" />
+        </Logger>
+    </Loggers>
 
+    <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} [%C{1}.java] %-5p %m%n" />
         </Console>
-        # File appender
-
         <File name="File" fileName="db_seeder.log" immediateFlush="false" append="false">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} [%C{1}.java] %-5p %M:%L %n%m%n" />
         </File>
     </Appenders>
-    <Loggers>
-        <Root level="ALL">
-            <AppenderRef ref="Console" level="INFO" />
-            <AppenderRef ref="File" level="INFO" />
-        </Root>
-    </Loggers>
 </Configuration>

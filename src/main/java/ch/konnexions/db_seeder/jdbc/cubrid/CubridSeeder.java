@@ -52,13 +52,14 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
   /**
    * Instantiates a new CUBRID seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public CubridSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public CubridSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.CUBRID;
@@ -136,7 +137,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " PASSWORD '" + config.getPassword() + "' GROUPS dba");
 
       statement.close();
@@ -149,7 +150,7 @@ public final class CubridSeeder extends AbstractGenCubridSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 

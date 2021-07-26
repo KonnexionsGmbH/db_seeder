@@ -40,13 +40,14 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
   /**
    * Instantiates a new CrateDB seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public CratedbSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public CratedbSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum       = DbmsEnum.CRATEDB;
@@ -109,7 +110,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP USER IF EXISTS " + userName);
 
       dropAllTables(dropTableStmnt);
@@ -123,7 +124,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " WITH (PASSWORD = '" + config.getPassword() + "')",
                        "GRANT ALL PRIVILEGES TO " + userName);
 
@@ -137,7 +138,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          true);

@@ -62,6 +62,7 @@ echo "DBMS_DEFAULT                      : ${DB_SEEDER_DBMS_DEFAULT}"
 echo "DBMS_EMBEDDED                     : ${DB_SEEDER_DBMS_EMBEDDED}"
 echo "DBMS_TRINO                        : ${DB_SEEDER_DBMS_TRINO}"
 echo "DIRECTORY_CATALOG_PROPERTY        : ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}"
+echo "DROP_CONSTRAINTS                  : ${DB_SEEDER_DROP_CONSTRAINTS}"
 echo "FILE_CONFIGURATION_NAME           : ${DB_SEEDER_FILE_CONFIGURATION_NAME}"
 echo "FILE_JSON_NAME                    : ${DB_SEEDER_FILE_JSON_NAME}"
 echo "FILE_STATISTICS_DELIMITER         : ${DB_SEEDER_FILE_STATISTICS_DELIMITER}"
@@ -89,6 +90,7 @@ echo "CONNECTION_SUFFIX                 : ${DB_SEEDER_CONNECTION_SUFFIX}"
 echo "CONTAINER_PORT                    : ${DB_SEEDER_CONTAINER_PORT}"
 echo "DATABASE                          : ${DB_SEEDER_DATABASE}"
 echo "DATABASE_SYS                      : ${DB_SEEDER_DATABASE_SYS}"
+echo "DROP_CONSTRAINTS                  : ${DB_SEEDER_DROP_CONSTRAINTS}"
 echo "PASSWORD                          : ${DB_SEEDER_PASSWORD}"
 echo "PASSWORD_SYS                      : ${DB_SEEDER_PASSWORD_SYS}"
 echo "SCHEMA                            : ${DB_SEEDER_SCHEMA}"
@@ -121,7 +123,7 @@ if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
-    rm -rf "${DB_SEEDER_DATABASE}" 2>/dev/null
+    rm -rf "${DB_SEEDER_DATABASE}" ¦¦ sudo rm -rf "${DB_SEEDER_DATABASE}"
 fi
 
 echo "--------------------------------------------------------------------------------"

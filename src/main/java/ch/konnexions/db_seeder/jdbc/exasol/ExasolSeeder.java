@@ -35,13 +35,14 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
   /**
    * Instantiates a new Exasol seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public ExasolSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public ExasolSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.EXASOL;
@@ -102,7 +103,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
       System.exit(1);
     }
 
-    executeDdlStmnts(statement,
+    executeSQLStmnts(statement,
                      "DROP USER IF EXISTS " + userName + " CASCADE");
 
     // -----------------------------------------------------------------------
@@ -112,7 +113,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " IDENTIFIED BY \"" + password + "\"",
                        "GRANT ALL PRIVILEGES TO " + userName);
 
@@ -126,7 +127,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser,
                          null,
@@ -136,7 +137,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE SCHEMA " + config.getSchema());
 
       createSchema(connection);

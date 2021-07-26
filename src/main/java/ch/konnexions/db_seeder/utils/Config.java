@@ -30,6 +30,8 @@ public final class Config {
   private static final Logger     logger     = LogManager.getLogger(Config.class);
   //  private final boolean           isDebug    = logger.isDebugEnabled();
 
+  private int                     batchSize;
+
   private String                  characterSetServer;
   private String                  collationServer;
   private String                  connectionHost;
@@ -42,6 +44,7 @@ public final class Config {
 
   private String                  database;
   private String                  databaseSys;
+  private String                  dropConstraints;
 
   private String                  fileConfigurationName;
   private String                  fileJsonName;
@@ -94,15 +97,16 @@ public final class Config {
     }
   }
 
-  //  private ArrayList<String> getBooleanProperties() {
-  //
-  //    ArrayList<String> list = new ArrayList<>();
-  //
-  //    list.add("db_seeder.encoding.iso_8859_1");
-  //    list.add("db_seeder.encoding.utf_8");
-  //
-  //    return list;
-  //  }
+  // BULK OPERATION ---------------------------------------------------
+
+  /**
+   * @return the maximum batch size
+   */
+  public final int getBatchSize() {
+    return batchSize;
+  }
+
+  // ENCODING ---------------------------------------------------------
 
   /**
    * @return the default server character set
@@ -188,6 +192,15 @@ public final class Config {
   // -------------------------------------------------------------------------
 
   /**
+   * @return drop the constraints during DML operations
+   */
+  public final String getDropConstraints() {
+    return dropConstraints;
+  }
+
+  // -------------------------------------------------------------------------
+
+  /**
    * @return the file JSON name
    */
   public final String getFileJsonName() {
@@ -246,19 +259,6 @@ public final class Config {
     return keysSorted;
   }
 
-  // -------------------------------------------------------------------------
-
-  //  private ArrayList<String> getNumericProperties() {
-  //
-  //    ArrayList<String> list = new ArrayList<>();
-  //
-  //    list.add("db_seeder.connection.port");
-  //    list.add("db_seeder.connection.port.trino");
-  //    list.add("db_seeder.null.factor");
-  //
-  //    return list;
-  //  }
-
   // PASSWORD ---------------------------------------------------------
 
   /**
@@ -304,6 +304,8 @@ public final class Config {
 
     propertiesConfiguration.setThrowExceptionOnMissing(true);
 
+    batchSize                   = propertiesConfiguration.getInt("db_seeder.batch.size");
+
     characterSetServer          = propertiesConfiguration.getString("db_seeder.character.set.server");
     collationServer             = propertiesConfiguration.getString("db_seeder.collation.server");
     connectionHost              = propertiesConfiguration.getString("db_seeder.connection.host");
@@ -316,6 +318,7 @@ public final class Config {
 
     database                    = propertiesConfiguration.getString("db_seeder.database");
     databaseSys                 = propertiesConfiguration.getString("db_seeder.database.sys");
+    dropConstraints             = propertiesConfiguration.getString("db_seeder.drop.constraints");
 
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
     fileJsonName                = propertiesConfiguration.getString("db_seeder.file.json.name");
@@ -337,6 +340,14 @@ public final class Config {
   private void updatePropertiesFromOs() {
 
     Map<String, String> environmentVariables = System.getenv();
+
+    // BULK OPERATION ---------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_BATCH_SIZE")) {
+      batchSize = Integer.parseInt(environmentVariables.get("DB_SEEDER_BATCH_SIZE"));
+      propertiesConfiguration.setProperty("db_seeder.batch.size",
+                                          batchSize);
+    }
 
     // CONNECTION -------------------------------------------------------
 
@@ -408,6 +419,14 @@ public final class Config {
       databaseSys = environmentVariables.get("DB_SEEDER_DATABASE_SYS");
       propertiesConfiguration.setProperty("db_seeder.database.sys",
                                           databaseSys);
+    }
+
+    // Drop Constraints ---------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_DROP_CONSTRAINTS")) {
+      dropConstraints = environmentVariables.get("DB_SEEDER_DROP_CONSTRAINTS");
+      propertiesConfiguration.setProperty("db_seeder.drop.constraints",
+                                          dropConstraints);
     }
 
     // File Configuration -------------------------------------------------------

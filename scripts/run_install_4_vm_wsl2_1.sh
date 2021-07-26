@@ -28,7 +28,7 @@ export TIMEZONE=Europe/Zurich
 
 echo '' >> ~/.bashrc
 echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
-echo '# run_install_4_vm_wsl2_x.sh: Install an environment for Ubuntu 20.04 - Start' >> ~/.bashrc
+echo '# Environment db_seeder for Ubuntu 20.04 - Start' >> ~/.bashrc
 echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
 
 echo '' >> ~/.bashrc
@@ -55,7 +55,7 @@ eval echo 'export VERSION_JAVA=${VERSION_JAVA}' >> ~/.bashrc
 eval echo 'export VERSION_VIM=${VERSION_VIM}' >> ~/.bashrc
 eval echo 'export VERSION_WGET=${VERSION_WGET}' >> ~/.bashrc
 
-export VERSION_KXN_DEV=2.9.1
+export VERSION_DB_SEEDER=2.9.1
 
 echo '' >> ~/.bashrc
 eval echo 'export VERSION_KXN_DEV=${VERSION_KXN_DEV}' >> ~/.bashrc
@@ -190,7 +190,7 @@ fi
 
 echo '' >> ~/.bashrc
 echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
-echo '# run_install_4_vm_wsl2_x.sh: Install an environment for Ubuntu 20.04 - End' >> ~/.bashrc
+echo '# Environment db_seeder for Ubuntu 20.04 - End' >> ~/.bashrc
 echo '# ------------------------------------------------------------------------------' >> ~/.bashrc
 
 # Initializing the interactive shell session ---------------------------------------------

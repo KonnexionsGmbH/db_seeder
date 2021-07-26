@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.9.1
+set DB_SEEDER_RELEASE=2.9.2
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=358
+set DB_SEEDER_VERSION_TRINO=359
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -141,6 +141,10 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.0
     set DB_SEEDER_VERSION=v21.1.1
     set DB_SEEDER_VERSION=v21.1.2
+    set DB_SEEDER_VERSION=v21.1.3
+    set DB_SEEDER_VERSION=v21.1.4
+    set DB_SEEDER_VERSION=v21.1.5
+    set DB_SEEDER_VERSION=v21.1.6
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -167,6 +171,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.4.2
     set DB_SEEDER_VERSION=4.5.0
     set DB_SEEDER_VERSION=4.5.1
+    set DB_SEEDER_VERSION=4.5.3
+    set DB_SEEDER_VERSION=4.5.4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -220,6 +226,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.8
     set DB_SEEDER_VERSION=7.0.9
     set DB_SEEDER_VERSION=7.0.10
+    set DB_SEEDER_VERSION=7.0.11
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -234,7 +241,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_USER_SYS=SYSDBA
     set DB_SEEDER_VERSION=3.0.5
     set DB_SEEDER_VERSION=3.0.7
-    set DB_SEEDER_VERSION=v4.0.0rc1
+    set DB_SEEDER_VERSION=v4.0.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
@@ -295,6 +302,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.4.0
     set DB_SEEDER_VERSION=11.5.5.0
     set DB_SEEDER_VERSION=11.5.5.1
+    set DB_SEEDER_VERSION=11.5.5.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
@@ -329,6 +337,8 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.5.9
     set DB_SEEDER_VERSION=10.6.0
     set DB_SEEDER_VERSION=10.6.1
+    set DB_SEEDER_VERSION=10.6.2
+    set DB_SEEDER_VERSION=10.6.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -380,6 +390,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.23
     set DB_SEEDER_VERSION=8.0.24
     set DB_SEEDER_VERSION=8.0.25
+    set DB_SEEDER_VERSION=8.0.26
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
@@ -400,6 +411,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.23
     set DB_SEEDER_VERSION=8.0.24
     set DB_SEEDER_VERSION=8.0.25
+    set DB_SEEDER_VERSION=8.0.26
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
@@ -462,6 +474,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_VERSION=5.7.14
     set DB_SEEDER_VERSION=8.0
     set DB_SEEDER_VERSION=8.0.23-14
+    set DB_SEEDER_VERSION=8.0.25-15
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
@@ -634,6 +647,7 @@ echo CONNECTION_SUFFIX               : %DB_SEEDER_CONNECTION_SUFFIX%
 echo CONTAINER_PORT                  : %DB_SEEDER_CONTAINER_PORT%
 echo DATABASE                        : %DB_SEEDER_DATABASE%
 echo DATABASE_SYS                    : %DB_SEEDER_DATABASE_SYS%
+echo DROP_CONSTRAINTS                : %DB_SEEDER_DROP_CONSTRAINTS%
 echo PASSWORD                        : %DB_SEEDER_PASSWORD%
 echo PASSWORD_SYS                    : %DB_SEEDER_PASSWORD_SYS%
 echo SCHEMA                          : %DB_SEEDER_SCHEMA%

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,17 +17,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ch.konnexions.db_seeder.AbstractDbmsSeeder;
 import ch.konnexions.db_seeder.utils.Config;
 import ch.konnexions.db_seeder.utils.MessageHandling;
 import ch.konnexions.db_seeder.utils.Statistics;
@@ -49,74 +57,80 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Gets the catalog name.
    *
-   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param tickerSymbol the lower case DBMS ticker symbol
    * @return the catalog name
    */
-  public static String getCatalogName(String tickerSymbolLower) {
-    return "db_seeder_" + tickerSymbolLower;
+  public static String getCatalogName(String tickerSymbol) {
+    return "db_seeder_" + tickerSymbol;
   }
 
   /**
    * Gets the trino URL string.
    *
-   * @param tickerSymbolLower the lower case DBMS ticker symbol
+   * @param tickerSymbol the lower case DBMS ticker symbol
    * @param connectionHost    the connection host name
    * @param connectionPort    the connection port
    * @param databaseSchema    the database schema
    * @return the trino URL string
    */
-  public static String getUrlTrino(String tickerSymbolLower, String connectionHost, int connectionPort, String databaseSchema) {
-    return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolLower) + "/" + databaseSchema + "?user=trino";
+  public static String getUrlTrino(String tickerSymbol, String connectionHost, int connectionPort, String databaseSchema) {
+    return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbol) + "/" + databaseSchema + "?user=trino";
   }
 
-  private final boolean   isDebug                = logger.isDebugEnabled();
+  private final String            BLOB_FILE              = Paths.get("src",
+                                                                     "main",
+                                                                     "resources").toAbsolutePath() + File.separator + "blob.png";
+  private final byte[]            BLOB_DATA_BYTES        = readBlobFile2Bytes();
+  private final String            BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
 
-  private final String    BLOB_FILE              = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath() + File.separator + "blob.png";
-  private final byte[]    BLOB_DATA_BYTES        = readBlobFile2Bytes();
-  private final String    BLOB_DATA_BYTES_STRING = new String(readBlobFile2Bytes(), StandardCharsets.UTF_8);
+  private final String            CLOB_FILE              = Paths.get("src",
+                                                                     "main",
+                                                                     "resources").toAbsolutePath() + File.separator + "clob.md";
+  private final String            CLOB_DATA              = readClobFile();
 
-  private final String    CLOB_FILE              = Paths.get("src",
-                                                             "main",
-                                                             "resources").toAbsolutePath() + File.separator + "clob.md";
-  private final String    CLOB_DATA              = readClobFile();
-  protected Connection    connection             = null;
+  protected Connection            connection             = null;
+  private Map<String, Constraint> constraints            = new LinkedHashMap<>();
 
-  protected String        driver                 = "";
-  protected final String  driver_trino           = "io.trino.jdbc.TrinoDriver";
-  protected String        dropTableStmnt         = "";
+  protected String                driver                 = "";
+  protected final String          driver_trino           = "io.trino.jdbc.TrinoDriver";
+  protected String                dropTableStmnt         = "";
 
-  protected Properties    encodedColumnNames     = new Properties();
+  protected Properties            encodedColumnNames     = new Properties();
 
-  protected final boolean isClient;
-  protected final boolean isTrino;
+  private Map<String, String>     ibmdb2ConstraintNames;
+  private Map<String, String>     informixConstraintNames;
+  protected final boolean         isClient;
+  private final boolean           isDebug                = logger.isDebugEnabled();
+  protected final boolean         isTrino;
 
-  protected int           nullFactor;
+  protected int                   nullFactor;
 
-  private final Random    randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-  protected ResultSet     resultSet              = null;
+  private final Random            randomInt              = new Random(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+  protected ResultSet             resultSet              = null;
 
-  protected Statement     statement              = null;
+  protected Statement             statement              = null;
 
-  protected String        urlTrino               = "";
-  protected String        urlSys                 = "";
-  protected String        urlUser                = "";
+  protected String                urlSys                 = "";
+  protected String                urlTrino               = "";
+  protected String                urlUser                = "";
 
   /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public AbstractJdbcSeeder(String tickerSymbolExtern, String dbmsOption) {
-    super(tickerSymbolExtern, dbmsOption);
+  public AbstractJdbcSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
-    config = new Config();
+    config          = new Config();
+
+    batchSize       = config.getBatchSize();
+    dropConstraints = config.getDropConstraints();
 
     boolean isEmbedded;
 
@@ -140,6 +154,58 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("trino  =" + isTrino);
 
       logger.debug("End   Constructor");
+    }
+  }
+
+  /**
+   * Commit the previous DDL operations.
+   *
+   * @param connection the database connection
+   */
+  private void commitDDL(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    if (!("cratedb".equals(tickerSymbol) || "firebird".equals(tickerSymbol) || "oracle".equals(tickerSymbol))) {
+      try {
+        if (!(connection.getAutoCommit())) {
+          connection.commit();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Commit the previous DML operations.
+   *
+   * @param connection the database connection
+   */
+  private void commitDML(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    if (!("cratedb".equals(tickerSymbol))) {
+      try {
+        if (!(connection.getAutoCommit())) {
+          connection.commit();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+    }
+
+    if (isDebug) {
+      logger.debug("End");
     }
   }
 
@@ -298,11 +364,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       String sqlStmnt = "SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter;
 
-      if (isDebug) {
-        logger.debug("sql='" + sqlStmnt + "'");
-      }
-
-      resultSet = statement.executeQuery(sqlStmnt);
+      executeSQLStmnt(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -339,15 +401,64 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
+    Statistics statistics = new Statistics(config, tickerSymbol, dbmsDetails);
 
     setupDatabase();
 
-    for (String tableName : TABLE_NAMES_CREATE) {
-      createData(tableName);
+    if (!("derby".equals(tickerSymbol) || "derby_emb".equals(tickerSymbol))) {
+      // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+      if ("yes".equals(dropConstraints)) {
+        LocalDateTime startDateTime = LocalDateTime.now();
+
+        constraints = new LinkedHashMap<>();
+
+        dropTableConstraints(connection);
+
+        long duration = Duration.between(startDateTime,
+                                         LocalDateTime.now()).toMillis();
+
+        statistics.setDurationDDLConstraintsDrop(duration);
+
+        logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                  duration) + " ms - total DDL constraints (FK, PK, UK) dropped");
+      }
     }
 
-    disconnect(connection);
+    statistics.setStartDateTimeDML();
+
+    // Perform the DML statements
+    for (String tableName : TABLE_NAMES_CREATE) {
+      LocalDateTime startDateTime = LocalDateTime.now();
+
+      createData(tableName);
+
+      long duration = Duration.between(startDateTime,
+                                       LocalDateTime.now()).toMillis();
+
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                duration) + " ms - total DML database table " + tableName);
+    }
+
+    statistics.setDurationDML();
+
+    if (!("derby".equals(tickerSymbol) || "derby_emb".equals(tickerSymbol))) {
+      // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+      if ("yes".equals(dropConstraints)) {
+        LocalDateTime startDateTime = LocalDateTime.now();
+
+        restoreTableConstraints(connection);
+
+        long duration = Duration.between(startDateTime,
+                                         LocalDateTime.now()).toMillis();
+
+        statistics.setDurationDDLConstraintsAdd(duration);
+
+        logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                  duration) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
+      }
+    }
+
+    disconnectDML(connection);
 
     statistics.createMeasuringEntry();
 
@@ -365,20 +476,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                                                                 rowMaxSize) + " rows to be created");
     }
 
-    String editedTableName;
+    String    editedTableName = setCaseIdentifier(tableName);
 
-    if (dbmsEnum == DbmsEnum.MYSQL
-        || dbmsEnum == DbmsEnum.OMNISCI
-        || dbmsEnum == DbmsEnum.ORACLE
-        || dbmsEnum == DbmsEnum.PERCONA
-        || dbmsEnum == DbmsEnum.POSTGRESQL
-        || dbmsEnum == DbmsEnum.SQLSERVER) {
-      editedTableName = tableName.toLowerCase();
-    } else {
-      editedTableName = tableName.toUpperCase();
-    }
-
-    final int countExisting = countData(editedTableName);
+    final int countExisting   = countData(editedTableName);
 
     if (countExisting != 0) {
       if (isDebug) {
@@ -395,14 +495,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                      rowMaxSize,
                      pkList);
 
-    try {
-      if (!(connection.getAutoCommit())) {
-        connection.commit();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
+    commitDML(connection);
 
     pkLists.put(tableName,
                 pkList);
@@ -422,31 +515,41 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    String editedTableName;
+    String       editedTableName   = setCaseIdentifier(tableName);
+    int          msgDivisor        = rowMaxSize > 500 * 10
+        ? rowMaxSize / 10
+        : 500;
 
-    if (dbmsEnum == DbmsEnum.MYSQL
-        || dbmsEnum == DbmsEnum.OMNISCI
-        || dbmsEnum == DbmsEnum.ORACLE
-        || dbmsEnum == DbmsEnum.PERCONA
-        || dbmsEnum == DbmsEnum.POSTGRESQL
-        || dbmsEnum == DbmsEnum.SQLSERVER) {
-      editedTableName = tableName.toLowerCase();
-    } else {
-      editedTableName = tableName.toUpperCase();
-    }
+    String       insertTemplate    = dmlStatements.get(tableName);
+    int          insertTemplateFix = insertTemplate.indexOf(") VALUES (");
 
-    final String sqlStmnt = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + (dbmsEnum == DbmsEnum.OMNISCI
-        ? dmlStatements.get(tableName).toLowerCase()
-        : dmlStatements.get(tableName)) + ")";
+    final String sqlStmnt          = "INSERT INTO " + identifierDelimiter + editedTableName + identifierDelimiter + " (" + setCaseIdentifier(insertTemplate
+        .substring(0,
+                   insertTemplateFix)) + insertTemplate.substring(insertTemplateFix) + ")";
 
     if (isDebug) {
       logger.debug("sql='" + sqlStmnt + "'");
+    }
+
+    if (dbmsEnum == DbmsEnum.MONETDB) {
+      try {
+        statement = connection.createStatement();
+
+        executeSQLStmnts(statement,
+                         "SET sys.optimizer='minimal_pipe';");
+
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
     }
 
     PreparedStatement preparedStatement = null;
 
     try {
       preparedStatement = connection.prepareStatement(sqlStmnt);
+
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -456,7 +559,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     for (long rowNo = 1; rowNo <= rowMaxSize; rowNo++) {
 
-      if (rowNo % 500 == 0) {
+      if (rowNo % msgDivisor == 0) {
         logger.info("database table " + String.format(FORMAT_TABLE_NAME,
                                                       tableName.toUpperCase()) + " - " + String.format(FORMAT_ROW_NO + " rows so far",
                                                                                                        rowNo));
@@ -469,9 +572,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       try {
         preparedStatement.addBatch();
 
-        if (rowNo % batchSize == 0) {
+        if ((batchSize > 0) && (rowNo % batchSize == 0)) {
           preparedStatement.executeBatch();
+
           isToBeExecuted = false;
+          logger.info("Batch processing finished - number of SQL statements: " + batchSize);
         } else {
           isToBeExecuted = true;
         }
@@ -498,7 +603,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       try {
         statement = connection.createStatement();
 
-        statement.execute("REFRESH TABLE " + editedTableName);
+        executeSQLStmnts(statement,
+                         "REFRESH TABLE " + editedTableName);
 
         statement.close();
       } catch (SQLException e) {
@@ -540,9 +646,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeSQLStmnts(statement,
+                         sqlStmnt);
 
         statement.close();
+
+        commitDDL(connection);
       } catch (SQLException e) {
         e.printStackTrace();
         System.exit(1);
@@ -555,18 +664,45 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
-   * Close the database connection.
+   * Close the database connection after DDL operations.
    *
    * @param connection the database connection
    */
-  protected final void disconnect(Connection connection) {
+  protected final void disconnectDDL(Connection connection) {
     if (isDebug) {
       logger.debug("Start [" + connection.toString() + "]");
     }
 
     try {
       if (!(connection.getAutoCommit())) {
-        connection.commit();
+        commitDDL(connection);
+      }
+
+      connection.close();
+
+    } catch (SQLException ec) {
+      ec.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Close the database connection after DML operations.
+   *
+   * @param connection the database connection
+   */
+  private void disconnectDML(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start [" + connection.toString() + "]");
+    }
+
+    try {
+      if (!(connection.getAutoCommit())) {
+        commitDML(connection);
       }
 
       connection.close();
@@ -599,11 +735,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                                  ? tableName.toLowerCase()
                                                  : tableName.toUpperCase());
 
-        if (isDebug) {
-          logger.debug("next SQL statement=" + queryStmnt);
-        }
-
-        resultSet = statement.executeQuery(queryStmnt);
+        executeSQLStmnt(queryStmnt);
 
         if (resultSet.next()) {
           String dropStmnt = resultSet.getString(1);
@@ -612,7 +744,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("next SQL statement=" + dropStmnt);
           }
 
-          statement.execute(dropStmnt);
+          executeSQLStmnts(statement,
+                           dropStmnt);
         }
 
         resultSet.close();
@@ -636,23 +769,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    try {
-      for (String tableName : TABLE_NAMES_DROP) {
-        String sqlStmnt = "DROP TABLE" + (dbmsEnum == DbmsEnum.VOLTDB
-            ? " " + identifierDelimiter + tableName + identifierDelimiter + " "
-            : " ") + "IF EXISTS" + (dbmsEnum == DbmsEnum.VOLTDB
-                ? ""
-                : " " + identifierDelimiter + tableName + identifierDelimiter);
+    for (String tableName : TABLE_NAMES_DROP) {
+      String sqlStmnt = "DROP TABLE" + (dbmsEnum == DbmsEnum.VOLTDB
+          ? " " + identifierDelimiter + tableName + identifierDelimiter + " "
+          : " ") + "IF EXISTS" + (dbmsEnum == DbmsEnum.VOLTDB
+              ? ""
+              : " " + identifierDelimiter + tableName + identifierDelimiter);
 
-        if (isDebug) {
-          logger.debug("next SQL statement=" + sqlStmnt);
-        }
-
-        statement.execute(sqlStmnt);
+      if (isDebug) {
+        logger.debug("next SQL statement=" + sqlStmnt);
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
+
+      executeSQLStmnts(statement,
+                       sqlStmnt);
     }
 
     if (isDebug) {
@@ -678,11 +807,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + databaseName + "'";
 
-      if (isDebug) {
-        logger.debug("next SQL statement=" + sqlStmnt);
-      }
-
-      resultSet = statement.executeQuery(sqlStmnt);
+      executeSQLStmnt(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -701,7 +826,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeSQLStmnts(statement,
+                         sqlStmnt);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -731,11 +857,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + schemaName + "'";
 
-      if (isDebug) {
-        logger.debug("next SQL statement=" + sqlStmnt);
-      }
-
-      resultSet = statement.executeQuery(sqlStmnt);
+      executeSQLStmnt(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -752,8 +874,340 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeSQLStmnts(statement,
+                         sqlStmnt);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Drops the following constraint types in a database table: FOREIGN KEY, PRIMARY KEY and UNIQUE KEY.
+   *
+   * @param connection the database connection
+   */
+  private void dropTableConstraints(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    String                   catalog      = null;
+    TreeMap<Integer, String> columns      = new TreeMap<>();
+    String                   constraintName;
+    String                   constraintNamePrev;
+
+    DatabaseMetaData         dbMetaData   = null;
+
+    TreeMap<Integer, String> refColumns   = new TreeMap<>();
+    String                   refTableName = "";
+
+    String                   schema       = null;
+    String                   table;
+
+    switch (tickerSymbol) {
+    case "agens":
+    case "h2":
+    case "h2_emb":
+    case "hsqldb":
+    case "postgresql":
+    case "sqlserver":
+    case "yugabyte":
+      catalog = config.getDatabase();
+      schema = config.getSchema();
+      break;
+    case "cockroach":
+    case "cubrid":
+    case "firebird":
+    case "hsqldb_emb":
+    case "mariadb":
+    case "mimer":
+    case "mysql":
+      catalog = config.getDatabase();
+      break;
+    case "ibmdb2":
+      getIbmdb2ConstraintNames();
+      schema = config.getSchema().toUpperCase();
+      break;
+    case "informix":
+      getInformixConstraintNames();
+      catalog = config.getDatabase();
+      break;
+    case "monetdb":
+      schema = config.getSchema();
+      break;
+    case "percona":
+      schema = config.getDatabase();
+      break;
+    default:
+    }
+
+    try {
+      dbMetaData = connection.getMetaData();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // =========================================================================
+    // FOREIGN KEY constraints
+    // =========================================================================
+
+    try {
+      for (String tableName : TABLE_NAMES_CREATE) {
+        table = setCaseIdentifierMetData(tableName);
+
+        if (isDebug) {
+          logger.debug("getImportedKeys(" + catalog + "," + schema + "," + table + ")");
+        }
+
+        resultSet          = dbMetaData.getImportedKeys(catalog,
+                                                        schema,
+                                                        table);
+
+        constraintNamePrev = "";
+
+        while (resultSet.next()) {
+          if (isDebug) {
+            logger.debug("getImportedKeys(" + catalog + "," + schema + "," + table + ")");
+            logger.debug("PKTABLE_CAT  =" + resultSet.getString("PKTABLE_CAT"));
+            logger.debug("PKTABLE_SCHEM=" + resultSet.getString("PKTABLE_SCHEM"));
+            logger.debug("PKTABLE_NAME =" + resultSet.getString("PKTABLE_NAME"));
+            logger.debug("PKCOLUMN_NAME=" + resultSet.getString("PKCOLUMN_NAME"));
+            logger.debug("FKTABLE_CAT  =" + resultSet.getString("FKTABLE_CAT"));
+            logger.debug("FKTABLE_SCHEM=" + resultSet.getString("FKTABLE_SCHEM"));
+            logger.debug("FKTABLE_NAME =" + resultSet.getString("FKTABLE_NAME"));
+            logger.debug("FKCOLUMN_NAME=" + resultSet.getString("FKCOLUMN_NAME"));
+            logger.debug("KEY_SEQ      =" + resultSet.getInt("KEY_SEQ"));
+            logger.debug("UPDATE_RULE  =" + resultSet.getInt("UPDATE_RULE"));
+            logger.debug("DELETE_RULE  =" + resultSet.getInt("DELETE_RULE"));
+            logger.debug("FK_NAME      =" + resultSet.getString("FK_NAME"));
+            logger.debug("PK_NAME      =" + resultSet.getString("PK_NAME"));
+            logger.debug("DEFERRABILITY=" + resultSet.getInt("DEFERRABILITY"));
+          }
+
+          constraintName = resultSet.getString("FK_NAME");
+
+          // First foreign key
+          if ("".equals(constraintNamePrev)) {
+            columns            = new TreeMap<>();
+            constraintNamePrev = constraintName;
+            refColumns         = new TreeMap<>();
+            refTableName       = resultSet.getString("PKTABLE_NAME");
+            // New foreign key
+          } else if (!(constraintNamePrev.equals(constraintName))) {
+            storeConstraint(schema,
+                            table,
+                            constraintNamePrev,
+                            "R",
+                            columns,
+                            refTableName,
+                            refColumns);
+
+            columns            = new TreeMap<>();
+            constraintNamePrev = constraintName;
+            refColumns         = new TreeMap<>();
+            refTableName       = resultSet.getString("PKTABLE_NAME");
+          }
+
+          columns.put(resultSet.getInt("KEY_SEQ"),
+                      resultSet.getString("FKCOLUMN_NAME"));
+          refColumns.put(resultSet.getInt("KEY_SEQ"),
+                         resultSet.getString("PKCOLUMN_NAME"));
+        }
+
+        // Last foreign key
+        if (!("".equals(constraintNamePrev))) {
+          storeConstraint(schema,
+                          table,
+                          constraintNamePrev,
+                          "R",
+                          columns,
+                          refTableName,
+                          refColumns);
+        }
+      }
+
+      resultSet.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // =========================================================================
+    // PRIMARY KEY constraints
+    // =========================================================================
+
+    try {
+      for (String tableName : TABLE_NAMES_CREATE) {
+        table = setCaseIdentifierMetData(tableName);
+
+        if (isDebug) {
+          logger.debug("getPrimaryKeys(" + catalog + "," + schema + "," + table + ")");
+        }
+
+        resultSet      = dbMetaData.getPrimaryKeys(catalog,
+                                                   schema,
+                                                   table);
+
+        constraintName = "";
+
+        while (resultSet.next()) {
+          if (isDebug) {
+            logger.debug("getPrimaryKeys(" + catalog + "," + schema + "," + table + ")");
+            logger.debug("TABLE_CAT    =" + resultSet.getString("TABLE_CAT"));
+            logger.debug("TABLE_SCHEM  =" + resultSet.getString("TABLE_SCHEM"));
+            logger.debug("TABLE_NAME   =" + resultSet.getString("TABLE_NAME"));
+            logger.debug("COLUMN_NAME  =" + resultSet.getString("COLUMN_NAME"));
+            logger.debug("KEY_SEQ      =" + resultSet.getInt("KEY_SEQ"));
+            logger.debug("PK_NAME      =" + resultSet.getString("PK_NAME"));
+          }
+
+          // First primary key column
+          if ("".equals(constraintName)) {
+            columns        = new TreeMap<>();
+            constraintName = resultSet.getString("PK_NAME");
+          }
+
+          columns.put(resultSet.getInt("KEY_SEQ"),
+                      resultSet.getString("COLUMN_NAME"));
+        }
+
+        if (!("".equals(constraintName))) {
+          storeConstraint(schema,
+                          table,
+                          constraintName,
+                          "P",
+                          columns,
+                          null,
+                          null);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // =========================================================================
+    // UNIQUE KEY constraints
+    // =========================================================================
+
+    try {
+      for (String tableName : TABLE_NAMES_CREATE) {
+        table = setCaseIdentifierMetData(tableName);
+
+        if (isDebug) {
+          logger.debug("getPrimaryKeys(" + catalog + "," + schema + "," + table + ",false,true)");
+        }
+
+        resultSet          = dbMetaData.getIndexInfo(catalog,
+                                                     schema,
+                                                     table,
+                                                     false,
+                                                     true);
+
+        constraintNamePrev = "";
+
+        while (resultSet.next()) {
+          String columnName = resultSet.getString("COLUMN_NAME");
+          constraintName = resultSet.getString("INDEX_NAME");
+
+          if (isDebug) {
+            logger.debug("getPrimaryKeys(" + catalog + "," + schema + "," + table + ",false,true)");
+            logger.debug("TABLE_CAT       =" + resultSet.getString("TABLE_CAT"));
+            logger.debug("TABLE_SCHEM     =" + resultSet.getString("TABLE_SCHEM"));
+            logger.debug("TABLE_NAME      =" + resultSet.getString("TABLE_NAME"));
+            logger.debug("NON_UNIQUE      =" + resultSet.getBoolean("NON_UNIQUE"));
+            logger.debug("INDEX_QUALIFIER =" + resultSet.getString("INDEX_QUALIFIER"));
+            logger.debug("INDEX_NAME      =" + constraintName);
+            logger.debug("TYPE            =" + resultSet.getInt("TYPE"));
+            logger.debug("ORDINAL_POSITION=" + resultSet.getInt("ORDINAL_POSITION"));
+            logger.debug("COLUMN_NAME     =" + columnName);
+            logger.debug("ASC_OR_DESC     =" + resultSet.getString("ASC_OR_DESC"));
+            logger.debug("CARDINALITY     =" + resultSet.getInt("CARDINALITY"));
+            logger.debug("PAGES           =" + resultSet.getInt("PAGES"));
+            logger.debug("FILTER_CONDITION=" + resultSet.getString("FILTER_CONDITION"));
+          }
+
+          // Irrelevant entries
+          if ((constraintName == null) || (constraints.containsKey(constraintName))) {
+            continue;
+          }
+
+          if ("mariadb".equals(tickerSymbol)) {
+            if (columnName.equals(constraintName)) {
+              continue;
+            }
+          }
+
+          // First unique key
+          if ("".equals(constraintNamePrev)) {
+            columns            = new TreeMap<>();
+            constraintNamePrev = constraintName;
+            // New unique key
+          } else if (!(constraintNamePrev.equals(constraintName))) {
+            storeConstraint(schema,
+                            table,
+                            constraintNamePrev,
+                            "U",
+                            columns,
+                            null,
+                            null);
+
+            columns            = new TreeMap<>();
+            constraintNamePrev = constraintName;
+          }
+
+          columns.put(resultSet.getInt("ORDINAL_POSITION"),
+                      columnName);
+        }
+
+        // Last unique key
+        if (!("".equals(constraintNamePrev))) {
+          storeConstraint(schema,
+                          table,
+                          constraintNamePrev,
+                          "U",
+                          columns,
+                          null,
+                          null);
+        }
+      }
+
+      resultSet.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // =========================================================================
+    // Drop the constraints found 
+    // =========================================================================
+
+    if (constraints.isEmpty()) {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: no constraints found to be dropped");
+    }
+
+    try {
+      if ("mimer".equals(tickerSymbol)) {
+        commitDML(connection);
+      }
+
+      statement = connection.createStatement();
+
+      for (Constraint constraint : constraints.values()) {
+
+        executeSQLStmnts(statement,
+                         constraint.getDropConstraintStatement());
+      }
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
@@ -782,11 +1236,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       String sqlStmnt = "SELECT count(*) FROM " + tableName + " WHERE " + columnName + " = '" + userName + "'";
 
-      if (isDebug) {
-        logger.debug("next SQL statement=" + sqlStmnt);
-      }
-
-      resultSet = statement.executeQuery(sqlStmnt);
+      executeSQLStmnt(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);
@@ -805,7 +1255,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           logger.debug("next SQL statement=" + sqlStmnt);
         }
 
-        statement.execute(sqlStmnt);
+        executeSQLStmnts(statement,
+                         sqlStmnt);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -817,26 +1268,47 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  /**
-   * Execute DDL statements.
-   *
-   * @param statement          the JDBC statement
-   * @param firstDdlStmnt      the first DDL statement
-   * @param remainingDdlStmnts the remaining DDL statements
-   */
-  protected final void executeDdlStmnts(Statement statement, String firstDdlStmnt, String... remainingDdlStmnts) {
+  private void executeSQLStmnt(String sqlStmnt) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     try {
       if (isDebug) {
-        logger.debug("next SQL statement=" + firstDdlStmnt);
+        logger.debug("next SQL statement=" + sqlStmnt);
       }
 
-      statement.execute(firstDdlStmnt);
+      resultSet = statement.executeQuery(sqlStmnt);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-      for (String sqlStmnt : remainingDdlStmnts) {
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
+   * Execute SQL statements.
+   *
+   * @param statement          the SQL statement
+   * @param firstSQLStmnt      the first SQL statement
+   * @param remainingSQLStmnts the remaining SQL statements
+   */
+  protected final void executeSQLStmnts(Statement statement, String firstSQLStmnt, String... remainingSQLStmnts) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      if (isDebug) {
+        logger.debug("next SQL statement=" + firstSQLStmnt);
+      }
+
+      statement.execute(firstSQLStmnt);
+
+      for (String sqlStmnt : remainingSQLStmnts) {
 
         if (isDebug) {
           logger.debug("next SQL statement=" + sqlStmnt);
@@ -862,9 +1334,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                   Integer upperRange,
                                   List<Integer> validValues) {
     if (validValues != null) {
-      return validValues.get(new Random().nextInt(validValues.size()));
+      return validValues.get(randomInt.nextInt(validValues.size()));
     } else if (lowerRange != null) {
-      return new Random().nextInt(upperRange - lowerRange + 1) + lowerRange - 1;
+      return randomInt.nextInt(upperRange - lowerRange + 1) + lowerRange - 1;
     }
 
     return rowNo;
@@ -875,7 +1347,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return BLOB_DATA_BYTES;
   }
 
-  protected String getContentBlobString(String tableName, String columnName, long rowNo) {
+  private String getContentBlobString(String tableName, String columnName, long rowNo) {
 
     return BLOB_DATA_BYTES_STRING;
   }
@@ -886,15 +1358,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   private Object getContentFk(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
-    Random random = new Random();
-
-    return fkList.get(random.nextInt(fkList.size()));
+    return fkList.get(randomInt.nextInt(fkList.size()));
   }
 
   private int getContentFkInt(String tableName, String columnName, long rowNo, ArrayList<Object> fkList) {
-    Random random = new Random();
-
-    return random.nextInt(fkList.size());
+    return randomInt.nextInt(fkList.size());
   }
 
   protected Timestamp getContentTimestamp(String tableName, String columnName, long rowNo) {
@@ -917,7 +1385,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     String columnValue;
 
     if (validValues != null) {
-      return validValues.get(new Random().nextInt(validValues.size())).stripTrailing();
+      return validValues.get(randomInt.nextInt(validValues.size())).stripTrailing();
     } else if (lowerRange != null) {
       columnValue = RandomStringUtils.randomGraph(1,
                                                   size + 1);
@@ -932,9 +1400,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     } else {
       columnValue = (columnName + "_" + encodedColumnNames.getProperty(columnName + "_" + rowNo % ENCODING_MAX) + String.format(FORMAT_IDENTIFIER,
                                                                                                                                 rowNo)).stripTrailing();
-      if (getLengthUTF_8(columnValue) > size) {
-        return columnValue.substring(columnValue.length() - size);
-      }
+      int columnValueSize = getLengthUTF_8(columnValue);
+      if (columnValueSize > size)
+        return columnValue.substring(columnValueSize - size + 1);
+      else
+        return columnValue;
     }
 
     if (isDebug) {
@@ -942,6 +1412,76 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     return columnValue;
+  }
+
+  private void getIbmdb2ConstraintNames() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    ibmdb2ConstraintNames = new LinkedHashMap<>();
+
+    try {
+      statement = connection.createStatement();
+
+      String sqlStmnt = "SELECT bname, constname FROM syscat.constdep WHERE constname <> bname";
+
+      executeSQLStmnt(sqlStmnt);
+
+      while (resultSet.next()) {
+        ibmdb2ConstraintNames.put(resultSet.getString(1),
+                                  resultSet.getString(2));
+        if (isDebug) {
+          logger.debug("IBM Db2: BNAME=" + resultSet.getString(1) + " CONSTNAME=" + resultSet.getString(2));
+        }
+      }
+
+      resultSet.close();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  private void getInformixConstraintNames() {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    informixConstraintNames = new LinkedHashMap<>();
+
+    try {
+      statement = connection.createStatement();
+
+      String sqlStmnt = "SELECT idxname, constrname FROM  sysconstraints WHERE idxname IS NOT NULL";
+
+      executeSQLStmnt(sqlStmnt);
+
+      while (resultSet.next()) {
+        informixConstraintNames.put(resultSet.getString(1).substring(1),
+                                    resultSet.getString(2));
+        if (isDebug) {
+          logger.debug("Informix: IDXNAME=" + resultSet.getString(1).substring(1) + " CONSTRNAME=" + resultSet.getString(2));
+        }
+      }
+
+      resultSet.close();
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
   }
 
   private int getLengthUTF_8(String stringUTF_8) {
@@ -1020,55 +1560,55 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  /**
-   * Sets the designated optional column to a BIGINT value or to NULL.
-   *
-   * @param preparedStatement the prepared statement
-   * @param tableName         the table name
-   * @param columnName        the column name
-   * @param columnPos         the column position
-   * @param rowNo             the current row number
-   * @param defaultValue      the lower value
-   * @param lowerRange        the lower range
-   * @param upperRange        the upper range
-   * @param validValues       the valid values
-   */
-  @SuppressWarnings("ucd")
-  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
-                                             String tableName,
-                                             String columnName,
-                                             int columnPos,
-                                             long rowNo,
-                                             Integer defaultValue,
-                                             Integer lowerRange,
-                                             Integer upperRange,
-                                             List<Integer> validValues) {
-    try {
-      if (rowNo % nullFactor == 0) {
-        if (defaultValue == null) {
-          preparedStatement.setNull(columnPos,
-                                    java.sql.Types.INTEGER);
-        } else {
-          preparedStatement.setLong(columnPos,
-                                    defaultValue);
-        }
-        return;
-      }
-
-      prepStmntColBigint(preparedStatement,
-                         tableName,
-                         columnName,
-                         columnPos,
-                         rowNo,
-                         defaultValue,
-                         lowerRange,
-                         upperRange,
-                         validValues);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
+  // ToDo 
+  //  /**
+  //   * Sets the designated optional column to a BIGINT value or to NULL.
+  //   *
+  //   * @param preparedStatement the prepared statement
+  //   * @param tableName         the table name
+  //   * @param columnName        the column name
+  //   * @param columnPos         the column position
+  //   * @param rowNo             the current row number
+  //   * @param defaultValue      the lower value
+  //   * @param lowerRange        the lower range
+  //   * @param upperRange        the upper range
+  //   * @param validValues       the valid values
+  //   */
+  //  protected final void prepStmntColBigintOpt(PreparedStatement preparedStatement,
+  //                                             String tableName,
+  //                                             String columnName,
+  //                                             int columnPos,
+  //                                             long rowNo,
+  //                                             Integer defaultValue,
+  //                                             Integer lowerRange,
+  //                                             Integer upperRange,
+  //                                             List<Integer> validValues) {
+  //    try {
+  //      if (rowNo % nullFactor == 0) {
+  //        if (defaultValue == null) {
+  //          preparedStatement.setNull(columnPos,
+  //                                    java.sql.Types.INTEGER);
+  //        } else {
+  //          preparedStatement.setLong(columnPos,
+  //                                    defaultValue);
+  //        }
+  //        return;
+  //      }
+  //
+  //      prepStmntColBigint(preparedStatement,
+  //                         tableName,
+  //                         columnName,
+  //                         columnPos,
+  //                         rowNo,
+  //                         defaultValue,
+  //                         lowerRange,
+  //                         upperRange,
+  //                         validValues);
+  //    } catch (SQLException e) {
+  //      e.printStackTrace();
+  //      System.exit(1);
+  //    }
+  //  }
 
   /**
    * Sets the designated column to a BLOB value.
@@ -1115,7 +1655,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColBlobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (dbmsEnum == DbmsEnum.CRATEDB) {
@@ -1186,7 +1725,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColClobOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
@@ -1259,7 +1797,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param rowNo             the current row number
    * @param fkList            the existing foreign keys
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColFkOpt(PreparedStatement preparedStatement,
                                          String tableName,
                                          String columnName,
@@ -1315,7 +1852,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * @param columnPos         the column position
    * @param rowNo             the current row number
    */
-  @SuppressWarnings("ucd")
   protected final void prepStmntColTimestampOpt(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
       if (rowNo % nullFactor == 0) {
@@ -1536,6 +2072,51 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
+   * Restores the previously dropped constraints for a database table..
+   *
+   * @param connection the database connection
+   */
+  private void restoreTableConstraints(Connection connection) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      if ("mimer".equals(tickerSymbol)) {
+        commitDML(connection);
+      }
+
+      statement = connection.createStatement();
+
+      for (String tableName : TABLE_NAMES_CREATE) {
+        for (Constraint constraint : constraints.values()) {
+          if (tableName.equals(constraint.getTableName())) {
+            executeSQLStmnts(statement,
+                             constraint.getAddConstraintStatement());
+          }
+        }
+      }
+
+      statement.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  private String setCaseIdentifierMetData(String identifier) {
+    return switch (tickerSymbol) {
+    case "cockroach", "cratedb", "monetdb", "postgresql", "yugabyte" -> identifier.toLowerCase();
+    case "exasol", "ibmdb2", "oracle", "percona" -> identifier.toUpperCase();
+    default -> setCaseIdentifier(identifier);
+    };
+  }
+
+  /**
    * Delete any existing relevant database schema objects (database, user,
    * schema or valTableNames)and initialise the database for a new run.
    */
@@ -1572,7 +2153,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS `" + userName + "`");
     } catch (SQLException e) {
@@ -1585,7 +2166,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",
@@ -1601,7 +2182,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
@@ -1655,7 +2236,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP SCHEMA IF EXISTS " + schemaName + " CASCADE",
                        "DROP DATABASE IF EXISTS " + databaseName,
                        "DROP USER IF EXISTS " + userName);
@@ -1669,7 +2250,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " WITH ENCRYPTED PASSWORD '" + config.getPassword() + "'",
                        "CREATE DATABASE " + databaseName + " WITH OWNER " + userName,
                        "GRANT ALL PRIVILEGES ON DATABASE " + databaseName + " TO " + userName);
@@ -1684,14 +2265,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE SCHEMA " + schemaName,
                        "SET search_path = " + schemaName);
 
@@ -1710,6 +2291,66 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     return connection;
   }
 
+  private void storeConstraint(String schemaName,
+                               String tableName,
+                               String constraintName,
+                               String constraintType,
+                               TreeMap<Integer, String> columnNames,
+                               String refTableName,
+                               TreeMap<Integer, String> refColumnNames) {
+
+    Constraint                  constraint = new Constraint(tickerSymbol, schemaName, tableName, constraintType, refTableName);
+
+    Set<Entry<Integer, String>> columnsSet = columnNames.entrySet();
+
+    for (Entry<Integer, String> mapEntry : columnsSet) {
+      constraint.setColumnName(mapEntry.getValue());
+    }
+
+    if ("R".equals(constraintType)) {
+      Set<Entry<Integer, String>> refColumnsSet = refColumnNames.entrySet();
+
+      for (Entry<Integer, String> mapEntry : refColumnsSet) {
+        constraint.setRefColumnName(mapEntry.getValue());
+      }
+    }
+
+    if ("U".equals(constraintType)) {
+      String constName = constraintName;
+      if ("ibmdb2".equals(tickerSymbol)) {
+        if (ibmdb2ConstraintNames.containsKey(constraintName)) {
+          constName = ibmdb2ConstraintNames.get(constraintName);
+          if (constraints.containsKey(constName)) {
+            Constraint primaryCandidat = constraints.get(constName);
+            if ("P".equals(primaryCandidat.getConstraintType())) {
+              return;
+            }
+          }
+        }
+      } else if ("informix".equals(tickerSymbol)) {
+        if (informixConstraintNames.containsKey(constraintName)) {
+          constName = informixConstraintNames.get(constraintName);
+          if (!("u".equals(constName.substring(0,
+                                               1)))) {
+            return;
+          }
+          if (constraints.containsKey(constName)) {
+            Constraint primaryCandidat = constraints.get(constName);
+            if ("P".equals(primaryCandidat.getConstraintType())) {
+              return;
+            }
+          }
+        }
+      }
+      constraintName = constName;
+    }
+
+    constraint.setConstraintName(constraintName);
+
+    constraints.put(constraintName,
+                    constraint);
+  }
+
   private void validateNumberRows(String tableName, int expectedRows) {
     if (isDebug) {
       logger.debug("Start");
@@ -1722,11 +2363,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       String sqlStmnt = "SELECT COUNT(*) FROM " + identifierDelimiter + tableName + identifierDelimiter;
 
-      if (isDebug) {
-        logger.debug("sqlStmnt='" + sqlStmnt + "'");
-      }
-
-      resultSet = statement.executeQuery(sqlStmnt);
+      executeSQLStmnt(sqlStmnt);
 
       while (resultSet.next()) {
         count = resultSet.getInt(1);

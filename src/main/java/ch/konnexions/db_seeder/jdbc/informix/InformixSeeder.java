@@ -38,13 +38,14 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
   /**
    * Instantiates a new IBM Informix seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbol the DBMS ticker symbol
+   * @param dbmsOption         client, embedded or trino
    */
-  public InformixSeeder(String tickerSymbolExtern) {
-    super(tickerSymbolExtern);
+  public InformixSeeder(String tickerSymbol, String dbmsOption) {
+    super(tickerSymbol, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor");
+      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum       = DbmsEnum.INFORMIX;
@@ -110,7 +111,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -122,7 +123,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE " + databaseName + " WITH LOG",
                        "GRANT CONNECT TO PUBLIC",
                        "GRANT RESOURCE TO PUBLIC");
@@ -137,7 +138,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     // Create database schema.
     // -----------------------------------------------------------------------
 
-    disconnect(connection);
+    disconnectDDL(connection);
 
     connection = connect(urlUser);
 
