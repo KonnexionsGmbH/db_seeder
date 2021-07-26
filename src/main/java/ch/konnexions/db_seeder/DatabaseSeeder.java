@@ -84,6 +84,7 @@ public final class DatabaseSeeder {
         case "postgresql_trino":
         case "sqlite":
         case "sqlserver_trino":
+        case "voltdb":
         case "yugabyte":
           logger.info("==============================================================================================================================");
           logger.info("The run variant with parameter 'DB_SEEDER_DROP_CONSTRAINTS=yes' is not yet supported by the DBMS '" + tickerSymbol + "'!");

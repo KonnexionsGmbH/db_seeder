@@ -156,7 +156,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     ArrayList<String> columns;
     String            constraintType;
 
-    String            editedReferenceTable = null;
+    String            editedReferenceTable;
 
     StringBuilder     workArea;
 

@@ -348,6 +348,7 @@ public abstract class AbstractDbmsSeeder {
 
   protected DbmsEnum dbmsEnum;
   protected String   dropConstraints;
+  // wwe protected String   dbmsOption;
 
   protected String   identifierDelimiter;
 
@@ -374,6 +375,7 @@ public abstract class AbstractDbmsSeeder {
       logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
     }
 
+    // wwe this.dbmsOption     = dbmsOption;
     identifierDelimiter = dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
     this.tickerSymbol   = dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
 
@@ -412,13 +414,7 @@ public abstract class AbstractDbmsSeeder {
    * @return the converted identifier
    */
   public final String setCaseIdentifier(String identifier) {
-    if ("agens".equals(tickerSymbol)
-        || "mysql".equals(tickerSymbol)
-        || "omnisci".equals(tickerSymbol)
-        || "oracle".equals(tickerSymbol)
-        || "percona".equals(tickerSymbol)
-        || "postgresql".equals(tickerSymbol)
-        || "sqlserver".equals(tickerSymbol)) {
+    if ("agens".equals(tickerSymbol) || "omnisci".equals(tickerSymbol)) {
       return identifier.toLowerCase();
     }
 
@@ -431,13 +427,7 @@ public abstract class AbstractDbmsSeeder {
    * @param identifiers the identifier list
    */
   public final void setCaseIdentifiers(ArrayList<String> identifiers) {
-    if ("agens".equals(tickerSymbol)
-        || "mysql".equals(tickerSymbol)
-        || "omnisci".equals(tickerSymbol)
-        || "oracle".equals(tickerSymbol)
-        || "percona".equals(tickerSymbol)
-        || "postgresql".equals(tickerSymbol)
-        || "sqlserver".equals(tickerSymbol)) {
+    if ("agens".equals(tickerSymbol) || "omnisci".equals(tickerSymbol)) {
       identifiers.forEach(String::toLowerCase);
     }
 

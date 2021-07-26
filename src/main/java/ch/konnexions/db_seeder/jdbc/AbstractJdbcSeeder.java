@@ -21,7 +21,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +89,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   private final String            CLOB_DATA              = readClobFile();
 
   protected Connection            connection             = null;
-  private Map<String, Constraint> constraints            = new LinkedHashMap<String, Constraint>();
+  private Map<String, Constraint> constraints            = new LinkedHashMap<>();
 
   protected String                driver                 = "";
   protected final String          driver_trino           = "io.trino.jdbc.TrinoDriver";
@@ -168,7 +167,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    if (!("cratedb".equals(tickerSymbol) || "firebird".equals(tickerSymbol) || "oracle".equals(tickerSymbol) || "oracle_trino".equals(tickerSymbol))) {
+    if (!("cratedb".equals(tickerSymbol) || "firebird".equals(tickerSymbol) || "oracle".equals(tickerSymbol))) {
       try {
         if (!(connection.getAutoCommit())) {
           connection.commit();
@@ -411,14 +410,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       if ("yes".equals(dropConstraints)) {
         LocalDateTime startDateTime = LocalDateTime.now();
 
-        constraints = new LinkedHashMap<String, Constraint>();
+        constraints = new LinkedHashMap<>();
 
-        try {
-          dropTableConstraints(connection);
-        } catch (SQLException e) {
-          e.printStackTrace();
-          System.exit(1);
-        }
+        dropTableConstraints(connection);
 
         long duration = Duration.between(startDateTime,
                                          LocalDateTime.now()).toMillis();
@@ -701,7 +695,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    *
    * @param connection the database connection
    */
-  private final void disconnectDML(Connection connection) {
+  private void disconnectDML(Connection connection) {
     if (isDebug) {
       logger.debug("Start [" + connection.toString() + "]");
     }
@@ -897,21 +891,20 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    * Drops the following constraint types in a database table: FOREIGN KEY, PRIMARY KEY and UNIQUE KEY.
    *
    * @param connection the database connection
-   * @throws SQLException 
    */
-  private void dropTableConstraints(Connection connection) throws SQLException {
+  private void dropTableConstraints(Connection connection) {
     if (isDebug) {
       logger.debug("Start");
     }
 
     String                   catalog      = null;
-    TreeMap<Integer, String> columns      = new TreeMap<Integer, String>();
+    TreeMap<Integer, String> columns      = new TreeMap<>();
     String                   constraintName;
     String                   constraintNamePrev;
 
     DatabaseMetaData         dbMetaData   = null;
 
-    TreeMap<Integer, String> refColumns   = new TreeMap<Integer, String>();
+    TreeMap<Integer, String> refColumns   = new TreeMap<>();
     String                   refTableName = "";
 
     String                   schema       = null;
@@ -923,7 +916,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     case "h2_emb":
     case "hsqldb":
     case "postgresql":
-    case "postgresql_trino":
     case "sqlserver":
     case "yugabyte":
       catalog = config.getDatabase();
@@ -936,7 +928,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     case "mariadb":
     case "mimer":
     case "mysql":
-    case "mysql_trino":
       catalog = config.getDatabase();
       break;
     case "ibmdb2":
@@ -1004,9 +995,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
           // First foreign key
           if ("".equals(constraintNamePrev)) {
-            columns            = new TreeMap<Integer, String>();
+            columns            = new TreeMap<>();
             constraintNamePrev = constraintName;
-            refColumns         = new TreeMap<Integer, String>();
+            refColumns         = new TreeMap<>();
             refTableName       = resultSet.getString("PKTABLE_NAME");
             // New foreign key
           } else if (!(constraintNamePrev.equals(constraintName))) {
@@ -1018,9 +1009,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                             refTableName,
                             refColumns);
 
-            columns            = new TreeMap<Integer, String>();
+            columns            = new TreeMap<>();
             constraintNamePrev = constraintName;
-            refColumns         = new TreeMap<Integer, String>();
+            refColumns         = new TreeMap<>();
             refTableName       = resultSet.getString("PKTABLE_NAME");
           }
 
@@ -1079,7 +1070,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
           // First primary key column
           if ("".equals(constraintName)) {
-            columns        = new TreeMap<Integer, String>();
+            columns        = new TreeMap<>();
             constraintName = resultSet.getString("PK_NAME");
           }
 
@@ -1148,18 +1139,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             continue;
           }
 
-          switch (tickerSymbol) {
-          case "mariadb":
+          if ("mariadb".equals(tickerSymbol)) {
             if (columnName.equals(constraintName)) {
               continue;
             }
-            break;
-          default:
           }
 
           // First unique key
           if ("".equals(constraintNamePrev)) {
-            columns            = new TreeMap<Integer, String>();
+            columns            = new TreeMap<>();
             constraintNamePrev = constraintName;
             // New unique key
           } else if (!(constraintNamePrev.equals(constraintName))) {
@@ -1171,7 +1159,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                             null,
                             null);
 
-            columns            = new TreeMap<Integer, String>();
+            columns            = new TreeMap<>();
             constraintNamePrev = constraintName;
           }
 
@@ -1207,11 +1195,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      switch (tickerSymbol) {
-      case "mimer":
+      if ("mimer".equals(tickerSymbol)) {
         commitDML(connection);
-        break;
-      default:
       }
 
       statement = connection.createStatement();
@@ -1434,7 +1419,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    ibmdb2ConstraintNames = new LinkedHashMap<String, String>();
+    ibmdb2ConstraintNames = new LinkedHashMap<>();
 
     try {
       statement = connection.createStatement();
@@ -1469,7 +1454,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    informixConstraintNames = new LinkedHashMap<String, String>();
+    informixConstraintNames = new LinkedHashMap<>();
 
     try {
       statement = connection.createStatement();
@@ -2097,11 +2082,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      switch (tickerSymbol) {
-      case "mimer":
+      if ("mimer".equals(tickerSymbol)) {
         commitDML(connection);
-        break;
-      default:
       }
 
       statement = connection.createStatement();
@@ -2127,21 +2109,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   private String setCaseIdentifierMetData(String identifier) {
-    switch (tickerSymbol) {
-    case "cockroach":
-    case "cratedb":
-    case "monetdb":
-    case "yugabyte":
-      return identifier.toLowerCase();
-    case "exasol":
-    case "ibmdb2":
-    case "oracle":
-    case "oracle_trino":
-    case "percona":
-      return identifier.toUpperCase();
-    default:
-      return setCaseIdentifier(identifier);
-    }
+    return switch (tickerSymbol) {
+    case "cockroach", "cratedb", "monetdb", "postgresql", "yugabyte" -> identifier.toLowerCase();
+    case "exasol", "ibmdb2", "oracle", "percona" -> identifier.toUpperCase();
+    default -> setCaseIdentifier(identifier);
+    };
   }
 
   /**
@@ -2327,22 +2299,18 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                String refTableName,
                                TreeMap<Integer, String> refColumnNames) {
 
-    Constraint                       constraint      = new Constraint(tickerSymbol, schemaName, tableName, constraintType, refTableName);
+    Constraint                  constraint = new Constraint(tickerSymbol, schemaName, tableName, constraintType, refTableName);
 
-    Set<Entry<Integer, String>>      columnsSet      = columnNames.entrySet();
-    Iterator<Entry<Integer, String>> columnsIterator = columnsSet.iterator();
+    Set<Entry<Integer, String>> columnsSet = columnNames.entrySet();
 
-    while (columnsIterator.hasNext()) {
-      Map.Entry<Integer, String> mapEntry = columnsIterator.next();
+    for (Entry<Integer, String> mapEntry : columnsSet) {
       constraint.setColumnName(mapEntry.getValue());
     }
 
     if ("R".equals(constraintType)) {
-      Set<Entry<Integer, String>>      refColumnsSet      = refColumnNames.entrySet();
-      Iterator<Entry<Integer, String>> refColumnsIterator = refColumnsSet.iterator();
+      Set<Entry<Integer, String>> refColumnsSet = refColumnNames.entrySet();
 
-      while (refColumnsIterator.hasNext()) {
-        Map.Entry<Integer, String> mapEntry = refColumnsIterator.next();
+      for (Entry<Integer, String> mapEntry : refColumnsSet) {
         constraint.setRefColumnName(mapEntry.getValue());
       }
     }

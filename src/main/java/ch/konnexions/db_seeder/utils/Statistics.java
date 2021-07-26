@@ -194,7 +194,7 @@ public final class Statistics {
    * Sets the duration in ms of all DDL operations to drop the constraints.
    */
   public void setDurationDDLConstraintsDrop(long duration) {
-    durationDDLConstraintsAdd = duration;
+    durationDDLConstraintsDrop = duration;
   }
 
   /**

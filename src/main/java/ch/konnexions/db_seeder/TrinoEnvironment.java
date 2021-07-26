@@ -64,6 +64,7 @@ public final class TrinoEnvironment {
     entries.clear();
 
     entries.add("connector.name=" + tickerSymbol);
+    entries.add("case-insensitive-name-matching=true");
     entries.add("connection-url=" + url.replace("\"",
                                                 ""));
     if (!("postgresql".equals(tickerSymbol) || "sqlserver".equals(tickerSymbol))) {

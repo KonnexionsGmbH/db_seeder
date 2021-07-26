@@ -12,18 +12,18 @@ import java.util.LinkedHashSet;
  */
 class Constraint {
 
-  private final LinkedHashSet<String> columnNames    = new LinkedHashSet<String>();
+  private final LinkedHashSet<String> columnNames    = new LinkedHashSet<>();
 
   private String                      constraintName;
-  private String                      constraintType;
-  private final LinkedHashSet<String> refColumnNames = new LinkedHashSet<String>();
+  private final String                constraintType;
+  private final LinkedHashSet<String> refColumnNames = new LinkedHashSet<>();
 
-  private String                      refTableName;
-  private String                      schemaName;
+  private final String                refTableName;
+  private final String                schemaName;
 
-  private String                      tableName;
+  private final String                tableName;
 
-  private String                      tickerSymbol;
+  private final String                tickerSymbol;
 
   /**
    * Instantiates a new constraint.
@@ -58,7 +58,6 @@ class Constraint {
     case "informix":
     case "mariadb":
     case "mysql":
-    case "mysql_trino":
     case "percona":
       break;
     default:
@@ -66,14 +65,9 @@ class Constraint {
     }
 
     switch (constraintType) {
-    case "P":
-      restoreStatement += "PRIMARY KEY (";
-      break;
-    case "R":
-      restoreStatement += "FOREIGN KEY (";
-      break;
-    case "U":
-      restoreStatement += "UNIQUE (";
+    case "P" -> restoreStatement += "PRIMARY KEY (";
+    case "R" -> restoreStatement += "FOREIGN KEY (";
+    case "U" -> restoreStatement += "UNIQUE (";
     }
 
     restoreStatement += String.join(",",
@@ -87,13 +81,11 @@ class Constraint {
     switch (tickerSymbol) {
     case "cockroach":
     case "postgresql":
-    case "postgresql_trino":
       if ("R".equals(constraintType)) {
         restoreStatement += ", VALIDATE CONSTRAINT " + addConstraintName;
       }
       break;
     case "oracle":
-    case "oracle_trino":
       restoreStatement += " ENABLE";
       break;
     default:
@@ -126,35 +118,26 @@ class Constraint {
 
     switch (tickerSymbol) {
     case "cockroach":
-      switch (constraintType) {
-      case "U":
+      if ("U".equals(constraintType)) {
         return "DROP INDEX " + quoteConstraintName() + " CASCADE";
-      default:
-        return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
       }
+      return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
     case "ibmdb2":
       dropStatement = "ALTER TABLE " + schemaName + "." + quoteTableName(tableName) + " DROP ";
-      switch (constraintType) {
-      case "R":
-        return dropStatement + "FOREIGN KEY " + quoteConstraintName();
-      case "P":
-        return dropStatement + "PRIMARY KEY";
-      default:
-        return dropStatement + "UNIQUE " + quoteConstraintName();
-      }
+      return switch (constraintType) {
+      case "R" -> dropStatement + "FOREIGN KEY " + quoteConstraintName();
+      case "P" -> dropStatement + "PRIMARY KEY";
+      default -> dropStatement + "UNIQUE " + quoteConstraintName();
+      };
     case "mariadb":
     case "mysql":
-    case "mysql_trino":
     case "percona":
       dropStatement = "ALTER TABLE " + quoteTableName(tableName) + " DROP ";
-      switch (constraintType) {
-      case "R":
-        return dropStatement + "FOREIGN KEY " + quoteConstraintName();
-      case "P":
-        return dropStatement + "PRIMARY KEY";
-      default:
-        return dropStatement + "INDEX " + quoteConstraintName();
-      }
+      return switch (constraintType) {
+      case "R" -> dropStatement + "FOREIGN KEY " + quoteConstraintName();
+      case "P" -> dropStatement + "PRIMARY KEY";
+      default -> dropStatement + "INDEX " + quoteConstraintName();
+      };
     default:
       return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
     }
@@ -170,23 +153,17 @@ class Constraint {
   }
 
   private String quoteConstraintName() {
-    switch (tickerSymbol) {
-    case "cockroach":
-    case "derby":
-    case "derby_emb":
-      return "\"" + constraintName + "\"";
-    default:
-      return constraintName;
-    }
+    return switch (tickerSymbol) {
+    case "cockroach", "derby", "derby_emb" -> "\"" + constraintName + "\"";
+    default -> constraintName;
+    };
   }
 
   private String quoteTableName(String tableName) {
-    switch (tickerSymbol) {
-    case "cubrid":
+    if ("cubrid".equals(tickerSymbol)) {
       return "\"" + tableName + "\"";
-    default:
-      return tableName;
     }
+    return tableName;
   }
 
   /**
