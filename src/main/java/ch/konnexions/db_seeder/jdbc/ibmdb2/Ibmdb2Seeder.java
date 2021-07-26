@@ -117,7 +117,7 @@ public final class Ibmdb2Seeder extends AbstractGenIbmdb2Schema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE SCHEMA " + schemaName,
                        "SET CURRENT SCHEMA " + schemaName + ";");
 

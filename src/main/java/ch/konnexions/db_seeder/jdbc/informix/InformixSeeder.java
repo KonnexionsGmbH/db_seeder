@@ -111,7 +111,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -123,7 +123,7 @@ public final class InformixSeeder extends AbstractGenInformixSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE " + databaseName + " WITH LOG",
                        "GRANT CONNECT TO PUBLIC",
                        "GRANT RESOURCE TO PUBLIC");

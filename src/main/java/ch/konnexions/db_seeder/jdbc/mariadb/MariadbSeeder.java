@@ -106,7 +106,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS '" + userName + "'");
     } catch (SQLException e) {
@@ -119,7 +119,7 @@ public final class MariadbSeeder extends AbstractGenMariadbSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER '" + userName + "'@'%' IDENTIFIED BY '" + config.getPassword() + "'",

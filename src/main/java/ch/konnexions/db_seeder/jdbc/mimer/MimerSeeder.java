@@ -129,7 +129,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABANK " + databaseName + " SET OPTION TRANSACTION",
                        "CREATE IDENT " + userName + " AS USER USING '" + config.getPassword() + "'",
                        "GRANT TABLE ON DATABANK " + databaseName + " TO " + userName);

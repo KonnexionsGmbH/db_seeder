@@ -102,7 +102,7 @@ public final class CockroachSeeder extends AbstractGenCockroachSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS " + databaseName + " CASCADE",
                        "DROP USER IF EXISTS " + userName);
     } catch (SQLException e) {
@@ -115,7 +115,7 @@ public final class CockroachSeeder extends AbstractGenCockroachSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName,
                        "CREATE DATABASE " + databaseName,
                        "GRANT ALL ON DATABASE " + databaseName + " TO " + userName);

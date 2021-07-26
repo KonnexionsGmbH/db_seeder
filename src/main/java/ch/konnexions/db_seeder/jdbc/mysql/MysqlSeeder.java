@@ -140,7 +140,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
       try {
         statement = connection.createStatement();
 
-        executeDdlStmnts(statement,
+        executeSQLStmnts(statement,
                          "USE " + getCatalogName(tickerSymbol) + "." + config.getDatabase());
 
         statement.close();

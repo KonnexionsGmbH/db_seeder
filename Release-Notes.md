@@ -18,43 +18,162 @@
 
 ### 1.1 Apache Derby
 
-Issue with second run:
+- Issue: second run:
 
 - The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
 
 ### 1.2 CockroachDB
 
-Issue with dropping constraints:
+- Issue: dropping unique key constraints - SQL statement `DROP INDEX "country_name_key" CASCADE`:
 
-`2021-07-22 00:40:02,857 [DatabaseSeeder.java] INFO  Start
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
-2021-07-22 00:40:02,935 [DatabaseSeeder.java] INFO  tickerSymbolExtern='cockroach'
-2021-07-22 00:40:02,935 [DatabaseSeeder.java] INFO  Start CockroachDB
-org.postgresql.util.PSQLException: ERROR: unimplemented: cannot drop UNIQUE constraint "country_name_key" using ALTER TABLE DROP CONSTRAINT, use DROP INDEX CASCADE instead
-Hint: You have attempted to use a feature that is not yet implemented.
-See: https://go.crdb.dev/issue-v/42840/v21.1
-at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2434)
-at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2179)
-at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:307)
-at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:441)
-at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:365)
-at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:307)
-at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:293)
-at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:270)
-at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:266)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1297)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1201)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:418)
-at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:91)
+`2021-07-23 09:28:10,007 [DatabaseSeeder.java] INFO  Start CockroachDB
+org.postgresql.util.PSQLException: ERROR: requested table does not have a primary key
+    at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2434)
+    at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2179)
+    at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:307)
+    at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:441)
+    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:365)
+    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:307)
+    at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:293)
+    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:270)
+    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:266)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1260)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1174)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:94)
 Processing of the script was aborted, error code=1`
 
-### 1.3 IBM Db2
+### 1.3 CrateDB
 
-- Version 11.5.6.0:
+- Issue: dropping constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT country_pk`:
+
+Deleting constraints seems to be very rudimentary, see [here](https://crate.io/docs/crate/reference/en/4.5/sql/statements/drop-constraint.html)
+
+`2021-07-23 10:14:44,871 [DatabaseSeeder.java] INFO  Start CrateDB
+io.crate.shade.org.postgresql.util.PSQLException: ERROR: Cannot find a CHECK CONSTRAINT named [country_pk], available constraints are: []
+    at io.crate.shade.org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2440)
+    at io.crate.shade.org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2183)
+    at io.crate.shade.org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:308)
+    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:442)
+    at io.crate.shade.org.postgresql.jdbc.PgStatement.execute(PgStatement.java:366)
+    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:308)
+    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:294)
+    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:271)
+    at io.crate.shade.org.postgresql.jdbc.PgStatement.execute(PgStatement.java:267)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1260)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1174)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:100)
+Processing of the script was aborted, error code=1`
+
+### 1.4 Firebird
+
+- Issue: incomplete index delivery with `getIndexInfo`, DDL statement:
+
+`CREATE TABLE COUNTRY (
+    PK_COUNTRY_ID INTEGER NOT NULL,
+    COUNTRY_MAP BLOB SUB_TYPE BINARY,
+    CREATED TIMESTAMP NOT NULL,
+    ISO3166 VARCHAR(50),
+    MODIFIED TIMESTAMP,
+    NAME VARCHAR(100) NOT NULL,
+    CONSTRAINT INTEG_101 UNIQUE (NAME)
+);
+CREATE UNIQUE INDEX RDB$38 ON COUNTRY (NAME);`
+
+`2021-07-23 13:06:16,610 [DatabaseSeeder.java] INFO  Start Firebird [client]
+java.sql.SQLSyntaxErrorException: unsuccessful metadata update; ALTER TABLE COUNTRY failed; CONSTRAINT RDB$38 does not exist. [SQLState:42000, ISC error code:335544351]
+    at org.firebirdsql.gds.ng.FbExceptionBuilder$Type$1.createSQLException(FbExceptionBuilder.java:534)
+    at org.firebirdsql.gds.ng.FbExceptionBuilder.toFlatSQLException(FbExceptionBuilder.java:304)
+    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.readStatusVector(AbstractWireOperations.java:140)
+    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.processOperation(AbstractWireOperations.java:204)
+    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.readSingleResponse(AbstractWireOperations.java:171)
+    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.readResponse(AbstractWireOperations.java:155)
+    at org.firebirdsql.gds.ng.wire.AbstractFbWireDatabase.readResponse(AbstractFbWireDatabase.java:211)
+    at org.firebirdsql.gds.ng.wire.version10.V10Statement.execute(V10Statement.java:329)
+    at org.firebirdsql.jdbc.FBStatement.internalExecute(FBStatement.java:869)
+    at org.firebirdsql.jdbc.FBStatement.executeImpl(FBStatement.java:496)
+    at org.firebirdsql.jdbc.FBStatement.execute(FBStatement.java:482)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1259)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1173)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:131)
+Caused by: org.firebirdsql.jdbc.FBSQLExceptionInfo: unsuccessful metadata update
+Processing of the script was aborted, error code=1`
+
+### 1.5 H2 Database Engine
+
+- Issue: `DROP CONSTRAINT`, DDL statement:
+
+`CREATE TABLE KXN_SCHEMA.COUNTRY (
+    PK_COUNTRY_ID BIGINT NOT NULL,
+    COUNTRY_MAP BLOB,
+    CREATED TIMESTAMP NOT NULL,
+    ISO3166 VARCHAR(50),
+    MODIFIED TIMESTAMP,
+    NAME VARCHAR(100) NOT NULL
+);
+CREATE UNIQUE INDEX CONSTRAINT_INDEX_6 ON KXN_SCHEMA.COUNTRY (NAME);
+`
+
+`2021-07-23 13:16:56,340 [DatabaseSeeder.java] INFO  Start H2 Database Engine [client]
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Constraint "CONSTRAINT_INDEX_6" not found; SQL statement:
+ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6 [90057-200]
+    at org.h2.message.DbException.getJdbcSQLException(DbException.java:576)
+    at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
+    at org.h2.message.DbException.get(DbException.java:205)
+    at org.h2.message.DbException.get(DbException.java:181)
+    at org.h2.command.ddl.AlterTableDropConstraint.update(AlterTableDropConstraint.java:41)
+    at org.h2.command.CommandContainer.update(CommandContainer.java:198)
+    at org.h2.command.Command.executeUpdate(Command.java:251)
+    at org.h2.server.TcpServerThread.process(TcpServerThread.java:406)
+    at org.h2.server.TcpServerThread.run(TcpServerThread.java:183)
+    at java.base/java.lang.Thread.run(Thread.java:832)
+    at org.h2.message.DbException.getJdbcSQLException(DbException.java:576)
+    at org.h2.engine.SessionRemote.done(SessionRemote.java:611)
+    at org.h2.command.CommandRemote.executeUpdate(CommandRemote.java:237)
+    at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:228)
+    at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:201)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1259)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1173)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:138)
+Processing of the script was aborted, error code=1`
+
+### 1.6 HSQLDB
+
+- Issue: `DROP CONSTRAINT` privilege with SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT SYS_IDX_SYS_PK_10095_10099`, DDL statement:
+
+`CREATE TABLE PUBLIC.KXN_SCHEMA.COUNTRY (
+    PK_COUNTRY_ID BIGINT NOT NULL,
+    COUNTRY_MAP BLOB,
+    CREATED TIMESTAMP NOT NULL,
+    ISO3166 VARCHAR(50),
+    MODIFIED TIMESTAMP,
+    NAME VARCHAR(100) NOT NULL
+);
+CREATE UNIQUE INDEX SYS_IDX_SYS_CT_10098_10103 ON PUBLIC.KXN_SCHEMA.COUNTRY (NAME);
+`
+
+`2021-07-23 13:40:37,554 [DatabaseSeeder.java] INFO  Start HSQLDB [client]
+java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_SYS_PK_10095_10099
+    at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
+    at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
+    at org.hsqldb.jdbc.JDBCStatement.fetchResult(Unknown Source)
+    at org.hsqldb.jdbc.JDBCStatement.execute(Unknown Source)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1261)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1175)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:152)
+    Caused by: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_SYS_PK_10095_10099
+    at org.hsqldb.error.Error.error(Unknown Source)
+    at org.hsqldb.result.Result.getException(Unknown Source)
+... 7 more
+Processing of the script was aborted, error code=1`
+
+### 1.7 IBM Db2 Database
+
+- Issue: version 11.5.6.0:
 
 `2021-07-03 05:31:17,235 [DatabaseSeeder.java] INFO  Start
 2021-07-03 05:31:17,237 [DatabaseSeeder.java] INFO  tickerSymbolExtern='ibmdb2'
@@ -66,76 +185,183 @@ SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 com.ibm.db2.jcc.am.DisconnectNonTransientConnectionException: [jcc][t4][2030][11211][4.29.24] A communication error occurred during operations on the connection's underlying socket, socket input stream,
 or socket output stream.  Error location: Reply.fill() - insufficient data (-1).  Message: Insufficient data. ERRORCODE=-4499, SQLSTATE=08001
-at com.ibm.db2.jcc.am.b7.a(b7.java:338)
-at com.ibm.db2.jcc.t4.a.a(a.java:573)
-at com.ibm.db2.jcc.t4.a.a(a.java:557)
-at com.ibm.db2.jcc.t4.a.a(a.java:552)
-at com.ibm.db2.jcc.t4.y.b(y.java:315)
-at com.ibm.db2.jcc.t4.y.c(y.java:342)
-at com.ibm.db2.jcc.t4.y.c(y.java:455)
-at com.ibm.db2.jcc.t4.y.v(y.java:1230)
-at com.ibm.db2.jcc.t4.z.a(z.java:53)
-at com.ibm.db2.jcc.t4.b.c(b.java:1482)
-at com.ibm.db2.jcc.t4.b.b(b.java:1354)
-at com.ibm.db2.jcc.t4.b.b(b.java:889)
-at com.ibm.db2.jcc.t4.b.a(b.java:860)
-at com.ibm.db2.jcc.t4.b.a(b.java:455)
-at com.ibm.db2.jcc.t4.b.a(b.java:428)
-at com.ibm.db2.jcc.t4.b.<init>(b.java:366)
-at com.ibm.db2.jcc.DB2SimpleDataSource.getConnection(DB2SimpleDataSource.java:243)
-at com.ibm.db2.jcc.DB2SimpleDataSource.getConnection(DB2SimpleDataSource.java:200)
-at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:491)
-at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:117)
-at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
-at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:264)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:155)
-at ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder.setupDatabase(Ibmdb2Seeder.java:104)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:348)
-at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:142)
+    at com.ibm.db2.jcc.am.b7.a(b7.java:338)
+    at com.ibm.db2.jcc.t4.a.a(a.java:573)
+    at com.ibm.db2.jcc.t4.a.a(a.java:557)
+    at com.ibm.db2.jcc.t4.a.a(a.java:552)
+    at com.ibm.db2.jcc.t4.y.b(y.java:315)
+    at com.ibm.db2.jcc.t4.y.c(y.java:342)
+    at com.ibm.db2.jcc.t4.y.c(y.java:455)
+    at com.ibm.db2.jcc.t4.y.v(y.java:1230)
+    at com.ibm.db2.jcc.t4.z.a(z.java:53)
+    at com.ibm.db2.jcc.t4.b.c(b.java:1482)
+    at com.ibm.db2.jcc.t4.b.b(b.java:1354)
+    at com.ibm.db2.jcc.t4.b.b(b.java:889)
+    at com.ibm.db2.jcc.t4.b.a(b.java:860)
+    at com.ibm.db2.jcc.t4.b.a(b.java:455)
+    at com.ibm.db2.jcc.t4.b.a(b.java:428)
+    at com.ibm.db2.jcc.t4.b.<init>(b.java:366)
+    at com.ibm.db2.jcc.DB2SimpleDataSource.getConnection(DB2SimpleDataSource.java:243)
+    at com.ibm.db2.jcc.DB2SimpleDataSource.getConnection(DB2SimpleDataSource.java:200)
+    at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:491)
+    at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:117)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:264)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:155)
+    at ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder.setupDatabase(Ibmdb2Seeder.java:104)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:348)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:142)
 Processing of the script was aborted, error code=1`
 
-### 1.4 trino
+### 1.8 OmniSciDB
 
-- All Connectors: Absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
-    
-- Oracle Connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
+- Issue: user can not be dropped (problem with second DBSeeder run) (see [here](https://github.com/trinodb/trino/issues/5681)).
 
-    2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
-    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle_trino'
-    2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  Start Oracle Database via trino
-    SLF4J: Class path contains multiple SLF4J bindings.
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-    java.sql.SQLSyntaxErrorException: ORA-01940: Ein Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
+`2021-07-26 09:32:44,326 [DatabaseSeeder.java] INFO  Start OmniSciDB
+java.sql.SQLException: Query failed : [OmniSci.java:read:43901:TOmniSciException(error_msg:Exception: User kxn_user already exists.)]
+    at com.omnisci.jdbc.OmniSciStatement.executeQuery(OmniSciStatement.java:100)
+    at com.omnisci.jdbc.OmniSciStatement.execute(OmniSciStatement.java:238)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1332)
+    at ch.konnexions.db_seeder.jdbc.omnisci.OmnisciSeeder.setupDatabase(OmnisciSeeder.java:122)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:407)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:215)
+Processing of the script was aborted, error code=1`
+
+### 1.9 trino
+
+- Issue: all connectors: absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
-      at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:509)
-      at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:461)
-      at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1104)
-      at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:553)
-      at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:269)
-      at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:655)
-      at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:229)
-      at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:41)
-      at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:928)
-      at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1205)
-      at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:1823)
-      at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:1778)
-      at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:303)
-      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropUser(AbstractJdbcSeeder.java:795)
-      at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:133)
-      at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
-      at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:181)
-    Caused by: Error : 1940, Position : 0, Sql = DROP USER  KXN_USER CASCADE, OriginalSql = DROP USER  KXN_USER CASCADE, Error Msg = ORA-01940: Ein
-     Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
+- Issue: Oracle connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
+
+`2021-01-14 17:44:35,322 [DatabaseSeeder.java] INFO  Start
+2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  tickerSymbolExtern='oracle_trino'
+2021-01-14 17:44:35,328 [DatabaseSeeder.java] INFO  Start Oracle Database via trino
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+java.sql.SQLSyntaxErrorException: ORA-01940: Ein Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
+    at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:509)
+    at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:461)
+    at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1104)
+    at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:553)
+    at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:269)
+    at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:655)
+    at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:229)
+    at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:41)
+    at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:928)
+    at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1205)
+    at oracle.jdbc.driver.OracleStatement.executeInternal(OracleStatement.java:1823)
+    at oracle.jdbc.driver.OracleStatement.execute(OracleStatement.java:1778)
+    at oracle.jdbc.driver.OracleStatementWrapper.execute(OracleStatementWrapper.java:303)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropUser(AbstractJdbcSeeder.java:795)
+    at ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder.setupDatabase(OracleSeeder.java:133)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:328)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:181)
+Caused by: Error : 1940, Position : 0, Sql = DROP USER  KXN_USER CASCADE, OriginalSql = DROP USER  KXN_USER CASCADE, Error Msg = ORA-01940: Ein
+ Benutzer, der gerade mit der DB verbunden ist, kann nicht gelöscht werden
+    at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:513)
+        ... 16 more
+Processing of the script was aborted, error code=1`
     
-            at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:513)
-            ... 16 more
-    Processing of the script was aborted, error code=1
-    
-  - Oracle Connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
+- Issue: Oracle connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
+
+- Issue: DatabaseMetaData support incomplete (see [here](https://github.com/trinodb/trino/issues/xxxx)).
+
+`2021-07-25 15:01:28,399 [DatabaseSeeder.java] INFO  Start MySQL Database via trino
+java.sql.SQLFeatureNotSupportedException: imported keys not supported
+    at io.trino.jdbc.TrinoDatabaseMetaData.getImportedKeys(TrinoDatabaseMetaData.java:1066)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:976)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:417)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:202)
+Processing of the script was aborted, error code=1`
+
+### 1.10 VoltDB
+
+- Issue: Java 16 not yet supported
+
+`2021-07-26 05:41:19,299 [DatabaseSeeder.java] INFO  Start VoltDB
+java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+    at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
+    at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
+    at java.base/java.lang.Thread.run(Thread.java:831)
+    Juli 26, 2021 5:41:19 AM org.voltcore.logging.VoltUtilLoggingLogger log
+    SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+    java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+    at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
+    at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
+    at java.base/java.lang.Thread.run(Thread.java:831)
+    Juli 26, 2021 5:41:19 AM org.voltcore.logging.VoltUtilLoggingLogger log
+    SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+    Juli 26, 2021 5:43:20 AM org.voltcore.logging.VoltUtilLoggingLogger log
+    WARNING: Connection to VoltDB node at: localhost:21212 was lost.
+    java.sql.SQLException: Connection closed (CONNECTION_LOST): 'Connection to database host (localhost/127.0.0.1:21212) was lost before a response was received'
+    at org.voltdb.jdbc.SQLError.get(SQLError.java:60)
+    at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:133)
+    at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:376)
+    at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:387)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1319)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropAllTablesIfExists(AbstractJdbcSeeder.java:784)
+    at ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder.setupDatabase(VoltdbSeeder.java:105)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:407)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:269)
+    Caused by: org.voltdb.client.ProcCallException: Connection to database host (localhost/127.0.0.1:21212) was lost before a response was received
+    at org.voltdb.client.ClientImpl.internalSyncCallProcedure(ClientImpl.java:461)
+    at org.voltdb.client.ClientImpl.callProcedureWithClientTimeoutImpl(ClientImpl.java:311)
+    at org.voltdb.client.ClientImpl.callProcedureWithClientTimeout(ClientImpl.java:285)
+    at org.voltdb.jdbc.JDBC4ClientConnection.execute(JDBC4ClientConnection.java:351)
+    at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:122)
+    ... 7 more
+Processing of the script was aborted, error code=1`
+
+- Statement `ALTER TABLE COUNTRY DROP CONSTRAINT VOLTDB_AUTOGEN_CT__PK_COUNTRY_PK_COUNTRY_ID` 
+
+`2021-07-26 05:33:06,496 [DatabaseSeeder.java] INFO  Start VoltDB
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty_voltpatches.NinjaKeySet (file:/D:/SoftDevelopment/Projects/db_seeder/lib/voltdbclient-10.1.1.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty_voltpatches.NinjaKeySet
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+java.sql.SQLException: General Provider Error (GRACEFUL_FAILURE): '[Ad Hoc DDL Input:1]: DDL Error: "object not found: VOLTDB_AUTOGEN_CT__PK_COUNTRY_PK_COUNTRY_ID"'
+    at org.voltdb.jdbc.SQLError.get(SQLError.java:60)
+    at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:143)
+    at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:376)
+    at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:387)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1319)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1216)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:417)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:269)
+    Caused by: org.voltdb.client.ProcCallException: [Ad Hoc DDL Input:1]: DDL Error: "object not found: VOLTDB_AUTOGEN_CT__PK_COUNTRY_PK_COUNTRY_ID"
+    at org.voltdb.client.ClientImpl.internalSyncCallProcedure(ClientImpl.java:461)
+    at org.voltdb.client.ClientImpl.callProcedureWithClientTimeoutImpl(ClientImpl.java:311)
+    at org.voltdb.client.ClientImpl.callProcedureWithClientTimeout(ClientImpl.java:285)
+    at org.voltdb.jdbc.JDBC4ClientConnection.execute(JDBC4ClientConnection.java:351)
+    at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:122)
+    ... 6 more
+Processing of the script was aborted, error code=1`
+
+### 1.11 YugabyteDB
+
+- Dropping primary key constraints not yet supported (see [here](https://github.com/trinodb/trino/issues/xxxx)).
+
+`2021-07-26 05:20:41,803 [DatabaseSeeder.java] INFO  Start YugabyteDB
+org.postgresql.util.PSQLException: ERROR: dropping a primary key constraint is not yet supported
+    at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2434)
+    at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2179)
+    at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:307)
+    at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:441)
+    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:365)
+    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:307)
+    at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:293)
+    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:270)
+    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:266)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1319)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1216)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:417)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:274)
+Processing of the script was aborted, error code=1`
 
 ----
 

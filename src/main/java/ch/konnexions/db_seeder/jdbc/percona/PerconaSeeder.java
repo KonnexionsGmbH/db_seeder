@@ -118,7 +118,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS `" + databaseName + "`",
                        "DROP USER IF EXISTS `" + userName + "`");
     } catch (SQLException e) {
@@ -131,7 +131,7 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE `" + databaseName + "`",
                        "USE `" + databaseName + "`",
                        "CREATE USER `" + userName + "` IDENTIFIED BY '" + config.getPassword() + "'",

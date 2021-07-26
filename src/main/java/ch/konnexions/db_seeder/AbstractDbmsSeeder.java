@@ -413,6 +413,7 @@ public abstract class AbstractDbmsSeeder {
    */
   public final String setCaseIdentifier(String identifier) {
     if ("agens".equals(tickerSymbol)
+        || "mysql".equals(tickerSymbol)
         || "omnisci".equals(tickerSymbol)
         || "oracle".equals(tickerSymbol)
         || "percona".equals(tickerSymbol)
@@ -431,6 +432,7 @@ public abstract class AbstractDbmsSeeder {
    */
   public final void setCaseIdentifiers(ArrayList<String> identifiers) {
     if ("agens".equals(tickerSymbol)
+        || "mysql".equals(tickerSymbol)
         || "omnisci".equals(tickerSymbol)
         || "oracle".equals(tickerSymbol)
         || "percona".equals(tickerSymbol)

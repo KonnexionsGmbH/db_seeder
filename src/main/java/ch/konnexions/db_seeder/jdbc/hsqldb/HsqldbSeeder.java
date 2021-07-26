@@ -159,7 +159,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
 
     try {
       if (isClient) {
-        executeDdlStmnts(statement,
+        executeSQLStmnts(statement,
                          "CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
                          "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
       }
@@ -181,7 +181,7 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "SET SCHEMA " + schemaName);
 
       createSchema(connection);

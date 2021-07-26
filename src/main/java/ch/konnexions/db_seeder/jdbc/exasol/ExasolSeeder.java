@@ -103,7 +103,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
       System.exit(1);
     }
 
-    executeDdlStmnts(statement,
+    executeSQLStmnts(statement,
                      "DROP USER IF EXISTS " + userName + " CASCADE");
 
     // -----------------------------------------------------------------------
@@ -113,7 +113,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " IDENTIFIED BY \"" + password + "\"",
                        "GRANT ALL PRIVILEGES TO " + userName);
 
@@ -137,7 +137,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE SCHEMA " + config.getSchema());
 
       createSchema(connection);

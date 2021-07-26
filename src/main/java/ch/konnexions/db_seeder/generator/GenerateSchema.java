@@ -52,13 +52,11 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class GenerateSchema extends AbstractDbmsSeeder {
 
-  private static final Logger                               logger                    = LogManager.getLogger(GenerateSchema.class);
   private int                                               constraintNumber          = 0;
 
   private int                                               errors                    = 0;
 
   private int                                               genDefaultNumberOfRows;
-
   private boolean                                           genIsEncodingISO_8859_1;
   private boolean                                           genIsEncodingUTF_8;
   private int                                               genNullFactor;
@@ -69,6 +67,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
   private final HashMap<String, ArrayList<Column>>          genTablesColumns          = new HashMap<>();
   private final HashMap<String, ArrayList<TableConstraint>> genTablesTableConstraints = new HashMap<>();
   private final Set<String>                                 genVarcharColumnNames     = new HashSet<>();
+
+  private static final Logger                               logger                    = LogManager.getLogger(GenerateSchema.class);
   private final boolean                                     isDebug                   = logger.isDebugEnabled();
 
   private final HashMap<String, HashSet<String>>            valTableNameForeignKeys   = new HashMap<>();
@@ -216,10 +216,11 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       if ("FOREIGN".equals(constraintType)) {
         editedConstraints.add(workArea.toString());
-        workArea = new StringBuilder(" ".repeat(46));
+        workArea             = new StringBuilder(" ".repeat(46));
 
-        columns  = tableConstraint.getReferenceColumns();
+        columns              = tableConstraint.getReferenceColumns();
 
+        editedReferenceTable = setCaseIdentifier(tableConstraint.getReferenceTable());
         setCaseIdentifiers(columns);
 
         workArea.append("REFERENCES ").append(String.format("%-33s",
@@ -479,7 +480,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       for (String tableName : genTableNames) {
         editedTableName        = setCaseIdentifier(tableName);
-
         columns                = genTablesColumns.get(tableName);
 
         editedTableConstraints = editTableConstraints(tickerSymbol,
@@ -502,7 +502,6 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
           columnNameUpper  = column.getColumnName().toUpperCase();
 
           editedColumnName = setCaseIdentifier(column.getColumnName());
-
           editedDataType   = editDataType(tickerSymbol,
                                           column);
 
@@ -1883,8 +1882,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
             valTablesColumns.put(tableName,
                                  valColumnNames);
+
+            logger.info("Table " + String.format(FORMAT_TABLE_NAME,
+                                                 tableName) + " : " + String.format("%1$6d" + " rows to be inserted",
+                                                                                    numberOfRows));
           }
         }
+
+        logger.info("");
 
         // ---------------------------------------------------------------------
         // Column and table constraints

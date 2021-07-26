@@ -72,6 +72,19 @@ public final class DatabaseSeeder {
       if ("yes".equals(config.getDropConstraints())) {
         switch (tickerSymbol) {
         case "cockroach":
+        case "cratedb":
+        case "firebird":
+        case "h2":
+        case "h2_emb":
+        case "hsqldb":
+        case "hsqldb_emb":
+        case "mysql_trino":
+        case "omnisci":
+        case "oracle_trino":
+        case "postgresql_trino":
+        case "sqlite":
+        case "sqlserver_trino":
+        case "yugabyte":
           logger.info("==============================================================================================================================");
           logger.info("The run variant with parameter 'DB_SEEDER_DROP_CONSTRAINTS=yes' is not yet supported by the DBMS '" + tickerSymbol + "'!");
           logger.info("==============================================================================================================================");

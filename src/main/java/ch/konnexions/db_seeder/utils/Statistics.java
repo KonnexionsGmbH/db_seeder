@@ -27,15 +27,17 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
  * This class is used to record the statistics of the db_seeder runs.
  */
 public final class Statistics {
-  private static final Logger         logger    = LogManager.getLogger(Statistics.class);
+  private static final Logger         logger                     = LogManager.getLogger(Statistics.class);
 
   private final Config                config;
   private final Map<String, String[]> dbmsValues;
+  private long                        durationDDLConstraintsAdd  = 0;
+  private long                        durationDDLConstraintsDrop = 0;
   private long                        durationDML;
 
-  private final DateTimeFormatter     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
+  private final DateTimeFormatter     formatter                  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
 
-  private final boolean               isDebug   = logger.isDebugEnabled();
+  private final boolean               isDebug                    = logger.isDebugEnabled();
 
   private LocalDateTime               startDateTimeDML;
   private final LocalDateTime         startDateTimeTotal;
@@ -60,6 +62,9 @@ public final class Statistics {
     openStatisticsFile();
   }
 
+  /**
+   * Creates the measuring entry.
+   */
   public final void createMeasuringEntry() {
     if (isDebug) {
       logger.debug("Start");
@@ -85,7 +90,11 @@ public final class Statistics {
                                  endDateTimeTotal.format(formatter),
                                  InetAddress.getLocalHost().getHostName(),
                                  Integer.toString(Runtime.getRuntime().availableProcessors()),
-                                 System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"));
+                                 System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"),
+                                 durationTotal - durationDML,
+                                 durationDDLConstraintsAdd,
+                                 durationDDLConstraintsDrop,
+                                 durationDML);
 
       statisticsFile.close();
     } catch (IOException e) {
@@ -175,7 +184,21 @@ public final class Statistics {
   }
 
   /**
-   * Sets the duration in ms of DML operations.
+   * Sets the duration in ms of all DDL operations to restore the constraints.
+   */
+  public void setDurationDDLConstraintsAdd(long duration) {
+    durationDDLConstraintsAdd = duration;
+  }
+
+  /**
+   * Sets the duration in ms of all DDL operations to drop the constraints.
+   */
+  public void setDurationDDLConstraintsDrop(long duration) {
+    durationDDLConstraintsAdd = duration;
+  }
+
+  /**
+   * Sets the duration in ms of all DML operations.
    */
   public void setDurationDML() {
     durationDML = Duration.between(startDateTimeDML,

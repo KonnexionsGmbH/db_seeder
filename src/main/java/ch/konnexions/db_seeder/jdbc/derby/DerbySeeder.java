@@ -168,7 +168,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE SCHEMA " + schemaName,
                        "SET CURRENT SCHEMA = " + schemaName);
 

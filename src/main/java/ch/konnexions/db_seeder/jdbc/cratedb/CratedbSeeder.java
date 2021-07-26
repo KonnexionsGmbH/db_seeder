@@ -110,7 +110,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP USER IF EXISTS " + userName);
 
       dropAllTables(dropTableStmnt);
@@ -124,7 +124,7 @@ public final class CratedbSeeder extends AbstractGenCratedbSchema {
     // -----------------------------------------------------------------------
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " WITH (PASSWORD = '" + config.getPassword() + "')",
                        "GRANT ALL PRIVILEGES TO " + userName);
 

@@ -13,49 +13,75 @@ import java.util.LinkedHashSet;
 class Constraint {
 
   private final LinkedHashSet<String> columnNames    = new LinkedHashSet<String>();
+
   private String                      constraintName;
   private String                      constraintType;
-
   private final LinkedHashSet<String> refColumnNames = new LinkedHashSet<String>();
+
   private String                      refTableName;
+  private String                      schemaName;
 
   private String                      tableName;
+
+  private String                      tickerSymbol;
+
+  /**
+   * Instantiates a new constraint.
+   *
+   * @param tickerSymbol the ticker symbol
+   * @param schemaName the schema name
+   * @param tableName the table name
+   * @param constraintType the constraint type
+   * @param refTableName the ref table name
+   */
+  public Constraint(String tickerSymbol, String schemaName, String tableName, String constraintType, String refTableName) {
+    super();
+    this.tickerSymbol   = tickerSymbol;
+    this.schemaName     = schemaName;
+    this.tableName      = tableName;
+    this.constraintName = null;
+    this.constraintType = constraintType;
+    this.refTableName   = refTableName;
+  }
 
   /**
    * Get the ADD CONSTRAINT statement.
    *
-   * @param tickerSymbol the external ticker symbol
    * @return the ADD CONSTRAINT statement
    */
-  public String getAddConstraintStatement(String tickerSymbol) {
-    String addConstraintName = quoteConstraintName(tickerSymbol);
+  public String getAddConstraintStatement() {
+    String addConstraintName = quoteConstraintName();
 
-    String restoreStatement  = "ALTER TABLE " + tableName + " ADD CONSTRAINT ";
+    String restoreStatement  = "ALTER TABLE " + quoteTableName(tableName) + " ADD CONSTRAINT ";
 
     switch (tickerSymbol) {
+    case "informix":
+    case "mariadb":
     case "mysql":
+    case "mysql_trino":
+    case "percona":
       break;
     default:
-      restoreStatement += addConstraintName;
+      restoreStatement += addConstraintName + " ";
     }
 
     switch (constraintType) {
     case "P":
-      restoreStatement += " PRIMARY KEY (";
+      restoreStatement += "PRIMARY KEY (";
       break;
     case "R":
-      restoreStatement += " FOREIGN KEY (";
+      restoreStatement += "FOREIGN KEY (";
       break;
     case "U":
-      restoreStatement += " UNIQUE (";
+      restoreStatement += "UNIQUE (";
     }
 
     restoreStatement += String.join(",",
                                     columnNames) + ")";
 
     if ("R".equals(constraintType)) {
-      restoreStatement += " REFERENCES " + refTableName + " (" + String.join(",",
-                                                                             refColumnNames) + ")";
+      restoreStatement += " REFERENCES " + quoteTableName(refTableName) + " (" + String.join(",",
+                                                                                             refColumnNames) + ")";
     }
 
     switch (tickerSymbol) {
@@ -67,6 +93,7 @@ class Constraint {
       }
       break;
     case "oracle":
+    case "oracle_trino":
       restoreStatement += " ENABLE";
       break;
     default:
@@ -76,25 +103,60 @@ class Constraint {
   }
 
   /**
+   * @return the columnNames
+   */
+  public LinkedHashSet<String> getColumnNames() {
+    return columnNames;
+  }
+
+  /**
+   * @return the constraintType
+   */
+  public String getConstraintType() {
+    return constraintType;
+  }
+
+  /**
    * Get the DROP CONSTRAINT statement.
    *
-   * @param tickerSymbol the external ticker symbol
    * @return the DROP CONSTRAINT statement
    */
-  public String getDropConstraintStatement(String tickerSymbol) {
+  public String getDropConstraintStatement() {
+    String dropStatement;
+
     switch (tickerSymbol) {
-    case "mysql":
-      String dropStatement = "ALTER TABLE " + tableName + " DROP ";
+    case "cockroach":
       switch (constraintType) {
-      case "F":
-        return dropStatement + "FOREIGN KEY " + quoteConstraintName(tickerSymbol);
+      case "U":
+        return "DROP INDEX " + quoteConstraintName() + " CASCADE";
+      default:
+        return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
+      }
+    case "ibmdb2":
+      dropStatement = "ALTER TABLE " + schemaName + "." + quoteTableName(tableName) + " DROP ";
+      switch (constraintType) {
+      case "R":
+        return dropStatement + "FOREIGN KEY " + quoteConstraintName();
       case "P":
         return dropStatement + "PRIMARY KEY";
       default:
-        return dropStatement + "INDEX " + quoteConstraintName(tickerSymbol);
+        return dropStatement + "UNIQUE " + quoteConstraintName();
+      }
+    case "mariadb":
+    case "mysql":
+    case "mysql_trino":
+    case "percona":
+      dropStatement = "ALTER TABLE " + quoteTableName(tableName) + " DROP ";
+      switch (constraintType) {
+      case "R":
+        return dropStatement + "FOREIGN KEY " + quoteConstraintName();
+      case "P":
+        return dropStatement + "PRIMARY KEY";
+      default:
+        return dropStatement + "INDEX " + quoteConstraintName();
       }
     default:
-      return "ALTER TABLE " + tableName + " DROP CONSTRAINT " + quoteConstraintName(tickerSymbol);
+      return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
     }
   }
 
@@ -107,19 +169,24 @@ class Constraint {
     return tableName;
   }
 
-  private String quoteConstraintName(String tickerSymbol) {
-    String addConstraintName;
-
+  private String quoteConstraintName() {
     switch (tickerSymbol) {
     case "cockroach":
     case "derby":
     case "derby_emb":
-      addConstraintName = "\"" + constraintName + "\"";
-      break;
+      return "\"" + constraintName + "\"";
     default:
-      addConstraintName = constraintName;
+      return constraintName;
     }
-    return addConstraintName;
+  }
+
+  private String quoteTableName(String tableName) {
+    switch (tickerSymbol) {
+    case "cubrid":
+      return "\"" + tableName + "\"";
+    default:
+      return tableName;
+    }
   }
 
   /**
@@ -138,42 +205,15 @@ class Constraint {
    */
   public void setConstraintName(String constraintName) {
     this.constraintName = constraintName;
-  }
 
-  /**
-   * Sets the constraint type.
-   *
-   * @param constraintType the new constraint type
-   */
-  public void setConstraintType(String constraintType) {
-    this.constraintType = constraintType;
   }
 
   /**
    * Sets the reference column name.
    *
-   * @param refColumnName the new ref column name
+   * @param refColumnName the new reference column name
    */
   public void setRefColumnName(String refColumnName) {
     this.refColumnNames.add(refColumnName);
-  }
-
-  /**
-   * Sets the reference table name.
-   *
-   * @param refTableName the new ref table name
-   */
-  public void setRefTableName(String refTableName) {
-    this.refTableName = refTableName;
-  }
-
-  /**
-   * Sets the table name.
-   *
-   * @param tableName the new table name
-   */
-  public void setTableName(String tableName) {
-    this.tableName = tableName;
-
   }
 }

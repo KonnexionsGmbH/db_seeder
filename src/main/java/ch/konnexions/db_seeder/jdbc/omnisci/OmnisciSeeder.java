@@ -105,7 +105,7 @@ public final class OmnisciSeeder extends AbstractGenOmnisciSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "DROP DATABASE IF EXISTS " + databaseName);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -119,7 +119,7 @@ public final class OmnisciSeeder extends AbstractGenOmnisciSchema {
     String password = config.getPassword();
 
     try {
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE DATABASE " + databaseName,
                        "CREATE USER " + userName + "(password = '" + password + "', is_super = 'true', default_db = '" + databaseName + "')");
 

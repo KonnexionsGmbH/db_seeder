@@ -111,7 +111,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
       resultSet.close();
 
       if (count > 0) {
-        executeDdlStmnts(statement,
+        executeSQLStmnts(statement,
                          "ALTER USER " + userName + " SET SCHEMA sys",
                          "DROP SCHEMA " + schemaName + " CASCADE",
                          "CREATE SCHEMA " + schemaName + " AUTHORIZATION monetdb;",
@@ -170,7 +170,7 @@ public final class MonetdbSeeder extends AbstractGenMonetdbSchema {
     try {
       statement = connection.createStatement();
 
-      executeDdlStmnts(statement,
+      executeSQLStmnts(statement,
                        "CREATE USER " + userName + " WITH UNENCRYPTED PASSWORD '" + config.getPassword() + "' NAME 'Dbseeder User' SCHEMA sys",
                        "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName,
                        "ALTER USER " + userName + " SET SCHEMA " + schemaName);
