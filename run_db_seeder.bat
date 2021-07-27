@@ -197,10 +197,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
-    rem TODO Bug in Apache Derby
-    if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["2"] (
-        set DB_SEEDER_NO_CREATE_RUNS=1
-    )
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     set DB_SEEDER_DATABASE=.\tmp\derby_kxn_db
     set DB_SEEDER_SCHEMA=kxn_schema
