@@ -194,10 +194,6 @@ if [ "${DB_SEEDER_DBMS}" = "derby" ]; then
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "derby_emb" ]; then
-    # TODO Bug in Apache Derby
-    if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
-        export DB_SEEDER_NO_CREATE_RUNS=1
-    fi
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:derby:
     export DB_SEEDER_DATABASE=./tmp/derby_kxn_db
     export DB_SEEDER_DBMS_EMBEDDED=yes

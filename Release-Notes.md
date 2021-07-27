@@ -16,13 +16,7 @@
 
 ## <a name="current_issues"></a> 1. Current Issues
 
-### 1.1 Apache Derby
-
-- Issue: second run:
-
-- The second run with the embedded version of Apache Derby stumbles over a known problem of Apache Derby (see [here](https://issues.apache.org/jira/browse/DERBY-5049?jql=project%20%3D%20DERBY%20AND%20issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20text%20~%20jdbc%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC)).
-
-### 1.2 CockroachDB
+### 1.1 CockroachDB
 
 - Issue: dropping unique key constraints - SQL statement `DROP INDEX "country_name_key" CASCADE`:
 
@@ -43,7 +37,7 @@ org.postgresql.util.PSQLException: ERROR: requested table does not have a primar
     at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:94)
 Processing of the script was aborted, error code=1`
 
-### 1.3 CrateDB
+### 1.2 CrateDB
 
 - Issue: dropping constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT country_pk`:
 
@@ -66,7 +60,7 @@ io.crate.shade.org.postgresql.util.PSQLException: ERROR: Cannot find a CHECK CON
     at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:100)
 Processing of the script was aborted, error code=1`
 
-### 1.4 Firebird
+### 1.3 Firebird
 
 - Issue: incomplete index delivery with `getIndexInfo`, DDL statement:
 
@@ -101,7 +95,7 @@ java.sql.SQLSyntaxErrorException: unsuccessful metadata update; ALTER TABLE COUN
 Caused by: org.firebirdsql.jdbc.FBSQLExceptionInfo: unsuccessful metadata update
 Processing of the script was aborted, error code=1`
 
-### 1.5 H2 Database Engine
+### 1.4 H2 Database Engine
 
 - Issue: `DROP CONSTRAINT`, DDL statement:
 
@@ -140,7 +134,7 @@ ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6 [90057-200]
     at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:138)
 Processing of the script was aborted, error code=1`
 
-### 1.6 HSQLDB
+### 1.5 HSQLDB
 
 - Issue: `DROP CONSTRAINT` privilege with SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT SYS_IDX_SYS_PK_10095_10099`, DDL statement:
 
@@ -171,7 +165,7 @@ java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_
 ... 7 more
 Processing of the script was aborted, error code=1`
 
-### 1.7 IBM Db2 Database
+### 1.6 IBM Db2 Database
 
 - Issue: version 11.5.6.0:
 
@@ -214,7 +208,7 @@ or socket output stream.  Error location: Reply.fill() - insufficient data (-1).
     at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:142)
 Processing of the script was aborted, error code=1`
 
-### 1.8 OmniSciDB
+### 1.7 OmniSciDB
 
 - Issue: user can not be dropped (problem with second DBSeeder run) (see [here](https://github.com/trinodb/trino/issues/5681)).
 
@@ -228,7 +222,7 @@ java.sql.SQLException: Query failed : [OmniSci.java:read:43901:TOmniSciException
     at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:215)
 Processing of the script was aborted, error code=1`
 
-### 1.9 trino
+### 1.8 trino
 
 - Issue: all connectors: absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     
@@ -278,7 +272,7 @@ java.sql.SQLFeatureNotSupportedException: imported keys not supported
     at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:202)
 Processing of the script was aborted, error code=1`
 
-### 1.10 VoltDB
+### 1.9 VoltDB
 
 - Issue: Java 16 not yet supported
 
@@ -342,7 +336,7 @@ java.sql.SQLException: General Provider Error (GRACEFUL_FAILURE): '[Ad Hoc DDL I
     ... 6 more
 Processing of the script was aborted, error code=1`
 
-### 1.11 YugabyteDB
+### 1.10 YugabyteDB
 
 - Dropping primary key constraints not yet supported (see [here](https://github.com/trinodb/trino/issues/xxxx)).
 
