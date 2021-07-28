@@ -92,8 +92,8 @@ public final class TimescaleSeeder extends AbstractGenTimescaleSchema {
     }
 
     connection = setupPostgresql(driver,
-                                urlSys,
-                                urlUser);
+                                 urlSys,
+                                 urlUser);
 
     if (isDebug) {
       logger.debug("End");

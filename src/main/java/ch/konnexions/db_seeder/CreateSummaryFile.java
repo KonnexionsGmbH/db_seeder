@@ -27,7 +27,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-07-15
  */
-public final class CreateSummaryFile {
+public final class CreateSummaryFile { // NO_UCD (unused code)
 
   private static BufferedWriter bufferedWriter;
 

@@ -38,7 +38,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
 /**
  * Data Generator for a Database - Application.
  * <br>
- * @author  walter@konnexions.ch
+ * @author  walter@konnexions.ch // NO_UCD (unused code)
  * @since   2020-05-01
  */
 public final class DatabaseSeeder {

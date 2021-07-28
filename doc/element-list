@@ -23,6 +23,7 @@ ch.konnexions.db_seeder.jdbc.percona
 ch.konnexions.db_seeder.jdbc.postgresql
 ch.konnexions.db_seeder.jdbc.sqlite
 ch.konnexions.db_seeder.jdbc.sqlserver
+ch.konnexions.db_seeder.jdbc.timescale
 ch.konnexions.db_seeder.jdbc.voltdb
 ch.konnexions.db_seeder.jdbc.yugabyte
 ch.konnexions.db_seeder.samples.monetdb
