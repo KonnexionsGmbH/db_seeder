@@ -386,7 +386,7 @@ Release Date: dd.mm.2021
 
 - CockroachDB: DBMS v21.1.6
 
-- CrateDB: DBMS 4.5.4
+- CrateDB: DBMS 4.6.1
 
 - Exasol: DBMS 7.0.11
 
@@ -407,12 +407,6 @@ Release Date: dd.mm.2021
 - SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
 
 - trino: DBMS 359 / JDBC 359
-
-- xxx: DBMS 999 / JDBC 999
-
-#### Deleted Features
-
-n/a
 
 ----------
 

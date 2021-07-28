@@ -65,7 +65,7 @@ The database systems considered meet the following conditions:
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.5.4              | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
@@ -1558,6 +1558,10 @@ Below are also DBeaver based connection parameter examples for each database man
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
+
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_TimescaleDB.png)
 
 [//]: # (===========================================================================================)
 

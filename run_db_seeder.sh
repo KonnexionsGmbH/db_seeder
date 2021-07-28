@@ -172,6 +172,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.5.1
     export DB_SEEDER_VERSION=4.5.3
     export DB_SEEDER_VERSION=4.5.4
+    export DB_SEEDER_VERSION=4.6.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
