@@ -57,24 +57,24 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Gets the catalog name.
    *
-   * @param tickerSymbol the lower case DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    * @return the catalog name
    */
-  public static String getCatalogName(String tickerSymbol) {
-    return "db_seeder_" + tickerSymbol;
+  public static String getCatalogName(String tickerSymbolIntern) {
+    return "db_seeder_" + tickerSymbolIntern;
   }
 
   /**
    * Gets the trino URL string.
    *
-   * @param tickerSymbol the lower case DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    * @param connectionHost    the connection host name
    * @param connectionPort    the connection port
    * @param databaseSchema    the database schema
    * @return the trino URL string
    */
-  public static String getUrlTrino(String tickerSymbol, String connectionHost, int connectionPort, String databaseSchema) {
-    return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbol) + "/" + databaseSchema + "?user=trino";
+  public static String getUrlTrino(String tickerSymbolIntern, String connectionHost, int connectionPort, String databaseSchema) {
+    return "jdbc:trino://" + connectionHost + ":" + connectionPort + "/" + getCatalogName(tickerSymbolIntern) + "/" + databaseSchema + "?user=trino";
   }
 
   private final String            BLOB_FILE              = Paths.get("src",
@@ -117,14 +117,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   /**
    * Initialises a new abstract JDBC seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public AbstractJdbcSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public AbstractJdbcSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     config          = new Config();
@@ -167,7 +167,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    if (!("cratedb".equals(tickerSymbol) || "firebird".equals(tickerSymbol) || "oracle".equals(tickerSymbol))) {
+    if (!("cratedb".equals(tickerSymbolIntern) || "firebird".equals(tickerSymbolIntern) || "oracle".equals(tickerSymbolIntern))) {
       try {
         if (!(connection.getAutoCommit())) {
           connection.commit();
@@ -193,7 +193,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    if (!("cratedb".equals(tickerSymbol))) {
+    if (!("cratedb".equals(tickerSymbolIntern))) {
       try {
         if (!(connection.getAutoCommit())) {
           connection.commit();
@@ -401,11 +401,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, tickerSymbol, dbmsDetails);
+    Statistics statistics = new Statistics(config, tickerSymbolIntern, dbmsDetails);
 
     setupDatabase();
 
-    if (!("derby".equals(tickerSymbol) || "derby_emb".equals(tickerSymbol))) {
+    if (!("derby".equals(tickerSymbolIntern) || "derby_emb".equals(tickerSymbolIntern))) {
       // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
       if ("yes".equals(dropConstraints)) {
         LocalDateTime startDateTime = LocalDateTime.now();
@@ -441,7 +441,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     statistics.setDurationDML();
 
-    if (!("derby".equals(tickerSymbol) || "derby_emb".equals(tickerSymbol))) {
+    if (!("derby".equals(tickerSymbolIntern) || "derby_emb".equals(tickerSymbolIntern))) {
       // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
       if ("yes".equals(dropConstraints)) {
         LocalDateTime startDateTime = LocalDateTime.now();
@@ -910,7 +910,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     String                   schema       = null;
     String                   table;
 
-    switch (tickerSymbol) {
+    switch (tickerSymbolIntern) {
     case "agens":
     case "h2":
     case "h2_emb":
@@ -1140,7 +1140,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             continue;
           }
 
-          if ("mariadb".equals(tickerSymbol)) {
+          if ("mariadb".equals(tickerSymbolIntern)) {
             if (columnName.equals(constraintName)) {
               continue;
             }
@@ -1196,7 +1196,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      if ("mimer".equals(tickerSymbol)) {
+      if ("mimer".equals(tickerSymbolIntern)) {
         commitDML(connection);
       }
 
@@ -2087,7 +2087,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     try {
-      if ("mimer".equals(tickerSymbol)) {
+      if ("mimer".equals(tickerSymbolIntern)) {
         commitDML(connection);
       }
 
@@ -2114,7 +2114,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   private String setCaseIdentifierMetData(String identifier) {
-    return switch (tickerSymbol) {
+    return switch (tickerSymbolIntern) {
     case "cockroach", "cratedb", "monetdb", "postgresql", "timescale", "yugabyte" -> identifier.toLowerCase();
     case "exasol", "ibmdb2", "oracle", "percona" -> identifier.toUpperCase();
     default -> setCaseIdentifier(identifier);
@@ -2304,7 +2304,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                String refTableName,
                                TreeMap<Integer, String> refColumnNames) {
 
-    Constraint                  constraint = new Constraint(tickerSymbol, schemaName, tableName, constraintType, refTableName);
+    Constraint                  constraint = new Constraint(tickerSymbolIntern, schemaName, tableName, constraintType, refTableName);
 
     Set<Entry<Integer, String>> columnsSet = columnNames.entrySet();
 
@@ -2322,7 +2322,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     if ("U".equals(constraintType)) {
       String constName = constraintName;
-      if ("ibmdb2".equals(tickerSymbol)) {
+      if ("ibmdb2".equals(tickerSymbolIntern)) {
         if (ibmdb2ConstraintNames.containsKey(constraintName)) {
           constName = ibmdb2ConstraintNames.get(constraintName);
           if (constraints.containsKey(constName)) {
@@ -2332,7 +2332,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             }
           }
         }
-      } else if ("informix".equals(tickerSymbol)) {
+      } else if ("informix".equals(tickerSymbolIntern)) {
         if (informixConstraintNames.containsKey(constraintName)) {
           constName = informixConstraintNames.get(constraintName);
           if (!("u".equals(constName.substring(0,

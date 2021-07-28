@@ -59,14 +59,14 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
   /**
    * Instantiates a new MySQL seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public MysqlSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public MysqlSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MYSQL;
@@ -74,7 +74,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     driver   = "com.mysql.cj.jdbc.Driver";
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbol,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolExtern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 config.getDatabase());
@@ -141,7 +141,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
         statement = connection.createStatement();
 
         executeSQLStmnts(statement,
-                         "USE " + getCatalogName(tickerSymbol) + "." + config.getDatabase());
+                         "USE " + getCatalogName(tickerSymbolIntern) + "." + config.getDatabase());
 
         statement.close();
       } catch (SQLException e) {

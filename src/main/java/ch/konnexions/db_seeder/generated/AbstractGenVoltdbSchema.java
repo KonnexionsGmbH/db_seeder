@@ -116,14 +116,14 @@ public abstract class AbstractGenVoltdbSchema extends AbstractGenSeeder {
   /**
    * Initialises a new abstract VoltDB schema object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption client, embedded or trino
    */
-  public AbstractGenVoltdbSchema(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public AbstractGenVoltdbSchema(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     createColumnNames(true,

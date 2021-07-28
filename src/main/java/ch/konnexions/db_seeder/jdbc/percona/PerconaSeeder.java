@@ -45,14 +45,14 @@ public final class PerconaSeeder extends AbstractGenPerconaSchema {
   /**
    * Instantiates a new Percona Server seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public PerconaSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public PerconaSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MYSQL;

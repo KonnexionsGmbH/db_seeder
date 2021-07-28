@@ -1,7 +1,6 @@
 package ch.konnexions.db_seeder.jdbc.timescale;
 
 import ch.konnexions.db_seeder.generated.AbstractGenTimescaleSchema;
-import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,38 +35,31 @@ public final class TimescaleSeeder extends AbstractGenTimescaleSchema {
   /**
    * Instantiates a new TimescaleDB seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public TimescaleSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public TimescaleSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.POSTGRESQL;
 
-    if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbol,
-                                                config.getConnectionHostTrino(),
-                                                config.getConnectionPortTrino(),
-                                                config.getSchema());
-    }
+    urlSys   = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabaseSys(),
+                      config.getUserSys(),
+                      config.getPasswordSys());
 
-    urlSys  = getUrl(config.getConnectionHost(),
-                     config.getConnectionPort(),
-                     config.getConnectionPrefix(),
-                     config.getDatabaseSys(),
-                     config.getUserSys(),
-                     config.getPasswordSys());
-
-    urlUser = getUrl(config.getConnectionHost(),
-                     config.getConnectionPort(),
-                     config.getConnectionPrefix(),
-                     config.getDatabase(),
-                     config.getUser(),
-                     config.getPassword());
+    urlUser  = getUrl(config.getConnectionHost(),
+                      config.getConnectionPort(),
+                      config.getConnectionPrefix(),
+                      config.getDatabase(),
+                      config.getUser(),
+                      config.getPassword());
 
     if (isDebug) {
       logger.debug("End   Constructor");

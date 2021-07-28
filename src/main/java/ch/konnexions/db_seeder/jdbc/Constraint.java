@@ -23,25 +23,25 @@ class Constraint {
 
   private final String                tableName;
 
-  private final String                tickerSymbol;
+  private final String                tickerSymbolIntern;
 
   /**
    * Instantiates a new constraint.
    *
-   * @param tickerSymbol the ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    * @param schemaName the schema name
    * @param tableName the table name
    * @param constraintType the constraint type
    * @param refTableName the ref table name
    */
-  public Constraint(String tickerSymbol, String schemaName, String tableName, String constraintType, String refTableName) {
+  public Constraint(String tickerSymbolIntern, String schemaName, String tableName, String constraintType, String refTableName) {
     super();
-    this.tickerSymbol   = tickerSymbol;
-    this.schemaName     = schemaName;
-    this.tableName      = tableName;
-    this.constraintName = null;
-    this.constraintType = constraintType;
-    this.refTableName   = refTableName;
+    this.tickerSymbolIntern = tickerSymbolIntern;
+    this.schemaName         = schemaName;
+    this.tableName          = tableName;
+    this.constraintName     = null;
+    this.constraintType     = constraintType;
+    this.refTableName       = refTableName;
   }
 
   /**
@@ -54,7 +54,7 @@ class Constraint {
 
     String restoreStatement  = "ALTER TABLE " + quoteTableName(tableName) + " ADD CONSTRAINT ";
 
-    switch (tickerSymbol) {
+    switch (tickerSymbolIntern) {
     case "informix":
     case "mariadb":
     case "mysql":
@@ -78,7 +78,7 @@ class Constraint {
                                                                                              refColumnNames) + ")";
     }
 
-    switch (tickerSymbol) {
+    switch (tickerSymbolIntern) {
     case "cockroach":
     case "postgresql":
     case "timescale":
@@ -117,7 +117,7 @@ class Constraint {
   public String getDropConstraintStatement() {
     String dropStatement;
 
-    switch (tickerSymbol) {
+    switch (tickerSymbolIntern) {
     case "cockroach":
       if ("U".equals(constraintType)) {
         return "DROP INDEX " + quoteConstraintName() + " CASCADE";
@@ -154,14 +154,14 @@ class Constraint {
   }
 
   private String quoteConstraintName() {
-    return switch (tickerSymbol) {
+    return switch (tickerSymbolIntern) {
     case "cockroach", "derby", "derby_emb" -> "\"" + constraintName + "\"";
     default -> constraintName;
     };
   }
 
   private String quoteTableName(String tableName) {
-    if ("cubrid".equals(tickerSymbol)) {
+    if ("cubrid".equals(tickerSymbolIntern)) {
       return "\"" + tableName + "\"";
     }
     return tableName;

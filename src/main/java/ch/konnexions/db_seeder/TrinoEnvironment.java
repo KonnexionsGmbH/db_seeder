@@ -54,30 +54,30 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
   /**
    * Create the catalog data and the catalog file.
    *
-   * @param tickerSymbol the lower case DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    */
-  private static void createCatalog(String tickerSymbol) {
+  private static void createCatalog(String tickerSymbolIntern) {
     if (isDebug) {
-      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
+      logger.debug("Start tickerSymbolIntern='" + tickerSymbolIntern + "'");
     }
 
     entries.clear();
 
-    entries.add("connector.name=" + tickerSymbol);
+    entries.add("connector.name=" + tickerSymbolIntern);
     entries.add("case-insensitive-name-matching=true");
     entries.add("connection-url=" + url.replace("\"",
                                                 ""));
-    if (!("postgresql".equals(tickerSymbol) || "sqlserver".equals(tickerSymbol))) {
+    if (!("postgresql".equals(tickerSymbolIntern) || "sqlserver".equals(tickerSymbolIntern))) {
       entries.add("connection-user=" + user);
       entries.add("connection-password=" + password);
     }
 
     // issue #4764 wwe
-    if ("oracle".equals(tickerSymbol)) {
+    if ("oracle".equals(tickerSymbolIntern)) {
       entries.add("oracle.number.default-scale=10");
     }
 
-    createCatalogFile(tickerSymbol,
+    createCatalogFile(tickerSymbolIntern,
                       entries);
 
     if (isDebug) {
@@ -88,16 +88,16 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
   /**
    * Create a catalog file.
    *
-   * @param tickerSymbol the lower case DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    * @param entries the catalog entries
    */
-  private static void createCatalogFile(String tickerSymbol, ArrayList<String> entries) {
+  private static void createCatalogFile(String tickerSymbolIntern, ArrayList<String> entries) {
     if (isDebug) {
-      logger.debug("Start tickerSymbol='\"+tickerSymbol+\"'\"");
+      logger.debug("Start tickerSymbolIntern='\"+tickerSymbolIntern+\"'\"");
     }
 
     try {
-      String fileName = directoryCatalogProperty + File.separator + AbstractJdbcSeeder.getCatalogName(tickerSymbol) + ".properties";
+      String fileName = directoryCatalogProperty + File.separator + AbstractJdbcSeeder.getCatalogName(tickerSymbolIntern) + ".properties";
 
       if (isDebug) {
         logger.debug("fileName='" + fileName + "'");
@@ -126,11 +126,11 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
   /**
    * Create the MySQL catalog file.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    */
-  private static void createCatalogFileMysql(String tickerSymbol) {
+  private static void createCatalogFileMysql(String tickerSymbolIntern) {
     if (isDebug) {
-      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
+      logger.debug("Start tickerSymbolIntern='" + tickerSymbolIntern + "'");
     }
 
     // =========================================================================
@@ -198,7 +198,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                   connectionPrefix,
                                   connectionSuffix);
 
-    createCatalog(tickerSymbol);
+    createCatalog(tickerSymbolIntern);
 
     if (isDebug) {
       logger.debug("End");
@@ -208,11 +208,11 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
   /**
    * Create the Oracle catalog file.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    */
-  private static void createCatalogFileOracle(String tickerSymbol) {
+  private static void createCatalogFileOracle(String tickerSymbolIntern) {
     if (isDebug) {
-      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
+      logger.debug("Start tickerSymbolIntern='" + tickerSymbolIntern + "'");
     }
 
     // =========================================================================
@@ -280,7 +280,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                    connectionPrefix,
                                    connectionService);
 
-    createCatalog(tickerSymbol);
+    createCatalog(tickerSymbolIntern);
 
     if (isDebug) {
       logger.debug("End");
@@ -290,11 +290,11 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
   /**
    * Create the PostgreSQL catalog file.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    */
-  private static void createCatalogFilePostgresql(String tickerSymbol) {
+  private static void createCatalogFilePostgresql(String tickerSymbolIntern) {
     if (isDebug) {
-      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
+      logger.debug("Start tickerSymbolIntern='" + tickerSymbolIntern + "'");
     }
 
     // =========================================================================
@@ -364,7 +364,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                        user,
                                        password);
 
-    createCatalog(tickerSymbol);
+    createCatalog(tickerSymbolIntern);
 
     if (isDebug) {
       logger.debug("End");
@@ -374,11 +374,11 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
   /**
    * Create the SQL Server catalog file.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    */
-  private static void createCatalogFileSqlserver(String tickerSymbol) {
+  private static void createCatalogFileSqlserver(String tickerSymbolIntern) {
     if (isDebug) {
-      logger.debug("Start tickerSymbol='" + tickerSymbol + "'");
+      logger.debug("Start tickerSymbolIntern='" + tickerSymbolIntern + "'");
     }
 
     // =========================================================================
@@ -448,7 +448,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                       user,
                                       password);
 
-    createCatalog(tickerSymbol);
+    createCatalog(tickerSymbolIntern);
 
     if (isDebug) {
       logger.debug("End");
@@ -479,30 +479,31 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
 
     Collections.sort(tickerSymbolsExtern);
 
-    for (String tickerSymbol : tickerSymbolsExtern) {
-      logger.info("tickerSymbol='" + tickerSymbol + "'");
+    for (String tickerSymbolExtern : tickerSymbolsExtern) {
+      logger.info("tickerSymbolExtern='" + tickerSymbolExtern + "'");
 
-      tickerSymbol = AbstractDbmsSeeder.dbmsDetails.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+      String tickerSymbolIntern = AbstractDbmsSeeder.dbmsDetails.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+      logger.info("tickerSymbolIntern='" + tickerSymbolIntern + "'");
 
-      switch (Objects.requireNonNull(tickerSymbol)) {
+      switch (Objects.requireNonNull(tickerSymbolIntern)) {
       case "mysql":
         logger.info("Start MySQL Database");
-        createCatalogFileMysql(tickerSymbol);
+        createCatalogFileMysql(tickerSymbolIntern);
         logger.info("End   MySQL Database");
         break;
       case "oracle":
         logger.info("Start Oracle Database");
-        createCatalogFileOracle(tickerSymbol);
+        createCatalogFileOracle(tickerSymbolIntern);
         logger.info("End   Oracle Database");
         break;
       case "postgresql":
         logger.info("Start PostgreSQL");
-        createCatalogFilePostgresql(tickerSymbol);
+        createCatalogFilePostgresql(tickerSymbolIntern);
         logger.info("End   PostgreSQL");
         break;
       case "sqlserver":
         logger.info("Start SQL Server");
-        createCatalogFileSqlserver(tickerSymbol);
+        createCatalogFileSqlserver(tickerSymbolIntern);
         logger.info("End   SQL Server");
         break;
       case "":

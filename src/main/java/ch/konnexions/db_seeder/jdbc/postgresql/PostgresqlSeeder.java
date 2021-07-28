@@ -57,20 +57,20 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
   /**
    * Instantiates a new PostgreSQL seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public PostgresqlSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public PostgresqlSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.POSTGRESQL;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbol,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolExtern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 config.getSchema());

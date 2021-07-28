@@ -59,20 +59,20 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   /**
    * Instantiates a new SQL Server seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public SqlserverSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public SqlserverSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.SQLSERVER;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbol,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolExtern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 "kxn_schema");

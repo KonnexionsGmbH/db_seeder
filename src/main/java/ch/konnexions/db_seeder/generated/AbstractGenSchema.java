@@ -28,14 +28,14 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
   /**
    * Initialises a new abstract generated schema object.
    *
-   * @param tickerSymbol the DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or trino
    */
-  public AbstractGenSchema(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public AbstractGenSchema(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     initConstants();

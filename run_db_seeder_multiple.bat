@@ -95,7 +95,6 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder postgresql       yes 1
     call run_db_seeder sqlserver        yes 1
     call run_db_seeder timescale        yes 1
-    call run_db_seeder voltdb           yes 1
     
     rem call run_db_seeder agens            yes 1
     rem call run_db_seeder cockroach        no  1
@@ -126,7 +125,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     rem call run_db_seeder sqlserver        yes 1
     rem call run_db_seeder sqlserver_trino  no  1
     rem call run_db_seeder timescale        yes 1
-    rem call run_db_seeder voltdb           yes 1
+    rem call run_db_seeder voltdb           no  1
     rem call run_db_seeder yugabyte         no  1
     
     echo --------------------------------------------------------------------------------
