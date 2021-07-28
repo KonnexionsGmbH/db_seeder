@@ -917,6 +917,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     case "hsqldb":
     case "postgresql":
     case "sqlserver":
+    case "timescale":
     case "yugabyte":
       catalog = config.getDatabase();
       schema = config.getSchema();
@@ -1664,7 +1665,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
 
       if (rowNo % nullFactor == 0) {
-        if (dbmsEnum == DbmsEnum.EXASOL || dbmsEnum == DbmsEnum.POSTGRESQL || dbmsEnum == DbmsEnum.VOLTDB || dbmsEnum == DbmsEnum.YUGABYTE) {
+        if (dbmsEnum == DbmsEnum.EXASOL
+            || dbmsEnum == DbmsEnum.POSTGRESQL
+            || dbmsEnum == DbmsEnum.TIMESCALE
+            || dbmsEnum == DbmsEnum.VOLTDB
+            || dbmsEnum == DbmsEnum.YUGABYTE) {
           preparedStatement.setNull(columnPos,
                                     Types.NULL);
         } else {
@@ -2110,7 +2115,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private String setCaseIdentifierMetData(String identifier) {
     return switch (tickerSymbol) {
-    case "cockroach", "cratedb", "monetdb", "postgresql", "yugabyte" -> identifier.toLowerCase();
+    case "cockroach", "cratedb", "monetdb", "postgresql", "timescale", "yugabyte" -> identifier.toLowerCase();
     case "exasol", "ibmdb2", "oracle", "percona" -> identifier.toUpperCase();
     default -> setCaseIdentifier(identifier);
     };

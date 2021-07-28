@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a MySQL DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.9.2
+ * @version 3.0.0
  */
 public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
 

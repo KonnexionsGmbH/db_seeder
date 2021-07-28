@@ -1,6 +1,9 @@
 package ch.konnexions.db_seeder;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +29,7 @@ import ch.konnexions.db_seeder.jdbc.percona.PerconaSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlite.SqliteSeeder;
 import ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder;
+import ch.konnexions.db_seeder.jdbc.timescale.TimescaleSeeder;
 import ch.konnexions.db_seeder.jdbc.voltdb.VoltdbSeeder;
 import ch.konnexions.db_seeder.jdbc.yugabyte.YugabyteSeeder;
 import ch.konnexions.db_seeder.utils.Config;
@@ -264,6 +268,12 @@ public final class DatabaseSeeder {
         sqlserverSeederTrino.createData();
         logger.info("End   SQL Server via trino");
         break;
+      case "timescale":
+        logger.info("Start TimescaleDB");
+        TimescaleSeeder timescaleSeeder = new TimescaleSeeder(tickerSymbol, DBMS_OPTION_CLIENT);
+        timescaleSeeder.createData();
+        logger.info("End   TimescaleDB");
+        break;
       case "voltdb":
         logger.info("Start VoltDB");
         VoltdbSeeder voltdbSeeder = new VoltdbSeeder(tickerSymbol, DBMS_OPTION_CLIENT);
@@ -290,5 +300,5 @@ public final class DatabaseSeeder {
     System.exit(0);
   }
 
-  protected final boolean isDebug = logger.isDebugEnabled();
+  final boolean isDebug = logger.isDebugEnabled();
 }

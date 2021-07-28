@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.0.svg)
 
 ----
 
@@ -361,7 +361,7 @@ Processing of the script was aborted, error code=1`
 
 ## <a name="version_history"></a> 2. Version History
 
-### 2.9.2
+### 3.0.0
 
 Release Date: dd.mm.2021
 
@@ -380,6 +380,7 @@ Release Date: dd.mm.2021
 
 - new control parameter `DB_SEEDER_BATCH_SIZE`: the maximum number of DML operations of type `addBatch` - `0` represents all DML operations
 - new control parameter `DB_SEEDER_DROP_CONSTRAINTS`: if the value is `yes`, all constraints of the types FOREIGN KEY, PRIMARY KEY and UNIQUE KEY are removed before the first DML operation and are enabled again after the last DML operation
+- TimescaleDB: DBMS 2.3.1-pg13 / JDBC PostgreSQL
 
 #### Modified Features
 

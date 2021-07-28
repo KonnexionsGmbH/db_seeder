@@ -14,7 +14,7 @@ mkdir -p "$PWD/tmp"
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=2.9.2
+export DB_SEEDER_RELEASE=3.0.0
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 export DB_SEEDER_VERSION_TRINO=359
 
@@ -53,6 +53,7 @@ if [ -z "$1" ]; then
     echo "sqlserver          - SQL Server"
     echo "sqlserver_trino    - SQL Server via trino"
     echo "sqlite             - SQLite [embedded]"
+    echo "timescale          - TimescaleDB"
     echo "voltdb             - VoltDB"
     echo "yugabyte           - YugabyteDB"
     echo "---------------------------------------------------------"
@@ -540,6 +541,20 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=2019-latest
+fi
+
+if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
+    export DB_SEEDER_CONNECTION_PORT=5432
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    export DB_SEEDER_CONTAINER_PORT=5432
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    export DB_SEEDER_PASSWORD=timescale
+    export DB_SEEDER_PASSWORD_SYS=postgresql
+    export DB_SEEDER_SCHEMA=kxn_schema
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=kxn_user_sys
+    export DB_SEEDER_VERSION=2.3.1-pg13
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then

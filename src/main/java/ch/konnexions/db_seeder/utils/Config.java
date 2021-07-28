@@ -102,7 +102,7 @@ public final class Config {
   /**
    * @return the maximum batch size
    */
-  public final int getBatchSize() {
+  public int getBatchSize() {
     return batchSize;
   }
 
@@ -111,14 +111,14 @@ public final class Config {
   /**
    * @return the default server character set
    */
-  public final String getCharacterSetServer() {
+  public String getCharacterSetServer() {
     return characterSetServer;
   }
 
   /**
    * @return the default server collation
    */
-  public final String getCollationServer() {
+  public String getCollationServer() {
     return collationServer;
   }
 
@@ -127,7 +127,7 @@ public final class Config {
   /**
    * @return the host name where the database server is listening for requests
    */
-  public final String getConnectionHost() {
+  public String getConnectionHost() {
     return connectionHost;
   }
 
@@ -141,35 +141,35 @@ public final class Config {
   /**
    * @return the port number where the database server is listening for requests
    */
-  public final int getConnectionPort() {
+  public int getConnectionPort() {
     return connectionPort;
   }
 
   /**
    * @return the port number where the trino server is listening for requests
    */
-  public final int getConnectionPortTrino() {
+  public int getConnectionPortTrino() {
     return connectionPortTrino;
   }
 
   /**
    * @return the prefix of the connection string
    */
-  public final String getConnectionPrefix() {
+  public String getConnectionPrefix() {
     return connectionPrefix;
   }
 
   /**
    * @return the service name to connect to the database
    */
-  public final String getConnectionService() {
+  public String getConnectionService() {
     return connectionService;
   }
 
   /**
    * @return the suffix of the connection string
    */
-  public final String getConnectionSuffix() {
+  public String getConnectionSuffix() {
     return connectionSuffix;
   }
 
@@ -178,14 +178,14 @@ public final class Config {
   /**
    * @return the name of the normal database
    */
-  public final String getDatabase() {
+  public String getDatabase() {
     return database;
   }
 
   /**
    * @return the name of the privileged database
    */
-  public final String getDatabaseSys() {
+  public String getDatabaseSys() {
     return databaseSys;
   }
 
@@ -194,7 +194,7 @@ public final class Config {
   /**
    * @return drop the constraints during DML operations
    */
-  public final String getDropConstraints() {
+  public String getDropConstraints() {
     return dropConstraints;
   }
 
@@ -203,7 +203,7 @@ public final class Config {
   /**
    * @return the file JSON name
    */
-  public final String getFileJsonName() {
+  public String getFileJsonName() {
     return fileJsonName;
   }
 
@@ -212,7 +212,7 @@ public final class Config {
   /**
    * @return the file statistics delimiter
    */
-  public final String getFileStatisticsDelimiter() {
+  public String getFileStatisticsDelimiter() {
     return "\\t".equals(fileStatisticsDelimiter)
         ? Character.toString('\t')
         : fileStatisticsDelimiter;
@@ -221,28 +221,28 @@ public final class Config {
   /**
    * @return the file statistics header
    */
-  public final String getFileStatisticsHeader() {
+  public String getFileStatisticsHeader() {
     return fileStatisticsHeader;
   }
 
   /**
    * @return the file statistics name
    */
-  public final String getFileStatisticsName() {
+  public String getFileStatisticsName() {
     return fileStatisticsName;
   }
 
   /**
    * @return the file statistics summary name
    */
-  public final String getFileStatisticsSummaryName() {
+  public String getFileStatisticsSummaryName() {
     return fileStatisticsSummaryName;
   }
 
   /**
    * @return the file statistics summary source directories
    */
-  public final String getFileStatisticsSummarySource() {
+  public String getFileStatisticsSummarySource() {
     return fileStatisticsSummarySource;
   }
 
@@ -264,14 +264,14 @@ public final class Config {
   /**
    * @return the password to connect as normal user to the database
    */
-  public final String getPassword() {
+  public String getPassword() {
     return password;
   }
 
   /**
    * @return the password to connect as privileged user to the database
    */
-  public final String getPasswordSys() {
+  public String getPasswordSys() {
     return passwordSys;
   }
 
@@ -280,7 +280,7 @@ public final class Config {
   /**
    * @return the schema name
    */
-  public final String getSchema() {
+  public String getSchema() {
     return schema;
   }
 
@@ -289,14 +289,14 @@ public final class Config {
   /**
    * @return the user name to connect as normal user to the database
    */
-  public final String getUser() {
+  public String getUser() {
     return user;
   }
 
   /**
    * @return the user name to connect as privileged user to the database
    */
-  public final String getUserSys() {
+  public String getUserSys() {
     return userSys;
   }
 

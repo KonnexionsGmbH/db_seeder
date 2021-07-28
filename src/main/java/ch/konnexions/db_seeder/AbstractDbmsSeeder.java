@@ -82,6 +82,9 @@ public abstract class AbstractDbmsSeeder {
     SQLSERVER(
         "sqlserver"
     ),
+    TIMESCALE(
+        "timescale"
+    ),
     VOLTDB(
         "voltdb"
     ),
@@ -323,6 +326,13 @@ public abstract class AbstractDbmsSeeder {
                         "MS SQL Server",
                         "trino",
                         "MS SQL Server",
+                        "" });
+    dbmsDetails.put("timescale",
+                    new String[] {
+                        "timescale",
+                        "TimescaleDB",
+                        "client",
+                        "TimescaleDB",
                         "" });
     dbmsDetails.put("voltdb",
                     new String[] {

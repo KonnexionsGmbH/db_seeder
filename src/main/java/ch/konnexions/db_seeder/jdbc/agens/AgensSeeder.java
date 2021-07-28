@@ -76,12 +76,12 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(String tableName) {
+  protected String createDdlStmnt(String tableName) {
     return AbstractGenAgensSchema.createTableStmnts.get(tableName);
   }
 
   @Override
-  protected final void setupDatabase() {
+  protected void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

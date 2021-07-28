@@ -17,7 +17,7 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.9.2
+set DB_SEEDER_RELEASE=3.0.0
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_VERSION_TRINO=359
 
@@ -56,6 +56,7 @@ if ["%1"] EQU [""] (
     echo sqlserver          - SQL Server
     echo sqlserver_trino    - SQL Server via trino
     echo sqlite             - SQLite [embedded]
+    echo timescale          - TimescaleDB
     echo voltdb             - VoltDB
     echo yugabyte           - YugabyteDB
     echo ---------------------------------------------------------
@@ -543,6 +544,20 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sa
     set DB_SEEDER_VERSION=2019-latest
+)
+
+if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
+    set DB_SEEDER_CONNECTION_PORT=5432
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    set DB_SEEDER_CONTAINER_PORT=5432
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    set DB_SEEDER_PASSWORD=timescale
+    set DB_SEEDER_PASSWORD_SYS=postgresql
+    set DB_SEEDER_SCHEMA=kxn_schema
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=kxn_user_sys
+    set DB_SEEDER_VERSION=2.3.1-pg13
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (

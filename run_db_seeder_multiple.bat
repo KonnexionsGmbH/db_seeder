@@ -10,15 +10,15 @@ setlocal EnableDelayedExpansion
 
 set ERRORLEVEL=
 
-@REM echo.
-@REM echo Script %0 is now running
-@REM echo.
-@REM echo You can find the run log in the file run_db_seeder_complete_client.log
-@REM echo.
-@REM echo Please wait ...
-@REM echo.
-@REM 
-@REM > run_db_seeder_multiple.log 2>&1 (
+echo.
+echo Script %0 is now running
+echo.
+echo You can find the run log in the file run_db_seeder_complete_client.log
+echo.
+echo Please wait ...
+echo.
+
+> run_db_seeder_multiple.log 2>&1 (
 
     echo ================================================================================
     echo Start %0
@@ -28,16 +28,18 @@ set ERRORLEVEL=
     echo:| TIME
     echo ================================================================================
     
-    echo setting environment variables - start ------------------------------------------
+    echo --------------------------------------------------------------------------------
+    echo Generator.
+    echo --------------------------------------------------------------------------------
     set DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_50.json
-    set DB_SEEDER
-    echo setting environment variables - end   ------------------------------------------
+
     call scripts\run_db_seeder_generate_schema
 
-    echo setting environment variables - start ------------------------------------------
+    echo --------------------------------------------------------------------------------
+    echo Constraints included.
+    echo --------------------------------------------------------------------------------
     set DB_SEEDER_DROP_CONSTRAINTS=no
-    set DB_SEEDER
-    echo setting environment variables - end   ------------------------------------------
+
     call run_db_seeder agens            yes 2
     call run_db_seeder cockroach        yes 2
     call run_db_seeder cratedb          yes 2
@@ -66,13 +68,15 @@ set ERRORLEVEL=
     call run_db_seeder sqlite           yes 2
     call run_db_seeder sqlserver        yes 2
     call run_db_seeder sqlserver_trino  no  0
+    call run_db_seeder timescale        yes 2
     call run_db_seeder voltdb           yes 2
     call run_db_seeder yugabyte         yes 2
     
-    echo setting environment variables - start ------------------------------------------
+    echo --------------------------------------------------------------------------------
+    echo Constraints excluded.
+    echo --------------------------------------------------------------------------------
     set DB_SEEDER_DROP_CONSTRAINTS=yes
-    set DB_SEEDER
-    echo setting environment variables - end   ------------------------------------------
+
     call run_db_seeder agens            yes 2
     call run_db_seeder cockroach        no  1
     call run_db_seeder cratedb          no  1
@@ -101,6 +105,7 @@ set ERRORLEVEL=
     call run_db_seeder sqlite           no  1
     call run_db_seeder sqlserver        yes 2
     call run_db_seeder sqlserver_trino  no  1
+    call run_db_seeder timescale        yes 2
     call run_db_seeder voltdb           yes 1
     call run_db_seeder yugabyte         no  1
     
@@ -109,4 +114,4 @@ set ERRORLEVEL=
     echo --------------------------------------------------------------------------------
     echo End   %0
     echo ================================================================================
-@REM )
+)

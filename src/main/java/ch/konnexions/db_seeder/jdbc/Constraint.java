@@ -81,6 +81,7 @@ class Constraint {
     switch (tickerSymbol) {
     case "cockroach":
     case "postgresql":
+    case "timescale":
       if ("R".equals(constraintType)) {
         restoreStatement += ", VALIDATE CONSTRAINT " + addConstraintName;
       }

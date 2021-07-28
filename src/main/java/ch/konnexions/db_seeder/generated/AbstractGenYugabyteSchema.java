@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a YugabyteDB DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 2.9.2
+ * @version 3.0.0
  */
 public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT CONSTRAINT_KXN_19   UNIQUE      (fk_country_id, name)
+                       CONSTRAINT CONSTRAINT_KXN_20   UNIQUE      (fk_country_id, name)
                    )
                    """);
 

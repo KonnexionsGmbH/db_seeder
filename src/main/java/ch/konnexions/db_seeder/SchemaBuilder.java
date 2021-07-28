@@ -62,5 +62,5 @@ public final class SchemaBuilder {
     System.exit(0);
   }
 
-  protected final boolean isDebug = logger.isDebugEnabled();
+  final boolean isDebug = logger.isDebugEnabled();
 }

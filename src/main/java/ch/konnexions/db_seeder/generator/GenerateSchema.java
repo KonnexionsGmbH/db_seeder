@@ -95,7 +95,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       default -> "BIGINT";
       };
     case "BLOB" -> switch (tickerSymbol) {
-      case "agens", "postgresql", "yugabyte" -> "BYTEA";
+      case "agens", "postgresql", "timescale", "yugabyte" -> "BYTEA";
       case "cockroach" -> "BYTES";
       case "cratedb" -> "OBJECT";
       case "exasol" -> "VARCHAR(2000000)";
@@ -108,7 +108,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       default -> "BLOB";
       };
     case "CLOB" -> switch (tickerSymbol) {
-      case "agens", "cratedb", "postgresql", "yugabyte" -> "TEXT";
+      case "agens", "cratedb", "postgresql", "timescale", "yugabyte" -> "TEXT";
       case "cockroach" -> "STRING";
       case "exasol" -> "VARCHAR(2000000)";
       case "firebird" -> "BLOB SUB_TYPE 1";
@@ -1506,7 +1506,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    * @param release the release identification
    * @param fileJsonName the name of the db_seeder schema definition file
    */
-  public final void generateSchema(String release, String fileJsonName) {
+  public void generateSchema(String release, String fileJsonName) {
     if (isDebug) {
       logger.debug("Start");
     }

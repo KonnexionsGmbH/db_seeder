@@ -65,7 +65,7 @@ public final class Statistics {
   /**
    * Creates the measuring entry.
    */
-  public final void createMeasuringEntry() {
+  public void createMeasuringEntry() {
     if (isDebug) {
       logger.debug("Start");
     }
