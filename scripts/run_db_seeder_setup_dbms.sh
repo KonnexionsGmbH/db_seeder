@@ -644,9 +644,9 @@ if [ "${DB_SEEDER_DBMS_DB}" = "timescale" ]; then
     docker create -e        POSTGRES_DB=kxn_db_sys \
                   -e        POSTGRES_PASSWORD=postgresql \
                   -e        POSTGRES_USER=kxn_user_sys \
-                  --name    db_seeder_db ^
-                  --network db_seeder_net ^
-                  -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
+                  --name    db_seeder_db \
+                  --network db_seeder_net \
+                  -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% \
                   timescale/timescaledb:%DB_SEEDER_VERSION%
 
     echo "Docker start db_seeder_db (TimescaleDB ${DB_SEEDER_VERSION}) ..."

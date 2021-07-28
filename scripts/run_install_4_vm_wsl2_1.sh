@@ -253,7 +253,7 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
 #       sudo groupadd docker
 #   fi
     if ! [ $(getent group docker | grep -q "\b$USER\b") ]; then
-        sudo usermod -aG docker $USER
+        sudo usermod -aG docker "$USER"
     fi
     echo "================================================================================"
     echo "Current Docker Desktop version is: $(docker version)"

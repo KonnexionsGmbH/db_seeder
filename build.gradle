@@ -12,7 +12,7 @@ repositories {
         url 'https://jitpack.io' 
     }
     maven {
-        url "http://maven.cubrid.org"
+        url "https://maven.cubrid.org"
         allowInsecureProtocol = true
     }
 }
