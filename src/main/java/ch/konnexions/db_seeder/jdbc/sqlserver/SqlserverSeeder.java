@@ -72,7 +72,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
     dbmsEnum = DbmsEnum.SQLSERVER;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolExtern,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolIntern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 "kxn_schema");

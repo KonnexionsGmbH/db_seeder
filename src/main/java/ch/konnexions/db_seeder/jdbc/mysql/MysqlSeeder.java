@@ -74,7 +74,7 @@ public final class MysqlSeeder extends AbstractGenMysqlSchema {
     driver   = "com.mysql.cj.jdbc.Driver";
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolExtern,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolIntern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 config.getDatabase());

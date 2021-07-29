@@ -63,7 +63,7 @@ public final class OracleSeeder extends AbstractGenOracleSchema {
     dbmsEnum = DbmsEnum.ORACLE;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolExtern,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolIntern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 config.getUser());

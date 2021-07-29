@@ -70,7 +70,7 @@ public final class PostgresqlSeeder extends AbstractGenPostgresqlSchema {
     dbmsEnum = DbmsEnum.POSTGRESQL;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolExtern,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolIntern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 config.getSchema());

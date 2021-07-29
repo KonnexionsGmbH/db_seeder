@@ -20,7 +20,7 @@ echo ---------------------------------------------------------------------------
 
 unset -f DB_SEEDER_DATABASE_INTERN
 
-if [ "${DB_SEEDER_DBMS}" = "derby" ] || [ "${DB_SEEDER_DBMS}" = "emb" ]; then
+if [ "${DB_SEEDER_DBMS}" = "derby" ] || [ "${DB_SEEDER_DBMS}" = "derby_emb" ]; then
     export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
@@ -28,7 +28,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2" ] || [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then
     export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
+if [ "${DB_SEEDER_DBMS}" = "hsqldb" ] || [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
     export DB_SEEDER_DATABASE_INTERN=${DB_SEEDER_DATABASE}
 fi
 
