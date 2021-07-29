@@ -64,27 +64,27 @@ Release Date: dd.mm.2021
 
 #### Open issues
 
-- CockroachDB: [see here](#issues_cockroach)
+- CockroachDB: (see [here](#issues_cockroach))
 
-- CrateDB: [see here](#issues_cratedb)
+- CrateDB: (see [here](#issues_cratedb))
 
-- Firebird: [see here](#issues_firebird)
+- H2 Database Engine: (see [here](#issues_h2))
 
-- H2 Database Engine: [see here](#issues_h2)
+- HSQLDB: (see [here](#issues_hsqldb))
 
-- HSQLDB: [see here](#issues_hsqldb)
+- IBM Db2 Database: (see [here](#issues_ibmdb2))
 
-- IBM Db2 Database: [see here](#issues_ibmdb2)
+- OmnisciDB: (see [here](#issues_omnisci))
 
-- OmnisciDB: [see here](#issues_omnisci)
+- trino: (see [here](#issues_trino))
 
-- trino: [see here](#issues_trino)
+- VoltDB: (see [here](#issues_voltdb))
 
-- VoltDB: [see here](#issues_voltdb)
-
-- YugabyteDB: [see here](#issues_yugabyte)
+- YugabyteDB: (see [here](#issues_yugabyte))
 
 #### Windows 10 Performance Snapshot
+
+![](.README_images/Perf_Snap_3.0.0_win10.png)
 
 ----------
 
@@ -1266,7 +1266,7 @@ Release Date: 01.06.2020
 
 ### <a name="issues_cockroach"></a> CockroachDB
 
-- Issue: dropping unique key constraints - SQL statement `DROP INDEX "country_name_key" CASCADE`:
+- Issue: dropping unique key constraints - SQL statement `DROP INDEX "country_name_key" CASCADE` (see [here](https://github.com/cockroachdb/cockroach/issues/68222)):
 
 `2021-07-23 09:28:10,007 [DatabaseSeeder.java] INFO  Start CockroachDB
 org.postgresql.util.PSQLException: ERROR: requested table does not have a primary key
@@ -1287,7 +1287,7 @@ Processing of the script was aborted, error code=1`
 
 ### <a name="issues_cratedb"></a> CrateDB
 
-- Issue: dropping constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT country_pk`:
+- Issue: dropping constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT country_pk` (see [here](https://github.com/crate/crate/issues/11609)):
 
 Deleting constraints seems to be very rudimentary, see [here](https://crate.io/docs/crate/reference/en/4.5/sql/statements/drop-constraint.html)
 
@@ -1308,44 +1308,9 @@ io.crate.shade.org.postgresql.util.PSQLException: ERROR: Cannot find a CHECK CON
     at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:100)
 Processing of the script was aborted, error code=1`
 
-### <a name="issues_firebird"></a> Firebird
-
-- Issue: incomplete index delivery with `getIndexInfo`, DDL statement:
-
-`CREATE TABLE COUNTRY (
-    PK_COUNTRY_ID INTEGER NOT NULL,
-    COUNTRY_MAP BLOB SUB_TYPE BINARY,
-    CREATED TIMESTAMP NOT NULL,
-    ISO3166 VARCHAR(50),
-    MODIFIED TIMESTAMP,
-    NAME VARCHAR(100) NOT NULL,
-    CONSTRAINT INTEG_101 UNIQUE (NAME)
-);
-CREATE UNIQUE INDEX RDB$38 ON COUNTRY (NAME);`
-
-`2021-07-23 13:06:16,610 [DatabaseSeeder.java] INFO  Start Firebird [client]
-java.sql.SQLSyntaxErrorException: unsuccessful metadata update; ALTER TABLE COUNTRY failed; CONSTRAINT RDB$38 does not exist. [SQLState:42000, ISC error code:335544351]
-    at org.firebirdsql.gds.ng.FbExceptionBuilder$Type$1.createSQLException(FbExceptionBuilder.java:534)
-    at org.firebirdsql.gds.ng.FbExceptionBuilder.toFlatSQLException(FbExceptionBuilder.java:304)
-    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.readStatusVector(AbstractWireOperations.java:140)
-    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.processOperation(AbstractWireOperations.java:204)
-    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.readSingleResponse(AbstractWireOperations.java:171)
-    at org.firebirdsql.gds.ng.wire.AbstractWireOperations.readResponse(AbstractWireOperations.java:155)
-    at org.firebirdsql.gds.ng.wire.AbstractFbWireDatabase.readResponse(AbstractFbWireDatabase.java:211)
-    at org.firebirdsql.gds.ng.wire.version10.V10Statement.execute(V10Statement.java:329)
-    at org.firebirdsql.jdbc.FBStatement.internalExecute(FBStatement.java:869)
-    at org.firebirdsql.jdbc.FBStatement.executeImpl(FBStatement.java:496)
-    at org.firebirdsql.jdbc.FBStatement.execute(FBStatement.java:482)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1259)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1173)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:131)
-Caused by: org.firebirdsql.jdbc.FBSQLExceptionInfo: unsuccessful metadata update
-Processing of the script was aborted, error code=1`
-
 ### <a name="issues_h2"></a> H2 Database Engine
 
-- Issue: `DROP CONSTRAINT`, DDL statement:
+- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6` (see [here](https://github.com/h2database/h2database/issues/3161)):
 
 `CREATE TABLE KXN_SCHEMA.COUNTRY (
     PK_COUNTRY_ID BIGINT NOT NULL,
@@ -1358,7 +1323,7 @@ Processing of the script was aborted, error code=1`
 CREATE UNIQUE INDEX CONSTRAINT_INDEX_6 ON KXN_SCHEMA.COUNTRY (NAME);
 `
 
-`2021-07-23 13:16:56,340 [DatabaseSeeder.java] INFO  Start H2 Database Engine [client]
+`2021-07-29 11:48:34,901 [DatabaseSeeder.java] INFO  Start H2 Database Engine [client]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Constraint "CONSTRAINT_INDEX_6" not found; SQL statement:
 ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6 [90057-200]
     at org.h2.message.DbException.getJdbcSQLException(DbException.java:576)
@@ -1376,15 +1341,15 @@ ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6 [90057-200]
     at org.h2.command.CommandRemote.executeUpdate(CommandRemote.java:237)
     at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:228)
     at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:201)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1259)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1173)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:138)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1309)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1206)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:408)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:154)
 Processing of the script was aborted, error code=1`
 
 ### <a name="issues_hsqldb"></a> HSQLDB
 
-- Issue: `DROP CONSTRAINT` privilege with SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT SYS_IDX_SYS_PK_10095_10099`, DDL statement:
+- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT SYS_IDX_SYS_PK_10289_10293` (see [here](https://sourceforge.net/p/hsqldb/bugs/1637/)):
 
 `CREATE TABLE PUBLIC.KXN_SCHEMA.COUNTRY (
     PK_COUNTRY_ID BIGINT NOT NULL,
@@ -1392,39 +1357,34 @@ Processing of the script was aborted, error code=1`
     CREATED TIMESTAMP NOT NULL,
     ISO3166 VARCHAR(50),
     MODIFIED TIMESTAMP,
-    NAME VARCHAR(100) NOT NULL
+    NAME VARCHAR(100) NOT NULL,
+    CONSTRAINT SYS_PK_10095 PRIMARY KEY (PK_COUNTRY_ID)
 );
 CREATE UNIQUE INDEX SYS_IDX_SYS_CT_10098_10103 ON PUBLIC.KXN_SCHEMA.COUNTRY (NAME);
+CREATE UNIQUE INDEX SYS_IDX_SYS_PK_10095_10099 ON PUBLIC.KXN_SCHEMA.COUNTRY (PK_COUNTRY_ID);
 `
 
-`2021-07-23 13:40:37,554 [DatabaseSeeder.java] INFO  Start HSQLDB [client]
-java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_SYS_PK_10095_10099
+`2021-07-29 12:37:21,595 [DatabaseSeeder.java] INFO  Start HSQLDB [client]
+java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_SYS_PK_10289_10293
     at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
     at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
     at org.hsqldb.jdbc.JDBCStatement.fetchResult(Unknown Source)
     at org.hsqldb.jdbc.JDBCStatement.execute(Unknown Source)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1261)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1175)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:152)
-    Caused by: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_SYS_PK_10095_10099
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1309)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1206)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:408)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:166)
+    Caused by: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_SYS_PK_10289_10293
     at org.hsqldb.error.Error.error(Unknown Source)
     at org.hsqldb.result.Result.getException(Unknown Source)
-... 7 more
+    ... 7 more
 Processing of the script was aborted, error code=1`
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
-- Issue: version 11.5.6.0:
+- Issue: Docker Image from `docker pull ibmcom/db2:11.5.6.0`:
 
-`2021-07-03 05:31:17,235 [DatabaseSeeder.java] INFO  Start
-2021-07-03 05:31:17,237 [DatabaseSeeder.java] INFO  tickerSymbolExtern='ibmdb2'
-2021-07-03 05:31:17,237 [DatabaseSeeder.java] INFO  Start IBM Db2 Database
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/db_seeder.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/D:/SoftDevelopment/Projects/db_seeder/lib/jdbc-yugabytedb-42.2.7-yb-3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+`2021-07-29 13:09:33,884 [DatabaseSeeder.java] INFO  Start IBM Db2 Database
 com.ibm.db2.jcc.am.DisconnectNonTransientConnectionException: [jcc][t4][2030][11211][4.29.24] A communication error occurred during operations on the connection's underlying socket, socket input stream,
 or socket output stream.  Error location: Reply.fill() - insufficient data (-1).  Message: Insufficient data. ERRORCODE=-4499, SQLSTATE=08001
     at com.ibm.db2.jcc.am.b7.a(b7.java:338)
@@ -1449,26 +1409,40 @@ or socket output stream.  Error location: Reply.fill() - insufficient data (-1).
     at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:117)
     at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
     at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:264)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:155)
-    at ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder.setupDatabase(Ibmdb2Seeder.java:104)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:348)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:142)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:321)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:212)
+    at ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder.setupDatabase(Ibmdb2Seeder.java:92)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:399)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:178)
 Processing of the script was aborted, error code=1`
 
 ### <a name="issues_omnisci"></a> OmniSciDB
 
-- Issue: user can not be dropped (problem with second DBSeeder run) (see [here](https://github.com/trinodb/trino/issues/5681)).
+- Issue: connection problem with existing OmnisciDB (see [here](https://github.com/omnisci/omniscidb/issues/668)).
 
-`2021-07-26 09:32:44,326 [DatabaseSeeder.java] INFO  Start OmniSciDB
-java.sql.SQLException: Query failed : [OmniSci.java:read:43901:TOmniSciException(error_msg:Exception: User kxn_user already exists.)]
-    at com.omnisci.jdbc.OmniSciStatement.executeQuery(OmniSciStatement.java:100)
-    at com.omnisci.jdbc.OmniSciStatement.execute(OmniSciStatement.java:238)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1332)
-    at ch.konnexions.db_seeder.jdbc.omnisci.OmnisciSeeder.setupDatabase(OmnisciSeeder.java:122)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:407)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:215)
-Processing of the script was aborted, error code=1`
+`2021-07-29 13:52:13,809 [DatabaseSeeder.java] INFO  Start OmniSciDB
+java.sql.SQLException: Omnisci connection failed - [OmniSci.java:read:15275:TOmniSciException(error_msg:Sqlite3 Error: disk I/O error)]
+    at com.omnisci.jdbc.OmniSciConnection.<init>(OmniSciConnection.java:460)
+    at com.omnisci.jdbc.OmniSciDriver.connect(OmniSciDriver.java:80)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:326)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:275)
+    at ch.konnexions.db_seeder.jdbc.omnisci.OmnisciSeeder.setupDatabase(OmnisciSeeder.java:93)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:399)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:220)
+    Caused by: TOmniSciException(error_msg:Sqlite3 Error: disk I/O error)
+    at com.omnisci.thrift.server.OmniSci$connect_result$connect_resultStandardScheme.read(OmniSci.java:15275)
+    at com.omnisci.thrift.server.OmniSci$connect_result$connect_resultStandardScheme.read(OmniSci.java:15253)
+    at com.omnisci.thrift.server.OmniSci$connect_result.read(OmniSci.java:15195)
+    at org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:88)
+    at com.omnisci.thrift.server.OmniSci$Client.recv_connect(OmniSci.java:406)
+    at com.omnisci.thrift.server.OmniSci$Client.connect(OmniSci.java:391)
+    at com.omnisci.jdbc.OmniSciConnection.setSession(OmniSciConnection.java:431)
+    at com.omnisci.jdbc.OmniSciConnection.<init>(OmniSciConnection.java:452)
+    ... 8 more
+Processing of the script was aborted, error code=1
+`
 
 ### <a name="issues_trino"></a> trino
 
@@ -1510,14 +1484,14 @@ Processing of the script was aborted, error code=1`
     
 - Issue: Oracle connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
 
-- Issue: DatabaseMetaData support incomplete (see [here](https://github.com/trinodb/trino/issues/xxxx)).
+- Issue: TrinoDatabaseMetaData support incomplete (see [here](https://github.com/trinodb/trino/issues/8708)).
 
-`2021-07-25 15:01:28,399 [DatabaseSeeder.java] INFO  Start MySQL Database via trino
+`2021-07-29 14:10:36,559 [DatabaseSeeder.java] INFO  Start PostgreSQL via trino
 java.sql.SQLFeatureNotSupportedException: imported keys not supported
     at io.trino.jdbc.TrinoDatabaseMetaData.getImportedKeys(TrinoDatabaseMetaData.java:1066)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:976)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:417)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:202)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:965)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:408)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:250)
 Processing of the script was aborted, error code=1`
 
 ### <a name="issues_voltdb"></a> VoltDB
@@ -1558,9 +1532,29 @@ java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.
     ... 7 more
 Processing of the script was aborted, error code=1`
 
-- Statement `ALTER TABLE COUNTRY DROP CONSTRAINT VOLTDB_AUTOGEN_CT__PK_COUNTRY_PK_COUNTRY_ID` 
+- Issue:  dropping primary key constraints (see [here](https://voltdb-public.slack.com/archives/C04UPPHUL/p1627566165007800)):
 
-`2021-07-26 05:33:06,496 [DatabaseSeeder.java] INFO  Start VoltDB
+1. DDL Statement: CREATE TABLE
+
+`CREATE TABLE COUNTRY (
+    COUNTRY_MAP VARBINARY(1048576),
+    CREATED TIMESTAMP NOT NULL,
+    ISO3166 VARCHAR(50),
+    MODIFIED TIMESTAMP,
+    NAME VARCHAR(100) NOT NULL,
+    PK_COUNTRY_ID BIGINT NOT NULL,
+    CONSTRAINT VOLTDB_AUTOGEN_CT__PK_COUNTRY_PK_COUNTRY_ID PRIMARY KEY (PK_COUNTRY_ID)
+);
+CREATE UNIQUE INDEX VOLTDB_AUTOGEN_IDX_CT_COUNTRY_NAME ON COUNTRY (NAME);
+CREATE UNIQUE INDEX VOLTDB_AUTOGEN_IDX_PK_COUNTRY_PK_COUNTRY_ID ON COUNTRY (PK_COUNTRY_ID);`
+
+2. DDL Statement: DROP CONSTRAINT
+
+`ALTER TABLE COUNTRY DROP CONSTRAINT VOLTDB_AUTOGEN_CT__PK_COUNTRY_PK_COUNTRY_ID`
+
+3. Error message:
+
+`2021-07-29 15:12:59,724 [DatabaseSeeder.java] INFO  Start VoltDB
 WARNING: An illegal reflective access operation has occurred
 WARNING: Illegal reflective access by io.netty_voltpatches.NinjaKeySet (file:/D:/SoftDevelopment/Projects/db_seeder/lib/voltdbclient-10.1.1.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
 WARNING: Please consider reporting this to the maintainers of io.netty_voltpatches.NinjaKeySet
@@ -1571,10 +1565,10 @@ java.sql.SQLException: General Provider Error (GRACEFUL_FAILURE): '[Ad Hoc DDL I
     at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:143)
     at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:376)
     at org.voltdb.jdbc.JDBC4Statement.execute(JDBC4Statement.java:387)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1319)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1216)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:417)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:269)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1337)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1207)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:408)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:280)
     Caused by: org.voltdb.client.ProcCallException: [Ad Hoc DDL Input:1]: DDL Error: "object not found: VOLTDB_AUTOGEN_CT__PK_COUNTRY_PK_COUNTRY_ID"
     at org.voltdb.client.ClientImpl.internalSyncCallProcedure(ClientImpl.java:461)
     at org.voltdb.client.ClientImpl.callProcedureWithClientTimeoutImpl(ClientImpl.java:311)
@@ -1586,7 +1580,7 @@ Processing of the script was aborted, error code=1`
 
 ### <a name="issues_yugabyte"></a> YugabyteDB
 
-- Dropping primary key constraints not yet supported (see [here](https://github.com/trinodb/trino/issues/xxxx)).
+- Dropping primary key constraints not yet supported (see [here](https://github.com/yugabyte/yugabyte-db/issues/8735)).
 
 `2021-07-26 05:20:41,803 [DatabaseSeeder.java] INFO  Start YugabyteDB
 org.postgresql.util.PSQLException: ERROR: dropping a primary key constraint is not yet supported

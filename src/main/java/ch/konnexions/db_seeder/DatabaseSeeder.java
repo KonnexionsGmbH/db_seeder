@@ -77,7 +77,6 @@ public final class DatabaseSeeder {
         switch (tickerSymbolExtern) {
         case "cockroach":
         case "cratedb":
-        case "firebird":
         case "h2":
         case "h2_emb":
         case "hsqldb":

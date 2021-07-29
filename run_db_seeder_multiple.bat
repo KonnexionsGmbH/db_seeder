@@ -85,6 +85,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder derby            yes 1
     call run_db_seeder derby_emb        yes 1
     call run_db_seeder exasol           yes 1
+    call run_db_seeder firebird         yes 1
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
     call run_db_seeder mariadb          yes 1
@@ -104,7 +105,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     rem call run_db_seeder derby            yes 1
     rem call run_db_seeder derby_emb        yes 1
     rem call run_db_seeder exasol           yes 1
-    rem call run_db_seeder firebird         no  1
+    rem call run_db_seeder firebird         yes 1
     rem call run_db_seeder h2               no  1
     rem call run_db_seeder h2_emb           no  1
     rem call run_db_seeder hsqldb           no  1

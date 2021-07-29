@@ -78,12 +78,6 @@ else
     export DB_SEEDER_SETUP_DBMS=$2
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
-    if [ "${DB_SEEDER_SETUP_DBMS}" != "yes" ]; then
-        export DB_SEEDER_SETUP_DBMS=yes
-    fi
-fi
-
 if [ -z "$3" ]; then
     read -p "Number of data creation runs (0-2) [default: ${DB_SEEDER_NO_CREATE_RUNS_DEFAULT}] " DB_SEEDER_NO_CREATE_RUNS
     export DB_SEEDER_NO_CREATE_RUNS=${DB_SEEDER_NO_CREATE_RUNS}
@@ -297,6 +291,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.4.0
     export DB_SEEDER_VERSION=11.5.5.0
     export DB_SEEDER_VERSION=11.5.5.1
+    export DB_SEEDER_VERSION=11.5.6.0
     export DB_SEEDER_VERSION=11.5.5.1
 fi
 

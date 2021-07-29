@@ -75,6 +75,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh derby            yes 1
 ./run_db_seeder.sh derby_emb        yes 1
 ./run_db_seeder.sh exasol           yes 1
+./run_db_seeder.sh firebird         yes 1
 ./run_db_seeder.sh ibmdb2           yes 1
 ./run_db_seeder.sh informix         yes 1
 ./run_db_seeder.sh mariadb          yes 1
@@ -95,7 +96,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh derby            yes 2
 #./run_db_seeder.sh derby_emb        yes 2
 #./run_db_seeder.sh exasol           yes 2
-#./run_db_seeder.sh firebird         no  1
+#./run_db_seeder.sh firebird         yes 1
 #./run_db_seeder.sh h2               no  1
 #./run_db_seeder.sh h2_emb           no  1
 #./run_db_seeder.sh hsqldb           no  1

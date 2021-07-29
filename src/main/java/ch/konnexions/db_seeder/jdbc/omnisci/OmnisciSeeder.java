@@ -112,6 +112,9 @@ public final class OmnisciSeeder extends AbstractGenOmnisciSchema {
       System.exit(1);
     }
 
+    executeSQLStmntOptional(statement,
+                            "DROP USER " + userName);
+
     // -----------------------------------------------------------------------
     // Setup the database and user.
     // -----------------------------------------------------------------------

@@ -20,15 +20,8 @@ import java.sql.Types;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -912,9 +905,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     switch (tickerSymbolIntern) {
     case "agens":
-    case "h2":
-    case "h2_emb":
-    case "hsqldb":
     case "postgresql":
     case "sqlserver":
     case "timescale":
@@ -925,11 +915,16 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     case "cockroach":
     case "cubrid":
     case "firebird":
-    case "hsqldb_emb":
     case "mariadb":
     case "mimer":
     case "mysql":
       catalog = config.getDatabase();
+      break;
+    case "h2":
+    case "h2_emb":
+    case "hsqldb":
+    case "hsqldb_emb":
+      schema = config.getSchema().toUpperCase();
       break;
     case "ibmdb2":
       getIbmdb2ConstraintNames();
@@ -1103,7 +1098,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         table = setCaseIdentifierMetData(tableName);
 
         if (isDebug) {
-          logger.debug("getPrimaryKeys(" + catalog + "," + schema + "," + table + ",false,true)");
+          logger.debug("getIndexInfo(" + catalog + "," + schema + "," + table + ",false,true)");
         }
 
         resultSet          = dbMetaData.getIndexInfo(catalog,
@@ -1119,7 +1114,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           constraintName = resultSet.getString("INDEX_NAME");
 
           if (isDebug) {
-            logger.debug("getPrimaryKeys(" + catalog + "," + schema + "," + table + ",false,true)");
+            logger.debug("getIndexInfo(" + catalog + "," + schema + "," + table + ",false,true)");
             logger.debug("TABLE_CAT       =" + resultSet.getString("TABLE_CAT"));
             logger.debug("TABLE_SCHEM     =" + resultSet.getString("TABLE_SCHEM"));
             logger.debug("TABLE_NAME      =" + resultSet.getString("TABLE_NAME"));
@@ -1140,7 +1135,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             continue;
           }
 
-          if ("mariadb".equals(tickerSymbolIntern)) {
+          if ("firebird".equals(tickerSymbolIntern)) {
+            if ("RDB$".equals(constraintName.substring(0,
+                                                       4))) {
+              continue;
+            }
+          } else if ("mariadb".equals(tickerSymbolIntern)) {
             if (columnName.equals(constraintName)) {
               continue;
             }
@@ -1291,9 +1291,36 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
   }
 
   /**
+   * Execute SQL statement optional.
+   *
+   * @param statement          the statement object
+   * @param sqlStmnt           the SQL statement
+   */
+  protected final void executeSQLStmntOptional(Statement statement, String sqlStmnt) {
+    if (isDebug) {
+      logger.debug("Start");
+    }
+
+    try {
+      if (isDebug) {
+        logger.debug("next SQL statement=" + sqlStmnt);
+      }
+
+      statement.execute(sqlStmnt);
+
+    } catch (SQLException e) {
+      logger.info("SQL statement='" + sqlStmnt + "' not executed");
+    }
+
+    if (isDebug) {
+      logger.debug("End");
+    }
+  }
+
+  /**
    * Execute SQL statements.
    *
-   * @param statement          the SQL statement
+   * @param statement          the statement object
    * @param firstSQLStmnt      the first SQL statement
    * @param remainingSQLStmnts the remaining SQL statements
    */
