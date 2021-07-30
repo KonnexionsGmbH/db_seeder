@@ -470,7 +470,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                    "Program abort: parameter missing (null): DB_SEEDER_DIRECTORY_CATALOG_PROPERTY");
     }
 
-    for (String tickerSymbolAnyCase : args) {
+    for (String tickerSymbolAnyCase : args[0].split(" ")) {
       logger.info("tickerSymbolAnyCase='" + tickerSymbolAnyCase + "'");
       String tickerSymbolExtern = tickerSymbolAnyCase.toLowerCase();
       logger.info("tickerSymbolExtern=" + tickerSymbolExtern);
