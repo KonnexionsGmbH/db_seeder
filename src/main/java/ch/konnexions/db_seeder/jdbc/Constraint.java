@@ -79,15 +79,14 @@ class Constraint {
     }
 
     switch (tickerSymbolIntern) {
-    case "cockroach":
+    case "oracle":
+      restoreStatement += " ENABLE";
+      break;
     case "postgresql":
     case "timescale":
       if ("R".equals(constraintType)) {
         restoreStatement += ", VALIDATE CONSTRAINT " + addConstraintName;
       }
-      break;
-    case "oracle":
-      restoreStatement += " ENABLE";
       break;
     default:
     }
@@ -118,11 +117,6 @@ class Constraint {
     String dropStatement;
 
     switch (tickerSymbolIntern) {
-    case "cockroach":
-      if ("U".equals(constraintType)) {
-        return "DROP INDEX " + quoteConstraintName() + " CASCADE";
-      }
-      return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
     case "ibmdb2":
       dropStatement = "ALTER TABLE " + schemaName + "." + quoteTableName(tableName) + " DROP ";
       return switch (constraintType) {
@@ -155,7 +149,7 @@ class Constraint {
 
   private String quoteConstraintName() {
     return switch (tickerSymbolIntern) {
-    case "cockroach", "derby", "derby_emb" -> "\"" + constraintName + "\"";
+    case "derby", "derby_emb" -> "\"" + constraintName + "\"";
     default -> constraintName;
     };
   }

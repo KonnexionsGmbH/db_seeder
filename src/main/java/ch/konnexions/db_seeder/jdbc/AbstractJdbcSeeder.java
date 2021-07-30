@@ -103,6 +103,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Statement             statement              = null;
 
+  protected final String          tickerSymbolExtern;
+
   protected String                urlSys                 = "";
   protected String                urlTrino               = "";
   protected String                urlUser                = "";
@@ -140,6 +142,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       isEmbedded = false;
       isTrino    = false;
     }
+
+    this.tickerSymbolExtern = tickerSymbolExtern;
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
@@ -394,7 +398,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       logger.debug("Start");
     }
 
-    Statistics statistics = new Statistics(config, tickerSymbolIntern, dbmsDetails);
+    Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
 
     setupDatabase();
 
@@ -912,7 +916,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       catalog = config.getDatabase();
       schema = config.getSchema();
       break;
-    case "cockroach":
     case "cubrid":
     case "firebird":
     case "mariadb":
@@ -2142,7 +2145,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private String setCaseIdentifierMetData(String identifier) {
     return switch (tickerSymbolIntern) {
-    case "cockroach", "cratedb", "monetdb", "postgresql", "timescale", "yugabyte" -> identifier.toLowerCase();
+    case "cratedb", "monetdb", "postgresql", "timescale", "yugabyte" -> identifier.toLowerCase();
     case "exasol", "ibmdb2", "oracle", "percona" -> identifier.toUpperCase();
     default -> setCaseIdentifier(identifier);
     };
@@ -2378,6 +2381,8 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     constraint.setConstraintName(constraintName);
+
+    logger.info("wwe DROP statement=" + constraint.getDropConstraintStatement());
 
     constraints.put(constraintName,
                     constraint);

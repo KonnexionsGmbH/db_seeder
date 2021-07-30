@@ -75,6 +75,7 @@ public final class DatabaseSeeder {
 
       if ("yes".equals(config.getDropConstraints())) {
         switch (tickerSymbolExtern) {
+        // wwe
         case "cockroach":
         case "cratedb":
         case "h2":

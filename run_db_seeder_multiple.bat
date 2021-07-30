@@ -31,7 +31,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo --------------------------------------------------------------------------------
     echo Generator.
     echo --------------------------------------------------------------------------------
-    set DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_50.json
+    set DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_5400.json
 
     call scripts\run_db_seeder_generate_schema
 
@@ -39,7 +39,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo Constraints included.
     echo --------------------------------------------------------------------------------
     set DB_SEEDER_DROP_CONSTRAINTS=no
-    set DB_SEEDER_FILE_STATISTICS_NAME=db_seeder_cmd_complete_company_9.9.9_win10.tsv
+    set DB_SEEDER_FILE_STATISTICS_NAME=resources/staistics/db_seeder_cmd_complete_company_9.9.9_win10.tsv
 
     del /f /q resources\staistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
     

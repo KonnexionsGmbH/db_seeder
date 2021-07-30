@@ -64,8 +64,6 @@ Release Date: dd.mm.2021
 
 #### Open issues
 
-- CockroachDB: (see [here](#issues_cockroach))
-
 - CrateDB: (see [here](#issues_cratedb))
 
 - H2 Database Engine: (see [here](#issues_h2))
@@ -1264,49 +1262,9 @@ Release Date: 01.06.2020
 
 ## <a name="open_issues"></a> 2. Open Issues
 
-### <a name="issues_cockroach"></a> CockroachDB
-
-- Issue: dropping unique key constraints - SQL statement `DROP INDEX "country_name_key" CASCADE` (see [here](https://github.com/cockroachdb/cockroach/issues/68222)):
-
-`2021-07-23 09:28:10,007 [DatabaseSeeder.java] INFO  Start CockroachDB
-org.postgresql.util.PSQLException: ERROR: requested table does not have a primary key
-    at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2434)
-    at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2179)
-    at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:307)
-    at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:441)
-    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:365)
-    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:307)
-    at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:293)
-    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:270)
-    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:266)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1260)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1174)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:94)
-Processing of the script was aborted, error code=1`
-
 ### <a name="issues_cratedb"></a> CrateDB
 
-- Issue: dropping constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT country_pk` (see [here](https://github.com/crate/crate/issues/11609)):
-
-Deleting constraints seems to be very rudimentary, see [here](https://crate.io/docs/crate/reference/en/4.5/sql/statements/drop-constraint.html)
-
-`2021-07-23 10:14:44,871 [DatabaseSeeder.java] INFO  Start CrateDB
-io.crate.shade.org.postgresql.util.PSQLException: ERROR: Cannot find a CHECK CONSTRAINT named [country_pk], available constraints are: []
-    at io.crate.shade.org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2440)
-    at io.crate.shade.org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2183)
-    at io.crate.shade.org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:308)
-    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:442)
-    at io.crate.shade.org.postgresql.jdbc.PgStatement.execute(PgStatement.java:366)
-    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:308)
-    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:294)
-    at io.crate.shade.org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:271)
-    at io.crate.shade.org.postgresql.jdbc.PgStatement.execute(PgStatement.java:267)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeDdlStmnts(AbstractJdbcSeeder.java:1260)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1174)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:415)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:100)
-Processing of the script was aborted, error code=1`
+- Issue: dropping constraints is currently very limited, see [here](https://crate.io/docs/crate/reference/en/4.6/sql/statements/alter-table.html#drop-constraint)
 
 ### <a name="issues_h2"></a> H2 Database Engine
 
