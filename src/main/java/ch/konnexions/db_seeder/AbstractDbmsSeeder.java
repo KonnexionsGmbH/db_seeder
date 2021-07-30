@@ -358,7 +358,6 @@ public abstract class AbstractDbmsSeeder {
 
   protected DbmsEnum     dbmsEnum;
   protected String       dropConstraints;
-  // wwe protected String   dbmsOption;
 
   protected final String identifierDelimiter;
 

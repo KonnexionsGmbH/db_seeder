@@ -2382,8 +2382,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     constraint.setConstraintName(constraintName);
 
-    logger.info("wwe DROP statement=" + constraint.getDropConstraintStatement());
-
     constraints.put(constraintName,
                     constraint);
   }
