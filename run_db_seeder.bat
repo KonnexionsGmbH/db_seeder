@@ -588,6 +588,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.7.0.0-b17
     set DB_SEEDER_VERSION=2.7.1.0-b131
     set DB_SEEDER_VERSION=2.7.1.1-b1
+    set DB_SEEDER_VERSION=2.7.2.0-b216
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (

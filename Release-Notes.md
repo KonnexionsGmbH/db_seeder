@@ -62,6 +62,8 @@ Release Date: dd.mm.2021
 
 - trino: DBMS 359 / JDBC 359
 
+- YugabyteDB: DBMS 2.7.2.0-b216
+
 #### Open issues
 
 - CrateDB: (see [here](#issues_cratedb))

@@ -377,6 +377,8 @@ public abstract class AbstractDbmsSeeder {
     identifierDelimiter = dbmsDetails.get("sqlite")[DBMS_DETAILS_IDENTIFIER_DELIMITER];
     tickerSymbolIntern  = dbmsDetails.get("sqlite")[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
 
+    logger.info("tickerSymbolIntern =" + tickerSymbolIntern);
+
     if (isDebug) {
       logger.debug("End   Constructor");
     }
@@ -398,6 +400,8 @@ public abstract class AbstractDbmsSeeder {
 
     identifierDelimiter = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
     tickerSymbolIntern  = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+
+    logger.info("tickerSymbolIntern =" + tickerSymbolIntern);
 
     if (isDebug) {
       logger.debug("End   Constructor");
