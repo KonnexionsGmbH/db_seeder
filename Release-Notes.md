@@ -17,7 +17,7 @@
 
 ### 3.0.0
 
-Release Date: dd.mm.2021
+Release Date: 01.08.2021
 
 #### System Requirements
 
