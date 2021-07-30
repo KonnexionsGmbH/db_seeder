@@ -155,17 +155,15 @@ class Constraint {
   }
 
   private String quoteConstraintName() {
-    return switch (tickerSymbolIntern) {
-    case "derby" -> "\"" + constraintName + "\"";
-    default -> constraintName;
-    };
+    return "derby".equals(tickerSymbolIntern)
+        ? "\"" + constraintName + "\""
+        : constraintName;
   }
 
   private String quoteTableName(String tableName) {
-    if ("cubrid".equals(tickerSymbolIntern)) {
-      return "\"" + tableName + "\"";
-    }
-    return tableName;
+    return "cubrid".equals(tickerSymbolIntern)
+        ? "\"" + tableName + "\""
+        : tableName;
   }
 
   /**
