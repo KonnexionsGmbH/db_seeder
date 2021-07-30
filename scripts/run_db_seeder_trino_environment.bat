@@ -30,7 +30,7 @@ if ["%1"] EQU [""] (
 )
 
 if ["!DB_SEEDER_DBMS!"] EQU ["complete"] (
-    set DB_SEEDER_DBMS=mysql oracle postgresql sqlserver
+    set DB_SEEDER_DBMS="mysql oracle postgresql sqlserver"
 )
 
 set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
