@@ -476,14 +476,18 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
     }
 
     List<String> tickerSymbolsExtern = Arrays.asList(args);
+    logger.info("tickerSymbolAnyCase='" + tickerSymbolsExtern + "'");
+
+    tickerSymbolsExtern.replaceAll(String::toLowerCase);
+    logger.info("tickerSymbolAnyCase=" + tickerSymbolsExtern);
 
     Collections.sort(tickerSymbolsExtern);
 
     for (String tickerSymbolExtern : tickerSymbolsExtern) {
-      logger.info("tickerSymbolExtern='" + tickerSymbolExtern + "'");
+      logger.info("tickerSymbolExtern=" + tickerSymbolExtern);
 
       String tickerSymbolIntern = AbstractDbmsSeeder.dbmsDetails.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER];
-      logger.info("tickerSymbolIntern='" + tickerSymbolIntern + "'");
+      logger.info("tickerSymbolIntern=" + tickerSymbolIntern);
 
       switch (Objects.requireNonNull(tickerSymbolIntern)) {
       case "mysql":
