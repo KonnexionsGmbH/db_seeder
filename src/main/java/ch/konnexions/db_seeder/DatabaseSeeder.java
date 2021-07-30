@@ -41,7 +41,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch // NO_UCD (unused code)
  * @since   2020-05-01
  */
-public final class DatabaseSeeder {
+public final class DatabaseSeeder { // NO_UCD (unused code)
 
   private static final String DBMS_OPTION_CLIENT   = "client";
   private static final String DBMS_OPTION_EMBEDDED = "embedded";

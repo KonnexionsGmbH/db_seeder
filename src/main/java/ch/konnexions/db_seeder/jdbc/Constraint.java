@@ -118,7 +118,6 @@ class Constraint {
 
     switch (tickerSymbolIntern) {
     case "derby":
-    case "derby_emb":
       dropStatement = "ALTER TABLE " + quoteTableName(tableName) + " DROP ";
       return switch (constraintType) {
       case "R" -> dropStatement + "FOREIGN KEY " + quoteConstraintName();
@@ -157,7 +156,7 @@ class Constraint {
 
   private String quoteConstraintName() {
     return switch (tickerSymbolIntern) {
-    case "derby", "derby_emb" -> "\"" + constraintName + "\"";
+    case "derby" -> "\"" + constraintName + "\"";
     default -> constraintName;
     };
   }

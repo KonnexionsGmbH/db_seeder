@@ -103,7 +103,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Statement             statement              = null;
 
-  protected final String          tickerSymbolExtern;
+  private final String            tickerSymbolExtern;
 
   protected String                urlSys                 = "";
   protected String                urlTrino               = "";
@@ -121,6 +121,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     if (isDebug) {
       logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
+
+    this.tickerSymbolExtern = tickerSymbolExtern;
+    logger.info("tickerSymbolExtern =" + tickerSymbolExtern);
 
     config          = new Config();
 
@@ -142,8 +145,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       isEmbedded = false;
       isTrino    = false;
     }
-
-    this.tickerSymbolExtern = tickerSymbolExtern;
 
     if (isDebug) {
       logger.debug("client  =" + isClient);
@@ -920,9 +921,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       catalog = config.getDatabase();
       break;
     case "h2":
-    case "h2_emb":
     case "hsqldb":
-    case "hsqldb_emb":
       schema = config.getSchema().toUpperCase();
       break;
     case "ibmdb2":
