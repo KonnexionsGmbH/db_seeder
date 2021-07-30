@@ -468,6 +468,18 @@ echo.
     )
 
     rem ------------------------------------------------------------------------------
+    rem TimescaleDB.
+    rem ------------------------------------------------------------------------------
+    
+    if ["%DB_SEEDER_DBMS_TIMESCALE%"] EQU ["yes"] (
+        call run_db_seeder.bat timescale yes %DB_SEEDER_NO_CREATE_RUNS%
+        if %ERRORLEVEL% NEQ 0 (
+            echo Processing of the script was aborted, error code=%ERRORLEVEL%
+            exit %ERRORLEVEL%
+        )
+    )
+    
+    rem ------------------------------------------------------------------------------
     rem VoltDB.
     rem ------------------------------------------------------------------------------
     

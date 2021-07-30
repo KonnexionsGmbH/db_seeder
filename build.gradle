@@ -4,7 +4,7 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '2.9.2'
+version '3.0.0'
 
 repositories {
     mavenCentral()
@@ -12,7 +12,7 @@ repositories {
         url 'https://jitpack.io' 
     }
     maven {
-        url "http://maven.cubrid.org"
+        url "https://maven.cubrid.org"
         allowInsecureProtocol = true
     }
 }

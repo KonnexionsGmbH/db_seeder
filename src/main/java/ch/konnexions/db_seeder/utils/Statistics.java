@@ -42,20 +42,20 @@ public final class Statistics {
   private LocalDateTime               startDateTimeDML;
   private final LocalDateTime         startDateTimeTotal;
   private CSVPrinter                  statisticsFile;
-  private final String                tickerSymbol;
+  private final String                tickerSymbolExtern;
 
   /**
    * Constructs a Statistics object using the given {@link Config} object.
    *
    * @param config             the {@link Config} object
    * @param dbmsValues         the DBMS related values DBMS name and db type remark
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    */
-  public Statistics(Config config, String tickerSymbol, Map<String, String[]> dbmsValues) {
+  public Statistics(Config config, String tickerSymbolExtern, Map<String, String[]> dbmsValues) {
     this.config             = config;
     this.dbmsValues         = dbmsValues;
     this.startDateTimeTotal = LocalDateTime.now();
-    this.tickerSymbol       = tickerSymbol;
+    this.tickerSymbolExtern = tickerSymbolExtern;
 
     createStatisticsFile();
 
@@ -65,7 +65,7 @@ public final class Statistics {
   /**
    * Creates the measuring entry.
    */
-  public final void createMeasuringEntry() {
+  public void createMeasuringEntry() {
     if (isDebug) {
       logger.debug("Start");
     }
@@ -82,9 +82,9 @@ public final class Statistics {
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                 durationTotal) + " ms - total");
 
-      statisticsFile.printRecord(tickerSymbol,
-                                 dbmsValues.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
-                                 dbmsValues.get(tickerSymbol)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
+      statisticsFile.printRecord(tickerSymbolExtern,
+                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
+                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
                                  durationTotal,
                                  startDateTimeTotal.format(formatter),
                                  endDateTimeTotal.format(formatter),

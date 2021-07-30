@@ -27,7 +27,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-07-15
  */
-public final class CreateSummaryFile {
+public final class CreateSummaryFile { // NO_UCD (unused code)
 
   private static BufferedWriter bufferedWriter;
 
@@ -178,7 +178,14 @@ public final class CreateSummaryFile {
       logger.debug("Start directory=" + directory);
     }
 
-    Set<String> fileNames = Stream.of(new File(directory).listFiles()).filter(file -> !file.isDirectory()).map(File::getName).collect(Collectors.toSet());
+    File[] files = new File(directory).listFiles();
+
+    if (files == null) {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: file directory " + directory + " does not contain any files");
+    }
+
+    Set<String> fileNames = Stream.of(files).filter(file -> !file.isDirectory()).map(File::getName).collect(Collectors.toSet());
 
     for (String fileName : fileNames) {
       if (fileName.equals(fileStatisticsSummaryNameNoPath)) {

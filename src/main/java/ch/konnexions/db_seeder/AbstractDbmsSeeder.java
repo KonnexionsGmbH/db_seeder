@@ -82,6 +82,9 @@ public abstract class AbstractDbmsSeeder {
     SQLSERVER(
         "sqlserver"
     ),
+    TIMESCALE(
+        "timescale"
+    ),
     VOLTDB(
         "voltdb"
     ),
@@ -89,14 +92,14 @@ public abstract class AbstractDbmsSeeder {
         "yugabyte"
     );
 
-    private final String tickerSymbol;
+    private final String tickerSymbolIntern;
 
-    DbmsEnum(String tickerSymbol) {
-      this.tickerSymbol = tickerSymbol;
+    DbmsEnum(String tickerSymbolIntern) {
+      this.tickerSymbolIntern = tickerSymbolIntern;
     }
 
-    public String getTickerSymbol() {
-      return tickerSymbol;
+    public String getTickerSymbolIntern() {
+      return tickerSymbolIntern;
     }
   }
 
@@ -324,6 +327,13 @@ public abstract class AbstractDbmsSeeder {
                         "trino",
                         "MS SQL Server",
                         "" });
+    dbmsDetails.put("timescale",
+                    new String[] {
+                        "timescale",
+                        "TimescaleDB",
+                        "client",
+                        "TimescaleDB",
+                        "" });
     dbmsDetails.put("voltdb",
                     new String[] {
                         "voltdb",
@@ -342,42 +352,56 @@ public abstract class AbstractDbmsSeeder {
     return dbmsDetails;
   }
 
-  protected int      batchSize;
+  protected int          batchSize;
 
-  protected Config   config;
+  protected Config       config;
 
-  protected DbmsEnum dbmsEnum;
-  protected String   dropConstraints;
-  // wwe protected String   dbmsOption;
+  protected DbmsEnum     dbmsEnum;
+  protected String       dropConstraints;
 
-  protected String   identifierDelimiter;
+  protected final String identifierDelimiter;
 
-  protected String   tickerSymbol;
+  protected final String tickerSymbolIntern;
 
   /**
    * Initialises a new abstract DBMS seeder object.
    */
-  public AbstractDbmsSeeder() {
+  protected AbstractDbmsSeeder() {
     super();
+
+    boolean isDebug = logger.isDebugEnabled();
+    if (isDebug) {
+      logger.debug("Start Constructor");
+    }
+
+    identifierDelimiter = dbmsDetails.get("sqlite")[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    tickerSymbolIntern  = dbmsDetails.get("sqlite")[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+
+    logger.info("tickerSymbolIntern =" + tickerSymbolIntern);
+
+    if (isDebug) {
+      logger.debug("End   Constructor");
+    }
   }
 
   /**
    * Initialises a new abstract DBMS seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or trino
    */
-  public AbstractDbmsSeeder(String tickerSymbol, String dbmsOption) {
+  public AbstractDbmsSeeder(String tickerSymbolExtern, String dbmsOption) {
     super();
 
     boolean isDebug = logger.isDebugEnabled();
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    // wwe this.dbmsOption     = dbmsOption;
-    identifierDelimiter = dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
-    this.tickerSymbol   = dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+    identifierDelimiter = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+    tickerSymbolIntern  = dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_TICKER_SYMBOL_LOWER];
+
+    logger.info("tickerSymbolIntern =" + tickerSymbolIntern);
 
     if (isDebug) {
       logger.debug("End   Constructor");
@@ -387,23 +411,23 @@ public abstract class AbstractDbmsSeeder {
   /**
    * Gets the DBMS name.
    *
-   * @param tickerSymbol the lower case ticker symbol
+   * @param tickerSymbolIntern the intern DBMS ticker symbol
    *
    * @return the DBMS name
    */
-  public final String getDbmsName(String tickerSymbol) {
-    return dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_NAME];
+  public final String getDbmsName(String tickerSymbolIntern) {
+    return dbmsDetails.get(tickerSymbolIntern)[DBMS_DETAILS_NAME];
   }
 
   /**
    * Gets the identifier delimiter.
    *
-   * @param tickerSymbol the lower case ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    *
    * @return the identifier delimiter
    */
-  public final String getIdentifierDelimiter(String tickerSymbol) {
-    return dbmsDetails.get(tickerSymbol)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
+  public final String getIdentifierDelimiter(String tickerSymbolExtern) {
+    return dbmsDetails.get(tickerSymbolExtern)[DBMS_DETAILS_IDENTIFIER_DELIMITER];
   }
 
   /**
@@ -414,7 +438,7 @@ public abstract class AbstractDbmsSeeder {
    * @return the converted identifier
    */
   public final String setCaseIdentifier(String identifier) {
-    if ("agens".equals(tickerSymbol) || "omnisci".equals(tickerSymbol)) {
+    if ("agens".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern)) {
       return identifier.toLowerCase();
     }
 
@@ -427,7 +451,7 @@ public abstract class AbstractDbmsSeeder {
    * @param identifiers the identifier list
    */
   public final void setCaseIdentifiers(ArrayList<String> identifiers) {
-    if ("agens".equals(tickerSymbol) || "omnisci".equals(tickerSymbol)) {
+    if ("agens".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern)) {
       identifiers.forEach(String::toLowerCase);
     }
 

@@ -16,6 +16,8 @@ echo "--------------------------------------------------------------------------
 echo "DBMS_DB                   : ${DB_SEEDER_DBMS_DB}"
 echo "DBMS_EMBEDDED             : ${DB_SEEDER_DBMS_EMBEDDED}"
 echo "DBMS_TRINO                : ${DB_SEEDER_DBMS_TRINO}"
+echo "CONNECTION_PORT           : ${DB_SEEDER_CONNECTION_PORT}"
+echo "CONTAINER_PORT            : ${DB_SEEDER_CONTAINER_PORT}"
 echo "VERSION                   : ${DB_SEEDER_VERSION}"
 echo --------------------------------------------------------------------------------
 
@@ -630,6 +632,38 @@ if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
 
     end=$(date +%s)
     echo "DOCKER SQL Server was ready in $((end - start)) seconds"
+fi
+
+# ------------------------------------------------------------------------------
+# TimescaleDB                                 https://hub.docker.com/_/timescale
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "timescale" ]; then
+    echo "TimescaleDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (TimescaleDB ${DB_SEEDER_VERSION})"
+
+    docker network create db_seeder_net  2>/dev/null || true
+    docker create -e        "POSTGRES_DB=kxn_db_sys" \
+                  -e        "POSTGRES_PASSWORD=postgresql" \
+                  -e        "POSTGRES_USER=kxn_user_sys" \
+                  --name    db_seeder_db \
+                  --network db_seeder_net \
+                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
+                  timescale/timescaledb:"${DB_SEEDER_VERSION}"
+
+    echo "Docker start db_seeder_db (TimescaleDB ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 30
+
+    docker network ls
+    docker network inspect db_seeder_net
+
+    end=$(date +%s)
+    echo "DOCKER TimescaleDB was ready in $((end - start)) seconds"
 fi
 
 # ------------------------------------------------------------------------------

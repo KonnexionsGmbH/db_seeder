@@ -53,14 +53,14 @@ public final class H2Seeder extends AbstractGenH2Schema {
   /**
    * Instantiates a new H2 seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public H2Seeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public H2Seeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.H2;
@@ -95,7 +95,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(String tableName) {
+  protected String createDdlStmnt(String tableName) {
     return AbstractGenH2Schema.createTableStmnts.get(tableName);
   }
 
@@ -104,7 +104,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
-  protected final void setupDatabase() {
+  protected void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

@@ -24,7 +24,7 @@ public final class SchemaPojo {
 
     private Integer nullFactor;
 
-    public final Integer getDefaultNumberOfRows() {
+    public Integer getDefaultNumberOfRows() {
       return defaultNumberOfRows;
     }
 
@@ -40,7 +40,7 @@ public final class SchemaPojo {
       return encodingUTF_8;
     }
 
-    public final void setDefaultNumberOfRows(Integer defaultNumberOfRows) {
+    public void setDefaultNumberOfRows(Integer defaultNumberOfRows) {
       this.defaultNumberOfRows = defaultNumberOfRows;
     }
 
@@ -333,19 +333,19 @@ public final class SchemaPojo {
   private Globals    globals;
   private Set<Table> tables = null;
 
-  public final Globals getGlobals() {
+  public Globals getGlobals() {
     return globals;
   }
 
-  public final Set<Table> getTables() {
+  public Set<Table> getTables() {
     return tables;
   }
 
-  public final void setGlobals(Globals globals) {
+  public void setGlobals(Globals globals) {
     this.globals = globals;
   }
 
-  public final void setTables(Set<Table> tables) {
+  public void setTables(Set<Table> tables) {
     this.tables = tables;
   }
 }

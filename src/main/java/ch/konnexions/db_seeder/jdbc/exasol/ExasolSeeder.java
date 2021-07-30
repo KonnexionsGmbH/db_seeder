@@ -35,14 +35,14 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
   /**
    * Instantiates a new Exasol seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public ExasolSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public ExasolSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.EXASOL;
@@ -65,7 +65,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(String tableName) {
+  protected String createDdlStmnt(String tableName) {
     return AbstractGenExasolSchema.createTableStmnts.get(tableName);
   }
 
@@ -74,7 +74,7 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
-  protected final void setupDatabase() {
+  protected void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

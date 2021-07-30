@@ -59,20 +59,20 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
   /**
    * Instantiates a new SQL Server seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public SqlserverSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public SqlserverSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.SQLSERVER;
 
     if (isTrino) {
-      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbol,
+      urlTrino = AbstractJdbcSeeder.getUrlTrino(tickerSymbolIntern,
                                                 config.getConnectionHostTrino(),
                                                 config.getConnectionPortTrino(),
                                                 "kxn_schema");
@@ -104,7 +104,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(String tableName) {
+  protected String createDdlStmnt(String tableName) {
     return AbstractGenSqlserverSchema.createTableStmnts.get(tableName);
   }
 
@@ -113,7 +113,7 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
-  protected final void setupDatabase() {
+  protected void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

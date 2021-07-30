@@ -23,25 +23,25 @@ class Constraint {
 
   private final String                tableName;
 
-  private final String                tickerSymbol;
+  private final String                tickerSymbolIntern;
 
   /**
    * Instantiates a new constraint.
    *
-   * @param tickerSymbol the ticker symbol
+   * @param tickerSymbolIntern the internal DBMS ticker symbol
    * @param schemaName the schema name
    * @param tableName the table name
    * @param constraintType the constraint type
    * @param refTableName the ref table name
    */
-  public Constraint(String tickerSymbol, String schemaName, String tableName, String constraintType, String refTableName) {
+  public Constraint(String tickerSymbolIntern, String schemaName, String tableName, String constraintType, String refTableName) {
     super();
-    this.tickerSymbol   = tickerSymbol;
-    this.schemaName     = schemaName;
-    this.tableName      = tableName;
-    this.constraintName = null;
-    this.constraintType = constraintType;
-    this.refTableName   = refTableName;
+    this.tickerSymbolIntern = tickerSymbolIntern;
+    this.schemaName         = schemaName;
+    this.tableName          = tableName;
+    this.constraintName     = null;
+    this.constraintType     = constraintType;
+    this.refTableName       = refTableName;
   }
 
   /**
@@ -54,7 +54,7 @@ class Constraint {
 
     String restoreStatement  = "ALTER TABLE " + quoteTableName(tableName) + " ADD CONSTRAINT ";
 
-    switch (tickerSymbol) {
+    switch (tickerSymbolIntern) {
     case "informix":
     case "mariadb":
     case "mysql":
@@ -78,15 +78,15 @@ class Constraint {
                                                                                              refColumnNames) + ")";
     }
 
-    switch (tickerSymbol) {
-    case "cockroach":
+    switch (tickerSymbolIntern) {
+    case "oracle":
+      restoreStatement += " ENABLE";
+      break;
     case "postgresql":
+    case "timescale":
       if ("R".equals(constraintType)) {
         restoreStatement += ", VALIDATE CONSTRAINT " + addConstraintName;
       }
-      break;
-    case "oracle":
-      restoreStatement += " ENABLE";
       break;
     default:
     }
@@ -116,12 +116,14 @@ class Constraint {
   public String getDropConstraintStatement() {
     String dropStatement;
 
-    switch (tickerSymbol) {
-    case "cockroach":
-      if ("U".equals(constraintType)) {
-        return "DROP INDEX " + quoteConstraintName() + " CASCADE";
-      }
-      return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
+    switch (tickerSymbolIntern) {
+    case "derby":
+      dropStatement = "ALTER TABLE " + quoteTableName(tableName) + " DROP ";
+      return switch (constraintType) {
+      case "R" -> dropStatement + "FOREIGN KEY " + quoteConstraintName();
+      case "P" -> dropStatement + "PRIMARY KEY";
+      default -> dropStatement + "UNIQUE " + quoteConstraintName();
+      };
     case "ibmdb2":
       dropStatement = "ALTER TABLE " + schemaName + "." + quoteTableName(tableName) + " DROP ";
       return switch (constraintType) {
@@ -153,17 +155,15 @@ class Constraint {
   }
 
   private String quoteConstraintName() {
-    return switch (tickerSymbol) {
-    case "cockroach", "derby", "derby_emb" -> "\"" + constraintName + "\"";
-    default -> constraintName;
-    };
+    return "derby".equals(tickerSymbolIntern)
+        ? "\"" + constraintName + "\""
+        : constraintName;
   }
 
   private String quoteTableName(String tableName) {
-    if ("cubrid".equals(tickerSymbol)) {
-      return "\"" + tableName + "\"";
-    }
-    return tableName;
+    return "cubrid".equals(tickerSymbolIntern)
+        ? "\"" + tableName + "\""
+        : tableName;
   }
 
   /**

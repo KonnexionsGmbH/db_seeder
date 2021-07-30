@@ -63,14 +63,14 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
   /**
    * Instantiates a new Apache Derby seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public DerbySeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public DerbySeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.DERBY;
@@ -108,7 +108,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(String tableName) {
+  protected String createDdlStmnt(String tableName) {
     return AbstractGenDerbySchema.createTableStmnts.get(tableName);
   }
 
@@ -117,7 +117,7 @@ public final class DerbySeeder extends AbstractGenDerbySchema {
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
-  protected final void setupDatabase() {
+  protected void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

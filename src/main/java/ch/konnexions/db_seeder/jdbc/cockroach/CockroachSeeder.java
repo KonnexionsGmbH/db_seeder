@@ -37,14 +37,14 @@ public final class CockroachSeeder extends AbstractGenCockroachSchema {
   /**
    * Instantiates a new CockroachDB seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public CockroachSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public CockroachSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.POSTGRESQL;
@@ -75,12 +75,12 @@ public final class CockroachSeeder extends AbstractGenCockroachSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(String tableName) {
+  protected String createDdlStmnt(String tableName) {
     return AbstractGenCockroachSchema.createTableStmnts.get(tableName);
   }
 
   @Override
-  protected final void setupDatabase() {
+  protected void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

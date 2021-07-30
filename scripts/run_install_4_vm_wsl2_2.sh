@@ -64,7 +64,7 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
     if [ "$(getent group docker)" = "" ]; then
         sudo groupadd docker
     fi
-    sudo usermod -aG docker ${USER}
+    sudo usermod -aG docker "${USER}"
     echo "================================================================================"
     echo "Current Docker Desktop version is: $(sudo docker version)"
     echo "================================================================================"
@@ -77,8 +77,8 @@ sudo apt-get install -qy libcurl4 \
                          libcurl4-openssl-dev
 asdf plugin add java
 # asdf list all java
-asdf install java ${VERSION_JAVA}
-asdf global java ${VERSION_JAVA}
+asdf install java "${VERSION_JAVA}"
+asdf global java "${VERSION_JAVA}"
 echo "================================================================================"
 ls -ll ~/.asdf/installs/java
 echo "================================================================================"
@@ -88,13 +88,13 @@ echo "==========================================================================
 echo "--------------------------------------------------------------------------------"
 echo "Step: Install Eclipse - Version /${VERSION_ECLIPSE_1}./${VERSION_ECLIPSE_2}"
 echo "--------------------------------------------------------------------------------"
-wget --quiet https://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/${VERSION_ECLIPSE_1}/${VERSION_ECLIPSE_2}/eclipse-java-${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}-linux-gtk-x86_64.tar.gz
-sudo tar -xf eclipse-java-${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}-linux-gtk-x86_64.tar.gz
-sudo rm -rf ${HOME_ECLIPSE}
-sudo cp -r eclipse ${HOME_ECLIPSE}
+wget --quiet https://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/"${VERSION_ECLIPSE_1}"/"${VERSION_ECLIPSE_2}"/eclipse-java-"${VERSION_ECLIPSE_1}"-"${VERSION_ECLIPSE_2}"-linux-gtk-x86_64.tar.gz
+sudo tar -xf eclipse-java-"${VERSION_ECLIPSE_1}"-"${VERSION_ECLIPSE_2}"-linux-gtk-x86_64.tar.gz
+sudo rm -rf "${HOME_ECLIPSE}"
+sudo cp -r eclipse "${HOME_ECLIPSE}"
 sudo rm -rf eclipse
 echo "================================================================================"
-echo "Current Eclipse version is: $(echo '${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}')"
+echo "Current Eclipse version is: ${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}"
 echo "================================================================================"
 
 echo "--------------------------------------------------------------------------------"
@@ -102,8 +102,8 @@ echo "Step: Install Gradle - Version ${VERSION_GRADLE}"
 echo "--------------------------------------------------------------------------------"
 asdf plugin add gradle
 # asdf list all gradle
-asdf install gradle ${VERSION_GRADLE}
-asdf global gradle ${VERSION_GRADLE}
+asdf install gradle "${VERSION_GRADLE}"
+asdf global gradle "${VERSION_GRADLE}"
 echo "================================================================================"
 ls -ll ~/.asdf/installs/gradle
 echo "================================================================================"
@@ -115,8 +115,8 @@ echo "Step: Install Vim - Version ${VERSION_VIM}"
 echo "--------------------------------------------------------------------------------"
 asdf plugin add vim
 # asdf list all vim
-asdf install vim ${VERSION_VIM}
-asdf global vim ${VERSION_VIM}
+asdf install vim "${VERSION_VIM}"
+asdf global vim "${VERSION_VIM}"
 echo "================================================================================"
 ls -ll ~/.asdf/installs/vim
 echo "================================================================================"
@@ -144,21 +144,21 @@ echo "==========================================================================
 ls -ll /
 echo "================================================================================"
 
-cd ${PWD_PREVIOUS}
+cd "${PWD_PREVIOUS}"
 
 echo "=====================================================================> Current Date: "
 date
 # Show Environment Variables ---------------------------------------------------
 echo "=====================================================================> Environment variable GRADLE_HOME: "
-echo ${GRADLE_HOME}
+echo "${GRADLE_HOME}"
 echo "=====================================================================> Environment variable LANG: "
-echo ${LANG}
+echo "${LANG}"
 echo "=====================================================================> Environment variable LANGUAGE: "
-echo ${LANGUAGE}
+echo "${LANGUAGE}"
 echo "=====================================================================> Environment variable LC_ALL: "
-echo ${LC_ALL}
+echo "${LC_ALL}"
 echo "=====================================================================> Environment variable PATH: "
-echo ${PATH}
+echo "${PATH}"
 # Show component versions ------------------------------------------------------
 echo "=====================================================================> Components"
 echo "=====================================================================> Version  asdf: "

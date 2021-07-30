@@ -113,7 +113,7 @@ echo "--------------------------------------------------------------------------
 
 rm -f ${DB_SEEDER_DIRECTORY_CATALOG_PROPERTY}/db_seeder_*.properties
 
-if ! (java -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.TrinoEnvironment ${DB_SEEDER_DBMS}); then
+if ! (java -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.TrinoEnvironment "${DB_SEEDER_DBMS}"); then
     exit 255
 fi    
 

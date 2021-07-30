@@ -38,14 +38,14 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
   /**
    * Instantiates a new Mimer SQL seeder object.
    *
-   * @param tickerSymbol the DBMS ticker symbol
+   * @param tickerSymbolExtern the DBMS ticker symbol
    * @param dbmsOption         client, embedded or trino
    */
-  public MimerSeeder(String tickerSymbol, String dbmsOption) {
-    super(tickerSymbol, dbmsOption);
+  public MimerSeeder(String tickerSymbolExtern, String dbmsOption) {
+    super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbol=" + tickerSymbol + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     dbmsEnum = DbmsEnum.MIMER;
@@ -78,7 +78,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
    * @return the 'CREATE TABLE' statement
    */
   @Override
-  protected final String createDdlStmnt(String tableName) {
+  protected String createDdlStmnt(String tableName) {
     return AbstractGenMimerSchema.createTableStmnts.get(tableName);
   }
 
@@ -87,7 +87,7 @@ public final class MimerSeeder extends AbstractGenMimerSchema {
    * schema or valTableNames)and initialise the database for a new run.
    */
   @Override
-  protected final void setupDatabase() {
+  protected void setupDatabase() {
     if (isDebug) {
       logger.debug("Start");
     }

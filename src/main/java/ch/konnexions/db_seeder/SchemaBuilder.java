@@ -15,7 +15,7 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2020-07-15
  */
-public final class SchemaBuilder {
+public final class SchemaBuilder { // NO_UCD (unused code)
 
   private static final Logger logger = LogManager.getLogger(SchemaBuilder.class);
 
@@ -62,5 +62,5 @@ public final class SchemaBuilder {
     System.exit(0);
   }
 
-  protected final boolean isDebug = logger.isDebugEnabled();
+  final boolean isDebug = logger.isDebugEnabled();
 }

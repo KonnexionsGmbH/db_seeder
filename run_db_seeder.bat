@@ -17,7 +17,7 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=2.9.2
+set DB_SEEDER_RELEASE=3.0.0
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
 set DB_SEEDER_VERSION_TRINO=359
 
@@ -56,6 +56,7 @@ if ["%1"] EQU [""] (
     echo sqlserver          - SQL Server
     echo sqlserver_trino    - SQL Server via trino
     echo sqlite             - SQLite [embedded]
+    echo timescale          - TimescaleDB
     echo voltdb             - VoltDB
     echo yugabyte           - YugabyteDB
     echo ---------------------------------------------------------
@@ -76,12 +77,6 @@ if ["%2"] EQU [""] (
     )
 ) else (
     set DB_SEEDER_SETUP_DBMS=%2
-)
-
-if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
-    if ["%DB_SEEDER_SETUP_DBMS%"] NEQ ["yes"] (
-        set DB_SEEDER_SETUP_DBMS=yes
-    )
 )
 
 if ["%3"] EQU [""] (
@@ -173,6 +168,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.5.1
     set DB_SEEDER_VERSION=4.5.3
     set DB_SEEDER_VERSION=4.5.4
+    set DB_SEEDER_VERSION=4.6.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -298,7 +294,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.4.0
     set DB_SEEDER_VERSION=11.5.5.0
     set DB_SEEDER_VERSION=11.5.5.1
-    set DB_SEEDER_VERSION=11.5.5.1
+rem set DB_SEEDER_VERSION=11.5.6.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
@@ -545,6 +541,20 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_VERSION=2019-latest
 )
 
+if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
+    set DB_SEEDER_CONNECTION_PORT=5432
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    set DB_SEEDER_CONTAINER_PORT=5432
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=kxn_db_sys
+    set DB_SEEDER_PASSWORD=timescale
+    set DB_SEEDER_PASSWORD_SYS=postgresql
+    set DB_SEEDER_SCHEMA=kxn_schema
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=kxn_user_sys
+    set DB_SEEDER_VERSION=2.3.1-pg13
+)
+
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
     set DB_SEEDER_CONNECTION_PORT=21212
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:voltdb://"
@@ -578,6 +588,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.7.0.0-b17
     set DB_SEEDER_VERSION=2.7.1.0-b131
     set DB_SEEDER_VERSION=2.7.1.1-b1
+    set DB_SEEDER_VERSION=2.7.2.0-b216
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (

@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/2.9.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.0.svg)
 ----
 
 ### Table of Contents
@@ -65,7 +65,7 @@ The database systems considered meet the following conditions:
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.5.4              | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.7               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
@@ -83,12 +83,13 @@ The database systems considered meet the following conditions:
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.36.0.1            |
+| TimescaleDB                     | timescale          | 2.3.1-pg13                 | see PostgreSQL      |
 | trino                           | mysql_trino,       | 339 - 359                  | 359                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
 | VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.1.1-b1   | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.2.0-b216 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -157,8 +158,8 @@ The following database systems are included in the current version of **`DBSeede
   - **[see technical details here](#details_informix)**
 - [MariaDB Server](https://mariadb.com) 
   - client only version
-  - derived from MySQL
   - open source
+  - derived from MySQL
   - relational model
   - **[see technical details here](#details_mariadb)**
 - [Mimer SQL](https://www.mimer.com) 
@@ -209,6 +210,12 @@ The following database systems are included in the current version of **`DBSeede
   - embedded only version
   - relational model
   - **[see technical details here](#details_sqlite)**
+- [TimescaleDB](https://www.timescale.com)
+  - client only version
+  - commercial, open source
+  - derived from PostgreSQL
+  - relational model
+  - **[see technical details here](#details_timescale)**
 - [trino](https://trino.io)
   - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
@@ -238,7 +245,7 @@ Details can be found here: [6. trino](#trino).
 
 ### <a name="performance_example"></a> 1.3 Performance Example
 
-An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 2.9.2 Windows 10):   
+An interesting side effect of working with **`DBSeeder`** is the ability to compare the performance of the data generation (`INSERT`) between the individual RDBMSs (e.g. Version 3.0.0 Windows 10):   
 
 ![](.README_images/Company_9.9.9_win10.png)
 
@@ -422,7 +429,7 @@ With the script `run_db_seeder` the complete functionality of the **`DBSeeder`**
 All scripts are available in a Windows version (`cmd` / `.bat`) as well as in a Unix version (`bash` / `.sh`). 
 To run the scripts, apart from the prerequisites as release notes (`ReleaseNotes.md`), 
 only the libraries in the `lib` directory and the corresponding script of `run_db_seeder` are required. 
-The creation of the databases also requires a working access to [Docker Hub](https://hub.docker.com/).
+The creation of the databases also requires a working access to [Docker Hub](https://hub.docker.com).
  
 All control parameters used in **`DBSeeder`** (see section 4.3) can be adapted in the scripts to specific needs.
 
@@ -552,7 +559,7 @@ db_seeder.user=
 | connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                             | service name of the database connection string |
 | connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                           | suffix of the database connection string |
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
-|                                           |                                   | postgresql, sqlserver, yugabyte                                                    |     |
+|                                           |                                   | postgresql, sqlserver, timescale, yugabyte                                         |     |
 | database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                          | database name |
 | drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | oracle                                                                             | drop all contraints before the DML operations and recreate them afterwards |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the **`DBSeeder`** configuration file |
@@ -563,9 +570,10 @@ db_seeder.user=
 | file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_statistics` |
 | file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
-|                                           |                                   | oracle, percona, postgresql, sqlserver                                             |   |
+|                                           |                                   | oracle, percona, postgresql, sqlserver, timescale                                  |   |
 | password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                                | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver, yugabyte | schema name |
+| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver,          | schema name |
+|                                           |                                   | timescale, yugabyte                                                                |     |
 | user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                     | name of the privileged user |
 | user=kxn_user                             | USER                              | all RDBMS except derby, ibmdb2, informix                                           | name of the normal user |
 |                                           |                                   |                                                                                    |     |
@@ -612,6 +620,7 @@ Below are also DBeaver based connection parameter examples for each database man
 **[PostgreSQL](#details_postgresql)** / 
 **[SQL Server](#details_sqlserver)** /
 **[SQLite](#details_sqlite)** /
+**[TimescaleDB](#details_timescale)** /
 **[trino](#details_trino)** /
 **[VoltDB](#details_voltdb)** /
 **[YugabyteDB](#details_yugabyte)**
@@ -1148,7 +1157,7 @@ Below are also DBeaver based connection parameter examples for each database man
   
 - **JDBC driver (latest)**: 
   - version 3.41a
-  - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se/)
+  - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se)
 
 - **privileged database access**:
   - database; `mimerdb`
@@ -1188,7 +1197,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **JDBC driver (latest)**:
   - version 3.1.jre8
-  - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java/)
+  - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java)
 
 - **privileged database access**:
   - database: `demo`
@@ -1485,7 +1494,40 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_trino"></a> 5.22 trino
+### <a name="details_timescale"></a> 5.22 TimescaleDB
+
+- **data types**:
+
+| **`DBSeeder`** Type | AgensGraph Database Type |
+| ---            | ---                      |
+| BIGINT         | BIGINT                   |
+| BLOB           | BYTEA                    |
+| CLOB           | TEXT                     |
+| TIMESTAMP      | TIMESTAMP                |
+| VARCHAR        | VARCHAR                  |
+
+- **DDL syntax**:
+  - CREATE DATABASE: see PostgreSQL
+  - CREATE SCHEMA: see PostgreSQL
+  - CREATE TABLE: see PostgreSQL
+  - CREATE USER: see PostgreSQL
+
+- **Docker image (latest)**:
+  - pull command: `docker pull timescale/timescaledb:2.3.1-pg13`
+  - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
+
+- **encoding**: see PostgreSQL
+
+- **issue tracking**: [GitHub](https://github.com/timescale/timescaledb/issues)
+
+- **JDBC driver (latest)**:
+  - same as PostgreSQL
+
+- **source code**: [GitHub](https://github.com/timescale/timescaledb)
+
+[//]: # (===========================================================================================)
+
+### <a name="details_trino"></a> 5.23 trino
 
 - **data types**:
 
@@ -1517,9 +1559,13 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
 
+- **DBeaver database connection settings**:
+
+![](.README_images/DBeaver_TimescaleDB.png)
+
 [//]: # (===========================================================================================)
 
-### <a name="details_voltdb"></a> 5.23 VoltDB
+### <a name="details_voltdb"></a> 5.24 VoltDB
 
 - **data types**:
 
@@ -1551,7 +1597,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 [//]: # (===========================================================================================)
 
-### <a name="details_yugabyte"></a> 5.24 YugabyteDB
+### <a name="details_yugabyte"></a> 5.25 YugabyteDB
 
 - **data types**:
 
@@ -1564,14 +1610,14 @@ Below are also DBeaver based connection parameter examples for each database man
 | VARCHAR        | VARCHAR                  |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database/) 
-  - [CREATE SCHEMA](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_schema/)
-  - [CREATE TABLE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_table/) 
-  - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user/) 
+  - [CREATE DATABASE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database) 
+  - [CREATE SCHEMA](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_schema)
+  - [CREATE TABLE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_table) 
+  - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.7.1.1-b1`
-  - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte/)
+  - pull command: `docker pull yugabytedb/yugabyte:2.7.2.0-b216`
+  - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL
   
@@ -1589,7 +1635,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 ## <a name="trino"></a> 6. trino
 
-[trino](https://trino.io/) can integrate the following DBMS, among others:
+[trino](https://trino.io) can integrate the following DBMS, among others:
 
 - MySQL via the [MySQL Connector](https://trinodb.io/docs/current/connector/mysql.html),
 - Oracle via the [Oracle Connector](https://trinodb.io/docs/current/connector/oracle.html), and
