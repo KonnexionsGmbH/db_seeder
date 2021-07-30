@@ -39,9 +39,9 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo Constraints included.
     echo --------------------------------------------------------------------------------
     set DB_SEEDER_DROP_CONSTRAINTS=no
-    set DB_SEEDER_FILE_STATISTICS_NAME=resources/staistics/db_seeder_cmd_complete_company_9.9.9_win10.tsv
+    set DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_cmd_complete_company_9.9.9_win10.tsv
 
-    del /f /q resources\staistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
+    del /f /q resources\statistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
     
     call run_db_seeder agens            yes 1
     call run_db_seeder cockroach        yes 1

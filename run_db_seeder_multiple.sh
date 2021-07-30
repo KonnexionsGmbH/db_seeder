@@ -29,9 +29,9 @@ echo "--------------------------------------------------------------------------
 echo "Constraints included."
 echo "--------------------------------------------------------------------------------"
 export DB_SEEDER_DROP_CONSTRAINTS=no
-export DB_SEEDER_FILE_STATISTICS_NAME=resources/staistics/db_seeder_cmd_complete_company_9.9.9_wsl2.tsv
+export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_cmd_complete_company_9.9.9_wsl2.tsv
 
-rm -rf resources/staistics/db_seeder_cmd_complete_company_9.9.9_wsl2.tsv
+rm -rf resources/statistics/db_seeder_cmd_complete_company_9.9.9_wsl2.tsv
 
 ./run_db_seeder.sh agens            yes 1
 ./run_db_seeder.sh cockroach        yes 1
