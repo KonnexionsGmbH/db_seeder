@@ -970,20 +970,20 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         while (resultSet.next()) {
           if (isDebug) {
             logger.debug("getImportedKeys(" + catalog + "," + schema + "," + table + ")");
-            logger.debug("PKTABLE_CAT  =" + resultSet.getString("PKTABLE_CAT"));
-            logger.debug("PKTABLE_SCHEM=" + resultSet.getString("PKTABLE_SCHEM"));
-            logger.debug("PKTABLE_NAME =" + resultSet.getString("PKTABLE_NAME"));
-            logger.debug("PKCOLUMN_NAME=" + resultSet.getString("PKCOLUMN_NAME"));
-            logger.debug("FKTABLE_CAT  =" + resultSet.getString("FKTABLE_CAT"));
-            logger.debug("FKTABLE_SCHEM=" + resultSet.getString("FKTABLE_SCHEM"));
-            logger.debug("FKTABLE_NAME =" + resultSet.getString("FKTABLE_NAME"));
-            logger.debug("FKCOLUMN_NAME=" + resultSet.getString("FKCOLUMN_NAME"));
-            logger.debug("KEY_SEQ      =" + resultSet.getInt("KEY_SEQ"));
-            logger.debug("UPDATE_RULE  =" + resultSet.getInt("UPDATE_RULE"));
-            logger.debug("DELETE_RULE  =" + resultSet.getInt("DELETE_RULE"));
-            logger.debug("FK_NAME      =" + resultSet.getString("FK_NAME"));
-            logger.debug("PK_NAME      =" + resultSet.getString("PK_NAME"));
-            logger.debug("DEFERRABILITY=" + resultSet.getInt("DEFERRABILITY"));
+            logger.debug("PKTABLE_CAT     =" + resultSet.getString("PKTABLE_CAT"));
+            logger.debug("PKTABLE_SCHEM   =" + resultSet.getString("PKTABLE_SCHEM"));
+            logger.debug("PKTABLE_NAME    =" + resultSet.getString("PKTABLE_NAME"));
+            logger.debug("PKCOLUMN_NAME   =" + resultSet.getString("PKCOLUMN_NAME"));
+            logger.debug("FKTABLE_CAT     =" + resultSet.getString("FKTABLE_CAT"));
+            logger.debug("FKTABLE_SCHEM   =" + resultSet.getString("FKTABLE_SCHEM"));
+            logger.debug("FKTABLE_NAME    =" + resultSet.getString("FKTABLE_NAME"));
+            logger.debug("FKCOLUMN_NAME   =" + resultSet.getString("FKCOLUMN_NAME"));
+            logger.debug("KEY_SEQ         =" + resultSet.getInt("KEY_SEQ"));
+            logger.debug("UPDATE_RULE     =" + resultSet.getInt("UPDATE_RULE"));
+            logger.debug("DELETE_RULE     =" + resultSet.getInt("DELETE_RULE"));
+            logger.debug("FK_NAME         =" + resultSet.getString("FK_NAME"));
+            logger.debug("PK_NAME         =" + resultSet.getString("PK_NAME"));
+            logger.debug("DEFERRABILITY   =" + resultSet.getInt("DEFERRABILITY"));
           }
 
           constraintName = resultSet.getString("FK_NAME");
@@ -1055,12 +1055,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
         while (resultSet.next()) {
           if (isDebug) {
             logger.debug("getPrimaryKeys(" + catalog + "," + schema + "," + table + ")");
-            logger.debug("TABLE_CAT    =" + resultSet.getString("TABLE_CAT"));
-            logger.debug("TABLE_SCHEM  =" + resultSet.getString("TABLE_SCHEM"));
-            logger.debug("TABLE_NAME   =" + resultSet.getString("TABLE_NAME"));
-            logger.debug("COLUMN_NAME  =" + resultSet.getString("COLUMN_NAME"));
-            logger.debug("KEY_SEQ      =" + resultSet.getInt("KEY_SEQ"));
-            logger.debug("PK_NAME      =" + resultSet.getString("PK_NAME"));
+            logger.debug("TABLE_CAT       =" + resultSet.getString("TABLE_CAT"));
+            logger.debug("TABLE_SCHEM     =" + resultSet.getString("TABLE_SCHEM"));
+            logger.debug("TABLE_NAME      =" + resultSet.getString("TABLE_NAME"));
+            logger.debug("COLUMN_NAME     =" + resultSet.getString("COLUMN_NAME"));
+            logger.debug("KEY_SEQ         =" + resultSet.getInt("KEY_SEQ"));
+            logger.debug("PK_NAME         =" + resultSet.getString("PK_NAME"));
           }
 
           // First primary key column

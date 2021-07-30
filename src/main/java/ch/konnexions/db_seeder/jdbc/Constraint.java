@@ -117,6 +117,14 @@ class Constraint {
     String dropStatement;
 
     switch (tickerSymbolIntern) {
+    case "derby":
+    case "derby_emb":
+      dropStatement = "ALTER TABLE " + quoteTableName(tableName) + " DROP ";
+      return switch (constraintType) {
+      case "R" -> dropStatement + "FOREIGN KEY " + quoteConstraintName();
+      case "P" -> dropStatement + "PRIMARY KEY";
+      default -> dropStatement + "UNIQUE " + quoteConstraintName();
+      };
     case "ibmdb2":
       dropStatement = "ALTER TABLE " + schemaName + "." + quoteTableName(tableName) + " DROP ";
       return switch (constraintType) {
