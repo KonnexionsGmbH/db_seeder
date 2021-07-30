@@ -402,23 +402,21 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     setupDatabase();
 
-    if (!("derby".equals(tickerSymbolIntern) || "derby_emb".equals(tickerSymbolIntern))) {
-      // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
-      if ("yes".equals(dropConstraints)) {
-        LocalDateTime startDateTime = LocalDateTime.now();
+    // Drop the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+    if ("yes".equals(dropConstraints)) {
+      LocalDateTime startDateTime = LocalDateTime.now();
 
-        constraints = new LinkedHashMap<>();
+      constraints = new LinkedHashMap<>();
 
-        dropTableConstraints(connection);
+      dropTableConstraints(connection);
 
-        long duration = Duration.between(startDateTime,
-                                         LocalDateTime.now()).toMillis();
+      long duration = Duration.between(startDateTime,
+                                       LocalDateTime.now()).toMillis();
 
-        statistics.setDurationDDLConstraintsDrop(duration);
+      statistics.setDurationDDLConstraintsDrop(duration);
 
-        logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                  duration) + " ms - total DDL constraints (FK, PK, UK) dropped");
-      }
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                duration) + " ms - total DDL constraints (FK, PK, UK) dropped");
     }
 
     statistics.setStartDateTimeDML();
@@ -438,21 +436,19 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     statistics.setDurationDML();
 
-    if (!("derby".equals(tickerSymbolIntern) || "derby_emb".equals(tickerSymbolIntern))) {
-      // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
-      if ("yes".equals(dropConstraints)) {
-        LocalDateTime startDateTime = LocalDateTime.now();
+    // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
+    if ("yes".equals(dropConstraints)) {
+      LocalDateTime startDateTime = LocalDateTime.now();
 
-        restoreTableConstraints(connection);
+      restoreTableConstraints(connection);
 
-        long duration = Duration.between(startDateTime,
-                                         LocalDateTime.now()).toMillis();
+      long duration = Duration.between(startDateTime,
+                                       LocalDateTime.now()).toMillis();
 
-        statistics.setDurationDDLConstraintsAdd(duration);
+      statistics.setDurationDDLConstraintsAdd(duration);
 
-        logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
-                                  duration) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
-      }
+      logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                duration) + " ms - total DDL constraints (FK, PK, UK) restored and enabled");
     }
 
     disconnectDML(connection);
