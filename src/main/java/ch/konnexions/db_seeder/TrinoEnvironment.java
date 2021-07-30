@@ -5,12 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -475,15 +470,9 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                    "Program abort: parameter missing (null): DB_SEEDER_DIRECTORY_CATALOG_PROPERTY");
     }
 
-    List<String> tickerSymbolsExtern = Arrays.asList(args);
-    logger.info("tickerSymbolAnyCase='" + tickerSymbolsExtern + "'");
-
-    tickerSymbolsExtern.replaceAll(String::toLowerCase);
-    logger.info("tickerSymbolAnyCase=" + tickerSymbolsExtern);
-
-    Collections.sort(tickerSymbolsExtern);
-
-    for (String tickerSymbolExtern : tickerSymbolsExtern) {
+    for (String tickerSymbolAnyCase : args) {
+      logger.info("tickerSymbolAnyCase='" + tickerSymbolAnyCase + "'");
+      String tickerSymbolExtern = tickerSymbolAnyCase.toLowerCase();
       logger.info("tickerSymbolExtern=" + tickerSymbolExtern);
 
       String tickerSymbolIntern = AbstractDbmsSeeder.dbmsDetails.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_TICKER_SYMBOL_LOWER];
