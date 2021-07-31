@@ -51,7 +51,6 @@ Release Date: 01.08.2021
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
 - VoltDB: (see [here](#issues_voltdb))
-- YugabyteDB: (see [here](#issues_yugabyte))
 
 ----
 
@@ -116,7 +115,7 @@ Processing of the script was aborted, error code=1`
 
 ### <a name="issues_h2"></a> H2 Database Engine
 
-- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6` (see [here](https://github.com/h2database/h2database/issues/3161)):
+- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6` (see [here](https://github.com/h2database/h2database/issues/3163)):
 
 `CREATE TABLE KXN_SCHEMA.COUNTRY (
     PK_COUNTRY_ID BIGINT NOT NULL,
@@ -188,7 +187,7 @@ Processing of the script was aborted, error code=1`
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
-- Issue: Docker Image from `docker pull ibmcom/db2:11.5.6.0`:
+- Issue: Docker Image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)):
 
 `2021-07-29 13:09:33,884 [DatabaseSeeder.java] INFO  Start IBM Db2 Database
 com.ibm.db2.jcc.am.DisconnectNonTransientConnectionException: [jcc][t4][2030][11211][4.29.24] A communication error occurred during operations on the connection's underlying socket, socket input stream,
@@ -372,27 +371,6 @@ java.sql.SQLException: General Provider Error (GRACEFUL_FAILURE): '[Ad Hoc DDL I
     at org.voltdb.jdbc.JDBC4ClientConnection.execute(JDBC4ClientConnection.java:351)
     at org.voltdb.jdbc.JDBC4Statement$VoltSQL.execute(JDBC4Statement.java:122)
     ... 6 more
-Processing of the script was aborted, error code=1`
-
-### <a name="issues_yugabyte"></a> YugabyteDB
-
-- Dropping primary key constraints not yet supported (see [here](https://github.com/yugabyte/yugabyte-db/issues/8735)).
-
-`2021-07-26 05:20:41,803 [DatabaseSeeder.java] INFO  Start YugabyteDB
-org.postgresql.util.PSQLException: ERROR: dropping a primary key constraint is not yet supported
-    at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2434)
-    at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2179)
-    at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:307)
-    at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:441)
-    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:365)
-    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:307)
-    at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:293)
-    at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:270)
-    at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:266)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1319)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1216)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:417)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:274)
 Processing of the script was aborted, error code=1`
 
 ----------
