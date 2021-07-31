@@ -3,7 +3,44 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.1.svg)
+
+----
+
+## Version 3.0.0
+
+Release Date: 01.08.2021
+
+### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads/))
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases/))
+- Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
+
+### New Features
+
+- new control parameter `DB_SEEDER_BATCH_SIZE`: the maximum number of DML operations of type `addBatch` - `0` represents all DML operations
+- new control parameter `DB_SEEDER_DROP_CONSTRAINTS`: if the value is `yes`, all constraints of the types FOREIGN KEY, PRIMARY KEY and UNIQUE KEY are removed before the first DML operation and are enabled again after the last DML operation
+- TimescaleDB: DBMS 2.3.1-pg13 / JDBC PostgreSQL
+
+### Modified Features
+
+- CockroachDB: DBMS v21.1.6
+- CrateDB: DBMS 4.6.1
+- Exasol: DBMS 7.0.11
+- Firebird: DBMS v4.0.0
+- IBM Db2 Database: JDBC 11.5.6.0
+- MariaDB Server: DBMS 10.6.3
+- MonetDB: JDBC 3.1.jre8
+- MySQL Database: DBMS 8.0.26 / JDBC 8.0.26
+- Percona Server for MySQL: DBMS 8.0.25-15
+- PostgreSQL: JDBC 42.2.23
+- SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
+- trino: DBMS 359 / JDBC 359
+- YugabyteDB: DBMS 2.7.2.0-b216
 
 ----
 

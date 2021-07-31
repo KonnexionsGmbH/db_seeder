@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.1.svg)
 
 ----
 
-## Version 3.0.0
+## Version 3.0.1
 
-Release Date: 01.08.2021
+Release Date: dd.mm.2021
 
 ### System Requirements
 
@@ -22,25 +22,15 @@ Release Date: 01.08.2021
 
 ### New Features
 
-- new control parameter `DB_SEEDER_BATCH_SIZE`: the maximum number of DML operations of type `addBatch` - `0` represents all DML operations
-- new control parameter `DB_SEEDER_DROP_CONSTRAINTS`: if the value is `yes`, all constraints of the types FOREIGN KEY, PRIMARY KEY and UNIQUE KEY are removed before the first DML operation and are enabled again after the last DML operation
-- TimescaleDB: DBMS 2.3.1-pg13 / JDBC PostgreSQL
+- n/a
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.1.6
-- CrateDB: DBMS 4.6.1
-- Exasol: DBMS 7.0.11
-- Firebird: DBMS v4.0.0
-- IBM Db2 Database: JDBC 11.5.6.0
-- MariaDB Server: DBMS 10.6.3
-- MonetDB: JDBC 3.1.jre8
-- MySQL Database: DBMS 8.0.26 / JDBC 8.0.26
-- Percona Server for MySQL: DBMS 8.0.25-15
-- PostgreSQL: JDBC 42.2.23
-- SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
-- trino: DBMS 359 / JDBC 359
-- YugabyteDB: DBMS 2.7.2.0-b216
+- xxx: DBMS 999 / JDBC 999
+
+### Deleted Features
+
+- n/a
 
 ### Open issues
 
@@ -56,7 +46,7 @@ Release Date: 01.08.2021
 
 ## Windows 10 Performance Snapshot
 
-![](.README_images/Perf_Snap_3.0.0_win10.png)
+![](.README_images/Perf_Snap_3.0.1_win10.png)
 
 - **DBMS** - official DBMS name
 - **Type** - client version, embedded version or via trino
