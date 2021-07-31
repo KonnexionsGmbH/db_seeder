@@ -70,20 +70,20 @@ Release Date: 01.08.2021
 
 ### <a name="issues_derby"></a> Apache Derby
 
-- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY_STATE DROP UNIQUE "SQL0000000166-6f554487-017a-f4fd-c9dc-00000016e126"` 0(see [here](https://issues.apache.org/jira/browse/DERBY-7121?orderby=created+DESC%2C+priority+DESC%2C+updated+DESC)):
+- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY_STATE DROP UNIQUE "SQL0000000166-6f554487-017a-f4fd-c9dc-00000016e126"` (see [here](https://issues.apache.org/jira/browse/DERBY-7121?orderby=created+DESC%2C+priority+DESC%2C+updated+DESC)).
 
 ### <a name="issues_h2"></a> H2 Database Engine
 
-- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6` (see [here](https://github.com/h2database/h2database/issues/3163)):
+- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6` (see [here](https://github.com/h2database/h2database/issues/3163)).
 
 
 ### <a name="issues_hsqldb"></a> HSQLDB
 
-- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT SYS_IDX_SYS_PK_10289_10293` (see [here](https://sourceforge.net/p/hsqldb/bugs/1637/)):
+- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT SYS_IDX_SYS_PK_10289_10293` (see [here](https://sourceforge.net/p/hsqldb/bugs/1637/)).
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
-- Issue: Docker Image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)):
+- Issue: Docker Image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)).
 
 ### <a name="issues_omnisci"></a> OmniSciDB
 
@@ -101,7 +101,7 @@ Release Date: 01.08.2021
 
 - Issue: Java 16 not yet supported: `java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null`
 
-- Issue:  dropping primary key constraints (see [here](https://voltdb-public.slack.com/archives/C04UPPHUL/p1627566165007800)):
+- Issue:  dropping primary key constraints (see [here](https://voltdb-public.slack.com/archives/C04UPPHUL/p1627566165007800)).
 
 ----------
 
