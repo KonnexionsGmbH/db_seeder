@@ -85,7 +85,6 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh postgresql       yes 1
 ./run_db_seeder.sh sqlserver        yes 1
 ./run_db_seeder.sh timescale        yes 1
-./run_db_seeder.sh voltdb           yes 1
 
 #./run_db_seeder.sh agens            yes 1
 #./run_db_seeder.sh cockroach        no  1
@@ -116,7 +115,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh sqlserver        yes 1
 #./run_db_seeder.sh sqlserver_trino  no  1
 #./run_db_seeder.sh timescale        yes 1
-#./run_db_seeder.sh voltdb           yes 1
+#./run_db_seeder.sh voltdb           no  1
 #./run_db_seeder.sh yugabyte         no  1
 
 echo "--------------------------------------------------------------------------------"
