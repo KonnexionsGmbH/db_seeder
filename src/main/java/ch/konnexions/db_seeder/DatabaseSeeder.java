@@ -75,13 +75,14 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
 
       if ("yes".equals(config.getDropConstraints())) {
         switch (tickerSymbolExtern) {
+// wwe          
         case "cockroach":
         case "cratedb":
         case "derby":
         case "derby_emb":
         case "h2":
         case "h2_emb":
-        case "hsqldb":
+//      case "hsqldb":
         case "hsqldb_emb":
         case "mysql_trino":
         case "omnisci":
