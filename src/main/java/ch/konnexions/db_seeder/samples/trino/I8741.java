@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
  * @author walter@konnexions.ch
  * @since 2020-10-22
  */
-public final class I5648 {
+public final class I8741 {
 
   private static Connection   connection;
   private static final String connectionHost      = "localhost";
@@ -25,7 +25,7 @@ public final class I5648 {
   private static final String driverOriginal      = "oracle.jdbc.driver.OracleDriver";
   private static final String driverTrino         = "io.trino.jdbc.TrinoDriver";
 
-  private static final Logger logger              = LogManager.getLogger(I5648.class);
+  private static final Logger logger              = LogManager.getLogger(I8741.class);
 
   private static final String password            = "oracle";
 
@@ -186,7 +186,6 @@ public final class I5648 {
     resetDatabase();
     setupDatabase();
     demonstrateTrino();
-    resetDatabase();
 
     logger.info("End   main() ==================================================");
   }
