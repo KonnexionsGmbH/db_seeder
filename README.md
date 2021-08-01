@@ -66,8 +66,8 @@ The database systems considered meet the following conditions:
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.1              | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0286         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.7               |
+| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0291         |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.11              |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
@@ -84,7 +84,7 @@ The database systems considered meet the following conditions:
 | SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.32.3            | 3.36.0.1            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13                 | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 359                  | 359                 |
+| trino                           | mysql_trino,       | 339 - 360                  | 360                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
@@ -811,7 +811,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [Jira](http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&orderby=created+DESC)
 
 - **JDBC driver (latest)**:
-  - version 11.0.1.0286
+  - version 11.0.1.0291
   - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
   
 - **privileged database access**: users `DBA` and `PUBLIC`
@@ -848,7 +848,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 7.0.7
+  - version 7.0.11
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
@@ -1538,7 +1538,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:359`
+  - pull command: `docker pull trinodb/trino:360`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1546,7 +1546,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 359
+  - version 360
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)

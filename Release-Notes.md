@@ -26,6 +26,9 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
+- CUBRID: JDBC 11.0.1.0291
+- Exasol: JDBC 7.0.11
+- trino: DBMS 360 / JDBC 360
 - xxx: DBMS 999 / JDBC 999
 
 ### Deleted Features
