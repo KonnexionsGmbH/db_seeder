@@ -1585,6 +1585,8 @@ Below are also DBeaver based connection parameter examples for each database man
   - version 10.1.1
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
+- **restrictions**: no support of autoincrement, check constraints or foreign keys
+
 - **source code**: [GitHub](https://github.com/VoltDB/voltdb)
 
 [//]: # (===========================================================================================)

@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 
 // TODO: Auto-generated Javadoc
 /**
+/**
  * Data Generator for a Database - Managing constraints.
  * <br>
  *
@@ -52,7 +53,11 @@ class Constraint {
   public String getAddConstraintStatement() {
     String addConstraintName = quoteConstraintName();
 
-    String restoreStatement  = "ALTER TABLE " + quoteTableName(tableName) + " ADD CONSTRAINT ";
+    if (("cockroach".equals(tickerSymbolIntern) || "yugabyte".equals(tickerSymbolIntern)) && "P".equals(constraintType)) {
+      return "NONE";
+    }
+
+    String restoreStatement = "ALTER TABLE " + quoteTableName(tableName) + " ADD CONSTRAINT ";
 
     switch (tickerSymbolIntern) {
     case "informix":
@@ -117,6 +122,12 @@ class Constraint {
     String dropStatement;
 
     switch (tickerSymbolIntern) {
+    case "cockroach":
+      return switch (constraintType) {
+      case "P" -> "NONE";
+      case "R" -> "ALTER TABLE " + quoteTableName(tableName) + " DROP " + "CONSTRAINT " + quoteConstraintName();
+      default -> "DROP INDEX " + quoteConstraintName() + " CASCADE";
+      };
     case "derby":
       dropStatement = "ALTER TABLE " + quoteTableName(tableName) + " DROP ";
       return switch (constraintType) {
@@ -140,6 +151,11 @@ class Constraint {
       case "P" -> dropStatement + "PRIMARY KEY";
       default -> dropStatement + "INDEX " + quoteConstraintName();
       };
+    case "yugabyte":
+      return switch (constraintType) {
+      case "P" -> "NONE";
+      default -> "ALTER TABLE " + quoteTableName(tableName) + " DROP " + "CONSTRAINT " + quoteConstraintName();
+      };
     default:
       return "ALTER TABLE " + quoteTableName(tableName) + " DROP CONSTRAINT " + quoteConstraintName();
     }
@@ -155,7 +171,7 @@ class Constraint {
   }
 
   private String quoteConstraintName() {
-    return "derby".equals(tickerSymbolIntern)
+    return "derby".equals(tickerSymbolIntern) || "sqlite".equals(tickerSymbolIntern)
         ? "\"" + constraintName + "\""
         : constraintName;
   }

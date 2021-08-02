@@ -199,13 +199,13 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       if (!"informix".equals(tickerSymbolIntern)) {
         workArea.append(String.format("%-31s",
-                                      "CONSTRAINT CONSTRAINT_KXN_" + ++constraintNumber));
+                                      "CONSTRAINT KXN_" + ++constraintNumber));
       }
 
       switch (constraintType) {
-      case "FOREIGN" -> workArea.append("FOREIGN KEY (").append(identifierDelimiter);
-      case "PRIMARY" -> workArea.append("PRIMARY KEY (").append(identifierDelimiter);
-      case "UNIQUE" -> workArea.append("UNIQUE      (").append(identifierDelimiter);
+      case "FOREIGN" -> workArea.append("  FOREIGN KEY (").append(identifierDelimiter);
+      case "PRIMARY" -> workArea.append("  PRIMARY KEY (").append(identifierDelimiter);
+      case "UNIQUE" -> workArea.append("  UNIQUE      (").append(identifierDelimiter);
       default -> MessageHandling.abortProgram(logger,
                                               "Program abort: database table: '" + tableName + "' - Unknown constraint type '" + constraintType + "'");
       }
@@ -242,6 +242,21 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     }
 
     return editedConstraints;
+  }
+
+  private void editTableConstraintsUnique(String tickerSymbolIntern,
+                                          String identifierDelimiter,
+                                          String tableName,
+                                          ArrayList<Column> columns,
+                                          ArrayList<String> editedConstraints) {
+    for (Column column : columns) {
+
+      if (column.isUnique()) {
+        editedConstraints.add(" ".repeat(23) + String.format("%-31s",
+                                                             "CONSTRAINT KXN_" + ++constraintNumber) + "  UNIQUE      (" + column.getColumnName() + ")");
+      }
+
+    }
   }
 
   /**
@@ -490,6 +505,14 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                                                       tableName,
                                                       genTablesTableConstraints.get(tableName));
 
+        if ("voltdb".equals(tickerSymbolIntern)) {
+          editTableConstraintsUnique(tickerSymbolIntern,
+                                     identifierDelimiter,
+                                     tableName,
+                                     genTablesColumns.get(tableName),
+                                     editedTableConstraints);
+        }
+
         bw.append("    statements.put(TABLE_NAME_").append(tableName).append(",");
         bw.newLine();
         bw.append("                   \"\"\"");
@@ -536,7 +559,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // NOT NULL ..........................................................
 
-          if (!("omnisci".equals(tickerSymbolIntern))) {
+          if (!("omnisci".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern))) {
             if (column.isNotNull() || column.isPrimaryKey() || column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -568,7 +591,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // REFERENCES .......................................................
 
-          if (!("cratedb".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern))) {
+          if (!("cratedb".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern))) {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               ArrayList<References> references = column.getReferences();
 
@@ -598,7 +621,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // UNIQUE ............................................................
 
-          if (!("cratedb".equals(tickerSymbolIntern) || "exasol".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern))) {
+          if (!("cratedb".equals(tickerSymbolIntern)
+              || "exasol".equals(tickerSymbolIntern)
+              || "voltdb".equals(tickerSymbolIntern)
+              || "omnisci".equals(tickerSymbolIntern))) {
             if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());

@@ -84,6 +84,8 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder cubrid           yes 1
     call run_db_seeder exasol           yes 1
     call run_db_seeder firebird         yes 1
+    call run_db_seeder hsqldb           yes 1
+    call run_db_seeder hsqldb_emb       yes 1
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
     call run_db_seeder mariadb          yes 1
@@ -95,6 +97,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder postgresql       yes 1
     call run_db_seeder sqlserver        yes 1
     call run_db_seeder timescale        yes 1
+    call run_db_seeder yugabyte         yes 1
     
     rem call run_db_seeder agens            yes 1
     rem call run_db_seeder cockroach        no  1
@@ -106,8 +109,8 @@ rem > run_db_seeder_multiple.log 2>&1 (
     rem call run_db_seeder firebird         yes 1
     rem call run_db_seeder h2               no  1
     rem call run_db_seeder h2_emb           no  1
-    rem call run_db_seeder hsqldb           no  1
-    rem call run_db_seeder hsqldb_emb       no  1
+    rem call run_db_seeder hsqldb           yes 1
+    rem call run_db_seeder hsqldb_emb       yes 1
     rem call run_db_seeder ibmdb2           yes 1
     rem call run_db_seeder informix         yes 1
     rem call run_db_seeder mariadb          yes 1
@@ -126,7 +129,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     rem call run_db_seeder sqlserver_trino  no  1
     rem call run_db_seeder timescale        yes 1
     rem call run_db_seeder voltdb           no  1
-    rem call run_db_seeder yugabyte         no  1
+    rem call run_db_seeder yugabyte         yes 1
     
     echo --------------------------------------------------------------------------------
     echo:| TIME
