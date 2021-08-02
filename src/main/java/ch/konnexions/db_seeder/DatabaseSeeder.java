@@ -77,8 +77,6 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
         switch (tickerSymbolExtern) {
         case "cockroach":
         case "cratedb":
-        case "derby":
-        case "derby_emb":
         case "h2":
         case "h2_emb":
         case "mysql_trino":

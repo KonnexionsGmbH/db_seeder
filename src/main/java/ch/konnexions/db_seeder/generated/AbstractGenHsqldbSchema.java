@@ -58,7 +58,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        POSTAL_CODE                      VARCHAR(50),
                        URL                              VARCHAR(250),
                        VAT_ID_NUMBER                    VARCHAR(100),
-                       CONSTRAINT KXN_7                 UNIQUE      (name)
+                       CONSTRAINT KXN_10                UNIQUE      (name)
                    )
                    """);
 
@@ -72,7 +72,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
-                       CONSTRAINT KXN_8                 UNIQUE      (name)
+                       CONSTRAINT KXN_11                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_9                 UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_12                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -104,14 +104,14 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        V_TIME_ZONE                      VARCHAR(4000),
-                       CONSTRAINT KXN_10                UNIQUE      (name)
+                       CONSTRAINT KXN_13                UNIQUE      (name)
                    )
                    """);
 
     return statements;
   }
 
-  private final boolean isDebug = logger.isDebugEnabled();
+  private final boolean                        isDebug           = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract HSQLDB schema object.
@@ -126,13 +126,13 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
       logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    createColumnNames(true,
-                      true);
+    createColumnNames(true, true);
 
     if (isDebug) {
       logger.debug("End   Constructor");
     }
   }
+
 
   protected final void createColumnNames(boolean isEncodingIso_8859_1, boolean isEncodingUtf_8) {
     if (isDebug) {
@@ -143,164 +143,104 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
 
     // Encoding ASCII
     encodedColumnNames.setProperty("ABBREVIATION_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("ACTIVE_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("ADDRESS1_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("ADDRESS2_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("ADDRESS3_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("EMAIL_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("FAX_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("ISO3166_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("NAME_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("PHONE_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("POSTAL_CODE_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("SYMBOL_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("URL_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("VAT_ID_NUMBER_0",
-                                   "");
+                           "");
     encodedColumnNames.setProperty("V_TIME_ZONE_0",
-                                   "");
+                           "");
 
     // Encoding ISO_8859_1
 
     encodedColumnNames.setProperty("ABBREVIATION_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ACTIVE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ADDRESS1_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ADDRESS2_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ADDRESS3_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("EMAIL_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("FAX_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("ISO3166_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("NAME_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("PHONE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("POSTAL_CODE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("SYMBOL_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("URL_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("VAT_ID_NUMBER_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
     encodedColumnNames.setProperty("V_TIME_ZONE_1",
-                                   isEncodingIso_8859_1
-                                       ? "ÁÇÉÍÑÓ_"
-                                       : "NO_ISO_8859_1_");
+                           isEncodingIso_8859_1 ? "ÁÇÉÍÑÓ_" : "NO_ISO_8859_1_");
 
     // Encoding UTF_8
 
     encodedColumnNames.setProperty("ABBREVIATION_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ACTIVE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ADDRESS1_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ADDRESS2_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ADDRESS3_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("EMAIL_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("FAX_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("ISO3166_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("NAME_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("PHONE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("POSTAL_CODE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("SYMBOL_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("URL_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("VAT_ID_NUMBER_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
     encodedColumnNames.setProperty("V_TIME_ZONE_2",
-                                   isEncodingUtf_8
-                                       ? "缩略语地址电子邮件传真_"
-                                       : "NO_UTF_8_");
+                           isEncodingUtf_8 ? "缩略语地址电子邮件传真_" : "NO_UTF_8_");
 
     if (isDebug) {
       logger.debug("End");
-    }
-  }
+    }  }
 }
+

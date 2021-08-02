@@ -55,7 +55,7 @@ public abstract class AbstractGenVoltdbSchema extends AbstractGenSeeder {
                        POSTAL_CODE                      VARCHAR(50),
                        URL                              VARCHAR(250),
                        VAT_ID_NUMBER                    VARCHAR(100),
-                       CONSTRAINT KXN_22                UNIQUE      (name)
+                       CONSTRAINT KXN_25                UNIQUE      (name)
                    )
                    """);
 
@@ -68,7 +68,7 @@ public abstract class AbstractGenVoltdbSchema extends AbstractGenSeeder {
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100),
-                       CONSTRAINT KXN_23                UNIQUE      (name)
+                       CONSTRAINT KXN_26                UNIQUE      (name)
                    )
                    """);
 
@@ -83,7 +83,7 @@ public abstract class AbstractGenVoltdbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100),
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_24                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_27                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -96,7 +96,7 @@ public abstract class AbstractGenVoltdbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100),
                        V_TIME_ZONE                      VARCHAR(4000),
-                       CONSTRAINT KXN_25                UNIQUE      (name)
+                       CONSTRAINT KXN_28                UNIQUE      (name)
                    )
                    """);
 

@@ -90,7 +90,7 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             NVARCHAR(100)             NOT NULL,
                        SYMBOL                           NVARCHAR(50),
-                       CONSTRAINT KXN_13                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_16                UNIQUE      (fk_country_id, name)
                    )
                    """);
 

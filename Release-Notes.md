@@ -37,7 +37,6 @@ Release Date: dd.mm.2021
 
 ### Open issues
 
-- Apache Derby: (see [here](#issues_derby))
 - CockroachDB: (see [here](#issues_cockroach))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
@@ -59,10 +58,6 @@ Release Date: dd.mm.2021
 ----
 
 ## Detailed Open Issues
-
-### <a name="issues_derby"></a> Apache Derby
-
-- Issue: dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY_STATE DROP UNIQUE "SQL0000000166-6f554487-017a-f4fd-c9dc-00000016e126"` (see [here](https://issues.apache.org/jira/browse/DERBY-7121?orderby=created+DESC%2C+priority+DESC%2C+updated+DESC)).
 
 ### <a name="issues_cockroach"></a> CockroachDB
 

@@ -90,7 +90,7 @@ public abstract class AbstractGenMonetdbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_14                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_17                UNIQUE      (fk_country_id, name)
                    )
                    """);
 

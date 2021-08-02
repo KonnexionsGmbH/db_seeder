@@ -1154,7 +1154,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             continue;
           }
 
-          if ("firebird".equals(tickerSymbolIntern)) {
+          if ("derby".equals(tickerSymbolIntern)) {
+            if ("SQL".equals(constraintName.substring(0,
+                                                      3))) {
+              continue;
+            }
+          } else if ("firebird".equals(tickerSymbolIntern)) {
             if ("RDB$".equals(constraintName.substring(0,
                                                        4))) {
               continue;

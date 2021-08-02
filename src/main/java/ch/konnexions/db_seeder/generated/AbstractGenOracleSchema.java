@@ -90,7 +90,7 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR2(100)             NOT NULL,
                        SYMBOL                           VARCHAR2(50),
-                       CONSTRAINT KXN_16                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_19                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
