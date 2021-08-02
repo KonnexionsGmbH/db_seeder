@@ -28,6 +28,7 @@ Release Date: dd.mm.2021
 
 - CUBRID: JDBC 11.0.1.0291
 - Exasol: JDBC 7.0.11
+- TimescaleDB: DBMS 2.4.0-pg13
 - trino: DBMS 360 / JDBC 360
 - xxx: DBMS 999 / JDBC 999
 

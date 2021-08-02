@@ -553,6 +553,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=2.3.1-pg13
+    set DB_SEEDER_VERSION=2.4.0-pg13
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
