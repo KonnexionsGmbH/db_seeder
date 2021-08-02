@@ -90,7 +90,7 @@ public abstract class AbstractGenYugabyteSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_23                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_26                UNIQUE      (fk_country_id, name)
                    )
                    """);
 

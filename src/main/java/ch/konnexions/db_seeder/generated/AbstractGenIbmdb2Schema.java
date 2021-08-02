@@ -90,7 +90,7 @@ public abstract class AbstractGenIbmdb2Schema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_8                 UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_11                UNIQUE      (fk_country_id, name)
                    )
                    """);
 

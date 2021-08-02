@@ -505,7 +505,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                                                       tableName,
                                                       genTablesTableConstraints.get(tableName));
 
-        if ("voltdb".equals(tickerSymbolIntern)) {
+        if ("hsqldb".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern)) {
           editTableConstraintsUnique(tickerSymbolIntern,
                                      identifierDelimiter,
                                      tableName,
@@ -623,6 +623,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           if (!("cratedb".equals(tickerSymbolIntern)
               || "exasol".equals(tickerSymbolIntern)
+              || "hsqldb".equals(tickerSymbolIntern)
               || "voltdb".equals(tickerSymbolIntern)
               || "omnisci".equals(tickerSymbolIntern))) {
             if (column.isUnique()) {

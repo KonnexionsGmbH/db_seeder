@@ -940,7 +940,10 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       catalog = config.getDatabase();
       break;
     case "hsqldb":
-      schema = config.getSchema().toUpperCase();
+      if ("hsqldb".equals(tickerSymbolExtern)) {
+        schema = config.getSchema().toUpperCase();
+      }
+
       break;
     case "ibmdb2":
       getIbmdb2ConstraintNames();
@@ -1153,6 +1156,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
           if ("firebird".equals(tickerSymbolIntern)) {
             if ("RDB$".equals(constraintName.substring(0,
+                                                       4))) {
+              continue;
+            }
+          } else if ("hsqldb".equals(tickerSymbolIntern)) {
+            if ("SYS_".equals(constraintName.substring(0,
                                                        4))) {
               continue;
             }
