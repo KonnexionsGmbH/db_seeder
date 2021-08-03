@@ -37,6 +37,7 @@ Release Date: 03.08.2021
 
 ----
 
+
 ## Windows 10 Performance Snapshot
 
 ![](.README_images/Perf_Snap_3.0.1_win10.png)
