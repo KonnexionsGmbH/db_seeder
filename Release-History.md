@@ -32,13 +32,12 @@ Release Date: 01.08.2021
 - CrateDB: DBMS 4.6.1
 - Exasol: DBMS 7.0.11
 - Firebird: DBMS v4.0.0
-- IBM Db2 Database: JDBC 11.5.6.0
 - MariaDB Server: DBMS 10.6.3
 - MonetDB: JDBC 3.1.jre8
 - MySQL Database: DBMS 8.0.26 / JDBC 8.0.26
 - Percona Server for MySQL: DBMS 8.0.25-15
 - PostgreSQL: JDBC 42.2.23
-- SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
+- SQLite: DBMS 3.36.0 / JDBC 3.36.0.1
 - trino: DBMS 359 / JDBC 359
 - YugabyteDB: DBMS 2.7.2.0-b216
 
