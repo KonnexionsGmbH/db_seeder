@@ -409,6 +409,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       constraints = new LinkedHashMap<>();
 
+      if ("cockroach".equals(tickerSymbolIntern)) {
+        try {
+          connection.commit();
+        } catch (SQLException e) {
+          e.printStackTrace();
+          System.exit(1);
+        }
+      }
+
       dropTableConstraints(connection);
 
       long duration = Duration.between(startDateTime,
@@ -440,6 +449,15 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     // Restore the constraints of type FOREIGN KEY, PRIMARY KEY and UNIQUE KEY
     if ("yes".equals(dropConstraints)) {
       LocalDateTime startDateTime = LocalDateTime.now();
+
+      if ("cockroach".equals(tickerSymbolIntern)) {
+        try {
+          connection.commit();
+        } catch (SQLException e) {
+          e.printStackTrace();
+          System.exit(1);
+        }
+      }
 
       restoreTableConstraints(connection);
 
@@ -913,6 +931,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       catalog = config.getDatabase();
       schema = config.getSchema();
       break;
+    case "cockroach":
     case "cubrid":
     case "firebird":
     case "mariadb":
@@ -920,9 +939,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     case "mysql":
       catalog = config.getDatabase();
       break;
-    case "h2":
     case "hsqldb":
-      schema = config.getSchema().toUpperCase();
+      if ("hsqldb".equals(tickerSymbolExtern)) {
+        schema = config.getSchema().toUpperCase();
+      }
+
       break;
     case "ibmdb2":
       getIbmdb2ConstraintNames();
@@ -1133,8 +1154,18 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             continue;
           }
 
-          if ("firebird".equals(tickerSymbolIntern)) {
+          if ("derby".equals(tickerSymbolIntern)) {
+            if ("SQL".equals(constraintName.substring(0,
+                                                      3))) {
+              continue;
+            }
+          } else if ("firebird".equals(tickerSymbolIntern)) {
             if ("RDB$".equals(constraintName.substring(0,
+                                                       4))) {
+              continue;
+            }
+          } else if ("hsqldb".equals(tickerSymbolIntern)) {
+            if ("SYS_".equals(constraintName.substring(0,
                                                        4))) {
               continue;
             }
@@ -1201,9 +1232,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       statement = connection.createStatement();
 
       for (Constraint constraint : constraints.values()) {
-
-        executeSQLStmnts(statement,
-                         constraint.getDropConstraintStatement());
+        String dropConstraint = constraint.getDropConstraintStatement();
+        if (!("NONE".equals(dropConstraint))) {
+          executeSQLStmnts(statement,
+                           dropConstraint);
+        }
       }
 
       statement.close();
@@ -2121,8 +2154,11 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       for (String tableName : TABLE_NAMES_CREATE) {
         for (Constraint constraint : constraints.values()) {
           if (tableName.equals(constraint.getTableName())) {
-            executeSQLStmnts(statement,
-                             constraint.getAddConstraintStatement());
+            String addConstraint = constraint.getAddConstraintStatement();
+            if (!("NONE".equals(addConstraint))) {
+              executeSQLStmnts(statement,
+                               addConstraint);
+            }
           }
         }
       }
@@ -2140,7 +2176,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private String setCaseIdentifierMetData(String identifier) {
     return switch (tickerSymbolIntern) {
-    case "cratedb", "monetdb", "postgresql", "timescale", "yugabyte" -> identifier.toLowerCase();
+    case "cockroach", "cratedb", "monetdb", "postgresql", "timescale", "yugabyte" -> identifier.toLowerCase();
     case "exasol", "ibmdb2", "oracle", "percona" -> identifier.toUpperCase();
     default -> setCaseIdentifier(identifier);
     };

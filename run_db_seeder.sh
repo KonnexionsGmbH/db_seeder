@@ -14,9 +14,9 @@ mkdir -p "$PWD/tmp"
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=3.0.0
+export DB_SEEDER_RELEASE=3.0.1
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=359
+export DB_SEEDER_VERSION_TRINO=360
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -550,6 +550,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=2.3.1-pg13
+    export DB_SEEDER_VERSION=2.4.0-pg13
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then

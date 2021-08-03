@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-set DB_SEEDER_RELEASE=3.0.0
+set DB_SEEDER_RELEASE=3.0.1
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=359
+set DB_SEEDER_VERSION_TRINO=360
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -553,6 +553,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=kxn_user_sys
     set DB_SEEDER_VERSION=2.3.1-pg13
+    set DB_SEEDER_VERSION=2.4.0-pg13
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (

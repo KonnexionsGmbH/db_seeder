@@ -77,12 +77,8 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
         switch (tickerSymbolExtern) {
         case "cockroach":
         case "cratedb":
-        case "derby":
-        case "derby_emb":
         case "h2":
         case "h2_emb":
-        case "hsqldb":
-        case "hsqldb_emb":
         case "mysql_trino":
         case "omnisci":
         case "oracle_trino":
@@ -90,7 +86,6 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
         case "sqlite":
         case "sqlserver_trino":
         case "voltdb":
-        case "yugabyte":
           logger.info("==============================================================================================================================");
           logger.info("The run variant with parameter 'DB_SEEDER_DROP_CONSTRAINTS=yes' is not yet supported by the DBMS '" + tickerSymbolExtern + "'!");
           logger.info("==============================================================================================================================");

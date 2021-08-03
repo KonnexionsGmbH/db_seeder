@@ -3,50 +3,33 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.1.svg)
 
 ----
 
-## Version 3.0.0
+## Version 3.0.1
 
-Release Date: 01.08.2021
+Release Date: 03.08.2021
 
 ### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 3.0.4
-- Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads/))
-- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases/))
+- Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
 - Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
 
-### New Features
-
-- new control parameter `DB_SEEDER_BATCH_SIZE`: the maximum number of DML operations of type `addBatch` - `0` represents all DML operations
-- new control parameter `DB_SEEDER_DROP_CONSTRAINTS`: if the value is `yes`, all constraints of the types FOREIGN KEY, PRIMARY KEY and UNIQUE KEY are removed before the first DML operation and are enabled again after the last DML operation
-- TimescaleDB: DBMS 2.3.1-pg13 / JDBC PostgreSQL
-
 ### Modified Features
 
-- CockroachDB: DBMS v21.1.6
-- CrateDB: DBMS 4.6.1
-- Exasol: DBMS 7.0.11
-- Firebird: DBMS v4.0.0
-- IBM Db2 Database: JDBC 11.5.6.0
-- MariaDB Server: DBMS 10.6.3
-- MonetDB: JDBC 3.1.jre8
-- MySQL Database: DBMS 8.0.26 / JDBC 8.0.26
-- Percona Server for MySQL: DBMS 8.0.25-15
-- PostgreSQL: JDBC 42.2.23
-- SQLite: DBMS 3.36.0.1 / JDBC 3.36.0.1
-- trino: DBMS 359 / JDBC 359
-- YugabyteDB: DBMS 2.7.2.0-b216
+- CUBRID: JDBC 11.0.1.0291
+- Exasol: JDBC 7.0.11
+- TimescaleDB: DBMS 2.4.0-pg13
+- trino: DBMS 360 / JDBC 360
 
 ### Open issues
 
-- Apache Derby: (see [here](#issues_derby))
-- H2 Database Engine: (see [here](#issues_h2))
-- HSQLDB: (see [here](#issues_hsqldb))
+- CockroachDB: (see [here](#issues_cockroach))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
@@ -56,7 +39,7 @@ Release Date: 01.08.2021
 
 ## Windows 10 Performance Snapshot
 
-![](.README_images/Perf_Snap_3.0.0_win10.png)
+![](.README_images/Perf_Snap_3.0.1_win10.png)
 
 - **DBMS** - official DBMS name
 - **Type** - client version, embedded version or via trino
@@ -68,18 +51,9 @@ Release Date: 01.08.2021
 
 ## Detailed Open Issues
 
-### <a name="issues_derby"></a> Apache Derby
+### <a name="issues_cockroach"></a> CockroachDB
 
-- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY_STATE DROP UNIQUE "SQL0000000166-6f554487-017a-f4fd-c9dc-00000016e126"` (see [here](https://issues.apache.org/jira/browse/DERBY-7121?orderby=created+DESC%2C+priority+DESC%2C+updated+DESC)).
-
-### <a name="issues_h2"></a> H2 Database Engine
-
-- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT CONSTRAINT_INDEX_6` (see [here](https://github.com/h2database/h2database/issues/3163)).
-
-
-### <a name="issues_hsqldb"></a> HSQLDB
-
-- Issue:  dropping unique key constraints - SQL statement `ALTER TABLE COUNTRY DROP CONSTRAINT SYS_IDX_SYS_PK_10289_10293` (see [here](https://sourceforge.net/p/hsqldb/bugs/1637/)).
+- Issue: dropping and restoring the same index - SQL statement `DROP INDEX constraint_kxn_2 CASCADE` (see [here](https://github.com/cockroachdb/cockroach/issues/42844)).
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
@@ -100,8 +74,6 @@ Release Date: 01.08.2021
 ### <a name="issues_voltdb"></a> VoltDB
 
 - Issue: Java 16 not yet supported: `java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null`
-
-- Issue:  dropping primary key constraints (see [here](https://voltdb-public.slack.com/archives/C04UPPHUL/p1627566165007800)).
 
 ----------
 

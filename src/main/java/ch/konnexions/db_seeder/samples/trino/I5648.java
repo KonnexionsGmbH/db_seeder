@@ -121,7 +121,7 @@ public final class I5648 {
 
       String sqlStmnt = "SELECT COUNT(*) FROM ALL_USERS WHERE username = '" + userName + "'";
 
-      logger.info("sqlStmnt='" + sqlStmnt + "'");
+      logger.info("next sqlStmnt='" + sqlStmnt + "'");
 
       ResultSet resultSet = statement.executeQuery(sqlStmnt);
 
@@ -142,11 +142,11 @@ public final class I5648 {
 
   private static void executeDdlStmnts(String firstDdlStmnt, String... remainingDdlStmnts) {
     try {
-      logger.info("sqlStmnt='" + firstDdlStmnt + "'");
+      logger.info("next sqlStmnt='" + firstDdlStmnt + "'");
       statement.execute(firstDdlStmnt);
 
       for (String sqlStmnt : remainingDdlStmnts) {
-        logger.info("sqlStmnt='" + sqlStmnt + "'");
+        logger.info("next sqlStmnt='" + sqlStmnt + "'");
         statement.execute(sqlStmnt);
       }
     } catch (SQLException e) {
@@ -157,6 +157,7 @@ public final class I5648 {
 
   private static void insertData() {
     try {
+      logger.info("next sqlStmnt='" + sqlStmntInsert + "'");
       PreparedStatement preparedStatement = connection.prepareStatement(sqlStmntInsert);
 
       preparedStatement.setLong(1,

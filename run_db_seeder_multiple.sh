@@ -72,8 +72,12 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 
 ./run_db_seeder.sh agens            yes 1
 ./run_db_seeder.sh cubrid           yes 1
+./run_db_seeder.sh derby            yes 1
+./run_db_seeder.sh derby_emb        yes 1
 ./run_db_seeder.sh exasol           yes 1
 ./run_db_seeder.sh firebird         yes 1
+./run_db_seeder.sh hsqldb           yes 1
+./run_db_seeder.sh hsqldb_emb       yes 1
 ./run_db_seeder.sh ibmdb2           yes 1
 ./run_db_seeder.sh informix         yes 1
 ./run_db_seeder.sh mariadb          yes 1
@@ -85,19 +89,20 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh postgresql       yes 1
 ./run_db_seeder.sh sqlserver        yes 1
 ./run_db_seeder.sh timescale        yes 1
+./run_db_seeder.sh yugabyte         yes 1
 
 #./run_db_seeder.sh agens            yes 1
 #./run_db_seeder.sh cockroach        no  1
 #./run_db_seeder.sh cratedb          no  1
 #./run_db_seeder.sh cubrid           yes 1
-#./run_db_seeder.sh derby            no  1
-#./run_db_seeder.sh derby_emb        no  1
+#./run_db_seeder.sh derby            yes 1
+#./run_db_seeder.sh derby_emb        yes 1
 #./run_db_seeder.sh exasol           yes 1
 #./run_db_seeder.sh firebird         yes 1
 #./run_db_seeder.sh h2               no  1
 #./run_db_seeder.sh h2_emb           no  1
-#./run_db_seeder.sh hsqldb           no  1
-#./run_db_seeder.sh hsqldb_emb       no  1
+#./run_db_seeder.sh hsqldb           yes 1
+#./run_db_seeder.sh hsqldb_emb       yes 1
 #./run_db_seeder.sh ibmdb2           yes 1
 #./run_db_seeder.sh informix         yes 1
 #./run_db_seeder.sh mariadb          yes 1
@@ -116,7 +121,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh sqlserver_trino  no  1
 #./run_db_seeder.sh timescale        yes 1
 #./run_db_seeder.sh voltdb           no  1
-#./run_db_seeder.sh yugabyte         no  1
+#./run_db_seeder.sh yugabyte         yes 1
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
