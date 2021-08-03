@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.2.svg)
 
 ----
 
-## Version 3.0.1
+## Version 3.0.2
 
-Release Date: 03.08.2021
+Release Date: dd.mm.2021
 
 ### System Requirements
 
@@ -20,12 +20,17 @@ Release Date: 03.08.2021
 - Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
 
+### New Features
+
+- n/a
+
 ### Modified Features
 
-- CUBRID: JDBC 11.0.1.0291
-- Exasol: JDBC 7.0.11
-- TimescaleDB: DBMS 2.4.0-pg13
-- trino: DBMS 360 / JDBC 360
+- xxx: DBMS 999 / JDBC 999
+
+### Deleted Features
+
+- n/a
 
 ### Open issues
 
@@ -37,10 +42,9 @@ Release Date: 03.08.2021
 
 ----
 
-
 ## Windows 10 Performance Snapshot
 
-![](.README_images/Perf_Snap_3.0.1_win10.png)
+![](.README_images/Perf_Snap_3.0.2_win10.png)
 
 - **DBMS** - official DBMS name
 - **Type** - client version, embedded version or via trino
