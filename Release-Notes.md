@@ -9,7 +9,7 @@
 
 ## Version 3.0.1
 
-Release Date: dd.mm.2021
+Release Date: 03.08.2021
 
 ### System Requirements
 
@@ -20,21 +20,12 @@ Release Date: dd.mm.2021
 - Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
 
-### New Features
-
-- n/a
-
 ### Modified Features
 
 - CUBRID: JDBC 11.0.1.0291
 - Exasol: JDBC 7.0.11
 - TimescaleDB: DBMS 2.4.0-pg13
 - trino: DBMS 360 / JDBC 360
-- xxx: DBMS 999 / JDBC 999
-
-### Deleted Features
-
-- n/a
 
 ### Open issues
 
