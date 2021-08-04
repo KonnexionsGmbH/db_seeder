@@ -67,7 +67,7 @@ The database systems considered meet the following conditions:
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.11              |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0           | 7.0.11              |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
@@ -844,7 +844,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.11`
+  - pull command: `docker pull exasol/docker-db:7.1.0`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:

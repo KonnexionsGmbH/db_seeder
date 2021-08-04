@@ -26,6 +26,7 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
+- Exasol: DBMS 7.1.0
 - xxx: DBMS 999 / JDBC 999
 
 ### Deleted Features

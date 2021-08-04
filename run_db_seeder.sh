@@ -216,6 +216,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.9
     export DB_SEEDER_VERSION=7.0.10
     export DB_SEEDER_VERSION=7.0.11
+    export DB_SEEDER_VERSION=7.1.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
