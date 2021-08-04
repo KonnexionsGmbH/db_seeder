@@ -90,7 +90,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   protected Properties            encodedColumnNames     = new Properties();
 
-  private Map<String, String>     ibmdb2ConstraintNames;
   private Map<String, String>     informixConstraintNames;
   protected final boolean         isClient;
   private final boolean           isDebug                = logger.isDebugEnabled();
@@ -946,7 +945,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       break;
     case "ibmdb2":
-      getIbmdb2ConstraintNames();
       schema = config.getSchema().toUpperCase();
       break;
     case "informix":
@@ -1150,27 +1148,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
           }
 
           // Irrelevant entries
-          if ((constraintName == null) || (constraints.containsKey(constraintName))) {
+          if (constraintName == null) {
             continue;
           }
 
-          if ("derby".equals(tickerSymbolIntern)) {
-            if ("SQL".equals(constraintName.substring(0,
-                                                      3))) {
-              continue;
-            }
-          } else if ("firebird".equals(tickerSymbolIntern)) {
-            if ("RDB$".equals(constraintName.substring(0,
-                                                       4))) {
-              continue;
-            }
-          } else if ("hsqldb".equals(tickerSymbolIntern)) {
-            if ("SYS_".equals(constraintName.substring(0,
-                                                       4))) {
-              continue;
-            }
-          } else if ("mariadb".equals(tickerSymbolIntern)) {
-            if (columnName.equals(constraintName)) {
+          if (!("informix".equals(tickerSymbolIntern))) {
+            if (!(constraintName.contains("KXN_"))) {
               continue;
             }
           }
@@ -1471,41 +1454,6 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     return columnValue;
-  }
-
-  private void getIbmdb2ConstraintNames() {
-    if (isDebug) {
-      logger.debug("Start");
-    }
-
-    ibmdb2ConstraintNames = new LinkedHashMap<>();
-
-    try {
-      statement = connection.createStatement();
-
-      String sqlStmnt = "SELECT bname, constname FROM syscat.constdep WHERE constname <> bname";
-
-      executeSQLStmnt(sqlStmnt);
-
-      while (resultSet.next()) {
-        ibmdb2ConstraintNames.put(resultSet.getString(1),
-                                  resultSet.getString(2));
-        if (isDebug) {
-          logger.debug("IBM Db2: BNAME=" + resultSet.getString(1) + " CONSTNAME=" + resultSet.getString(2));
-        }
-      }
-
-      resultSet.close();
-
-      statement.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    if (isDebug) {
-      logger.debug("End");
-    }
   }
 
   private void getInformixConstraintNames() {
@@ -2383,17 +2331,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
     if ("U".equals(constraintType)) {
       String constName = constraintName;
-      if ("ibmdb2".equals(tickerSymbolIntern)) {
-        if (ibmdb2ConstraintNames.containsKey(constraintName)) {
-          constName = ibmdb2ConstraintNames.get(constraintName);
-          if (constraints.containsKey(constName)) {
-            Constraint primaryCandidat = constraints.get(constName);
-            if ("P".equals(primaryCandidat.getConstraintType())) {
-              return;
-            }
-          }
-        }
-      } else if ("informix".equals(tickerSymbolIntern)) {
+      if ("informix".equals(tickerSymbolIntern)) {
         if (informixConstraintNames.containsKey(constraintName)) {
           constName = informixConstraintNames.get(constraintName);
           if (!("u".equals(constName.substring(0,

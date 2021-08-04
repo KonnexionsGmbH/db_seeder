@@ -58,7 +58,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        POSTAL_CODE                      VARCHAR(50),
                        URL                              VARCHAR(250),
                        VAT_ID_NUMBER                    VARCHAR(100),
-                       CONSTRAINT KXN_10                UNIQUE      (name)
+                       CONSTRAINT KXN_25                UNIQUE      (name)
                    )
                    """);
 
@@ -72,7 +72,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
-                       CONSTRAINT KXN_11                UNIQUE      (name)
+                       CONSTRAINT KXN_26                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_12                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_27                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -104,7 +104,7 @@ public abstract class AbstractGenHsqldbSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        V_TIME_ZONE                      VARCHAR(4000),
-                       CONSTRAINT KXN_13                UNIQUE      (name)
+                       CONSTRAINT KXN_28                UNIQUE      (name)
                    )
                    """);
 

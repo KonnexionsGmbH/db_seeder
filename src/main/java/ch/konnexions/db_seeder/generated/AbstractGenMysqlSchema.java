@@ -53,12 +53,12 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
                        EMAIL                            VARCHAR(100),
                        FAX                              VARCHAR(50),
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
+                       NAME                             VARCHAR(100)              NOT NULL,
                        PHONE                            VARCHAR(50),
                        POSTAL_CODE                      VARCHAR(50),
                        URL                              VARCHAR(250),
-                       VAT_ID_NUMBER                    VARCHAR(100)
+                       VAT_ID_NUMBER                    VARCHAR(100),
+                       CONSTRAINT KXN_45                UNIQUE      (name)
                    )
                    """);
 
@@ -71,8 +71,8 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
                        CREATED                          DATETIME                  NOT NULL,
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       CONSTRAINT KXN_46                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
                        MODIFIED                         DATETIME,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_18                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_47                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -102,9 +102,9 @@ public abstract class AbstractGenMysqlSchema extends AbstractGenSeeder {
                        ABBREVIATION                     VARCHAR(50)               NOT NULL,
                        CREATED                          DATETIME                  NOT NULL,
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
-                       V_TIME_ZONE                      VARCHAR(4000)
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       V_TIME_ZONE                      VARCHAR(4000),
+                       CONSTRAINT KXN_48                UNIQUE      (name)
                    )
                    """);
 

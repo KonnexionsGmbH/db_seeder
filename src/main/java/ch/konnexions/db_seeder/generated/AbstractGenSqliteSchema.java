@@ -53,12 +53,12 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        EMAIL                            VARCHAR2(100),
                        FAX                              VARCHAR2(50),
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR2(100)             NOT NULL
-                                                                                  UNIQUE,
+                       NAME                             VARCHAR2(100)             NOT NULL,
                        PHONE                            VARCHAR2(50),
                        POSTAL_CODE                      VARCHAR2(50),
                        URL                              VARCHAR2(250),
-                       VAT_ID_NUMBER                    VARCHAR2(100)
+                       VAT_ID_NUMBER                    VARCHAR2(100),
+                       CONSTRAINT KXN_61                UNIQUE      (name)
                    )
                    """);
 
@@ -71,8 +71,8 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        CREATED                          DATETIME                  NOT NULL,
                        ISO3166                          VARCHAR2(50),
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR2(100)             NOT NULL
-                                                                                  UNIQUE
+                       NAME                             VARCHAR2(100)             NOT NULL,
+                       CONSTRAINT KXN_62                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        MODIFIED                         DATETIME,
                        NAME                             VARCHAR2(100)             NOT NULL,
                        SYMBOL                           VARCHAR2(50),
-                       CONSTRAINT KXN_22                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_63                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -102,9 +102,9 @@ public abstract class AbstractGenSqliteSchema extends AbstractGenSeeder {
                        ABBREVIATION                     VARCHAR2(50)              NOT NULL,
                        CREATED                          DATETIME                  NOT NULL,
                        MODIFIED                         DATETIME,
-                       NAME                             VARCHAR2(100)             NOT NULL
-                                                                                  UNIQUE,
-                       V_TIME_ZONE                      VARCHAR2(4000)
+                       NAME                             VARCHAR2(100)             NOT NULL,
+                       V_TIME_ZONE                      VARCHAR2(4000),
+                       CONSTRAINT KXN_64                UNIQUE      (name)
                    )
                    """);
 

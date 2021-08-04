@@ -853,6 +853,9 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **privileged database access**: user `sys` password `exasol` 
 
+- **restrictions**:
+  - no unique key constraints
+
 - **DBeaver database connection settings**:
 
 ![](.README_images/DBeaver_EXASOL.png)
@@ -1069,7 +1072,9 @@ Below are also DBeaver based connection parameter examples for each database man
   - database / schema `sysmaster`
   - INFORMIXSERVER `informix`
 
-- **restrictions**: the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users 
+- **restrictions**: 
+  - the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users 
+  - no named constraints in ALTER TABLE ADD CONSTRAINT
 
 - **DBeaver database connection settings**:
 
