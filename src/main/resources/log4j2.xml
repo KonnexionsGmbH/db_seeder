@@ -4,7 +4,7 @@
         <Root level="ALL" />
         <Logger name="ch.konnexions" level="ALL" additivity="false" >
             <AppenderRef ref="Console" level="INFO" />
-            <AppenderRef ref="File" level="DEBUG" />
+            <AppenderRef ref="File" level="INFO" />
         </Logger>
     </Loggers>
 
