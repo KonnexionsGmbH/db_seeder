@@ -145,7 +145,7 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
 
     try {
       bufferedWriter        = new BufferedWriter(new FileWriter(fileName, false));
-      statisticsSummaryFile = new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.withDelimiter(config.getFileStatisticsDelimiter().charAt(0)));
+      statisticsSummaryFile = new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.builder().setDelimiter(config.getFileStatisticsDelimiter().charAt(0)).build());
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);

@@ -671,7 +671,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE TABLE](https://db.apache.org/derby/docs/10.15/ref/index.html) 
   - CREATE USER - n/a 
 
-- **Docker image (latest - only client version``)**:
+- **Docker image (latest - only client version)**:
   - pull command: `docker pull konnexionsgmbh/apache_derby:10.15.2.0`
   - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
 
