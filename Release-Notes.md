@@ -45,6 +45,16 @@ Release Date: dd.mm.2021
 
 ## Windows 10 Performance Snapshot
 
+The finishing touch to the work on a new release is a test run with all databases under identical conditions on three different systems - Ubuntu 20.04 via VMware and WSL2, Windows 10. 
+The measured time includes the total time required for the DDL effort (database, schema, user, 5 database tables) and the DML effort (insertion of 5400 rows). 
+The hardware used includes an AMD Ryzen 9 5950X CPU with 128GB RAM. 
+The tests run exclusively on the computer in each case. 
+The detailed results can be found in the DBSeeder repository in the `resources/statistics` directory.
+
+The following table shows the results of the Windows 10 run. 
+If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
+For example, the MonetDB database is faster with inactive constraints by xx% compared to the run with activated constraints.
+
 ![](.README_images/Perf_Snap_3.0.2_win10.png)
 
 - **DBMS** - official DBMS name
