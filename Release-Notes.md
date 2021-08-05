@@ -46,7 +46,7 @@ Release Date: dd.mm.2021
 ## Windows 10 Performance Snapshot
 
 The finishing touch to the work on a new release is a test run with all databases under identical conditions on three different systems - Ubuntu 20.04 via VMware and WSL2, Windows 10. 
-The measured time includes the total time required for the DDL effort (database, schema, user, 5 database tables) and the DML effort (insertion of 5400 rows). 
+The measured time includes the total time required for the DDL effort (database, schema, user, 5 database tables) and the DML effort (insertion of 7011 rows). 
 The hardware used includes an AMD Ryzen 9 5950X CPU with 128GB RAM. 
 The tests run exclusively on the computer in each case. 
 The detailed results can be found in the DBSeeder repository in the `resources/statistics` directory.
