@@ -220,6 +220,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.10
     set DB_SEEDER_VERSION=7.0.11
     set DB_SEEDER_VERSION=7.1.0
+    set DB_SEEDER_VERSION=7.1.0-d1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -332,6 +333,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.6.1
     set DB_SEEDER_VERSION=10.6.2
     set DB_SEEDER_VERSION=10.6.3
+    set DB_SEEDER_VERSION=10.6.3-focal
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -418,6 +420,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=admin
     set DB_SEEDER_VERSION=5.6.1
+    set DB_SEEDER_VERSION=5.6.4
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (

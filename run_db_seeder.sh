@@ -217,6 +217,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.10
     export DB_SEEDER_VERSION=7.0.11
     export DB_SEEDER_VERSION=7.1.0
+    export DB_SEEDER_VERSION=7.1.0-d1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -329,6 +330,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.6.1
     export DB_SEEDER_VERSION=10.6.2
     export DB_SEEDER_VERSION=10.6.3
+    export DB_SEEDER_VERSION=10.6.3-focal
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -415,6 +417,7 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=admin
     export DB_SEEDER_VERSION=5.6.1
+    export DB_SEEDER_VERSION=5.6.4
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then

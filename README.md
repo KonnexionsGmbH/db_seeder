@@ -67,17 +67,17 @@ The database systems considered meet the following conditions:
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0           | 7.0.11              |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0-d1        | 7.0.11              |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.3           | 2.7.3               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.3-focal     | 2.7.3               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
-| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
+| OmniSciDB                       | omnisci            | 5.6.1 - 5.6.4              | 5.7.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
@@ -844,7 +844,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.1.0`
+  - pull command: `docker pull exasol/docker-db:7.1.0-d1`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -1101,7 +1101,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.6.3`
+  - pull command: `docker pull mariadb:10.6.3-focal`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1276,7 +1276,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
 
 - **JDBC driver (latest)**:
-  - version 5.6.0
+  - version 5.7.0
   - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
 
 - **privileged database access**:
