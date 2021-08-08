@@ -40,6 +40,7 @@ Release Date: dd.mm.2021
 - CockroachDB: (see [here](#issues_cockroach))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
+- SQL Server: (see [here](#issues_sqlserver))
 - trino: (see [here](#issues_trino))
 - VoltDB: (see [here](#issues_voltdb))
 
@@ -75,11 +76,30 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
-- Issue: Docker Image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)).
+- Issue: Docker image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)).
 
 ### <a name="issues_omnisci"></a> OmniSciDB
 
 - Issue: connection problem with existing OmnisciDB (see [here](https://github.com/omnisci/omniscidb/issues/668)).
+
+### <a name="issues_sqlserver"></a> SQL Server
+
+- Issue: JDBC driver from `https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc/9.4.0.jre16`:
+
+```
+2021-08-08 07:51:20,135 [DatabaseSeeder.java] INFO  Start SQL Server
+2021-08-08 07:51:20,139 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =sqlserver
+2021-08-08 07:51:20,152 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =sqlserver
+java.sql.SQLException: No suitable driver found for jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=sqlserver_2019
+at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:702)
+at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:325)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:231)
+at ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder.setupDatabase(SqlserverSeeder.java:125)
+at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:403)
+at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:258)
+Processing of the script was aborted, error code=1
+```
 
 ### <a name="issues_trino"></a> trino
 
