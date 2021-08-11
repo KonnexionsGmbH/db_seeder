@@ -531,6 +531,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sa
     set DB_SEEDER_VERSION=2019-latest
+    set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
@@ -546,6 +547,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sa
     set DB_SEEDER_VERSION=2019-latest
+    set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (

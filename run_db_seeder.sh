@@ -528,6 +528,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=2019-latest
+    export DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
@@ -543,6 +544,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=2019-latest
+    export DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then

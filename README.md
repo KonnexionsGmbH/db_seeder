@@ -81,7 +81,7 @@ The database systems considered meet the following conditions:
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
-| SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
+| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.2.1.jre15         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.1            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.0-pg13    | see PostgreSQL      |
 | trino                           | mysql_trino,       | 339 - 360                  | 360                 |
@@ -1431,7 +1431,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
+  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-CU12-ubuntu-20.04`
   - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
 
 - **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)

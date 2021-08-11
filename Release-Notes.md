@@ -31,6 +31,7 @@ Release Date: dd.mm.2021
 - MariaDB Server: DBMS 10.6.4-focal
 - MonetDB: DBMS Jul2021
 - OmniSciDB: DBMS 5.6.4 / JDBC 5.7.0
+- SQL Server: DBMS 2019-CU12-ubuntu-20.04
 - xxx: DBMS 999 / JDBC 999
 
 ### Deleted Features
