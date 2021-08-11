@@ -14,10 +14,10 @@ Release Date: dd.mm.2021
 ### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Docker Desktop Community: 3.0.4
+- Docker Desktop Community: 3.0.4 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
 - Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
-- Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
+- Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
 
 ### New Features
@@ -31,7 +31,7 @@ Release Date: dd.mm.2021
 - MariaDB Server: DBMS 10.6.4-focal
 - MonetDB: DBMS Jul2021
 - OmniSciDB: DBMS 5.6.4 / JDBC 5.7.0
-- SQL Server: DBMS 2019-CU12-ubuntu-20.04
+- SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
 - xxx: DBMS 999 / JDBC 999
 
 ### Deleted Features
@@ -43,7 +43,6 @@ Release Date: dd.mm.2021
 - CockroachDB: (see [here](#issues_cockroach))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
-- SQL Server: (see [here](#issues_sqlserver))
 - trino: (see [here](#issues_trino))
 - VoltDB: (see [here](#issues_voltdb))
 
@@ -84,25 +83,6 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 ### <a name="issues_omnisci"></a> OmniSciDB
 
 - Issue: connection problem with existing OmnisciDB (see [here](https://github.com/omnisci/omniscidb/issues/668)).
-
-### <a name="issues_sqlserver"></a> SQL Server
-
-- Issue: JDBC driver from `https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc/9.4.0.jre16`:
-
-```
-2021-08-08 07:51:20,135 [DatabaseSeeder.java] INFO  Start SQL Server
-2021-08-08 07:51:20,139 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =sqlserver
-2021-08-08 07:51:20,152 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =sqlserver
-java.sql.SQLException: No suitable driver found for jdbc:sqlserver://localhost:1433;databaseName=master;user=sa;password=sqlserver_2019
-at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:702)
-at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:251)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:325)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:231)
-at ch.konnexions.db_seeder.jdbc.sqlserver.SqlserverSeeder.setupDatabase(SqlserverSeeder.java:125)
-at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:403)
-at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:258)
-Processing of the script was aborted, error code=1
-```
 
 ### <a name="issues_trino"></a> trino
 

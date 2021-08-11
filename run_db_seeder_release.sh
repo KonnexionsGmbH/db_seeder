@@ -62,7 +62,8 @@ rm -rf resources/statistics/db_seeder_cmd_complete_company_9.9.9_wsl2.tsv
 ./run_db_seeder.sh sqlserver        yes 1
 ./run_db_seeder.sh sqlserver_trino  yes 1
 ./run_db_seeder.sh timescale        yes 1
-./run_db_seeder.sh voltdb           yes 1
+# Java 15:
+./run_db_seeder.sh voltdb           yes 0
 ./run_db_seeder.sh yugabyte         yes 1
 
 echo "--------------------------------------------------------------------------------"

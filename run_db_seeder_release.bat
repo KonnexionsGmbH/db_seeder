@@ -72,7 +72,8 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder sqlserver        yes 1
     call run_db_seeder sqlserver_trino  yes 1
     call run_db_seeder timescale        yes 1
-    call run_db_seeder voltdb           yes 1
+    rem Java 15:
+    call run_db_seeder voltdb           yes 0 
     call run_db_seeder yugabyte         yes 1
     
     echo --------------------------------------------------------------------------------
