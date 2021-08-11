@@ -140,6 +140,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.4
     set DB_SEEDER_VERSION=v21.1.5
     set DB_SEEDER_VERSION=v21.1.6
+    set DB_SEEDER_VERSION=v21.1.7
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -334,6 +335,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.6.2
     set DB_SEEDER_VERSION=10.6.3
     set DB_SEEDER_VERSION=10.6.3-focal
+    set DB_SEEDER_VERSION=10.6.4-focal
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -366,6 +368,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_VERSION=Oct2020-SP3
     set DB_SEEDER_VERSION=Oct2020-SP4
     set DB_SEEDER_VERSION=Oct2020-SP5
+    set DB_SEEDER_VERSION=Jul2021
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (

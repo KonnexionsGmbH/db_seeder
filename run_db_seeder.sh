@@ -138,6 +138,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.4
     export DB_SEEDER_VERSION=v21.1.5
     export DB_SEEDER_VERSION=v21.1.6
+    export DB_SEEDER_VERSION=v21.1.7
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -331,6 +332,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.6.2
     export DB_SEEDER_VERSION=10.6.3
     export DB_SEEDER_VERSION=10.6.3-focal
+    export DB_SEEDER_VERSION=10.6.4-focal
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -363,6 +365,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Oct2020-SP3
     export DB_SEEDER_VERSION=Oct2020-SP4
     export DB_SEEDER_VERSION=Oct2020-SP5
+    export DB_SEEDER_VERSION=Jul2021
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then

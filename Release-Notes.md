@@ -26,8 +26,10 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
+- CockroachDB: DBMS v21.1.7
 - Exasol: DBMS 7.1.0-d1
-- MariaDB Server: DBMS 10.6.3-focal
+- MariaDB Server: DBMS 10.6.4-focal
+- MonetDB: DBMS Jul2021
 - OmniSciDB: DBMS 5.6.4 / JDBC 5.7.0
 - xxx: DBMS 999 / JDBC 999
 
