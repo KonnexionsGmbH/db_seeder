@@ -80,25 +80,7 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 
 ### <a name="issues_exasol"></a> Exasol
 
-- Issue: JDBC driver 7.1.0.
-
-`2021-08-13 09:38:26,799 [DatabaseSeeder.java] INFO  Start Exasol [client]
-2021-08-13 09:38:26,805 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =exasol
-2021-08-13 09:38:26,815 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =exasol
-com.exasol.jdbc.ConnectFailed: java.net.ConnectException: Connection refused: no further information
-    at com.exasol.jdbc.AbstractEXAConnection.connectAndLogin(AbstractEXAConnection.java:2167)
-    at com.exasol.jdbc.AbstractEXAConnection.setupConnection(AbstractEXAConnection.java:1487)
-    at com.exasol.jdbc.AbstractEXAConnection.Connect(AbstractEXAConnection.java:1374)
-    at com.exasol.jdbc.AbstractEXAConnection.<init>(AbstractEXAConnection.java:533)
-    at com.exasol.jdbc.EXAConnection.<init>(EXAConnection.java:37)
-    at com.exasol.jdbc.EXADriver.connect(EXADriver.java:232)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:330)
-    at ch.konnexions.db_seeder.jdbc.exasol.ExasolSeeder.setupDatabase(ExasolSeeder.java:86)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:403)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:138)
-Processing of the script was aborted, error code=1`
+- Issue: JDBC driver 7.1.0  (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-7-1-0/m-p/6552#M1457)).
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
