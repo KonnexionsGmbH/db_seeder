@@ -28,7 +28,7 @@ Release Date: dd.mm.2021
 
 - CockroachDB: DBMS v21.1.7
 - Exasol: DBMS 7.1.0-d1
-- MariaDB Server: DBMS 10.6.4-focal
+- MariaDB Server: DBMS 10.6.4-focal / JDBC 2.7.4
 - MonetDB: DBMS Jul2021
 - OmniSciDB: DBMS 5.6.4 / JDBC 5.7.0
 - SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
@@ -41,6 +41,7 @@ Release Date: dd.mm.2021
 ### Open issues
 
 - CockroachDB: (see [here](#issues_cockroach))
+- Exasol: (see [here](#issues_exasol))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
@@ -75,6 +76,28 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 ### <a name="issues_cockroach"></a> CockroachDB
 
 - Issue: dropping and restoring the same index - SQL statement `DROP INDEX constraint_kxn_2 CASCADE` (see [here](https://github.com/cockroachdb/cockroach/issues/42844)).
+
+### <a name="issues_exasol"></a> Exasol
+
+- Issue: JDBC driver 7.1.0.
+
+`2021-08-13 09:38:26,799 [DatabaseSeeder.java] INFO  Start Exasol [client]
+2021-08-13 09:38:26,805 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =exasol
+2021-08-13 09:38:26,815 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =exasol
+com.exasol.jdbc.ConnectFailed: java.net.ConnectException: Connection refused: no further information
+    at com.exasol.jdbc.AbstractEXAConnection.connectAndLogin(AbstractEXAConnection.java:2167)
+    at com.exasol.jdbc.AbstractEXAConnection.setupConnection(AbstractEXAConnection.java:1487)
+    at com.exasol.jdbc.AbstractEXAConnection.Connect(AbstractEXAConnection.java:1374)
+    at com.exasol.jdbc.AbstractEXAConnection.<init>(AbstractEXAConnection.java:533)
+    at com.exasol.jdbc.EXAConnection.<init>(EXAConnection.java:37)
+    at com.exasol.jdbc.EXADriver.connect(EXADriver.java:232)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:330)
+    at ch.konnexions.db_seeder.jdbc.exasol.ExasolSeeder.setupDatabase(ExasolSeeder.java:86)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:403)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:138)
+Processing of the script was aborted, error code=1`
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 

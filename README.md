@@ -73,7 +73,7 @@ The database systems considered meet the following conditions:
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal     | 2.7.3               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal     | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021      | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
@@ -1113,7 +1113,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://jira.mariadb.org/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 2.7.2
+  - version 2.7.4
   - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
 
 - **privileged database access**:
