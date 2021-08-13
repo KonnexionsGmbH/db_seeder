@@ -80,7 +80,7 @@ The database systems considered meet the following conditions:
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.6.4              | 5.7.0               |
 | Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
+| PostgreSQL                      | postgresql         | 12.3 - 13.4                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.1            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.0-pg13    | see PostgreSQL      |
@@ -1393,7 +1393,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:13.3-alpine`
+  - pull command: `docker pull postgres:13.4-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`

@@ -492,6 +492,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=13.1-alpine
     set DB_SEEDER_VERSION=13.2-alpine
     set DB_SEEDER_VERSION=13.3-alpine
+    set DB_SEEDER_VERSION=13.4-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
@@ -511,6 +512,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=13.1-alpine
     set DB_SEEDER_VERSION=13.2-alpine
     set DB_SEEDER_VERSION=13.3-alpine
+    set DB_SEEDER_VERSION=13.4-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
