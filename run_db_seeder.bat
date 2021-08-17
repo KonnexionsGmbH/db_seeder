@@ -203,6 +203,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby_emb"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_CONNECTION_PORT=8563
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
+    set DB_SEEDER_CONNECTION_SUFFIX=";validateservercertificate=0"
     set DB_SEEDER_CONTAINER_PORT=8563
     set DB_SEEDER_PASSWORD=exasol
     set DB_SEEDER_PASSWORD_SYS=exasol

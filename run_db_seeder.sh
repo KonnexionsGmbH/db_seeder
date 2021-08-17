@@ -200,6 +200,7 @@ fi
 if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_CONNECTION_PORT=8563
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
+    export DB_SEEDER_CONNECTION_SUFFIX=";validateservercertificate=0"
     export DB_SEEDER_CONTAINER_PORT=8563
     export DB_SEEDER_PASSWORD=exasol
     export DB_SEEDER_PASSWORD_SYS=exasol

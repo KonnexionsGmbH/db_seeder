@@ -24,10 +24,11 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
    * @param connectionHost   the connection host name
    * @param connectionPort   the connection port number
    * @param connectionPrefix the connection prefix
+   * @param connectionSuffix the connection suffix
    * @return the connection URL
    */
-  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix) {
-    return connectionPrefix + connectionHost + ":" + connectionPort;
+  private static String getUrl(String connectionHost, int connectionPort, String connectionPrefix, String connectionSuffix) {
+    return connectionPrefix + connectionHost + ":" + connectionPort + connectionSuffix;
   }
 
   private final boolean isDebug = logger.isDebugEnabled();
@@ -51,7 +52,8 @@ public final class ExasolSeeder extends AbstractGenExasolSchema {
 
     urlUser  = getUrl(config.getConnectionHost(),
                       config.getConnectionPort(),
-                      config.getConnectionPrefix());
+                      config.getConnectionPrefix(),
+                      config.getConnectionSuffix());
 
     if (isDebug) {
       logger.debug("End   Constructor");
