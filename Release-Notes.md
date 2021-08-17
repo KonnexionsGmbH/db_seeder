@@ -42,7 +42,6 @@ Release Date: dd.mm.2021
 ### Open issues
 
 - CockroachDB: (see [here](#issues_cockroach))
-- Exasol: (see [here](#issues_exasol))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
@@ -77,10 +76,6 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 ### <a name="issues_cockroach"></a> CockroachDB
 
 - Issue: dropping and restoring the same index - SQL statement `DROP INDEX constraint_kxn_2 CASCADE` (see [here](https://github.com/cockroachdb/cockroach/issues/42844)).
-
-### <a name="issues_exasol"></a> Exasol
-
-- Issue: JDBC driver 7.1.0  (see [here](https://community.exasol.com/t5/discussion-forum/jdbc-driver-7-1-0/m-p/6552#M1457)).
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
