@@ -19,7 +19,7 @@ if ["%DB_SEEDER_CONTAINER_PORT%"] EQU [""] (
 if ["%DB_SEEDER_VERSION%"] EQU [""] (
     docker ps    | find "db_seeder_db" && docker stop db_seeder_db
     docker ps -a | find "db_seeder_db" && docker rm --force db_seeder_db
-    set DB_SEEDER_VERSION=db_19_3_ee
+    set DB_SEEDER_VERSION=db_21_3_ee
 )
 
 echo ================================================================================

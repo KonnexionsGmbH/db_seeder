@@ -78,7 +78,7 @@ The database systems considered meet the following conditions:
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021      | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.6.4              | 5.7.0               |
-| Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
+| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0          | 21.1.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.4                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
@@ -1315,8 +1315,8 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DDL syntax**:
   - CREATE DATABASE - n/a 
   - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
-  - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
+  - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
+  - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
 
 - **Docker image**: [DockerHub](https://github.com/oracle/docker-images/tree/master/OracleDatabase)
 
