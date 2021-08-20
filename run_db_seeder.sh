@@ -308,6 +308,7 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
     export DB_SEEDER_VERSION=14.10.FC3DE
     export DB_SEEDER_VERSION=14.10.FC4DE
     export DB_SEEDER_VERSION=14.10.FC5DE
+    export DB_SEEDER_VERSION=14.10.FC5DE-rhm
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then

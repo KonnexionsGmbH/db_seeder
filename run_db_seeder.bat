@@ -311,6 +311,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_VERSION=14.10.FC3DE
     set DB_SEEDER_VERSION=14.10.FC4DE
     set DB_SEEDER_VERSION=14.10.FC5DE
+    set DB_SEEDER_VERSION=14.10.FC5DE-rhm
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
