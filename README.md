@@ -83,7 +83,7 @@ The database systems considered meet the following conditions:
 | PostgreSQL                      | postgresql         | 12.3 - 13.4                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.1            |
-| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.0-pg13    | see PostgreSQL      |
+| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13    | see PostgreSQL      |
 | trino                           | mysql_trino,       | 339 - 360                  | 360                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
@@ -1510,7 +1510,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-  - pull command: `docker pull timescale/timescaledb:2.4.0-pg13`
+  - pull command: `docker pull timescale/timescaledb:2.4.1-pg13`
   - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL

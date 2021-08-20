@@ -14,7 +14,7 @@ Release Date: dd.mm.2021
 ### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Docker Desktop Community: 3.0.4 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
+- Docker Desktop Community: 3.6.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
 - Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
 - Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
@@ -35,7 +35,7 @@ Release Date: dd.mm.2021
 - Oracle Database: DBMS 21.3.0
 - PostgreSQL: DBMS 13.4
 - SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
-- xxx: DBMS 999 / JDBC 999
+- TimescaleDB: DBMS 2.4.1-pg13
 
 ### Deleted Features
 

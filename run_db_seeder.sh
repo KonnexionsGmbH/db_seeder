@@ -565,6 +565,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=2.3.1-pg13
     export DB_SEEDER_VERSION=2.4.0-pg13
+    export DB_SEEDER_VERSION=2.4.1-pg13
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then
