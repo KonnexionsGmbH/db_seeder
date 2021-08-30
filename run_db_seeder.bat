@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
 set DB_SEEDER_RELEASE=3.0.2
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=360
+set DB_SEEDER_VERSION_TRINO=361
 
 if ["%1"] EQU [""] (
     echo =========================================================

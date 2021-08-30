@@ -84,7 +84,7 @@ The database systems considered meet the following conditions:
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.2            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13    | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 360                  | 360                 |
+| trino                           | mysql_trino,       | 339 - 361                  | 361                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
@@ -1543,7 +1543,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:360`
+  - pull command: `docker pull trinodb/trino:361`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1551,7 +1551,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 360
+  - version 361
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
