@@ -26,7 +26,7 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.1.7
+- CockroachDB: DBMS v21.1.8
 - Exasol: DBMS 7.1.0-d1 / JDBC 7.1.0
 - IBM Informix: DBMS 14.10.FC5DE-rhm
 - MariaDB Server: DBMS 10.6.4-focal / JDBC 2.7.4
