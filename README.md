@@ -78,7 +78,7 @@ The database systems considered meet the following conditions:
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021      | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.7.0              | 5.7.0               |
-| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0          | 21.1.0.0            |
+| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0          | 21.3.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.4                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
@@ -1323,7 +1323,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 21.1.0.0
+  - version 21.3.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11)
 
 - **privileged database access**:

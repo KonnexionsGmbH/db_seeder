@@ -32,7 +32,7 @@ Release Date: dd.mm.2021
 - MariaDB Server: DBMS 10.6.4-focal / JDBC 2.7.4
 - MonetDB: DBMS Jul2021
 - OmniSciDB: DBMS 5.7.0 / JDBC 5.7.0
-- Oracle Database: DBMS 21.3.0
+- Oracle Database: DBMS 21.3.0 / JDBC 21.1.0.0
 - PostgreSQL: DBMS 13.4
 - SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
 - SQLite: JDBC 3.36.0.2
