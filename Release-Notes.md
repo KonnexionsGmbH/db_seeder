@@ -31,7 +31,7 @@ Release Date: dd.mm.2021
 - IBM Informix: DBMS 14.10.FC5DE-rhm
 - MariaDB Server: DBMS 10.6.4-focal / JDBC 2.7.4
 - MonetDB: DBMS Jul2021
-- OmniSciDB: DBMS 5.6.4 / JDBC 5.7.0
+- OmniSciDB: DBMS 5.7.0 / JDBC 5.7.0
 - Oracle Database: DBMS 21.3.0
 - PostgreSQL: DBMS 13.4
 - SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16

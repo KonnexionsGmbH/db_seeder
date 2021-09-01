@@ -426,6 +426,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
     set DB_SEEDER_USER_SYS=admin
     set DB_SEEDER_VERSION=5.6.1
     set DB_SEEDER_VERSION=5.6.4
+    set DB_SEEDER_VERSION=5.7.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
