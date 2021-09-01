@@ -35,7 +35,7 @@ Release Date: dd.mm.2021
 - Oracle Database: DBMS 21.3.0 / JDBC 21.1.0.0
 - PostgreSQL: DBMS 13.4
 - SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
-- SQLite: JDBC 3.36.0.2
+- SQLite: JDBC 3.36.0.3
 - TimescaleDB: DBMS 2.4.1-pg13
 - trino: DBMS 361 / JDBC 361
 

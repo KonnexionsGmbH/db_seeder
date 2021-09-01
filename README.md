@@ -82,7 +82,7 @@ The database systems considered meet the following conditions:
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.4                | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
-| SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.2            |
+| SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.3            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13    | see PostgreSQL      |
 | trino                           | mysql_trino,       | 339 - 361                  | 361                 |
 |                                 | oracle_trino,      |                            |                     |
@@ -1475,7 +1475,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
 
 - **JDBC driver (latest)**:
-  - version 3.36.0.2
+  - version 3.36.0.3
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
   - determines also the DBMS version
 
