@@ -88,7 +88,7 @@ The database systems considered meet the following conditions:
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
-| VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
+| VoltDB                          | voltdb             | 9.2.1                      | 11.0                |
 | YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.2.0-b216 | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
@@ -1587,7 +1587,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 10.1.1
+  - version 11.0
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **restrictions**: no support of autoincrement, check constraints or foreign keys
