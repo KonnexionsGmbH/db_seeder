@@ -39,6 +39,7 @@ Release Date: dd.mm.2021
 - TimescaleDB: DBMS 2.4.1-pg13
 - trino: DBMS 361 / JDBC 361
 - VoltDB: JDBC 11.0
+- YugabyteDB: DBMS 2.9.0.0-b4
 
 ### Deleted Features
 

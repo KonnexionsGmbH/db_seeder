@@ -604,6 +604,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.7.1.0-b131
     export DB_SEEDER_VERSION=2.7.1.1-b1
     export DB_SEEDER_VERSION=2.7.2.0-b216
+    export DB_SEEDER_VERSION=2.9.0.0-b4
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then
