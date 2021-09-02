@@ -102,7 +102,7 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 ### <a name="issues_voltdb"></a> VoltDB
 
 - Issue: Java 16 not yet supported: `java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null`
-
+```
     2021-09-02 03:39:41,112 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='voltdb'
     2021-09-02 03:39:41,112 [DatabaseSeeder.java] INFO  Start VoltDB
     2021-09-02 03:39:41,117 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =voltdb
@@ -119,6 +119,7 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 	    at java.base/java.lang.Thread.run(Thread.java:831)
     Sept. 02, 2021 3:39:41 AM org.voltcore.logging.VoltUtilLoggingLogger log
     SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+```
     
 ----------
 
