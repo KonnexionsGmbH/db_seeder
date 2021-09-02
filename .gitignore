@@ -3,6 +3,8 @@
 .classpath
 .idea
 .settings
+/.git-credentials
+/.gitconfig
 /.gradle/
 /lib/db_seeder.jar
 /resources/statistics/db_seeder_local*
