@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a MS SQL Server DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 3.0.1
+ * @version 3.0.2
  */
 public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
 
@@ -53,12 +53,12 @@ public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
                        EMAIL                            VARCHAR(100),
                        FAX                              VARCHAR(50),
                        MODIFIED                         DATETIME2,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
+                       NAME                             VARCHAR(100)              NOT NULL,
                        PHONE                            VARCHAR(50),
                        POSTAL_CODE                      VARCHAR(50),
                        URL                              VARCHAR(250),
-                       VAT_ID_NUMBER                    VARCHAR(100)
+                       VAT_ID_NUMBER                    VARCHAR(100),
+                       CONSTRAINT KXN_65                UNIQUE      (name)
                    )
                    """);
 
@@ -71,8 +71,8 @@ public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
                        CREATED                          DATETIME2                 NOT NULL,
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         DATETIME2,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       CONSTRAINT KXN_66                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
                        MODIFIED                         DATETIME2,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_23                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_67                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -102,9 +102,9 @@ public abstract class AbstractGenSqlserverSchema extends AbstractGenSeeder {
                        ABBREVIATION                     VARCHAR(50)               NOT NULL,
                        CREATED                          DATETIME2                 NOT NULL,
                        MODIFIED                         DATETIME2,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
-                       V_TIME_ZONE                      VARCHAR(4000)
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       V_TIME_ZONE                      VARCHAR(4000),
+                       CONSTRAINT KXN_68                UNIQUE      (name)
                    )
                    """);
 

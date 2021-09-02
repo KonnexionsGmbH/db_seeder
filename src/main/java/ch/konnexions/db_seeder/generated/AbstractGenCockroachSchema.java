@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a CockroachDB DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 3.0.1
+ * @version 3.0.2
  */
 public abstract class AbstractGenCockroachSchema extends AbstractGenSeeder {
 
@@ -53,12 +53,12 @@ public abstract class AbstractGenCockroachSchema extends AbstractGenSeeder {
                        EMAIL                            STRING,
                        FAX                              STRING,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             STRING                    NOT NULL
-                                                                                  UNIQUE,
+                       NAME                             STRING                    NOT NULL,
                        PHONE                            STRING,
                        POSTAL_CODE                      STRING,
                        URL                              STRING,
-                       VAT_ID_NUMBER                    STRING
+                       VAT_ID_NUMBER                    STRING,
+                       CONSTRAINT KXN_5                 UNIQUE      (name)
                    )
                    """);
 
@@ -71,8 +71,8 @@ public abstract class AbstractGenCockroachSchema extends AbstractGenSeeder {
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          STRING,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             STRING                    NOT NULL
-                                                                                  UNIQUE
+                       NAME                             STRING                    NOT NULL,
+                       CONSTRAINT KXN_6                 UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenCockroachSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             STRING                    NOT NULL,
                        SYMBOL                           STRING,
-                       CONSTRAINT KXN_2                 UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_7                 UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -102,9 +102,9 @@ public abstract class AbstractGenCockroachSchema extends AbstractGenSeeder {
                        ABBREVIATION                     STRING                    NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             STRING                    NOT NULL
-                                                                                  UNIQUE,
-                       V_TIME_ZONE                      STRING
+                       NAME                             STRING                    NOT NULL,
+                       V_TIME_ZONE                      STRING,
+                       CONSTRAINT KXN_8                 UNIQUE      (name)
                    )
                    """);
 

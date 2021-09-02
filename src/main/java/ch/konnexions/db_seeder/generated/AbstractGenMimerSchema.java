@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a Mimer DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 3.0.1
+ * @version 3.0.2
  */
 public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
 
@@ -53,12 +53,12 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
                        EMAIL                            NVARCHAR(100),
                        FAX                              NVARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL
-                                                                                  UNIQUE,
+                       NAME                             NVARCHAR(100)             NOT NULL,
                        PHONE                            NVARCHAR(50),
                        POSTAL_CODE                      NVARCHAR(50),
                        URL                              NVARCHAR(250),
-                       VAT_ID_NUMBER                    NVARCHAR(100)
+                       VAT_ID_NUMBER                    NVARCHAR(100),
+                       CONSTRAINT KXN_37                UNIQUE      (name)
                    )
                    """);
 
@@ -71,8 +71,8 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          NVARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL
-                                                                                  UNIQUE
+                       NAME                             NVARCHAR(100)             NOT NULL,
+                       CONSTRAINT KXN_38                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             NVARCHAR(100)             NOT NULL,
                        SYMBOL                           NVARCHAR(50),
-                       CONSTRAINT KXN_16                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_39                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -102,9 +102,9 @@ public abstract class AbstractGenMimerSchema extends AbstractGenSeeder {
                        ABBREVIATION                     NVARCHAR(50)              NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             NVARCHAR(100)             NOT NULL
-                                                                                  UNIQUE,
-                       V_TIME_ZONE                      NVARCHAR(4000)
+                       NAME                             NVARCHAR(100)             NOT NULL,
+                       V_TIME_ZONE                      NVARCHAR(4000),
+                       CONSTRAINT KXN_40                UNIQUE      (name)
                    )
                    """);
 

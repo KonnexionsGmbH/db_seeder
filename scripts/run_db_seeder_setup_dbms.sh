@@ -522,10 +522,10 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
     echo "Docker create db_seeder_db (Oracle ${DB_SEEDER_VERSION})"
 
     docker network create db_seeder_net  2>/dev/null || true
-    docker create -e         ORACLE_PWD=oracle \
-                  --name     db_seeder_db \
-                  --network  db_seeder_net \
-                  -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+    docker create -e        ORACLE_PWD=oracle \
+                  --name    db_seeder_db \
+                  --network db_seeder_net \
+                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
                   konnexionsgmbh/"${DB_SEEDER_VERSION}"
 
     echo "Docker start db_seeder_db (Oracle ${DB_SEEDER_VERSION}) ..."

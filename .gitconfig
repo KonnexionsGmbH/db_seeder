@@ -1,5 +1,0 @@
-[credential]
-	helper = store --file=\"/db_seeder/.git-credentials\"
-[user]
-	name = walter-weinmann
-	email = walter@konnexions.ch

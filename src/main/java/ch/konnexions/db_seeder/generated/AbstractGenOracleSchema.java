@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a Oracle DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 3.0.1
+ * @version 3.0.2
  */
 public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
 
@@ -53,12 +53,12 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
                        EMAIL                            VARCHAR2(100),
                        FAX                              VARCHAR2(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL
-                                                                                  UNIQUE,
+                       NAME                             VARCHAR2(100)             NOT NULL,
                        PHONE                            VARCHAR2(50),
                        POSTAL_CODE                      VARCHAR2(50),
                        URL                              VARCHAR2(250),
-                       VAT_ID_NUMBER                    VARCHAR2(100)
+                       VAT_ID_NUMBER                    VARCHAR2(100),
+                       CONSTRAINT KXN_49                UNIQUE      (name)
                    )
                    """);
 
@@ -71,8 +71,8 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          VARCHAR2(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL
-                                                                                  UNIQUE
+                       NAME                             VARCHAR2(100)             NOT NULL,
+                       CONSTRAINT KXN_50                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR2(100)             NOT NULL,
                        SYMBOL                           VARCHAR2(50),
-                       CONSTRAINT KXN_19                UNIQUE      (fk_country_id, name)
+                       CONSTRAINT KXN_51                UNIQUE      (fk_country_id, name)
                    )
                    """);
 
@@ -102,9 +102,9 @@ public abstract class AbstractGenOracleSchema extends AbstractGenSeeder {
                        ABBREVIATION                     VARCHAR2(50)              NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR2(100)             NOT NULL
-                                                                                  UNIQUE,
-                       V_TIME_ZONE                      VARCHAR2(4000)
+                       NAME                             VARCHAR2(100)             NOT NULL,
+                       V_TIME_ZONE                      VARCHAR2(4000),
+                       CONSTRAINT KXN_52                UNIQUE      (name)
                    )
                    """);
 

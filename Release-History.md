@@ -7,6 +7,28 @@
 
 ----
 
+## Version 3.0.1
+
+Release Date: 03.08.2021
+
+### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.0.4
+- Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
+- Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
+
+### Modified Features
+
+- CUBRID: JDBC 11.0.1.0291
+- Exasol: JDBC 7.0.11
+- TimescaleDB: DBMS 2.4.0-pg13
+- trino: DBMS 360 / JDBC 360
+
+----
+
 ## Version 3.0.0
 
 Release Date: 01.08.2021

@@ -3,29 +3,47 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.2.svg)
 
 ----
 
-## Version 3.0.1
+## Version 3.0.2
 
-Release Date: 03.08.2021
+Release Date: dd.mm.2021
 
 ### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Docker Desktop Community: 3.0.4
+- Docker Desktop Community: 3.6.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
 - Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
-- Java Development Kit 15, (e.g. from [here](https://jdk.java.net/java-se-ri/15))
+- Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
+
+### New Features
+
+- n/a
 
 ### Modified Features
 
-- CUBRID: JDBC 11.0.1.0291
-- Exasol: JDBC 7.0.11
-- TimescaleDB: DBMS 2.4.0-pg13
-- trino: DBMS 360 / JDBC 360
+- CockroachDB: DBMS v21.1.8
+- Exasol: DBMS 7.1.0-d1 / JDBC 7.1.0
+- IBM Informix: DBMS 14.10.FC5DE-rhm
+- MariaDB Server: DBMS 10.6.4-focal / JDBC 2.7.4
+- MonetDB: DBMS Jul2021
+- OmniSciDB: DBMS 5.7.0 / JDBC 5.7.0
+- Oracle Database: DBMS 21.3.0 / JDBC 21.1.0.0
+- PostgreSQL: DBMS 13.4
+- SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
+- SQLite: JDBC 3.36.0.3
+- TimescaleDB: DBMS 2.4.1-pg13
+- trino: DBMS 361 / JDBC 361
+- VoltDB: JDBC 11.0
+- YugabyteDB: DBMS 2.9.0.0-b4
+
+### Deleted Features
+
+- n/a
 
 ### Open issues
 
@@ -37,10 +55,19 @@ Release Date: 03.08.2021
 
 ----
 
-
 ## Windows 10 Performance Snapshot
 
-![](.README_images/Perf_Snap_3.0.1_win10.png)
+The finishing touch to the work on a new release is a test run with all databases under identical conditions on three different systems - Ubuntu 20.04 via VMware and WSL2, Windows 10. 
+The measured time includes the total time required for the DDL effort (database, schema, user, 5 database tables) and the DML effort (insertion of 7011 rows). 
+The hardware used includes an AMD Ryzen 9 5950X CPU with 128GB RAM. 
+The tests run exclusively on the computer in each case. 
+The detailed results can be found in the DBSeeder repository in the `resources/statistics` directory.
+
+The following table shows the results of the Windows 10 run. 
+If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
+For example, the MonetDB database is faster with inactive constraints by 21.2% compared to the run with activated constraints.
+
+![](resources/.README_images/Perf_Snap_3.0.1_win10.png)
 
 - **DBMS** - official DBMS name
 - **Type** - client version, embedded version or via trino
@@ -58,7 +85,7 @@ Release Date: 03.08.2021
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
-- Issue: Docker Image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)).
+- Issue: Docker image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)).
 
 ### <a name="issues_omnisci"></a> OmniSciDB
 
@@ -75,6 +102,24 @@ Release Date: 03.08.2021
 ### <a name="issues_voltdb"></a> VoltDB
 
 - Issue: Java 16 not yet supported: `java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null`
-
+```
+    2021-09-02 03:39:41,112 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='voltdb'
+    2021-09-02 03:39:41,112 [DatabaseSeeder.java] INFO  Start VoltDB
+    2021-09-02 03:39:41,117 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =voltdb
+    2021-09-02 03:39:41,127 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =voltdb
+    java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+	    at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
+	    at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
+	    at java.base/java.lang.Thread.run(Thread.java:831)
+    Sept. 02, 2021 3:39:41 AM org.voltcore.logging.VoltUtilLoggingLogger log
+    SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+    java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+	    at org.voltcore.network.VoltNetwork.optimizedInvokeCallbacks(VoltNetwork.java:478)
+	    at org.voltcore.network.VoltNetwork.run(VoltNetwork.java:329)
+	    at java.base/java.lang.Thread.run(Thread.java:831)
+    Sept. 02, 2021 3:39:41 AM org.voltcore.logging.VoltUtilLoggingLogger log
+    SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
+```
+    
 ----------
 

@@ -14,9 +14,9 @@ mkdir -p "$PWD/tmp"
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=2
-export DB_SEEDER_RELEASE=3.0.1
+export DB_SEEDER_RELEASE=3.0.2
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=360
+export DB_SEEDER_VERSION_TRINO=361
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -138,6 +138,8 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.4
     export DB_SEEDER_VERSION=v21.1.5
     export DB_SEEDER_VERSION=v21.1.6
+    export DB_SEEDER_VERSION=v21.1.7
+    export DB_SEEDER_VERSION=v21.1.8
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -199,6 +201,7 @@ fi
 if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_CONNECTION_PORT=8563
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:exa:
+    export DB_SEEDER_CONNECTION_SUFFIX=";validateservercertificate=0"
     export DB_SEEDER_CONTAINER_PORT=8563
     export DB_SEEDER_PASSWORD=exasol
     export DB_SEEDER_PASSWORD_SYS=exasol
@@ -216,6 +219,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.9
     export DB_SEEDER_VERSION=7.0.10
     export DB_SEEDER_VERSION=7.0.11
+    export DB_SEEDER_VERSION=7.1.0-d1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -305,6 +309,7 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
     export DB_SEEDER_VERSION=14.10.FC3DE
     export DB_SEEDER_VERSION=14.10.FC4DE
     export DB_SEEDER_VERSION=14.10.FC5DE
+    export DB_SEEDER_VERSION=14.10.FC5DE-rhm
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
@@ -328,6 +333,8 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.6.1
     export DB_SEEDER_VERSION=10.6.2
     export DB_SEEDER_VERSION=10.6.3
+    export DB_SEEDER_VERSION=10.6.3-focal
+    export DB_SEEDER_VERSION=10.6.4-focal
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -360,6 +367,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Oct2020-SP3
     export DB_SEEDER_VERSION=Oct2020-SP4
     export DB_SEEDER_VERSION=Oct2020-SP5
+    export DB_SEEDER_VERSION=Jul2021
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
@@ -414,6 +422,8 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=admin
     export DB_SEEDER_VERSION=5.6.1
+    export DB_SEEDER_VERSION=5.6.4
+    export DB_SEEDER_VERSION=5.7.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
@@ -428,6 +438,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
+    export DB_SEEDER_VERSION=db_21_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
@@ -447,6 +458,7 @@ if [ "${DB_SEEDER_DBMS}" = "oracle_trino" ]; then
     export DB_SEEDER_VERSION=db_12_2_ee
     export DB_SEEDER_VERSION=db_18_3_ee
     export DB_SEEDER_VERSION=db_19_3_ee
+    export DB_SEEDER_VERSION=db_21_3_ee
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
@@ -482,6 +494,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_VERSION=13.1-alpine
     export DB_SEEDER_VERSION=13.2-alpine
     export DB_SEEDER_VERSION=13.3-alpine
+    export DB_SEEDER_VERSION=13.4-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
@@ -501,6 +514,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_VERSION=13.1-alpine
     export DB_SEEDER_VERSION=13.2-alpine
     export DB_SEEDER_VERSION=13.3-alpine
+    export DB_SEEDER_VERSION=13.4-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
@@ -521,6 +535,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=2019-latest
+    export DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
@@ -536,6 +551,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=2019-latest
+    export DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
@@ -551,6 +567,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_USER_SYS=kxn_user_sys
     export DB_SEEDER_VERSION=2.3.1-pg13
     export DB_SEEDER_VERSION=2.4.0-pg13
+    export DB_SEEDER_VERSION=2.4.1-pg13
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then
@@ -587,6 +604,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.7.1.0-b131
     export DB_SEEDER_VERSION=2.7.1.1-b1
     export DB_SEEDER_VERSION=2.7.2.0-b216
+    export DB_SEEDER_VERSION=2.9.0.0-b4
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then

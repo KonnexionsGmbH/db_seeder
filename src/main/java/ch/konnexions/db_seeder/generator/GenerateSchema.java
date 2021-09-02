@@ -505,7 +505,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
                                                       tableName,
                                                       genTablesTableConstraints.get(tableName));
 
-        if ("derby".equals(tickerSymbolIntern) || "hsqldb".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern)) {
+        if (!("cratedb".equals(tickerSymbolIntern)
+            || "exasol".equals(tickerSymbolIntern)
+            || "informix".equals(tickerSymbolIntern)
+            || "omnisci".equals(tickerSymbolIntern))) {
           editTableConstraintsUnique(tickerSymbolIntern,
                                      identifierDelimiter,
                                      tableName,
@@ -621,12 +624,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // UNIQUE ............................................................
 
-          if (!("cratedb".equals(tickerSymbolIntern)
-              || "derby".equals(tickerSymbolIntern)
-              || "exasol".equals(tickerSymbolIntern)
-              || "hsqldb".equals(tickerSymbolIntern)
-              || "voltdb".equals(tickerSymbolIntern)
-              || "omnisci".equals(tickerSymbolIntern))) {
+          if ("informix".equals(tickerSymbolIntern)) {
             if (column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());

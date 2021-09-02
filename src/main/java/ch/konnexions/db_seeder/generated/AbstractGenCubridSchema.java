@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a CUBRID DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 3.0.1
+ * @version 3.0.2
  */
 public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
 
@@ -53,12 +53,12 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
                        EMAIL                            VARCHAR(100),
                        FAX                              VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
+                       NAME                             VARCHAR(100)              NOT NULL,
                        PHONE                            VARCHAR(50),
                        POSTAL_CODE                      VARCHAR(50),
                        URL                              VARCHAR(250),
-                       VAT_ID_NUMBER                    VARCHAR(100)
+                       VAT_ID_NUMBER                    VARCHAR(100),
+                       CONSTRAINT KXN_9                 UNIQUE      (name)
                    )
                    """);
 
@@ -71,8 +71,8 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
                        CREATED                          TIMESTAMP                 NOT NULL,
                        ISO3166                          VARCHAR(50),
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       CONSTRAINT KXN_10                UNIQUE      (name)
                    )
                    """);
 
@@ -90,7 +90,7 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
                        MODIFIED                         TIMESTAMP,
                        NAME                             VARCHAR(100)              NOT NULL,
                        SYMBOL                           VARCHAR(50),
-                       CONSTRAINT KXN_3                 UNIQUE      ("fk_country_id", "name")
+                       CONSTRAINT KXN_11                UNIQUE      ("fk_country_id", "name")
                    )
                    """);
 
@@ -102,9 +102,9 @@ public abstract class AbstractGenCubridSchema extends AbstractGenSeeder {
                        ABBREVIATION                     VARCHAR(50)               NOT NULL,
                        CREATED                          TIMESTAMP                 NOT NULL,
                        MODIFIED                         TIMESTAMP,
-                       NAME                             VARCHAR(100)              NOT NULL
-                                                                                  UNIQUE,
-                       V_TIME_ZONE                      VARCHAR(4000)
+                       NAME                             VARCHAR(100)              NOT NULL,
+                       V_TIME_ZONE                      VARCHAR(4000),
+                       CONSTRAINT KXN_12                UNIQUE      (name)
                    )
                    """);
 

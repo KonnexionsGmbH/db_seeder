@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.2.svg)
 ----
 
 ### Table of Contents
@@ -64,32 +64,32 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                         |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.6          | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.8          | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.1              | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.0.11          | 7.0.11              |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0-d1        | 7.1.0               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.3           | 2.7.3               | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal     | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Oct2020-SP5  | 3.1.jre8            | 
+| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021      | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
-| OmniSciDB                       | omnisci            | 5.6.1                      | 5.6.0               |
-| Oracle Database                 | oracle             | 12c - 19c                  | 21.1.0.0            |
+| OmniSciDB                       | omnisci            | 5.6.1 - 5.7.0              | 5.7.0               |
+| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0          | 21.3.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.3                | 42.2.23             |
-| SQL Server                      | sqlserver          | 2019-latest                | 9.2.1.jre15         | 
-| SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.1            |
-| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.0-pg13    | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 360                  | 360                 |
+| PostgreSQL                      | postgresql         | 12.3 - 13.4                | 42.2.23             |
+| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
+| SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.3            |
+| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13    | see PostgreSQL      |
+| trino                           | mysql_trino,       | 339 - 361                  | 361                 |
 |                                 | oracle_trino,      |                            |                     |
 |                                 | postgresql_trino,  |                            |                     |
 |                                 | sqlserver_trino    |                            |                     |
-| VoltDB                          | voltdb             | 9.2.1                      | 10.1.1              |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.7.2.0-b216 | 42.2.7-yb-3         |
+| VoltDB                          | voltdb             | 9.2.1                      | 11.0                |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4   | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
@@ -314,7 +314,7 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 - NN    - not null
 - PK    - primary key
 
-![](.README_images/RE_Oracle_19c.png)
+![](resources/.README_images/RE_Oracle_19c.png)
 
 [//]: # (===========================================================================================)
 
@@ -381,17 +381,17 @@ Java method: `getContentVarchar`
 
 ##### 1. Table CITY
 
-![](.README_images/Example_Data_CITY.png)
+![](resources/.README_images/Example_Data_CITY.png)
 
 ##### 2. Table COUNTRY
 
-![](.README_images/ExampleData_COUNTRY.png)
+![](resources/.README_images/ExampleData_COUNTRY.png)
 
 [//]: # (===========================================================================================)
 
 ##### 3. Table TIMEZONE
 
-![](.README_images/Example_Data_TIMEZONE.png)
+![](resources/.README_images/Example_Data_TIMEZONE.png)
 
 ## <a name="installation"></a> 3. Installation
 
@@ -442,7 +442,7 @@ For the run variants `complete`, `complete_client`, `complete_emb` and `complete
 
 An overview of the structure of the scripts used can be taken from the following diagram:
 
-![](.README_images/script_structure.png)
+![](resources/.README_images/script_structure.png)
 
 #### 4.1.2 Script `scripts/run_db_seeder_statistics`
 
@@ -491,9 +491,9 @@ Details on the required software versions can be found in the [release notes](Re
 
 - If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
-![](.README_images/Docker_Desktop_Settings_1.png)
+![](resources/.README_images/Docker_Desktop_Settings_1.png)
 
-![](.README_images/Docker_Desktop_Settings_2.png)
+![](resources/.README_images/Docker_Desktop_Settings_2.png)
 
 ### <a name="operating_instructions_control"></a> 4.3 Control Parameters
  
@@ -576,7 +576,7 @@ db_seeder.user=
 
 Performance data for the different versions of **`DBSeeder`** can be found in the file directory `resources/statistics`:
 
-![](.README_images/Statistics_Directory.png)
+![](resources/.README_images/Statistics_Directory.png)
 
 The different file name patterns result from the following operating system environments:
 
@@ -671,7 +671,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE TABLE](https://db.apache.org/derby/docs/10.15/ref/index.html) 
   - CREATE USER - n/a 
 
-- **Docker image (latest - only client version``)**:
+- **Docker image (latest - only client version)**:
   - pull command: `docker pull konnexionsgmbh/apache_derby:10.15.2.0`
   - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
 
@@ -690,11 +690,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
   -- client version:
   
-![](.README_images/DBeaver_DERBY.png)
+![](resources/.README_images/DBeaver_DERBY.png)
   
   -- embedded version:
   
-![](.README_images/DBeaver_DERBY_EMB.png)
+![](resources/.README_images/DBeaver_DERBY_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -717,7 +717,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.6`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.8`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -733,7 +733,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_COCKROACHDB.png)
+![](resources/.README_images/DBeaver_COCKROACHDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -779,7 +779,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_CRATEDB.png)
+![](resources/.README_images/DBeaver_CRATEDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -822,7 +822,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_CUBRID.png)
+![](resources/.README_images/DBeaver_CUBRID.png)
 
 [//]: # (===========================================================================================)
 
@@ -844,18 +844,21 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.0.11`
+  - pull command: `docker pull exasol/docker-db:7.1.0-d1`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 7.0.11
+  - version 7.1.0
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
 
+- **restrictions**:
+  - no unique key constraints
+
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_EXASOL.png)
+![](resources/.README_images/DBeaver_EXASOL.png)
 
 [//]: # (===========================================================================================)
 
@@ -895,7 +898,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_FIREBIRD.png)
+![](resources/.README_images/DBeaver_FIREBIRD.png)
 
 [//]: # (===========================================================================================)
 
@@ -937,11 +940,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
   -- client version:
   
-![](.README_images/DBeaver_H2.png)
+![](resources/.README_images/DBeaver_H2.png)
   
   -- embedded version:
   
-![](.README_images/DBeaver_H2_EMB.png)
+![](resources/.README_images/DBeaver_H2_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -983,11 +986,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
   -- client version:
   
-![](.README_images/DBeaver_HSQLDB.png)
+![](resources/.README_images/DBeaver_HSQLDB.png)
   
   -- embedded version:
   
-![](.README_images/DBeaver_HSQLDB_EMB.png)
+![](resources/.README_images/DBeaver_HSQLDB_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1030,7 +1033,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_IBMDB2.png)
+![](resources/.README_images/DBeaver_IBMDB2.png)
 
 [//]: # (===========================================================================================)
 
@@ -1053,7 +1056,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC5DE`
+  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC5DE-rhm`
   - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
 
 - **encoding**:
@@ -1069,11 +1072,13 @@ Below are also DBeaver based connection parameter examples for each database man
   - database / schema `sysmaster`
   - INFORMIXSERVER `informix`
 
-- **restrictions**: the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users 
+- **restrictions**: 
+  - the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users 
+  - no named constraints in ALTER TABLE ADD CONSTRAINT
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_INFORMIX.png)
+![](resources/.README_images/DBeaver_INFORMIX.png)
 
 [//]: # (===========================================================================================)
 
@@ -1096,7 +1101,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.6.3`
+  - pull command: `docker pull mariadb:10.6.4-focal`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1108,7 +1113,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://jira.mariadb.org/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 2.7.2
+  - version 2.7.4
   - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
 
 - **privileged database access**:
@@ -1119,7 +1124,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MARIADB.png)
+![](resources/.README_images/DBeaver_MARIADB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1157,7 +1162,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MIMER.png)
+![](resources/.README_images/DBeaver_MIMER.png)
 
 [//]: # (===========================================================================================)
 
@@ -1180,7 +1185,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull monetdb/monetdb:Oct2020-SP5`
+  - pull command: `docker pull monetdb/monetdb:Jul2021`
   - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1200,7 +1205,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MONETDB.png)
+![](resources/.README_images/DBeaver_MONETDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1240,7 +1245,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MYSQL.png)
+![](resources/.README_images/DBeaver_MYSQL.png)
 
 [//]: # (===========================================================================================)
 
@@ -1271,7 +1276,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
 
 - **JDBC driver (latest)**:
-  - version 5.6.0
+  - version 5.7.0
   - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
 
 - **privileged database access**:
@@ -1291,7 +1296,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_OmniSciDB.png)
+![](resources/.README_images/DBeaver_OmniSciDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1310,15 +1315,15 @@ Below are also DBeaver based connection parameter examples for each database man
 - **DDL syntax**:
   - CREATE DATABASE - n/a 
   - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
-  - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
+  - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
+  - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
 
 - **Docker image**: [DockerHub](https://github.com/oracle/docker-images/tree/master/OracleDatabase)
 
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 21.1.0.0
+  - version 21.3.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11)
 
 - **privileged database access**:
@@ -1327,7 +1332,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_ORACLE.png)
+![](resources/.README_images/DBeaver_ORACLE.png)
 
 [//]: # (===========================================================================================)
 
@@ -1388,7 +1393,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:13.3-alpine`
+  - pull command: `docker pull postgres:13.4-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
@@ -1403,7 +1408,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_POSTGRESQL.png)
+![](resources/.README_images/DBeaver_POSTGRESQL.png)
 
 [//]: # (===========================================================================================)
 
@@ -1426,13 +1431,13 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-latest`
+  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-CU12-ubuntu-20.04`
   - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
 
 - **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
 
 - **JDBC driver (latest)**:
-  - version 9.2.1.jre15
+  - version 9.4.0.jre16
   - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
 
 - **privileged database access**:
@@ -1443,7 +1448,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_SQLSERVER.png)
+![](resources/.README_images/DBeaver_SQLSERVER.png)
 
 [//]: # (===========================================================================================)
 
@@ -1470,7 +1475,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
 
 - **JDBC driver (latest)**:
-  - version 3.36.0.1
+  - version 3.36.0.3
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
   - determines also the DBMS version
 
@@ -1482,7 +1487,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_SQLITE.png)
+![](resources/.README_images/DBeaver_SQLITE.png)
 
 [//]: # (===========================================================================================)
 
@@ -1505,7 +1510,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-  - pull command: `docker pull timescale/timescaledb:2.4.0-pg13`
+  - pull command: `docker pull timescale/timescaledb:2.4.1-pg13`
   - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL
@@ -1538,7 +1543,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:360`
+  - pull command: `docker pull trinodb/trino:361`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1546,14 +1551,14 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 360
+  - version 361
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_TimescaleDB.png)
+![](resources/.README_images/DBeaver_TimescaleDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1582,7 +1587,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 10.1.1
+  - version 11.0
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **restrictions**: no support of autoincrement, check constraints or foreign keys
@@ -1610,7 +1615,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.7.2.0-b216`
+  - pull command: `docker pull yugabytedb/yugabyte:2.9.0.0-b4`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL
@@ -1625,7 +1630,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_YUGABYTE.png)
+![](resources/.README_images/DBeaver_YUGABYTE.png)
 
 ## <a name="trino"></a> 6. trino
 

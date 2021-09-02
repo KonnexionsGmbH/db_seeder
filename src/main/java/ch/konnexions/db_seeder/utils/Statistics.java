@@ -145,13 +145,13 @@ public final class Statistics {
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, false));
 
-        new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)).withHeader(config.getFileStatisticsHeader().replace(";",
-                                                                                                                                                        statisticsDelimiter)
-            .split(statisticsDelimiter)));
+        new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.builder().setDelimiter(statisticsDelimiter).setHeader(config.getFileStatisticsHeader().replace(";",
+                                                                                                                                                      statisticsDelimiter)
+            .split(statisticsDelimiter)).build());
 
         bufferedWriter.close();
 
-        logger.info("missing statistics file created: file name=" + config.getFileStatisticsName());
+        logger.info("missing statistics file created: file name=" + statisticsName);
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -164,8 +164,7 @@ public final class Statistics {
   }
 
   private void openStatisticsFile() {
-    String statisticsDelimiter = config.getFileStatisticsDelimiter();
-    String statisticsName      = config.getFileStatisticsName();
+    String statisticsName = config.getFileStatisticsName();
 
     try {
       boolean isFileExisting = Files.exists(Paths.get(statisticsName));
@@ -176,7 +175,7 @@ public final class Statistics {
       }
 
       BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, true));
-      statisticsFile = new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.withDelimiter(statisticsDelimiter.charAt(0)));
+      statisticsFile = new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.builder().setDelimiter(config.getFileStatisticsDelimiter().charAt(0)).build());
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
