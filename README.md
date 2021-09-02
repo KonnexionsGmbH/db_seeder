@@ -314,7 +314,7 @@ The abbreviations in the following illustration (created with Toad Data Modeler)
 - NN    - not null
 - PK    - primary key
 
-![](.README_images/RE_Oracle_19c.png)
+![](resources/.README_images/RE_Oracle_19c.png)
 
 [//]: # (===========================================================================================)
 
@@ -381,17 +381,17 @@ Java method: `getContentVarchar`
 
 ##### 1. Table CITY
 
-![](.README_images/Example_Data_CITY.png)
+![](resources/.README_images/Example_Data_CITY.png)
 
 ##### 2. Table COUNTRY
 
-![](.README_images/ExampleData_COUNTRY.png)
+![](resources/.README_images/ExampleData_COUNTRY.png)
 
 [//]: # (===========================================================================================)
 
 ##### 3. Table TIMEZONE
 
-![](.README_images/Example_Data_TIMEZONE.png)
+![](resources/.README_images/Example_Data_TIMEZONE.png)
 
 ## <a name="installation"></a> 3. Installation
 
@@ -442,7 +442,7 @@ For the run variants `complete`, `complete_client`, `complete_emb` and `complete
 
 An overview of the structure of the scripts used can be taken from the following diagram:
 
-![](.README_images/script_structure.png)
+![](resources/.README_images/script_structure.png)
 
 #### 4.1.2 Script `scripts/run_db_seeder_statistics`
 
@@ -491,9 +491,9 @@ Details on the required software versions can be found in the [release notes](Re
 
 - If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
-![](.README_images/Docker_Desktop_Settings_1.png)
+![](resources/.README_images/Docker_Desktop_Settings_1.png)
 
-![](.README_images/Docker_Desktop_Settings_2.png)
+![](resources/.README_images/Docker_Desktop_Settings_2.png)
 
 ### <a name="operating_instructions_control"></a> 4.3 Control Parameters
  
@@ -576,7 +576,7 @@ db_seeder.user=
 
 Performance data for the different versions of **`DBSeeder`** can be found in the file directory `resources/statistics`:
 
-![](.README_images/Statistics_Directory.png)
+![](resources/.README_images/Statistics_Directory.png)
 
 The different file name patterns result from the following operating system environments:
 
@@ -690,11 +690,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
   -- client version:
   
-![](.README_images/DBeaver_DERBY.png)
+![](resources/.README_images/DBeaver_DERBY.png)
   
   -- embedded version:
   
-![](.README_images/DBeaver_DERBY_EMB.png)
+![](resources/.README_images/DBeaver_DERBY_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -733,7 +733,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_COCKROACHDB.png)
+![](resources/.README_images/DBeaver_COCKROACHDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -779,7 +779,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_CRATEDB.png)
+![](resources/.README_images/DBeaver_CRATEDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -822,7 +822,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_CUBRID.png)
+![](resources/.README_images/DBeaver_CUBRID.png)
 
 [//]: # (===========================================================================================)
 
@@ -858,7 +858,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_EXASOL.png)
+![](resources/.README_images/DBeaver_EXASOL.png)
 
 [//]: # (===========================================================================================)
 
@@ -898,7 +898,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_FIREBIRD.png)
+![](resources/.README_images/DBeaver_FIREBIRD.png)
 
 [//]: # (===========================================================================================)
 
@@ -940,11 +940,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
   -- client version:
   
-![](.README_images/DBeaver_H2.png)
+![](resources/.README_images/DBeaver_H2.png)
   
   -- embedded version:
   
-![](.README_images/DBeaver_H2_EMB.png)
+![](resources/.README_images/DBeaver_H2_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -986,11 +986,11 @@ Below are also DBeaver based connection parameter examples for each database man
 
   -- client version:
   
-![](.README_images/DBeaver_HSQLDB.png)
+![](resources/.README_images/DBeaver_HSQLDB.png)
   
   -- embedded version:
   
-![](.README_images/DBeaver_HSQLDB_EMB.png)
+![](resources/.README_images/DBeaver_HSQLDB_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1033,7 +1033,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_IBMDB2.png)
+![](resources/.README_images/DBeaver_IBMDB2.png)
 
 [//]: # (===========================================================================================)
 
@@ -1078,7 +1078,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_INFORMIX.png)
+![](resources/.README_images/DBeaver_INFORMIX.png)
 
 [//]: # (===========================================================================================)
 
@@ -1124,7 +1124,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MARIADB.png)
+![](resources/.README_images/DBeaver_MARIADB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1162,7 +1162,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MIMER.png)
+![](resources/.README_images/DBeaver_MIMER.png)
 
 [//]: # (===========================================================================================)
 
@@ -1205,7 +1205,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MONETDB.png)
+![](resources/.README_images/DBeaver_MONETDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1245,7 +1245,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_MYSQL.png)
+![](resources/.README_images/DBeaver_MYSQL.png)
 
 [//]: # (===========================================================================================)
 
@@ -1296,7 +1296,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_OmniSciDB.png)
+![](resources/.README_images/DBeaver_OmniSciDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1332,7 +1332,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_ORACLE.png)
+![](resources/.README_images/DBeaver_ORACLE.png)
 
 [//]: # (===========================================================================================)
 
@@ -1408,7 +1408,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_POSTGRESQL.png)
+![](resources/.README_images/DBeaver_POSTGRESQL.png)
 
 [//]: # (===========================================================================================)
 
@@ -1448,7 +1448,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_SQLSERVER.png)
+![](resources/.README_images/DBeaver_SQLSERVER.png)
 
 [//]: # (===========================================================================================)
 
@@ -1487,7 +1487,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_SQLITE.png)
+![](resources/.README_images/DBeaver_SQLITE.png)
 
 [//]: # (===========================================================================================)
 
@@ -1558,7 +1558,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_TimescaleDB.png)
+![](resources/.README_images/DBeaver_TimescaleDB.png)
 
 [//]: # (===========================================================================================)
 
@@ -1630,7 +1630,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](.README_images/DBeaver_YUGABYTE.png)
+![](resources/.README_images/DBeaver_YUGABYTE.png)
 
 ## <a name="trino"></a> 6. trino
 
