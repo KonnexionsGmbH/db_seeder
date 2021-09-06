@@ -87,7 +87,7 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 ### <a name="issues_hsqldb"></a> HSQLDB
 
 - Issue: `java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100` (see [here](https://stackoverflow.com/questions/46362160/error-java-sql-sqlsyntaxerrorexception-user-lacks-privilege-or-object-not-foun)).
-
+```
     2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='hsqldb_emb'
     2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  Start HSQLDB [embedded]
     2021-09-06 12:03:53,680 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =hsqldb
@@ -114,6 +114,7 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
         at org.hsqldb.Session.executeDirectStatement(Unknown Source)
         at org.hsqldb.Session.execute(Unknown Source)
         ... 6 more`
+```
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
