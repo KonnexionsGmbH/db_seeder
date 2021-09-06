@@ -3,7 +3,48 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.1.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.3.svg)
+
+----
+
+## Version 3.0.2
+
+Release Date: 06.09.2021
+
+### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 3.6.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
+- Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
+- Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
+
+### Modified Features
+
+- CockroachDB: DBMS v21.1.8
+- Exasol: DBMS 7.1.0-d1 / JDBC 7.1.0
+- IBM Informix: DBMS 14.10.FC5DE-rhm
+- MariaDB Server: DBMS 10.6.4-focal / JDBC 2.7.4
+- MonetDB: DBMS Jul2021
+- OmniSciDB: DBMS 5.7.0 / JDBC 5.7.0
+- Oracle Database: DBMS 21.3.0 / JDBC 21.1.0.0
+- PostgreSQL: DBMS 13.4
+- SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
+- SQLite: JDBC 3.36.0.3
+- TimescaleDB: DBMS 2.4.1-pg13
+- trino: DBMS 361 / JDBC 361
+- VoltDB: JDBC 11.0
+- YugabyteDB: DBMS 2.9.0.0-b4
+
+### Open issues
+
+- CockroachDB: (see [here](#issues_cockroach))
+- HSQLDB: (see [here](#issues_hsqldb))
+- IBM Db2 Database: (see [here](#issues_ibmdb2))
+- OmnisciDB: (see [here](#issues_omnisci))
+- trino: (see [here](#issues_trino))
+- VoltDB: (see [here](#issues_voltdb))
 
 ----
 
