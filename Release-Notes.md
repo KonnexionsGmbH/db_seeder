@@ -9,7 +9,7 @@
 
 ## Version 3.0.2
 
-Release Date: dd.mm.2021
+Release Date: 06.09.2021
 
 ### System Requirements
 
@@ -19,10 +19,6 @@ Release Date: dd.mm.2021
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
 - Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
-
-### New Features
-
-- n/a
 
 ### Modified Features
 
@@ -41,13 +37,10 @@ Release Date: dd.mm.2021
 - VoltDB: JDBC 11.0
 - YugabyteDB: DBMS 2.9.0.0-b4
 
-### Deleted Features
-
-- n/a
-
 ### Open issues
 
 - CockroachDB: (see [here](#issues_cockroach))
+- HSQLDB: (see [here](#issues_hsqldb))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
@@ -67,7 +60,7 @@ The following table shows the results of the Windows 10 run.
 If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
 For example, the MonetDB database is faster with inactive constraints by 21.2% compared to the run with activated constraints.
 
-![](resources/.README_images/Perf_Snap_3.0.1_win10.png)
+![](resources/.README_images/Perf_Snap_3.0.2_win10.png)
 
 - **DBMS** - official DBMS name
 - **Type** - client version, embedded version or via trino
@@ -82,6 +75,38 @@ For example, the MonetDB database is faster with inactive constraints by 21.2% c
 ### <a name="issues_cockroach"></a> CockroachDB
 
 - Issue: dropping and restoring the same index - SQL statement `DROP INDEX constraint_kxn_2 CASCADE` (see [here](https://github.com/cockroachdb/cockroach/issues/42844)).
+
+### <a name="issues_hsqldb"></a> HSQLDB
+
+- Issue: `java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100` (see [here](https://stackoverflow.com/questions/46362160/error-java-sql-sqlsyntaxerrorexception-user-lacks-privilege-or-object-not-foun)).
+```
+    2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='hsqldb_emb'
+    2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  Start HSQLDB [embedded]
+    2021-09-06 12:03:53,680 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =hsqldb
+    2021-09-06 12:03:53,688 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =hsqldb_emb
+    java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+        at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
+        at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
+        at org.hsqldb.jdbc.JDBCStatement.fetchResult(Unknown Source)
+        at org.hsqldb.jdbc.JDBCStatement.execute(Unknown Source)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1351)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1220)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:420)
+        at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:168)
+        Caused by: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+        at org.hsqldb.error.Error.error(Unknown Source)
+        at org.hsqldb.error.Error.error(Unknown Source)
+        at org.hsqldb.SchemaManager.getSchemaObject(Unknown Source)
+        at org.hsqldb.ParserDQL.readSchemaObjectName(Unknown Source)
+        at org.hsqldb.ParserDDL.compileAlterTableDropConstraint(Unknown Source)
+        at org.hsqldb.ParserDDL.compileAlterTable(Unknown Source)
+        at org.hsqldb.ParserDDL.compileAlter(Unknown Source)
+        at org.hsqldb.ParserCommand.compilePart(Unknown Source)
+        at org.hsqldb.ParserCommand.compileStatements(Unknown Source)
+        at org.hsqldb.Session.executeDirectStatement(Unknown Source)
+        at org.hsqldb.Session.execute(Unknown Source)
+        ... 6 more`
+```
 
 ### <a name="issues_ibmdb2"></a> IBM Db2 Database
 
