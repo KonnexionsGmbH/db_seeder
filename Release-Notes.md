@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.2.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.3.svg)
 
 ----
 
-## Version 3.0.2
+## Version 3.0.3
 
-Release Date: 06.09.2021
+Release Date: dd.mm.2021
 
 ### System Requirements
 
@@ -20,22 +20,17 @@ Release Date: 06.09.2021
 - Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
 
+### New Features
+
+- n/a
+
 ### Modified Features
 
-- CockroachDB: DBMS v21.1.8
-- Exasol: DBMS 7.1.0-d1 / JDBC 7.1.0
-- IBM Informix: DBMS 14.10.FC5DE-rhm
-- MariaDB Server: DBMS 10.6.4-focal / JDBC 2.7.4
-- MonetDB: DBMS Jul2021
-- OmniSciDB: DBMS 5.7.0 / JDBC 5.7.0
-- Oracle Database: DBMS 21.3.0 / JDBC 21.1.0.0
-- PostgreSQL: DBMS 13.4
-- SQL Server: DBMS 2019-CU12-ubuntu-20.04 / JDBC 9.4.0.jre16
-- SQLite: JDBC 3.36.0.3
-- TimescaleDB: DBMS 2.4.1-pg13
-- trino: DBMS 361 / JDBC 361
-- VoltDB: JDBC 11.0
-- YugabyteDB: DBMS 2.9.0.0-b4
+- xxx: DBMS 999 / JDBC 999
+
+### Deleted Features
+
+- n/a
 
 ### Open issues
 
@@ -60,7 +55,7 @@ The following table shows the results of the Windows 10 run.
 If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
 For example, the MonetDB database is faster with inactive constraints by 9.2% compared to the run with activated constraints.
 
-![](resources/.README_images/Perf_Snap_3.0.2_win10.png)
+![](resources/.README_images/Perf_Snap_3.0.3_win10.png)
 
 - **DBMS** - official DBMS name
 - **Type** - client version, embedded version or via trino
