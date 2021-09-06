@@ -9,7 +9,7 @@
 
 ## Version 3.0.2
 
-Release Date: dd.mm.2021
+Release Date: 06.09.2021
 
 ### System Requirements
 
@@ -19,10 +19,6 @@ Release Date: dd.mm.2021
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
 - Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
-
-### New Features
-
-- n/a
 
 ### Modified Features
 
@@ -40,10 +36,6 @@ Release Date: dd.mm.2021
 - trino: DBMS 361 / JDBC 361
 - VoltDB: JDBC 11.0
 - YugabyteDB: DBMS 2.9.0.0-b4
-
-### Deleted Features
-
-- n/a
 
 ### Open issues
 
