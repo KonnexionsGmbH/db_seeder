@@ -2,7 +2,8 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_statistics.bat: Creation of the benchmark data summary file.
+rem run_db_seeder_compute_improvement.bat: Compute runtime improvement with and 
+rem                                        without constraints.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -18,25 +19,15 @@ set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DBSeeder - Creation of the benchmark data summary file.
+echo DBSeeder - Compute runtime improvement with and without constraints.
 echo --------------------------------------------------------------------------------
-echo FILE_CONFIGURATION_NAME        : %DB_SEEDER_FILE_CONFIGURATION_NAME%
-echo FILE_STATISTICS_SUMMARY_NAME   : %DB_SEEDER_FILE_STATISTICS_SUMMARY_NAME%
-echo FILE_STATISTICS_SUMMARY_SOURCE : %DB_SEEDER_FILE_STATISTICS_SUMMARY_SOURCE%
-echo JAVA_CLASSPATH                 : %DB_SEEDER_JAVA_CLASSPATH%
+echo Filename via parameter : %1
+echo JAVA_CLASSPATH          : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
-call gradle copyJarToLib
-if %ERRORLEVEL% NEQ 0 (
-    echo Processing of the script was aborted, error code=%ERRORLEVEL%
-    exit %ERRORLEVEL%
-)
-
-if exist db_seeder.log del /f /q db_seeder.log
-
-java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.CreateSummaryFile
+java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.ComputeImprovement %1
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%

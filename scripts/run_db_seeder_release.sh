@@ -124,6 +124,8 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh voltdb           no  1
 #./run_db_seeder.sh yugabyte         yes 1
 
+./scripts/run_db_seeder_compute_improvement.sh ${DB_SEEDER_FILE_STATISTICS_NAME}
+
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "--------------------------------------------------------------------------------"

@@ -1,8 +1,9 @@
 package ch.konnexions.db_seeder.jdbc.timescale;
 
-import ch.konnexions.db_seeder.generated.AbstractGenTimescaleSchema;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import ch.konnexions.db_seeder.generated.AbstractGenTimescaleSchema;
 
 /**
  * Data Generator for a TimescaleDB DBMS.

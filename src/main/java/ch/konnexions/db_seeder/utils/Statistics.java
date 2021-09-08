@@ -27,21 +27,27 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
  * This class is used to record the statistics of the db_seeder runs.
  */
 public final class Statistics {
+
   private static final Logger         logger                     = LogManager.getLogger(Statistics.class);
 
   private final Config                config;
+
   private final Map<String, String[]> dbmsValues;
+
   private long                        durationDDLConstraintsAdd  = 0;
+
   private long                        durationDDLConstraintsDrop = 0;
+
   private long                        durationDML;
-
   private final DateTimeFormatter     formatter                  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
-
   private final boolean               isDebug                    = logger.isDebugEnabled();
 
   private LocalDateTime               startDateTimeDML;
+
   private final LocalDateTime         startDateTimeTotal;
+
   private CSVPrinter                  statisticsFile;
+
   private final String                tickerSymbolExtern;
 
   /**
@@ -128,7 +134,6 @@ public final class Statistics {
   /**
    * Create a new statistics file if none exists yet.
    */
-  @SuppressWarnings("resource")
   private void createStatisticsFile() {
     if (isDebug) {
       logger.debug("Start");

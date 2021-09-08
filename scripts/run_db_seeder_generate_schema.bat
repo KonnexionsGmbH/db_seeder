@@ -10,7 +10,10 @@ setlocal EnableDelayedExpansion
 
 set ERRORLEVEL=
 
-set DB_SEEDER_FILE_CONFIGURATION_NAME=src\main\resources\db_seeder.properties
+set DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT=src\main\resources\db_seeder.properties
+if ["%DB_SEEDER_FILE_CONFIGURATION_NAME%"] EQU [""] (
+    set DB_SEEDER_FILE_CONFIGURATION_NAME=%DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT%
+)
 
 rem set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax_1000.json
 
