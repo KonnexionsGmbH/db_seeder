@@ -8,7 +8,10 @@ set -e
 #
 # ------------------------------------------------------------------------------
 
-export DB_SEEDER_FILE_CONFIGURATION_NAME=src/main/resources/db_seeder.properties
+export DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT=src/main/resources/db_seeder.properties
+if [ -z "${DB_SEEDER_FILE_CONFIGURATION_NAME}" ]; then
+    export DB_SEEDER_FILE_CONFIGURATION_NAME=${DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT}
+fi
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 

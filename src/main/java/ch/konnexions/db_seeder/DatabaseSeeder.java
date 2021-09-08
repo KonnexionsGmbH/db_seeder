@@ -75,23 +75,15 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
 
       if ("yes".equals(config.getDropConstraints())) {
         switch (tickerSymbolExtern) {
-        case "cockroach":
-        case "cratedb":
-        case "h2":
-        case "h2_emb":
-        case "mysql_trino":
-        case "omnisci":
-        case "oracle_trino":
-        case "postgresql_trino":
-        case "sqlite":
-        case "sqlserver_trino":
-        case "voltdb":
+        case "cockroach", "cratedb", "h2", "h2_emb", "mysql_trino", "omnisci", "oracle_trino", "postgresql_trino", "sqlite", "sqlserver_trino", "voltdb" -> {
           logger.info("==============================================================================================================================");
           logger.info("The run variant with parameter 'DB_SEEDER_DROP_CONSTRAINTS=yes' is not yet supported by the DBMS '" + tickerSymbolExtern + "'!");
           logger.info("==============================================================================================================================");
           logger.info("End   DBMS Processing");
           System.exit(0);
-        default:
+        }
+        default -> {
+        }
         }
       }
 

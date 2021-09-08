@@ -27,21 +27,27 @@ import ch.konnexions.db_seeder.AbstractDbmsSeeder;
  * This class is used to record the statistics of the db_seeder runs.
  */
 public final class Statistics {
+
   private static final Logger         logger                     = LogManager.getLogger(Statistics.class);
 
   private final Config                config;
+
   private final Map<String, String[]> dbmsValues;
+
   private long                        durationDDLConstraintsAdd  = 0;
+
   private long                        durationDDLConstraintsDrop = 0;
+
   private long                        durationDML;
-
   private final DateTimeFormatter     formatter                  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnnnnnnnn");
-
   private final boolean               isDebug                    = logger.isDebugEnabled();
 
   private LocalDateTime               startDateTimeDML;
+
   private final LocalDateTime         startDateTimeTotal;
+
   private CSVPrinter                  statisticsFile;
+
   private final String                tickerSymbolExtern;
 
   /**
@@ -82,9 +88,26 @@ public final class Statistics {
       logger.info(String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
                                 durationTotal) + " ms - total");
 
+      String dbType = dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED];
+
+      String constraints;
+      if ("yes".equals(System.getenv("DB_SEEDER_DROP_CONSTRAINTS"))) {
+        constraints = "inactive";
+      } else if ("cockroach".equals(tickerSymbolExtern)
+          || "cratedb".equals(tickerSymbolExtern)
+          || "h2".equals(tickerSymbolExtern)
+          || "h2_emb".equals(tickerSymbolExtern)
+          || "omnisci".equals(tickerSymbolExtern)
+          || "sqlite".equals(tickerSymbolExtern)
+          || "trino".equals(dbType)) {
+        constraints = "active - no choice";
+      } else {
+        constraints = "active";
+      }
+
       statisticsFile.printRecord(tickerSymbolExtern,
                                  dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
-                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_CLIENT_EMBEDDED],
+                                 dbType,
                                  durationTotal,
                                  startDateTimeTotal.format(formatter),
                                  endDateTimeTotal.format(formatter),
@@ -94,7 +117,8 @@ public final class Statistics {
                                  durationTotal - durationDML,
                                  durationDDLConstraintsAdd,
                                  durationDDLConstraintsDrop,
-                                 durationDML);
+                                 durationDML,
+                                 constraints);
 
       statisticsFile.close();
     } catch (IOException e) {
@@ -110,7 +134,6 @@ public final class Statistics {
   /**
    * Create a new statistics file if none exists yet.
    */
-  @SuppressWarnings("resource")
   private void createStatisticsFile() {
     if (isDebug) {
       logger.debug("Start");

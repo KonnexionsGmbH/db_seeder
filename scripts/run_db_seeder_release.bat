@@ -134,6 +134,8 @@ rem > run_db_seeder_multiple.log 2>&1 (
     rem call run_db_seeder voltdb           no  1
     rem call run_db_seeder yugabyte         yes 1
     
+    call scripts\run_db_seeder_compute_improvement %DB_SEEDER_FILE_STATISTICS_NAME%
+
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo --------------------------------------------------------------------------------

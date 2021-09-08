@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 3.0.2
+ * @version 3.0.3
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 

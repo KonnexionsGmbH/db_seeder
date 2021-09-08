@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
  * CREATE TABLE statements for a OmniSciDB DBMS. <br>
  * 
  * @author  CreateSummaryFile.class
- * @version 3.0.2
+ * @version 3.0.3
  */
 public abstract class AbstractGenOmnisciSchema extends AbstractGenSeeder {
 
