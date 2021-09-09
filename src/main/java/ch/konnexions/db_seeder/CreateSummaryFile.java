@@ -11,8 +11,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -31,27 +29,28 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
 
   private static BufferedWriter bufferedWriter;
 
-  private final static Config   config                 = new Config();
+  private final static Config   config                  = new Config();
 
   private static String         fileStatisticsDelimiter;
   private static String[]       fileStatisticsHeaderTokens;
   private static String         fileStatisticsSummaryNameExt;
   private static String         fileStatisticsSummaryNameNoPath;
 
-  private static final Logger   logger                 = LogManager.getLogger(CreateSummaryFile.class);
-  private final static boolean  isDebug                = logger.isDebugEnabled();
+  private static final Logger   logger                  = LogManager.getLogger(CreateSummaryFile.class);
+  private final static boolean  isDebug                 = logger.isDebugEnabled();
 
-  private static final int      MAX_FILE_NAME_TOKENS   = 7;
+  private static final int      MAX_FILE_CONTENT_TOKENS = 14;
+  private static final int      MAX_FILE_NAME_TOKENS    = 7;
 
-  private static int            numberErrors           = 0;
-  private static int            numberProcessedFiles   = 0;
-  private static int            numberProcessedRecords = 0;
+  private static int            numberErrors            = 0;
+  private static int            numberProcessedFiles    = 0;
+  private static int            numberProcessedRecords  = 0;
 
-  private static CSVPrinter     statisticsSummaryFile;
+  private static BufferedWriter statisticsSummaryFile;
 
   private static void createHeader() {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start createHeader()");
     }
 
     insertRecord(fileStatisticsHeaderTokens,
@@ -59,31 +58,46 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
                                                                     ";"));
 
     if (isDebug) {
-      logger.debug("End");
+      logger.debug("End   createHeader()");
     }
   }
 
   private static void insertRecord(String[] fromFileContent, String[] fromFileName) {
+    if (isDebug) {
+      logger.debug("Start insertRecord()");
+    }
+
+    if (fromFileContent.length < MAX_FILE_CONTENT_TOKENS) {
+      return;
+    }
 
     try {
-      statisticsSummaryFile.printRecord(fromFileContent[0], // ticker_symbol
-                                        fromFileContent[1], // dbms
-                                        fromFileName[5], // version
-                                        fromFileName[2], // creator
-                                        fromFileContent[2], // db_type
-                                        fromFileName[4], // schema
-                                        fromFileContent[3], // run_time
-                                        fromFileContent[4], // start_time
-                                        fromFileContent[5], // end_time
-                                        fromFileContent[6], // host_name
-                                        fromFileContent[7], // no_cores
-                                        fromFileContent[8], // operating_system
-                                        fromFileName[6]); // file_name
+      statisticsSummaryFile.write(String.join(config.getFileStatisticsDelimiter(),
+                                              fromFileContent[0], // ticker_symbol
+                                              fromFileContent[1], // dbms
+                                              fromFileName[5], // version
+                                              fromFileName[2], // creator
+                                              fromFileContent[2], // db_type
+                                              fromFileContent[13], // constraints
+                                              fromFileName[4], // schema
+                                              fromFileContent[3], // run_time
+                                              fromFileContent[4], // start_time
+                                              fromFileContent[5], // end_time
+                                              fromFileContent[6], // host_name
+                                              fromFileContent[7], // no_cores
+                                              fromFileContent[8], // operating_system
+                                              fromFileName[6])); // file_name
+      statisticsSummaryFile.newLine();
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
+    numberProcessedRecords++;
+
+    if (isDebug) {
+      logger.debug("End   insertRecord()");
+    }
   }
 
   /**
@@ -113,10 +127,9 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
     processDirectories(statisticsSummaryFile);
 
     try {
-      bufferedWriter.close();
+      statisticsSummaryFile.close();
     } catch (IOException e) {
       e.printStackTrace();
-      System.exit(1);
     }
 
     logger.info("Number total errors           : " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
@@ -133,7 +146,7 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
 
   private static void openStatisticsSummaryFile(String fileName) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start openStatisticsSummaryFile() - fileName=" + fileName);
     }
 
     File fileStatisticsSummary = new File(fileName);
@@ -144,21 +157,20 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
     }
 
     try {
-      bufferedWriter        = new BufferedWriter(new FileWriter(fileName, false));
-      statisticsSummaryFile = new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.builder().setDelimiter(config.getFileStatisticsDelimiter().charAt(0)).build());
+      statisticsSummaryFile = new BufferedWriter(new FileWriter(fileName, false));
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
     }
 
     if (isDebug) {
-      logger.debug("End");
+      logger.debug("End   openStatisticsSummaryFile()");
     }
   }
 
-  private static void processDirectories(CSVPrinter statisticsSummaryFile2) {
+  private static void processDirectories(BufferedWriter statisticsSummaryFile) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start processDirectories()");
     }
 
     String[] directories = StringUtils.split(config.getFileStatisticsSummarySource(),
@@ -169,13 +181,13 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
     }
 
     if (isDebug) {
-      logger.debug("End");
+      logger.debug("End   processDirectories()");
     }
   }
 
   private static void processDirectory(String directory) {
     if (isDebug) {
-      logger.debug("Start directory=" + directory);
+      logger.debug("Start processDirectory() - directory=" + directory);
     }
 
     File[] files = new File(directory).listFiles();
@@ -201,10 +213,14 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
       String   fileNameBase      = FilenameUtils.getBaseName(fileName);
 
       String[] fileNameTokensNet = StringUtils.splitByWholeSeparatorPreserveAllTokens(fileNameBase,
-                                                                                      "_",
-                                                                                      MAX_FILE_NAME_TOKENS);
+                                                                                      "_");
 
-      String[] fileNameTokens    = new String[MAX_FILE_NAME_TOKENS];
+      if (fileNameTokensNet.length != MAX_FILE_NAME_TOKENS) {
+        logger.info("File ignored: " + fileName);
+        continue;
+      }
+
+      String[] fileNameTokens = new String[MAX_FILE_NAME_TOKENS];
 
       System.arraycopy(fileNameTokensNet,
                        0,
@@ -240,13 +256,13 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
     }
 
     if (isDebug) {
-      logger.debug("End");
+      logger.debug("End   processDirectory()");
     }
   }
 
   private static void processFile(String directory, String fileName, String[] fileNameTokens) {
     if (isDebug) {
-      logger.debug("Start directory=" + directory + " fileName=" + fileName);
+      logger.debug("Start processFile() - directory=" + directory + " fileName=" + fileName);
     }
 
     BufferedReader bufferedReader = null;
@@ -271,8 +287,6 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
 
         insertRecord(nextLineTokens,
                      fileNameTokens);
-
-        numberProcessedRecords++;
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -287,7 +301,7 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
     }
 
     if (isDebug) {
-      logger.debug("End");
+      logger.debug("End   processFile()");
     }
   }
 }

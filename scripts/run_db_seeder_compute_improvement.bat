@@ -39,6 +39,14 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
+call gradle copyJarToLib
+if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
+    exit %ERRORLEVEL%
+)
+
+if exist db_seeder.log del /f /q db_seeder.log
+
 java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.ComputeImprovement
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%

@@ -43,6 +43,12 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
+if ! (gradle copyJarToLib); then
+    exit 255
+fi
+
+rm -f db_seeder.log
+
 if ! (java -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.ComputeImprovement; then
     exit 255
 fi    

@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,7 +44,7 @@ public final class Statistics {
 
   private final LocalDateTime         startDateTimeTotal;
 
-  private CSVPrinter                  statisticsFile;
+  private BufferedWriter              statisticsFile             = null;
 
   private final String                tickerSymbolExtern;
 
@@ -105,20 +103,22 @@ public final class Statistics {
         constraints = "active";
       }
 
-      statisticsFile.printRecord(tickerSymbolExtern,
-                                 dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
-                                 dbType,
-                                 durationTotal,
-                                 startDateTimeTotal.format(formatter),
-                                 endDateTimeTotal.format(formatter),
-                                 InetAddress.getLocalHost().getHostName(),
-                                 Integer.toString(Runtime.getRuntime().availableProcessors()),
-                                 System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"),
-                                 durationTotal - durationDML,
-                                 durationDDLConstraintsAdd,
-                                 durationDDLConstraintsDrop,
-                                 durationDML,
-                                 constraints);
+      statisticsFile.write(String.join(config.getFileStatisticsDelimiter(),
+                                       tickerSymbolExtern,
+                                       dbmsValues.get(tickerSymbolExtern)[AbstractDbmsSeeder.DBMS_DETAILS_NAME_CHOICE],
+                                       dbType,
+                                       Long.toString(durationTotal),
+                                       startDateTimeTotal.format(formatter),
+                                       endDateTimeTotal.format(formatter),
+                                       InetAddress.getLocalHost().getHostName(),
+                                       Integer.toString(Runtime.getRuntime().availableProcessors()),
+                                       System.getProperty("os.arch") + " / " + System.getProperty("os.name") + " / " + System.getProperty("os.version"),
+                                       Long.toString(durationTotal - durationDML),
+                                       Long.toString(durationDDLConstraintsAdd),
+                                       Long.toString(durationDDLConstraintsDrop),
+                                       Long.toString(durationDML),
+                                       constraints));
+      statisticsFile.newLine();
 
       statisticsFile.close();
     } catch (IOException e) {
@@ -143,14 +143,7 @@ public final class Statistics {
     String statisticsName      = config.getFileStatisticsName();
 
     try {
-      Path statisticsPath = Paths.get(statisticsName);
-
-      if (statisticsPath == null) {
-        MessageHandling.abortProgram(logger,
-                                     "Program abort: The file path for the statistics file is missing (null)");
-        System.exit(1);
-      }
-
+      Path statisticsPath       = Paths.get(statisticsName);
       Path statisticsPathParent = statisticsPath.getParent();
 
       if (statisticsPathParent == null) {
@@ -166,13 +159,18 @@ public final class Statistics {
       if (!(isFileExisting)) {
         Files.createFile(statisticsPath);
 
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, false));
+        BufferedWriter statisticsFile = new BufferedWriter(new FileWriter(statisticsName, false));
 
-        new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.builder().setDelimiter(statisticsDelimiter).setHeader(config.getFileStatisticsHeader().replace(";",
-                                                                                                                                                      statisticsDelimiter)
-            .split(statisticsDelimiter)).build());
+        try {
+          statisticsFile.write(config.getFileStatisticsHeader().replace(";",
+                                                                        statisticsDelimiter));
+          statisticsFile.newLine();
+        } catch (IOException e) {
+          e.printStackTrace();
+          System.exit(1);
+        }
 
-        bufferedWriter.close();
+        statisticsFile.close();
 
         logger.info("missing statistics file created: file name=" + statisticsName);
       }
@@ -197,8 +195,7 @@ public final class Statistics {
                                      "Program abort: statistics file \"" + statisticsName + "\" is missing");
       }
 
-      BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(statisticsName, true));
-      statisticsFile = new CSVPrinter(bufferedWriter, CSVFormat.EXCEL.builder().setDelimiter(config.getFileStatisticsDelimiter().charAt(0)).build());
+      statisticsFile = new BufferedWriter(new FileWriter(statisticsName, true));
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
