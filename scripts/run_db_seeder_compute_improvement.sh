@@ -14,7 +14,12 @@ if [ -z "${DB_SEEDER_FILE_CONFIGURATION_NAME}" ]; then
     export DB_SEEDER_FILE_CONFIGURATION_NAME=${DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT}
 fi
 
-export DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources/statistics/db_seeder_cmd_complete_company_9.9.9_win10.tsv
+export DB_SEEDER_FILE_IMPROVEMENT_NAME_DEFAULT=resources/statistics/db_seeder_bash_cmd_improvement_company_9.9.9_vmware_win10_wsl2.tsv
+if [ -z "${DB_SEEDER_FILE_IMPROVEMENT_NAME}" ]; then
+    export DB_SEEDER_FILE_IMPROVEMENT_NAME=${DB_SEEDER_FILE_IMPROVEMENT_NAME_DEFAULT}
+fi 
+
+export DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources/statistics/db_seeder_bash_cmd_complete_company_9.9.9_vmware_win10_wsl2.tsv
 export DB_SEEDER_FILE_STATISTICS_NAME="$1"
 if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
     export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT}
@@ -31,13 +36,14 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DBSeeder - Compute runtime improvement with and without constraints."
 echo "--------------------------------------------------------------------------------"
-echo "Filename via parameter    : ${DB_SEEDER_FILE_STATISTICS_NAME}"
+echo "FILE_IMPROVEMENT_NAME     : ${DB_SEEDER_FILE_IMPROVEMENT_NAME}"
+echo "FILE_STATISTICS_NAME      : ${DB_SEEDER_FILE_STATISTICS_NAME}"
 echo "JAVA_CLASSPATH            : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
-if ! (java -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.ComputeImprovement "${DB_SEEDER_FILE_STATISTICS_NAME}"); then
+if ! (java -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.ComputeImprovement; then
     exit 255
 fi    
 

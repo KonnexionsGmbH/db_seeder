@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,25 +36,43 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class ComputeImprovement { // NO_UCD (unused code)
 
-  private static final Logger logger                          = LogManager.getLogger(ComputeImprovement.class);
-  private static boolean      isDebug                         = logger.isDebugEnabled();
+  private static final Logger logger                      = LogManager.getLogger(ComputeImprovement.class);
+  private static boolean      isDebug                     = logger.isDebugEnabled();
 
-  private final static int    STATISTIC_CSV_POS_CONSTRAINTS   = 13;
+  private final static int    IMPROVEMENT_POS_CONSTRAINTS = 3;
+  private final static int    IMPROVEMENT_POS_DBMS        = 0;
+  private final static int    IMPROVEMENT_POS_DB_TYPE     = 2;
+  private final static int    IMPROVEMENT_POS_IMPROVEMENT = 4;
+  private final static int    IMPROVEMENT_POS_TOTAL_MS    = 2;
 
-  private final static int    STATISTIC_CSV_POS_DB_TYPE       = 2;
-
-  private final static int    STATISTIC_CSV_POS_IMPROVEMENT   = 14;
-  private final static int    STATISTIC_CSV_POS_TICKER_SYMBOL = 0;
-
-  private final static int    STATISTIC_CSV_POS_TOTAL_MS      = 3;
+  private final static int    STATISTIC_POS_CONSTRAINTS   = 13;
+  private final static int    STATISTIC_POS_DBMS          = 1;
+  private final static int    STATISTIC_POS_DB_TYPE       = 2;
+  private final static int    STATISTIC_POS_IMPROVEMENT   = 14;
+  private final static int    STATISTIC_POS_TICKER_SYMBOL = 0;
+  private final static int    STATISTIC_POS_TOTAL_MS      = 3;
 
   /**
    * Calculate the percentage runtime improvement without constraints.
    *@param statisticsFilePath the result file path
    */
-  private static void computeImprovement(Config config, String statisticsFileName, Path statisticsFilePath) {
+  private static void computeImprovement(Config config) {
     if (isDebug) {
       logger.debug("Start computeImprovement()");
+    }
+
+    String statisticsFileName = config.getFileStatisticsName();
+
+    Path   statisticsFilePath = Paths.get(statisticsFileName);
+
+    if (Files.notExists(statisticsFilePath)) {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: statistics file '" + statisticsFileName + "' is not existing");
+    }
+
+    if (Files.isDirectory(statisticsFilePath)) {
+      MessageHandling.abortProgram(logger,
+                                   "Program abort: '" + statisticsFileName + "' is a directory not a file");
     }
 
     Map<Pair<String, String>, Triplet<Integer, Integer, Double>> improvementFigures = getImprovmentFigures(config,
@@ -65,9 +82,8 @@ public final class ComputeImprovement { // NO_UCD (unused code)
                                                                                                                statisticsFileName,
                                                                                                                improvementFigures);
 
-    storeUpdatedStatisticData(config,
-                              statisticsFileName,
-                              statisticsData);
+    saveImprovementData(config,
+                        statisticsData);
 
     if (isDebug) {
       logger.debug("End   computeImprovement()");
@@ -108,15 +124,15 @@ public final class ComputeImprovement { // NO_UCD (unused code)
     }
 
     for (CSVRecord record : records) {
-      String constraints = record.get(STATISTIC_CSV_POS_CONSTRAINTS);
+      String constraints = record.get(STATISTIC_POS_CONSTRAINTS);
 
       if (!("active".equals(constraints) || ("inactive".equals(constraints)))) {
         continue;
       }
 
-      Pair<String, String> key = new Pair<>(record.get(STATISTIC_CSV_POS_TICKER_SYMBOL), record.get(STATISTIC_CSV_POS_DB_TYPE));
+      Pair<String, String> key = new Pair<>(record.get(STATISTIC_POS_TICKER_SYMBOL), record.get(STATISTIC_POS_DB_TYPE));
 
-      int                  ms  = Integer.parseInt(record.get(STATISTIC_CSV_POS_TOTAL_MS));
+      int                  ms  = Integer.parseInt(record.get(STATISTIC_POS_TOTAL_MS));
 
       if (improvementFigures.containsKey(key)) {
         int msActive = improvementFigures.get(key).getValue0();
@@ -178,18 +194,34 @@ public final class ComputeImprovement { // NO_UCD (unused code)
       System.exit(1);
     }
 
-    for (CSVRecord record : records) {
-      String constraints = record.get(STATISTIC_CSV_POS_CONSTRAINTS);
+    boolean isHeader = true;
 
-      if (!("active".equals(constraints) || ("inactive".equals(constraints)))) {
-        currentStatisticsData.add(new LinkedList<String>(record.toList()));
+    for (CSVRecord record : records) {
+      if (isHeader) {
+        isHeader = false;
         continue;
       }
 
-      Pair<String, String> key = new Pair<>(record.get(STATISTIC_CSV_POS_TICKER_SYMBOL), record.get(STATISTIC_CSV_POS_DB_TYPE));
+      String             constraints = record.get(STATISTIC_POS_CONSTRAINTS);
+
+      LinkedList<String> recordList  = new LinkedList<String>();
+
+      recordList.add(record.get(STATISTIC_POS_DBMS));
+      recordList.add(record.get(STATISTIC_POS_DB_TYPE));
+      recordList.add(record.get(STATISTIC_POS_TOTAL_MS));
+      recordList.add(constraints);
+
+      if (!("active".equals(constraints) || ("inactive".equals(constraints)))) {
+        recordList.add("");
+        currentStatisticsData.add(recordList);
+        continue;
+      }
+
+      Pair<String, String> key = new Pair<>(record.get(STATISTIC_POS_TICKER_SYMBOL), record.get(STATISTIC_POS_DB_TYPE));
 
       if (!(improvementFigures.containsKey(key))) {
-        currentStatisticsData.add(new LinkedList<String>(record.toList()));
+        recordList.add("");
+        currentStatisticsData.add(recordList);
         continue;
       }
 
@@ -203,17 +235,8 @@ public final class ComputeImprovement { // NO_UCD (unused code)
 
       DecimalFormat df = new DecimalFormat("0.0");
       df.setRoundingMode(RoundingMode.HALF_EVEN);
-      String             improvment = df.format(improvmentRaw);
 
-      LinkedList<String> recordList = new LinkedList<String>(record.toList());
-
-      if (recordList.size() == STATISTIC_CSV_POS_IMPROVEMENT + 1) {
-        recordList.remove(STATISTIC_CSV_POS_IMPROVEMENT);
-      } else if (recordList.size() != STATISTIC_CSV_POS_IMPROVEMENT) {
-        logger.fatal("Program abort: unexpected number of columns in statistics file: " + recordList.size() + " (" + record + ")");
-      }
-      
-      recordList.add(improvment);
+      recordList.add(df.format(improvmentRaw));
 
       currentStatisticsData.add(recordList);
     }
@@ -240,34 +263,7 @@ public final class ComputeImprovement { // NO_UCD (unused code)
   public static void main(String[] args) {
     logger.info("Start");
 
-    String resultFileName = "";
-
-    if (args.length > 0) {
-      resultFileName = args[0];
-    }
-
-    logger.info("args[0]='" + resultFileName + "'");
-
-    if (null == resultFileName) {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: command line argument filename missing (null)");
-    }
-
-    final Path resultFilePath = Paths.get(resultFileName);
-
-    if (Files.notExists(resultFilePath)) {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: file '" + resultFileName + "' is not existing");
-    }
-
-    if (Files.isDirectory(resultFilePath)) {
-      MessageHandling.abortProgram(logger,
-                                   "Program abort: '" + resultFileName + "' is a directory not a file");
-    }
-
-    computeImprovement(new Config(),
-                       resultFileName,
-                       resultFilePath);
+    computeImprovement(new Config());
 
     logger.info("End");
 
@@ -275,23 +271,31 @@ public final class ComputeImprovement { // NO_UCD (unused code)
   }
 
   /**
-   * Store updated statistic data in the CSV file.
+   * Save the computed improvement data in a new file.
    *
    * @param config the configuration parameters
-   * @param statisticsFileName the file name of the CSV statistic file
    * @param statisticsData the current statistics data
    */
-  @SuppressWarnings("resource")
-  private static void storeUpdatedStatisticData(Config config, String statisticsFileName, List<List<String>> statisticsData) {
+  private static void saveImprovementData(Config config, List<List<String>> statisticsData) {
     if (isDebug) {
-      logger.debug("Start storeUpdatedStatisticData()");
+      logger.debug("Start saveImprovementData()");
     }
 
     String         statisticsDelimiter = config.getFileStatisticsDelimiter();
+    String         improvementFileName = config.getFileImprovementName();
 
     BufferedWriter bufferedWriter      = null;
     try {
-      bufferedWriter = new BufferedWriter(new FileWriter(statisticsFileName, false));
+      bufferedWriter = new BufferedWriter(new FileWriter(improvementFileName, false));
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    try {
+      bufferedWriter.write(config.getFileImprovementHeader().replace(";",
+                                                                     statisticsDelimiter));
+      bufferedWriter.newLine();
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(1);
@@ -317,10 +321,10 @@ public final class ComputeImprovement { // NO_UCD (unused code)
       System.exit(1);
     }
 
-    logger.info("Statistics file recreated: file name=" + statisticsFileName);
+    logger.info("Improvement file created: file name=" + improvementFileName);
 
     if (isDebug) {
-      logger.debug("End   storeUpdatedStatisticData()");
+      logger.debug("End   saveImprovementData()");
     }
   }
 }

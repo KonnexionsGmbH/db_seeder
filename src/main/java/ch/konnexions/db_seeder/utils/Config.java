@@ -47,6 +47,8 @@ public final class Config {
   private String                  dropConstraints;
 
   private String                  fileConfigurationName;
+  private String                  fileImprovementHeader;
+  private String                  fileImprovementName;
   private String                  fileJsonName;
   private String                  fileStatisticsDelimiter;
   private String                  fileStatisticsHeader;
@@ -201,6 +203,22 @@ public final class Config {
   // -------------------------------------------------------------------------
 
   /**
+   * @return the file improvement header
+   */
+  public String getFileImprovementHeader() {
+    return fileImprovementHeader;
+  }
+
+  /**
+   * @return the file improvement name
+   */
+  public String getFileImprovementName() {
+    return fileImprovementName;
+  }
+
+  // -------------------------------------------------------------------------
+
+  /**
    * @return the file JSON name
    */
   public String getFileJsonName() {
@@ -321,6 +339,8 @@ public final class Config {
     dropConstraints             = propertiesConfiguration.getString("db_seeder.drop.constraints");
 
     fileConfigurationName       = propertiesConfiguration.getString("db_seeder.file.configuration.name");
+    fileImprovementHeader       = propertiesConfiguration.getString("db_seeder.file.improvement.header");
+    fileImprovementName         = propertiesConfiguration.getString("db_seeder.file.improvement.name");
     fileJsonName                = propertiesConfiguration.getString("db_seeder.file.json.name");
     fileStatisticsDelimiter     = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
     fileStatisticsHeader        = propertiesConfiguration.getString("db_seeder.file.statistics.header");
@@ -435,6 +455,20 @@ public final class Config {
       fileConfigurationName = environmentVariables.get("DB_SEEDER_FILE_CONFIGURATION_NAME");
       propertiesConfiguration.setProperty("db_seeder.file.configuration.name",
                                           fileConfigurationName);
+    }
+
+    // File Improvements -------------------------------------------------------
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_IMPROVEMENT_HEADER")) {
+      fileImprovementHeader = environmentVariables.get("DB_SEEDER_FILE_IMPROVEMENT_HEADER");
+      propertiesConfiguration.setProperty("db_seeder.file.improvement.header",
+                                          fileImprovementHeader);
+    }
+
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_IMPROVEMENT_NAME")) {
+      fileImprovementName = environmentVariables.get("DB_SEEDER_FILE_IMPROVEMENT_NAME");
+      propertiesConfiguration.setProperty("db_seeder.file.improvement.name",
+                                          fileImprovementName);
     }
 
     // File Json ----------------------------------------------------------------
