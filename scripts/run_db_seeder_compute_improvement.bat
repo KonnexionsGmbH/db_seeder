@@ -14,6 +14,12 @@ if ["%DB_SEEDER_FILE_CONFIGURATION_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_CONFIGURATION_NAME=%DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT%
 )
 
+set DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources/statistics/db_seeder_cmd_complete_company_9.9.9_win10.tsv
+set DB_SEEDER_FILE_STATISTICS_NAME="%1"
+if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
+    set DB_SEEDER_FILE_STATISTICS_NAME=%DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT%
+)
+
 set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
 
 echo ================================================================================
@@ -21,13 +27,13 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DBSeeder - Compute runtime improvement with and without constraints.
 echo --------------------------------------------------------------------------------
-echo Filename via parameter : %1
+echo Filename via parameter : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo JAVA_CLASSPATH          : %DB_SEEDER_JAVA_CLASSPATH%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
-java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.ComputeImprovement %1
+java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.ComputeImprovement %DB_SEEDER_FILE_STATISTICS_NAME%
 if %ERRORLEVEL% NEQ 0 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
