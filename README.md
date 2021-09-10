@@ -504,9 +504,8 @@ The following control parameters are currently supported:
 
 ```
 db_seeder.batch.size=0
-
-db_seeder_character_set_server=
-db_seeder_collation_server=
+db_seeder.character.set.server=
+db_seeder.collation.server=
 db_seeder.connection.host=
 db_seeder.connection.host.trino=
 db_seeder.connection.port=0
@@ -519,13 +518,15 @@ db_seeder.database.sys=
 db_seeder.database=
 db_seeder.drop.constraints=
 
-db_seeder.file.configuration.name=
+db_seeder.file.configuration.name=yes
+db_seeder.file.improvement.header=DBMS;Type;ms;Constraints;Improvement
+db_seeder.file.improvement.name=
 db_seeder.file.json.name=resources/json/db_seeder_schema.company_5400.json
 db_seeder.file.statistics.delimiter=\t
-db_seeder.file.statistics.header=ticker symbol;RDBMS;db type;runtime in ms;start time;end time;host name;no. cores;operating system
-db_seeder.file.statistics.name=resources/statistics/db_seeder_local.tsv
-db_seeder.file.statistics.summary.name=resources/statistics/db_seeder_summary.tsv
-db_seeder.file.statistics.summary.source=resources/statistics;Transfer
+db_seeder.file.statistics.header=ticker symbol;DBMS;db type;total ms;start time;end time;host name;no. cores;operating system;total DDL ms;drop constr. ms;add constr. ms;total DML ms;constraints
+db_seeder.file.statistics.name=resources/statistics/db_seeder_statistics.tsv
+db_seeder.file.statistics.summary.name=
+db_seeder.file.statistics.summary.source=resources/statistics
 
 db_seeder.password.sys=
 db_seeder.password=

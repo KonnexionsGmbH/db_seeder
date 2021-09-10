@@ -223,7 +223,7 @@ public final class ComputeImprovement { // NO_UCD (unused code)
           continue;
         }
 
-        DecimalFormat df = new DecimalFormat("9.9");
+        DecimalFormat df = new DecimalFormat("0.0");
         df.setRoundingMode(RoundingMode.HALF_EVEN);
 
         recordList.add(df.format(improvementRaw));
