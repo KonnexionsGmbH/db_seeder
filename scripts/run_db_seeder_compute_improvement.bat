@@ -14,12 +14,12 @@ if ["%DB_SEEDER_FILE_CONFIGURATION_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_CONFIGURATION_NAME=%DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT%
 )
 
-set DB_SEEDER_FILE_IMPROVEMENT_NAME_DEFAULT=resources\statistics\db_seeder_bash_cmd_improvement_company_9.9.9_vmware_win10_wsl2.tsv
+set DB_SEEDER_FILE_IMPROVEMENT_NAME_DEFAULT=resources\statistics\db_seeder_cmd_summary_company_9.9.9_win10.tsv
 if ["%DB_SEEDER_FILE_IMPROVEMENT_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_IMPROVEMENT_NAME=%DB_SEEDER_FILE_IMPROVEMENT_NAME_DEFAULT%
 )
 
-set DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources\statistics\db_seeder_bash_cmd_complete_company_9.9.9_vmware_win10_wsl2.tsv
+set DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources\statistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
 set DB_SEEDER_FILE_STATISTICS_NAME=%1
 if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_STATISTICS_NAME=%DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT%

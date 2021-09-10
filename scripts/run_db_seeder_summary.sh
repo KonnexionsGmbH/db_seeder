@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder_statistics.sh: Creation of the benchmark data summary file.
+# run_db_seeder_summary.sh: Creation of the benchmark data summary file.
 #
 # ------------------------------------------------------------------------------
 
@@ -12,6 +12,8 @@ export DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT=src/main/resources/db_seeder.pr
 if [ -z "${DB_SEEDER_FILE_CONFIGURATION_NAME}" ]; then
     export DB_SEEDER_FILE_CONFIGURATION_NAME=${DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT}
 fi
+
+export DB_SEEDER_FILE_IMPROVEMENT_NAME=resources/statistics/db_seeder_bash_improvement_company_9.9.9_vmware_wsl2.tsv
 
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
