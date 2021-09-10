@@ -47,7 +47,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo --------------------------------------------------------------------------------
     set DB_SEEDER_DROP_CONSTRAINTS=no
     
-    set DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources\statistics\db_seeder_cmd_complete_company_9.9.9_vmware_win10_wsl2.tsv
+    set DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources\statistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
     if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
         set DB_SEEDER_FILE_STATISTICS_NAME=%DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT%
     )
