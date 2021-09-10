@@ -262,8 +262,10 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
 
   private static void processFile(String directory, String fileName, String[] fileNameTokens) {
     if (isDebug) {
-      logger.debug("Start processFile() - directory=" + directory + " fileName=" + fileName);
+      logger.debug("Start processFile()");
     }
+
+    logger.info("Start rocessing: directory=" + directory + " fileName=" + fileName);
 
     BufferedReader bufferedReader = null;
     try {
