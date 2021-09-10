@@ -13,7 +13,7 @@ if ["%DB_SEEDER_FILE_CONFIGURATION_NAME%"] EQU [""] (
     set DB_SEEDER_FILE_CONFIGURATION_NAME=%DB_SEEDER_FILE_CONFIGURATION_NAME_DEFAULT%
 )
 
-set DB_SEEDER_FILE_IMPROVEMENT_NAME=resources\statistics\db_seeder_cmd_improvement_company_9.9.9_win10.tsv
+set DB_SEEDER_FILE_IMPROVEMENT_NAME=resources\statistics\db_seeder_summary_3.0.3-9.9.9.tsv
 
 set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
 
