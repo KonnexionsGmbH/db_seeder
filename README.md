@@ -447,7 +447,7 @@ An overview of the structure of the scripts used can be taken from the following
 #### 4.1.2 Script `scripts/run_db_seeder_statistics`
 
 This script aggregates the existing statistics files into a single overall file. 
-The file name of this overall file is defined with parameter `db_seeder.file.statistics.summary.name` and the existing statistics files are searched in the file directories according to parameter `db_seeder.file.statistics.summary.source`.
+The file name of this overall file is defined with parameter `db_seeder.file.summary.name` and the existing statistics files are searched in the file directories according to parameter `db_seeder.file.summary.source`.
 The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statistics.delimiter`.
 
 **Example content:**
@@ -525,8 +525,8 @@ db_seeder.file.json.name=resources/json/db_seeder_schema.company_5400.json
 db_seeder.file.statistics.delimiter=\t
 db_seeder.file.statistics.header=ticker symbol;DBMS;db type;total ms;start time;end time;host name;no. cores;operating system;total DDL ms;drop constr. ms;add constr. ms;total DML ms;constraints
 db_seeder.file.statistics.name=resources/statistics/db_seeder_statistics.tsv
-db_seeder.file.statistics.summary.name=
-db_seeder.file.statistics.summary.source=resources/statistics
+db_seeder.file.summary.name=
+db_seeder.file.summary.source=resources/statistics
 
 db_seeder.password.sys=
 db_seeder.password=
@@ -560,8 +560,8 @@ db_seeder.user=
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                          | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                          | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                          | file name of the statistics file created in `run_db_seeder` |
-| file.statistics.summary.name=<x...x>      | FILE_STATISTICS_SUMMARY_NAME      | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_statistics` |
-| file.statistics.summary.source=<x...x>    | FILE_STATISTICS_SUMMARY_SOURCE    | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
+| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.summary.source=<x...x>               | FILE_SUMMARY_SOURCE               | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
 |                                           |                                   | oracle, percona, postgresql, sqlserver, timescale                                  |   |
 | password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                                | password of the normal user |

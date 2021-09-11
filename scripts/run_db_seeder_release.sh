@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder.sh_multiple.bat: Run multiple databases.
+# run_db_seeder_release.bat: Release run for VMWare and WSL2.
 #
 # ------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ mkdir -p "$PWD/tmp"
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DBSeeder - Run multiple databases."
+echo "DBSeeder - Release run for VMWare and WSL2."
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
@@ -135,6 +135,8 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh yugabyte         yes 1
 
 ./scripts/run_db_seeder_compute_improvement.sh ${DB_SEEDER_FILE_STATISTICS_NAME}
+
+./scripts/run_db_seeder_create_summary.sh
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

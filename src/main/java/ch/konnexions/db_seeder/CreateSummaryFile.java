@@ -29,22 +29,23 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
 
   private static BufferedWriter bufferedWriter;
 
-  private final static Config   config                  = new Config();
+  private final static Config   config                     = new Config();
 
   private static String         fileStatisticsDelimiter;
   private static String[]       fileStatisticsHeaderTokens;
   private static String         fileStatisticsSummaryNameExt;
   private static String         fileStatisticsSummaryNameNoPath;
 
-  private static final Logger   logger                  = LogManager.getLogger(CreateSummaryFile.class);
-  private final static boolean  isDebug                 = logger.isDebugEnabled();
+  private static final Logger   logger                     = LogManager.getLogger(CreateSummaryFile.class);
+  private final static boolean  isDebug                    = logger.isDebugEnabled();
 
-  private static final int      MAX_FILE_CONTENT_TOKENS = 14;
-  private static final int      MAX_FILE_NAME_TOKENS    = 7;
+  private static final int      MAX_FILE_CONTENT_TOKENS    = 14;
+  private static final int      MAX_FILE_NAME_TOKENS       = 7;
 
-  private static int            numberErrors            = 0;
-  private static int            numberProcessedFiles    = 0;
-  private static int            numberProcessedRecords  = 0;
+  private static int            numberErrors               = 0;
+  private static int            numberProcessedFiles       = 0;
+  private static int            numberProcessedRecords     = 0;
+  private static int            numberProcessedRecordsFile = 0;
 
   private static BufferedWriter statisticsSummaryFile;
 
@@ -94,6 +95,7 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
     }
 
     numberProcessedRecords++;
+    numberProcessedRecordsFile++;
 
     if (isDebug) {
       logger.debug("End   insertRecord()");
@@ -200,14 +202,16 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
     Set<String> fileNames = Stream.of(files).filter(file -> !file.isDirectory()).map(File::getName).collect(Collectors.toSet());
 
     for (String fileName : fileNames) {
+      logger.info("Start checking: file=" + fileName);
+
       if (fileName.equals(fileStatisticsSummaryNameNoPath)) {
-        logger.info("File ignored: " + fileName);
+        logger.info("File ignored based on file name: " + fileName);
         continue;
       }
 
       if (!(fileStatisticsSummaryNameExt.equals(FilenameUtils.getExtension(fileName)))) {
-        logger.error("'defaultNumberOfRows' missing (null)");
-        numberErrors++;
+        logger.info("File ignored based on extension: " + fileName);
+        continue;
       }
 
       String   fileNameBase      = FilenameUtils.getBaseName(fileName);
@@ -216,7 +220,7 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
                                                                                       "_");
 
       if (fileNameTokensNet.length != MAX_FILE_NAME_TOKENS) {
-        logger.info("File ignored: " + fileName);
+        logger.info("File ignored based on file name tokens: " + fileName);
         continue;
       }
 
@@ -265,7 +269,9 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
       logger.debug("Start processFile()");
     }
 
-    logger.info("Start rocessing: directory=" + directory + " fileName=" + fileName);
+    logger.info("Start processing: directory=" + directory + " fileName=" + fileName);
+
+    numberProcessedRecordsFile = 0;
 
     BufferedReader bufferedReader = null;
     try {
@@ -301,6 +307,9 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
       e.printStackTrace();
       System.exit(1);
     }
+
+    logger.info("Number processed records: " + String.format(AbstractDbmsSeeder.FORMAT_ROW_NO,
+                                                             numberProcessedRecordsFile));
 
     if (isDebug) {
       logger.debug("End   processFile()");

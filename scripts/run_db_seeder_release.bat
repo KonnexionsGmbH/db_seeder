@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_multiple.bat: Run multiple databases.
+rem run_db_seeder_release.bat: Release run for Windows 10.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo ================================================================================
     echo Start %0
     echo --------------------------------------------------------------------------------
-    echo DBSeeder - Run multiple databases.
+    echo DBSeeder - Release run for Windows 10.
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
@@ -146,6 +146,8 @@ rem wwe    call run_db_seeder hsqldb_emb       yes 1
     rem call run_db_seeder yugabyte         yes 1
     
     call scripts\run_db_seeder_compute_improvement %DB_SEEDER_FILE_STATISTICS_NAME%
+
+    call scripts\run_db_seeder_create_summary
 
     echo --------------------------------------------------------------------------------
     echo:| TIME

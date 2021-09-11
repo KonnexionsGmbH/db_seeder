@@ -345,8 +345,8 @@ public final class Config {
     fileStatisticsDelimiter     = propertiesConfiguration.getString("db_seeder.file.statistics.delimiter");
     fileStatisticsHeader        = propertiesConfiguration.getString("db_seeder.file.statistics.header");
     fileStatisticsName          = propertiesConfiguration.getString("db_seeder.file.statistics.name");
-    fileStatisticsSummaryName   = propertiesConfiguration.getString("db_seeder.file.statistics.summary.name");
-    fileStatisticsSummarySource = propertiesConfiguration.getString("db_seeder.file.statistics.summary.source");
+    fileStatisticsSummaryName   = propertiesConfiguration.getString("db_seeder.file.summary.name");
+    fileStatisticsSummarySource = propertiesConfiguration.getString("db_seeder.file.summary.source");
 
     password                    = propertiesConfiguration.getString("db_seeder.password");
     passwordSys                 = propertiesConfiguration.getString("db_seeder.password.sys");
@@ -499,15 +499,15 @@ public final class Config {
                                           fileStatisticsName);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_SUMMARY_NAME")) {
-      fileStatisticsSummaryName = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_SUMMARY_NAME");
-      propertiesConfiguration.setProperty("db_seeder.file.statistics.summary.name",
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_SUMMARY_NAME")) {
+      fileStatisticsSummaryName = environmentVariables.get("DB_SEEDER_FILE_SUMMARY_NAME");
+      propertiesConfiguration.setProperty("db_seeder.file.summary.name",
                                           fileStatisticsSummaryName);
     }
 
-    if (environmentVariables.containsKey("DB_SEEDER_FILE_STATISTICS_SUMMARY_SOURCE")) {
-      fileStatisticsSummarySource = environmentVariables.get("DB_SEEDER_FILE_STATISTICS_SUMMARY_SOURCE");
-      propertiesConfiguration.setProperty("db_seeder.file.statistics.summary.source",
+    if (environmentVariables.containsKey("DB_SEEDER_FILE_SUMMARY_SOURCE")) {
+      fileStatisticsSummarySource = environmentVariables.get("DB_SEEDER_FILE_SUMMARY_SOURCE");
+      propertiesConfiguration.setProperty("db_seeder.file.summary.source",
                                           fileStatisticsSummarySource);
     }
 
