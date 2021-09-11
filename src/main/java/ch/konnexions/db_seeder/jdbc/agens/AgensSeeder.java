@@ -46,7 +46,7 @@ public final class AgensSeeder extends AbstractGenAgensSchema {
       logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
-    dbmsEnum = DbmsEnum.POSTGRESQL;
+    dbmsEnum = DbmsEnum.AGENS;
 
     driver   = "net.bitnine.agensgraph.Driver";
 
