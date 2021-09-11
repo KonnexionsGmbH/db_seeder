@@ -39,6 +39,7 @@ The database schema to be used, that is, the required database tables can be use
 Details can be found here: [2.1 Database Schema](#database_schema).
 
 Currently, depending on the capabilities of the specific RDBMS, the following functionalities and data types are supported:
+
 - constraints
   - foreign (referential) key
   - not null constraint
@@ -52,6 +53,7 @@ Currently, depending on the capabilities of the specific RDBMS, the following fu
   - VARCHAR - variable text
 
 The database systems considered meet the following conditions:
+
 1. The database system is freely available in a documented docker image for testing purposes.
 1. The database system provides a well documented JDBC interface.
 1. A complete documentation of the SQL commands is available.
@@ -96,6 +98,7 @@ The database systems considered meet the following conditions:
 ### <a name="rdbms_directory"></a> 1.2 RDBMS Directory
 
 The following database systems are included in the current version of **`DBSeeder`**:
+
 - [AgensGraph](https://bitnine.net/agensgraph)
   - client only version
   - commercial, open source
@@ -477,17 +480,18 @@ Details on the required software versions can be found in the [release notes](Re
 - A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
 
 - In the directory `scripts` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
-    - Ubuntu 20.04 installed directly or via VMware
-    - run `sudo apt update`
-    - run `sudo apt install dos2unix git`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-    - run `./scripts/run_install_4_vm_wsl2_1.sh`
-    - close the Ubuntu shell and reopen it again
-    - run `cd db_seeder`
-    - run `./scripts/run_install_4_vm_wsl2_2.sh`
-    - run `gradle copyJarToLib`
-    - run `./run_db_seeder.sh`
+
+  - Ubuntu 20.04 installed directly or via VMware
+  - run `sudo apt update`
+  - run `sudo apt install dos2unix git`
+  - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
+  - run `cd db_seeder`
+  - run `./scripts/run_install_4_vm_wsl2_1.sh`
+  - close the Ubuntu shell and reopen it again
+  - run `cd db_seeder`
+  - run `./scripts/run_install_4_vm_wsl2_2.sh`
+  - run `gradle copyJarToLib`
+  - run `./run_db_seeder.sh`
 
 - If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
