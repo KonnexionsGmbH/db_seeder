@@ -26,6 +26,7 @@ Release Date: 11.09.2021
 
 ### Open issues
 
+- AgensGraph: (see [here](#issues_agensgraph))
 - CockroachDB: (see [here](#issues_cockroach))
 - HSQLDB: (see [here](#issues_hsqldb))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
@@ -58,6 +59,10 @@ For example, the MonetDB database is faster with inactive constraints by 9.2% co
 ----
 
 ## Detailed Open Issues
+
+### <a name="issues_agensgraph"></a> AgensGraph
+
+- Issue: Database tables not visible in DBeaver.
 
 ### <a name="issues_cockroach"></a> CockroachDB
 

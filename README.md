@@ -543,13 +543,15 @@ db_seeder.user=
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
 |                                           |                                   | postgresql, sqlserver, timescale, yugabyte                                         |     |
 | database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                          | database name |
-| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | all RDBMS except cockroach, cratedb, h2, omnisci, sqlite, trino             | drop all contraints before the DML operations and recreate them afterwards |
+| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | all RDBMS except cockroach, cratedb, h2, omnisci, sqlite, trino                    | drop all contraints before the DML operations and recreate them afterwards |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the **`DBSeeder`** configuration file |
+| file.improvement.header=<x...x>           | FILE_IMPROVEMENT_HEADER           | all RDBMS                                                                          | header line of the improvement file created in `run_db_seeder_compute_improvement` |
+| file.improvement.name=<x...x>             | FILE_IMPROVEMENT_NAME             | all RDBMS                                                                           | directory and file name of the **`DBSeeder`** improvement file created in `run_db_seeder_compute_improvement` |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                          | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                          | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                          | file name of the statistics file created in `run_db_seeder` |
-| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_create_summary` |
 | file.summary.source=<x...x>               | FILE_SUMMARY_SOURCE               | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
 |                                           |                                   | oracle, percona, postgresql, sqlserver, timescale                                  |   |
@@ -581,31 +583,31 @@ The different file name patterns result from the following operating system envi
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
-**[AgensGraph](#details_agens)** / 
-**[Apache Derby](#details_derby)** /
-**[CockroachDB](#details_cockroach)** /
-**[CrateDB](#details_cratedb)** /
-**[CUBRID](#details_cubrid)** /
-**[Exasol](#details_exasol)** /  
-**[Firebird](#details_firebird)** /  
-**[H2 Database Engine](#details_h2)** /  
-**[HSQLDB](#details_hsqldb)** /  
-**[IBM Db2 Database](#details_ibmdb2)** / 
-**[IBM Informix](#details_informix)** / 
-**[MariaDB Server](#details_mariadb)** / 
-**[Mimer SQL](#details_mimer)** / 
-**[MonetDB](#details_monetdb)** / 
-**[MySQL Database](#details_mysql)** / 
-**[OmniSciDB](#details_omnisci)** /
-**[Oracle Database](#details_oracle)** /
-**[Percona Server for MySQL](#details_percona)** / 
-**[PostgreSQL](#details_postgresql)** / 
-**[SQL Server](#details_sqlserver)** /
-**[SQLite](#details_sqlite)** /
-**[TimescaleDB](#details_timescale)** /
-**[trino](#details_trino)** /
-**[VoltDB](#details_voltdb)** /
-**[YugabyteDB](#details_yugabyte)**
+- [AgensGraph](#details_agens) 
+- [Apache Derby](#details_derby)
+- [CockroachDB](#details_cockroach)
+- [CrateDB](#details_cratedb)
+- [CUBRID](#details_cubrid)
+- [Exasol](#details_exasol)  
+- [Firebird](#details_firebird)  
+- [H2 Database Engine](#details_h2)  
+- [HSQLDB](#details_hsqldb)  
+- [IBM Db2 Database](#details_ibmdb2) 
+- [IBM Informix](#details_informix) 
+- [MariaDB Server](#details_mariadb) 
+- [Mimer SQL](#details_mimer) 
+- [MonetDB](#details_monetdb) 
+- [MySQL Database](#details_mysql) 
+- [OmniSciDB](#details_omnisci)
+- [Oracle Database](#details_oracle)
+- [Percona Server for MySQL](#details_percona) 
+- [PostgreSQL](#details_postgresql) 
+- [SQL Server](#details_sqlserver)
+- [SQLite](#details_sqlite)
+- [TimescaleDB](#details_timescale)
+- [trino](#details_trino)
+- [VoltDB](#details_voltdb)
+- [YugabyteDB](#details_yugabyte)
 
 [//]: # (===========================================================================================)
 
