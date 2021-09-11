@@ -9,12 +9,12 @@
 
 ## Version 3.0.3
 
-Release Date: dd.mm.2021
+Release Date: 11.09.2021
 
 ### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Docker Desktop Community: 3.6.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
+- Docker Desktop Community: 4.0.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
 - Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
 - Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
@@ -22,18 +22,11 @@ Release Date: dd.mm.2021
 
 ### New Features
 
-- n/a
-
-### Modified Features
-
-- xxx: DBMS 999 / JDBC 999
-
-### Deleted Features
-
-- n/a
+- Automatic creation of statistics files regarding improvement with and without constraints and total overview of all releases
 
 ### Open issues
 
+- AgensGraph: (see [here](#issues_agensgraph))
 - CockroachDB: (see [here](#issues_cockroach))
 - HSQLDB: (see [here](#issues_hsqldb))
 - IBM Db2 Database: (see [here](#issues_ibmdb2))
@@ -66,6 +59,10 @@ For example, the MonetDB database is faster with inactive constraints by 9.2% co
 ----
 
 ## Detailed Open Issues
+
+### <a name="issues_agensgraph"></a> AgensGraph
+
+- Issue: Database tables not visible in DBeaver.
 
 ### <a name="issues_cockroach"></a> CockroachDB
 

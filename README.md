@@ -36,9 +36,10 @@ If the selected database, schema or user already exist, they are deleted with al
 **`DBSeeder`** then creates the selected database, schema or user and generates the desired dummy data.
 A maximum of 2 147 483 647 rows can be generated per database table.
 The database schema to be used, that is, the required database tables can be user defined using a JSON file.
-Details can be found here: [2.1 Database Schema](#database_schema).
+Details can be found here: [Database Schema](#database_schema).
 
 Currently, depending on the capabilities of the specific RDBMS, the following functionalities and data types are supported:
+
 - constraints
   - foreign (referential) key
   - not null constraint
@@ -52,6 +53,7 @@ Currently, depending on the capabilities of the specific RDBMS, the following fu
   - VARCHAR - variable text
 
 The database systems considered meet the following conditions:
+
 1. The database system is freely available in a documented docker image for testing purposes.
 1. The database system provides a well documented JDBC interface.
 1. A complete documentation of the SQL commands is available.
@@ -60,178 +62,179 @@ The database systems considered meet the following conditions:
 
 ### <a name="rdbms_overview"></a> 1.1 RDBMS Overview
 
-| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions             | Latest JDBC         |
-|---                              |---                 |---                         |---                  |
-| AgensGraph                      | agens              | v2.1.1 - v2.1.3            | 1.4.2-c1            |
-| Apache Derby                    | derby, derby_emb   | 10.15.2.0                  | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.8          | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.6.1              | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0                | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0-d1        | 7.1.0               |
-| Firebird                        | firebird           | 3.0.5 - v4.0.0             | 4.0.3.java11        | 
-| H2 Database Engine              | h2, h2_emb         | 1.4.200                    | 1.4.200             | 
-| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0              | 2.6.0               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1        | 11.5.6.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE  | 4.50.4.1            | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal     | 2.7.4               | 
-| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a        | 3.40                |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021      | 3.1.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.26            | 8.0.26              | 
-| OmniSciDB                       | omnisci            | 5.6.1 - 5.7.0              | 5.7.0               |
-| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0          | 21.3.0.0            |
-| Percona Server for MySQL        | percona            | 8.0.25-15                  | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.4                | 42.2.23             |
-| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04     | 9.4.0.jre16         | 
-| SQLite                          | sqlite             | 3.32.0 - 3.36.0            | 3.36.0.3            |
-| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13    | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 361                  | 361                 |
-|                                 | oracle_trino,      |                            |                     |
-|                                 | postgresql_trino,  |                            |                     |
-|                                 | sqlserver_trino    |                            |                     |
-| VoltDB                          | voltdb             | 9.2.1                      | 11.0                |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4   | 42.2.7-yb-3         |
+| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions                | Latest JDBC         |
+|---                              |---                 |---                            |---                  |
+| AgensGraph                      | agens              | v2.1.1 - v2.1.3               | 1.4.2-c1            |
+| Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.8             | see PostgreSQL      |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.1                 | 2.6.0               |
+| CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0-d1           | 7.1.0               |
+| Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.3.java11        | 
+| H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.0               | 
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1           | 11.5.6.0            |                                                    
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE-rhm | 4.50.4.1            | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
+| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
+| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021         | 3.1.jre8            | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.26               | 8.0.26              | 
+| OmniSciDB                       | omnisci            | 5.6.1 - 5.7.0                 | 5.7.0               |
+| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
+| Percona Server for MySQL        | percona            | 8.0.25-15                     | see MySQL           | 
+| PostgreSQL                      | postgresql         | 12.3 - 13.4-alpine            | 42.2.23             |
+| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04        | 9.4.0.jre16         | 
+| SQLite                          | sqlite             | 3.32.0 - 3.36.0               | 3.36.0.3            |
+| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13       | see PostgreSQL      |
+| trino                           | mysql_trino,       | 339 - 361                     | 361                 |
+|                                 | oracle_trino,      |                               |                     |
+|                                 | postgresql_trino,  |                               |                     |
+|                                 | sqlserver_trino    |                               |                     |
+| VoltDB                          | voltdb             | 9.2.1                         | 11.0                |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4      | 42.2.7-yb-3         |
 
 [//]: # (===========================================================================================)
 
 ### <a name="rdbms_directory"></a> 1.2 RDBMS Directory
 
 The following database systems are included in the current version of **`DBSeeder`**:
+
 - [AgensGraph](https://bitnine.net/agensgraph)
   - client only version
   - commercial, open source
   - derived from PostgreSQL
   - property graph model and relational model
-  - **[see technical details here](#details_agens)**
+  - [see technical details here](#details_agens)
 - [Apache Derby](https://db.apache.org/derby)
   - client and embedded version
   - open source
   - relational model
-  - **[see technical details here](#details_derby)**
+  - [see technical details here](#details_derby)
 - [CockroachDB](https://www.cockroachlabs.com)
   - client only version
   - commercial, open source
   - compatible with PostgreSQL JDBC
   - relational model
-  - **[see technical details here](#details_cratedb)**
+  - [see technical details here](#details_cratedb)
 - [CrateDB](https://crate.io)
   - client only version
   - commercial, open source
   - compatible with PostgreSQL
   - relational model
-  - **[see technical details here](#details_cratedb)**
+  - [see technical details here](#details_cratedb)
 - [CUBRID](https://www.cubrid.org) 
   - client only version
   - compatible with MySQL
   - open source
   - relational model
-  - **[see technical details here](#details_cubrid)**
+  - [see technical details here](#details_cubrid)
 - [Exasol](https://www.exasol.com/en) 
   - client only version
   - commercial
   - in-memory, column-oriented, relational model
-  - **[see technical details here](#details_exasol)**
+  - [see technical details here](#details_exasol)
 - [Firebird](https://firebirdsql.org) 
   - client and embedded (not supported here) version
   - open source
   - relational model
-  - **[see technical details here](#details_firebird)**
+  - [see technical details here](#details_firebird)
 - [H2 Database Engine](https://www.h2database.com/html/main.html) 
   - client and embedded version
   - compatible with HSQLDB, PostgreSQL
   - open source
   - relational model
-  - **[see technical details here](#details_h2)**
+  - [see technical details here](#details_h2)
 - [HSQLDB](https://hsqldb.org) 
   - client and embedded version
   - open source
   - relational model
-  - **[see technical details here](#details_hsqldb)**
+  - [see technical details here](#details_hsqldb)
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database) 
   - client only version
   - commercial
   - relational model
-  - **[see technical details here](#details_ibmdb2)**
+  - [see technical details here](#details_ibmdb2)
 - [IBM Informix](https://www.ibm.com/products/informix) 
   - client only version
   - commercial
   - relational model
-  - **[see technical details here](#details_informix)**
+  - [see technical details here](#details_informix)
 - [MariaDB Server](https://mariadb.com) 
   - client only version
   - open source
   - derived from MySQL
   - relational model
-  - **[see technical details here](#details_mariadb)**
+  - [see technical details here](#details_mariadb)
 - [Mimer SQL](https://www.mimer.com) 
   - client only version
   - commercial
   - relational model
-  - **[see technical details here](#details_mimer)**
+  - [see technical details here](#details_mimer)
 - [MonetDB](https://www.monetdb.org) 
   - client only version
   - open source
   - column-oriented relational model
-  - **[see technical details here](#details_monetdb)**
+  - [see technical details here](#details_monetdb)
 - [MySQL Database](https://www.mysql.com) 
   - client only version
   - open source
   - relational model
-  - **[see technical details here](#details_mysql)**
+  - [see technical details here](#details_mysql)
 - [OmniSciDB](https://www.omnisci.com)
   - client only version
   - commercial, open source
   - GPU and CPU version
   - relational model
-  - **[see technical details here](#details_omnisci)**
+  - [see technical details here](#details_omnisci)
 - [Oracle Database](https://www.oracle.com/database)
   - client only version
   - commercial
   - relational model
-  - **[see technical details here](#details_oracle)**
+  - [see technical details here](#details_oracle)
 - [Percona Server for MySQL](https://www.percona.com/software/mysql-database/percona-server)
   - client only version
   - commercial, open source
   - derived from MySQL
   - relational model
-  - **[see technical details here](#details_percona)**
+  - [see technical details here](#details_percona)
 - [PostgreSQL](https://www.postgresql.org)
   - client only version
   - open source
   - relational model
-  - **[see technical details here](#details_postgresql)**
+  - [see technical details here](#details_postgresql)
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019)
   - client only version
   - commercial
   - derived from Adaptive Server Enterprise
   - relational model
-  - **[see technical details here](#details_sqlserver)**
+  - [see technical details here](#details_sqlserver)
 - [SQLite](https://www.sqlite.org)
   - commercial, open source
   - embedded only version
   - relational model
-  - **[see technical details here](#details_sqlite)**
+  - [see technical details here](#details_sqlite)
 - [TimescaleDB](https://www.timescale.com)
   - client only version
   - commercial, open source
   - derived from PostgreSQL
   - relational model
-  - **[see technical details here](#details_timescale)**
+  - [see technical details here](#details_timescale)
 - [trino](https://trino.io)
   - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
   - distributed query engine
   - open source
-  - **[see technical details here](#details_trino)**
+  - [see technical details here](#details_trino)
 
 For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver.
 The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
-Details can be found here: [6. trino](#trino).
+Details can be found here: [trino](#trino).
 
 - [VoltDB](https://www.voltdb.com)
   - client only version
   - commercial, open source
   - derived from H-Store, HSQLDB
   - in-memory relational model
-  - **[see technical details here](#details_voltdb)**
+  - [see technical details here](#details_voltdb)
 - [YugabyteDB](https://www.yugabyte.com)
   - client only version
   - commercial, open source
@@ -239,7 +242,7 @@ Details can be found here: [6. trino](#trino).
   - derived from PostgreSQL, RocksDB
   - inspired by Cloud Spanner
   - relational model
-  - **[see technical details here](#details_yugabyte)**
+  - [see technical details here](#details_yugabyte)
 
 [//]: # (===========================================================================================)
 
@@ -407,9 +410,7 @@ For the respective software versions, please consult the document [release notes
 
 ## <a name="operating_instructions"></a> 4. Operating Instructions 
 
-### <a name="operating_instructions_scripts"></a> 4.1 Scripts
-
-#### 4.1.1 Script `run_db_seeder`
+### <a name="operating_instructions_scripts"></a> 4.1 Script `run_db_seeder`
 
 Using the **`DBSeeder`** development and operational Docker image from Docker Hub (see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder)) eliminates the need to install the runtime environment.
  
@@ -438,24 +439,11 @@ The `run_db_seeder` script is controlled by the following script parameters::
 
 For the run variants `complete`, `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources/statistics` by default:
 
-    db_seeder_<bash | cmd>_<run variant>_unknown_<DBSeeder release>.tsv
+    db_seeder_<bash|cmd>_<run variant>_unknown_<DBSeeder release>_<vmware|win10|wsl2>.<csv|tsv>
 
 An overview of the structure of the scripts used can be taken from the following diagram:
 
 ![](resources/.README_images/script_structure.png)
-
-#### 4.1.2 Script `scripts/run_db_seeder_statistics`
-
-This script aggregates the existing statistics files into a single overall file. 
-The file name of this overall file is defined with parameter `db_seeder.file.summary.name` and the existing statistics files are searched in the file directories according to parameter `db_seeder.file.summary.source`.
-The file format `csv` or `tsv` depends on the parameter `db_seeder.file.statistics.delimiter`.
-
-**Example content:**
-
-    ticker symbol	RDBMS version	creator	db type	schema	runtime in ms	start time	end time	host name	no. cores	operating system	file_name
-    agens	AgensGraph	v2.6.0	bash	client	unknown	14	2020-10-05 16:09:36.618076382	2020-10-05 16:09:51.570013623	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
-    cratedb	CrateDB	v2.6.0	bash	client	unknown	24	2020-10-05 16:11:40.160409347	2020-10-05 16:12:04.695790414	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
-    cubrid	CUBRID	v2.6.0	bash	client	unknown	50	2020-10-05 16:13:22.287362093	2020-10-05 16:14:12.339067275	ubuntu	2	amd64 / Linux / 5.4.0-48-generic	db_seeder_bash_client_unknown_2.6.0
 
 [//]: # (===========================================================================================)
 
@@ -477,17 +465,18 @@ Details on the required software versions can be found in the [release notes](Re
 - A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
 
 - In the directory `scripts` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
-    - Ubuntu 20.04 installed directly or via VMware
-    - run `sudo apt update`
-    - run `sudo apt install dos2unix git`
-    - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-    - run `cd db_seeder`
-    - run `./scripts/run_install_4_vm_wsl2_1.sh`
-    - close the Ubuntu shell and reopen it again
-    - run `cd db_seeder`
-    - run `./scripts/run_install_4_vm_wsl2_2.sh`
-    - run `gradle copyJarToLib`
-    - run `./run_db_seeder.sh`
+
+  - Ubuntu 20.04 installed directly or via VMware
+  - run `sudo apt update`
+  - run `sudo apt install dos2unix git`
+  - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
+  - run `cd db_seeder`
+  - run `./scripts/run_install_4_vm_wsl2_1.sh`
+  - close the Ubuntu shell and reopen it again
+  - run `cd db_seeder`
+  - run `./scripts/run_install_4_vm_wsl2_2.sh`
+  - run `gradle copyJarToLib`
+  - run `./run_db_seeder.sh`
 
 - If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
@@ -554,13 +543,15 @@ db_seeder.user=
 | database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
 |                                           |                                   | postgresql, sqlserver, timescale, yugabyte                                         |     |
 | database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                          | database name |
-| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | all RDBMS except cockroach, cratedb, h2, omnisci, sqlite, trino             | drop all contraints before the DML operations and recreate them afterwards |
+| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | all RDBMS except cockroach, cratedb, h2, omnisci, sqlite, trino                    | drop all contraints before the DML operations and recreate them afterwards |
 | file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the **`DBSeeder`** configuration file |
+| file.improvement.header=<x...x>           | FILE_IMPROVEMENT_HEADER           | all RDBMS                                                                          | header line of the improvement file created in `run_db_seeder_compute_improvement` |
+| file.improvement.name=<x...x>             | FILE_IMPROVEMENT_NAME             | all RDBMS                                                                           | directory and file name of the **`DBSeeder`** improvement file created in `run_db_seeder_compute_improvement` |
 | file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
 | file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                          | separator of the statistics file created in `run_db_seeder` |
 | file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                          | header line of the statistics file created in `run_db_seeder` |
 | file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                          | file name of the statistics file created in `run_db_seeder` |
-| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_statistics` |
+| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_create_summary` |
 | file.summary.source=<x...x>               | FILE_SUMMARY_SOURCE               | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
 | password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
 |                                           |                                   | oracle, percona, postgresql, sqlserver, timescale                                  |   |
@@ -592,31 +583,31 @@ The different file name patterns result from the following operating system envi
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
 Below are also DBeaver based connection parameter examples for each database management system. 
 
-**[AgensGraph](#details_agens)** / 
-**[Apache Derby](#details_derby)** /
-**[CockroachDB](#details_cockroach)** /
-**[CrateDB](#details_cratedb)** /
-**[CUBRID](#details_cubrid)** /
-**[Exasol](#details_exasol)** /  
-**[Firebird](#details_firebird)** /  
-**[H2 Database Engine](#details_h2)** /  
-**[HSQLDB](#details_hsqldb)** /  
-**[IBM Db2 Database](#details_ibmdb2)** / 
-**[IBM Informix](#details_informix)** / 
-**[MariaDB Server](#details_mariadb)** / 
-**[Mimer SQL](#details_mimer)** / 
-**[MonetDB](#details_monetdb)** / 
-**[MySQL Database](#details_mysql)** / 
-**[OmniSciDB](#details_omnisci)** /
-**[Oracle Database](#details_oracle)** /
-**[Percona Server for MySQL](#details_percona)** / 
-**[PostgreSQL](#details_postgresql)** / 
-**[SQL Server](#details_sqlserver)** /
-**[SQLite](#details_sqlite)** /
-**[TimescaleDB](#details_timescale)** /
-**[trino](#details_trino)** /
-**[VoltDB](#details_voltdb)** /
-**[YugabyteDB](#details_yugabyte)**
+- [AgensGraph](#details_agens) 
+- [Apache Derby](#details_derby)
+- [CockroachDB](#details_cockroach)
+- [CrateDB](#details_cratedb)
+- [CUBRID](#details_cubrid)
+- [Exasol](#details_exasol)  
+- [Firebird](#details_firebird)  
+- [H2 Database Engine](#details_h2)  
+- [HSQLDB](#details_hsqldb)  
+- [IBM Db2 Database](#details_ibmdb2) 
+- [IBM Informix](#details_informix) 
+- [MariaDB Server](#details_mariadb) 
+- [Mimer SQL](#details_mimer) 
+- [MonetDB](#details_monetdb) 
+- [MySQL Database](#details_mysql) 
+- [OmniSciDB](#details_omnisci)
+- [Oracle Database](#details_oracle)
+- [Percona Server for MySQL](#details_percona) 
+- [PostgreSQL](#details_postgresql) 
+- [SQL Server](#details_sqlserver)
+- [SQLite](#details_sqlite)
+- [TimescaleDB](#details_timescale)
+- [trino](#details_trino)
+- [VoltDB](#details_voltdb)
+- [YugabyteDB](#details_yugabyte)
 
 [//]: # (===========================================================================================)
 
@@ -651,6 +642,10 @@ Below are also DBeaver based connection parameter examples for each database man
   - [Maven repository](https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc)
 
 - **source code**: [GitHub](https://github.com/bitnine-oss/agensgraph)
+
+- **DBeaver database connection settings**:
+
+![](resources/.README_images/DBeaver_AGENS.png)
 
 [//]: # (===========================================================================================)
 
@@ -709,7 +704,7 @@ Below are also DBeaver based connection parameter examples for each database man
 | BLOB           | BYTES            |
 | CLOB           | STRING           |
 | TIMESTAMP      | TIMESTAMP        |
-| VARCHAR        | STRING             |
+| VARCHAR        | STRING           |
 
 - **DDL syntax**:
   - [CREATE DATABASE](https://www.cockroachlabs.com/docs/v20.2/create-database.html)
@@ -757,7 +752,7 @@ Below are also DBeaver based connection parameter examples for each database man
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.5.3`
+  - pull command: `docker pull crate:4.6.1`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -1025,7 +1020,7 @@ Below are also DBeaver based connection parameter examples for each database man
     - procedure or function
   
 - **JDBC driver (latest)**:
-  - version 11.5.54.0
+  - version 11.5.6          .0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
@@ -1364,14 +1359,17 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [Jira](https://jira.percona.com/projects/PS/issues/PS-7237?filter=allopenissues)
 
 - **JDBC driver (latest)**:
-  - version 8.0.23
-  - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+  - same as MySQL
 
 - **privileged database access**:
   - database: `sys`
   - user: `root`
 
 - **source code**: [GitHub](https://github.com/percona/percona-server)
+
+- **DBeaver database connection settings**:
+
+![](resources/.README_images/DBeaver_PERCONA.png)
 
 [//]: # (===========================================================================================)
 
@@ -1402,7 +1400,7 @@ Below are also DBeaver based connection parameter examples for each database man
 - **issue tracking**: [PostgreSQL](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
-  - version 42.2.19
+  - version 42.2.23
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)
@@ -1523,6 +1521,8 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **source code**: [GitHub](https://github.com/timescale/timescaledb)
 
+![](resources/.README_images/DBeaver_TIMESCALE.png)
+
 [//]: # (===========================================================================================)
 
 ### <a name="details_trino"></a> 5.23 trino
@@ -1559,7 +1559,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](resources/.README_images/DBeaver_TimescaleDB.png)
+![](resources/.README_images/DBeaver_TRINO.png)
 
 [//]: # (===========================================================================================)
 
@@ -1594,6 +1594,10 @@ Below are also DBeaver based connection parameter examples for each database man
 - **restrictions**: no support of autoincrement, check constraints or foreign keys
 
 - **source code**: [GitHub](https://github.com/VoltDB/voltdb)
+
+- **DBeaver database connection settings**:
+
+![](resources/.README_images/DBeaver_VOLTDB.png)
 
 [//]: # (===========================================================================================)
 
