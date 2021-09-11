@@ -7,8 +7,6 @@
 /.gitconfig
 /.gradle/
 /lib/db_seeder.jar
-/resources/statistics/db_seeder_local*
-/resources/statistics/db_seeder_summary.*
 /resources/third_party/
 Transfer/
 bin

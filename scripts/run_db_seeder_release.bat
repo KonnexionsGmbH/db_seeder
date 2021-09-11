@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_multiple.bat: Run multiple databases.
+rem run_db_seeder_release.bat: Release run for Windows 10.
 rem
 rem ------------------------------------------------------------------------------
 
@@ -23,11 +23,18 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo ================================================================================
     echo Start %0
     echo --------------------------------------------------------------------------------
-    echo DBSeeder - Run multiple databases.
+    echo DBSeeder - Release run for Windows 10.
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
     
+
+    call gradle copyJarToLib
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
     echo --------------------------------------------------------------------------------
     echo Generator.
     echo --------------------------------------------------------------------------------
@@ -39,9 +46,13 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo Constraints included.
     echo --------------------------------------------------------------------------------
     set DB_SEEDER_DROP_CONSTRAINTS=no
-    set DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_cmd_complete_company_9.9.9_win10.tsv
+    
+    set DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources\statistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
+    if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
+        set DB_SEEDER_FILE_STATISTICS_NAME=%DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT%
+    )
 
-    del /f /q resources\statistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
+    del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
     
     call run_db_seeder agens            yes 1
     call run_db_seeder cockroach        yes 1
@@ -88,7 +99,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder exasol           yes 1
     call run_db_seeder firebird         yes 1
     call run_db_seeder hsqldb           yes 1
-    call run_db_seeder hsqldb_emb       yes 1
+rem wwe    call run_db_seeder hsqldb_emb       yes 1
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
     call run_db_seeder mariadb          yes 1
@@ -135,6 +146,8 @@ rem > run_db_seeder_multiple.log 2>&1 (
     rem call run_db_seeder yugabyte         yes 1
     
     call scripts\run_db_seeder_compute_improvement %DB_SEEDER_FILE_STATISTICS_NAME%
+
+    call scripts\run_db_seeder_create_summary
 
     echo --------------------------------------------------------------------------------
     echo:| TIME

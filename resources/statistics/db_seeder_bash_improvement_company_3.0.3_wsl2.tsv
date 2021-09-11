@@ -1,0 +1,31 @@
+DBMS	Type	ms	Constraints	Improvement
+AgensGraph	client	3915	active	-2.6
+CockroachDB	client	5619	active - no choice	
+CrateDB	client	5058	active - no choice	
+CUBRID	client	5934	active	-6.5
+Apache Derby	client	14607	active	-6.9
+Apache Derby	embedded	12222	active	-12.9
+Exasol	client	3819	active	-3.4
+H2 Database Engine	client	5882	active - no choice	
+H2 Database Engine	embedded	3413	active - no choice	
+HSQLDB	client	17767	active	-1.2
+HSQLDB	embedded	2894	active	
+IBM Db2 Database	client	23164	active	-10.1
+IBM Informix	client	14934	active	-0.5
+MariaDB Server	client	3881	active	-88.4
+Mimer SQL	client	13368	active	-4.5
+MySQL Database	client	5995	active	-210.9
+MySQL Database	trino	1999897	active - no choice	
+OmniSciDB	client	36638	active - no choice	
+Oracle Database	client	12103	active	-29.0
+Oracle Database	trino	1589925	active - no choice	
+Percona Server for MySQL	client	13039	active	-40.6
+PostgreSQL	trino	522438	active - no choice	
+SQLite	embedded	6516	active - no choice	
+MS SQL Server	trino	1050856	active - no choice	
+YugabyteDB	client	13274	active	-0.5
+Firebird	client	70636	inactive	20.3
+MonetDB	client	6856	inactive	13.4
+PostgreSQL	client	4008	inactive	0.5
+MS SQL Server	client	4606	inactive	0.5
+TimescaleDB	client	3996	inactive	2.4

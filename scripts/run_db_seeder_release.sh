@@ -4,7 +4,7 @@ set -e
 
 # ------------------------------------------------------------------------------
 #
-# run_db_seeder.sh_multiple.bat: Run multiple databases.
+# run_db_seeder_release.bat: Release run for VMWare and WSL2.
 #
 # ------------------------------------------------------------------------------
 
@@ -13,10 +13,16 @@ mkdir -p "$PWD/tmp"
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
-echo "DBSeeder - Run multiple databases."
+echo "DBSeeder - Release run for VMWare and WSL2."
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
+
+if ! (gradle copyJarToLib); then
+    exit 255
+fi
+
+rm -f db_seeder.log
 
 echo "--------------------------------------------------------------------------------"
 echo "Generator."
@@ -29,9 +35,13 @@ echo "--------------------------------------------------------------------------
 echo "Constraints included."
 echo "--------------------------------------------------------------------------------"
 export DB_SEEDER_DROP_CONSTRAINTS=no
-export DB_SEEDER_FILE_STATISTICS_NAME=resources/statistics/db_seeder_cmd_complete_company_9.9.9_wsl2.tsv
 
-rm -rf resources/statistics/db_seeder_cmd_complete_company_9.9.9_wsl2.tsv
+export DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources/statistics/db_seeder_bash_complete_company_9.9.9_vmware_wsl2.tsv
+if [ -z "${DB_SEEDER_FILE_STATISTICS_NAME}" ]; then
+    export DB_SEEDER_FILE_STATISTICS_NAME=${DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT}
+fi 
+
+rm -rf ${DB_SEEDER_FILE_STATISTICS_NAME}
 
 ./run_db_seeder.sh agens            yes 1
 ./run_db_seeder.sh cockroach        yes 1
@@ -78,7 +88,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh exasol           yes 1
 ./run_db_seeder.sh firebird         yes 1
 ./run_db_seeder.sh hsqldb           yes 1
-./run_db_seeder.sh hsqldb_emb       yes 1
+# wwe ./run_db_seeder.sh hsqldb_emb       yes 1
 ./run_db_seeder.sh ibmdb2           yes 1
 ./run_db_seeder.sh informix         yes 1
 ./run_db_seeder.sh mariadb          yes 1
@@ -125,6 +135,8 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh yugabyte         yes 1
 
 ./scripts/run_db_seeder_compute_improvement.sh ${DB_SEEDER_FILE_STATISTICS_NAME}
+
+./scripts/run_db_seeder_create_summary.sh
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
