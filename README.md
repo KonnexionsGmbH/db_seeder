@@ -464,19 +464,7 @@ Details on the required software versions can be found in the [release notes](Re
 
 - A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
 
-- In the directory `scripts` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
-
-  - Ubuntu 20.04 installed directly or via VMware Workstation Player
-  - run `sudo apt update`
-  - run `sudo apt install dos2unix git`
-  - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-  - run `cd db_seeder`
-  - run `./scripts/run_install_4_vm_wsl2_1.sh`
-  - close the Ubuntu shell and reopen it again
-  - run `cd db_seeder`
-  - run `./scripts/run_install_4_vm_wsl2_2.sh`
-  - run `gradle copyJarToLib`
-  - run `./run_db_seeder.sh`
+- In the directory `scripts/3.0.2` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
 
 - If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
@@ -573,7 +561,7 @@ The data contained in these files show the DDL and DML performance of the indivi
   - `..._vmware.tsv`: Ubuntu with VMware Workstation Player on Windows
   - `...._win10.tsv`: Windows 10
   - `....._wsl2.tsv`: Ubuntu LTS with Windows Subsystem for Linux 2 on Windows
-- DDL: Creation of the database structure consisting of the 5 relational tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE (see JSON file: `resources/json/db_seeder_schema.company_5400.json`).
+- DDL: Creation of the database schema consisting of the 5 relational tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE (see JSON file: `resources/json/db_seeder_schema.company_5400.json`).
 - DML: Insert records into these database tables - CITY 1800, COMPANY 5400, COUNTRY 200, COUNTRY_STATE 600 and TIMEZONE 11.
 - If possible, two runs are made for each database system: one run with constraints enabled and one run with constraints disabled - see column `constraints`:
   - `active`: constraints are enabled
@@ -598,13 +586,65 @@ db_seeder.file.summary.source=resources/statistics
 
 ![](resources/.README_images/Statistics_Data_Detailed.png)
 
+**File name syntax**: `db_seeder_<bash|cmd>_complete_<company|syntax>_<DBSeeder version>_<vmware|wsl2|win10>.<csv|tsv>`
+
+**Explanation for the columns**:
+
+- `ticker symbol` - internal abbreviation used for the database
+- `DBMS` - official DBMS name
+- `db type` - client version, embedded version or via trino
+- `total ms` - total time of DDL and DML operations in milliseconds
+- `start time` - date and time when the database operations were started
+- `end time` - date and time when the database operations were completed
+- `host name` - name of the computer connected to a computer network
+- `no. cores` -  number of CPU cores used
+- `operating system`
+- `total DDL ms` - total time of DDL operations in milliseconds
+- `drop constr. ms` - total time to drop all constraints
+- `add constr. ms` - total time to add the previously dropped constraints
+- `total DML ms` - total time of DML operations in milliseconds
+- `constraints` - DML operations with enabled (active) or disabled (inactive) constraints (foreign, primary and unique key)
+
 #### 4.4.2 Performance data regarding constraints
 
 ![](resources/.README_images/Statistics_Data_Constraints.png)
 
+**File name syntax**: `db_seeder_<bash|cmd>_improvement_<company|syntax>_<DBSeeder version>_<vmware|wsl2|win10>.<csv|tsv>`
+
+**Explanation for the columns**:
+
+- `DBMS` - official DBMS name
+- `Type` - client version, embedded version or via trino
+- `ms` - total time of DDL and DML operations in milliseconds
+- `Constraints` - DML operations with enabled (active) or disabled (inactive) constraints (foreign, primary and unique key)
+- `Improvment` - improvement of total time if constraints are inactive
+
 #### 4.4.3 Historical statistical data
 
 ![](resources/.README_images/Statistics_Data_Historical.png)
+
+**File name syntax**: `db_seeder_summary_<first DBSeeder version>-<current DBSeeder version>.<csv|tsv>`
+
+**Explanation for the columns**:
+
+- `ticker symbol` - internal abbreviation used for the database
+- `DBMS` - official DBMS name
+- `version` - DBSeeder version
+- `creator` - shell environment: `bash` or `cmd`
+- `db type` - client version, embedded version or via trino
+- `constraints` - DML operations with enabled (`active` and `active - no choice`) or disabled (`inactive`) constraints (foreign, primary and unique key)
+- `schema` - identification term for the scheme definition used: `company` or `syntax`
+- `total ms` - total time of DDL and DML operations in milliseconds
+- `start time` - date and time when the database operations were started
+- `end time` - date and time when the database operations were completed
+- `host name` - name of the computer connected to a computer network
+- `no. cores` - number of CPU cores used
+- `operating system`
+- `file name` - name of the file with the source data
+- `total DDL ms` - total time of DDL operations in milliseconds
+- `drop constr. ms` - total time to drop all constraints
+- `add constr. ms` - total time to add the previously dropped constraints
+- `total DML ms` - total time of DML operations in milliseconds
 
 [//]: # (===========================================================================================)
 
@@ -672,10 +712,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [Maven repository](https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc)
 
 - **source code**: [GitHub](https://github.com/bitnine-oss/agensgraph)
-
-- **DBeaver database connection settings**:
-
-![](resources/.README_images/DBeaver_AGENS.png)
 
 [//]: # (===========================================================================================)
 

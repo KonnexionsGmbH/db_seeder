@@ -9,7 +9,7 @@
 
 ## Version 3.0.3
 
-Release Date: 11.09.2021
+Release Date: 12.09.2021
 
 ### System Requirements
 
@@ -23,6 +23,10 @@ Release Date: 11.09.2021
 ### New Features
 
 - Automatic creation of statistics files regarding improvement with and without constraints and total overview of all releases
+
+### Modified Features
+
+- Updating and expanding the documentation
 
 ### Open issues
 
@@ -50,11 +54,11 @@ For example, the MonetDB database is faster with inactive constraints by 9.2% co
 
 ![](resources/.README_images/Perf_Snap_3.0.3_win10.png)
 
-- **DBMS** - official DBMS name
-- **Type** - client version, embedded version or via trino
-- **ms** - total time of DDL and DML operations in milliseconds
-- **Constraints** - DML operations with active or inactive constraints (foreign, primary and unique key)
-- **Improvment** - improvement of total time if constraints are inactive 
+- `DBMS` - official DBMS name
+- `Type` - client version, embedded version or via trino
+- `ms` - total time of DDL and DML operations in milliseconds
+- `Constraints` - DML operations with active or inactive constraints (foreign, primary and unique key)
+- `Improvment` - improvement of total time if constraints are inactive 
 
 ----
 
