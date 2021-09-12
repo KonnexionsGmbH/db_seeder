@@ -464,19 +464,7 @@ Details on the required software versions can be found in the [release notes](Re
 
 - A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
 
-- In the directory `scripts` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
-
-  - Ubuntu 20.04 installed directly or via VMware
-  - run `sudo apt update`
-  - run `sudo apt install dos2unix git`
-  - run `git clone https://github.com/KonnexionsGmbH/db_seeder` (cloning the **`DBSeeder`** repository)
-  - run `cd db_seeder`
-  - run `./scripts/run_install_4_vm_wsl2_1.sh`
-  - close the Ubuntu shell and reopen it again
-  - run `cd db_seeder`
-  - run `./scripts/run_install_4_vm_wsl2_2.sh`
-  - run `gradle copyJarToLib`
-  - run `./run_db_seeder.sh`
+- In the directory `scripts/3.0.2` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
 
 - If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
@@ -566,22 +554,104 @@ db_seeder.user=
 
 ### <a name="operating_instructions_statistics"></a> 4.4 Statistics
 
-Performance data for the different versions of **`DBSeeder`** can be found in the file directory `resources/statistics`:
+Each new release is completed with the creation of 7 statistics files in the file directory `resources/statistics`.
+The data contained in these files show the DDL and DML performance of the individual databases under identical conditions:
+
+- Operating systems: Ubuntu with VMware Workstation Player, Ubuntu with WSL (Windoiws Subsystem for Linux) on Windows and Windows.
+  - `..._vmware.tsv`: Ubuntu with VMware Workstation Player on Windows
+  - `...._win10.tsv`: Windows 10
+  - `....._wsl2.tsv`: Ubuntu LTS with Windows Subsystem for Linux 2 on Windows
+- DDL: Creation of the database schema consisting of the 5 relational tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE (see JSON file: `resources/json/db_seeder_schema.company_5400.json`).
+- DML: Insert records into these database tables - CITY 1800, COMPANY 5400, COUNTRY 200, COUNTRY_STATE 600 and TIMEZONE 11.
+- If possible, two runs are made for each database system: one run with constraints enabled and one run with constraints disabled - see column `constraints`:
+  - `active`: constraints are enabled
+  - `active - no choice`: constraints are enabled and disabling is not possible
+  - `inactive`: constraints are disabled
+
+The creation of these statistics files is managed by the following control parameters ([see here](#operating_instructions_control)):
+
+```
+db_seeder.file.improvement.header=DBMS;Type;ms;Constraints;Improvement
+db_seeder.file.improvement.name=
+db_seeder.file.statistics.delimiter=\t
+db_seeder.file.statistics.header=ticker symbol;DBMS;db type;total ms;start time;end time;host name;no. cores;operating system;total DDL ms;drop constr. ms;add constr. ms;total DML ms;constraints
+db_seeder.file.statistics.name=resources/statistics/db_seeder_statistics.tsv
+db_seeder.file.summary.name=
+db_seeder.file.summary.source=resources/statistics
+```
 
 ![](resources/.README_images/Statistics_Directory.png)
 
-The different file name patterns result from the following operating system environments:
+#### 4.4.1 Detailed statistical data
 
-- `..._vmware.tsv`: Ubuntu with VMware Workstation Player on Windows
-- `...._win10.tsv`: Windows
-- `....._wsl2.tsv`: Ubuntu LTS with Windows Subsystem for Linux on Windows
+![](resources/.README_images/Statistics_Data_Detailed.png)
+
+**File name syntax**: `db_seeder_<bash|cmd>_complete_<company|syntax>_<DBSeeder version>_<vmware|wsl2|win10>.<csv|tsv>`
+
+**Explanation for the columns**:
+
+- `ticker symbol` - internal abbreviation used for the database
+- `DBMS` - official DBMS name
+- `db type` - client version, embedded version or via trino
+- `total ms` - total time of DDL and DML operations in milliseconds
+- `start time` - date and time when the database operations were started
+- `end time` - date and time when the database operations were completed
+- `host name` - name of the computer connected to a computer network
+- `no. cores` -  number of CPU cores used
+- `operating system`
+- `total DDL ms` - total time of DDL operations in milliseconds
+- `drop constr. ms` - total time to drop all constraints
+- `add constr. ms` - total time to add the previously dropped constraints
+- `total DML ms` - total time of DML operations in milliseconds
+- `constraints` - DML operations with enabled (active) or disabled (inactive) constraints (foreign, primary and unique key)
+
+#### 4.4.2 Performance data regarding constraints
+
+![](resources/.README_images/Statistics_Data_Constraints.png)
+
+**File name syntax**: `db_seeder_<bash|cmd>_improvement_<company|syntax>_<DBSeeder version>_<vmware|wsl2|win10>.<csv|tsv>`
+
+**Explanation for the columns**:
+
+- `DBMS` - official DBMS name
+- `Type` - client version, embedded version or via trino
+- `ms` - total time of DDL and DML operations in milliseconds
+- `Constraints` - DML operations with enabled (active) or disabled (inactive) constraints (foreign, primary and unique key)
+- `Improvment` - improvement of total time if constraints are inactive
+
+#### 4.4.3 Historical statistical data
+
+![](resources/.README_images/Statistics_Data_Historical.png)
+
+**File name syntax**: `db_seeder_summary_<first DBSeeder version>-<current DBSeeder version>.<csv|tsv>`
+
+**Explanation for the columns**:
+
+- `ticker symbol` - internal abbreviation used for the database
+- `DBMS` - official DBMS name
+- `version` - DBSeeder version
+- `creator` - shell environment: `bash` or `cmd`
+- `db type` - client version, embedded version or via trino
+- `constraints` - DML operations with enabled (`active` and `active - no choice`) or disabled (`inactive`) constraints (foreign, primary and unique key)
+- `schema` - identification term for the scheme definition used: `company` or `syntax`
+- `total ms` - total time of DDL and DML operations in milliseconds
+- `start time` - date and time when the database operations were started
+- `end time` - date and time when the database operations were completed
+- `host name` - name of the computer connected to a computer network
+- `no. cores` - number of CPU cores used
+- `operating system`
+- `file name` - name of the file with the source data
+- `total DDL ms` - total time of DDL operations in milliseconds
+- `drop constr. ms` - total time to drop all constraints
+- `add constr. ms` - total time to add the previously dropped constraints
+- `total DML ms` - total time of DML operations in milliseconds
 
 [//]: # (===========================================================================================)
 
 ## <a name="rdbms_specifica"></a> 5. RDBMS Specific Technical Details
 
 [DBeaver](https://dbeaver.io) is a great tool to analyze the database content. 
-Below are also DBeaver based connection parameter examples for each database management system. 
+In the file directory `resources/dbeaver` you will also find a file exported from DBeaver with the connection parameters currently used in DBSeeder.
 
 - [AgensGraph](#details_agens) 
 - [Apache Derby](#details_derby)
@@ -643,10 +713,6 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **source code**: [GitHub](https://github.com/bitnine-oss/agensgraph)
 
-- **DBeaver database connection settings**:
-
-![](resources/.README_images/DBeaver_AGENS.png)
-
 [//]: # (===========================================================================================)
 
 ### <a name="details_derby"></a> 5.2 Apache Derby
@@ -687,10 +753,6 @@ Below are also DBeaver based connection parameter examples for each database man
   -- client version:
   
 ![](resources/.README_images/DBeaver_DERBY.png)
-  
-  -- embedded version:
-  
-![](resources/.README_images/DBeaver_DERBY_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -938,10 +1000,6 @@ Below are also DBeaver based connection parameter examples for each database man
   
 ![](resources/.README_images/DBeaver_H2.png)
   
-  -- embedded version:
-  
-![](resources/.README_images/DBeaver_H2_EMB.png)
-
 [//]: # (===========================================================================================)
 
 ### <a name="details_hsqldb"></a> 5.9 HSQLDB
@@ -984,10 +1042,6 @@ Below are also DBeaver based connection parameter examples for each database man
   
 ![](resources/.README_images/DBeaver_HSQLDB.png)
   
-  -- embedded version:
-  
-![](resources/.README_images/DBeaver_HSQLDB_EMB.png)
-
 [//]: # (===========================================================================================)
 
 ### <a name="details_ibmdb2"></a> 5.10 IBM Db2 Database
@@ -1292,7 +1346,7 @@ Below are also DBeaver based connection parameter examples for each database man
 
 - **DBeaver database connection settings**:
 
-![](resources/.README_images/DBeaver_OmniSciDB.png)
+![](resources/.README_images/DBeaver_OMNISCI.png)
 
 [//]: # (===========================================================================================)
 
