@@ -18,7 +18,7 @@ if ["%DB_SEEDER_FILE_CONFIGURATION_NAME%"] EQU [""] (
 rem set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax_1000.json
 
 set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
-set DB_SEEDER_RELEASE=3.0.3
+set DB_SEEDER_RELEASE=3.0.4
 
 echo ================================================================================
 echo Start %0

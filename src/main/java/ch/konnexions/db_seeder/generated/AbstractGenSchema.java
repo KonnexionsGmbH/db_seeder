@@ -12,18 +12,18 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 3.0.3
+ * @version 3.0.4
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
-  protected static final String TABLE_NAME_CITY          = "CITY";
-  protected static final String TABLE_NAME_COMPANY       = "COMPANY";
-  protected static final String TABLE_NAME_COUNTRY       = "COUNTRY";
-  protected static final String TABLE_NAME_COUNTRY_STATE = "COUNTRY_STATE";
-  protected static final String TABLE_NAME_TIMEZONE      = "TIMEZONE";
+  protected static final String TABLE_NAME_CITY                           = "CITY";
+  protected static final String TABLE_NAME_COMPANY                        = "COMPANY";
+  protected static final String TABLE_NAME_COUNTRY                        = "COUNTRY";
+  protected static final String TABLE_NAME_COUNTRY_STATE                  = "COUNTRY_STATE";
+  protected static final String TABLE_NAME_TIMEZONE                       = "TIMEZONE";
 
   private static final Logger   logger                   = LogManager.getLogger(AbstractGenSchema.class);
-  private final boolean         isDebug                  = logger.isDebugEnabled();
+  private final boolean          isDebug                  = logger.isDebugEnabled();
 
   /**
    * Initialises a new abstract generated schema object.
@@ -72,15 +72,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     maxRowSizes        = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
-                               1800);
+                               50);
                            put(TABLE_NAME_COMPANY,
-                               5400);
+                               50);
                            put(TABLE_NAME_COUNTRY,
-                               200);
+                               50);
                            put(TABLE_NAME_COUNTRY_STATE,
-                               600);
+                               50);
                            put(TABLE_NAME_TIMEZONE,
-                               11);
+                               50);
                          }
                        };
 

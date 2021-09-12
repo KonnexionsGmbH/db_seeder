@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.3.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.4.svg)
 
 ----
 
-## Version 3.0.3
+## Version 3.0.4
 
-Release Date: 12.09.2021
+Release Date: dd.mm.2021
 
 ### System Requirements
 
@@ -22,11 +22,15 @@ Release Date: 12.09.2021
 
 ### New Features
 
-- Automatic creation of statistics files regarding improvement with and without constraints and total overview of all releases
+- n/a
 
 ### Modified Features
 
-- Updating and expanding the documentation
+- xxx: DBMS 999 / JDBC 999
+
+### Deleted Features
+
+- n/a
 
 ### Open issues
 
@@ -52,7 +56,7 @@ The following table shows the results of the Windows 10 run.
 If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
 For example, the MonetDB database is faster with inactive constraints by 9.2% compared to the run with activated constraints.
 
-![](resources/.README_images/Perf_Snap_3.0.3_win10.png)
+![](resources/.README_images/Perf_Snap_3.0.4_win10.png)
 
 - `DBMS` - official DBMS name
 - `Type` - client version, embedded version or via trino
