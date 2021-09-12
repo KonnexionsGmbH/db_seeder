@@ -717,10 +717,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   -- client version:
   
 ![](resources/.README_images/DBeaver_DERBY.png)
-  
-  -- embedded version:
-  
-![](resources/.README_images/DBeaver_DERBY_EMB.png)
 
 [//]: # (===========================================================================================)
 
@@ -968,10 +964,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   
 ![](resources/.README_images/DBeaver_H2.png)
   
-  -- embedded version:
-  
-![](resources/.README_images/DBeaver_H2_EMB.png)
-
 [//]: # (===========================================================================================)
 
 ### <a name="details_hsqldb"></a> 5.9 HSQLDB
@@ -1014,10 +1006,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   
 ![](resources/.README_images/DBeaver_HSQLDB.png)
   
-  -- embedded version:
-  
-![](resources/.README_images/DBeaver_HSQLDB_EMB.png)
-
 [//]: # (===========================================================================================)
 
 ### <a name="details_ibmdb2"></a> 5.10 IBM Db2 Database
@@ -1322,7 +1310,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 - **DBeaver database connection settings**:
 
-![](resources/.README_images/DBeaver_OmniSciDB.png)
+![](resources/.README_images/DBeaver_OMNISCI.png)
 
 [//]: # (===========================================================================================)
 
