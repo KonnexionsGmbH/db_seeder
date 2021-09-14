@@ -220,6 +220,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.0.10
     export DB_SEEDER_VERSION=7.0.11
     export DB_SEEDER_VERSION=7.1.0-d1
+    export DB_SEEDER_VERSION=7.1.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -310,6 +311,7 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
     export DB_SEEDER_VERSION=14.10.FC4DE
     export DB_SEEDER_VERSION=14.10.FC5DE
     export DB_SEEDER_VERSION=14.10.FC5DE-rhm
+    export DB_SEEDER_VERSION=14.10.FC6DE
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then

@@ -69,12 +69,12 @@ The database systems considered meet the following conditions:
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.8             | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.1                 | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0-d1           | 7.1.0               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.1              | 7.1.0               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.0               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1           | 11.5.6.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE-rhm | 4.50.4.1            | 
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE     | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021         | 3.1.jre8            | 
@@ -902,7 +902,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.1.0-d1`
+  - pull command: `docker pull exasol/docker-db:7.1.1`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -1106,7 +1106,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC5DE-rhm`
+  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC6DE`
   - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
 
 - **encoding**:

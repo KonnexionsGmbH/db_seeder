@@ -226,6 +226,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.10
     set DB_SEEDER_VERSION=7.0.11
     set DB_SEEDER_VERSION=7.1.0-d1
+    set DB_SEEDER_VERSION=7.1.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -316,6 +317,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_VERSION=14.10.FC4DE
     set DB_SEEDER_VERSION=14.10.FC5DE
     set DB_SEEDER_VERSION=14.10.FC5DE-rhm
+    set DB_SEEDER_VERSION=14.10.FC6DE
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
