@@ -32,7 +32,6 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  * @author  walter@konnexions.ch
  * @since   2021-09-7
  */
-@SuppressWarnings("ucd")
 public final class ComputeImprovement { // NO_UCD (unused code)
 
   private static final Logger  logger                      = LogManager.getLogger(ComputeImprovement.class);

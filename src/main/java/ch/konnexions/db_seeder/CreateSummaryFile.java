@@ -27,8 +27,6 @@ import ch.konnexions.db_seeder.utils.MessageHandling;
  */
 public final class CreateSummaryFile { // NO_UCD (unused code)
 
-  private static BufferedWriter bufferedWriter;
-
   private final static Config   config                     = new Config();
 
   private static String         fileStatisticsDelimiter;
