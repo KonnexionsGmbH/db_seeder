@@ -26,8 +26,10 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
+- CrateDB: DBMS 4.6.3
 - Exasol: DBMS 7.1.1
 - IBM Informix: DBMS 14.10.FC6DE
+- OmniSciDB: DBMS 5.7.1
 - xxx: DBMS 999 / JDBC 999
 
 ### Deleted Features

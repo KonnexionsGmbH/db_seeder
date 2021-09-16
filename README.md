@@ -67,7 +67,7 @@ The database systems considered meet the following conditions:
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3               | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.8             | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.6.1                 | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.3                 | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.1.1              | 7.1.0               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.3.java11        | 
@@ -79,7 +79,7 @@ The database systems considered meet the following conditions:
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021         | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.26               | 8.0.26              | 
-| OmniSciDB                       | omnisci            | 5.6.1 - 5.7.0                 | 5.7.0               |
+| OmniSciDB                       | omnisci            | 5.6.1 - 5.7.1                 | 5.7.0               |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                     | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 13.4-alpine            | 42.2.23             |
@@ -814,7 +814,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.6.1`
+  - pull command: `docker pull crate:4.6.3`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -1326,7 +1326,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
 
 - **JDBC driver (latest)**:
-  - version 5.7.0
+  - version 5.7.1
   - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
 
 - **privileged database access**:

@@ -169,6 +169,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.5.3
     export DB_SEEDER_VERSION=4.5.4
     export DB_SEEDER_VERSION=4.6.1
+    export DB_SEEDER_VERSION=4.6.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -426,6 +427,7 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_VERSION=5.6.1
     export DB_SEEDER_VERSION=5.6.4
     export DB_SEEDER_VERSION=5.7.0
+    export DB_SEEDER_VERSION=5.7.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then

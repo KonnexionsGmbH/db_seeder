@@ -174,6 +174,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.5.3
     set DB_SEEDER_VERSION=4.5.4
     set DB_SEEDER_VERSION=4.6.1
+    set DB_SEEDER_VERSION=4.6.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -432,6 +433,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
     set DB_SEEDER_VERSION=5.6.1
     set DB_SEEDER_VERSION=5.6.4
     set DB_SEEDER_VERSION=5.7.0
+    set DB_SEEDER_VERSION=5.7.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
