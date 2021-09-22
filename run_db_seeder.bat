@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
-set DB_SEEDER_RELEASE=3.0.2
+set DB_SEEDER_RELEASE=3.0.4
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=361
+set DB_SEEDER_VERSION_TRINO=362
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -145,6 +145,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.6
     set DB_SEEDER_VERSION=v21.1.7
     set DB_SEEDER_VERSION=v21.1.8
+    set DB_SEEDER_VERSION=v21.1.9
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -578,6 +579,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_VERSION=2.3.1-pg13
     set DB_SEEDER_VERSION=2.4.0-pg13
     set DB_SEEDER_VERSION=2.4.1-pg13
+    set DB_SEEDER_VERSION=2.4.2-pg13
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (

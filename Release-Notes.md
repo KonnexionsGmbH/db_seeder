@@ -26,11 +26,13 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
+- CockroachDB: DBMS v21.1.9
 - CrateDB: DBMS 4.6.3
-- Exasol: DBMS 7.1.1
+- Exasol: DBMS 7.1.1 / JDBC 7.1.1
 - IBM Informix: DBMS 14.10.FC6DE
 - OmniSciDB: DBMS 5.7.1
-- xxx: DBMS 999 / JDBC 999
+- TimescaleDB: DBMS 2.4.2-pg13
+- trino: DBMS 362 / JDBC 361
 
 ### Deleted Features
 

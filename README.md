@@ -66,10 +66,10 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                            |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3               | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.8             | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.9             | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.3                 | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.1              | 7.1.0               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.1              | 7.1.1               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.0               | 
@@ -85,8 +85,8 @@ The database systems considered meet the following conditions:
 | PostgreSQL                      | postgresql         | 12.3 - 13.4-alpine            | 42.2.23             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04        | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0               | 3.36.0.3            |
-| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13       | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 361                     | 361                 |
+| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.2-pg13       | see PostgreSQL      |
+| trino                           | mysql_trino,       | 339 - 362                     | 361                 |
 |                                 | oracle_trino,      |                               |                     |
 |                                 | postgresql_trino,  |                               |                     |
 |                                 | sqlserver_trino    |                               |                     |
@@ -775,7 +775,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.8`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.9`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -906,7 +906,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 7.1.0
+  - version 7.1.1
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
@@ -1563,7 +1563,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-  - pull command: `docker pull timescale/timescaledb:2.4.1-pg13`
+  - pull command: `docker pull timescale/timescaledb:2.4.2-pg13`
   - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL
@@ -1598,7 +1598,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:361`
+  - pull command: `docker pull trinodb/trino:362`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
