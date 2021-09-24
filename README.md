@@ -82,11 +82,11 @@ The database systems considered meet the following conditions:
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.7.1                 | 5.7.0               |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.25-15                     | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.4-alpine            | 42.2.23             |
+| PostgreSQL                      | postgresql         | 12.3 - 13.4-alpine            | 42.2.24             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04        | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0               | 3.36.0.3            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.2-pg13       | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 362                     | 361                 |
+| trino                           | mysql_trino,       | 339 - 362                     | 362                 |
 |                                 | oracle_trino,      |                               |                     |
 |                                 | postgresql_trino,  |                               |                     |
 |                                 | sqlserver_trino    |                               |                     |
@@ -742,7 +742,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [Jira](https://issues.apache.org/jira/projects/DERBY/issues/DERBY-7013?filter=allopenissues)
   
 - **JDBC driver (latest)**:
-  - version 10.15.2.0
   - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
   - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
@@ -822,7 +821,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/crate/crate)
 
 - **JDBC driver (latest)**:
-  - version 2.6.0
   - [JFrog Bintray repository](https://bintray.com/crate/crate/crate-jdbc)
   
 - **privileged database access**: user `crate`
@@ -869,7 +867,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [Jira](http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&orderby=created+DESC)
 
 - **JDBC driver (latest)**:
-  - version 11.0.1.0291
   - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
   
 - **privileged database access**: users `DBA` and `PUBLIC`
@@ -906,7 +903,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 7.1.1
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
@@ -947,7 +943,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/FirebirdSQL/firebird/issues)
 
 - **JDBC driver (latest)**:
-  - version 4.0.3.java11
   - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
 
 - **privileged database access**: user `SYSDBA`
@@ -987,7 +982,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/h2database/h2database)
 
 - **JDBC driver (latest)**:
-  - version 1.4.200
   - [Maven repository](https://mvnrepository.com/artifact/com.h2database/h2)
 
 - **privileged database access**: user `sa`
@@ -1029,7 +1023,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [SourceForge](https://sourceforge.net/p/hsqldb/_list/tickets)
 
 - **JDBC driver (latest)**:
-  - version 2.6.0
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **privileged database access**: user `SA`
@@ -1074,7 +1067,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - procedure or function
   
 - **JDBC driver (latest)**:
-  - version 11.5.6          .0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
@@ -1113,7 +1105,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made
   
 - **JDBC driver (latest)**:
-  - version 4.50.4.1
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.informix/jdbc)
 
 - **privileged database access**: 
@@ -1163,7 +1154,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [Jira](https://jira.mariadb.org/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 2.7.4
   - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
 
 - **privileged database access**:
@@ -1203,7 +1193,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **encoding**: NCHAR, NVARCHAR
   
 - **JDBC driver (latest)**: 
-  - version 3.41a
   - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se)
 
 - **privileged database access**:
@@ -1243,7 +1232,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/MonetDB/MonetDB/issues)
 
 - **JDBC driver (latest)**:
-  - version 3.1.jre8
   - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java)
 
 - **privileged database access**:
@@ -1284,7 +1272,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
 - **JDBC driver (latest)**:
-  - version 8.0.26
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1326,7 +1313,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
 
 - **JDBC driver (latest)**:
-  - version 5.7.1
   - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
 
 - **privileged database access**:
@@ -1373,7 +1359,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 21.3.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11)
 
 - **privileged database access**:
@@ -1454,7 +1439,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [PostgreSQL](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
-  - version 42.2.23
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)
@@ -1490,7 +1474,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
 
 - **JDBC driver (latest)**:
-  - version 9.4.0.jre16
   - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
 
 - **privileged database access**:
@@ -1528,7 +1511,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
 
 - **JDBC driver (latest)**:
-  - version 3.36.0.3
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
   - determines also the DBMS version
 
@@ -1606,7 +1588,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 361
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
@@ -1642,7 +1623,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 11.0
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **restrictions**: no support of autoincrement, check constraints or foreign keys
@@ -1682,7 +1662,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/yugabyte/yugabyte-db/issues)
 
 - **JDBC driver (latest)**:
-  - version 42.2.7-yb-3
   - [Maven repository](https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb)
 
 - **source code**: [GitHub](https://github.com/yugabyte/yugabyte-db)

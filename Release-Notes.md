@@ -31,8 +31,9 @@ Release Date: dd.mm.2021
 - Exasol: DBMS 7.1.1 / JDBC 7.1.1
 - IBM Informix: DBMS 14.10.FC6DE
 - OmniSciDB: DBMS 5.7.1
+- PostgreSQL: JDBC 42.2.24
 - TimescaleDB: DBMS 2.4.2-pg13
-- trino: DBMS 362 / JDBC 361
+- trino: DBMS 362 / JDBC 362
 
 ### Deleted Features
 
