@@ -29,6 +29,7 @@ Release Date: dd.mm.2021
 - CockroachDB: DBMS v21.1.9
 - CrateDB: DBMS 4.6.3
 - Exasol: DBMS 7.1.1 / JDBC 7.1.1
+- IBM Db2 Database: DBMS 11.5.6.0a
 - IBM Informix: DBMS 14.10.FC6DE
 - OmniSciDB: DBMS 5.7.1
 - PostgreSQL: JDBC 42.2.24
@@ -44,7 +45,6 @@ Release Date: dd.mm.2021
 - AgensGraph: (see [here](#issues_agensgraph))
 - CockroachDB: (see [here](#issues_cockroach))
 - HSQLDB: (see [here](#issues_hsqldb))
-- IBM Db2 Database: (see [here](#issues_ibmdb2))
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
 - VoltDB: (see [here](#issues_voltdb))
@@ -114,10 +114,6 @@ For example, the MonetDB database is faster with inactive constraints by 9.2% co
         at org.hsqldb.Session.execute(Unknown Source)
         ... 6 more`
 ```
-
-### <a name="issues_ibmdb2"></a> IBM Db2 Database
-
-- Issue: Docker image from `docker pull ibmcom/db2:11.5.6.0` (see [here](https://www.tek-tips.com/viewthread.cfm?qid=1811168)).
 
 ### <a name="issues_omnisci"></a> OmniSciDB
 

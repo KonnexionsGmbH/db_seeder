@@ -298,7 +298,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.4.0
     export DB_SEEDER_VERSION=11.5.5.0
     export DB_SEEDER_VERSION=11.5.5.1
-#   export DB_SEEDER_VERSION=11.5.6.0
+    export DB_SEEDER_VERSION=11.5.6.0a
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "informix" ]; then

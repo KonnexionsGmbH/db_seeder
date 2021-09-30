@@ -73,7 +73,7 @@ The database systems considered meet the following conditions:
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.3.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.0               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1           | 11.5.6.0            |                                                    
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.6.0a          | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE     | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
