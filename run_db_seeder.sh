@@ -500,6 +500,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_VERSION=13.2-alpine
     export DB_SEEDER_VERSION=13.3-alpine
     export DB_SEEDER_VERSION=13.4-alpine
+    export DB_SEEDER_VERSION=14.0-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
@@ -520,6 +521,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_VERSION=13.2-alpine
     export DB_SEEDER_VERSION=13.3-alpine
     export DB_SEEDER_VERSION=13.4-alpine
+    export DB_SEEDER_VERSION=14.0-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then

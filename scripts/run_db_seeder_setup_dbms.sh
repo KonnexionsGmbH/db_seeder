@@ -582,6 +582,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
 
     docker network create db_seeder_net  2>/dev/null || true
     docker create -e        POSTGRES_DB=kxn_db_sys \
+                  -e        POSTGRES_HOST_AUTH_METHOD=password \
                   -e        POSTGRES_PASSWORD=postgresql \
                   -e        POSTGRES_USER=kxn_user_sys \
                   --name    db_seeder_db \

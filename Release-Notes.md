@@ -32,7 +32,7 @@ Release Date: dd.mm.2021
 - IBM Db2 Database: DBMS 11.5.6.0a
 - IBM Informix: DBMS 14.10.FC6DE
 - OmniSciDB: DBMS 5.7.1
-- PostgreSQL: JDBC 42.2.24
+- PostgreSQL: DBMS 14.0 / JDBC 42.2.24
 - TimescaleDB: DBMS 2.4.2-pg13
 - trino: DBMS 362 / JDBC 362
 
