@@ -67,7 +67,7 @@ The database systems considered meet the following conditions:
 | AgensGraph                      | agens              | v2.1.1 - v2.1.3               | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.9             | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.6.3                 | 2.6.0               |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.4                 | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.1.1              | 7.1.1               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.3.java11        | 
@@ -813,7 +813,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.6.3`
+  - pull command: `docker pull crate:4.6.4`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
