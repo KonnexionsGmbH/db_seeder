@@ -32,6 +32,7 @@ Release Date: dd.mm.2021
 - Firebird: JDBC 4.0.4.java11
 - IBM Db2 Database: DBMS 11.5.6.0a
 - IBM Informix: DBMS 14.10.FC6DE
+- MonetDB: DBMS Jul2021-SP1
 - OmniSciDB: DBMS 5.7.1
 - PostgreSQL: DBMS 14.0 / JDBC 42.2.24
 - TimescaleDB: DBMS 2.4.2-pg13

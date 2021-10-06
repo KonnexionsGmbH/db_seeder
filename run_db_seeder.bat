@@ -379,6 +379,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_VERSION=Oct2020-SP4
     set DB_SEEDER_VERSION=Oct2020-SP5
     set DB_SEEDER_VERSION=Jul2021
+    set DB_SEEDER_VERSION=Jul2021-SP1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (

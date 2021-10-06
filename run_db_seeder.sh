@@ -373,6 +373,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Oct2020-SP4
     export DB_SEEDER_VERSION=Oct2020-SP5
     export DB_SEEDER_VERSION=Jul2021
+    export DB_SEEDER_VERSION=Jul2021-SP1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then

@@ -77,7 +77,7 @@ The database systems considered meet the following conditions:
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE     | 4.50.4.1            | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021         | 3.1.jre8            | 
+| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP1     | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.26               | 8.0.26              | 
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.7.1                 | 5.7.0               |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
@@ -1224,7 +1224,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull monetdb/monetdb:Jul2021`
+  - pull command: `docker pull monetdb/monetdb:Jul2021-SP1`
   - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
