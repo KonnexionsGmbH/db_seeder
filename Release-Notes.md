@@ -35,6 +35,7 @@ Release Date: dd.mm.2021
 - MonetDB: DBMS Jul2021-SP1
 - OmniSciDB: DBMS 5.7.1
 - PostgreSQL: DBMS 14.0 / JDBC 42.2.24
+- SQL Server: DBMS 2019-CU13-ubuntu-20.04
 - TimescaleDB: DBMS 2.4.2-pg13
 - trino: DBMS 362 / JDBC 362
 
