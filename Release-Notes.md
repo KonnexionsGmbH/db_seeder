@@ -29,6 +29,7 @@ Release Date: dd.mm.2021
 - CockroachDB: DBMS v21.1.9
 - CrateDB: DBMS 4.6.4
 - Exasol: DBMS 7.1.1 / JDBC 7.1.1
+- Firebird: JDBC 4.0.4.java11
 - IBM Db2 Database: DBMS 11.5.6.0a
 - IBM Informix: DBMS 14.10.FC6DE
 - OmniSciDB: DBMS 5.7.1
