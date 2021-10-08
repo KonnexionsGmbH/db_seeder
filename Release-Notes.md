@@ -26,6 +26,7 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
+- AgensGraph: DBMS v2.5.0
 - CockroachDB: DBMS v21.1.9
 - CrateDB: DBMS 4.6.4
 - Exasol: DBMS 7.1.1 / JDBC 7.1.1
