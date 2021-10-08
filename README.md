@@ -87,7 +87,7 @@ The database systems considered meet the following conditions:
 |                                 |                    | 2019-CU13-ubuntu-20.04        | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0               | 3.36.0.3            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.2-pg13       | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 362                     | 362                 |
+| trino                           | mysql_trino,       | 339 - 363                     | 363                 |
 |                                 | oracle_trino,      |                               |                     |
 |                                 | postgresql_trino,  |                               |                     |
 |                                 | sqlserver_trino    |                               |                     |
@@ -1581,7 +1581,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:362`
+  - pull command: `docker pull trinodb/trino:363`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
