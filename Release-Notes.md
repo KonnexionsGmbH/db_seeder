@@ -34,7 +34,7 @@ Release Date: dd.mm.2021
 - IBM Db2 Database: DBMS 11.5.6.0a
 - IBM Informix: DBMS 14.10.FC6DE / JDBC 4.50.6
 - MonetDB: DBMS Jul2021-SP1
-- OmniSciDB: DBMS 5.7.1
+- OmniSciDB: DBMS 5.8.0
 - PostgreSQL: DBMS 14.0 / JDBC 42.2.24
 - SQL Server: DBMS 2019-CU13-ubuntu-20.04
 - TimescaleDB: DBMS 2.4.2-pg13

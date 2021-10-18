@@ -433,6 +433,7 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_VERSION=5.6.4
     export DB_SEEDER_VERSION=5.7.0
     export DB_SEEDER_VERSION=5.7.1
+    export DB_SEEDER_VERSION=5.8.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
