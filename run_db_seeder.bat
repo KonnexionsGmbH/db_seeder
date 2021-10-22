@@ -233,6 +233,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.0.11
     set DB_SEEDER_VERSION=7.1.0-d1
     set DB_SEEDER_VERSION=7.1.1
+    set DB_SEEDER_VERSION=7.1.2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
