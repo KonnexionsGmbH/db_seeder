@@ -143,6 +143,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.8
     export DB_SEEDER_VERSION=v21.1.9
     export DB_SEEDER_VERSION=v21.1.10
+    export DB_SEEDER_VERSION=v21.1.11
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then

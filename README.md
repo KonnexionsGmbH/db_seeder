@@ -66,7 +66,7 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                            |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.5.0               | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.10            | see PostgreSQL      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.11            | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.4                 | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.1.1              | 7.1.1               |
@@ -775,7 +775,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.10`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.11`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
