@@ -78,10 +78,10 @@ The database systems considered meet the following conditions:
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP1     | 3.1.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.26               | 8.0.26              | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.27               | 8.0.27              | 
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.8.0                 | 5.7.0               |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
-| Percona Server for MySQL        | percona            | 8.0.25-15                     | see MySQL           | 
+| Percona Server for MySQL        | percona            | 8.0.26-16                     | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 14.0-alpine            | 42.2.24             |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -      |                     |
 |                                 |                    | 2019-CU13-ubuntu-20.04        | 9.4.0.jre16         | 
@@ -1267,7 +1267,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.26`
+  - pull command: `docker pull mysql:8.0.27`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1391,7 +1391,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull percona/percona-server:8.0.25-15`
+  - pull command: `docker pull percona/percona-server:8.0.26-16`
   - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed

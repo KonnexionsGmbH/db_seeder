@@ -404,6 +404,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.24
     set DB_SEEDER_VERSION=8.0.25
     set DB_SEEDER_VERSION=8.0.26
+    set DB_SEEDER_VERSION=8.0.27
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
@@ -425,6 +426,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.24
     set DB_SEEDER_VERSION=8.0.25
     set DB_SEEDER_VERSION=8.0.26
+    set DB_SEEDER_VERSION=8.0.27
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
@@ -494,6 +496,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_VERSION=8.0
     set DB_SEEDER_VERSION=8.0.23-14
     set DB_SEEDER_VERSION=8.0.25-15
+    set DB_SEEDER_VERSION=8.0.26-16
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (

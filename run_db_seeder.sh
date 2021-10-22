@@ -398,6 +398,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_VERSION=8.0.24
     export DB_SEEDER_VERSION=8.0.25
     export DB_SEEDER_VERSION=8.0.26
+    export DB_SEEDER_VERSION=8.0.27
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
@@ -419,6 +420,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_VERSION=8.0.24
     export DB_SEEDER_VERSION=8.0.25
     export DB_SEEDER_VERSION=8.0.26
+    export DB_SEEDER_VERSION=8.0.27
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
@@ -488,6 +490,7 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
     export DB_SEEDER_VERSION=8.0
     export DB_SEEDER_VERSION=8.0.23-14
     export DB_SEEDER_VERSION=8.0.25-15
+    export DB_SEEDER_VERSION=8.0.26-16
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
