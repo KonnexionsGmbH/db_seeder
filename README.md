@@ -82,7 +82,7 @@ The database systems considered meet the following conditions:
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.8.0                 | 5.7.0               |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.26-16                     | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 14.0-alpine            | 42.2.24             |
+| PostgreSQL                      | postgresql         | 12.3 - 14.0-alpine            | 42.3.0              |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -      |                     |
 |                                 |                    | 2019-CU13-ubuntu-20.04        | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0               | 3.36.0.3            |
