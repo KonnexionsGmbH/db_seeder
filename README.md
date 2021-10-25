@@ -68,8 +68,8 @@ The database systems considered meet the following conditions:
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.1.11            | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.4                 | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.2              | 7.1.1               |
+| CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.3.0293         |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.2              | 7.1.2               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.4.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.0               | 
