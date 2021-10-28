@@ -588,6 +588,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_VERSION=2.4.0-pg13
     export DB_SEEDER_VERSION=2.4.1-pg13
     export DB_SEEDER_VERSION=2.4.2-pg13
+    export DB_SEEDER_VERSION=2.5.0-pg14
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then

@@ -41,7 +41,7 @@ Release Date: dd.mm.2021
 - Percona Server for MySQL: DBMS 8.0.26-16
 - PostgreSQL: DBMS 14.0 / JDBC 42.3.0
 - SQL Server: DBMS 2019-CU13-ubuntu-20.04
-- TimescaleDB: DBMS 2.4.2-pg13
+- TimescaleDB: DBMS 2.5.0-pg14
 - trino: DBMS 363 / JDBC 363
 
 ### Deleted Features

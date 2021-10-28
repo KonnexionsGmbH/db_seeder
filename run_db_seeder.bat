@@ -594,6 +594,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_VERSION=2.4.0-pg13
     set DB_SEEDER_VERSION=2.4.1-pg13
     set DB_SEEDER_VERSION=2.4.2-pg13
+    set DB_SEEDER_VERSION=2.5.0-pg14
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
