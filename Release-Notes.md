@@ -43,6 +43,7 @@ Release Date: dd.mm.2021
 - SQL Server: DBMS 2019-CU13-ubuntu-20.04
 - TimescaleDB: DBMS 2.5.0-pg14
 - trino: DBMS 363 / JDBC 363
+- YugabyteDB: JDBC 42.3.0
 
 ### Deleted Features
 

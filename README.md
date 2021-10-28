@@ -92,7 +92,7 @@ The database systems considered meet the following conditions:
 |                                 | postgresql_trino,  |                               |                     |
 |                                 | sqlserver_trino    |                               |                     |
 | VoltDB                          | voltdb             | 9.2.1                         | 11.0                |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4      | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4      | 42.3.0              |
 
 [//]: # (===========================================================================================)
 
