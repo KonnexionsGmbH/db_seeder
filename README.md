@@ -72,7 +72,7 @@ The database systems considered meet the following conditions:
 | Exasol                          | exasol             | 6.2.8-d1 - 7.1.2              | 7.1.2               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.4.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
-| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.0               | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.6.0a          | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE     | 4.50.6              | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
