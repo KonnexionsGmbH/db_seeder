@@ -81,7 +81,7 @@ if [ "${HOST_ENVIRONMENT}" = "vm" ]; then
 fi
 
 echo "------------------------------------------------------------------------------"
-echo "Step: Install Eclipse - Version /${VERSION_ECLIPSE_1}./${VERSION_ECLIPSE_2}"
+echo "Step: Install Eclipse - Version ${VERSION_ECLIPSE_1}/${VERSION_ECLIPSE_2}"
 echo "------------------------------------------------------------------------------"
 wget --quiet https://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/${VERSION_ECLIPSE_1}/${VERSION_ECLIPSE_2}/eclipse-java-${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}-linux-gtk-x86_64.tar.gz
 sudo tar -xf eclipse-java-${VERSION_ECLIPSE_1}-${VERSION_ECLIPSE_2}-linux-gtk-x86_64.tar.gz
