@@ -1,0 +1,50 @@
+ticker symbol	DBMS	db type	total ms	start time	end time	host name	no. cores	operating system	total DDL ms	drop constr. ms	add constr. ms	total DML ms	constraints
+agens	AgensGraph	client	3854	2021-10-28 21:18:42.021404900	2021-10-28 21:18:45.875983400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	774	0	0	3080	active
+cockroach	CockroachDB	client	6124	2021-10-28 21:20:39.557671700	2021-10-28 21:20:45.681757300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1070	0	0	5054	active - no choice
+cratedb	CrateDB	client	6259	2021-10-28 21:22:39.668989200	2021-10-28 21:22:45.928061700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	2669	0	0	3590	active - no choice
+cubrid	CUBRID	client	6310	2021-10-28 21:24:28.964443700	2021-10-28 21:24:35.274758400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	433	0	0	5877	active
+derby	Apache Derby	client	17110	2021-10-28 21:26:33.313574800	2021-10-28 21:26:50.423959100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	3608	0	0	13502	active
+derby_emb	Apache Derby	embedded	15816	2021-10-28 21:26:51.231457000	2021-10-28 21:27:07.047619700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	6271	0	0	9545	active
+exasol	Exasol	client	4073	2021-10-28 21:31:52.438506800	2021-10-28 21:31:56.511842800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	730	0	0	3343	active
+firebird	Firebird	client	93557	2021-10-28 21:34:15.204427300	2021-10-28 21:35:48.762190600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	932	0	0	92625	active
+h2	H2 Database Engine	client	7051	2021-10-28 21:37:13.834679900	2021-10-28 21:37:20.886533800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	531	0	0	6520	active - no choice
+h2_emb	H2 Database Engine	embedded	3701	2021-10-28 21:37:21.641053300	2021-10-28 21:37:25.342212800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1673	0	0	2028	active - no choice
+hsqldb	HSQLDB	client	17996	2021-10-28 21:39:10.485012000	2021-10-28 21:39:28.481707500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	576	0	0	17420	active
+hsqldb_emb	HSQLDB	embedded	2749	2021-10-28 21:39:29.218706400	2021-10-28 21:39:31.967708300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	460	0	0	2289	active
+ibmdb2	IBM Db2 Database	client	30635	2021-10-28 21:46:55.776162600	2021-10-28 21:47:26.411300200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	3297	0	0	27338	active
+informix	IBM Informix	client	18961	2021-10-28 21:53:00.296121000	2021-10-28 21:53:19.258067400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1861	0	0	17100	active
+mariadb	MariaDB Server	client	3789	2021-10-28 21:55:37.422053500	2021-10-28 21:55:41.211769100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	515	0	0	3274	active
+mimer	Mimer SQL	client	9009	2021-10-28 21:57:29.401869500	2021-10-28 21:57:38.411369300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	467	0	0	8542	active
+monetdb	MonetDB	client	9636	2021-10-28 21:59:29.638679800	2021-10-28 21:59:39.274787800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1065	0	0	8571	active
+mysql	MySQL Database	client	7995	2021-10-28 22:02:15.666536100	2021-10-28 22:02:23.661754200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	721	0	0	7274	active
+mysql_trino	MySQL Database	trino	494563	2021-10-28 22:06:08.614097000	2021-10-28 22:14:23.177705200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1429	0	0	493134	active - no choice
+omnisci	OmniSciDB	client	38203	2021-10-28 22:16:41.892280100	2021-10-28 22:17:20.096035500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	5100	0	0	33103	active - no choice
+oracle	Oracle Database	client	12803	2021-10-28 22:23:20.188592400	2021-10-28 22:23:32.991969300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	837	0	0	11966	active
+oracle_trino	Oracle Database	trino	276224	2021-10-28 22:25:31.289230400	2021-10-28 22:30:07.513673300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	882	0	0	275342	active - no choice
+percona	Percona Server for MySQL	client	8695	2021-10-28 22:32:33.818639600	2021-10-28 22:32:42.514101400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	768	0	0	7927	active
+postgresql	PostgreSQL	client	3929	2021-10-28 22:34:40.147353200	2021-10-28 22:34:44.077351500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	682	0	0	3247	active
+postgresql_trino	PostgreSQL	trino	435245	2021-10-28 22:36:03.368369200	2021-10-28 22:43:18.614112400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	680	0	0	434565	active - no choice
+sqlite	SQLite	embedded	4520	2021-10-28 22:43:19.422111100	2021-10-28 22:43:23.942892100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1345	0	0	3175	active - no choice
+sqlserver	MS SQL Server	client	5476	2021-10-28 22:44:30.358243400	2021-10-28 22:44:35.835242800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1062	0	0	4414	active
+sqlserver_trino	MS SQL Server	trino	723315	2021-10-28 22:45:55.682298000	2021-10-28 22:57:58.997517400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	991	0	0	722324	active - no choice
+timescale	TimescaleDB	client	4107	2021-10-28 22:59:44.637334300	2021-10-28 22:59:48.744618000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	740	0	0	3367	active
+yugabyte	YugabyteDB	client	13142	2021-10-28 23:04:05.769357100	2021-10-28 23:04:18.911692700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	6514	0	0	6628	active
+agens	AgensGraph	client	3845	2021-10-28 23:04:56.658492600	2021-10-28 23:05:00.503826600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	824	0	69	3021	inactive
+cubrid	CUBRID	client	6641	2021-10-28 23:05:38.503758900	2021-10-28 23:05:45.145228400	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	686	77	81	5955	inactive
+derby	Apache Derby	client	16444	2021-10-28 23:06:35.823717400	2021-10-28 23:06:52.268052700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	4024	208	324	12420	inactive
+derby_emb	Apache Derby	embedded	18008	2021-10-28 23:06:53.039553700	2021-10-28 23:07:11.048224700	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	8061	1361	259	9947	inactive
+exasol	Exasol	client	4269	2021-10-28 23:09:21.097652200	2021-10-28 23:09:25.366918500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	900	22	107	3369	inactive
+firebird	Firebird	client	66556	2021-10-28 23:10:18.568010200	2021-10-28 23:11:25.124704900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1458	375	184	65098	inactive
+hsqldb	HSQLDB	client	20014	2021-10-28 23:12:05.666780700	2021-10-28 23:12:25.680790300	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	682	48	47	19332	inactive
+ibmdb2	IBM Db2 Database	client	31671	2021-10-28 23:17:34.582056700	2021-10-28 23:18:06.253122200	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	4241	916	307	27430	inactive
+informix	IBM Informix	client	19224	2021-10-28 23:22:02.442580600	2021-10-28 23:22:21.667536100	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	2084	52	181	17140	inactive
+mariadb	MariaDB Server	client	7019	2021-10-28 23:23:09.512665900	2021-10-28 23:23:16.532253500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	3773	3066	199	3246	inactive
+mimer	Mimer SQL	client	9815	2021-10-28 23:23:55.661863300	2021-10-28 23:24:05.477259500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	838	128	199	8977	inactive
+monetdb	MonetDB	client	8492	2021-10-28 23:24:18.852417700	2021-10-28 23:24:27.344781000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1046	0	128	7446	inactive
+mysql	MySQL Database	client	19459	2021-10-28 23:25:37.563721300	2021-10-28 23:25:57.022830600	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	13178	12192	205	6281	inactive
+oracle	Oracle Database	client	16086	2021-10-28 23:27:08.918238400	2021-10-28 23:27:25.004526500	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	4386	161	3372	11700	inactive
+percona	Percona Server for MySQL	client	19694	2021-10-28 23:28:37.343755800	2021-10-28 23:28:57.038686900	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	13756	12820	212	5938	inactive
+postgresql	PostgreSQL	client	3797	2021-10-28 23:29:37.971942600	2021-10-28 23:29:41.769594800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	726	0	77	3071	inactive
+sqlserver	MS SQL Server	client	5477	2021-10-28 23:30:20.371306100	2021-10-28 23:30:25.848880800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	1460	234	291	4017	inactive
+timescale	TimescaleDB	client	3897	2021-10-28 23:31:08.285510400	2021-10-28 23:31:12.183176000	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	812	0	84	3085	inactive
+yugabyte	YugabyteDB	client	13030	2021-10-28 23:31:49.336422900	2021-10-28 23:32:02.366596800	jfww-win-dt-21	32	amd64 / Windows 10 / 10.0	6717	0	379	6313	inactive

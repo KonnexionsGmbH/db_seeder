@@ -3,7 +3,7 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.3.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.4.svg)
 ----
 
 ### Table of Contents
@@ -64,34 +64,35 @@ The database systems considered meet the following conditions:
 
 | RDBMS                           | Ticker Symbol(s)   | RDBMS Versions                | Latest JDBC         |
 |---                              |---                 |---                            |---                  |
-| AgensGraph                      | agens              | v2.1.1 - v2.1.3               | 1.4.2-c1            |
+| AgensGraph                      | agens              | v2.1.1 - v2.5.0               | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.8             | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.6.1                 | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.1.0291         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.0-d1           | 7.1.0               |
-| Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.3.java11        | 
+| CockroachDB                     | cockroach          | v20.2.5 - v21.1.11            | see PostgreSQL      |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.4                 | 2.6.0               |
+| CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.3.0293         |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.2              | 7.1.2               |
+| Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.4.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
-| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.0               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.5.1           | 11.5.6.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE-rhm | 4.50.4.1            | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.1               | 
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.6.0a          | 11.5.6.0            |                                                    
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE     | 4.50.6              | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021         | 3.1.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.26               | 8.0.26              | 
-| OmniSciDB                       | omnisci            | 5.6.1 - 5.7.0                 | 5.7.0               |
+| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP1     | 3.1.jre8            | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.27               | 8.0.27              | 
+| OmniSciDB                       | omnisci            | 5.6.1 - 5.8.0                 | 5.7.0               |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
-| Percona Server for MySQL        | percona            | 8.0.25-15                     | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 13.4-alpine            | 42.2.23             |
-| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04        | 9.4.0.jre16         | 
+| Percona Server for MySQL        | percona            | 8.0.26-16                     | see MySQL           | 
+| PostgreSQL                      | postgresql         | 12.3 - 14.0-alpine            | 42.3.0              |
+| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -      |                     |
+|                                 |                    | 2019-CU13-ubuntu-20.04        | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0               | 3.36.0.3            |
-| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.4.1-pg13       | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 361                     | 361                 |
+| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.5.0-pg14       | see PostgreSQL      |
+| trino                           | mysql_trino,       | 339 - 363                     | 363                 |
 |                                 | oracle_trino,      |                               |                     |
 |                                 | postgresql_trino,  |                               |                     |
 |                                 | sqlserver_trino    |                               |                     |
 | VoltDB                          | voltdb             | 9.2.1                         | 11.0                |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4      | 42.2.7-yb-3         |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4      | 42.3.0              |
 
 [//]: # (===========================================================================================)
 
@@ -464,7 +465,7 @@ Details on the required software versions can be found in the [release notes](Re
 
 - A suitable image is available on Docker Hub for development and operation, see [here](https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder).
 
-- In the directory `scripts/3.0.2` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
+- In the directory `scripts/3.0.4` are the two scripts `run_install_4_vm_wsl2_1.sh` and `run_install_4_vm_wsl2_1.sh` with which an Ubuntu environment can be prepared for development and operation.
 
 - If the Windows Subsystem for Linux (WSL) is to be used, then the `WSL INTEGRATION` for Ubuntu must be activated in Docker
 
@@ -700,7 +701,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER: see PostgreSQL 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull bitnine/agensgraph:v2.1.3`
+  - pull command: `docker pull bitnine/agensgraph:v2.5.0`
   - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
 
 - **encoding**: see PostgreSQL
@@ -742,7 +743,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [Jira](https://issues.apache.org/jira/projects/DERBY/issues/DERBY-7013?filter=allopenissues)
   
 - **JDBC driver (latest)**:
-  - version 10.15.2.0
   - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
   - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
@@ -775,7 +775,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.8`
+  - pull command: `docker pull cockroachdb/cockroach:v21.1.11`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -814,7 +814,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.6.1`
+  - pull command: `docker pull crate:4.6.4`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -822,7 +822,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/crate/crate)
 
 - **JDBC driver (latest)**:
-  - version 2.6.0
   - [JFrog Bintray repository](https://bintray.com/crate/crate/crate-jdbc)
   
 - **privileged database access**: user `crate`
@@ -869,7 +868,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [Jira](http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&orderby=created+DESC)
 
 - **JDBC driver (latest)**:
-  - version 11.0.1.0291
   - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
   
 - **privileged database access**: users `DBA` and `PUBLIC`
@@ -902,11 +900,10 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.1.0-d1`
+  - pull command: `docker pull exasol/docker-db:7.1.2`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - version 7.1.0
   - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
@@ -947,7 +944,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/FirebirdSQL/firebird/issues)
 
 - **JDBC driver (latest)**:
-  - version 4.0.3.java11
   - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
 
 - **privileged database access**: user `SYSDBA`
@@ -987,7 +983,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/h2database/h2database)
 
 - **JDBC driver (latest)**:
-  - version 1.4.200
   - [Maven repository](https://mvnrepository.com/artifact/com.h2database/h2)
 
 - **privileged database access**: user `sa`
@@ -1029,7 +1024,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [SourceForge](https://sourceforge.net/p/hsqldb/_list/tickets)
 
 - **JDBC driver (latest)**:
-  - version 2.6.0
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **privileged database access**: user `SA`
@@ -1074,7 +1068,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - procedure or function
   
 - **JDBC driver (latest)**:
-  - version 11.5.6          .0
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
@@ -1106,14 +1099,13 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC5DE-rhm`
+  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC6DE`
   - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
 
 - **encoding**:
   - code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made
   
 - **JDBC driver (latest)**:
-  - version 4.50.4.1
   - [Maven repository](https://mvnrepository.com/artifact/com.ibm.informix/jdbc)
 
 - **privileged database access**: 
@@ -1163,7 +1155,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [Jira](https://jira.mariadb.org/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 2.7.4
   - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
 
 - **privileged database access**:
@@ -1203,7 +1194,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **encoding**: NCHAR, NVARCHAR
   
 - **JDBC driver (latest)**: 
-  - version 3.41a
   - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se)
 
 - **privileged database access**:
@@ -1235,7 +1225,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull monetdb/monetdb:Jul2021`
+  - pull command: `docker pull monetdb/monetdb:Jul2021-SP1`
   - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1243,7 +1233,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/MonetDB/MonetDB/issues)
 
 - **JDBC driver (latest)**:
-  - version 3.1.jre8
   - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java)
 
 - **privileged database access**:
@@ -1278,13 +1267,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.26`
+  - pull command: `docker pull mysql:8.0.27`
   - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
 - **JDBC driver (latest)**:
-  - version 8.0.26
   - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
@@ -1326,7 +1314,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
 
 - **JDBC driver (latest)**:
-  - version 5.7.0
   - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
 
 - **privileged database access**:
@@ -1373,7 +1360,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - version 21.3.0.0
   - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11)
 
 - **privileged database access**:
@@ -1405,7 +1391,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull percona/percona-server:8.0.25-15`
+  - pull command: `docker pull percona/percona-server:8.0.26-16`
   - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1446,7 +1432,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:13.4-alpine`
+  - pull command: `docker pull postgres:14.0-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
@@ -1454,7 +1440,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [PostgreSQL](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
-  - version 42.2.23
   - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **source code**: [GitHub](https://github.com/postgres/postgres)
@@ -1484,13 +1469,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-CU12-ubuntu-20.04`
+  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04`
   - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
 
 - **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
 
 - **JDBC driver (latest)**:
-  - version 9.4.0.jre16
   - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
 
 - **privileged database access**:
@@ -1528,7 +1512,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
 
 - **JDBC driver (latest)**:
-  - version 3.36.0.3
   - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
   - determines also the DBMS version
 
@@ -1563,7 +1546,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-  - pull command: `docker pull timescale/timescaledb:2.4.1-pg13`
+  - pull command: `docker pull timescale/timescaledb:2.5.0-pg14`
   - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL
@@ -1598,7 +1581,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:361`
+  - pull command: `docker pull trinodb/trino:363`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1606,7 +1589,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - version 361
   - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
@@ -1642,7 +1624,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - version 11.0
   - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **restrictions**: no support of autoincrement, check constraints or foreign keys
@@ -1682,7 +1663,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **issue tracking**: [GitHub](https://github.com/yugabyte/yugabyte-db/issues)
 
 - **JDBC driver (latest)**:
-  - version 42.2.7-yb-3
   - [Maven repository](https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb)
 
 - **source code**: [GitHub](https://github.com/yugabyte/yugabyte-db)

@@ -1,7 +1,7 @@
 dist: focal
 
 jdk:
-  - openjdk15
+  - openjdk17
 
 services:
   - docker

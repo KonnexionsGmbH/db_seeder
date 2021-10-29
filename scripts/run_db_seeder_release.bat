@@ -13,12 +13,12 @@ set ERRORLEVEL=
 rem echo.
 rem echo Script %0 is now running
 rem echo.
-rem echo You can find the run log in the file run_db_seeder_complete_client.log
+rem echo You can find the run log in the file run_db_seeder_release.log
 rem echo.
 rem echo Please wait ...
 rem echo.
 
-rem > run_db_seeder_multiple.log 2>&1 (
+rem > run_db_seeder_release.log 2>&1 (
 
     echo ================================================================================
     echo Start %0
@@ -27,13 +27,14 @@ rem > run_db_seeder_multiple.log 2>&1 (
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
-    
 
     call gradle copyJarToLib
     if %ERRORLEVEL% NEQ 0 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
+
+    del /f /q db_seeder.log
 
     echo --------------------------------------------------------------------------------
     echo Generator.
@@ -84,7 +85,7 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder sqlserver_trino  yes 1
     call run_db_seeder timescale        yes 1
     rem Java 15:
-    call run_db_seeder voltdb           yes 0 
+    call run_db_seeder voltdb           yes 0
     call run_db_seeder yugabyte         yes 1
     
     echo --------------------------------------------------------------------------------
@@ -99,7 +100,8 @@ rem > run_db_seeder_multiple.log 2>&1 (
     call run_db_seeder exasol           yes 1
     call run_db_seeder firebird         yes 1
     call run_db_seeder hsqldb           yes 1
-rem wwe    call run_db_seeder hsqldb_emb       yes 1
+    rem java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+    call run_db_seeder hsqldb_emb       yes 0
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
     call run_db_seeder mariadb          yes 1

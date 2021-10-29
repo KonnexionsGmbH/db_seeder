@@ -3,7 +3,40 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.3.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.4.svg)
+
+----
+
+## Version 3.0.3
+
+Release Date: 12.09.2021
+
+### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 4.0.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
+- Eclipse IDE: 2021.06 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
+- Java Development Kit 16, (e.g. from [here](https://jdk.java.net/java-se-ri/16))
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-06\eclipse`
+
+### New Features
+
+- Automatic creation of statistics files regarding improvement with and without constraints and total overview of all releases
+
+### Modified Features
+
+- Updating and expanding the documentation
+
+### Open issues
+
+- AgensGraph: (see [here](#issues_agensgraph))
+- CockroachDB: (see [here](#issues_cockroach))
+- HSQLDB: (see [here](#issues_hsqldb))
+- IBM Db2 Database: (see [here](#issues_ibmdb2))
+- OmnisciDB: (see [here](#issues_omnisci))
+- trino: (see [here](#issues_trino))
+- VoltDB: (see [here](#issues_voltdb))
 
 ----
 
