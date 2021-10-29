@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 3.0.4
+ * @version 3.0.5
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 
@@ -72,15 +72,15 @@ abstract class AbstractGenSchema extends AbstractJdbcSeeder {
     maxRowSizes        = new HashMap<>() {
                          {
                            put(TABLE_NAME_CITY,
-                               1800);
+                               50);
                            put(TABLE_NAME_COMPANY,
-                               5400);
+                               50);
                            put(TABLE_NAME_COUNTRY,
-                               200);
+                               50);
                            put(TABLE_NAME_COUNTRY_STATE,
-                               600);
+                               50);
                            put(TABLE_NAME_TIMEZONE,
-                               11);
+                               50);
                          }
                        };
 

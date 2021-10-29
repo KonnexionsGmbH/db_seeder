@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.4.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.5.svg)
 
 ----
 
-## Version 3.0.4
+## Version 3.0.5
 
-Release Date: 29.10.2021
+Release Date: dd.mm.2021
 
 ### System Requirements
 
@@ -20,26 +20,17 @@ Release Date: 29.10.2021
 - Java Development Kit 17, (e.g. from [here](https://jdk.java.net/java-se-ri/17))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-09\eclipse`
 
+### New Features
+
+- n/a
+
 ### Modified Features
 
-- AgensGraph: DBMS v2.5.0
-- CockroachDB: DBMS v21.1.11
-- CrateDB: DBMS 4.6.4
-- CUBRID: JDBC 11.0.3.0293
-- Exasol: DBMS 7.1.2 / JDBC 7.1.2
-- Firebird: JDBC 4.0.4.java11
-- HSQLDB: JDBC 2.6.1
-- IBM Db2 Database: DBMS 11.5.6.0a
-- IBM Informix: DBMS 14.10.FC6DE / JDBC 4.50.6
-- MonetDB: DBMS Jul2021-SP1
-- MySQL Database: DBMS 8.0.27 / JDBC 8.0.27
-- OmniSciDB: DBMS 5.8.0
-- Percona Server for MySQL: DBMS 8.0.26-16
-- PostgreSQL: DBMS 14.0 / JDBC 42.3.0
-- SQL Server: DBMS 2019-CU13-ubuntu-20.04
-- TimescaleDB: DBMS 2.5.0-pg14
-- trino: DBMS 363 / JDBC 363
-- YugabyteDB: JDBC 42.3.0
+- xxx Database: DBMS 9.9.9 / JDBC 9.9.9
+
+### Deleted Features
+
+- n/a
 
 ### Open issues
 
@@ -64,7 +55,7 @@ The following table shows the results of the Windows 10 run.
 If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
 For example, the MonetDB database is faster with inactive constraints by 11.9% compared to the run with activated constraints.
 
-![](resources/.README_images/Perf_Snap_3.0.4_win10.png)
+![](resources/.README_images/Perf_Snap_3.0.5_win10.png)
 
 - `DBMS` - official DBMS name
 - `Type` - client version, embedded version or via trino
