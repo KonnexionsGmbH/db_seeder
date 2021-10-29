@@ -9,7 +9,7 @@
 
 ## Version 3.0.4
 
-Release Date: dd.mm.2021
+Release Date: 29.10.2021
 
 ### System Requirements
 
@@ -19,10 +19,6 @@ Release Date: dd.mm.2021
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
 - Java Development Kit 17, (e.g. from [here](https://jdk.java.net/java-se-ri/17))
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-09\eclipse`
-
-### New Features
-
-- n/a
 
 ### Modified Features
 
@@ -45,10 +41,6 @@ Release Date: dd.mm.2021
 - trino: DBMS 363 / JDBC 363
 - YugabyteDB: JDBC 42.3.0
 
-### Deleted Features
-
-- n/a
-
 ### Open issues
 
 - AgensGraph: (see [here](#issues_agensgraph))
@@ -70,7 +62,7 @@ The detailed results can be found in the DBSeeder repository in the `resources/s
 
 The following table shows the results of the Windows 10 run. 
 If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
-For example, the MonetDB database is faster with inactive constraints by 9.2% compared to the run with activated constraints.
+For example, the MonetDB database is faster with inactive constraints by 11.9% compared to the run with activated constraints.
 
 ![](resources/.README_images/Perf_Snap_3.0.4_win10.png)
 
