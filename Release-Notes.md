@@ -26,7 +26,15 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
-- xxx Database: DBMS 9.9.9 / JDBC 9.9.9
+- CockroachDB: DBMS v21.2.0
+- CrateDB: DBMS 4.6.5
+- HSQLDB: DBMS 2.6.1
+- IBM Informix: JDBC 4.50.7
+- MariaDB Server: DBMS 10.7.1-focal
+- OmniSciDB: DBMS 5.9.0 / JDBC 42.3.1
+- PostgreSQL: DBMS 14.1
+- trino: DBMS 364 / JDBC 364
+- YugabyteDB: DBMS 2.9.1.0-b140
 
 ### Deleted Features
 

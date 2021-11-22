@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 set DB_SEEDER_RELEASE=3.0.5
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=363
+set DB_SEEDER_VERSION_TRINO=364
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -149,6 +149,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.9
     set DB_SEEDER_VERSION=v21.1.10
     set DB_SEEDER_VERSION=v21.1.11
+    set DB_SEEDER_VERSION=v21.2.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -180,6 +181,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.6.1
     set DB_SEEDER_VERSION=4.6.3
     set DB_SEEDER_VERSION=4.6.4
+    set DB_SEEDER_VERSION=4.6.5
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -285,6 +287,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_USER_SYS=SA
     set DB_SEEDER_VERSION=2.5.1
     set DB_SEEDER_VERSION=2.6.0
+    set DB_SEEDER_VERSION=2.6.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
@@ -350,6 +353,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.6.3
     set DB_SEEDER_VERSION=10.6.3-focal
     set DB_SEEDER_VERSION=10.6.4-focal
+    set DB_SEEDER_VERSION=10.7.1-focal
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -444,6 +448,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
     set DB_SEEDER_VERSION=5.7.0
     set DB_SEEDER_VERSION=5.7.1
     set DB_SEEDER_VERSION=5.8.0
+    set DB_SEEDER_VERSION=5.9.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
@@ -517,6 +522,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=13.3-alpine
     set DB_SEEDER_VERSION=13.4-alpine
     set DB_SEEDER_VERSION=14.0-alpine
+    set DB_SEEDER_VERSION=14.1-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
@@ -538,6 +544,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=13.3-alpine
     set DB_SEEDER_VERSION=13.4-alpine
     set DB_SEEDER_VERSION=14.0-alpine
+    set DB_SEEDER_VERSION=14.1-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
@@ -632,6 +639,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.7.1.1-b1
     set DB_SEEDER_VERSION=2.7.2.0-b216
     set DB_SEEDER_VERSION=2.9.0.0-b4
+    set DB_SEEDER_VERSION=2.9.1.0-b140
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (

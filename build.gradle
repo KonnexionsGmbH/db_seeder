@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.14.0'
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'io.crate:crate-jdbc:2.6.0'

@@ -66,33 +66,33 @@ The database systems considered meet the following conditions:
 |---                              |---                 |---                            |---                  |
 | AgensGraph                      | agens              | v2.1.1 - v2.5.0               | 1.4.2-c1            |
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                     | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.1.11            | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.6.4                 | 2.6.0               |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.2.0             | see PostgreSQL      |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.5                 | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0                   | 11.0.3.0293         |
 | Exasol                          | exasol             | 6.2.8-d1 - 7.1.2              | 7.1.2               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0                | 4.0.4.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200                       | 1.4.200             | 
-| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.0                 | 2.6.1               | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1                 | 2.6.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.6.0a          | 11.5.6.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE     | 4.50.6              | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.6.4-focal        | 2.7.4               | 
+| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE     | 4.50.7              | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.7.1-focal        | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a           | 3.41a               |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP1     | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.27               | 8.0.27              | 
-| OmniSciDB                       | omnisci            | 5.6.1 - 5.8.0                 | 5.7.0               |
+| OmniSciDB                       | omnisci            | 5.6.1 - 5.9.0                 | 5.7.0               |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0             | 21.3.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.26-16                     | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 14.0-alpine            | 42.3.0              |
+| PostgreSQL                      | postgresql         | 12.3 - 14.1-alpine            | 42.3.1              |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -      |                     |
 |                                 |                    | 2019-CU13-ubuntu-20.04        | 9.4.0.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0               | 3.36.0.3            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.5.0-pg14       | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 363                     | 363                 |
+| trino                           | mysql_trino,       | 339 - 364                     | 364                 |
 |                                 | oracle_trino,      |                               |                     |
 |                                 | postgresql_trino,  |                               |                     |
 |                                 | sqlserver_trino    |                               |                     |
 | VoltDB                          | voltdb             | 9.2.1                         | 11.0                |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.0.0-b4      | 42.3.0              |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.9.1.0-b140    | 42.3.0      |
 
 [//]: # (===========================================================================================)
 
@@ -775,7 +775,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.1.11`
+  - pull command: `docker pull cockroachdb/cockroach:v21.2.01`
   - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -814,7 +814,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.6.4`
+  - pull command: `docker pull crate:4.6.5`
   - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -1016,7 +1016,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull konnexionsgmbh/hypersql_database:2.6.0`
+  - pull command: `docker pull konnexionsgmbh/hypersql_database:2.6.1`
   - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database)
 
 - **encoding**: by using the following system property `sqlfile.charset=UTF-8`.
@@ -1143,7 +1143,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.6.4-focal`
+  - pull command: `docker pull mariadb:10.7.1-focal`
   - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1432,7 +1432,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:14.0-alpine`
+  - pull command: `docker pull postgres:14.1-alpine`
   - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
@@ -1581,7 +1581,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:363`
+  - pull command: `docker pull trinodb/trino:364`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1655,7 +1655,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.9.0.0-b4`
+  - pull command: `docker pull yugabytedb/yugabyte:2.9.1.0-b140`
   - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL

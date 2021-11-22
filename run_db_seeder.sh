@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.5
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=363
+export DB_SEEDER_VERSION_TRINO=364
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -144,6 +144,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.9
     export DB_SEEDER_VERSION=v21.1.10
     export DB_SEEDER_VERSION=v21.1.11
+    export DB_SEEDER_VERSION=v21.2.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -175,6 +176,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.6.1
     export DB_SEEDER_VERSION=4.6.3
     export DB_SEEDER_VERSION=4.6.4
+    export DB_SEEDER_VERSION=4.6.5
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -279,6 +281,7 @@ if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
     export DB_SEEDER_USER_SYS=SA
     export DB_SEEDER_VERSION=2.5.1
     export DB_SEEDER_VERSION=2.6.0
+    export DB_SEEDER_VERSION=2.6.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
@@ -344,6 +347,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.6.3
     export DB_SEEDER_VERSION=10.6.3-focal
     export DB_SEEDER_VERSION=10.6.4-focal
+    export DB_SEEDER_VERSION=10.7.1-focal
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -438,6 +442,7 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_VERSION=5.7.0
     export DB_SEEDER_VERSION=5.7.1
     export DB_SEEDER_VERSION=5.8.0
+    export DB_SEEDER_VERSION=5.9.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
@@ -511,6 +516,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_VERSION=13.3-alpine
     export DB_SEEDER_VERSION=13.4-alpine
     export DB_SEEDER_VERSION=14.0-alpine
+    export DB_SEEDER_VERSION=14.1-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
@@ -532,6 +538,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_VERSION=13.3-alpine
     export DB_SEEDER_VERSION=13.4-alpine
     export DB_SEEDER_VERSION=14.0-alpine
+    export DB_SEEDER_VERSION=14.1-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
@@ -626,6 +633,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.7.1.1-b1
     export DB_SEEDER_VERSION=2.7.2.0-b216
     export DB_SEEDER_VERSION=2.9.0.0-b4
+    export DB_SEEDER_VERSION=2.9.1.0-b140
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then
