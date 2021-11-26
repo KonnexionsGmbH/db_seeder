@@ -257,6 +257,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=1.4.200
+    export DB_SEEDER_VERSION=2.0.202
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then

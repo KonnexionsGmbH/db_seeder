@@ -263,6 +263,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sa
     set DB_SEEDER_VERSION=1.4.200
+    set DB_SEEDER_VERSION=2.0.202
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
