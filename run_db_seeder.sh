@@ -230,6 +230,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.1.0-d1
     export DB_SEEDER_VERSION=7.1.1
     export DB_SEEDER_VERSION=7.1.2
+    export DB_SEEDER_VERSION=7.1.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -579,6 +580,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_VERSION=2019-latest
     export DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     export DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
+    export DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
@@ -635,6 +637,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.7.2.0-b216
     export DB_SEEDER_VERSION=2.9.0.0-b4
     export DB_SEEDER_VERSION=2.9.1.0-b140
+    export DB_SEEDER_VERSION=2.11.0.0-b7
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then

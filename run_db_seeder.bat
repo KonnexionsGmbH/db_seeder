@@ -236,6 +236,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.1.0-d1
     set DB_SEEDER_VERSION=7.1.1
     set DB_SEEDER_VERSION=7.1.2
+    set DB_SEEDER_VERSION=7.1.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -568,6 +569,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
     set DB_SEEDER_VERSION=2019-latest
     set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
+    set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
@@ -585,6 +587,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_VERSION=2019-latest
     set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
+    set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
@@ -641,6 +644,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.7.2.0-b216
     set DB_SEEDER_VERSION=2.9.0.0-b4
     set DB_SEEDER_VERSION=2.9.1.0-b140
+    set DB_SEEDER_VERSION=2.11.0.0-b7
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (
