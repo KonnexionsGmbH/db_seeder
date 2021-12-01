@@ -140,7 +140,7 @@ public final class H2Seeder extends AbstractGenH2Schema {
     dropUser(userName,
              "",
              "INFORMATION_SCHEMA.USERS",
-             "name");
+             "user_name");
 
     // -----------------------------------------------------------------------
     // Setup the database.

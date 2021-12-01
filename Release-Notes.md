@@ -26,11 +26,11 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.2.0
+- CockroachDB: DBMS v21.2.1
 - CrateDB: DBMS 4.6.5
 - CUBRID: JDBC 11.0.4.0297
 - Exasol: DBMS 7.1.3
-- H2 database Engine: DBMS 2.0.202
+- H2 database Engine: DBMS 2.0.202 / JDBC 2.0.202
 - HSQLDB: DBMS 2.6.1
 - IBM Informix: JDBC 4.50.7
 - MariaDB Server: DBMS 10.7.1-focal
