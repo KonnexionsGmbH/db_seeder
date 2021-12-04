@@ -26,7 +26,7 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.2.1
+- CockroachDB: DBMS v21.2.2
 - CrateDB: DBMS 4.6.5
 - CUBRID: JDBC 11.0.4.0297
 - Exasol: DBMS 7.1.3
@@ -37,8 +37,9 @@ Release Date: dd.mm.2021
 - OmniSciDB: DBMS 5.9.0 / JDBC 42.3.1
 - PostgreSQL: DBMS 14.1
 - SQL Server: DBMS 2019-CU14-ubuntu-20.04
-- YugabyteDB: DBMS 2.11.0.0-b7
+- TimescaleDB: DBMS 2.5.1-pg14
 - trino: DBMS 364 / JDBC 364
+- YugabyteDB: DBMS 2.11.0.1-b1
 
 ### Deleted Features
 

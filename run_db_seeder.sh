@@ -146,6 +146,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.11
     export DB_SEEDER_VERSION=v21.2.0
     export DB_SEEDER_VERSION=v21.2.1
+    export DB_SEEDER_VERSION=v21.2.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -600,6 +601,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_VERSION=2.4.1-pg13
     export DB_SEEDER_VERSION=2.4.2-pg13
     export DB_SEEDER_VERSION=2.5.0-pg14
+    export DB_SEEDER_VERSION=2.5.1-pg14
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then
@@ -639,6 +641,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.9.0.0-b4
     export DB_SEEDER_VERSION=2.9.1.0-b140
     export DB_SEEDER_VERSION=2.11.0.0-b7
+    export DB_SEEDER_VERSION=2.11.0.1-b1
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then

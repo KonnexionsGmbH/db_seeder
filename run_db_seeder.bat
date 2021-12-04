@@ -151,6 +151,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.11
     set DB_SEEDER_VERSION=v21.2.0
     set DB_SEEDER_VERSION=v21.2.1
+    set DB_SEEDER_VERSION=v21.2.2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -607,6 +608,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_VERSION=2.4.1-pg13
     set DB_SEEDER_VERSION=2.4.2-pg13
     set DB_SEEDER_VERSION=2.5.0-pg14
+    set DB_SEEDER_VERSION=2.5.1-pg14
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
@@ -646,6 +648,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.9.0.0-b4
     set DB_SEEDER_VERSION=2.9.1.0-b140
     set DB_SEEDER_VERSION=2.11.0.0-b7
+    set DB_SEEDER_VERSION=2.11.0.1-b1
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (
