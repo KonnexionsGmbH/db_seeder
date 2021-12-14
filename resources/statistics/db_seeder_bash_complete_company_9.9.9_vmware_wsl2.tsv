@@ -1,0 +1,50 @@
+ticker symbol	DBMS	db type	total ms	start time	end time	host name	no. cores	operating system	total DDL ms	drop constr. ms	add constr. ms	total DML ms	constraints
+agens	AgensGraph	client	4548	2021-12-14 16:21:52.916825191	2021-12-14 16:21:57.465233410	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	659	0	0	3889	active
+cockroach	CockroachDB	client	8335	2021-12-14 16:22:37.355194958	2021-12-14 16:22:45.690748696	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	597	0	0	7738	active - no choice
+cratedb	CrateDB	client	6012	2021-12-14 16:23:33.227551097	2021-12-14 16:23:39.240245119	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1638	0	0	4374	active - no choice
+cubrid	CUBRID	client	8053	2021-12-14 16:24:20.305076668	2021-12-14 16:24:28.358937422	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	361	0	0	7692	active
+derby	Apache Derby	client	6158	2021-12-14 16:25:22.664911896	2021-12-14 16:25:28.823442094	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	852	0	0	5306	active
+derby_emb	Apache Derby	embedded	5764	2021-12-14 16:25:29.406273688	2021-12-14 16:25:35.170874153	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	778	0	0	4986	active
+exasol	Exasol	client	3771	2021-12-14 16:29:25.671452111	2021-12-14 16:29:29.443264340	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	727	0	0	3044	active
+firebird	Firebird	client	18823	2021-12-14 16:30:19.988837254	2021-12-14 16:30:38.812579323	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	452	0	0	18371	active
+h2	H2 Database Engine	client	4531	2021-12-14 16:31:14.030998508	2021-12-14 16:31:18.562606849	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	433	0	0	4098	active - no choice
+h2_emb	H2 Database Engine	embedded	2275	2021-12-14 16:31:19.159433929	2021-12-14 16:31:21.435122212	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	437	0	0	1838	active - no choice
+hsqldb	HSQLDB	client	5769	2021-12-14 16:31:58.077997563	2021-12-14 16:32:03.847460431	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	486	0	0	5283	active
+hsqldb_emb	HSQLDB	embedded	2751	2021-12-14 16:32:04.417059141	2021-12-14 16:32:07.168362992	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	347	0	0	2404	active
+ibmdb2	IBM Db2 Database	client	6080	2021-12-14 16:38:02.162218867	2021-12-14 16:38:08.242991957	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1247	0	0	4833	active
+informix	IBM Informix	client	7923	2021-12-14 16:42:39.403560550	2021-12-14 16:42:47.326616675	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	547	0	0	7376	active
+mariadb	MariaDB Server	client	3178	2021-12-14 16:43:39.637333926	2021-12-14 16:43:42.815663686	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	308	0	0	2870	active
+mimer	Mimer SQL	client	16953	2021-12-14 16:44:23.156678486	2021-12-14 16:44:40.110458979	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	433	0	0	16520	active
+monetdb	MonetDB	client	7083	2021-12-14 16:45:03.252773284	2021-12-14 16:45:10.335914684	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	747	0	0	6336	active
+mysql	MySQL Database	client	4520	2021-12-14 16:46:24.549285195	2021-12-14 16:46:29.070242967	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	455	0	0	4065	active
+mysql_trino	MySQL Database	trino	526847	2021-12-14 16:48:34.001070051	2021-12-14 16:57:20.848258229	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1049	0	0	525798	active - no choice
+omnisci	OmniSciDB	client	4123	2021-12-14 17:20:49.530917953	2021-12-14 17:20:53.654114806	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1250	0	0	2873	active - no choice
+oracle	Oracle Database	client	5298	2021-12-14 17:26:03.758419628	2021-12-14 17:26:09.057067982	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	776	0	0	4522	active
+oracle_trino	Oracle Database	trino	424031	2021-12-14 17:37:20.682860558	2021-12-14 17:44:24.714030047	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	785	0	0	423246	active - no choice
+percona	Percona Server for MySQL	client	4857	2021-12-14 17:45:42.451407360	2021-12-14 17:45:47.308917107	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	513	0	0	4344	active
+postgresql	PostgreSQL	client	3786	2021-12-14 17:46:28.255998512	2021-12-14 17:46:32.042147580	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	406	0	0	3380	active
+postgresql_trino	PostgreSQL	trino	632180	2021-12-14 17:47:35.298171499	2021-12-14 17:58:07.478462817	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	425	0	0	631755	active - no choice
+sqlite	SQLite	embedded	2097	2021-12-14 17:58:08.123003447	2021-12-14 17:58:10.220583602	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	381	0	0	1716	active - no choice
+sqlserver	MS SQL Server	client	4079	2021-12-14 17:59:12.409051999	2021-12-14 17:59:16.488669532	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	755	0	0	3324	active
+sqlserver_trino	MS SQL Server	trino	720195	2021-12-14 18:00:48.288786536	2021-12-14 18:12:48.483802681	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	770	0	0	719425	active - no choice
+timescale	TimescaleDB	client	3924	2021-12-14 18:13:26.346393258	2021-12-14 18:13:30.270397969	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	452	0	0	3472	active
+yugabyte	YugabyteDB	client	13550	2021-12-14 18:15:06.489989448	2021-12-14 18:15:20.040148854	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	4143	0	0	9407	active
+agens	AgensGraph	client	3930	2021-12-14 18:15:58.916248004	2021-12-14 18:16:02.846690940	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	674	0	73	3256	inactive
+cubrid	CUBRID	client	7674	2021-12-14 18:16:44.037775074	2021-12-14 18:16:51.712280010	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	537	76	136	7137	inactive
+derby	Apache Derby	client	7029	2021-12-14 18:17:46.625537762	2021-12-14 18:17:53.655170717	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1577	211	366	5452	inactive
+derby_emb	Apache Derby	embedded	6432	2021-12-14 18:17:54.265799457	2021-12-14 18:18:00.698199284	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1327	181	291	5105	inactive
+exasol	Exasol	client	4327	2021-12-14 18:21:45.625706768	2021-12-14 18:21:49.953073900	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1089	29	169	3238	inactive
+firebird	Firebird	client	17722	2021-12-14 18:22:41.190642434	2021-12-14 18:22:58.913337391	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	681	88	88	17041	inactive
+hsqldb	HSQLDB	client	6316	2021-12-14 18:23:35.079776314	2021-12-14 18:23:41.395816135	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	608	72	50	5708	inactive
+ibmdb2	IBM Db2 Database	client	6226	2021-12-14 18:29:37.136214440	2021-12-14 18:29:43.362364394	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1706	233	199	4520	inactive
+informix	IBM Informix	client	9485	2021-12-14 19:35:14.320398174	2021-12-14 19:35:23.805463327	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	752	53	147	8733	inactive
+mariadb	MariaDB Server	client	5167	2021-12-14 19:36:15.609869626	2021-12-14 19:36:20.777733923	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	2305	1911	76	2862	inactive
+mimer	Mimer SQL	client	19672	2021-12-14 19:37:01.097838022	2021-12-14 19:37:20.770475027	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	926	121	363	18746	inactive
+monetdb	MonetDB	client	6159	2021-12-14 19:37:43.834033034	2021-12-14 19:37:49.993750409	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	863	0	107	5296	inactive
+mysql	MySQL Database	client	6484	2021-12-14 19:39:03.025411632	2021-12-14 19:39:09.509888928	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	2211	1639	113	4273	inactive
+oracle	Oracle Database	client	8917	2021-12-14 19:44:11.975291423	2021-12-14 19:44:20.892294185	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	4725	100	3885	4192	inactive
+percona	Percona Server for MySQL	client	7018	2021-12-14 19:45:38.905543206	2021-12-14 19:45:45.924538635	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	2893	2321	106	4125	inactive
+postgresql	PostgreSQL	client	3612	2021-12-14 19:46:26.637872625	2021-12-14 19:46:30.250520193	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	505	0	84	3107	inactive
+sqlserver	MS SQL Server	client	3989	2021-12-14 19:47:24.224681009	2021-12-14 19:47:28.214335560	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	1064	91	271	2925	inactive
+timescale	TimescaleDB	client	3661	2021-12-14 19:48:11.079475937	2021-12-14 19:48:14.741140991	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	511	0	90	3150	inactive
+yugabyte	YugabyteDB	client	12524	2021-12-14 19:49:14.140674692	2021-12-14 19:49:26.665055824	ubuntu	8	amd64 / Linux / 5.11.0-41-generic	4532	0	463	7992	inactive
