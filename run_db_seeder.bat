@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 set DB_SEEDER_RELEASE=3.0.5
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=364
+set DB_SEEDER_VERSION_TRINO=365
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -317,6 +317,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.5.0
     set DB_SEEDER_VERSION=11.5.5.1
     set DB_SEEDER_VERSION=11.5.6.0a
+    set DB_SEEDER_VERSION=11.5.7.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (

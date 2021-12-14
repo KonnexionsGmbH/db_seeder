@@ -68,12 +68,12 @@ The database systems considered meet the following conditions:
 | Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
 | CockroachDB                     | cockroach          | v20.2.5 - v21.2.2         | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.5             | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0               | 11.0.4.0297         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.3          | 7.1.2               |
+| CUBRID                          | cubrid             | 10.2 - 11.0               | 11.0.5.0299         |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.3          | 7.1.3               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0            | 4.0.4.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200 - 2.0.202         | 2.0.202             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.6.0a      | 11.5.6.0            |                                                    
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.6.0            |                                                    
 | IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC6DE | 4.50.7              | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.7.1-focal    | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a       | 3.41a               |
@@ -84,10 +84,10 @@ The database systems considered meet the following conditions:
 | Percona Server for MySQL        | percona            | 8.0.26-16                 | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 14.1-alpine        | 42.3.1              |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -  |                     |
-|                                 |                    | 2019-CU14-ubuntu-20.04    | 9.4.0.jre16         | 
+|                                 |                    | 2019-CU14-ubuntu-20.04    | 9.4.1.jre16         | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.5.1-pg14   | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 364                 | 364                 |
+| trino                           | mysql_trino,       | 339 - 365                 | 365                 |
 |                                 | oracle_trino,      |                           |                     |
 |                                 | postgresql_trino,  |                           |                     |
 |                                 | sqlserver_trino    |                           |                     |
@@ -1581,7 +1581,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:364`
+  - pull command: `docker pull trinodb/trino:365`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))

@@ -28,17 +28,18 @@ Release Date: dd.mm.2021
 
 - CockroachDB: DBMS v21.2.2
 - CrateDB: DBMS 4.6.5
-- CUBRID: JDBC 11.0.4.0297
-- Exasol: DBMS 7.1.3
+- CUBRID: JDBC 11.0.5.0299
+- Exasol: DBMS 7.1.3 / JDBC 7.1.3
 - H2 database Engine: DBMS 2.0.202 / JDBC 2.0.202
 - HSQLDB: DBMS 2.6.1
+- IBM Db2 Database: DBMS 11.5.7.0a
 - IBM Informix: JDBC 4.50.7
 - MariaDB Server: DBMS 10.7.1-focal
 - OmniSciDB: DBMS 5.9.0 / JDBC 42.3.1
 - PostgreSQL: DBMS 14.1
-- SQL Server: DBMS 2019-CU14-ubuntu-20.04
+- SQL Server: DBMS 2019-CU14-ubuntu-20.04 / JDBC 9.4.1.jre16
 - TimescaleDB: DBMS 2.5.1-pg14
-- trino: DBMS 364 / JDBC 364
+- trino: DBMS 365 / JDBC 365
 - YugabyteDB: DBMS 2.11.0.1-b1
 
 ### Deleted Features

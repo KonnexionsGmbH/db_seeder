@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.5
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=364
+export DB_SEEDER_VERSION_TRINO=365
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -311,6 +311,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.5.0
     export DB_SEEDER_VERSION=11.5.5.1
     export DB_SEEDER_VERSION=11.5.6.0a
+    export DB_SEEDER_VERSION=11.5.7.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
