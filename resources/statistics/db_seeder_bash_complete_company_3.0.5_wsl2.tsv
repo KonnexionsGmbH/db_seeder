@@ -1,0 +1,50 @@
+ticker symbol	DBMS	db type	total ms	start time	end time	host name	no. cores	operating system	total DDL ms	drop constr. ms	add constr. ms	total DML ms	constraints
+agens	AgensGraph	client	3751	2021-12-14 13:41:02.461913800	2021-12-14 13:41:06.213121200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	774	0	0	2977	active
+cockroach	CockroachDB	client	6647	2021-12-14 13:41:39.370894600	2021-12-14 13:41:46.018398600	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	924	0	0	5723	active - no choice
+cratedb	CrateDB	client	5059	2021-12-14 13:42:21.293793600	2021-12-14 13:42:26.353166200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1987	0	0	3072	active - no choice
+cubrid	CUBRID	client	5775	2021-12-14 13:42:59.326912800	2021-12-14 13:43:05.102136500	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	449	0	0	5326	active
+derby	Apache Derby	client	14672	2021-12-14 13:43:47.986186000	2021-12-14 13:44:02.659099700	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	3354	0	0	11318	active
+derby_emb	Apache Derby	embedded	11775	2021-12-14 13:44:03.664096300	2021-12-14 13:44:15.439606100	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	6059	0	0	5716	active
+exasol	Exasol	client	3593	2021-12-14 13:46:18.964832100	2021-12-14 13:46:22.557860800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	752	0	0	2841	active
+firebird	Firebird	client	154727	2021-12-14 13:47:08.423197200	2021-12-14 13:49:43.150441200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1069	0	0	153658	active
+h2	H2 Database Engine	client	4985	2021-12-14 13:50:16.258231500	2021-12-14 13:50:21.243395300	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	507	0	0	4478	active - no choice
+h2_emb	H2 Database Engine	embedded	3077	2021-12-14 13:50:22.279126900	2021-12-14 13:50:25.357073500	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1242	0	0	1835	active - no choice
+hsqldb	HSQLDB	client	22703	2021-12-14 13:50:58.967112000	2021-12-14 13:51:21.670441300	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	554	0	0	22149	active
+hsqldb_emb	HSQLDB	embedded	2723	2021-12-14 13:51:22.684512600	2021-12-14 13:51:25.408483900	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	500	0	0	2223	active
+ibmdb2	IBM Db2 Database	client	24076	2021-12-14 13:56:28.397480000	2021-12-14 13:56:52.474189400	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	3184	0	0	20892	active
+informix	IBM Informix	client	12912	2021-12-14 14:01:01.306409900	2021-12-14 14:01:14.218481100	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1841	0	0	11071	active
+mariadb	MariaDB Server	client	3671	2021-12-14 14:01:56.973567600	2021-12-14 14:02:00.644998900	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	539	0	0	3132	active
+mimer	Mimer SQL	client	12288	2021-12-14 14:02:33.778757900	2021-12-14 14:02:46.067265000	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	466	0	0	11822	active
+monetdb	MonetDB	client	7861	2021-12-14 14:02:53.893911800	2021-12-14 14:03:01.755764700	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	866	0	0	6995	active
+mysql	MySQL Database	client	5952	2021-12-14 14:04:05.737584400	2021-12-14 14:04:11.690522800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	734	0	0	5218	active
+mysql_trino	MySQL Database	trino	455102	2021-12-14 14:05:49.358648200	2021-12-14 14:13:24.461225900	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1595	0	0	453507	active - no choice
+omnisci	OmniSciDB	client	36767	2021-12-14 14:14:29.589983400	2021-12-14 14:15:06.357567700	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	5231	0	0	31536	active - no choice
+oracle	Oracle Database	client	12975	2021-12-14 14:16:19.659620800	2021-12-14 14:16:32.635308700	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1072	0	0	11903	active
+oracle_trino	Oracle Database	trino	327088	2021-12-14 14:18:16.152598600	2021-12-14 14:23:43.240733000	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1102	0	0	325986	active - no choice
+percona	Percona Server for MySQL	client	6346	2021-12-14 14:24:49.332138000	2021-12-14 14:24:55.678777800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	808	0	0	5538	active
+postgresql	PostgreSQL	client	3972	2021-12-14 14:25:31.543363600	2021-12-14 14:25:35.515650200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	701	0	0	3271	active
+postgresql_trino	PostgreSQL	trino	474467	2021-12-14 14:26:43.042398900	2021-12-14 14:34:37.509999900	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	781	0	0	473686	active - no choice
+sqlite	SQLite	embedded	6339	2021-12-14 14:34:38.563552800	2021-12-14 14:34:44.903139800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1123	0	0	5216	active - no choice
+sqlserver	MS SQL Server	client	4300	2021-12-14 14:35:57.823659100	2021-12-14 14:36:02.124625200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1018	0	0	3282	active
+sqlserver_trino	MS SQL Server	trino	665012	2021-12-14 14:37:12.799297500	2021-12-14 14:48:17.811588500	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	2087	0	0	662925	active - no choice
+timescale	TimescaleDB	client	4091	2021-12-14 14:48:52.052778100	2021-12-14 14:48:56.144196200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	824	0	0	3267	active
+yugabyte	YugabyteDB	client	13601	2021-12-14 14:49:51.477547600	2021-12-14 14:50:05.079406600	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	6685	0	0	6916	active
+agens	AgensGraph	client	3949	2021-12-14 14:50:38.121439700	2021-12-14 14:50:42.071052100	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	851	0	73	3098	inactive
+cubrid	CUBRID	client	6257	2021-12-14 14:51:15.005338400	2021-12-14 14:51:21.262930800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	679	132	92	5578	inactive
+derby	Apache Derby	client	15675	2021-12-14 14:52:04.551840400	2021-12-14 14:52:20.226938800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	4023	253	317	11652	inactive
+derby_emb	Apache Derby	embedded	13931	2021-12-14 14:52:21.313111200	2021-12-14 14:52:35.244969200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	8562	1992	293	5369	inactive
+exasol	Exasol	client	3754	2021-12-14 14:54:38.934923300	2021-12-14 14:54:42.689812800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	904	28	107	2850	inactive
+firebird	Firebird	client	64421	2021-12-14 14:55:28.331166700	2021-12-14 14:56:32.752261400	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1486	333	187	62935	inactive
+hsqldb	HSQLDB	client	17314	2021-12-14 14:57:05.690855700	2021-12-14 14:57:23.005046500	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	650	46	45	16664	inactive
+ibmdb2	IBM Db2 Database	client	24494	2021-12-14 15:02:26.051024300	2021-12-14 15:02:50.545062800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	4386	864	294	20108	inactive
+informix	IBM Informix	client	12900	2021-12-14 15:06:59.490248100	2021-12-14 15:07:12.390543500	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	2037	45	151	10863	inactive
+mariadb	MariaDB Server	client	6325	2021-12-14 15:07:55.165812300	2021-12-14 15:08:01.491392500	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	3262	2521	203	3063	inactive
+mimer	Mimer SQL	client	12446	2021-12-14 15:08:34.632563800	2021-12-14 15:08:47.078706200	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	850	141	174	11596	inactive
+monetdb	MonetDB	client	6299	2021-12-14 15:08:54.937290600	2021-12-14 15:09:01.237224000	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	997	0	129	5302	inactive
+mysql	MySQL Database	client	17675	2021-12-14 15:10:05.400653900	2021-12-14 15:10:23.076145500	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	12847	11926	216	4828	inactive
+oracle	Oracle Database	client	14979	2021-12-14 15:11:27.233334900	2021-12-14 15:11:42.212817400	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	4525	125	3369	10454	inactive
+percona	Percona Server for MySQL	client	17471	2021-12-14 15:12:51.743579400	2021-12-14 15:13:09.215150400	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	12149	11123	216	5322	inactive
+postgresql	PostgreSQL	client	3766	2021-12-14 15:13:43.339770000	2021-12-14 15:13:47.106288000	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	786	0	78	2980	inactive
+sqlserver	MS SQL Server	client	4403	2021-12-14 15:14:20.054742800	2021-12-14 15:14:24.458055600	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	1538	233	309	2865	inactive
+timescale	TimescaleDB	client	3900	2021-12-14 15:15:03.835452100	2021-12-14 15:15:07.736052800	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	871	0	86	3029	inactive
+yugabyte	YugabyteDB	client	13107	2021-12-14 15:15:40.543874500	2021-12-14 15:15:53.651617100	jfww-win-dt-21	32	amd64 / Linux / 5.4.72-microsoft-standard-WSL2	6955	0	433	6152	inactive
