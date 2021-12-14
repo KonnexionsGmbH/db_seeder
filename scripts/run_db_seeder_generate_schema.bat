@@ -20,10 +20,11 @@ set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_50.json
 set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_5400.json
 set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax_1000.json
 
+set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_50.json
 set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_5400.json
 
 set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
-set DB_SEEDER_RELEASE=3.0.4
+set DB_SEEDER_RELEASE=3.0.5
 
 echo ================================================================================
 echo Start %0

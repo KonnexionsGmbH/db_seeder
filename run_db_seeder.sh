@@ -14,9 +14,9 @@ mkdir -p "$PWD/tmp"
 export DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
-export DB_SEEDER_RELEASE=3.0.4
+export DB_SEEDER_RELEASE=3.0.5
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=363
+export DB_SEEDER_VERSION_TRINO=365
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -144,6 +144,9 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.1.9
     export DB_SEEDER_VERSION=v21.1.10
     export DB_SEEDER_VERSION=v21.1.11
+    export DB_SEEDER_VERSION=v21.2.0
+    export DB_SEEDER_VERSION=v21.2.1
+    export DB_SEEDER_VERSION=v21.2.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -175,6 +178,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.6.1
     export DB_SEEDER_VERSION=4.6.3
     export DB_SEEDER_VERSION=4.6.4
+    export DB_SEEDER_VERSION=4.6.5
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -228,6 +232,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.1.0-d1
     export DB_SEEDER_VERSION=7.1.1
     export DB_SEEDER_VERSION=7.1.2
+    export DB_SEEDER_VERSION=7.1.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -255,6 +260,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=1.4.200
+    export DB_SEEDER_VERSION=2.0.202
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then
@@ -279,6 +285,7 @@ if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
     export DB_SEEDER_USER_SYS=SA
     export DB_SEEDER_VERSION=2.5.1
     export DB_SEEDER_VERSION=2.6.0
+    export DB_SEEDER_VERSION=2.6.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "hsqldb_emb" ]; then
@@ -304,6 +311,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.5.0
     export DB_SEEDER_VERSION=11.5.5.1
     export DB_SEEDER_VERSION=11.5.6.0a
+    export DB_SEEDER_VERSION=11.5.7.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
@@ -344,6 +352,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.6.3
     export DB_SEEDER_VERSION=10.6.3-focal
     export DB_SEEDER_VERSION=10.6.4-focal
+    export DB_SEEDER_VERSION=10.7.1-focal
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mimer" ]; then
@@ -438,6 +447,7 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_VERSION=5.7.0
     export DB_SEEDER_VERSION=5.7.1
     export DB_SEEDER_VERSION=5.8.0
+    export DB_SEEDER_VERSION=5.9.0
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
@@ -511,6 +521,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_VERSION=13.3-alpine
     export DB_SEEDER_VERSION=13.4-alpine
     export DB_SEEDER_VERSION=14.0-alpine
+    export DB_SEEDER_VERSION=14.1-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
@@ -532,6 +543,7 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_VERSION=13.3-alpine
     export DB_SEEDER_VERSION=13.4-alpine
     export DB_SEEDER_VERSION=14.0-alpine
+    export DB_SEEDER_VERSION=14.1-alpine
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "sqlite" ]; then
@@ -571,6 +583,7 @@ if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_VERSION=2019-latest
     export DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     export DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
+    export DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
@@ -589,6 +602,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_VERSION=2.4.1-pg13
     export DB_SEEDER_VERSION=2.4.2-pg13
     export DB_SEEDER_VERSION=2.5.0-pg14
+    export DB_SEEDER_VERSION=2.5.1-pg14
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then
@@ -626,6 +640,9 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.7.1.1-b1
     export DB_SEEDER_VERSION=2.7.2.0-b216
     export DB_SEEDER_VERSION=2.9.0.0-b4
+    export DB_SEEDER_VERSION=2.9.1.0-b140
+    export DB_SEEDER_VERSION=2.11.0.0-b7
+    export DB_SEEDER_VERSION=2.11.0.1-b1
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then

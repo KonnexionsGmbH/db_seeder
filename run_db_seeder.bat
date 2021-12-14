@@ -17,9 +17,9 @@ set ERRORLEVEL=
 set DB_SEEDER_CONNECTION_PORT_DEFAULT=4711
 set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
-set DB_SEEDER_RELEASE=3.0.4
+set DB_SEEDER_RELEASE=3.0.5
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=363
+set DB_SEEDER_VERSION_TRINO=365
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -149,6 +149,9 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.1.9
     set DB_SEEDER_VERSION=v21.1.10
     set DB_SEEDER_VERSION=v21.1.11
+    set DB_SEEDER_VERSION=v21.2.0
+    set DB_SEEDER_VERSION=v21.2.1
+    set DB_SEEDER_VERSION=v21.2.2
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -180,6 +183,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.6.1
     set DB_SEEDER_VERSION=4.6.3
     set DB_SEEDER_VERSION=4.6.4
+    set DB_SEEDER_VERSION=4.6.5
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -234,6 +238,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.1.0-d1
     set DB_SEEDER_VERSION=7.1.1
     set DB_SEEDER_VERSION=7.1.2
+    set DB_SEEDER_VERSION=7.1.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -261,6 +266,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=sa
     set DB_SEEDER_VERSION=1.4.200
+    set DB_SEEDER_VERSION=2.0.202
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
@@ -285,6 +291,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_USER_SYS=SA
     set DB_SEEDER_VERSION=2.5.1
     set DB_SEEDER_VERSION=2.6.0
+    set DB_SEEDER_VERSION=2.6.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb_emb"] (
@@ -310,6 +317,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     set DB_SEEDER_VERSION=11.5.5.0
     set DB_SEEDER_VERSION=11.5.5.1
     set DB_SEEDER_VERSION=11.5.6.0a
+    set DB_SEEDER_VERSION=11.5.7.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
@@ -350,6 +358,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.6.3
     set DB_SEEDER_VERSION=10.6.3-focal
     set DB_SEEDER_VERSION=10.6.4-focal
+    set DB_SEEDER_VERSION=10.7.1-focal
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mimer"] (
@@ -444,6 +453,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
     set DB_SEEDER_VERSION=5.7.0
     set DB_SEEDER_VERSION=5.7.1
     set DB_SEEDER_VERSION=5.8.0
+    set DB_SEEDER_VERSION=5.9.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
@@ -517,6 +527,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=13.3-alpine
     set DB_SEEDER_VERSION=13.4-alpine
     set DB_SEEDER_VERSION=14.0-alpine
+    set DB_SEEDER_VERSION=14.1-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
@@ -538,6 +549,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=13.3-alpine
     set DB_SEEDER_VERSION=13.4-alpine
     set DB_SEEDER_VERSION=14.0-alpine
+    set DB_SEEDER_VERSION=14.1-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
@@ -560,6 +572,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
     set DB_SEEDER_VERSION=2019-latest
     set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
+    set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
@@ -577,6 +590,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_VERSION=2019-latest
     set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
+    set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
@@ -595,6 +609,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_VERSION=2.4.1-pg13
     set DB_SEEDER_VERSION=2.4.2-pg13
     set DB_SEEDER_VERSION=2.5.0-pg14
+    set DB_SEEDER_VERSION=2.5.1-pg14
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
@@ -632,6 +647,9 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.7.1.1-b1
     set DB_SEEDER_VERSION=2.7.2.0-b216
     set DB_SEEDER_VERSION=2.9.0.0-b4
+    set DB_SEEDER_VERSION=2.9.1.0-b140
+    set DB_SEEDER_VERSION=2.11.0.0-b7
+    set DB_SEEDER_VERSION=2.11.0.1-b1
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (

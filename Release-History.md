@@ -3,7 +3,43 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.4.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.5.svg)
+
+----
+
+## Version 3.0.4
+
+Release Date: 29.10.2021
+
+### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 4.0.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes))
+- Eclipse IDE: 2021.09 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads))
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases))
+- Java Development Kit 17, (e.g. from [here](https://jdk.java.net/java-se-ri/17))
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-09\eclipse`
+
+### Modified Features
+
+- AgensGraph: DBMS v2.5.0
+- CockroachDB: DBMS v21.1.11
+- CrateDB: DBMS 4.6.4
+- CUBRID: JDBC 11.0.3.0293
+- Exasol: DBMS 7.1.2 / JDBC 7.1.2
+- Firebird: JDBC 4.0.4.java11
+- HSQLDB: JDBC 2.6.1
+- IBM Db2 Database: DBMS 11.5.6.0a
+- IBM Informix: DBMS 14.10.FC6DE / JDBC 4.50.6
+- MonetDB: DBMS Jul2021-SP1
+- MySQL Database: DBMS 8.0.27 / JDBC 8.0.27
+- OmniSciDB: DBMS 5.8.0
+- Percona Server for MySQL: DBMS 8.0.26-16
+- PostgreSQL: DBMS 14.0 / JDBC 42.3.0
+- SQL Server: DBMS 2019-CU13-ubuntu-20.04
+- TimescaleDB: DBMS 2.5.0-pg14
+- trino: DBMS 363 / JDBC 363
+- YugabyteDB: JDBC 42.3.0
 
 ----
 

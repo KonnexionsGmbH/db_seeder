@@ -7,6 +7,10 @@
 /.gitconfig
 /.gradle/
 /lib/db_seeder.jar
+/resources/docker/trino/catalog/db_seeder_mysql.properties
+/resources/docker/trino/catalog/db_seeder_oracle.properties
+/resources/docker/trino/catalog/db_seeder_postgresql.properties
+/resources/docker/trino/catalog/db_seeder_sqlserver.properties
 /resources/third_party/
 Transfer/
 bin

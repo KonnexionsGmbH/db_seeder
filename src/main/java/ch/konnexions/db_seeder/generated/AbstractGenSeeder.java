@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
  * Data Generator for a Database - Abstract Generated Seeder.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 3.0.4
+ * @version 3.0.5
  */
 abstract class AbstractGenSeeder extends AbstractGenSchema {
 

@@ -21,7 +21,7 @@ export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax_1000.json
 export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_5400.json
 
 
-export DB_SEEDER_RELEASE=3.0.4
+export DB_SEEDER_RELEASE=3.0.5
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 if [ -z "${HOME_ECLIPSE}" ]; then
