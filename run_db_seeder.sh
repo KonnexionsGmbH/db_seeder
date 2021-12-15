@@ -715,6 +715,10 @@ echo "--------------------------------------------------------------------------
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
 echo "================================================================================"
 
+if ! (gradle copyJarToLib); then
+    exit 255
+fi
+
 if [ "${DB_SEEDER_DBMS}" = "complete" ]; then
     if ! ( ./scripts/run_db_seeder_complete.sh ${DB_SEEDER_NO_CREATE_RUNS} ); then
         exit 255

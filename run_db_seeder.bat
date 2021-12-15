@@ -726,6 +726,12 @@ echo ---------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
 
+call gradle copyJarToLib
+if %ERRORLEVEL% NEQ 0 (
+    echo Processing of the script was aborted, error code=%ERRORLEVEL%
+    exit %ERRORLEVEL%
+)
+
 if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
     call scripts\run_db_seeder_complete %DB_SEEDER_NO_CREATE_RUNS%
     if %ERRORLEVEL% NEQ 0 (
