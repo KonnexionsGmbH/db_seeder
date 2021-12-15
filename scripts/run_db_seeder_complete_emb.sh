@@ -62,6 +62,14 @@ if ! ( ./scripts/run_db_seeder_generate_schema.sh ); then
     exit 255
 fi    
 
+if ! ( ./scripts/run_db_seeder_trino_environment.sh complete ); then
+    exit 255
+fi
+
+if ! ( ./scripts/run_db_seeder_setup_trino.sh ); then
+    exit 255
+fi
+
 unset -f "${DB_SEEDER_DBMS}"=
 
 # ------------------------------------------------------------------------------

@@ -61,6 +61,24 @@ echo.
     echo:| TIME
     echo ================================================================================
     
+    call scripts\run_db_seeder_generate_schema.bat
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
+    call scripts\run_db_seeder_trino_environment.bat complete
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
+    call scripts\run_db_seeder_setup_trino.bat
+    if %ERRORLEVEL% NEQ 0 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
     rem ------------------------------------------------------------------------------
     rem Apache Derby - embedded version.
     rem ------------------------------------------------------------------------------
