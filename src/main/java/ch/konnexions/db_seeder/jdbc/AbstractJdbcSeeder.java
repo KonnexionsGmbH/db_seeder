@@ -1679,7 +1679,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       if (rowNo % nullFactor == 0) {
         if (dbmsEnum == DbmsEnum.AGENS
-                || dbmsEnum == DbmsEnum.EXASOL
+            || dbmsEnum == DbmsEnum.EXASOL
             || dbmsEnum == DbmsEnum.POSTGRESQL
             || dbmsEnum == DbmsEnum.TIMESCALE
             || dbmsEnum == DbmsEnum.VOLTDB
