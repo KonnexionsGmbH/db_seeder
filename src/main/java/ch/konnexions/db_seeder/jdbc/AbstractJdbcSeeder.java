@@ -1221,6 +1221,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       statement = connection.createStatement();
 
+      if (isDebug) {
+        for (Constraint constraint : constraints.values()) {
+          logger.debug("constraint type=" + constraint.getConstraintType() + " name='" + constraint.getConstraintName() + "'");
+        }
+      }
+
       for (Constraint constraint : constraints.values()) {
         String dropConstraint = constraint.getDropConstraintStatement();
         if (!("NONE".equals(dropConstraint))) {

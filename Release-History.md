@@ -28,7 +28,7 @@ Release Date: 14.12.2021
 - Exasol: DBMS 7.1.3 / JDBC 7.1.3
 - H2 database Engine: DBMS 2.0.202 / JDBC 2.0.202
 - HSQLDB: DBMS 2.6.1
-- IBM Db2 Database: DBMS 11.5.7.0a
+- IBM Db2 Database: DBMS 11.5.7.0
 - IBM Informix: JDBC 4.50.7
 - MariaDB Server: DBMS 10.7.1-focal
 - OmniSciDB: DBMS 5.9.0 / JDBC 42.3.1

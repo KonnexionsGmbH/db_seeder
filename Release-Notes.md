@@ -35,7 +35,6 @@ Release Date: dd.mm.2021
 ### Open issues
 
 - AgensGraph: (see [here](#issues_agensgraph))
-- CockroachDB: (see [here](#issues_cockroach))
 - HSQLDB: (see [here](#issues_hsqldb))
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
@@ -71,13 +70,9 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
 
 - Issue: Database tables not visible in DBeaver.
 
-### <a name="issues_cockroach"></a> CockroachDB
-
-- Issue: dropping and restoring the same index - SQL statement `DROP INDEX constraint_kxn_2 CASCADE` (see [here](https://github.com/cockroachdb/cockroach/issues/42844)).
-
 ### <a name="issues_hsqldb"></a> HSQLDB
 
-- Issue: `java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100` (see [here](https://stackoverflow.com/questions/46362160/error-java-sql-sqlsyntaxerrorexception-user-lacks-privilege-or-object-not-foun)).
+- Issue: `java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100` (see [here](https://sourceforge.net/p/hsqldb/bugs/1642/)).
 ```
     2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='hsqldb_emb'
     2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  Start HSQLDB [embedded]
