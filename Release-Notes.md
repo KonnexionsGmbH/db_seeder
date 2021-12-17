@@ -27,6 +27,11 @@ Release Date: dd.mm.2021
 ### Modified Features
 
 - xxx: DBMS 999 / JDBC 999
+- CockroachDB: DBMS v21.2.3
+- CrateDB: DBMS 4.6.6
+- IBM Informix: DBMS 14.10.FC5DE-rhm
+- trino: DBMS 366 / JDBC 366
+- YugabyteDB: DBMS 2.11.1.0-b305
 
 ### Deleted Features
 
@@ -35,7 +40,6 @@ Release Date: dd.mm.2021
 ### Open issues
 
 - AgensGraph: (see [here](#issues_agensgraph))
-- HSQLDB: (see [here](#issues_hsqldb))
 - OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
 - VoltDB: (see [here](#issues_voltdb))
@@ -69,38 +73,6 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
 ### <a name="issues_agensgraph"></a> AgensGraph
 
 - Issue: Database tables not visible in DBeaver.
-
-### <a name="issues_hsqldb"></a> HSQLDB
-
-- Issue: `java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100` (see [here](https://sourceforge.net/p/hsqldb/bugs/1642/)).
-```
-    2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='hsqldb_emb'
-    2021-09-06 12:03:53,676 [DatabaseSeeder.java] INFO  Start HSQLDB [embedded]
-    2021-09-06 12:03:53,680 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =hsqldb
-    2021-09-06 12:03:53,688 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =hsqldb_emb
-    java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
-        at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
-        at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
-        at org.hsqldb.jdbc.JDBCStatement.fetchResult(Unknown Source)
-        at org.hsqldb.jdbc.JDBCStatement.execute(Unknown Source)
-        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1351)
-        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1220)
-        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:420)
-        at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:168)
-        Caused by: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
-        at org.hsqldb.error.Error.error(Unknown Source)
-        at org.hsqldb.error.Error.error(Unknown Source)
-        at org.hsqldb.SchemaManager.getSchemaObject(Unknown Source)
-        at org.hsqldb.ParserDQL.readSchemaObjectName(Unknown Source)
-        at org.hsqldb.ParserDDL.compileAlterTableDropConstraint(Unknown Source)
-        at org.hsqldb.ParserDDL.compileAlterTable(Unknown Source)
-        at org.hsqldb.ParserDDL.compileAlter(Unknown Source)
-        at org.hsqldb.ParserCommand.compilePart(Unknown Source)
-        at org.hsqldb.ParserCommand.compileStatements(Unknown Source)
-        at org.hsqldb.Session.executeDirectStatement(Unknown Source)
-        at org.hsqldb.Session.execute(Unknown Source)
-        ... 6 more`
-```
 
 ### <a name="issues_omnisci"></a> OmniSciDB
 

@@ -102,7 +102,7 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder firebird         yes 1
     call run_db_seeder hsqldb           yes 1
     rem java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
-    call run_db_seeder hsqldb_emb       yes 0
+    call run_db_seeder hsqldb_emb       yes 1
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
     call run_db_seeder mariadb          yes 1

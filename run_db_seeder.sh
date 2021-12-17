@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.6
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=365
+export DB_SEEDER_VERSION_TRINO=366
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -147,6 +147,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.2.0
     export DB_SEEDER_VERSION=v21.2.1
     export DB_SEEDER_VERSION=v21.2.2
+    export DB_SEEDER_VERSION=v21.2.3
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
@@ -179,6 +180,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.6.3
     export DB_SEEDER_VERSION=4.6.4
     export DB_SEEDER_VERSION=4.6.5
+    export DB_SEEDER_VERSION=4.6.6
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cubrid" ]; then
@@ -327,6 +329,7 @@ if [ "${DB_SEEDER_DBMS}" = "informix" ]; then
     export DB_SEEDER_VERSION=14.10.FC5DE
     export DB_SEEDER_VERSION=14.10.FC5DE-rhm
     export DB_SEEDER_VERSION=14.10.FC6DE
+    export DB_SEEDER_VERSION=14.10.FC5DE-rhm
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
@@ -643,6 +646,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.9.1.0-b140
     export DB_SEEDER_VERSION=2.11.0.0-b7
     export DB_SEEDER_VERSION=2.11.0.1-b1
+    export DB_SEEDER_VERSION=2.11.1.0-b305
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then

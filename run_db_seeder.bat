@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 set DB_SEEDER_RELEASE=3.0.6
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=365
+set DB_SEEDER_VERSION_TRINO=366
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -152,6 +152,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.2.0
     set DB_SEEDER_VERSION=v21.2.1
     set DB_SEEDER_VERSION=v21.2.2
+    set DB_SEEDER_VERSION=v21.2.3
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
@@ -184,6 +185,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.6.3
     set DB_SEEDER_VERSION=4.6.4
     set DB_SEEDER_VERSION=4.6.5
+    set DB_SEEDER_VERSION=4.6.6
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -251,7 +253,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_PASSWORD_SYS=firebird
     set DB_SEEDER_USER=kxn_user
     set DB_SEEDER_USER_SYS=SYSDBA
-    set DB_SEEDER_VERSION=3.0.6
+    set DB_SEEDER_VERSION=3.0.5
     set DB_SEEDER_VERSION=3.0.7
     set DB_SEEDER_VERSION=v4.0.0
 )
@@ -333,6 +335,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_VERSION=14.10.FC5DE
     set DB_SEEDER_VERSION=14.10.FC5DE-rhm
     set DB_SEEDER_VERSION=14.10.FC6DE
+    set DB_SEEDER_VERSION=14.10.FC5DE-rhm
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
@@ -650,6 +653,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.9.1.0-b140
     set DB_SEEDER_VERSION=2.11.0.0-b7
     set DB_SEEDER_VERSION=2.11.0.1-b1
+    set DB_SEEDER_VERSION=2.11.1.0-b305
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (
