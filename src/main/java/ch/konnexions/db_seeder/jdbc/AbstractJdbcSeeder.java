@@ -1009,6 +1009,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("FK_NAME         =" + resultSet.getString("FK_NAME"));
             logger.debug("PK_NAME         =" + resultSet.getString("PK_NAME"));
             logger.debug("DEFERRABILITY   =" + resultSet.getInt("DEFERRABILITY"));
+            logger.debug("");
           }
 
           constraintName = resultSet.getString("FK_NAME");
@@ -1086,6 +1087,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("COLUMN_NAME     =" + resultSet.getString("COLUMN_NAME"));
             logger.debug("KEY_SEQ         =" + resultSet.getInt("KEY_SEQ"));
             logger.debug("PK_NAME         =" + resultSet.getString("PK_NAME"));
+            logger.debug("");
           }
 
           // First primary key column
@@ -1152,6 +1154,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("CARDINALITY     =" + resultSet.getInt("CARDINALITY"));
             logger.debug("PAGES           =" + resultSet.getInt("PAGES"));
             logger.debug("FILTER_CONDITION=" + resultSet.getString("FILTER_CONDITION"));
+            logger.debug("");
           }
 
           // Irrelevant entries
