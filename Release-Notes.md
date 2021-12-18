@@ -29,7 +29,8 @@ Release Date: dd.mm.2021
 - xxx: DBMS 999 / JDBC 999
 - CockroachDB: DBMS v21.2.3
 - CrateDB: DBMS 4.6.6
-- IBM Informix: DBMS 14.10.FC5DE-rhm
+- IBM Db2 Database: JDBC 11.5.7.0
+- IBM Informix: DBMS 14.10.FC5DE-rhm / JDBC 4.50.7
 - trino: DBMS 366 / JDBC 366
 - YugabyteDB: DBMS 2.11.1.0-b305
 

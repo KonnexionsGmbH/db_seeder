@@ -73,8 +73,9 @@ The database systems considered meet the following conditions:
 | Firebird                        | firebird           | 3.0.5 - v4.0.0            | 4.0.4.java11        | 
 | H2 Database Engine              | h2, h2_emb         | 1.4.200 - 2.0.202         | 2.0.202             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.6.0            |                                                    
-| IBM Informix                    | informix           | 14.10 FC3DE - 14.10.FC5DE-rhm | 4.50.7              | 
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.7.0            |
+| IBM Informix                    | informix           | 14.10 FC3DE -             | 4.50.7.1            |
+|                                 |                    | 14.10.FC5DE-rhm           |                     | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.7.1-focal    | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a       | 3.41a               |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP1 | 3.1.jre8            | 
@@ -83,8 +84,8 @@ The database systems considered meet the following conditions:
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0         | 21.3.0.0            |
 | Percona Server for MySQL        | percona            | 8.0.26-16                 | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 14.1-alpine        | 42.3.1              |
-| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -  |                     |
-|                                 |                    | 2019-CU14-ubuntu-20.04    | 9.4.1.jre16         | 
+| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16         |
+|                                 |                    | 2019-CU14-ubuntu-20.04    |                     | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.5.1-pg14   | see PostgreSQL      |
 | trino                           | mysql_trino,       | 339 - 366                 | 366                 |
@@ -92,7 +93,8 @@ The database systems considered meet the following conditions:
 |                                 | postgresql_trino,  |                           |                     |
 |                                 | sqlserver_trino    |                           |                     |
 | VoltDB                          | voltdb             | 9.2.1                     | 11.0                |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 - 2.11.1.0-b305 | 42.3.0      |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 -             | 42.3.0              |
+|                                 |                    | 2.11.1.0-b305             |                     |
 
 [//]: # (===========================================================================================)
 
@@ -1057,7 +1059,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/db2:11.5.5.1`
+  - pull command: `docker pull ibmcom/db2:11.5.7.0`
   - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
 - **encoding**:
