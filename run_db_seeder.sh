@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.6
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=366
+export DB_SEEDER_VERSION_TRINO=367
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -235,6 +235,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.1.1
     export DB_SEEDER_VERSION=7.1.2
     export DB_SEEDER_VERSION=7.1.3
+    export DB_SEEDER_VERSION=7.1.4
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
@@ -263,6 +264,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
     export DB_SEEDER_USER_SYS=sa
     export DB_SEEDER_VERSION=1.4.200
     export DB_SEEDER_VERSION=2.0.202
+    export DB_SEEDER_VERSION=2.0.204
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then
@@ -390,6 +392,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Oct2020-SP5
     export DB_SEEDER_VERSION=Jul2021
     export DB_SEEDER_VERSION=Jul2021-SP1
+    export DB_SEEDER_VERSION=Jul2021-SP2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then

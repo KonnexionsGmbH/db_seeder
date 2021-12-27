@@ -69,26 +69,26 @@ The database systems considered meet the following conditions:
 | CockroachDB                     | cockroach          | v20.2.5 - v21.2.3         | see PostgreSQL      |
 | CrateDB                         | cratedb            | 4.1.6 - 4.6.6             | 2.6.0               |
 | CUBRID                          | cubrid             | 10.2 - 11.0               | 11.0.5.0299         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.3          | 7.1.3               |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.4          | 7.1.3               |
 | Firebird                        | firebird           | 3.0.5 - v4.0.0            | 4.0.4.java11        | 
-| H2 Database Engine              | h2, h2_emb         | 1.4.200 - 2.0.202         | 2.0.202             | 
+| H2 Database Engine              | h2, h2_emb         | 1.4.200 - 2.0.204         | 2.0.204             | 
 | HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1               | 
 | IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.7.0            |
 | IBM Informix                    | informix           | 14.10 FC3DE -             | 4.50.7.1            |
 |                                 |                    | 14.10.FC5DE-rhm           |                     | 
 | MariaDB Server                  | mariadb            | 10.4.13 - 10.7.1-focal    | 2.7.4               | 
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a       | 3.41a               |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP1 | 3.1.jre8            | 
+| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP2 | 3.1.jre8            | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.27           | 8.0.27              | 
 | OmniSciDB                       | omnisci            | 5.6.1 - 5.9.0             | 5.7.0               |
-| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0         | 21.3.0.0            |
+| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1          |
 | Percona Server for MySQL        | percona            | 8.0.26-16                 | see MySQL           | 
 | PostgreSQL                      | postgresql         | 12.3 - 14.1-alpine        | 42.3.1              |
 | SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16         |
 |                                 |                    | 2019-CU14-ubuntu-20.04    |                     | 
 | SQLite                          | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3            |
 | TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.5.1-pg14   | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 366                 | 366                 |
+| trino                           | mysql_trino,       | 339 - 367                 | 367                 |
 |                                 | oracle_trino,      |                           |                     |
 |                                 | postgresql_trino,  |                           |                     |
 |                                 | sqlserver_trino    |                           |                     |
@@ -902,7 +902,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.1.3`
+  - pull command: `docker pull exasol/docker-db:7.1.4`
   - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -977,7 +977,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.h2database.com/html/commands.html#create_user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.0.202`
+  - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.0.204`
   - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine)
 
 - **encoding**: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.
@@ -1227,7 +1227,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull monetdb/monetdb:Jul2021-SP1`
+  - pull command: `docker pull monetdb/monetdb:Jul2021-SP2`
   - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1583,7 +1583,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:366`
+  - pull command: `docker pull trinodb/trino:367`
   - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))

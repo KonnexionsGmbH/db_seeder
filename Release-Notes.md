@@ -26,12 +26,15 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
-- xxx: DBMS 999 / JDBC 999
 - CockroachDB: DBMS v21.2.3
 - CrateDB: DBMS 4.6.6
+- Exasol: DBMS 7.1.4
+- H2 database Engine: DBMS 2.0.204 / JDBC 2.0.204
 - IBM Db2 Database: JDBC 11.5.7.0
 - IBM Informix: DBMS 14.10.FC5DE-rhm / JDBC 4.50.7
-- trino: DBMS 366 / JDBC 366
+- MonetDB: DBMS Jul2021-SP2
+- Oracle Database: JDBC 21.4.0.0.1
+- trino: DBMS 367 / JDBC 367
 - YugabyteDB: DBMS 2.11.1.0-b305
 
 ### Deleted Features
