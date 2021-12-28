@@ -106,14 +106,12 @@ public final class OmnisciSeeder extends AbstractGenOmnisciSchema {
       statement = connection.createStatement();
 
       executeSQLStmnts(statement,
-                       "DROP DATABASE IF EXISTS " + databaseName);
+                       "DROP DATABASE IF EXISTS " + databaseName,
+              "DROP USER IF EXISTS " + userName);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
-
-    executeSQLStmntOptional(statement,
-                            "DROP USER " + userName);
 
     // -----------------------------------------------------------------------
     // Setup the database and user.
