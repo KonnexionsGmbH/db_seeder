@@ -257,6 +257,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
     set DB_SEEDER_VERSION=3.0.5
     set DB_SEEDER_VERSION=3.0.7
     set DB_SEEDER_VERSION=v4.0.0
+    set DB_SEEDER_VERSION=v4.0.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (

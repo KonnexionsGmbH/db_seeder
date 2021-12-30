@@ -251,6 +251,7 @@ if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
     export DB_SEEDER_VERSION=3.0.5
     export DB_SEEDER_VERSION=3.0.7
     export DB_SEEDER_VERSION=v4.0.0
+    export DB_SEEDER_VERSION=v4.0.1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2" ]; then

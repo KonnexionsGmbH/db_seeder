@@ -62,39 +62,39 @@ The database systems considered meet the following conditions:
 
 ### <a name="rdbms_overview"></a> 1.1 RDBMS Overview
 
-| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions            | Latest JDBC         |
-|---                              |---                 |---------------------------|---                  |
-| AgensGraph                      | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1            |
-| Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0           |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.2.3         | see PostgreSQL      |
-| CrateDB                         | cratedb            | 4.1.6 - 4.6.6             | 2.6.0               |
-| CUBRID                          | cubrid             | 10.2 - 11.0               | 11.0.5.0299         |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.4          | 7.1.3               |
-| Firebird                        | firebird           | 3.0.5 - v4.0.0            | 4.0.4.java11        | 
-| H2 Database Engine              | h2, h2_emb         | 1.4.200 - 2.0.204         | 2.0.204             | 
-| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1               | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.7.0            |
-| IBM Informix                    | informix           | 14.10 FC3DE -             | 4.50.7.1            |
-|                                 |                    | 14.10.FC5DE-rhm           |                     | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.7.1-focal    | 2.7.4               | 
-| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a       | 3.41a               |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP2 | 3.1.jre8            | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.27           | 8.0.27              | 
-| OmniSciDB                       | omnisci            | 5.6.1 - 5.9.0             | 5.7.0               |
-| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1          |
-| Percona Server for MySQL        | percona            | 8.0.26-16                 | see MySQL           | 
-| PostgreSQL                      | postgresql         | 12.3 - 14.1-alpine        | 42.3.1              |
-| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16         |
-|                                 |                    | 2019-CU14-ubuntu-20.04    |                     | 
-| SQLite                          | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3            |
-| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.5.1-pg14   | see PostgreSQL      |
-| trino                           | mysql_trino,       | 339 - 367                 | 367                 |
-|                                 | oracle_trino,      |                           |                     |
-|                                 | postgresql_trino,  |                           |                     |
-|                                 | sqlserver_trino    |                           |                     |
-| VoltDB                          | voltdb             | 9.2.1                     | 11.0                |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 -             | 42.3.0              |
-|                                 |                    | 2.11.1.0-b305             |                     |
+| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions            | Latest JDBC    |
+|---                              |---                 |---------------------------|----------------|
+| AgensGraph                      | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1       |
+| Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0      |
+| CockroachDB                     | cockroach          | v20.2.5 - v21.2.3         | see PostgreSQL |
+| CrateDB                         | cratedb            | 4.1.6 - 4.6.6             | 2.6.0          |
+| CUBRID                          | cubrid             | 10.2 - 11.0               | 11.0.5.0299    |
+| Exasol                          | exasol             | 6.2.8-d1 - 7.1.4          | 7.1.4          |
+| Firebird                        | firebird           | 3.0.5 - v4.0.1            | 4.0.4.java11   | 
+| H2 Database Engine              | h2, h2_emb         | 1.4.200 - 2.0.204         | 2.0.204        | 
+| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
+| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.7.0       |
+| IBM Informix                    | informix           | 14.10 FC3DE -             | 4.50.7.1       |
+|                                 |                    | 14.10.FC5DE-rhm           |                | 
+| MariaDB Server                  | mariadb            | 10.4.13 - 10.7.1-focal    | 2.7.4          | 
+| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a       | 3.41a          |
+| MonetDB                         | monetdb            | Jun2020-SP1 - Jul2021-SP2 | 3.1.jre8       | 
+| MySQL Database                  | mysql              | 8.0.20 - 8.0.27           | 8.0.27         | 
+| OmniSciDB                       | omnisci            | 5.6.1 - 5.9.0             | 5.7.0          |
+| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
+| Percona Server for MySQL        | percona            | 8.0.26-16                 | see MySQL      | 
+| PostgreSQL                      | postgresql         | 12.3 - 14.1-alpine        | 42.3.1         |
+| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16    |
+|                                 |                    | 2019-CU14-ubuntu-20.04    |                | 
+| SQLite                          | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3       |
+| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.5.1-pg14   | see PostgreSQL |
+| trino                           | mysql_trino,       | 339 - 367                 | 367            |
+|                                 | oracle_trino,      |                           |                |
+|                                 | postgresql_trino,  |                           |                |
+|                                 | sqlserver_trino    |                           |                |
+| VoltDB                          | voltdb             | 9.2.1                     | 11.0           |
+| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 -             | 42.3.0         |
+|                                 |                    | 2.11.1.0-b305             |                |
 
 [//]: # (===========================================================================================)
 
@@ -938,7 +938,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:v4.0.0`
+  - pull command: `docker pull jacobalberty/firebird:v4.0.1`
   - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
