@@ -272,6 +272,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_VERSION=1.4.200
     set DB_SEEDER_VERSION=2.0.202
     set DB_SEEDER_VERSION=2.0.204
+    set DB_SEEDER_VERSION=2.0.206
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (

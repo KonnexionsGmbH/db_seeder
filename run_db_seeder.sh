@@ -266,6 +266,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
     export DB_SEEDER_VERSION=1.4.200
     export DB_SEEDER_VERSION=2.0.202
     export DB_SEEDER_VERSION=2.0.204
+    export DB_SEEDER_VERSION=2.0.206
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then
