@@ -6,6 +6,7 @@
 /.git-credentials
 /.gitconfig
 /.gradle/
+/.vs/
 /lib/db_seeder.jar
 /resources/docker/trino/catalog/db_seeder_mysql.properties
 /resources/docker/trino/catalog/db_seeder_oracle.properties
@@ -21,4 +22,3 @@ gradlew
 gradlew.bat
 timer.txt
 tmp
-/.vs/
