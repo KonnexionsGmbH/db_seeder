@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder.bat: Creation of dummy data in an empty databases, 
+rem run_db_seeder.bat: Creation of dummy data in an empty databases,
 rem                    database users or schemas.
 rem
 rem ------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 set DB_SEEDER_RELEASE=3.0.6
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=367
+set DB_SEEDER_VERSION_TRINO=370
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -153,11 +153,12 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.2.1
     set DB_SEEDER_VERSION=v21.2.2
     set DB_SEEDER_VERSION=v21.2.3
+    set DB_SEEDER_VERSION=v21.2.5
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_CONNECTION_PORT=5432
-    set DB_SEEDER_CONNECTION_PREFIX=crate://
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
     set DB_SEEDER_CONTAINER_PORT=5432
     set DB_SEEDER_PASSWORD=cratedb
     set DB_SEEDER_USER=kxn_user
@@ -186,6 +187,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.6.4
     set DB_SEEDER_VERSION=4.6.5
     set DB_SEEDER_VERSION=4.6.6
+    set DB_SEEDER_VERSION=4.7.0
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
@@ -242,6 +244,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.1.2
     set DB_SEEDER_VERSION=7.1.3
     set DB_SEEDER_VERSION=7.1.4
+    set DB_SEEDER_VERSION=7.1.6
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["firebird"] (
@@ -273,6 +276,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_VERSION=2.0.202
     set DB_SEEDER_VERSION=2.0.204
     set DB_SEEDER_VERSION=2.0.206
+    set DB_SEEDER_VERSION=2.1.210
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
@@ -340,6 +344,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["informix"] (
     set DB_SEEDER_VERSION=14.10.FC5DE-rhm
     set DB_SEEDER_VERSION=14.10.FC6DE
     set DB_SEEDER_VERSION=14.10.FC5DE-rhm
+    set DB_SEEDER_VERSION=14.10.FC7W1DE
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
@@ -401,6 +406,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_VERSION=Jul2021
     set DB_SEEDER_VERSION=Jul2021-SP1
     set DB_SEEDER_VERSION=Jul2021-SP2
+    set DB_SEEDER_VERSION=Jan2022
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
@@ -422,6 +428,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql"] (
     set DB_SEEDER_VERSION=8.0.25
     set DB_SEEDER_VERSION=8.0.26
     set DB_SEEDER_VERSION=8.0.27
+    set DB_SEEDER_VERSION=8.0.28
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
@@ -444,6 +451,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.25
     set DB_SEEDER_VERSION=8.0.26
     set DB_SEEDER_VERSION=8.0.27
+    set DB_SEEDER_VERSION=8.0.28
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
@@ -462,6 +470,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
     set DB_SEEDER_VERSION=5.7.1
     set DB_SEEDER_VERSION=5.8.0
     set DB_SEEDER_VERSION=5.9.0
+    set DB_SEEDER_VERSION=5.10.1
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
@@ -515,6 +524,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_VERSION=8.0.23-14
     set DB_SEEDER_VERSION=8.0.25-15
     set DB_SEEDER_VERSION=8.0.26-16
+    set DB_SEEDER_VERSION=8.0.26-17
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
@@ -536,6 +546,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=13.4-alpine
     set DB_SEEDER_VERSION=14.0-alpine
     set DB_SEEDER_VERSION=14.1-alpine
+    set DB_SEEDER_VERSION=14.2-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
@@ -558,6 +569,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=13.4-alpine
     set DB_SEEDER_VERSION=14.0-alpine
     set DB_SEEDER_VERSION=14.1-alpine
+    set DB_SEEDER_VERSION=14.2-alpine
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
@@ -581,6 +593,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
     set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
+    set DB_SEEDER_VERSION=2019-CU15-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
@@ -599,6 +612,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_VERSION=2019-CU12-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
+    set DB_SEEDER_VERSION=2019-CU15-ubuntu-20.04
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
@@ -618,6 +632,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_VERSION=2.4.2-pg13
     set DB_SEEDER_VERSION=2.5.0-pg14
     set DB_SEEDER_VERSION=2.5.1-pg14
+    set DB_SEEDER_VERSION=2.5.2-pg14
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["voltdb"] (
@@ -659,6 +674,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.11.0.0-b7
     set DB_SEEDER_VERSION=2.11.0.1-b1
     set DB_SEEDER_VERSION=2.11.1.0-b305
+    set DB_SEEDER_VERSION=2.11.2.0-b89
 )
 
 if ["%DB_SEEDER_CHARACTER_SET_SERVER%"] EQU [""] (
@@ -688,7 +704,7 @@ rem ----------------------------------------------------------------------------
 echo ================================================================================
 echo Start %0
 echo --------------------------------------------------------------------------------
-echo DBSeeder - Creation of dummy data in an empty databases, database users or 
+echo DBSeeder - Creation of dummy data in an empty databases, database users or
 echo            schemas.
 echo --------------------------------------------------------------------------------
 echo COMPLETE_RUN                    : %DB_SEEDER_COMPLETE_RUN%
@@ -736,24 +752,24 @@ echo:| TIME
 echo ================================================================================
 
 call gradle copyJarToLib
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete"] (
     call scripts\run_db_seeder_complete %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script run_db_seeder_complete was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
-    
+
     goto END_OF_SCRIPT
-)    
+)
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
     call scripts\run_db_seeder_complete_client %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script run_db_seeder_complete_client was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -763,41 +779,41 @@ if ["%DB_SEEDER_DBMS%"] EQU ["complete_client"] (
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_emb"] (
     call scripts\run_db_seeder_complete_emb %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script run_db_seeder_complete_emb was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
-    
+
     goto END_OF_SCRIPT
-)    
+)
 
 if ["%DB_SEEDER_DBMS%"] EQU ["complete_trino"] (
     call scripts\run_db_seeder_complete_trino %DB_SEEDER_NO_CREATE_RUNS%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script run_db_seeder_complete_trino was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
-    
+
     goto END_OF_SCRIPT
-)    
+)
 
 if ["%DB_SEEDER_DBMS_TRINO%"] EQU ["yes"] (
     if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
         call scripts\run_db_seeder_trino_environment complete
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script run_db_seeder_trino_environment was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
         call scripts\run_db_seeder_setup_trino
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script run_db_seeder_setup_trino was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-)    
+)
 
 call scripts\run_db_seeder_single %DB_SEEDER_DBMS%
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script run_db_seeder_single was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )

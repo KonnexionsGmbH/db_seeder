@@ -21,3 +21,4 @@ gradlew
 gradlew.bat
 timer.txt
 tmp
+/.vs/

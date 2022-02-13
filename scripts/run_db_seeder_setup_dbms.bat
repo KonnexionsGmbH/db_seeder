@@ -30,7 +30,7 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["no"] (
 
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["yes"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS_DB%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -38,7 +38,7 @@ if ["%DB_SEEDER_DBMS_EMBEDDED%"] == ["yes"] (
 
 if ["%DB_SEEDER_DBMS_DB%"] == ["derby"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS_DB%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -46,7 +46,7 @@ if ["%DB_SEEDER_DBMS_DB%"] == ["derby"] (
 
 if ["%DB_SEEDER_DBMS_DB%"] == ["h2"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS_DB%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -54,7 +54,7 @@ if ["%DB_SEEDER_DBMS_DB%"] == ["h2"] (
 
 if ["%DB_SEEDER_DBMS_DB%"] == ["ibmdb2"] (
     call scripts\run_db_seeder_setup_files.bat %DB_SEEDER_DBMS_DB%
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -63,13 +63,13 @@ if ["%DB_SEEDER_DBMS_DB%"] == ["ibmdb2"] (
 if ["%DB_SEEDER_DBMS_EMBEDDED%"] EQU ["no"] (
     lib\Gammadyne\timer.exe /reset
     lib\Gammadyne\timer.exe /q
-    
+
     call scripts\run_db_seeder_setup_%DB_SEEDER_DBMS_DB%.bat
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
-    
+
     docker ps
 )
 

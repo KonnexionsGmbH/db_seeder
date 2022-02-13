@@ -40,7 +40,7 @@ echo:| TIME
 echo ================================================================================
 
 java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.SchemaBuilder %DB_SEEDER_RELEASE%
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
@@ -55,25 +55,25 @@ md eclipse_workspace >nul 2>&1
                        -config src\main\resources\org.eclipse.jdt.core.prefs ^
                        -quiet src\main\java\ch\konnexions\db_seeder\generated\ ^
                        -vmargs -Dfile.encoding=UTF-8
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
 call gradle init
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
 call gradle clean
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
 
 call gradle copyJarToLib
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )

@@ -29,7 +29,7 @@ rem > run_db_seeder_release.log 2>&1 (
     echo ================================================================================
 
     call gradle copyJarToLib
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -47,14 +47,14 @@ rem > run_db_seeder_release.log 2>&1 (
     echo Constraints included.
     echo --------------------------------------------------------------------------------
     set DB_SEEDER_DROP_CONSTRAINTS=no
-    
+
     set DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT=resources\statistics\db_seeder_cmd_complete_company_9.9.9_win10.tsv
     if ["%DB_SEEDER_FILE_STATISTICS_NAME%"] EQU [""] (
         set DB_SEEDER_FILE_STATISTICS_NAME=%DB_SEEDER_FILE_STATISTICS_NAME_DEFAULT%
     )
 
     del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
-    
+
     call run_db_seeder agens            yes 1
     call run_db_seeder cockroach        yes 1
     call run_db_seeder cratedb          yes 1
@@ -87,7 +87,7 @@ rem > run_db_seeder_release.log 2>&1 (
     rem Java 15:
     call run_db_seeder voltdb           yes 0
     call run_db_seeder yugabyte         yes 1
-    
+
     echo --------------------------------------------------------------------------------
     echo Constraints excluded.
     echo --------------------------------------------------------------------------------
@@ -115,7 +115,7 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder sqlserver        yes 1
     call run_db_seeder timescale        yes 1
     call run_db_seeder yugabyte         yes 1
-    
+
     rem call run_db_seeder agens            yes 1
     rem call run_db_seeder cockroach        no  1
     rem call run_db_seeder cratedb          no  1
@@ -147,7 +147,7 @@ rem > run_db_seeder_release.log 2>&1 (
     rem call run_db_seeder timescale        yes 1
     rem call run_db_seeder voltdb           no  1
     rem call run_db_seeder yugabyte         yes 1
-    
+
     call scripts\run_db_seeder_compute_improvement %DB_SEEDER_FILE_STATISTICS_NAME%
 
     call scripts\run_db_seeder_create_summary

@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_db_seeder_compute_improvement.bat: Compute runtime improvement with and 
+rem run_db_seeder_compute_improvement.bat: Compute runtime improvement with and
 rem                                        without constraints.
 rem
 rem ------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ echo:| TIME
 echo ================================================================================
 
 call gradle copyJarToLib
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
@@ -48,7 +48,7 @@ if %ERRORLEVEL% NEQ 0 (
 if exist db_seeder.log del /f /q db_seeder.log
 
 java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.ComputeImprovement
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
