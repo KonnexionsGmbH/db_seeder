@@ -26,7 +26,7 @@ Release Date: dd.mm.2021
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.2.5
+- CockroachDB: DBMS v21.2.65
 - CrateDB: DBMS 4.7.0
 - Exasol: DBMS 7.1.6 / JDBC 7.1.4
 - Firebird: DBMS v4.0.1 / JDBC 4.0.4.java11
@@ -35,16 +35,16 @@ Release Date: dd.mm.2021
 - IBM Informix: DBMS 14.10.FC7W1DE / JDBC 4.50.7
 - MariaDB Server: JDBC 3.0.3
 - Mimer SQL: JDBC 3.42.3
-- MonetDB: DBMS Jan2022 / JDBC 3.2.jre8
+- MonetDB: DBMS Jan2022-SP1 / JDBC 3.2.jre8
 - MySQL Database: DBMS 8.0.28 / JDBC 8.0.28
-- OmniSciDB: DBMS 5.10.1 / JDBC 5.10.0
+- OmniSciDB: DBMS 5.10.2 / JDBC 5.10.0
 - Oracle Database: JDBC 21.4.0.0.1
 - Percona Server for MySQL: DBMS 8.0.26-17
-- PostgreSQL: DBMS 14.2 / JDBC 42.3.2
+- PostgreSQL: DBMS 14.2 / JDBC 42.3.3
 - SQL Server: DBMS 2019-CU15-ubuntu-20.04
-- TimescaleDB: DBMS 2.5.2-pg14
-- trino: DBMS 370 / JDBC 370
-- YugabyteDB: DBMS 2.11.2.0-b89
+- TimescaleDB: DBMS 2.6.0-pg14
+- trino: DBMS 368 / JDBC 368
+- YugabyteDB: DBMS 2.12.1.0-b41
 
 ### Deleted Features
 
@@ -54,7 +54,6 @@ Release Date: dd.mm.2021
 
 - AgensGraph: (see [here](#issues_agensgraph))
 - OmnisciDB: (see [here](#issues_omnisci))
-- PostgreSQL: (see [here](#issues_postgresql)) (same problem: CrateDB, CockRoachDB, TimescaleDB)
 - trino: (see [here](#issues_trino))
 - VoltDB: (see [here](#issues_voltdb))
 
@@ -92,69 +91,64 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
 
 - Issue: connection problem with existing OmnisciDB (see [here](https://github.com/omnisci/omniscidb/issues/668)).
 
-### <a name="issues_postgresql"></a> PostgreSQL (CrateDB, CockroachDB, TimescaleDB)
-
-- Issue: org.postgresql.util.PSQLException: SCRAM authentication is not supported by this driver. You need JDK >= 8 and pgjdbc >= 42.2.0 (not ".jre" versions).
-
-```
-    2022-02-13 14:23:31,650 [DatabaseSeeder.java] INFO  Start PostgreSQL
-    2022-02-13 14:23:31,654 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =postgresql
-    2022-02-13 14:23:31,663 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =postgresql
-    Feb. 13, 2022 2:23:32 PM org.postgresql.core.v3.ConnectionFactoryImpl log
-    WARNING: SQLException occurred while connecting to localhost:5432
-    org.postgresql.util.PSQLException: SCRAM authentication is not supported by this driver. You need JDK >= 8 and pgjdbc >= 42.2.0 (not ".jre" versions)
-    at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:625)
-    at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:205)
-    at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-    at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-    at org.postgresql.Driver.makeConnection(Driver.java:452)
-    at org.postgresql.Driver.connect(Driver.java:254)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:252)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:332)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:238)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.setupPostgresql(AbstractJdbcSeeder.java:2256)
-    at ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder.setupDatabase(PostgresqlSeeder.java:115)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:410)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:232)
-
-    Feb. 13, 2022 2:23:32 PM org.postgresql.Driver connect
-    SEVERE: Connection error:
-    org.postgresql.util.PSQLException: SCRAM authentication is not supported by this driver. You need JDK >= 8 and pgjdbc >= 42.2.0 (not ".jre" versions)
-    at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:625)
-    at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:205)
-    at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-    at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-    at org.postgresql.Driver.makeConnection(Driver.java:452)
-    at org.postgresql.Driver.connect(Driver.java:254)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:252)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:332)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:238)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.setupPostgresql(AbstractJdbcSeeder.java:2256)
-    at ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder.setupDatabase(PostgresqlSeeder.java:115)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:410)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:232)
-
-    org.postgresql.util.PSQLException: SCRAM authentication is not supported by this driver. You need JDK >= 8 and pgjdbc >= 42.2.0 (not ".jre" versions)
-    at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:625)
-    at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:205)
-    at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-    at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-    at org.postgresql.Driver.makeConnection(Driver.java:452)
-    at org.postgresql.Driver.connect(Driver.java:254)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
-    at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:252)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:332)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:238)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.setupPostgresql(AbstractJdbcSeeder.java:2256)
-    at ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder.setupDatabase(PostgresqlSeeder.java:115)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:410)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:232)
-    Processing of the script was aborted, error code=1
-```
-
 ### <a name="issues_trino"></a> trino
+
+- Issue: all connectors: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080 (see [here](https://github.com/trinodb/trino/issues/11208)).
+
+```
+    2022-02-26 03:19:29,180 [DatabaseSeeder.java] INFO  Start MySQL Database via trino
+    2022-02-26 03:19:29,184 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =mysql
+    2022-02-26 03:19:29,191 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =mysql_trino
+    java.sql.SQLException: Error executing query
+    at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:287)
+    at io.trino.jdbc.TrinoStatement.execute(TrinoStatement.java:240)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1367)
+    at ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder.setupDatabase(MysqlSeeder.java:143)
+    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:410)
+    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:202)
+    Caused by: java.io.UncheckedIOException: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080
+    at io.trino.jdbc.$internal.client.JsonResponse.execute(JsonResponse.java:148)
+    at io.trino.jdbc.$internal.client.StatementClientV1.<init>(StatementClientV1.java:109)
+    at io.trino.jdbc.$internal.client.StatementClientFactory.newStatementClient(StatementClientFactory.java:24)
+    at io.trino.jdbc.TrinoConnection.startQuery(TrinoConnection.java:750)
+    at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:252)
+    ... 5 more
+    Caused by: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:265)
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connect(RealConnection.java:183)
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.java:224)
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.java:108)
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.java:88)
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.Transmitter.newExchange(Transmitter.java:169)
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:41)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
+    at io.trino.jdbc.$internal.okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:94)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:88)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
+    at io.trino.jdbc.$internal.client.OkHttpUtil.lambda$userAgent$0(OkHttpUtil.java:69)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
+    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
+    at io.trino.jdbc.$internal.okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:229)
+    at io.trino.jdbc.$internal.okhttp3.RealCall.execute(RealCall.java:81)
+    at io.trino.jdbc.$internal.client.JsonResponse.execute(JsonResponse.java:130)
+    ... 9 more
+    Caused by: java.net.ConnectException: Connection refused: no further information
+    at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+    at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+    at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+    at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:597)
+    at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+    at java.base/java.net.Socket.connect(Socket.java:633)
+    at io.trino.jdbc.$internal.okhttp3.internal.platform.Platform.connectSocket(Platform.java:130)
+    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:263)
+    ... 31 more
+```
 
 - Issue: all connectors: absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
     

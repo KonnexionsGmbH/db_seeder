@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.6
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=370
+export DB_SEEDER_VERSION_TRINO=368
 
 if [ -z "$1" ]; then
     echo "========================================================="
@@ -149,11 +149,12 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.2.2
     export DB_SEEDER_VERSION=v21.2.3
     export DB_SEEDER_VERSION=v21.2.5
+    export DB_SEEDER_VERSION=v21.2.6
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_CONNECTION_PORT=5432
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:postgresql://
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:crate://
     export DB_SEEDER_CONTAINER_PORT=5432
     export DB_SEEDER_PASSWORD=cratedb
     export DB_SEEDER_USER=kxn_user
@@ -402,6 +403,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Jul2021-SP1
     export DB_SEEDER_VERSION=Jul2021-SP2
     export DB_SEEDER_VERSION=Jan2022
+    export DB_SEEDER_VERSION=Jan2022-SP1
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
@@ -466,6 +468,7 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_VERSION=5.8.0
     export DB_SEEDER_VERSION=5.9.0
     export DB_SEEDER_VERSION=5.10.1
+    export DB_SEEDER_VERSION=5.10.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
@@ -626,6 +629,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_VERSION=2.5.0-pg14
     export DB_SEEDER_VERSION=2.5.1-pg14
     export DB_SEEDER_VERSION=2.5.2-pg14
+    export DB_SEEDER_VERSION=2.6.0-pg14
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "voltdb" ]; then
@@ -668,6 +672,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.11.0.1-b1
     export DB_SEEDER_VERSION=2.11.1.0-b305
     export DB_SEEDER_VERSION=2.11.2.0-b89
+    export DB_SEEDER_VERSION=2.12.1.0-b41
 fi
 
 if [ -z "${DB_SEEDER_CHARACTER_SET_SERVER}" ]; then
