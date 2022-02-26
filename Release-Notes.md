@@ -52,8 +52,6 @@ Release Date: dd.mm.2021
 
 ### Open issues
 
-- AgensGraph: (see [here](#issues_agensgraph))
-- OmnisciDB: (see [here](#issues_omnisci))
 - trino: (see [here](#issues_trino))
 - VoltDB: (see [here](#issues_voltdb))
 
@@ -83,16 +81,10 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
 
 ## Detailed Open Issues
 
-### <a name="issues_agensgraph"></a> AgensGraph
-
-- Issue: Database tables not visible in DBeaver.
-
-### <a name="issues_omnisci"></a> OmniSciDB
-
-- Issue: connection problem with existing OmnisciDB (see [here](https://github.com/omnisci/omniscidb/issues/668)).
-
 ### <a name="issues_trino"></a> trino
 
+- Issue: all connectors: absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
+    
 - Issue: all connectors: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080 (see [here](https://github.com/trinodb/trino/issues/11208)).
 
 ```
@@ -148,74 +140,6 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
     at io.trino.jdbc.$internal.okhttp3.internal.platform.Platform.connectSocket(Platform.java:130)
     at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:263)
     ... 31 more
-```
-
-- Issue: all connectors: absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681)).
-    
-- Issue: Oracle connector: Oracle session not disconnected (see [here](https://github.com/trinodb/trino/issues/5648)).
-    
-- Issue: Oracle connector: Support Oracle's NUMBER data type (see [here](https://github.com/trinodb/trino/issues/2274)).
-
-- Issue: all connectors: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080.
-
-```
-    2022-02-13 13:00:26,667 [DatabaseSeeder.java] INFO  Start
-    2022-02-13 13:00:26,740 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='sqlserver_trino'
-    2022-02-13 13:00:26,741 [DatabaseSeeder.java] INFO  Start SQL Server via trino
-    2022-02-13 13:00:26,745 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =sqlserver
-    2022-02-13 13:00:26,752 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =sqlserver_trino
-    java.sql.SQLException: Error executing query
-    at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:287)
-    at io.trino.jdbc.TrinoStatement.execute(TrinoStatement.java:240)
-    at io.trino.jdbc.TrinoStatement.executeQuery(TrinoStatement.java:78)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnt(AbstractJdbcSeeder.java:1312)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.countData(AbstractJdbcSeeder.java:371)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:499)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:444)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:256)
-    Caused by: java.io.UncheckedIOException: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080
-    at io.trino.jdbc.$internal.client.JsonResponse.execute(JsonResponse.java:148)
-    at io.trino.jdbc.$internal.client.StatementClientV1.<init>(StatementClientV1.java:109)
-    at io.trino.jdbc.$internal.client.StatementClientFactory.newStatementClient(StatementClientFactory.java:24)
-    at io.trino.jdbc.TrinoConnection.startQuery(TrinoConnection.java:750)
-    at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:252)
-    ... 7 more
-    Caused by: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:265)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connect(RealConnection.java:183)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.java:224)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.java:108)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.java:88)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.Transmitter.newExchange(Transmitter.java:169)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:41)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:94)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:88)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.client.OkHttpUtil.lambda$userAgent$0(OkHttpUtil.java:69)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:229)
-    at io.trino.jdbc.$internal.okhttp3.RealCall.execute(RealCall.java:81)
-    at io.trino.jdbc.$internal.client.JsonResponse.execute(JsonResponse.java:130)
-    ... 11 more
-    Caused by: java.net.ConnectException: Connection refused: no further information
-    at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-    at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
-    at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
-    at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:597)
-    at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-    at java.base/java.net.Socket.connect(Socket.java:633)
-    at io.trino.jdbc.$internal.okhttp3.internal.platform.Platform.connectSocket(Platform.java:130)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:263)
-    ... 33 more
-    Processing of the script was aborted, error code=1
 ```
 
 ### <a name="issues_voltdb"></a> VoltDB
