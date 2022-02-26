@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Data Generator for a Database - Abstract Generated Seeder.
@@ -22,7 +22,7 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
   /**
    * Initialises a new abstract generated seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol
+   * @param tickerSymbolExtern the external DBMS ticker symbol 
    * @param dbmsOption client, embedded or trino
    */
   public AbstractGenSeeder(String tickerSymbolExtern, String dbmsOption) {
@@ -140,7 +140,6 @@ abstract class AbstractGenSeeder extends AbstractGenSchema {
                                    validValues);
   }
 
-  @Override
   protected final void insertTable(PreparedStatement preparedStatement, final String tableName, final long rowNo) {
     if (isDebug) {
       logger.debug("Start");

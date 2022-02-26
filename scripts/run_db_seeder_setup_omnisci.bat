@@ -47,8 +47,6 @@ echo Docker create db_seeder_db (OmniSciDB %DB_SEEDER_VERSION%)
 rmdir /q /s tmp\omnisci-docker-storage
 mkdir       tmp\omnisci-docker-storage
 
-set DB_SEEDER_IMAGE=omnisci/core-os-cpu:%DB_SEEDER_VERSION%
-
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --name    db_seeder_db ^
               --network db_seeder_net ^

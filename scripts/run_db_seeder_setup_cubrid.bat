@@ -44,8 +44,6 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (CUBRID %DB_SEEDER_VERSION%)
 
-set DB_SEEDER_IMAGE=cubrid/cubrid:%DB_SEEDER_VERSION%
-
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        CUBRID_DB=%DB_SEEDER_DATABASE% ^
               --name    db_seeder_db ^

@@ -44,8 +44,6 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Mimer SQL %DB_SEEDER_VERSION%)
 
-set DB_SEEDER_IMAGE=mimersql/mimersql_v11.0:%DB_SEEDER_VERSION%
-
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        MIMER_SYSADM_PASSWORD=mimer ^
               --name    db_seeder_db ^

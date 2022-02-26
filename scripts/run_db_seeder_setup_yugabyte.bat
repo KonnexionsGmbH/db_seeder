@@ -56,7 +56,7 @@ docker run -d ^
            -p        9001:9000 ^
            -p        9042:9042 ^
            -v        %cd%/tmp/yb_data:/home/yugabyte/var ^
-           yugabytedb/yugabyte:%DB_SEEDER_VERSION% bin/yugabyted start --daemon=false
+           %DB_SEEDER_IMAGE% bin/yugabyted start --daemon=false
 
 echo Docker start db_seeder_db (YugabyteDB %DB_SEEDER_VERSION%) ...
 

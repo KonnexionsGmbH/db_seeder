@@ -44,8 +44,6 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (Firebird %DB_SEEDER_VERSION%)
 
-set DB_SEEDER_IMAGE=jacobalberty/firebird:%DB_SEEDER_VERSION%
-
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        FIREBIRD_DATABASE=%DB_SEEDER_DATABASE% ^
               -e        ISC_PASSWORD=firebird ^

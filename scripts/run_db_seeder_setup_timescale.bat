@@ -44,8 +44,6 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (TimescaleDB %DB_SEEDER_VERSION%)
 
-set DB_SEEDER_IMAGE=timescale/timescaledb:%DB_SEEDER_VERSION%
-
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        POSTGRES_DB=kxn_db_sys ^
               -e        POSTGRES_HOST_AUTH_METHOD=password ^

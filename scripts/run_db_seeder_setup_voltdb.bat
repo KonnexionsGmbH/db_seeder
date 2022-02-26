@@ -51,7 +51,7 @@ docker run -d ^
            --network db_seeder_net ^
            -p        21212:21212 ^
            -v        %cd%/resources/voltdb/deployment.xml:/tmp/deployment.xml ^
-           voltdb/voltdb-community:%DB_SEEDER_VERSION%
+           %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (VoltDB %DB_SEEDER_VERSION%) ...
 
