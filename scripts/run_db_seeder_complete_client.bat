@@ -373,6 +373,16 @@ echo.
         )
     )
 
+    rem ------------------------------------------------------------------------------
+    rem End of processing.
+    rem ------------------------------------------------------------------------------
+
+    start resources\audio\end_of_series.mp3
+    if ERRORLEVEL 1 (
+        echo Processing of the script: %0 - step: 'start resources\audio\end_of_series.mp3' was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo --------------------------------------------------------------------------------
