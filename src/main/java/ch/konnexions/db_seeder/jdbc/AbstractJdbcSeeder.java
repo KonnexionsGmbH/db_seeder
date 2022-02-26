@@ -1209,7 +1209,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     // =========================================================================
-    // Drop the constraints found 
+    // Drop the constraints found
     // =========================================================================
 
     if (constraints.isEmpty()) {
@@ -1583,7 +1583,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  // ToDo 
+  // ToDo
   //  /**
   //   * Sets the designated optional column to a BIGINT value or to NULL.
   //   *
