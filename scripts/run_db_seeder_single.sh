@@ -104,27 +104,37 @@ echo "==========================================================================
 if [ "${DB_SEEDER_SETUP_DBMS}" = "yes" ]; then
     if ! ( ./scripts/run_db_seeder_setup_dbms.sh ); then
         exit 255
-    fi    
+    fi
 fi
 
 if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "1" ]; then
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
-    fi    
+    fi
 fi
 
 if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
-    fi    
+    fi
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
-    fi    
+    fi
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     rm -rf "${DB_SEEDER_DATABASE}" ¦¦ sudo rm -rf "${DB_SEEDER_DATABASE}"
 fi
+
+docker stop db_seeder_db
+docker rm --force db_seeder_db
+docker ps -a
+
+docker rmi --force ${DB_SEEDER_IMAGE}
+if [ "${DB_SEEDER_DBMS_TRINO}" = "yes" ]; then
+    docker rmi --force %DB_SEEDER_IMAGE_TRINO%
+)
+docker images
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

@@ -44,12 +44,16 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (CrateDB %DB_SEEDER_VERSION%)
 
+set DB_SEEDER_IMAGE=crate:%DB_SEEDER_VERSION%
+
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --env     CRATE_HEAP_SIZE=2g ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-              crate:%DB_SEEDER_VERSION% crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
+              %DB_SEEDER_IMAGE% crate
+              -Cnetwork.host=_site_
+              -Cdiscovery.type=single-node
 
 echo Docker start db_seeder_db (CrateDB %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

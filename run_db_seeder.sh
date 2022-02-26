@@ -461,14 +461,14 @@ if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
     export DB_SEEDER_PASSWORD_SYS=HyperInteractive
     export DB_SEEDER_USER=kxn_user
     export DB_SEEDER_USER_SYS=admin
-    export DB_SEEDER_VERSION=5.6.1
-    export DB_SEEDER_VERSION=5.6.4
-    export DB_SEEDER_VERSION=5.7.0
-    export DB_SEEDER_VERSION=5.7.1
-    export DB_SEEDER_VERSION=5.8.0
-    export DB_SEEDER_VERSION=5.9.0
-    export DB_SEEDER_VERSION=5.10.1
-    export DB_SEEDER_VERSION=5.10.2
+    export DB_SEEDER_VERSION=v5.6.1
+    export DB_SEEDER_VERSION=v5.6.4
+    export DB_SEEDER_VERSION=v5.7.0
+    export DB_SEEDER_VERSION=v5.7.1
+    export DB_SEEDER_VERSION=v5.8.0
+    export DB_SEEDER_VERSION=v5.9.0
+    export DB_SEEDER_VERSION=v5.10.1
+    export DB_SEEDER_VERSION=v5.10.2
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then

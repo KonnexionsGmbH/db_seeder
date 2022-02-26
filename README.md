@@ -80,7 +80,7 @@ The database systems considered meet the following conditions:
 | Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
 | MonetDB                         | monetdb            | Jun2020-SP1 - Jan2022-SP1 | 3.2.jre8       | 
 | MySQL Database                  | mysql              | 8.0.20 - 8.0.28           | 8.0.28         | 
-| OmniSciDB                       | omnisci            | 5.6.1 - 5.10.2            | 5.10.0         |
+| OmniSciDB                       | omnisci            | v5.6.1 - v5.10.2          | 5.10.0         |
 | Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
 | Percona Server for MySQL        | percona            | 8.0.26-17                 | see MySQL      | 
 | PostgreSQL                      | postgresql         | 12.3 - 14.2-alpine        | 42.3.3         |

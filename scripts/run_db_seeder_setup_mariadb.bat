@@ -44,15 +44,17 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (MariaDB Server %DB_SEEDER_VERSION%)
 
+set DB_SEEDER_IMAGE=mariadb:%DB_SEEDER_VERSION%
+
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        MYSQL_ROOT_PASSWORD=mariadb ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-              mariadb:%DB_SEEDER_VERSION% ^
+              %DB_SEEDER_IMAGE% ^
               --character-set-server=%DB_SEEDER_CHARACTER_SET_SERVER% ^
               --collation-server=%DB_SEEDER_COLLATION_SERVER%
-              
+
 echo Docker start db_seeder_db (MariaDB Server %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 

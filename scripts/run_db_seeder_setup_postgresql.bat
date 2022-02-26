@@ -44,6 +44,8 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (PostgreSQL %DB_SEEDER_VERSION%)
 
+set DB_SEEDER_IMAGE=postgres:%DB_SEEDER_VERSION%
+
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e        POSTGRES_DB=kxn_db_sys ^
               -e        POSTGRES_HOST_AUTH_METHOD=password ^
@@ -52,7 +54,7 @@ docker create -e        POSTGRES_DB=kxn_db_sys ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
-              postgres:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (PostgreSQL %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

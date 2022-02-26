@@ -44,6 +44,8 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (IBM Informix %DB_SEEDER_VERSION%)
 
+set DB_SEEDER_IMAGE=ibmcom/informix-developer-database:%DB_SEEDER_VERSION%
+
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create -e           DB_INIT=1 ^
               -e           LICENSE=accept ^
@@ -51,7 +53,7 @@ docker create -e           DB_INIT=1 ^
               --network    db_seeder_net ^
               -p           %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               --privileged ^
-              ibmcom/informix-developer-database:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (IBM Informix %DB_SEEDER_VERSION%)
 docker start db_seeder_db

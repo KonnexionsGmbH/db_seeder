@@ -37,7 +37,7 @@ Release Date: dd.mm.2021
 - Mimer SQL: JDBC 3.42.3
 - MonetDB: DBMS Jan2022-SP1 / JDBC 3.2.jre8
 - MySQL Database: DBMS 8.0.28 / JDBC 8.0.28
-- OmniSciDB: DBMS 5.10.2 / JDBC 5.10.0
+- OmniSciDB: DBMS v5.10.2 / JDBC 5.10.0
 - Oracle Database: JDBC 21.4.0.0.1
 - Percona Server for MySQL: DBMS 8.0.26-17
 - PostgreSQL: DBMS 14.2 / JDBC 42.3.3

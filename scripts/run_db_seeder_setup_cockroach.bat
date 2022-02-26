@@ -44,11 +44,13 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (CockroachDB %DB_SEEDER_VERSION%)
 
+set DB_SEEDER_IMAGE=cockroachdb/cockroach:%DB_SEEDER_VERSION%
+
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --name     db_seeder_db ^
               --net      db_seeder_net ^
               -p         %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
-              cockroachdb/cockroach:%DB_SEEDER_VERSION% ^
+              %DB_SEEDER_IMAGE% ^
               start --insecure --join=db_seeder_db
 
 echo Docker start db_seeder_db (CockroachDB %DB_SEEDER_VERSION%) ...

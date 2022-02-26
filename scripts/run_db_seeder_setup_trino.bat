@@ -48,12 +48,14 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create trino (trino)
 
+set DB_SEEDER_IMAGE_TRINO=trinodb/trino:%DB_SEEDER_VERSION%
+
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --name    db_seeder_trino ^
               --network db_seeder_net ^
               -p        8080:8080/tcp ^
               -v        %cd%/resources/docker/trino:/etc/trino ^
-              trinodb/trino:%DB_SEEDER_VERSION_TRINO%
+              %DB_SEEDER_IMAGE_TRINO%
 
 echo Docker start trino (trino) ...
 docker start db_seeder_trino

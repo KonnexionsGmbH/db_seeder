@@ -44,6 +44,8 @@ echo ---------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
 echo Docker create db_seeder_db (AgensGraph %DB_SEEDER_VERSION%)
 
+set DB_SEEDER_IMAGE=bitnine/agensgraph:%DB_SEEDER_VERSION%
+
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --name    db_seeder_db ^
               --network db_seeder_net ^
@@ -51,7 +53,7 @@ docker create --name    db_seeder_db ^
               -e        POSTGRES_USER=agens ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               -t ^
-              bitnine/agensgraph:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (AgensGraph %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
