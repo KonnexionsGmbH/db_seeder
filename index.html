@@ -281,10 +281,10 @@
         
           <li class="md-nav__item">
   <a href="#21-database-schema" class="md-nav__link">
-    2.1 Database Schema
+     2.1 Database Schema
   </a>
   
-    <nav class="md-nav" aria-label="2.1 Database Schema">
+    <nav class="md-nav" aria-label=" 2.1 Database Schema">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -718,7 +718,7 @@
       
         <li class="md-nav__item">
   <a href="#6-trino" class="md-nav__link">
-    6. trino
+     6. trino
   </a>
   
 </li>
@@ -898,10 +898,10 @@
         
           <li class="md-nav__item">
   <a href="#21-database-schema" class="md-nav__link">
-    2.1 Database Schema
+     2.1 Database Schema
   </a>
   
-    <nav class="md-nav" aria-label="2.1 Database Schema">
+    <nav class="md-nav" aria-label=" 2.1 Database Schema">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1335,7 +1335,7 @@
       
         <li class="md-nav__item">
   <a href="#6-trino" class="md-nav__link">
-    6. trino
+     6. trino
   </a>
   
 </li>
@@ -1368,7 +1368,7 @@ If the selected database, schema or user already exist, they are deleted with al
 <strong><code>DBSeeder</code></strong> then creates the selected database, schema or user and generates the desired dummy data.
 A maximum of 2 147 483 647 rows can be generated per database table.
 The database schema to be used, that is, the required database tables can be user defined using a JSON file.
-Details can be found here: <a href="#database_schema" target="_blank">Database Schema</a>.</p>
+Details can be found here: <a href="#database_schema">Database Schema</a>.</p>
 <p>Currently, depending on the capabilities of the specific RDBMS, the following functionalities and data types are supported:</p>
 <ul>
 <li>constraints</li>
@@ -1696,7 +1696,7 @@ Details can be found here: <a href="#database_schema" target="_blank">Database S
 </ul>
 <p>For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver.
 The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
-Details can be found here: <a href="#trino" target="_blank">trino</a>.</p>
+Details can be found here: <a href="#trino">trino</a>.</p>
 <ul>
 <li><a href="https://www.voltdb.com" target="_blank">VoltDB</a></li>
 <li>client only version</li>
@@ -1712,7 +1712,7 @@ Details can be found here: <a href="#trino" target="_blank">trino</a>.</p>
 <li>relational model</li>
 </ul>
 <h2 id="2-data">2. Data</h2>
-<h3 id="21-database-schema">2.1 Database Schema</h3>
+<h3 id="21-database-schema"><a name="data_database_schema"></a> 2.1 Database Schema</h3>
 <p>The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script <code>scripts/run_db_seeder_generate_schema</code>.
 To validate the database schema in the JSON parameter file, the JSON schema file <code>db_seeder_schema.schema.json</code> in the directory <code>src/main/resources</code> is used.</p>
 <h4 id="211-structure-of-the-database-schema-definition-file">2.1.1 Structure of the Database Schema Definition File</h4>
@@ -4083,7 +4083,7 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 </ul>
 <p><img alt="" src="img/DBeaver_YUGABYTE.png" /></p>
-<h2 id="6-trino">6. trino</h2>
+<h2 id="6-trino"><a name="trino"></a> 6. trino</h2>
 <p><a href="https://trino.io">trino</a> can integrate the following DBMS, among others:</p>
 <ul>
 <li>MySQL via the <a href="https://trinodb.io/docs/current/connector/mysql.html">MySQL Connector</a>,</li>
