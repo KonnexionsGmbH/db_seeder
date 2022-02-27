@@ -1,0 +1,4238 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Relational Database Data Generator">
+      
+      
+        <meta name="author" content="Konnexions GmbH Team">
+      
+      
+        <link rel="canonical" href="https://www.konnexions.ch/">
+      
+      <link rel="icon" href="img/Icon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.2">
+    
+    
+      
+        <title>DBSeeder - Relational Database Data Generator</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.e8d9bf0c.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="red">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dbseeder-relational-database-data-generator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="DBSeeder - Relational Database Data Generator" class="md-header__button md-logo" aria-label="DBSeeder - Relational Database Data Generator" data-md-component="logo">
+      
+  <img src="img/Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DBSeeder - Relational Database Data Generator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/KonnexionsGmbH/dcr/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="DBSeeder - Relational Database Data Generator" class="md-nav__button md-logo" aria-label="DBSeeder - Relational Database Data Generator" data-md-component="logo">
+      
+  <img src="img/Logo.png" alt="logo">
+
+    </a>
+    DBSeeder - Relational Database Data Generator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/KonnexionsGmbH/dcr/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Home
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    Table of Contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+     1. Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label=" 1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-rdbms-overview" class="md-nav__link">
+     1.1 RDBMS Overview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-rdbms-directory" class="md-nav__link">
+     1.2 RDBMS Directory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-data" class="md-nav__link">
+     2. Data
+  </a>
+  
+    <nav class="md-nav" aria-label=" 2. Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-database-schema" class="md-nav__link">
+     2.1 Database Schema
+  </a>
+  
+    <nav class="md-nav" aria-label=" 2.1 Database Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-structure-of-the-database-schema-definition-file" class="md-nav__link">
+    2.1.1 Structure of the Database Schema Definition File
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 Structure of the Database Schema Definition File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111-globals-global-parameters" class="md-nav__link">
+    2.1.1.1 globals - Global Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112-tables-database-table-definitions" class="md-nav__link">
+    2.1.1.2 tables - Database Table Definitions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-mapping-of-data-types-in-the-jdbc-driver" class="md-nav__link">
+    2.1.2 Mapping of Data Types in the JDBC Driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-example-file-db_seeder_schemacompany_99json-in-the-directory-resourcesjson" class="md-nav__link">
+    2.1.3 Example File db_seeder_schema.company_9...9.json in the Directory resources/json
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-construction-of-the-dummy-data-content" class="md-nav__link">
+     2.2 Construction of the Dummy Data Content
+  </a>
+  
+    <nav class="md-nav" aria-label=" 2.2 Construction of the Dummy Data Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-bigint" class="md-nav__link">
+    2.2.1 BIGINT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-blob" class="md-nav__link">
+    2.2.2 BLOB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-clob" class="md-nav__link">
+    2.2.3 CLOB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224-timestamp" class="md-nav__link">
+    2.2.4 TIMESTAMP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-varchar" class="md-nav__link">
+    2.2.5 VARCHAR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226-examples" class="md-nav__link">
+    2.2.6 Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.6 Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-table-city" class="md-nav__link">
+    1. Table CITY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-table-country" class="md-nav__link">
+    2. Table COUNTRY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-table-timezone" class="md-nav__link">
+    3. Table TIMEZONE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-installation" class="md-nav__link">
+     3. Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-operating-instructions" class="md-nav__link">
+     4. Operating Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4. Operating Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-script-run_db_seeder" class="md-nav__link">
+     4.1 Script run_db_seeder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-operation-possibilities" class="md-nav__link">
+     4.2 Operation Possibilities
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4.2 Operation Possibilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-features-for-the-operation-with-ubuntu" class="md-nav__link">
+    Special Features for the Operation with Ubuntu
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-control-parameters" class="md-nav__link">
+     4.3 Control Parameters
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4.3 Control Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-supported-parameters" class="md-nav__link">
+    4.3.1 Supported Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-explanation-and-cross-reference" class="md-nav__link">
+    4.3.2 Explanation and Cross-reference
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-statistics" class="md-nav__link">
+     4.4 Statistics
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4.4 Statistics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-detailed-statistical-data" class="md-nav__link">
+    4.4.1 Detailed statistical data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-performance-data-regarding-constraints" class="md-nav__link">
+    4.4.2 Performance data regarding constraints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-historical-statistical-data" class="md-nav__link">
+    4.4.3 Historical statistical data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rdbms-specific-technical-details" class="md-nav__link">
+     5. RDBMS Specific Technical Details
+  </a>
+  
+    <nav class="md-nav" aria-label=" 5. RDBMS Specific Technical Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-agensgraph" class="md-nav__link">
+     5.1 AgensGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-apache-derby" class="md-nav__link">
+     5.2 Apache Derby
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-cockroachdb" class="md-nav__link">
+     5.3 CockroachDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-cratedb" class="md-nav__link">
+     5.4 CrateDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-cubrid" class="md-nav__link">
+     5.5 CUBRID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-exasol" class="md-nav__link">
+     5.6 Exasol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-firebird" class="md-nav__link">
+     5.7 Firebird
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-h2-database-engine" class="md-nav__link">
+     5.8 H2 Database Engine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59-hsqldb" class="md-nav__link">
+     5.9 HSQLDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#510-ibm-db2-database" class="md-nav__link">
+     5.10 IBM Db2 Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#511-ibm-informix" class="md-nav__link">
+     5.11 IBM Informix
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-mariadb-server" class="md-nav__link">
+     5.12 MariaDB Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-mimer-sql" class="md-nav__link">
+     5.13 Mimer SQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-monetdb" class="md-nav__link">
+     5.14 MonetDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515-mysql-database" class="md-nav__link">
+     5.15 MySQL Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#516-omniscidb" class="md-nav__link">
+     5.16 OmniSciDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#517-oracle-database" class="md-nav__link">
+     5.17 Oracle Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#518-percona-server-for-mysql" class="md-nav__link">
+     5.18 Percona Server for MySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#519-postgresql" class="md-nav__link">
+     5.19 PostgreSQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#520-sql-server" class="md-nav__link">
+     5.20 SQL Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#521-sqlite" class="md-nav__link">
+     5.21 SQLite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-timescaledb" class="md-nav__link">
+     5.22 TimescaleDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-trino" class="md-nav__link">
+     5.23 trino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#524-voltdb" class="md-nav__link">
+     5.24 VoltDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#525-yugabytedb" class="md-nav__link">
+     5.25 YugabyteDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-trino" class="md-nav__link">
+     6. trino
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release_notes.md" class="md-nav__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release_history.md" class="md-nav__link">
+        Release History
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="code_of_conduct/" class="md-nav__link">
+        Code of Conduct
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing/" class="md-nav__link">
+        Contributing Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    Table of Contents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+     1. Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label=" 1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-rdbms-overview" class="md-nav__link">
+     1.1 RDBMS Overview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-rdbms-directory" class="md-nav__link">
+     1.2 RDBMS Directory
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-data" class="md-nav__link">
+     2. Data
+  </a>
+  
+    <nav class="md-nav" aria-label=" 2. Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-database-schema" class="md-nav__link">
+     2.1 Database Schema
+  </a>
+  
+    <nav class="md-nav" aria-label=" 2.1 Database Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-structure-of-the-database-schema-definition-file" class="md-nav__link">
+    2.1.1 Structure of the Database Schema Definition File
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 Structure of the Database Schema Definition File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111-globals-global-parameters" class="md-nav__link">
+    2.1.1.1 globals - Global Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112-tables-database-table-definitions" class="md-nav__link">
+    2.1.1.2 tables - Database Table Definitions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-mapping-of-data-types-in-the-jdbc-driver" class="md-nav__link">
+    2.1.2 Mapping of Data Types in the JDBC Driver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-example-file-db_seeder_schemacompany_99json-in-the-directory-resourcesjson" class="md-nav__link">
+    2.1.3 Example File db_seeder_schema.company_9...9.json in the Directory resources/json
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-construction-of-the-dummy-data-content" class="md-nav__link">
+     2.2 Construction of the Dummy Data Content
+  </a>
+  
+    <nav class="md-nav" aria-label=" 2.2 Construction of the Dummy Data Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-bigint" class="md-nav__link">
+    2.2.1 BIGINT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-blob" class="md-nav__link">
+    2.2.2 BLOB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-clob" class="md-nav__link">
+    2.2.3 CLOB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224-timestamp" class="md-nav__link">
+    2.2.4 TIMESTAMP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-varchar" class="md-nav__link">
+    2.2.5 VARCHAR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226-examples" class="md-nav__link">
+    2.2.6 Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.6 Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-table-city" class="md-nav__link">
+    1. Table CITY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-table-country" class="md-nav__link">
+    2. Table COUNTRY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-table-timezone" class="md-nav__link">
+    3. Table TIMEZONE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-installation" class="md-nav__link">
+     3. Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-operating-instructions" class="md-nav__link">
+     4. Operating Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4. Operating Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-script-run_db_seeder" class="md-nav__link">
+     4.1 Script run_db_seeder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-operation-possibilities" class="md-nav__link">
+     4.2 Operation Possibilities
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4.2 Operation Possibilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-features-for-the-operation-with-ubuntu" class="md-nav__link">
+    Special Features for the Operation with Ubuntu
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-control-parameters" class="md-nav__link">
+     4.3 Control Parameters
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4.3 Control Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-supported-parameters" class="md-nav__link">
+    4.3.1 Supported Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-explanation-and-cross-reference" class="md-nav__link">
+    4.3.2 Explanation and Cross-reference
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-statistics" class="md-nav__link">
+     4.4 Statistics
+  </a>
+  
+    <nav class="md-nav" aria-label=" 4.4 Statistics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-detailed-statistical-data" class="md-nav__link">
+    4.4.1 Detailed statistical data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-performance-data-regarding-constraints" class="md-nav__link">
+    4.4.2 Performance data regarding constraints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-historical-statistical-data" class="md-nav__link">
+    4.4.3 Historical statistical data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rdbms-specific-technical-details" class="md-nav__link">
+     5. RDBMS Specific Technical Details
+  </a>
+  
+    <nav class="md-nav" aria-label=" 5. RDBMS Specific Technical Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-agensgraph" class="md-nav__link">
+     5.1 AgensGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-apache-derby" class="md-nav__link">
+     5.2 Apache Derby
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-cockroachdb" class="md-nav__link">
+     5.3 CockroachDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-cratedb" class="md-nav__link">
+     5.4 CrateDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-cubrid" class="md-nav__link">
+     5.5 CUBRID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-exasol" class="md-nav__link">
+     5.6 Exasol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-firebird" class="md-nav__link">
+     5.7 Firebird
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-h2-database-engine" class="md-nav__link">
+     5.8 H2 Database Engine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59-hsqldb" class="md-nav__link">
+     5.9 HSQLDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#510-ibm-db2-database" class="md-nav__link">
+     5.10 IBM Db2 Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#511-ibm-informix" class="md-nav__link">
+     5.11 IBM Informix
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-mariadb-server" class="md-nav__link">
+     5.12 MariaDB Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-mimer-sql" class="md-nav__link">
+     5.13 Mimer SQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-monetdb" class="md-nav__link">
+     5.14 MonetDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515-mysql-database" class="md-nav__link">
+     5.15 MySQL Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#516-omniscidb" class="md-nav__link">
+     5.16 OmniSciDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#517-oracle-database" class="md-nav__link">
+     5.17 Oracle Database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#518-percona-server-for-mysql" class="md-nav__link">
+     5.18 Percona Server for MySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#519-postgresql" class="md-nav__link">
+     5.19 PostgreSQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#520-sql-server" class="md-nav__link">
+     5.20 SQL Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#521-sqlite" class="md-nav__link">
+     5.21 SQLite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-timescaledb" class="md-nav__link">
+     5.22 TimescaleDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-trino" class="md-nav__link">
+     5.23 trino
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#524-voltdb" class="md-nav__link">
+     5.24 VoltDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#525-yugabytedb" class="md-nav__link">
+     5.25 YugabyteDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-trino" class="md-nav__link">
+     6. trino
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="dbseeder-relational-database-data-generator">DBSeeder - Relational Database Data Generator.</h1>
+<p><img alt="Travis (.com)" src="https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master" />
+<img alt="GitHub release" src="https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg" />
+<img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg" />
+<img alt="GitHub commits since latest release" src="https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.6.svg" /></p>
+<hr />
+<h3 id="table-of-contents">Table of Contents</h3>
+<p><strong><a href="#introduction">1. Introduction</a></strong><br>
+<strong><a href="#rdbms_overview">1.1 RDBMS Overview</a></strong><br>
+<strong><a href="#rdbms_directory">1.2 RDBMS Directory</a></strong><br>
+<strong><a href="#performance_example">1.3 Performance Example</a></strong><br>
+<strong><a href="#data">2. Data</a></strong><br>
+<strong><a href="#data_database_schema">2.1 Database Schema</a></strong><br>
+<strong><a href="#data_construction">2.2 Construction of the Dummy Data Content</a></strong><br>
+<strong><a href="#installation">3. Installation</a></strong><br>
+<strong><a href="#operating_instructions">4. Operating Instructions</a></strong><br>
+<strong><a href="#operating_instructions_scripts">4.1 Scripts</a></strong><br>
+<strong><a href="#operation_possibilities">4.2 Operation Possibilities</a></strong><br>
+<strong><a href="#operating_instructions_control">4.3 Control Parameters</a></strong><br>
+<strong><a href="#operating_instructions_statistics">4.4 Statistics</a></strong><br>
+<strong><a href="#rdbms_specifica">5. RDBMS Specific Technical Details</a></strong><br>
+<strong><a href="#trino">6. trino</a></strong><br></p>
+<hr />
+<h2 id="1-introduction"><a name="introduction"></a> 1. Introduction</h2>
+<p><strong><code>DBSeeder</code></strong> allows the flexible generation of large amounts of anonymised random dummy data for selected relational database systems (RDBMS) - useful e.g. for stress testing.</p>
+<p>The database schema underlying the data generation can be freely defined.
+The names of the database, the schema and the user can be freely chosen, unless the respective database management system contains restrictions.
+If the selected database, schema or user already exist, they are deleted with all including data.
+<strong><code>DBSeeder</code></strong> then creates the selected database, schema or user and generates the desired dummy data.
+A maximum of 2 147 483 647 rows can be generated per database table.
+The database schema to be used, that is, the required database tables can be user defined using a JSON file.
+Details can be found here: <a href="#database_schema">Database Schema</a>.</p>
+<p>Currently, depending on the capabilities of the specific RDBMS, the following functionalities and data types are supported:</p>
+<ul>
+<li>constraints</li>
+<li>foreign (referential) key</li>
+<li>not null constraint</li>
+<li>primary key</li>
+<li>unique (alternate) key</li>
+<li>data types</li>
+<li>BIGINT - large integer</li>
+<li>BLOB - large binary object</li>
+<li>CLOB - large character Object</li>
+<li>TIMESTAMP - timestamp including date</li>
+<li>VARCHAR - variable text</li>
+</ul>
+<p>The database systems considered meet the following conditions:</p>
+<ol>
+<li>The database system is freely available in a documented docker image for testing purposes.</li>
+<li>The database system provides a well documented JDBC interface.</li>
+<li>A complete documentation of the SQL commands is available.</li>
+</ol>
+<h3 id="11-rdbms-overview"><a name="rdbms_overview"></a> 1.1 RDBMS Overview</h3>
+<table>
+<thead>
+<tr>
+<th>RDBMS</th>
+<th>Ticker Symbol(s)</th>
+<th>RDBMS Versions</th>
+<th>Latest JDBC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AgensGraph</td>
+<td>agens</td>
+<td>v2.1.1 - v2.5.0</td>
+<td>1.4.2-c1</td>
+</tr>
+<tr>
+<td>Apache Derby</td>
+<td>derby, derby_emb</td>
+<td>10.15.2.0</td>
+<td>10.15.2.0</td>
+</tr>
+<tr>
+<td>CockroachDB</td>
+<td>cockroach</td>
+<td>v20.2.5 - v21.2.6</td>
+<td>see PostgreSQL</td>
+</tr>
+<tr>
+<td>CrateDB</td>
+<td>cratedb</td>
+<td>4.1.6 - 4.7.0</td>
+<td>2.6.0</td>
+</tr>
+<tr>
+<td>CUBRID</td>
+<td>cubrid</td>
+<td>10.2 - 11.0</td>
+<td>11.0.5.0299</td>
+</tr>
+<tr>
+<td>Exasol</td>
+<td>exasol</td>
+<td>6.2.8-d1 - 7.1.6</td>
+<td>7.1.4</td>
+</tr>
+<tr>
+<td>Firebird</td>
+<td>firebird</td>
+<td>3.0.5 - v4.0.1</td>
+<td>4.0.5.java11</td>
+</tr>
+<tr>
+<td>H2 Database Engine</td>
+<td>h2, h2_emb</td>
+<td>1.4.200 - 2.1.210</td>
+<td>2.1.210</td>
+</tr>
+<tr>
+<td>HSQLDB</td>
+<td>hsqldb, hsqldb_emb</td>
+<td>2.5.1 - 2.6.1</td>
+<td>2.6.1</td>
+</tr>
+<tr>
+<td>IBM Db2 Database</td>
+<td>ibmdb2</td>
+<td>11.5.1.0 - 11.5.7.0</td>
+<td>11.5.7.0</td>
+</tr>
+<tr>
+<td>IBM Informix</td>
+<td>informix</td>
+<td>14.10 FC3DE -</td>
+<td>4.50.7.1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>14.10.FC7W1DE</td>
+<td></td>
+</tr>
+<tr>
+<td>MariaDB Server</td>
+<td>mariadb</td>
+<td>10.4.13 - 10.7.1-focal</td>
+<td>3.0.3</td>
+</tr>
+<tr>
+<td>Mimer SQL</td>
+<td>mimer</td>
+<td>v11.0.3c - v11.0.5a</td>
+<td>3.42.3</td>
+</tr>
+<tr>
+<td>MonetDB</td>
+<td>monetdb</td>
+<td>Jun2020-SP1 - Jan2022-SP1</td>
+<td>3.2.jre8</td>
+</tr>
+<tr>
+<td>MySQL Database</td>
+<td>mysql</td>
+<td>8.0.20 - 8.0.28</td>
+<td>8.0.28</td>
+</tr>
+<tr>
+<td>OmniSciDB</td>
+<td>omnisci</td>
+<td>v5.6.1 - v5.10.2</td>
+<td>5.10.0</td>
+</tr>
+<tr>
+<td>Oracle Database</td>
+<td>oracle</td>
+<td>12.1.0.2 - 21.3.0</td>
+<td>21.4.0.0.1</td>
+</tr>
+<tr>
+<td>Percona Server for MySQL</td>
+<td>percona</td>
+<td>8.0.26-17</td>
+<td>see MySQL</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>postgresql</td>
+<td>12.3 - 14.2-alpine</td>
+<td>42.3.3</td>
+</tr>
+<tr>
+<td>SQL Server</td>
+<td>sqlserver</td>
+<td>2019-CU12-ubuntu-20.04 -</td>
+<td>9.4.1.jre16</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>2019-CU15-ubuntu-20.04</td>
+<td></td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td>sqlite</td>
+<td>3.32.0 - 3.36.0</td>
+<td>3.36.0.3</td>
+</tr>
+<tr>
+<td>TimescaleDB</td>
+<td>timescale</td>
+<td>2.3.1-pg13 - 2.6.0-pg14</td>
+<td>see PostgreSQL</td>
+</tr>
+<tr>
+<td>trino</td>
+<td>mysql_trino,</td>
+<td>339 - 368</td>
+<td>368</td>
+</tr>
+<tr>
+<td></td>
+<td>oracle_trino,</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>postgresql_trino,</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>sqlserver_trino</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VoltDB</td>
+<td>voltdb</td>
+<td>9.2.1</td>
+<td>11.0</td>
+</tr>
+<tr>
+<td>YugabyteDB</td>
+<td>yugabyte</td>
+<td>2.2.2.0-b15 -</td>
+<td>see PostgreSQL</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>2.12.1.0-b41</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-rdbms-directory"><a name="rdbms_directory"></a> 1.2 RDBMS Directory</h3>
+<p>The following database systems are included in the current version of <strong><code>DBSeeder</code></strong>:</p>
+<ul>
+<li><a href="https://bitnine.net/agensgraph">AgensGraph</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>derived from PostgreSQL</li>
+<li>property graph model and relational model</li>
+<li><a href="#details_agens">see technical details here</a></li>
+<li><a href="https://db.apache.org/derby">Apache Derby</a></li>
+<li>client and embedded version</li>
+<li>open source</li>
+<li>relational model</li>
+<li><a href="#details_derby">see technical details here</a></li>
+<li><a href="https://www.cockroachlabs.com">CockroachDB</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>compatible with PostgreSQL JDBC</li>
+<li>relational model</li>
+<li><a href="#details_cratedb">see technical details here</a></li>
+<li><a href="https://crate.io">CrateDB</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>compatible with PostgreSQL</li>
+<li>relational model</li>
+<li><a href="#details_cratedb">see technical details here</a></li>
+<li><a href="https://www.cubrid.org">CUBRID</a> </li>
+<li>client only version</li>
+<li>compatible with MySQL</li>
+<li>open source</li>
+<li>relational model</li>
+<li><a href="#details_cubrid">see technical details here</a></li>
+<li><a href="https://www.exasol.com/en">Exasol</a> </li>
+<li>client only version</li>
+<li>commercial</li>
+<li>in-memory, column-oriented, relational model</li>
+<li><a href="#details_exasol">see technical details here</a></li>
+<li><a href="https://firebirdsql.org">Firebird</a> </li>
+<li>client and embedded (not supported here) version</li>
+<li>open source</li>
+<li>relational model</li>
+<li><a href="#details_firebird">see technical details here</a></li>
+<li><a href="https://www.h2database.com/html/main.html">H2 Database Engine</a> </li>
+<li>client and embedded version</li>
+<li>compatible with HSQLDB, PostgreSQL</li>
+<li>open source</li>
+<li>relational model</li>
+<li><a href="#details_h2">see technical details here</a></li>
+<li><a href="https://hsqldb.org">HSQLDB</a> </li>
+<li>client and embedded version</li>
+<li>open source</li>
+<li>relational model</li>
+<li><a href="#details_hsqldb">see technical details here</a></li>
+<li><a href="https://www.ibm.com/products/db2-database">IBM Db2 Database</a> </li>
+<li>client only version</li>
+<li>commercial</li>
+<li>relational model</li>
+<li><a href="#details_ibmdb2">see technical details here</a></li>
+<li><a href="https://www.ibm.com/products/informix">IBM Informix</a> </li>
+<li>client only version</li>
+<li>commercial</li>
+<li>relational model</li>
+<li><a href="#details_informix">see technical details here</a></li>
+<li><a href="https://mariadb.com">MariaDB Server</a> </li>
+<li>client only version</li>
+<li>open source</li>
+<li>derived from MySQL</li>
+<li>relational model</li>
+<li><a href="#details_mariadb">see technical details here</a></li>
+<li><a href="https://www.mimer.com">Mimer SQL</a> </li>
+<li>client only version</li>
+<li>commercial</li>
+<li>relational model</li>
+<li><a href="#details_mimer">see technical details here</a></li>
+<li><a href="https://www.monetdb.org">MonetDB</a> </li>
+<li>client only version</li>
+<li>open source</li>
+<li>column-oriented relational model</li>
+<li><a href="#details_monetdb">see technical details here</a></li>
+<li><a href="https://www.mysql.com">MySQL Database</a> </li>
+<li>client only version</li>
+<li>open source</li>
+<li>relational model</li>
+<li><a href="#details_mysql">see technical details here</a></li>
+<li><a href="https://www.omnisci.com">OmniSciDB</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>GPU and CPU version</li>
+<li>relational model</li>
+<li><a href="#details_omnisci">see technical details here</a></li>
+<li><a href="https://www.oracle.com/database">Oracle Database</a></li>
+<li>client only version</li>
+<li>commercial</li>
+<li>relational model</li>
+<li><a href="#details_oracle">see technical details here</a></li>
+<li><a href="https://www.percona.com/software/mysql-database/percona-server">Percona Server for MySQL</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>derived from MySQL</li>
+<li>relational model</li>
+<li><a href="#details_percona">see technical details here</a></li>
+<li><a href="https://www.postgresql.org">PostgreSQL</a></li>
+<li>client only version</li>
+<li>open source</li>
+<li>relational model</li>
+<li><a href="#details_postgresql">see technical details here</a></li>
+<li><a href="https://www.microsoft.com/en-us/sql-server/sql-server-2019">SQL Server</a></li>
+<li>client only version</li>
+<li>commercial</li>
+<li>derived from Adaptive Server Enterprise</li>
+<li>relational model</li>
+<li><a href="#details_sqlserver">see technical details here</a></li>
+<li><a href="https://www.sqlite.org">SQLite</a></li>
+<li>commercial, open source</li>
+<li>embedded only version</li>
+<li>relational model</li>
+<li><a href="#details_sqlite">see technical details here</a></li>
+<li><a href="https://www.timescale.com">TimescaleDB</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>derived from PostgreSQL</li>
+<li>relational model</li>
+<li><a href="#details_timescale">see technical details here</a></li>
+<li><a href="https://trino.io">trino</a></li>
+<li>compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift</li>
+<li>distributed query engine</li>
+<li>open source</li>
+<li><a href="#details_trino">see technical details here</a></li>
+</ul>
+<p>For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver.
+The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
+Details can be found here: <a href="#trino">trino</a>.</p>
+<ul>
+<li><a href="https://www.voltdb.com">VoltDB</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>derived from H-Store, HSQLDB</li>
+<li>in-memory relational model</li>
+<li><a href="#details_voltdb">see technical details here</a></li>
+<li><a href="https://www.yugabyte.com">YugabyteDB</a></li>
+<li>client only version</li>
+<li>commercial, open source</li>
+<li>compatible with Cassandra, PostgreSQL, Redis</li>
+<li>derived from PostgreSQL, RocksDB</li>
+<li>inspired by Cloud Spanner</li>
+<li>relational model</li>
+<li><a href="#details_yugabyte">see technical details here</a></li>
+</ul>
+<h2 id="2-data"><a name="data"></a> 2. Data</h2>
+<h3 id="21-database-schema"><a name="data_database_schema"></a> 2.1 Database Schema</h3>
+<p>The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script <code>scripts/run_db_seeder_generate_schema</code>.
+To validate the database schema in the JSON parameter file, the JSON schema file <code>db_seeder_schema.schema.json</code> in the directory <code>src/main/resources</code> is used.</p>
+<h4 id="211-structure-of-the-database-schema-definition-file">2.1.1 Structure of the Database Schema Definition File</h4>
+<p>The definition of a database schema consists of the object <code>global</code> with the global parameters and the array <code>tables</code>, which contains the definition of the database tables.</p>
+<h5 id="2111-globals-global-parameters">2.1.1.1 <code>globals</code> - Global Parameters</h5>
+<ul>
+<li><code>defaultNumberOfRows</code> - default value for the number of table rows to be generated, if no value is specified in the table definition</li>
+<li><code>encodingISO_8859_1</code> - a string with Western Latin characters is inserted into generated character columns</li>
+<li><code>encodingUTF_8</code> - a string with simplified Chinese characters is inserted into generated character columns
+ specified in the table definition</li>
+<li><code>nullFactor</code> - determines the proportion of NULL values in optional columns and must be between 2 and 99 (inclusive): 2 means 50%, 4 means 25%, 10 means 10%, etc., default value is 4</li>
+</ul>
+<h5 id="2112-tables-database-table-definitions">2.1.1.2 <code>tables</code> - Database Table Definitions</h5>
+<ul>
+<li><code>tableName</code> - database table name</li>
+<li><code>numberOfRows</code> - number of table rows to be generated</li>
+<li><code>columns</code> - an array of column definitions</li>
+<li><code>columnName</code> - column name</li>
+<li><code>dataType</code> - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR</li>
+<li><code>size</code> - for data type VARCHAR the maximum size of the column value </li>
+<li><code>precision</code> - currently not used</li>
+<li><code>notNull</code> - is a NULL value allowed ?</li>
+<li><code>primaryKey</code> - is this the primary key column ?</li>
+<li><code>references</code> - an array of foreign key definitions<ul>
+<li><code>referenceTable</code> - name of the reference database table</li>
+<li><code>referenceColumn</code> - name of the reference column </li>
+</ul>
+</li>
+<li><code>defaultValueInteger</code> - default value for integer columns</li>
+<li><code>defaultValueString</code> - default value for alphanumeric columns</li>
+<li><code>lowerRangeInteger</code> - lower limit for an integer column, requires also an upper limit</li>
+<li><code>lowerRangeString</code> - lower limit for an alphanumeric column, requires also an upper limit</li>
+<li><code>upperRangeInteger</code> - upper limit for an integer column</li>
+<li><code>upperRangeString</code> - upper limit for an alphanumeric column</li>
+<li><code>validValuesInteger</code> - valid values for an integer column</li>
+<li><code>validValuesString</code> - valid values for an alphanumeric column</li>
+<li><code>tableConstraints</code> - an array of table constraint definitions</li>
+<li><code>constraintType</code> - constraint type, is one of FOREIGN, PRIMARY or UNIQUE</li>
+<li><code>columns</code> - an arry with the names of the affected columns</li>
+<li><code>referenceTable</code> - name of the reference database table, only for foreign keys</li>
+<li><code>referenceColumns</code> - an arry with the names of the affected reference columns, only for foreign keys</li>
+</ul>
+<p>Only either a range restriction (<code>lowerRange...</code>, <code>upperRange...</code>) or a value restriction (<code>validValues...</code>) may be specified for each column.</p>
+<h4 id="212-mapping-of-data-types-in-the-jdbc-driver">2.1.2 Mapping of Data Types in the JDBC Driver</h4>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>JDBC Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BIGINT</code></td>
+<td><code>setLong</code></td>
+</tr>
+<tr>
+<td><code>BLOB</code></td>
+<td><code>setBytes</code></td>
+</tr>
+<tr>
+<td><code>CLOB</code></td>
+<td><code>setString</code></td>
+</tr>
+<tr>
+<td><code>TIMESTAMP</code></td>
+<td><code>setTimestamp</code></td>
+</tr>
+<tr>
+<td><code>VARCHAR</code></td>
+<td><code>setNString</code> (Firebird, MariaDB, MS SQL SERVER and Oracle)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>setString</code> (else)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="213-example-file-db_seeder_schemacompany_99json-in-the-directory-resourcesjson">2.1.3 Example File <code>db_seeder_schema.company_9...9.json</code> in the Directory <code>resources/json</code></h4>
+<p>This file contains the definition of a simple database schema consisting of the database tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE.  </p>
+<p>The abbreviations in the following illustration (created with Toad Data Modeler) mean:</p>
+<ul>
+<li>(AK1) - alternate key (unique key)</li>
+<li>FK    - foreign key</li>
+<li>NN    - not null</li>
+<li>PK    - primary key</li>
+</ul>
+<p><img alt="" src="resources/.README_images/RE_Oracle_19c.png" /></p>
+<h3 id="22-construction-of-the-dummy-data-content"><a name="data_construction"></a> 2.2 Construction of the Dummy Data Content</h3>
+<p>The proportion of <code>NULL</code> values in optional columns is defined by the global parameter <code>nullFactor</code>.</p>
+<p>All methods for generating column contents can be overwritten if necessary.</p>
+<h4 id="221-bigint">2.2.1 BIGINT</h4>
+<p>Java method: <code>getContentBigint</code></p>
+<ul>
+<li>If the column parameter <code>validValuesInteger</code> is defined in the database schema, a random value is taken from it. </li>
+<li>If the column parameters <code>lowerRangeInteger</code> and <code>upperRangeInteger</code> are defined in the database schema, a random value is taken from this interval. </li>
+<li>Otherwise the counter for the current row (row number) is used. </li>
+</ul>
+<h4 id="222-blob">2.2.2 BLOB</h4>
+<p>Java method: <code>getContentBlob</code></p>
+<ul>
+<li>The content of the file <code>blob.png</code> from the resource directory (<code>src/main/resources</code>) is loaded into these columns.This file contains the company logo of Konnexions GmBH.</li>
+</ul>
+<h4 id="223-clob">2.2.3 CLOB</h4>
+<p>Java method: <code>getContentClob</code></p>
+<ul>
+<li>The content of the file <code>clob.md</code> from the resource directory (<code>src/main/resources</code>) is loaded into these columns. This file contains the text of the Konnexions Public License (KX-PL).</li>
+</ul>
+<h4 id="224-timestamp">2.2.4 TIMESTAMP</h4>
+<p>Java method: <code>getContentTimestamp</code></p>
+<ul>
+<li>A randomly generated timestamp is assigned to all columns that can contain temporal data.</li>
+</ul>
+<h4 id="225-varchar">2.2.5 VARCHAR</h4>
+<p>Java method: <code>getContentVarchar</code></p>
+<ul>
+<li>If the column parameter <code>validValuesString</code> is defined in the database schema, a random value is taken from it. </li>
+<li>If the column parameters <code>lowerRangeString</code> and <code>upperRangeString</code> are defined in the database schema, a random value is taken from this interval. </li>
+<li>Otherwise content of the column is constructed depending on the row number and the encoding flags as follows:</li>
+<li>ASCII (all rows where the index modulo 3 is 0):<ul>
+<li>column name in capital letters</li>
+<li>underscore <code>_</code></li>
+<li>current row number left-justified</li>
+</ul>
+</li>
+<li>ISO 8859 1 (all rows where the index modulo 3 is 1) :<ul>
+<li>column name in capital letters</li>
+<li>underscore <code>_</code></li>
+<li>a string containing specific Western European characters with accent (e.g. French, Portuguese or Spanish)</li>
+<li>underscore <code>_</code></li>
+<li>current row number left-justified</li>
+</ul>
+</li>
+<li>the ISO 8859 1 version can be prevented by choosing <code>encodingISO_8859_1</code> <code>false</code> in the database schema definition  </li>
+<li>UTF-8 (all rows where the index modulo 3 is 2):<ul>
+<li>column name in capital letters</li>
+<li>underscore <code>_</code></li>
+<li>a string containing simplified Chinese characters</li>
+<li>underscore <code>_</code></li>
+<li>current row number left-justified</li>
+</ul>
+</li>
+<li>the UTF-8 version can be prevented by choosing <code>encodingUTF_8</code> <code>false</code> in the database schema definition</li>
+<li>If the resulting value exceeds the permissible column size, the value is shortened accordingly from the left</li>
+</ul>
+<h4 id="226-examples">2.2.6 Examples</h4>
+<h5 id="1-table-city">1. Table CITY</h5>
+<p><img alt="" src="resources/.README_images/Example_Data_CITY.png" /></p>
+<h5 id="2-table-country">2. Table COUNTRY</h5>
+<p><img alt="" src="resources/.README_images/ExampleData_COUNTRY.png" /></p>
+<h5 id="3-table-timezone">3. Table TIMEZONE</h5>
+<p><img alt="" src="resources/.README_images/Example_Data_TIMEZONE.png" /></p>
+<h2 id="3-installation"><a name="installation"></a> 3. Installation</h2>
+<p>The easiest way is to download a current release of <strong><code>DBSeeder</code></strong> from the GitHub repository.
+You can find the necessary link <a href="https://github.com/KonnexionsGmbH/db_seeder">here</a>.</p>
+<p>To download the repository <a href="https://git-scm.com">Git</a> is needed and for compilation the <a href="https://gradle.org">Gradle Build Tool</a> and the <a href="https://openjdk.java.net">open-source JDK</a> are needed.
+For changes to the <strong><code>DBSeeder</code></strong> repository it is best to use an editor (e.g. <a href="https://www.vim.org">Vim</a>) or an IDE (e.g. <a href="https://www.eclipse.org">Eclipse IDE</a>).
+For using the Docker Image based databases in operational mode, <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a> must also be installed.
+For the respective software versions, please consult the document <a href="release-notes/">release notes</a>.</p>
+<h2 id="4-operating-instructions"><a name="operating_instructions"></a> 4. Operating Instructions</h2>
+<h3 id="41-script-run_db_seeder"><a name="operating_instructions_scripts"></a> 4.1 Script <code>run_db_seeder</code></h3>
+<p>Using the <strong><code>DBSeeder</code></strong> development and operational Docker image from Docker Hub (see <a href="https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder">here</a>) eliminates the need to install the runtime environment.</p>
+<p>With the script <code>run_db_seeder</code> the complete functionality of the <strong><code>DBSeeder</code></strong> application can be used:</p>
+<ul>
+<li>Creating a suitable database</li>
+<li>Generation of any number of dummy data.</li>
+</ul>
+<p>All scripts are available in a Windows version (<code>cmd</code> / <code>.bat</code>) as well as in a Unix version (<code>bash</code> / <code>.sh</code>). 
+To run the scripts, apart from the prerequisites as release notes (<code>ReleaseNotes.md</code>), 
+only the libraries in the <code>lib</code> directory and the corresponding script of <code>run_db_seeder</code> are required. 
+The creation of the databases also requires a working access to <a href="https://hub.docker.com">Docker Hub</a>.</p>
+<p>All control parameters used in <strong><code>DBSeeder</code></strong> (see section 4.3) can be adapted in the scripts to specific needs.</p>
+<p>The <code>run_db_seeder</code> script is controlled by the following script parameters:: </p>
+<ul>
+<li><code>DB_SEEDER_DBMS</code>: the ticker symbol of the desired database management system (default value <code>sqlite</code>) or <code>complete</code> for all implemented RDBMS.</li>
+<li><code>DB_SEEDER_SETUP_DBMS</code>: should an empty database be created:</li>
+<li><code>yes</code>: a new database is created based on a suitable Docker image</li>
+<li>otherwise: no database is created </li>
+<li><code>DB_SEEDER_NO_CREATE_RUNS</code>: Number of dummy data generation runs:</li>
+<li>1: one run</li>
+<li>2: two runs</li>
+<li>otherwise: no run</li>
+</ul>
+<p>For the run variants <code>complete</code>, <code>complete_client</code>, <code>complete_emb</code> and <code>complete_trino</code>, statistics files with the following data name structure are created in the file directory <code>resources/statistics</code> by default:</p>
+<pre><code>db_seeder_&lt;bash|cmd&gt;_&lt;run variant&gt;_unknown_&lt;DBSeeder release&gt;_&lt;vmware|win10|wsl2&gt;.&lt;csv|tsv&gt;
+</code></pre>
+<p>An overview of the structure of the scripts used can be taken from the following diagram:</p>
+<p><img alt="" src="resources/.README_images/script_structure.png" /></p>
+<h3 id="42-operation-possibilities"><a name="operation_possibilities"></a> 4.2 Operation Possibilities</h3>
+<p><strong><code>DBSeeder</code></strong> is tested under <a href="https://ubuntu.com">Ubuntu</a> and <a href="https://en.wikipedia.org/wiki/Microsoft_Windows">Microsoft Windows</a>.
+In addition, tests are always performed in Windows with Ubuntu under the <a href="https://docs.microsoft.com/en-us/windows/wsl">Windows Subsystem for Linux (WSL)</a>.
+Besides one of the two operating systems, these are the minimum requirements for running <strong><code>DBSeeder</code></strong>:</p>
+<ul>
+<li><a href="https://www.docker.com/products/docker-desktop">Docker Desktop Community</a></li>
+<li><a href="https://www.eclipse.org">Eclipse IDE</a></li>
+<li><a href="https://gradle.org">Gradle Build Tool</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Java_Development_Kit">Java Development Kit</a></li>
+</ul>
+<p>Details on the required software versions can be found in the <a href="release-notes/">release notes</a>.</p>
+<h4 id="special-features-for-the-operation-with-ubuntu">Special Features for the Operation with Ubuntu</h4>
+<ul>
+<li>
+<p>A suitable image is available on Docker Hub for development and operation, see <a href="https://hub.docker.com/repository/docker/konnexionsgmbh/db_seeder">here</a>.</p>
+</li>
+<li>
+<p>In the directory <code>scripts/3.0.6</code> are the two scripts <code>run_install_4_vm_wsl2_1.sh</code> and <code>run_install_4_vm_wsl2_1.sh</code> with which an Ubuntu environment can be prepared for development and operation.</p>
+</li>
+<li>
+<p>If the Windows Subsystem for Linux (WSL) is to be used, then the <code>WSL INTEGRATION</code> for Ubuntu must be activated in Docker</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/Docker_Desktop_Settings_1.png" /></p>
+<p><img alt="" src="resources/.README_images/Docker_Desktop_Settings_2.png" /></p>
+<h3 id="43-control-parameters"><a name="operating_instructions_control"></a> 4.3 Control Parameters</h3>
+<h4 id="431-supported-parameters">4.3.1 Supported Parameters</h4>
+<p>The flow control parameters for <strong><code>DBSeeder</code></strong> are stored in the properties file <code>src/main/resources/db_seeder.properties</code> and can all be overridden by the environment variables defined in the scripts.
+The following control parameters are currently supported:</p>
+<pre><code>db_seeder.batch.size=0
+db_seeder.character.set.server=
+db_seeder.collation.server=
+db_seeder.connection.host=
+db_seeder.connection.host.trino=
+db_seeder.connection.port=0
+db_seeder.connection.port.trino=0
+db_seeder.connection.prefix=
+db_seeder.connection.service=
+db_seeder.connection.suffix=
+
+db_seeder.database.sys=
+db_seeder.database=
+db_seeder.drop.constraints=
+
+db_seeder.file.configuration.name=yes
+db_seeder.file.improvement.header=DBMS;Type;ms;Constraints;Improvement
+db_seeder.file.improvement.name=
+db_seeder.file.json.name=resources/json/db_seeder_schema.company_5400.json
+db_seeder.file.statistics.delimiter=\t
+db_seeder.file.statistics.header=ticker symbol;DBMS;db type;total ms;start time;end time;host name;no. cores;operating system;total DDL ms;drop constr. ms;add constr. ms;total DML ms;constraints
+db_seeder.file.statistics.name=resources/statistics/db_seeder_statistics.tsv
+db_seeder.file.summary.name=
+db_seeder.file.summary.source=resources/statistics
+
+db_seeder.password.sys=
+db_seeder.password=
+
+db_seeder.schema=
+
+db_seeder.user.sys=
+db_seeder.user=
+</code></pre>
+<h4 id="432-explanation-and-cross-reference">4.3.2 Explanation and Cross-reference</h4>
+<table>
+<thead>
+<tr>
+<th>Property incl. Default Value [db.seeder.]</th>
+<th>Environment Variable [DB_SEEDER_]</th>
+<th>Used By</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>batch.size=&lt;9...9&gt;</td>
+<td>BATCH_SIZE</td>
+<td>all RDBMS except</td>
+<td>number of insert operations for the bulk operation, default value 0 (a single bulk operation for each database table)</td>
+</tr>
+<tr>
+<td>character.set.server=<x...x></td>
+<td>CHARACTER_SET_SERVER</td>
+<td>mariadb</td>
+<td>default server character set</td>
+</tr>
+<tr>
+<td>collation.server=<x...x></td>
+<td>COLLATION_SERVER</td>
+<td>mariadb</td>
+<td>default server collation</td>
+</tr>
+<tr>
+<td>connection.host=<x...x></td>
+<td>CONNECTION_HOST</td>
+<td>all client RDBMS</td>
+<td>host name or ip address of the database server</td>
+</tr>
+<tr>
+<td>connection.host_trino=<x...x></td>
+<td>CONNECTION_HOST_TRINO</td>
+<td>trino</td>
+<td>host name or ip address of the trino</td>
+</tr>
+<tr>
+<td>connection.port=&lt;9...9&gt;</td>
+<td>CONNECTION_PORT</td>
+<td>all client RDBMS</td>
+<td>port number of the database server</td>
+</tr>
+<tr>
+<td>connection.port_trino=&lt;9...9&gt;</td>
+<td>CONNECTION_PORT_TRINO</td>
+<td>trino</td>
+<td>port number of the trino</td>
+</tr>
+<tr>
+<td>connection.prefix=<x...x></td>
+<td>CONNECTION_PREFIX</td>
+<td>all RDBMS</td>
+<td>prefix of the database connection string</td>
+</tr>
+<tr>
+<td>connection.service=<x...x></td>
+<td>CONNECTION_SERVICE</td>
+<td>oracle</td>
+<td>service name of the database connection string</td>
+</tr>
+<tr>
+<td>connection.suffix=<x...x></td>
+<td>CONNECTION_SUFFIX</td>
+<td>firebird, hsqldb, mysql, percona, voltdb</td>
+<td>suffix of the database connection string</td>
+</tr>
+<tr>
+<td>database.sys=<x...x></td>
+<td>DATABASE_SYS</td>
+<td>agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,</td>
+<td>privileged database name</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>postgresql, sqlserver, timescale, yugabyte</td>
+<td></td>
+</tr>
+<tr>
+<td>database=<x...x></td>
+<td>DATABASE</td>
+<td>all RDBMS except cratedb, exasol, monetdb, oracle, voltdb</td>
+<td>database name</td>
+</tr>
+<tr>
+<td>drop.constraints=<yes></td>
+<td>DROP_CONSTRAINTS</td>
+<td>all RDBMS except cockroach, cratedb, h2, omnisci, sqlite, trino</td>
+<td>drop all contraints before the DML operations and recreate them afterwards</td>
+</tr>
+<tr>
+<td>file.configuration.name=<x...x></td>
+<td>FILE_CONFIGURATION_NAME</td>
+<td>n/a</td>
+<td>directory and file name of the <strong><code>DBSeeder</code></strong> configuration file</td>
+</tr>
+<tr>
+<td>file.improvement.header=<x...x></td>
+<td>FILE_IMPROVEMENT_HEADER</td>
+<td>all RDBMS</td>
+<td>header line of the improvement file created in <code>run_db_seeder_compute_improvement</code></td>
+</tr>
+<tr>
+<td>file.improvement.name=<x...x></td>
+<td>FILE_IMPROVEMENT_NAME</td>
+<td>all RDBMS</td>
+<td>directory and file name of the <strong><code>DBSeeder</code></strong> improvement file created in <code>run_db_seeder_compute_improvement</code></td>
+</tr>
+<tr>
+<td>file.json.name=<x...x></td>
+<td>FILE_JSON_NAME</td>
+<td>scripts/run_db_seeder_generate_schema</td>
+<td>directory and file name of the JSON file containing the database schema</td>
+</tr>
+<tr>
+<td>file.statistics.delimiter=<x...x></td>
+<td>FILE_STATISTICS_DELIMITER</td>
+<td>all RDBMS</td>
+<td>separator of the statistics file created in <code>run_db_seeder</code></td>
+</tr>
+<tr>
+<td>file.statistics.header=<x...x></td>
+<td>FILE_STATISTICS_HEADER</td>
+<td>all RDBMS</td>
+<td>header line of the statistics file created in <code>run_db_seeder</code></td>
+</tr>
+<tr>
+<td>file.statistics.name=<x...x></td>
+<td>FILE_STATISTICS_NAME</td>
+<td>all RDBMS</td>
+<td>file name of the statistics file created in <code>run_db_seeder</code></td>
+</tr>
+<tr>
+<td>file.summary.name=<x...x></td>
+<td>FILE_SUMMARY_NAME</td>
+<td>all RDBMS</td>
+<td>file name of the summary statistics file created in <code>run_db_seeder_create_summary</code></td>
+</tr>
+<tr>
+<td>file.summary.source=<x...x></td>
+<td>FILE_SUMMARY_SOURCE</td>
+<td>all RDBMS</td>
+<td>directory name(s) (separated by semicolon) of the source directories containing statistics files</td>
+</tr>
+<tr>
+<td>password.sys=<x...x></td>
+<td>PASSWORD_SYS</td>
+<td>agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,</td>
+<td>password of the privileged user</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>oracle, percona, postgresql, sqlserver, timescale</td>
+<td></td>
+</tr>
+<tr>
+<td>password=<x...x></td>
+<td>PASSWORD</td>
+<td>all RDBMS except cockroach, derby, ibmdb2, informix</td>
+<td>password of the normal user</td>
+</tr>
+<tr>
+<td>schema=kxn_schema</td>
+<td>SCHEMA</td>
+<td>agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver,</td>
+<td>schema name</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>timescale, yugabyte</td>
+<td></td>
+</tr>
+<tr>
+<td>user.sys=<x...x></td>
+<td>USER_SYS</td>
+<td>all RDBMS except derby, voltdb</td>
+<td>name of the privileged user</td>
+</tr>
+<tr>
+<td>user=kxn_user</td>
+<td>USER</td>
+<td>all RDBMS except derby, ibmdb2, informix</td>
+<td>name of the normal user</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="44-statistics"><a name="operating_instructions_statistics"></a> 4.4 Statistics</h3>
+<p>Each new release is completed with the creation of 7 statistics files in the file directory <code>resources/statistics</code>.
+The data contained in these files show the DDL and DML performance of the individual databases under identical conditions:</p>
+<ul>
+<li>Operating systems: Ubuntu with VMware Workstation Player, Ubuntu with WSL (Windoiws Subsystem for Linux) on Windows and Windows.</li>
+<li><code>..._vmware.tsv</code>: Ubuntu with VMware Workstation Player on Windows</li>
+<li><code>...._win10.tsv</code>: Windows 10</li>
+<li><code>....._wsl2.tsv</code>: Ubuntu LTS with Windows Subsystem for Linux 2 on Windows</li>
+<li>DDL: Creation of the database schema consisting of the 5 relational tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE (see JSON file: <code>resources/json/db_seeder_schema.company_5400.json</code>).</li>
+<li>DML: Insert records into these database tables - CITY 1800, COMPANY 5400, COUNTRY 200, COUNTRY_STATE 600 and TIMEZONE 11.</li>
+<li>If possible, two runs are made for each database system: one run with constraints enabled and one run with constraints disabled - see column <code>constraints</code>:</li>
+<li><code>active</code>: constraints are enabled</li>
+<li><code>active - no choice</code>: constraints are enabled and disabling is not possible</li>
+<li><code>inactive</code>: constraints are disabled</li>
+</ul>
+<p>The creation of these statistics files is managed by the following control parameters (<a href="#operating_instructions_control">see here</a>):</p>
+<pre><code>db_seeder.file.improvement.header=DBMS;Type;ms;Constraints;Improvement
+db_seeder.file.improvement.name=
+db_seeder.file.statistics.delimiter=\t
+db_seeder.file.statistics.header=ticker symbol;DBMS;db type;total ms;start time;end time;host name;no. cores;operating system;total DDL ms;drop constr. ms;add constr. ms;total DML ms;constraints
+db_seeder.file.statistics.name=resources/statistics/db_seeder_statistics.tsv
+db_seeder.file.summary.name=
+db_seeder.file.summary.source=resources/statistics
+</code></pre>
+<p><img alt="" src="resources/.README_images/Statistics_Directory.png" /></p>
+<h4 id="441-detailed-statistical-data">4.4.1 Detailed statistical data</h4>
+<p><img alt="" src="resources/.README_images/Statistics_Data_Detailed.png" /></p>
+<p><strong>File name syntax</strong>: <code>db_seeder_&lt;bash|cmd&gt;_complete_&lt;company|syntax&gt;_&lt;DBSeeder version&gt;_&lt;vmware|wsl2|win10&gt;.&lt;csv|tsv&gt;</code></p>
+<p><strong>Explanation for the columns</strong>:</p>
+<ul>
+<li><code>ticker symbol</code> - internal abbreviation used for the database</li>
+<li><code>DBMS</code> - official DBMS name</li>
+<li><code>db type</code> - client version, embedded version or via trino</li>
+<li><code>total ms</code> - total time of DDL and DML operations in milliseconds</li>
+<li><code>start time</code> - date and time when the database operations were started</li>
+<li><code>end time</code> - date and time when the database operations were completed</li>
+<li><code>host name</code> - name of the computer connected to a computer network</li>
+<li><code>no. cores</code> -  number of CPU cores used</li>
+<li><code>operating system</code></li>
+<li><code>total DDL ms</code> - total time of DDL operations in milliseconds</li>
+<li><code>drop constr. ms</code> - total time to drop all constraints</li>
+<li><code>add constr. ms</code> - total time to add the previously dropped constraints</li>
+<li><code>total DML ms</code> - total time of DML operations in milliseconds</li>
+<li><code>constraints</code> - DML operations with enabled (active) or disabled (inactive) constraints (foreign, primary and unique key)</li>
+</ul>
+<h4 id="442-performance-data-regarding-constraints">4.4.2 Performance data regarding constraints</h4>
+<p><img alt="" src="resources/.README_images/Statistics_Data_Constraints.png" /></p>
+<p><strong>File name syntax</strong>: <code>db_seeder_&lt;bash|cmd&gt;_improvement_&lt;company|syntax&gt;_&lt;DBSeeder version&gt;_&lt;vmware|wsl2|win10&gt;.&lt;csv|tsv&gt;</code></p>
+<p><strong>Explanation for the columns</strong>:</p>
+<ul>
+<li><code>DBMS</code> - official DBMS name</li>
+<li><code>Type</code> - client version, embedded version or via trino</li>
+<li><code>ms</code> - total time of DDL and DML operations in milliseconds</li>
+<li><code>Constraints</code> - DML operations with enabled (active) or disabled (inactive) constraints (foreign, primary and unique key)</li>
+<li><code>Improvment</code> - improvement of total time if constraints are inactive</li>
+</ul>
+<h4 id="443-historical-statistical-data">4.4.3 Historical statistical data</h4>
+<p><img alt="" src="resources/.README_images/Statistics_Data_Historical.png" /></p>
+<p><strong>File name syntax</strong>: <code>db_seeder_summary_&lt;first DBSeeder version&gt;-&lt;current DBSeeder version&gt;.&lt;csv|tsv&gt;</code></p>
+<p><strong>Explanation for the columns</strong>:</p>
+<ul>
+<li><code>ticker symbol</code> - internal abbreviation used for the database</li>
+<li><code>DBMS</code> - official DBMS name</li>
+<li><code>version</code> - DBSeeder version</li>
+<li><code>creator</code> - shell environment: <code>bash</code> or <code>cmd</code></li>
+<li><code>db type</code> - client version, embedded version or via trino</li>
+<li><code>constraints</code> - DML operations with enabled (<code>active</code> and <code>active - no choice</code>) or disabled (<code>inactive</code>) constraints (foreign, primary and unique key)</li>
+<li><code>schema</code> - identification term for the scheme definition used: <code>company</code> or <code>syntax</code></li>
+<li><code>total ms</code> - total time of DDL and DML operations in milliseconds</li>
+<li><code>start time</code> - date and time when the database operations were started</li>
+<li><code>end time</code> - date and time when the database operations were completed</li>
+<li><code>host name</code> - name of the computer connected to a computer network</li>
+<li><code>no. cores</code> - number of CPU cores used</li>
+<li><code>operating system</code></li>
+<li><code>file name</code> - name of the file with the source data</li>
+<li><code>total DDL ms</code> - total time of DDL operations in milliseconds</li>
+<li><code>drop constr. ms</code> - total time to drop all constraints</li>
+<li><code>add constr. ms</code> - total time to add the previously dropped constraints</li>
+<li><code>total DML ms</code> - total time of DML operations in milliseconds</li>
+</ul>
+<h2 id="5-rdbms-specific-technical-details"><a name="rdbms_specifica"></a> 5. RDBMS Specific Technical Details</h2>
+<p><a href="https://dbeaver.io">DBeaver</a> is a great tool to analyze the database content. 
+In the file directory <code>resources/dbeaver</code> you will also find a file exported from DBeaver with the connection parameters currently used in DBSeeder.</p>
+<ul>
+<li><a href="#details_agens">AgensGraph</a> </li>
+<li><a href="#details_derby">Apache Derby</a></li>
+<li><a href="#details_cockroach">CockroachDB</a></li>
+<li><a href="#details_cratedb">CrateDB</a></li>
+<li><a href="#details_cubrid">CUBRID</a></li>
+<li><a href="#details_exasol">Exasol</a>  </li>
+<li><a href="#details_firebird">Firebird</a>  </li>
+<li><a href="#details_h2">H2 Database Engine</a>  </li>
+<li><a href="#details_hsqldb">HSQLDB</a>  </li>
+<li><a href="#details_ibmdb2">IBM Db2 Database</a> </li>
+<li><a href="#details_informix">IBM Informix</a> </li>
+<li><a href="#details_mariadb">MariaDB Server</a> </li>
+<li><a href="#details_mimer">Mimer SQL</a> </li>
+<li><a href="#details_monetdb">MonetDB</a> </li>
+<li><a href="#details_mysql">MySQL Database</a> </li>
+<li><a href="#details_omnisci">OmniSciDB</a></li>
+<li><a href="#details_oracle">Oracle Database</a></li>
+<li><a href="#details_percona">Percona Server for MySQL</a> </li>
+<li><a href="#details_postgresql">PostgreSQL</a> </li>
+<li><a href="#details_sqlserver">SQL Server</a></li>
+<li><a href="#details_sqlite">SQLite</a></li>
+<li><a href="#details_timescale">TimescaleDB</a></li>
+<li><a href="#details_trino">trino</a></li>
+<li><a href="#details_voltdb">VoltDB</a></li>
+<li><a href="#details_yugabyte">YugabyteDB</a></li>
+</ul>
+<h3 id="51-agensgraph"><a name="details_agens"></a> 5.1 AgensGraph</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>AgensGraph Database Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BYTEA</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE: see PostgreSQL </li>
+<li>CREATE SCHEMA: see PostgreSQL</li>
+<li>CREATE TABLE: see PostgreSQL </li>
+<li>
+<p>CREATE USER: see PostgreSQL </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull bitnine/agensgraph:v2.5.0</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/bitnine/agensgraph">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: see PostgreSQL</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/bitnine-oss/agensgraph/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>version 1.4.2-c1</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc">Maven repository</a></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/bitnine-oss/agensgraph">GitHub</a></p>
+</li>
+</ul>
+<h3 id="52-apache-derby"><a name="details_derby"></a> 5.2 Apache Derby</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>Apache Derby Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a </li>
+<li><a href="https://db.apache.org/derby/docs/10.15/ref/index.html">CREATE SCHEMA</a></li>
+<li><a href="https://db.apache.org/derby/docs/10.15/ref/index.html">CREATE TABLE</a> </li>
+<li>
+<p>CREATE USER - n/a </p>
+</li>
+<li>
+<p><strong>Docker image (latest - only client version)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull konnexionsgmbh/apache_derby:10.15.2.0</code></li>
+<li>
+<p><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: by using the following JVM parameter: <code>-Dderby.ui.codeset=UTF8</code></p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://issues.apache.org/jira/projects/DERBY/issues/DERBY-7013?filter=allopenissues">Jira</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>client version: <a href="https://mvnrepository.com/artifact/org.apache.derby/derbyclient">Maven repository</a></li>
+<li>
+<p>embedded version: <a href="https://mvnrepository.com/artifact/org.apache.derby/derby">Maven repository</a></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://db.apache.org/derby/dev/derby_source.html">Apache Derby</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p>-- client version:</p>
+<p><img alt="" src="resources/.README_images/DBeaver_DERBY.png" /></p>
+<h3 id="53-cockroachdb"><a name="details_cratedb"></a> 5.3 CockroachDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>CockroachDB Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>INT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BYTES</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>STRING</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>STRING</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://www.cockroachlabs.com/docs/v20.2/create-database.html">CREATE DATABASE</a></li>
+<li><a href="https://www.cockroachlabs.com/docs/v20.2/create-schema.html">CREATE SCHEMA</a></li>
+<li><a href="https://www.cockroachlabs.com/docs/v20.2/create-table.html">CREATE TABLE</a></li>
+<li>
+<p><a href="https://www.cockroachlabs.com/docs/v20.2/create-user.html">CREATE USER</a></p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull cockroachdb/cockroach:v21.2.6</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/cockroachdb/cockroach">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: by default <code>utf8</code> encoding</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/cockroachdb/cockroach/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p>same as PostgreSQL</p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: user <code>root</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/cockroachdb/cockroach">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_COCKROACHDB.png" /></p>
+<h3 id="54-cratedb"><a name="details_cratedb"></a> 5.4 CrateDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>CrateDB Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>OBJECT</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>TEXT</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a</li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://crate.io/docs/crate/reference/en/latest/sql/statements/create-table.html">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull crate:4.7.0</code></li>
+<li>
+<p><a href="https://hub.docker.com/_/crate">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: by default <code>utf8</code> encoding</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/crate/crate">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://bintray.com/crate/crate/crate-jdbc">JFrog Bintray repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: user <code>crate</code></p>
+</li>
+<li>
+<p><strong>restrictions</strong>:</p>
+</li>
+<li>no constraints (e.g. foreign keys or unique keys)</li>
+<li>no transaction concept</li>
+<li>no triggers </li>
+<li>
+<p>only a very proprietary BLOB implementation</p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/crate/crate">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_CRATEDB.png" /></p>
+<h3 id="55-cubrid"><a name="details_cubrid"></a> 5.5 CUBRID</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>CUBRID Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>INT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a   </li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://www.cubrid.org/manual/en/11.0/sql/schema/table_stmt.html?highlight=create%20database#create-table">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://www.cubrid.org/manual/en/11.0/sql/authorization.html">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull cubrid/cubrid:11.0</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/cubrid/cubrid">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: by specifying after the database name when database is created: <code>kxn_db de_DE.utf8</code></p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: </p>
+</li>
+<li>
+<p><a href="http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&amp;orderby=created+DESC">Jira</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: users <code>DBA</code> and <code>PUBLIC</code></p>
+</li>
+<li>
+<p><strong>restrictions</strong>:  no full UTF-8 support</p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/CUBRID/cubrid">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_CUBRID.png" /></p>
+<h3 id="56-exasol"><a name="details_exasol"></a> 5.6 Exasol</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>Exasol Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>VARCHAR(2000000)</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>VARCHAR(2000000)</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a</li>
+<li><a href="https://docs.exasol.com/7.0/sql/create_schema.htm">CREATE SCHEMA</a> </li>
+<li><a href="https://docs.exasol.com/7.0/sql/create_table.htm">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://docs.exasol.com/7.0/sql/create_user.htm">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull exasol/docker-db:7.1.6</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/exasol/docker-db">DockerHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.exasol/exasol-jdbc">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: user <code>sys</code> password <code>exasol</code> </p>
+</li>
+<li>
+<p><strong>restrictions</strong>:</p>
+</li>
+<li>
+<p>no unique key constraints</p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_EXASOL.png" /></p>
+<h3 id="57-firebird"><a name="details_firebird"></a> 5.7 Firebird</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>Firebird Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>INTEGER</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>BLOB SUB_TYPE 1</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create">CREATE DATABASE</a> </li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull jacobalberty/firebird:v4.0.1</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/jacobalberty/firebird">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: by using the following JDBC URL parameter: <code>encoding=UTF8</code></p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/FirebirdSQL/firebird/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: user <code>SYSDBA</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/FirebirdSQL/firebird">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_FIREBIRD.png" /></p>
+<h3 id="58-h2-database-engine"><a name="details_h2"></a> 5.8 H2 Database Engine</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>H2 Database Engine Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a  </li>
+<li><a href="https://www.h2database.com/html/commands.html#create_schema">CREATE SCHEMA</a></li>
+<li><a href="https://www.h2database.com/html/commands.html#create_table">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://www.h2database.com/html/commands.html#create_user">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull konnexionsgmbh/h2_database_engine:2.1.210</code></li>
+<li>
+<p><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/h2database/h2database">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.h2database/h2">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: user <code>sa</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/h2database/h2database">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p>-- client version:</p>
+<p><img alt="" src="resources/.README_images/DBeaver_H2.png" /></p>
+<h3 id="59-hsqldb"><a name="details_hsqldb"></a> 5.9 HSQLDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>HSQLDB Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a  </li>
+<li><a href="http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_schema_creation">CREATE SCHEMA</a></li>
+<li><a href="http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_tables">CREATE TABLE</a> </li>
+<li>
+<p><a href="http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull konnexionsgmbh/hypersql_database:2.6.1</code></li>
+<li>
+<p><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: by using the following system property <code>sqlfile.charset=UTF-8</code>.</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://sourceforge.net/p/hsqldb/_list/tickets">SourceForge</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/org.hsqldb/hsqldb">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: user <code>SA</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://sourceforge.net/projects/hsqldb/files/hsqldb">SourceForge</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p>-- client version:</p>
+<p><img alt="" src="resources/.README_images/DBeaver_HSQLDB.png" /></p>
+<h3 id="510-ibm-db2-database"><a name="details_ibmdb2"></a> 5.10 IBM Db2 Database</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>IBM Db2 Database Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001941.html">CREATE DATABASE</a> </li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSFMBX/com.ibm.swg.im.dashdb.sql.ref.doc/doc/r0000925.html">CREATE SCHEMA</a></li>
+<li><a href="https://https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0000927.html">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull ibmcom/db2:11.5.7.0</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/ibmcom/db2">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>:</p>
+</li>
+<li>
+<p>by using the CCSID clause in the CREATE statements for any of the following objects:</p>
+<ul>
+<li>Database</li>
+<li>Table space</li>
+<li>Table</li>
+<li>procedure or function</li>
+</ul>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.ibm.db2/jcc">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: user <code>db2inst1</code></p>
+</li>
+<li>
+<p><strong>restrictions</strong>: the IBM Db2 DBMS only accepts operating system accounts as database users </p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_IBMDB2.png" /></p>
+<h3 id="511-ibm-informix"><a name="details_informix"></a> 5.11 IBM Informix</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>IBM Informix Database Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>DATETIME YEAR TO FRACTION</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR (1-254) / LVARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0368.htm">CREATE DATABASE</a> </li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0509.htm">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull ibmcom/informix-developer-database:14.10.FC7W1DE</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/ibmcom/informix-developer-database">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>:</p>
+</li>
+<li>
+<p>code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made</p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.ibm.informix/jdbc">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>: </p>
+</li>
+<li>user <code>informix</code></li>
+<li>password <code>in4mix</code></li>
+<li>database / schema <code>sysmaster</code></li>
+<li>
+<p>INFORMIXSERVER <code>informix</code></p>
+</li>
+<li>
+<p><strong>restrictions</strong>: </p>
+</li>
+<li>the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users </li>
+<li>
+<p>no named constraints in ALTER TABLE ADD CONSTRAINT</p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_INFORMIX.png" /></p>
+<h3 id="512-mariadb-server"><a name="details_mariadb"></a> 5.12 MariaDB Server</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>MariaDB Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>LONGBLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>LONGTEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>DATETIME</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://mariadb.com/kb/en/create-database">CREATE DATABASE</a> </li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://mariadb.com/kb/en/create-table">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://mariadb.com/kb/en/create-user">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull mariadb:10.7.1-focal</code></li>
+<li>
+<p><a href="https://hub.docker.com/_/mariadb">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>:</p>
+</li>
+<li>server level: <code>SET character_set_server = 'latin2';</code></li>
+<li>database level: <code>CHARACTER SET = 'keybcs2'</code></li>
+<li>table level: <code>CHARACTER SET 'utf8'</code></li>
+<li>
+<p>column level: <code>CHARACTER SET 'greek'</code></p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://jira.mariadb.org/secure/Dashboard.jspa">Jira</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>user: <code>mysql</code></li>
+<li>
+<p>password; <code>root</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/MariaDB/server">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_MARIADB.png" /></p>
+<h3 id="513-mimer-sql"><a name="details_mimer"></a> 5.13 Mimer SQL</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>MimerSQL Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>NVARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm">CREATE DATABASE</a> </li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull mimersql/mimersql_v11.0.5a</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/mimersql/mimersql_v11.0">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: NCHAR, NVARCHAR</p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>: </p>
+</li>
+<li>
+<p><a href="https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se">Mimer Website</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>database; <code>mimerdb</code></li>
+<li>
+<p>user: <code>SYSADM</code></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_MIMER.png" /></p>
+<h3 id="514-monetdb"><a name="details_monetdb"></a> 5.14 MonetDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>MonetDB Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a</li>
+<li><a href="https://www.monetdb.org/Documentation/SQLReference/DataDefinition/SchemaDefinitions">CREATE SCHEMA</a> </li>
+<li><a href="https://www.monetdb.org/Documentation/SQLReference/TableDefinitions">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull monetdb/monetdb:Jan2022-SP1</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/monetdb/monetdb">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: no special configuration should be needed</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/MonetDB/MonetDB/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://www.monetdb.org/downloads/Java">MonetDB Java Download Area</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>database: <code>demo</code></li>
+<li>user: <code>monetdb</code></li>
+<li>
+<p>password: <code>monetdb</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/MonetDB/MonetDB">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_MONETDB.png" /></p>
+<h3 id="515-mysql-database"><a name="details_mysql"></a> 5.15 MySQL Database</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>MySQL Database Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>LONGBLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>LONGTEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>DATETIME</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/create-database.html">CREATE DATABASE</a> </li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/create-table.html">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/create-user.html">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull mysql:8.0.28</code></li>
+<li>
+<p><a href="https://hub.docker.com/_/mysql">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed</p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/mysql/mysql-connector-java">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>database: <code>sys</code></li>
+<li>
+<p>user: <code>root</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/mysql/mysql-server">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_MYSQL.png" /></p>
+<h3 id="516-omniscidb"><a name="details_omnisci"></a> 5.16 OmniSciDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>OmniSciDB Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>TEXT ENCODING NONE</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>TEXT ENCODING NONE</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP(0)</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>TEXT ENCODING NONE</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases">CREATE DATABASE</a></li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://docs-new.omnisci.com/sql/data-definition-ddl/tables">CREATE TABLE</a></li>
+<li>
+<p><a href="https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases">CREATE USER</a></p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull omnisci/core-os-cpu</code></li>
+<li>
+<p><a href="https://hub.docker.com/_/omnisci-open-source-edition">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: no special configuration should be needed</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/omnisci/omniscidb/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>database: <code>omnisci</code></li>
+<li>
+<p>user: <code>admin</code></p>
+</li>
+<li>
+<p><strong>restrictions</strong>: </p>
+</li>
+<li>column and table names case sensitive</li>
+<li>max. column length 32767 bytes  </li>
+<li>no binary columns</li>
+<li>no constraints, e.g. unique keys</li>
+<li>no foreign / referential keys</li>
+<li>no primary key</li>
+<li>
+<p>no triggerss</p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/omnisci/omniscidb">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_OMNISCI.png" /></p>
+<h3 id="517-oracle-database"><a name="details_oracle"></a> 5.17 Oracle Database</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>Oracle Database Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>NUMBER</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a </li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image</strong>: <a href="https://github.com/oracle/docker-images/tree/master/OracleDatabase">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8</p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>database: <code>orclpdb1</code></li>
+<li>
+<p>user: <code>SYS AS SYSDBA</code></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_ORACLE.png" /></p>
+<h3 id="518-percona-server-for-mysql"><a name="details_percona"></a> 5.18 Percona Server for MySQL</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>Percona Sercver Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>LONGBLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>LONGTEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>DATETIME</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE: see MySQL Database </li>
+<li>CREATE SCHEMA - n/a</li>
+<li>CREATE TABLE: see MySQL Database </li>
+<li>
+<p>CREATE USER: see MySQL Database </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull percona/percona-server:8.0.26-17</code></li>
+<li>
+<p><a href="https://hub.docker.com/_/percona-server">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://jira.percona.com/projects/PS/issues/PS-7237?filter=allopenissues">Jira</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p>same as MySQL</p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>database: <code>sys</code></li>
+<li>
+<p>user: <code>root</code></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/percona/percona-server">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_PERCONA.png" /></p>
+<h3 id="519-postgresql"><a name="details_postgresql"></a> 5.19 PostgreSQL</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>PostgreSQL Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BYTEA</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://www.postgresql.org/docs/12/sql-createdatabase.html">CREATE DATABASE</a> </li>
+<li><a href="https://www.postgresql.org/docs/12/sql-createschema.html">CREATE SCHEMA</a></li>
+<li><a href="https://www.postgresql.org/docs/12/sql-createtable.html">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://www.postgresql.org/docs/12/sql-createuser.html">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull postgres:14.2-alpine</code></li>
+<li>
+<p><a href="https://hub.docker.com/_/postgres">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: when creating the database: <code>CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...</code></p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://www.postgresql.org/list/pgsql-bugs">PostgreSQL</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/org.postgresql/postgresql">Maven repository</a></p>
+</li>
+<li>
+<p><strong>documentation</strong>: <a href="https://jdbc.postgresql.org/documentation/head/index.html">The PostgreSQL JDBC Interface</a></p>
+</li>
+<li>
+<p><strong>release notes</strong>: <a href="https://jdbc.postgresql.org/documentation/changelog.html">History of Changes</a></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/postgres/postgres">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_POSTGRESQL.png" /></p>
+<h3 id="520-sql-server"><a name="details_sqlserver"></a> 5.20 SQL Server</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>SQL Server Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>VARBINARY (MAX)</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>VARCHAR (MAX)</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>DATETIME2</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15">CREATE DATABASE</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15">CREATE SCHEMA</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15">CREATE TABLE</a></li>
+<li>
+<p><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15">CREATE USER</a></p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04</code></li>
+<li>
+<p><a href="https://hub.docker.com/_/microsoft-mssql-server">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)</p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc">Maven repository</a></p>
+</li>
+<li>
+<p><strong>privileged database access</strong>:</p>
+</li>
+<li>database: <code>master</code></li>
+<li>
+<p>user: <code>sa</code></p>
+</li>
+<li>
+<p><strong>restrictions</strong>: no full UTF-8 support in the given Docker images</p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_SQLSERVER.png" /></p>
+<h3 id="521-sqlite"><a name="details_sqlite"></a> 5.21 SQLite</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>SQLite Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>INTEGER</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>DATETIME</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a</li>
+<li>CREATE SCHEMA - n/a</li>
+<li><a href="https://sqlite.org/lang_createtable.html">CREATE TABLE</a> </li>
+<li>
+<p>CREATE USER - n/a     </p>
+</li>
+<li>
+<p><strong>encoding</strong>: by using the following parameter: <code>PRAGMA encoding='UTF-8';</code></p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://www.sqlite.org/src/wiki?name=Bug+Reports">SQLite</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li><a href="https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc">Maven repository</a></li>
+<li>
+<p>determines also the DBMS version</p>
+</li>
+<li>
+<p><strong>restrictions</strong>:</p>
+</li>
+<li>no Docker image necessary, hence not available</li>
+<li>
+<p>no user management </p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://sqlite.org/src/doc/trunk/README.md">SQLite</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_SQLITE.png" /></p>
+<h3 id="522-timescaledb"><a name="details_timescale"></a> 5.22 TimescaleDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>AgensGraph Database Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BYTEA</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE: see PostgreSQL</li>
+<li>CREATE SCHEMA: see PostgreSQL</li>
+<li>CREATE TABLE: see PostgreSQL</li>
+<li>
+<p>CREATE USER: see PostgreSQL</p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull timescale/timescaledb:2.6.0-pg14</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/timescale/timescaledb">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: see PostgreSQL</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/timescale/timescaledb/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p>same as PostgreSQL</p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/timescale/timescaledb">GitHub</a></p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_TIMESCALE.png" /></p>
+<h3 id="523-trino"><a name="details_trino"></a> 5.23 trino</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>trino Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>CLOB</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a</li>
+<li><a href="https://trino.io/docs/current/sql/create-schema.html">CREATE SCHEMA</a></li>
+<li><a href="https://trino.io/docs/current/sql/create-table.html">CREATE TABLE</a></li>
+<li>
+<p>CREATE USER - n/a</p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull trinodb/trino:368</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/trinodb/trino">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: full support of UTF-8 (see <a href="https://trino.io/docs/current/release/release-0.102.html?highlight=encoding">here</a>)</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/trinodb/trino/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/io.trino/trino-jdbc">Maven repository</a></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/trinodb/trino">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_TRINO.png" /></p>
+<h3 id="524-voltdb"><a name="details_voltdb"></a> 5.24 VoltDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>VoltDB Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>VARBINARY(1048576)</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>VARCHAR(1048576)</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li>CREATE DATABASE - n/a  </li>
+<li>CREATE SCHEMA - n/a  </li>
+<li><a href="https://docs.voltdb.com/UsingVoltDB/ddlref_createtable.php">CREATE TABLE</a> </li>
+<li>
+<p>CREATE USER - n/a  </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull voltdb/voltdb-community:9.2.1</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/voltdb/voltdb-community">DockerHub</a></p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://issues.voltdb.com/secure/Dashboard.jspa">Jira</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/org.hsqldb/hsqldb">Maven repository</a></p>
+</li>
+<li>
+<p><strong>restrictions</strong>: no support of autoincrement, check constraints or foreign keys</p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/VoltDB/voltdb">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_VOLTDB.png" /></p>
+<h3 id="525-yugabytedb"><a name="details_yugabyte"></a> 5.25 YugabyteDB</h3>
+<ul>
+<li><strong>data types</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong><code>DBSeeder</code></strong> Type</th>
+<th>YugabyteDB Database Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIGINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BYTEA</td>
+</tr>
+<tr>
+<td>CLOB</td>
+<td>TEXT</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>TIMESTAMP</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>VARCHAR</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>DDL syntax</strong>:</li>
+<li><a href="https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database">CREATE DATABASE</a> </li>
+<li><a href="https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_schema">CREATE SCHEMA</a></li>
+<li><a href="https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_table">CREATE TABLE</a> </li>
+<li>
+<p><a href="https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user">CREATE USER</a> </p>
+</li>
+<li>
+<p><strong>Docker image (latest)</strong>:</p>
+</li>
+<li>pull command: <code>docker pull yugabytedb/yugabyte:2.12.1.0-b41</code></li>
+<li>
+<p><a href="https://hub.docker.com/r/yugabytedb/yugabyte">DockerHub</a></p>
+</li>
+<li>
+<p><strong>encoding</strong>: see PostgreSQL</p>
+</li>
+<li>
+<p><strong>issue tracking</strong>: <a href="https://github.com/yugabyte/yugabyte-db/issues">GitHub</a></p>
+</li>
+<li>
+<p><strong>JDBC driver (latest)</strong>:</p>
+</li>
+<li>
+<p><a href="https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb">Maven repository</a></p>
+</li>
+<li>
+<p><strong>source code</strong>: <a href="https://github.com/yugabyte/yugabyte-db">GitHub</a></p>
+</li>
+<li>
+<p><strong>DBeaver database connection settings</strong>:</p>
+</li>
+</ul>
+<p><img alt="" src="resources/.README_images/DBeaver_YUGABYTE.png" /></p>
+<h2 id="6-trino"><a name="trino"></a> 6. trino</h2>
+<p><a href="https://trino.io">trino</a> can integrate the following DBMS, among others:</p>
+<ul>
+<li>MySQL via the <a href="https://trinodb.io/docs/current/connector/mysql.html">MySQL Connector</a>,</li>
+<li>Oracle via the <a href="https://trinodb.io/docs/current/connector/oracle.html">Oracle Connector</a>, and</li>
+<li>PostgreSQL via the <a href="https://trinodb.io/docs/current/connector/postgresql.html">PostgreSQL Connector</a>.</li>
+<li>SQL Server via the <a href="https://trinodb.io/docs/current/connector/sqlserver.html">SQL Server Connector</a>,</li>
+</ul>
+<p><strong><code>DBSeeder</code></strong> makes it possible to use trino's JDBC driver and the corresponding connectors as an alternative to the JDBC drivers of the DBMS suppliers.
+To use the trino JDBC driver, a trino server is required.
+With the script <code>db_seeder_trino_environment</code> a trino server can be set up.
+Since trino does not support the Windows operating system, a suitable Docker image is created for Windows.
+For Linux, e.g. Ubuntu, the script can alternatively be used to perform a local installation of the trino server.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+      
+        
+        <a href="code_of_conduct/" class="md-footer__link md-footer__link--next" aria-label="Next: Code of Conduct" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Code of Conduct
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy;2020-2022, Konnexions GmbH.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "search.suggest"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="assets/javascripts/bundle.9f3ca3d1.min.js"></script>
+      
+    
+  </body>
+</html>
