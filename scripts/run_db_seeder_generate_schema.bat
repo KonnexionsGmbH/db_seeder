@@ -20,7 +20,7 @@ set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_50.json
 set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_5400.json
 set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.syntax_1000.json
 
-set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_50.json
+set DB_SEEDER_FILE_JSON_NAME=resources\json\db_seeder_schema.company_5400.json
 
 set DB_SEEDER_JAVA_CLASSPATH=".;lib/*;JAVA_HOME/lib"
 set DB_SEEDER_RELEASE=3.0.6
@@ -47,17 +47,19 @@ if ERRORLEVEL 1 (
 
 if exist eclipse_workspace\ rd /q /s eclipse_workspace
 
-md eclipse_workspace >nul 2>&1
+if ["%HOME_ECLIPSE%"] NEQ [""] (
+    md eclipse_workspace >nul 2>&1
 
-%HOME_ECLIPSE%\eclipse -nosplash ^
-                       -data eclipse_workspace ^
-                       -application org.eclipse.jdt.core.JavaCodeFormatter ^
-                       -config src\main\resources\org.eclipse.jdt.core.prefs ^
-                       -quiet src\main\java\ch\konnexions\db_seeder\generated\ ^
-                       -vmargs -Dfile.encoding=UTF-8
-if ERRORLEVEL 1 (
-    echo Processing of the script was aborted, error code=%ERRORLEVEL%
-    exit %ERRORLEVEL%
+    %HOME_ECLIPSE%\eclipse -nosplash ^
+                           -data eclipse_workspace ^
+                           -application org.eclipse.jdt.core.JavaCodeFormatter ^
+                           -config src\main\resources\org.eclipse.jdt.core.prefs ^
+                           -quiet src\main\java\ch\konnexions\db_seeder\generated\ ^
+                           -vmargs -Dfile.encoding=UTF-8
+    if ERRORLEVEL 1 (
+        echo Processing of the script was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
 )
 
 call gradle init

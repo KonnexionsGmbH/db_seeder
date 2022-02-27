@@ -17,6 +17,7 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DBSeeder - setup a trino Docker container."
 echo "--------------------------------------------------------------------------------"
+echo "IMAGE_TRINO                       : ${DB_SEEDER_IMAGE_TRINO}"
 echo "VERSION_TRINO                     : ${DB_SEEDER_VERSION_TRINO}"
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
@@ -44,14 +45,14 @@ echo "--------------------------------------------------------------------------
 echo "Start trino - creating and starting the container"
 echo "--------------------------------------------------------------------------------"
 start=$(date +%s)
-echo "Docker create trino"
+echo "Docker create trino ..."
 
 docker network create db_seeder_net  2>/dev/null || true
 docker create --name    db_seeder_trino \
               --network db_seeder_net \
               -p        8080:8080/tcp \
               -v        "$PWD/resources/docker/trino":/etc/trino \
-              trinodb/trino:${DB_SEEDER_VERSION_TRINO}
+              ${DB_SEEDER_IMAGE_TRINO}
 
 echo "Docker start trino ..."
 docker start db_seeder_trino

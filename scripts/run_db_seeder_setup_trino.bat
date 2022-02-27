@@ -19,6 +19,7 @@ echo Start %0
 echo --------------------------------------------------------------------------------
 echo DBSeeder - setup a trino Docker container.
 echo --------------------------------------------------------------------------------
+echo IMAGE_TRINO                       : %DB_SEEDER_IMAGE_TRINO%
 echo VERSION_TRINO                     : %DB_SEEDER_VERSION_TRINO%
 echo "--------------------------------------------------------------------------------"
 echo:| TIME
@@ -46,7 +47,7 @@ echo ---------------------------------------------------------------------------
 echo Start trino - creating and starting the container
 echo --------------------------------------------------------------------------------
 lib\Gammadyne\timer.exe
-echo Docker create trino (trino)
+echo Docker create trino (trino) ...
 
 docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net already existing
 docker create --name    db_seeder_trino ^

@@ -19,7 +19,8 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 set DB_SEEDER_RELEASE=3.0.6
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=368
+set DB_SEEDER_VERSION_TRINO=371
+set DB_SEEDER_IMAGE_TRINO=trinodb/trino:!DB_SEEDER_VERSION_TRINO!
 
 if ["%1"] EQU [""] (
     echo =========================================================
@@ -471,7 +472,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_VERSION=8.0.27
     set DB_SEEDER_VERSION=8.0.28
     set DB_SEEDER_IMAGE=mysql:!DB_SEEDER_VERSION!
-    set DB_SEEDER_IMAGE_TRINO=trinodb/trino:!DB_SEEDER_VERSION_TRINO!
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
@@ -508,7 +508,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_VERSION=db_18_3_ee
     set DB_SEEDER_VERSION=db_19_3_ee
     set DB_SEEDER_VERSION=db_21_3_ee
-    set DB_SEEDER_IMAGE=konnexionsgmbh/%DB_SEEDER_VERSION%
+    set DB_SEEDER_IMAGE=konnexionsgmbh/!DB_SEEDER_VERSION!
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle_trino"] (
@@ -529,8 +529,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["oracle_trino"] (
     set DB_SEEDER_VERSION=db_18_3_ee
     set DB_SEEDER_VERSION=db_19_3_ee
     set DB_SEEDER_VERSION=db_21_3_ee
-    set DB_SEEDER_IMAGE=konnexionsgmbh/%DB_SEEDER_VERSION%
-    set DB_SEEDER_IMAGE_TRINO=trinodb/trino:!DB_SEEDER_VERSION_TRINO!
+    set DB_SEEDER_IMAGE=konnexionsgmbh/!DB_SEEDER_VERSION!
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
@@ -598,7 +597,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=14.1-alpine
     set DB_SEEDER_VERSION=14.2-alpine
     set DB_SEEDER_IMAGE=postgres:!DB_SEEDER_VERSION!
-    set DB_SEEDER_IMAGE_TRINO=trinodb/trino:!DB_SEEDER_VERSION_TRINO!
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["sqlite"] (
@@ -644,7 +642,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU15-ubuntu-20.04
     set DB_SEEDER_IMAGE=mcr.microsoft.com/mssql/server:!DB_SEEDER_VERSION!
-    set DB_SEEDER_IMAGE_TRINO=trinodb/trino:!DB_SEEDER_VERSION_TRINO!
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
@@ -757,6 +754,8 @@ echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
 echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
+echo IMAGE                           : %DB_SEEDER_IMAGE%
+echo IMAGE_TRINO                     : %DB_SEEDER_IMAGE_TRINO%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
 echo SETUP_DBMS                      : %DB_SEEDER_SETUP_DBMS%

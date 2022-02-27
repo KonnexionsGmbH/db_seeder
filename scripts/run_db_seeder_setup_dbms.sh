@@ -13,11 +13,13 @@ echo "Start $0"
 echo "--------------------------------------------------------------------------------"
 echo "DBSeeder - setting up the DBMS."
 echo "--------------------------------------------------------------------------------"
+echo "CONNECTION_PORT           : ${DB_SEEDER_CONNECTION_PORT}"
+echo "CONTAINER_PORT            : ${DB_SEEDER_CONTAINER_PORT}"
 echo "DBMS_DB                   : ${DB_SEEDER_DBMS_DB}"
 echo "DBMS_EMBEDDED             : ${DB_SEEDER_DBMS_EMBEDDED}"
 echo "DBMS_TRINO                : ${DB_SEEDER_DBMS_TRINO}"
-echo "CONNECTION_PORT           : ${DB_SEEDER_CONNECTION_PORT}"
-echo "CONTAINER_PORT            : ${DB_SEEDER_CONTAINER_PORT}"
+echo "IMAGE                     : ${DB_SEEDER_IMAGE}"
+echo "IMAGE_TRINO               : ${DB_SEEDER_IMAGE_TRINO}"
 echo "VERSION                   : ${DB_SEEDER_VERSION}"
 echo --------------------------------------------------------------------------------
 
@@ -55,7 +57,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
                   -e        POSTGRES_USER=agens \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
                   -t \
-                  bitnine/agensgraph:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE_TRINO}"
 
     echo "Docker start db_seeder_db (AgensGraph ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -81,7 +83,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "cockroach" ]; then
     docker create --name     db_seeder_db \
                   --net      db_seeder_net \
                   -p         "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
-                  cockroachdb/cockroach:"${DB_SEEDER_VERSION}" \
+                  "${DB_SEEDER_IMAGE}" \
                   start --insecure --join=db_seeder_db
 
     echo "Docker start db_seeder_db (CockroachDB ${DB_SEEDER_VERSION}) ..."
@@ -112,7 +114,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "cratedb" ]; then
     docker create --env     CRATE_HEAP_SIZE=2g \
                   --name    db_seeder_db \
                   --network db_seeder_net \
-                   -p       "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp crate:"${DB_SEEDER_VERSION}" \
+                   -p       "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp "${DB_SEEDER_IMAGE}" \
                    crate -Cnetwork.host=_site_ -Cdiscovery.type=single-node
 
     echo "Docker start db_seeder_db (CrateDB ${DB_SEEDER_VERSION}) ..."
@@ -140,7 +142,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "cubrid" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  cubrid/cubrid:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (CUBRID ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -168,7 +170,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "derby" ]; then
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  konnexionsgmbh/apache_derby:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (Apache Derby ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -199,8 +201,8 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
                --network    db_seeder_net \
                -p           127.0.0.1:"${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
                --privileged \
-               exasol/docker-db:"${DB_SEEDER_VERSION}"
-
+               "${DB_SEEDER_IMAGE}"
+1
     echo "Docker start db_seeder_db (Exasol ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
         exit 255
@@ -227,7 +229,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "firebird" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  jacobalberty/firebird:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (Firebird ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -258,7 +260,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "h2" ]; then
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  konnexionsgmbh/h2_database_engine:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (H2 Database Engine ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -288,7 +290,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "hsqldb" ]; then
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  konnexionsgmbh/hypersql_database:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (HSQLDB ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -321,7 +323,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "ibmdb2" ]; then
                   --network    db_seeder_net \
                   -p           "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
                   --privileged=true \
-                  ibmcom/db2:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (IBM Db2 ${DB_SEEDER_VERSION})"
     if ! docker start db_seeder_db; then
@@ -350,7 +352,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "informix" ]; then
                   --network    db_seeder_net \
                   -p           "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
                   --privileged \
-                  ibmcom/informix-developer-database:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (IBM Informix ${DB_SEEDER_VERSION})"
     if ! docker start db_seeder_db; then
@@ -382,10 +384,10 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mariadb" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  mariadb:"${DB_SEEDER_VERSION}" \
+                  "${DB_SEEDER_IMAGE}" \
                   --character-set-server=${DB_SEEDER_CHARACTER_SET_SERVER} \
                   --collation-server=${DB_SEEDER_COLLATION_SERVER}
-                  
+
     echo "Docker start db_seeder_db (MariaDB Server ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
         exit 255
@@ -411,7 +413,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mimer" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  mimersql/mimersql_v11.0:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (Mimer SQL ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -439,7 +441,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "monetdb" ]; then
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                    -p       "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                   monetdb/monetdb:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (MonetDB ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -464,7 +466,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  mysql:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (MySQL ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -497,7 +499,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
                   -v        "$PWD/tmp/omnisci-docker-storage":/omnisci-storage \
-                  omnisci/core-os-cpu
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -526,7 +528,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "oracle" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  konnexionsgmbh/"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (Oracle ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -559,7 +561,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "percona" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  percona/percona-server:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (Percona Server ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -588,7 +590,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "postgresql" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
-                  postgres:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (PostgreSQL ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -619,7 +621,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "sqlserver" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
-                  mcr.microsoft.com/mssql/server:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (SQL Server ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -652,7 +654,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "timescale" ]; then
                   --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
-                  timescale/timescaledb:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (TimescaleDB ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -684,7 +686,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "voltdb" ]; then
                --network db_seeder_net \
                -p        21212:21212 \
                -v        "$PWD/resources/voltdb/deployment.xml":/tmp/deployment.xml \
-               voltdb/voltdb-community:"${DB_SEEDER_VERSION}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (VoltDB ${DB_SEEDER_VERSION}) ..."
 
@@ -715,7 +717,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "yugabyte" ]; then
                -p        9001:9000 \
                -p        9042:9042 \
                -v        "$PWD/tmp/yb_data":/home/yugabyte/var \
-               yugabytedb/yugabyte:"${DB_SEEDER_VERSION}" bin/yugabyted start --daemon=false
+               "${DB_SEEDER_IMAGE}" bin/yugabyted start --daemon=false
 
     echo "Docker start db_seeder_db (YugabyteDB ${DB_SEEDER_VERSION}) ..."
 
@@ -727,7 +729,7 @@ fi
 
 if [ "${DB_SEEDER_DBMS_EMBEDDED}" == "no" ]; then
     docker ps
-fi    
+fi
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"
