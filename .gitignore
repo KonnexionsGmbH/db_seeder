@@ -13,6 +13,7 @@
 /resources/docker/trino/catalog/db_seeder_postgresql.properties
 /resources/docker/trino/catalog/db_seeder_sqlserver.properties
 /resources/third_party/
+/site/
 Transfer/
 bin
 build

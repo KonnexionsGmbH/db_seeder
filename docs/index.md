@@ -84,130 +84,130 @@ The database systems considered meet the following conditions:
 The following database systems are included in the current version of **`DBSeeder`**:
 
 - [AgensGraph](https://bitnine.net/agensgraph){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - derived from PostgreSQL
-  - property graph model and relational model
+    - client only version
+    - commercial, open source
+    - derived from PostgreSQL
+    - property graph model and relational model
 - [Apache Derby](https://db.apache.org/derby){:target="_blank"}
-  - client and embedded version
-  - open source
-  - relational model
+    - client and embedded version
+    - open source
+    - relational model
 - [CockroachDB](https://www.cockroachlabs.com){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - compatible with PostgreSQL JDBC
-  - relational model
+    - client only version
+    - commercial, open source
+    - compatible with PostgreSQL JDBC
+    - relational model
 - [CrateDB](https://crate.io){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - compatible with PostgreSQL
-  - relational model
+    - client only version
+    - commercial, open source
+    - compatible with PostgreSQL
+    - relational model
 - [CUBRID](https://www.cubrid.org){:target="_blank"}
-  - client only version
-  - compatible with MySQL
-  - open source
-  - relational model
+    - client only version
+    - compatible with MySQL
+    - open source
+    - relational model
 - [Exasol](https://www.exasol.com/en){:target="_blank"}
-  - client only version
-  - commercial
-  - in-memory, column-oriented, relational model
+    - client only version
+    - commercial
+    - in-memory, column-oriented, relational model
 - [Firebird](https://firebirdsql.org){:target="_blank"}
-  - client and embedded (not supported here) version
-  - open source
-  - relational model
+    - client and embedded (not supported here) version
+    - open source
+    - relational model
 - [H2 Database Engine](https://www.h2database.com/html/main.html){:target="_blank"}
-  - client and embedded version
-  - compatible with HSQLDB, PostgreSQL
-  - open source
-  - relational model
+    - client and embedded version
+    - compatible with HSQLDB, PostgreSQL
+    - open source
+    - relational model
 - [HSQLDB](https://hsqldb.org) 
-  - client and embedded version
-  - open source
-  - relational model
+    - client and embedded version
+    - open source
+    - relational model
 - [IBM Db2 Database](https://www.ibm.com/products/db2-database){:target="_blank"}
-  - client only version
-  - commercial
-  - relational model
+    - client only version
+    - commercial
+    - relational model
 - [IBM Informix](https://www.ibm.com/products/informix){:target="_blank"}
-  - client only version
-  - commercial
-  - relational model
+    - client only version
+    - commercial
+    - relational model
 - [MariaDB Server](https://mariadb.com){:target="_blank"}
-  - client only version
-  - open source
-  - derived from MySQL
-  - relational model
+    - client only version
+    - open source
+    - derived from MySQL
+    - relational model
 - [Mimer SQL](https://www.mimer.com){:target="_blank"}
-  - client only version
-  - commercial
-  - relational model
+    - client only version
+    - commercial
+    - relational model
 - [MonetDB](https://www.monetdb.org){:target="_blank"}
-  - client only version
-  - open source
-  - column-oriented relational model
+    - client only version
+    - open source
+    - column-oriented relational model
 - [MySQL Database](https://www.mysql.com){:target="_blank"}
-  - client only version
-  - open source
-  - relational model
+    - client only version
+    - open source
+    - relational model
 - [OmniSciDB](https://www.omnisci.com){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - GPU and CPU version
-  - relational model
+    - client only version
+    - commercial, open source
+    - GPU and CPU version
+    - relational model
 - [Oracle Database](https://www.oracle.com/database){:target="_blank"}
-  - client only version
-  - commercial
-  - relational model
+    - client only version
+    - commercial
+    - relational model
 - [Percona Server for MySQL](https://www.percona.com/software/mysql-database/percona-server){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - derived from MySQL
-  - relational model
+    - client only version
+    - commercial, open source
+    - derived from MySQL
+    - relational model
 - [PostgreSQL](https://www.postgresql.org){:target="_blank"}
-  - client only version
-  - open source
-  - relational model
+    - client only version
+    - open source
+    - relational model
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019){:target="_blank"}
-  - client only version
-  - commercial
-  - derived from Adaptive Server Enterprise
-  - relational model
+    - client only version
+    - commercial
+    - derived from Adaptive Server Enterprise
+    - relational model
 - [SQLite](https://www.sqlite.org)
-  - commercial, open source
-  - embedded only version
-  - relational model
+    - commercial, open source
+    - embedded only version
+    - relational model
 - [TimescaleDB](https://www.timescale.com){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - derived from PostgreSQL
-  - relational model
+    - client only version
+    - commercial, open source
+    - derived from PostgreSQL
+    - relational model
 - [trino](https://trino.io){:target="_blank"}
-  - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
-  - distributed query engine
-  - open source
+    - compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift
+    - distributed query engine
+    - open source
 
 For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver.
 The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
 Details can be found here: [trino](#trino).
 
 - [VoltDB](https://www.voltdb.com){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - derived from H-Store, HSQLDB
-  - in-memory relational model
+    - client only version
+    - commercial, open source
+    - derived from H-Store, HSQLDB
+    - in-memory relational model
 - [YugabyteDB](https://www.yugabyte.com){:target="_blank"}
-  - client only version
-  - commercial, open source
-  - compatible with Cassandra, PostgreSQL, Redis
-  - derived from PostgreSQL, RocksDB
-  - inspired by Cloud Spanner
-  - relational model
+    - client only version
+    - commercial, open source
+    - compatible with Cassandra, PostgreSQL, Redis
+    - derived from PostgreSQL, RocksDB
+    - inspired by Cloud Spanner
+    - relational model
 
 [//]: # (===========================================================================================)
 
 ## 2. Data 
 
-### <a name="data_database_schema"></a> 2.1 Database Schema
+### <a name="database_schema"></a> 2.1 Database Schema
 
 The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script `scripts/run_db_seeder_generate_schema`.
 To validate the database schema in the JSON parameter file, the JSON schema file `db_seeder_schema.schema.json` in the directory `src/main/resources` is used.
@@ -627,22 +627,22 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR                  |
 
 - **DDL syntax**:
-  - CREATE DATABASE: see PostgreSQL 
-  - CREATE SCHEMA: see PostgreSQL
-  - CREATE TABLE: see PostgreSQL 
-  - CREATE USER: see PostgreSQL 
+    - CREATE DATABASE: see PostgreSQL 
+    - CREATE SCHEMA: see PostgreSQL
+    - CREATE TABLE: see PostgreSQL 
+    - CREATE USER: see PostgreSQL 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull bitnine/agensgraph:v2.5.0`
-  - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
+    - pull command: `docker pull bitnine/agensgraph:v2.5.0`
+    - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
 
 - **encoding**: see PostgreSQL
   
 - **issue tracking**: [GitHub](https://github.com/bitnine-oss/agensgraph/issues)
   
 - **JDBC driver (latest)**:
-  - version 1.4.2-c1
-  - [Maven repository](https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc)
+    - version 1.4.2-c1
+    - [Maven repository](https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc)
 
 - **source code**: [GitHub](https://github.com/bitnine-oss/agensgraph)
 
@@ -661,28 +661,28 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR           |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a 
-  - [CREATE SCHEMA](https://db.apache.org/derby/docs/10.15/ref/index.html)
-  - [CREATE TABLE](https://db.apache.org/derby/docs/10.15/ref/index.html) 
-  - CREATE USER - n/a 
+    - CREATE DATABASE - n/a 
+    - [CREATE SCHEMA](https://db.apache.org/derby/docs/10.15/ref/index.html)
+    - [CREATE TABLE](https://db.apache.org/derby/docs/10.15/ref/index.html) 
+    - CREATE USER - n/a 
 
 - **Docker image (latest - only client version)**:
-  - pull command: `docker pull konnexionsgmbh/apache_derby:10.15.2.0`
-  - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
+    - pull command: `docker pull konnexionsgmbh/apache_derby:10.15.2.0`
+    - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
 
 - **encoding**: by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
 
 - **issue tracking**: [Jira](https://issues.apache.org/jira/projects/DERBY/issues/DERBY-7013?filter=allopenissues)
   
 - **JDBC driver (latest)**:
-  - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
-  - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
+    - client version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derbyclient)
+    - embedded version: [Maven repository](https://mvnrepository.com/artifact/org.apache.derby/derby)
   
 - **source code**: [Apache Derby](https://db.apache.org/derby/dev/derby_source.html)
 
 - **DBeaver database connection settings**:
 
-  -- client version:
+    -- client version:
   
 ![](img/DBeaver_DERBY.png)
 
@@ -701,21 +701,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | STRING           |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://www.cockroachlabs.com/docs/v20.2/create-database.html)
-  - [CREATE SCHEMA](https://www.cockroachlabs.com/docs/v20.2/create-schema.html)
-  - [CREATE TABLE](https://www.cockroachlabs.com/docs/v20.2/create-table.html)
-  - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
+    - [CREATE DATABASE](https://www.cockroachlabs.com/docs/v20.2/create-database.html)
+    - [CREATE SCHEMA](https://www.cockroachlabs.com/docs/v20.2/create-schema.html)
+    - [CREATE TABLE](https://www.cockroachlabs.com/docs/v20.2/create-table.html)
+    - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cockroachdb/cockroach:v21.2.6`
-  - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
+    - pull command: `docker pull cockroachdb/cockroach:v21.2.6`
+    - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
 
 - **issue tracking**: [GitHub](https://github.com/cockroachdb/cockroach/issues)
 
 - **JDBC driver (latest)**:
-  - same as PostgreSQL
+    - same as PostgreSQL
 
 - **privileged database access**: user `root`
 
@@ -740,10 +740,10 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | TEXT         |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-table.html) 
-  - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
+    - CREATE DATABASE - n/a
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-table.html) 
+    - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
   - pull command: `docker pull crate:4.7.0`
