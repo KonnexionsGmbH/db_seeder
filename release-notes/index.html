@@ -573,10 +573,10 @@
 <h3 id="system-requirements">System Requirements</h3>
 <ul>
 <li>Operating system: any Java-enabled Linux, Mac or Windows variant</li>
-<li>Docker Desktop Community: 4.0.0 (e.g. from <a href="https://docs.docker.com/docker-for-windows/release-notes">Docker for Windows release notes</a>)</li>
-<li>Eclipse IDE: 2021.12 (e.g. from <a href="https://www.eclipse.org/downloads">Eclipse Download Page</a>)</li>
-<li>Gradle Build Tool: 7 (e.g. from <a href="https://gradle.org/releases">here</a>)</li>
-<li>Java Development Kit 17, (e.g. from <a href="https://jdk.java.net/java-se-ri/17">here</a>)</li>
+<li>Docker Desktop Community: 4.0.0 (e.g. from <a href="https://docs.docker.com/docker-for-windows/release-notes" target="_blank">Docker for Windows release notes</a>)</li>
+<li>Eclipse IDE: 2021.12 (e.g. from <a href="https://www.eclipse.org/downloads" target="_blank">Eclipse Download Page</a>)</li>
+<li>Gradle Build Tool: 7 (e.g. from <a href="https://gradle.org/releases" target="_blank">here</a>)</li>
+<li>Java Development Kit 17, (e.g. from <a href="https://jdk.java.net/java-se-ri/17" target="_blank">here</a>)</li>
 <li>an environment variable called <code>HOME_ECLIPSE</code> that points to the installation directory of Eclipse IDE, e.g.: <code>C:\Software\eclipse\java-2021-12\eclipse</code></li>
 </ul>
 <h3 id="new-features">New Features</h3>
@@ -611,8 +611,8 @@
 </ul>
 <h3 id="open-issues">Open issues</h3>
 <ul>
-<li>trino: (see <a href="#issues_trino">here</a>)</li>
-<li>VoltDB: (see <a href="#issues_voltdb">here</a>)</li>
+<li>trino: (see <a href="#issues_trino" target="_blank">here</a>)</li>
+<li>VoltDB: (see <a href="#issues_voltdb" target="_blank">here</a>)</li>
 </ul>
 <hr />
 <h2 id="windows-10-performance-snapshot">Windows 10 Performance Snapshot</h2>
@@ -636,66 +636,8 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
 <h2 id="detailed-open-issues">Detailed Open Issues</h2>
 <h3 id="trino"><a name="issues_trino"></a> trino</h3>
 <ul>
-<li>
-<p>Issue: all connectors: absolutely unsatisfactory performance (see <a href="https://github.com/trinodb/trino/issues/5681">here</a>).</p>
-</li>
-<li>
-<p>Issue: all connectors: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080 (see <a href="https://github.com/trinodb/trino/issues/11208">here</a>).</p>
-</li>
+<li>Issue: all connectors: absolutely unsatisfactory performance (see <a href="https://github.com/trinodb/trino/issues/5681" target="_blank">here</a>).</li>
 </ul>
-<pre><code>    2022-02-26 03:19:29,180 [DatabaseSeeder.java] INFO  Start MySQL Database via trino
-    2022-02-26 03:19:29,184 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =mysql
-    2022-02-26 03:19:29,191 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =mysql_trino
-    java.sql.SQLException: Error executing query
-    at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:287)
-    at io.trino.jdbc.TrinoStatement.execute(TrinoStatement.java:240)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1367)
-    at ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder.setupDatabase(MysqlSeeder.java:143)
-    at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:410)
-    at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:202)
-    Caused by: java.io.UncheckedIOException: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080
-    at io.trino.jdbc.$internal.client.JsonResponse.execute(JsonResponse.java:148)
-    at io.trino.jdbc.$internal.client.StatementClientV1.&lt;init&gt;(StatementClientV1.java:109)
-    at io.trino.jdbc.$internal.client.StatementClientFactory.newStatementClient(StatementClientFactory.java:24)
-    at io.trino.jdbc.TrinoConnection.startQuery(TrinoConnection.java:750)
-    at io.trino.jdbc.TrinoStatement.internalExecute(TrinoStatement.java:252)
-    ... 5 more
-    Caused by: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8080
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:265)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connect(RealConnection.java:183)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.java:224)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.java:108)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.java:88)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.Transmitter.newExchange(Transmitter.java:169)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:41)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.java:94)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.java:93)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.java:88)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.client.OkHttpUtil.lambda$userAgent$0(OkHttpUtil.java:69)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:142)
-    at io.trino.jdbc.$internal.okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:117)
-    at io.trino.jdbc.$internal.okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:229)
-    at io.trino.jdbc.$internal.okhttp3.RealCall.execute(RealCall.java:81)
-    at io.trino.jdbc.$internal.client.JsonResponse.execute(JsonResponse.java:130)
-    ... 9 more
-    Caused by: java.net.ConnectException: Connection refused: no further information
-    at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-    at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
-    at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
-    at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:597)
-    at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-    at java.base/java.net.Socket.connect(Socket.java:633)
-    at io.trino.jdbc.$internal.okhttp3.internal.platform.Platform.connectSocket(Platform.java:130)
-    at io.trino.jdbc.$internal.okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.java:263)
-    ... 31 more
-</code></pre>
 <h3 id="voltdb"><a name="issues_voltdb"></a> VoltDB</h3>
 <ul>
 <li>Issue: Java 16 not yet supported: <code>java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null</code></li>

@@ -438,40 +438,40 @@
 <p>In case of software changes we strongly recommend you to respect the license terms.</p>
 <ol>
 <li>Fork it</li>
-<li>Create your feature branch (git checkout -b my-new-feature)</li>
-<li>Commit your changes (git commit -am 'Add some feature')</li>
-<li>Push to the branch (git push origin my-new-feature)</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
 <li>Create a new Pull Request</li>
 <li>
 <p>Action points to be considered when adding a new database:</p>
 </li>
 <li>
-<p>lib/<database_driver>.jar</p>
+<p><code>lib/&lt;database_driver&gt;.jar</code></p>
 </li>
 <li>
-<p>resources/docker/trino/catalog/db_seeder_<ticker_symbol>.properties</p>
+<p><code>resources/docker/trino/catalog/db_seeder_&lt;ticker_symbol&gt;.properties</code></p>
 </li>
 <li>
-<p>scripts</p>
+<p><code>scripts</code></p>
 <ul>
-<li>run_db_seeder_complete[client|emb|trino].[bat|sh]</li>
-<li>run_db_seeder_generate_schema.[bat|sh]</li>
-<li>run_db_seeder_setup_<ticker_symbol>.bat</li>
-<li>run_db_seeder_setup_dbms.[bat|sh]</li>
-<li>run_db_seeder_setup_files.[bat|sh]</li>
-<li>run_db_seeder_single.[bat|sh]</li>
-<li>run_db_seeder_trino_environment.[bat|sh]</li>
+<li><code>run_db_seeder_complete[client|emb|trino].[bat|sh]</code></li>
+<li><code>run_db_seeder_generate_schema.[bat|sh]</code></li>
+<li><code>run_db_seeder_setup_&lt;ticker_symbol&gt;.bat</code></li>
+<li><code>run_db_seeder_setup_dbms.[bat|sh]</code></li>
+<li><code>run_db_seeder_setup_files.[bat|sh]</code></li>
+<li><code>run_db_seeder_single.[bat|sh]</code></li>
+<li><code>run_db_seeder_trino_environment.[bat|sh]</code></li>
 </ul>
 </li>
 <li>
-<p>src/main/java</p>
+<p><code>src/main/java</code></p>
 <ul>
-<li>ch/konnexions/db_seeder/AbstractDatabaseSeeder.java</li>
-<li>ch/konnexions/db_seeder/DatabaseSeeder.java</li>
-<li>ch/konnexions/db_seeder/TrinoEnvironment.java</li>
-<li>ch/konnexions/db_seeder/generator/GenerateSchema.java</li>
-<li>ch/konnexions/db_seeder/jdbc/<ticker_symbol>/<Database>Seeder.java</li>
-<li>ch/konnexions/db_seeder/jdbc/AbstractJdbcSeeder.java     </li>
+<li><code>ch/konnexions/db_seeder/AbstractDatabaseSeeder.java</code></li>
+<li><code>ch/konnexions/db_seeder/DatabaseSeeder.java</code></li>
+<li><code>ch/konnexions/db_seeder/TrinoEnvironment.java</code></li>
+<li><code>ch/konnexions/db_seeder/generator/GenerateSchema.java</code></li>
+<li><code>ch/konnexions/db_seeder/jdbc/&lt;ticker_symbol&gt;/&lt;Database&gt;Seeder.java</code></li>
+<li><code>ch/konnexions/db_seeder/jdbc/AbstractJdbcSeeder.java</code></li>
 </ul>
 </li>
 </ol>
