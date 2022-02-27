@@ -138,14 +138,16 @@ if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     rd /q /s %DB_SEEDER_DATABASE% || true
 )
 
-docker stop db_seeder_db
-docker rm --force db_seeder_db
-docker ps -a
+docker ps     | find "db_seeder_db" && docker stop db_seeder_db
+docker ps -a  | find "db_seeder_db" && docker rm --force db_seeder_db
+docker images | find "%DB_SEEDER_IMAGE%" && docker rmi --force %DB_SEEDER_IMAGE%
 
-docker rmi --force %DB_SEEDER_IMAGE%
 if ["%DB_SEEDER_DBMS_TRINO%"] EQU ["yes"] (
+    docker rm  --force db_seeder_trino
     docker rmi --force %DB_SEEDER_IMAGE_TRINO%
 )
+
+docker ps -a
 docker images
 
 echo --------------------------------------------------------------------------------

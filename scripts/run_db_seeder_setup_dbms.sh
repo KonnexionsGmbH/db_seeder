@@ -57,7 +57,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "agens" ]; then
                   -e        POSTGRES_USER=agens \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}" \
                   -t \
-                  "${DB_SEEDER_IMAGE_TRINO}"
+                  "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (AgensGraph ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
@@ -202,7 +202,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "exasol" ]; then
                -p           127.0.0.1:"${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
                --privileged \
                "${DB_SEEDER_IMAGE}"
-1
+
     echo "Docker start db_seeder_db (Exasol ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
         exit 255

@@ -101,7 +101,6 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder exasol           yes 1
     call run_db_seeder firebird         yes 1
     call run_db_seeder hsqldb           yes 1
-    rem java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
     call run_db_seeder hsqldb_emb       yes 1
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
@@ -151,6 +150,16 @@ rem > run_db_seeder_release.log 2>&1 (
     call scripts\run_db_seeder_compute_improvement %DB_SEEDER_FILE_STATISTICS_NAME%
 
     call scripts\run_db_seeder_create_summary
+
+    rem ------------------------------------------------------------------------------
+    rem End of processing.
+    rem ------------------------------------------------------------------------------
+
+    start resources\audio\end_of_series.mp3
+    if ERRORLEVEL 1 (
+        echo Processing of the script: %0 - step: 'start resources\audio\end_of_series.mp3' was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
 
     echo --------------------------------------------------------------------------------
     echo:| TIME

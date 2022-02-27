@@ -53,7 +53,7 @@ export DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
 export DB_SEEDER_DBMS_SQLITE_EMB=yes
 export DB_SEEDER_DBMS_SQLSERVER=yes
 export DB_SEEDER_DBMS_SQLSERVER_TRINO=yes
-export DB_SEEDER_DBMS_VOLTDB=no
+export DB_SEEDER_DBMS_VOLTDB=yes
 export DB_SEEDER_DBMS_YUGABYTE=yes
 
 # ------------------------------------------------------------------------------
@@ -431,14 +431,6 @@ if [ "${DB_SEEDER_DBMS_YUGABYTE}" = "yes" ]; then
     if ! ( ./run_db_seeder.sh yugabyte yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
     fi
-fi
-
-# ------------------------------------------------------------------------------
-# End of processing.
-# ------------------------------------------------------------------------------
-
-if ! ( mpg123 resources\audio\end_of_series.mp3 ); then
-    exit 255
 fi
 
 echo "--------------------------------------------------------------------------------"

@@ -125,7 +125,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["agens"] (
     set DB_SEEDER_VERSION=v2.1.3
     set DB_SEEDER_VERSION=v2.5.0
     set DB_SEEDER_IMAGE=bitnine/agensgraph:!DB_SEEDER_VERSION!
-
 )
 
 if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (

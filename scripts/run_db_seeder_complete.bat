@@ -51,7 +51,7 @@ set DB_SEEDER_DBMS_POSTGRESQL_TRINO=yes
 set DB_SEEDER_DBMS_SQLITE_EMB=yes
 set DB_SEEDER_DBMS_SQLSERVER=yes
 set DB_SEEDER_DBMS_SQLSERVER_TRINO=yes
-set DB_SEEDER_DBMS_VOLTDB=no
+set DB_SEEDER_DBMS_VOLTDB=yes
 set DB_SEEDER_DBMS_YUGABYTE=yes
 
 echo.
@@ -501,16 +501,6 @@ echo.
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
-    )
-
-    rem ------------------------------------------------------------------------------
-    rem End of processing.
-    rem ------------------------------------------------------------------------------
-
-    start resources\audio\end_of_series.mp3
-    if ERRORLEVEL 1 (
-        echo Processing of the script: %0 - step: 'start resources\audio\end_of_series.mp3' was aborted, error code=%ERRORLEVEL%
-        exit %ERRORLEVEL%
     )
 
     echo --------------------------------------------------------------------------------
