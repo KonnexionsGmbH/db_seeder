@@ -1,4 +1,4 @@
-# DBSeeder - Covenant Code of Conduct
+# DBSeeder - Code of Conduct
 
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)

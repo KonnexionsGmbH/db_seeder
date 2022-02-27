@@ -20,7 +20,7 @@ nav:
 plugins:
   - search
 
-repo_url: https://github.com/KonnexionsGmbH/dcr/
+repo_url: https://github.com/KonnexionsGmbH/db_seeder/
 
 site_name: DBSeeder - Relational Database Data Generator
 site_url: https://www.konnexions.ch/

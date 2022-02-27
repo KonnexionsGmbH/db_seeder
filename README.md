@@ -33,7 +33,7 @@ Make sure to stick around to answer some questions as well!
 ## Links
 
 - **[Official Documentation](https://konnexionsgmbh.github.io/db_seeder/)**
-- **[Release Notes](https://konnexionsgmbh.github.io/db_seeder/release_notes/)**
+- **[Release Notes](https://konnexionsgmbh.github.io/db_seeder/release-notes/)**
 - **[Discussions](https://github.com/KonnexionsGmbH/db_seeder/discussions)** (Third-party themes, recipes, plugins and more)
 
 ## Contributing to DBSeeder

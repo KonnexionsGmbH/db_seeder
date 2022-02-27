@@ -22,16 +22,16 @@ Details can be found here: [Database Schema](#database_schema).
 Currently, depending on the capabilities of the specific RDBMS, the following functionalities and data types are supported:
 
 - constraints
-  - foreign (referential) key
-  - not null constraint
-  - primary key
-  - unique (alternate) key
+    - foreign (referential) key
+    - not null constraint
+    - primary key
+    - unique (alternate) key
 - data types
-  - BIGINT - large integer
-  - BLOB - large binary object
-  - CLOB - large character Object
-  - TIMESTAMP - timestamp including date
-  - VARCHAR - variable text
+    - BIGINT - large integer
+    - BLOB - large binary object
+    - CLOB - large character Object
+    - TIMESTAMP - timestamp including date
+    - VARCHAR - variable text
 
 The database systems considered meet the following conditions:
 
@@ -229,28 +229,28 @@ The definition of a database schema consists of the object `global` with the glo
 - `tableName` - database table name
 - `numberOfRows` - number of table rows to be generated
 - `columns` - an array of column definitions
-  - `columnName` - column name
-  - `dataType` - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR
-  - `size` - for data type VARCHAR the maximum size of the column value 
-  - `precision` - currently not used
-  - `notNull` - is a NULL value allowed ?
-  - `primaryKey` - is this the primary key column ?
-  - `references` - an array of foreign key definitions
-    - `referenceTable` - name of the reference database table
-    - `referenceColumn` - name of the reference column 
-  - `defaultValueInteger` - default value for integer columns
-  - `defaultValueString` - default value for alphanumeric columns
-  - `lowerRangeInteger` - lower limit for an integer column, requires also an upper limit
-  - `lowerRangeString` - lower limit for an alphanumeric column, requires also an upper limit
-  - `upperRangeInteger` - upper limit for an integer column
-  - `upperRangeString` - upper limit for an alphanumeric column
-  - `validValuesInteger` - valid values for an integer column
-  - `validValuesString` - valid values for an alphanumeric column
+    - `columnName` - column name
+    - `dataType` - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR
+    - `size` - for data type VARCHAR the maximum size of the column value 
+    - `precision` - currently not used
+    - `notNull` - is a NULL value allowed ?
+    - `primaryKey` - is this the primary key column ?
+    - `references` - an array of foreign key definitions
+        - `referenceTable` - name of the reference database table
+        - `referenceColumn` - name of the reference column 
+    - `defaultValueInteger` - default value for integer columns
+    - `defaultValueString` - default value for alphanumeric columns
+    - `lowerRangeInteger` - lower limit for an integer column, requires also an upper limit
+    - `lowerRangeString` - lower limit for an alphanumeric column, requires also an upper limit
+    - `upperRangeInteger` - upper limit for an integer column
+    - `upperRangeString` - upper limit for an alphanumeric column
+    - `validValuesInteger` - valid values for an integer column
+    - `validValuesString` - valid values for an alphanumeric column
 - `tableConstraints` - an array of table constraint definitions
-  - `constraintType` - constraint type, is one of FOREIGN, PRIMARY or UNIQUE
-  - `columns` - an arry with the names of the affected columns
-  - `referenceTable` - name of the reference database table, only for foreign keys
-  - `referenceColumns` - an arry with the names of the affected reference columns, only for foreign keys
+    - `constraintType` - constraint type, is one of FOREIGN, PRIMARY or UNIQUE
+    - `columns` - an arry with the names of the affected columns
+    - `referenceTable` - name of the reference database table, only for foreign keys
+    - `referenceColumns` - an arry with the names of the affected reference columns, only for foreign keys
 
 Only either a range restriction (`lowerRange...`, `upperRange...`) or a value restriction (`validValues...`) may be specified for each column.
 
@@ -319,25 +319,25 @@ Java method: `getContentVarchar`
 - If the column parameter `validValuesString` is defined in the database schema, a random value is taken from it. 
 - If the column parameters `lowerRangeString` and `upperRangeString` are defined in the database schema, a random value is taken from this interval. 
 - Otherwise content of the column is constructed depending on the row number and the encoding flags as follows:
-  - ASCII (all rows where the index modulo 3 is 0):
-    - column name in capital letters
-    - underscore `_`
-    - current row number left-justified
-  - ISO 8859 1 (all rows where the index modulo 3 is 1) :
-    - column name in capital letters
-    - underscore `_`
-    - a string containing specific Western European characters with accent (e.g. French, Portuguese or Spanish)
-    - underscore `_`
-    - current row number left-justified
-  - the ISO 8859 1 version can be prevented by choosing `encodingISO_8859_1` `false` in the database schema definition  
-  - UTF-8 (all rows where the index modulo 3 is 2):
-    - column name in capital letters
-    - underscore `_`
-    - a string containing simplified Chinese characters
-    - underscore `_`
-    - current row number left-justified
-  - the UTF-8 version can be prevented by choosing `encodingUTF_8` `false` in the database schema definition
-  - If the resulting value exceeds the permissible column size, the value is shortened accordingly from the left
+    - ASCII (all rows where the index modulo 3 is 0):
+        - column name in capital letters
+        - underscore `_`
+        - current row number left-justified
+    - ISO 8859 1 (all rows where the index modulo 3 is 1) :
+        - column name in capital letters
+        - underscore `_`
+        - a string containing specific Western European characters with accent (e.g. French, Portuguese or Spanish)
+        - underscore `_`
+        - current row number left-justified
+    - the ISO 8859 1 version can be prevented by choosing `encodingISO_8859_1` `false` in the database schema definition  
+    - UTF-8 (all rows where the index modulo 3 is 2):
+        - column name in capital letters
+        - underscore `_`
+        - a string containing simplified Chinese characters
+        - underscore `_`
+        - current row number left-justified
+    - the UTF-8 version can be prevented by choosing `encodingUTF_8` `false` in the database schema definition
+    - If the resulting value exceeds the permissible column size, the value is shortened accordingly from the left
 
 #### 2.2.6 Examples
 
@@ -389,12 +389,12 @@ The `run_db_seeder` script is controlled by the following script parameters::
 
 - `DB_SEEDER_DBMS`: the ticker symbol of the desired database management system (default value `sqlite`) or `complete` for all implemented RDBMS.
 - `DB_SEEDER_SETUP_DBMS`: should an empty database be created:
-  - `yes`: a new database is created based on a suitable Docker image
-  - otherwise: no database is created 
+    - `yes`: a new database is created based on a suitable Docker image
+    - otherwise: no database is created 
 - `DB_SEEDER_NO_CREATE_RUNS`: Number of dummy data generation runs:
-  - 1: one run
-  - 2: two runs
-  - otherwise: no run
+    - 1: one run
+    - 2: two runs
+    - otherwise: no run
 
 For the run variants `complete`, `complete_client`, `complete_emb` and `complete_trino`, statistics files with the following data name structure are created in the file directory `resources/statistics` by default:
 
@@ -517,15 +517,15 @@ Each new release is completed with the creation of 7 statistics files in the fil
 The data contained in these files show the DDL and DML performance of the individual databases under identical conditions:
 
 - Operating systems: Ubuntu with VMware Workstation Player, Ubuntu with WSL (Windoiws Subsystem for Linux) on Windows and Windows.
-  - `..._vmware.tsv`: Ubuntu with VMware Workstation Player on Windows
-  - `...._win10.tsv`: Windows 10
-  - `....._wsl2.tsv`: Ubuntu LTS with Windows Subsystem for Linux 2 on Windows
+    - `..._vmware.tsv`: Ubuntu with VMware Workstation Player on Windows
+    - `...._win10.tsv`: Windows 10
+    - `....._wsl2.tsv`: Ubuntu LTS with Windows Subsystem for Linux 2 on Windows
 - DDL: Creation of the database schema consisting of the 5 relational tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE (see JSON file: `resources/json/db_seeder_schema.company_5400.json`).
 - DML: Insert records into these database tables - CITY 1800, COMPANY 5400, COUNTRY 200, COUNTRY_STATE 600 and TIMEZONE 11.
 - If possible, two runs are made for each database system: one run with constraints enabled and one run with constraints disabled - see column `constraints`:
-  - `active`: constraints are enabled
-  - `active - no choice`: constraints are enabled and disabling is not possible
-  - `inactive`: constraints are disabled
+    - `active`: constraints are enabled
+    - `active - no choice`: constraints are enabled and disabling is not possible
+    - `inactive`: constraints are disabled
 
 The creation of these statistics files is managed by the following control parameters ([see here](#operating_instructions_control)):
 
@@ -746,23 +746,23 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull crate:4.7.0`
-  - [DockerHub](https://hub.docker.com/_/crate)
+    - pull command: `docker pull crate:4.7.0`
+    - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
 
 - **issue tracking**: [GitHub](https://github.com/crate/crate)
 
 - **JDBC driver (latest)**:
-  - [JFrog Bintray repository](https://bintray.com/crate/crate/crate-jdbc)
+    - [JFrog Bintray repository](https://bintray.com/crate/crate/crate-jdbc)
   
 - **privileged database access**: user `crate`
 
 - **restrictions**:
-  - no constraints (e.g. foreign keys or unique keys)
-  - no transaction concept
-  - no triggers 
-  - only a very proprietary BLOB implementation
+    - no constraints (e.g. foreign keys or unique keys)
+    - no transaction concept
+    - no triggers 
+    - only a very proprietary BLOB implementation
 
 - **source code**: [GitHub](https://github.com/crate/crate)
 
@@ -785,22 +785,22 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR     |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a   
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://www.cubrid.org/manual/en/11.0/sql/schema/table_stmt.html?highlight=create%20database#create-table) 
-  - [CREATE USER](https://www.cubrid.org/manual/en/11.0/sql/authorization.html) 
+    - CREATE DATABASE - n/a   
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://www.cubrid.org/manual/en/11.0/sql/schema/table_stmt.html?highlight=create%20database#create-table) 
+    - [CREATE USER](https://www.cubrid.org/manual/en/11.0/sql/authorization.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull cubrid/cubrid:11.0`
-  - [DockerHub](https://hub.docker.com/r/cubrid/cubrid)
+    - pull command: `docker pull cubrid/cubrid:11.0`
+    - [DockerHub](https://hub.docker.com/r/cubrid/cubrid)
 
 - **encoding**: by specifying after the database name when database is created: `kxn_db de_DE.utf8`
 
 - **issue tracking**: 
-  - [Jira](http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&orderby=created+DESC)
+    - [Jira](http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&orderby=created+DESC)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
+    - [Maven repository](https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid)
   
 - **privileged database access**: users `DBA` and `PUBLIC`
 
@@ -826,22 +826,22 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR          |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a
-  - [CREATE SCHEMA](https://docs.exasol.com/7.0/sql/create_schema.htm) 
-  - [CREATE TABLE](https://docs.exasol.com/7.0/sql/create_table.htm) 
-  - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
+    - CREATE DATABASE - n/a
+    - [CREATE SCHEMA](https://docs.exasol.com/7.0/sql/create_schema.htm) 
+    - [CREATE TABLE](https://docs.exasol.com/7.0/sql/create_table.htm) 
+    - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull exasol/docker-db:7.1.6`
-  - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
+    - pull command: `docker pull exasol/docker-db:7.1.6`
+    - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
+    - [Maven repository](https://mvnrepository.com/artifact/com.exasol/exasol-jdbc)
 
 - **privileged database access**: user `sys` password `exasol` 
 
 - **restrictions**:
-  - no unique key constraints
+    - no unique key constraints
 
 - **DBeaver database connection settings**:
 
@@ -862,21 +862,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR         |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create) 
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl) 
-  - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
+    - [CREATE DATABASE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create) 
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl) 
+    - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull jacobalberty/firebird:v4.0.1`
-  - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
+    - pull command: `docker pull jacobalberty/firebird:v4.0.1`
+    - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
   
 - **issue tracking**: [GitHub](https://github.com/FirebirdSQL/firebird/issues)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
+    - [Maven repository](https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird)
 
 - **privileged database access**: user `SYSDBA`
 
@@ -901,21 +901,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR                 |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a  
-  - [CREATE SCHEMA](https://www.h2database.com/html/commands.html#create_schema)
-  - [CREATE TABLE](https://www.h2database.com/html/commands.html#create_table) 
-  - [CREATE USER](https://www.h2database.com/html/commands.html#create_user) 
+    - CREATE DATABASE - n/a  
+    - [CREATE SCHEMA](https://www.h2database.com/html/commands.html#create_schema)
+    - [CREATE TABLE](https://www.h2database.com/html/commands.html#create_table) 
+    - [CREATE USER](https://www.h2database.com/html/commands.html#create_user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.1.210`
-  - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine)
+    - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.1.210`
+    - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine)
 
 - **encoding**: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.
   
 - **issue tracking**: [GitHub](https://github.com/h2database/h2database)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.h2database/h2)
+    - [Maven repository](https://mvnrepository.com/artifact/com.h2database/h2)
 
 - **privileged database access**: user `sa`
 
@@ -942,21 +942,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR     |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a  
-  - [CREATE SCHEMA](http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_schema_creation)
-  - [CREATE TABLE](http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_tables) 
-  - [CREATE USER](http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html) 
+    - CREATE DATABASE - n/a  
+    - [CREATE SCHEMA](http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_schema_creation)
+    - [CREATE TABLE](http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_tables) 
+    - [CREATE USER](http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull konnexionsgmbh/hypersql_database:2.6.1`
-  - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database)
+    - pull command: `docker pull konnexionsgmbh/hypersql_database:2.6.1`
+    - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database)
 
 - **encoding**: by using the following system property `sqlfile.charset=UTF-8`.
   
 - **issue tracking**: [SourceForge](https://sourceforge.net/p/hsqldb/_list/tickets)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
+    - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **privileged database access**: user `SA`
 
@@ -983,24 +983,24 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR               |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001941.html) 
-  - [CREATE SCHEMA](https://www.ibm.com/support/knowledgecenter/SSFMBX/com.ibm.swg.im.dashdb.sql.ref.doc/doc/r0000925.html)
-  - [CREATE TABLE](https://https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0000927.html) 
-  - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
+    - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001941.html) 
+    - [CREATE SCHEMA](https://www.ibm.com/support/knowledgecenter/SSFMBX/com.ibm.swg.im.dashdb.sql.ref.doc/doc/r0000925.html)
+    - [CREATE TABLE](https://https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0000927.html) 
+    - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/db2:11.5.7.0`
-  - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
+    - pull command: `docker pull ibmcom/db2:11.5.7.0`
+    - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
 - **encoding**:
-  - by using the CCSID clause in the CREATE statements for any of the following objects:
-    - Database
-    - Table space
-    - Table
-    - procedure or function
+    - by using the CCSID clause in the CREATE statements for any of the following objects:
+        - Database
+        - Table space
+        - Table
+        - procedure or function
   
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
+    - [Maven repository](https://mvnrepository.com/artifact/com.ibm.db2/jcc)
 
 - **privileged database access**: user `db2inst1`
 
@@ -1025,30 +1025,30 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR (1-254) / LVARCHAR |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0368.htm) 
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0509.htm) 
-  - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
+    - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0368.htm) 
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0509.htm) 
+    - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC7W1DE`
-  - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
+    - pull command: `docker pull ibmcom/informix-developer-database:14.10.FC7W1DE`
+    - [DockerHub](https://hub.docker.com/r/ibmcom/informix-developer-database)
 
 - **encoding**:
-  - code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made
+    - code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made
   
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.ibm.informix/jdbc)
+    - [Maven repository](https://mvnrepository.com/artifact/com.ibm.informix/jdbc)
 
 - **privileged database access**: 
-  - user `informix`
-  - password `in4mix`
-  - database / schema `sysmaster`
-  - INFORMIXSERVER `informix`
+    - user `informix`
+    - password `in4mix`
+    - database / schema `sysmaster`
+    - INFORMIXSERVER `informix`
 
 - **restrictions**: 
-  - the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users 
-  - no named constraints in ALTER TABLE ADD CONSTRAINT
+    - the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users 
+    - no named constraints in ALTER TABLE ADD CONSTRAINT
 
 - **DBeaver database connection settings**:
 
@@ -1069,29 +1069,29 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR      |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://mariadb.com/kb/en/create-database) 
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://mariadb.com/kb/en/create-table) 
-  - [CREATE USER](https://mariadb.com/kb/en/create-user) 
+    - [CREATE DATABASE](https://mariadb.com/kb/en/create-database) 
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://mariadb.com/kb/en/create-table) 
+    - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mariadb:10.7.1-focal`
-  - [DockerHub](https://hub.docker.com/_/mariadb)
+    - pull command: `docker pull mariadb:10.7.1-focal`
+    - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
-  - server level: `SET character_set_server = 'latin2';`
-  - database level: `CHARACTER SET = 'keybcs2'`
-  - table level: `CHARACTER SET 'utf8'`
-  - column level: `CHARACTER SET 'greek'`
+    - server level: `SET character_set_server = 'latin2';`
+    - database level: `CHARACTER SET = 'keybcs2'`
+    - table level: `CHARACTER SET 'utf8'`
+    - column level: `CHARACTER SET 'greek'`
   
 - **issue tracking**: [Jira](https://jira.mariadb.org/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
+    - [Maven repository](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client)
 
 - **privileged database access**:
-  - user: `mysql`
-  - password; `root`
+    - user: `mysql`
+    - password; `root`
 
 - **source code**: [GitHub](https://github.com/MariaDB/server)
 
@@ -1114,23 +1114,23 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | NVARCHAR      |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
-  - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+    - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
+    - [CREATE USER](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mimersql/mimersql_v11.0.5a`
-  - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
+    - pull command: `docker pull mimersql/mimersql_v11.0.5a`
+    - [DockerHub](https://hub.docker.com/r/mimersql/mimersql_v11.0)
 
 - **encoding**: NCHAR, NVARCHAR
   
 - **JDBC driver (latest)**: 
-  - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se)
+    - [Mimer Website](https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se)
 
 - **privileged database access**:
-  - database; `mimerdb`
-  - user: `SYSADM`
+    - database; `mimerdb`
+    - user: `SYSADM`
 
 - **DBeaver database connection settings**:
 
@@ -1151,26 +1151,26 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR      |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a
-  - [CREATE SCHEMA](https://www.monetdb.org/Documentation/SQLReference/DataDefinition/SchemaDefinitions) 
-  - [CREATE TABLE](https://www.monetdb.org/Documentation/SQLReference/TableDefinitions) 
-  - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
+    - CREATE DATABASE - n/a
+    - [CREATE SCHEMA](https://www.monetdb.org/Documentation/SQLReference/DataDefinition/SchemaDefinitions) 
+    - [CREATE TABLE](https://www.monetdb.org/Documentation/SQLReference/TableDefinitions) 
+    - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull monetdb/monetdb:Jan2022-SP1`
-  - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
+    - pull command: `docker pull monetdb/monetdb:Jan2022-SP1`
+    - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
   
 - **issue tracking**: [GitHub](https://github.com/MonetDB/MonetDB/issues)
 
 - **JDBC driver (latest)**:
-  - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java)
+    - [MonetDB Java Download Area](https://www.monetdb.org/downloads/Java)
 
 - **privileged database access**:
-  - database: `demo`
-  - user: `monetdb`
-  - password: `monetdb`
+    - database: `demo`
+    - user: `monetdb`
+    - password: `monetdb`
 
 - **source code**: [GitHub](https://github.com/MonetDB/MonetDB)
 
@@ -1193,23 +1193,23 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR             |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://dev.mysql.com/doc/refman/8.0/en/create-database.html) 
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://dev.mysql.com/doc/refman/8.0/en/create-table.html) 
-  - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
+    - [CREATE DATABASE](https://dev.mysql.com/doc/refman/8.0/en/create-database.html) 
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://dev.mysql.com/doc/refman/8.0/en/create-table.html) 
+    - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mysql:8.0.28`
-  - [DockerHub](https://hub.docker.com/_/mysql)
+    - pull command: `docker pull mysql:8.0.28`
+    - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+    - [Maven repository](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 - **privileged database access**:
-  - database: `sys`
-  - user: `root`
+    - database: `sys`
+    - user: `root`
 
 - **source code**: [GitHub](https://github.com/mysql/mysql-server)
 
@@ -1232,34 +1232,34 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | TEXT ENCODING NONE |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://docs-new.omnisci.com/sql/data-definition-ddl/tables)
-  - [CREATE USER](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
+    - [CREATE DATABASE](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://docs-new.omnisci.com/sql/data-definition-ddl/tables)
+    - [CREATE USER](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull omnisci/core-os-cpu`
-  - [DockerHub](https://hub.docker.com/_/omnisci-open-source-edition)
+    - pull command: `docker pull omnisci/core-os-cpu`
+    - [DockerHub](https://hub.docker.com/_/omnisci-open-source-edition)
 
 - **encoding**: no special configuration should be needed
 
 - **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
+    - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
 
 - **privileged database access**:
-  - database: `omnisci`
-  - user: `admin`
+    - database: `omnisci`
+    - user: `admin`
 
 - **restrictions**: 
-  - column and table names case sensitive
-  - max. column length 32767 bytes  
-  - no binary columns
-  - no constraints, e.g. unique keys
-  - no foreign / referential keys
-  - no primary key
-  - no triggerss
+    - column and table names case sensitive
+    - max. column length 32767 bytes  
+    - no binary columns
+    - no constraints, e.g. unique keys
+    - no foreign / referential keys
+    - no primary key
+    - no triggerss
 
 - **source code**: [GitHub](https://github.com/omnisci/omniscidb)
 
@@ -1282,21 +1282,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR2             |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a 
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
-  - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
+    - CREATE DATABASE - n/a 
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6) 
+    - [CREATE USER](https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C) 
 
 - **Docker image**: [DockerHub](https://github.com/oracle/docker-images/tree/master/OracleDatabase)
 
 - **encoding**: since Oracle Database 12c Release 2 the default database character set used is the Unicode character set AL32UTF8
   
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11)
+    - [Maven repository](https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11)
 
 - **privileged database access**:
-  - database: `orclpdb1`
-  - user: `SYS AS SYSDBA`
+    - database: `orclpdb1`
+    - user: `SYS AS SYSDBA`
 
 - **DBeaver database connection settings**:
 
@@ -1317,25 +1317,25 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR              |
 
 - **DDL syntax**:
-  - CREATE DATABASE: see MySQL Database 
-  - CREATE SCHEMA - n/a
-  - CREATE TABLE: see MySQL Database 
-  - CREATE USER: see MySQL Database 
+    - CREATE DATABASE: see MySQL Database 
+    - CREATE SCHEMA - n/a
+    - CREATE TABLE: see MySQL Database 
+    - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull percona/percona-server:8.0.26-17`
-  - [DockerHub](https://hub.docker.com/_/percona-server)
+    - pull command: `docker pull percona/percona-server:8.0.26-17`
+    - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
   
 - **issue tracking**: [Jira](https://jira.percona.com/projects/PS/issues/PS-7237?filter=allopenissues)
 
 - **JDBC driver (latest)**:
-  - same as MySQL
+    - same as MySQL
 
 - **privileged database access**:
-  - database: `sys`
-  - user: `root`
+    - database: `sys`
+    - user: `root`
 
 - **source code**: [GitHub](https://github.com/percona/percona-server)
 
@@ -1358,21 +1358,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR         |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
-  - [CREATE SCHEMA](https://www.postgresql.org/docs/12/sql-createschema.html)
-  - [CREATE TABLE](https://www.postgresql.org/docs/12/sql-createtable.html) 
-  - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
+    - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
+    - [CREATE SCHEMA](https://www.postgresql.org/docs/12/sql-createschema.html)
+    - [CREATE TABLE](https://www.postgresql.org/docs/12/sql-createtable.html) 
+    - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull postgres:14.2-alpine`
-  - [DockerHub](https://hub.docker.com/_/postgres)
+    - pull command: `docker pull postgres:14.2-alpine`
+    - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
 
 - **issue tracking**: [PostgreSQL](https://www.postgresql.org/list/pgsql-bugs)
   
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
+    - [Maven repository](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
 - **documentation**: [The PostgreSQL JDBC Interface](https://jdbc.postgresql.org/documentation/head/index.html)
  
@@ -1399,23 +1399,23 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR         |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15)
-  - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
-  - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15)
-  - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
+    - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15)
+    - [CREATE SCHEMA](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15)
+    - [CREATE TABLE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15)
+    - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
 
 - **Docker image (latest)**:
-  - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04`
-  - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
+    - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04`
+    - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
 
 - **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
+    - [Maven repository](https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc)
 
 - **privileged database access**:
-  - database: `master`
-  - user: `sa`
+    - database: `master`
+    - user: `sa`
 
 - **restrictions**: no full UTF-8 support in the given Docker images
 
@@ -1438,22 +1438,22 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR2    |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a
-  - CREATE SCHEMA - n/a
-  - [CREATE TABLE](https://sqlite.org/lang_createtable.html) 
-  - CREATE USER - n/a     
+    - CREATE DATABASE - n/a
+    - CREATE SCHEMA - n/a
+    - [CREATE TABLE](https://sqlite.org/lang_createtable.html) 
+    - CREATE USER - n/a     
 
 - **encoding**: by using the following parameter: `PRAGMA encoding='UTF-8';`
   
 - **issue tracking**: [SQLite](https://www.sqlite.org/src/wiki?name=Bug+Reports)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
-  - determines also the DBMS version
+    - [Maven repository](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc)
+    - determines also the DBMS version
 
 - **restrictions**:
-  - no Docker image necessary, hence not available
-  - no user management 
+    - no Docker image necessary, hence not available
+    - no user management 
 
 - **source code**: [SQLite](https://sqlite.org/src/doc/trunk/README.md)
 
@@ -1476,21 +1476,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR                  |
 
 - **DDL syntax**:
-  - CREATE DATABASE: see PostgreSQL
-  - CREATE SCHEMA: see PostgreSQL
-  - CREATE TABLE: see PostgreSQL
-  - CREATE USER: see PostgreSQL
+    - CREATE DATABASE: see PostgreSQL
+    - CREATE SCHEMA: see PostgreSQL
+    - CREATE TABLE: see PostgreSQL
+    - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-  - pull command: `docker pull timescale/timescaledb:2.6.0-pg14`
-  - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
+    - pull command: `docker pull timescale/timescaledb:2.6.0-pg14`
+    - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL
 
 - **issue tracking**: [GitHub](https://github.com/timescale/timescaledb/issues)
 
 - **JDBC driver (latest)**:
-  - same as PostgreSQL
+    - same as PostgreSQL
 
 - **source code**: [GitHub](https://github.com/timescale/timescaledb)
 
@@ -1511,21 +1511,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR    |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a
-  - [CREATE SCHEMA](https://trino.io/docs/current/sql/create-schema.html)
-  - [CREATE TABLE](https://trino.io/docs/current/sql/create-table.html)
-  - CREATE USER - n/a
+    - CREATE DATABASE - n/a
+    - [CREATE SCHEMA](https://trino.io/docs/current/sql/create-schema.html)
+    - [CREATE TABLE](https://trino.io/docs/current/sql/create-table.html)
+    - CREATE USER - n/a
 
 - **Docker image (latest)**:
-  - pull command: `docker pull trinodb/trino:368`
-  - [DockerHub](https://hub.docker.com/r/trinodb/trino)
+    - pull command: `docker pull trinodb/trino:368`
+    - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
 
 - **issue tracking**: [GitHub](https://github.com/trinodb/trino/issues)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
+    - [Maven repository](https://mvnrepository.com/artifact/io.trino/trino-jdbc)
 
 - **source code**: [GitHub](https://github.com/trinodb/trino)
 
@@ -1548,19 +1548,19 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR            |
 
 - **DDL syntax**:
-  - CREATE DATABASE - n/a  
-  - CREATE SCHEMA - n/a  
-  - [CREATE TABLE](https://docs.voltdb.com/UsingVoltDB/ddlref_createtable.php) 
-  - CREATE USER - n/a  
+    - CREATE DATABASE - n/a  
+    - CREATE SCHEMA - n/a  
+    - [CREATE TABLE](https://docs.voltdb.com/UsingVoltDB/ddlref_createtable.php) 
+    - CREATE USER - n/a  
 
 - **Docker image (latest)**:
-  - pull command: `docker pull voltdb/voltdb-community:9.2.1`
-  - [DockerHub](https://hub.docker.com/r/voltdb/voltdb-community)
+    - pull command: `docker pull voltdb/voltdb-community:9.2.1`
+    - [DockerHub](https://hub.docker.com/r/voltdb/voltdb-community)
 
 - **issue tracking**: [Jira](https://issues.voltdb.com/secure/Dashboard.jspa)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
+    - [Maven repository](https://mvnrepository.com/artifact/org.hsqldb/hsqldb)
 
 - **restrictions**: no support of autoincrement, check constraints or foreign keys
 
@@ -1585,21 +1585,21 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 | VARCHAR        | VARCHAR                  |
 
 - **DDL syntax**:
-  - [CREATE DATABASE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database) 
-  - [CREATE SCHEMA](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_schema)
-  - [CREATE TABLE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_table) 
-  - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
+    - [CREATE DATABASE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database) 
+    - [CREATE SCHEMA](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_schema)
+    - [CREATE TABLE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_table) 
+    - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-  - pull command: `docker pull yugabytedb/yugabyte:2.12.1.0-b41`
-  - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
+    - pull command: `docker pull yugabytedb/yugabyte:2.12.1.0-b41`
+    - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL
   
 - **issue tracking**: [GitHub](https://github.com/yugabyte/yugabyte-db/issues)
 
 - **JDBC driver (latest)**:
-  - [Maven repository](https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb)
+    - [Maven repository](https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb)
 
 - **source code**: [GitHub](https://github.com/yugabyte/yugabyte-db)
 
