@@ -1371,17 +1371,21 @@ The database schema to be used, that is, the required database tables can be use
 Details can be found here: <a href="#database_schema">Database Schema</a>.</p>
 <p>Currently, depending on the capabilities of the specific RDBMS, the following functionalities and data types are supported:</p>
 <ul>
-<li>constraints</li>
+<li>constraints<ul>
 <li>foreign (referential) key</li>
 <li>not null constraint</li>
 <li>primary key</li>
 <li>unique (alternate) key</li>
-<li>data types</li>
+</ul>
+</li>
+<li>data types<ul>
 <li>BIGINT - large integer</li>
 <li>BLOB - large binary object</li>
 <li>CLOB - large character Object</li>
 <li>TIMESTAMP - timestamp including date</li>
 <li>VARCHAR - variable text</li>
+</ul>
+</li>
 </ul>
 <p>The database systems considered meet the following conditions:</p>
 <ol>
@@ -1591,119 +1595,167 @@ Details can be found here: <a href="#database_schema">Database Schema</a>.</p>
 <h3 id="12-rdbms-directory">1.2 RDBMS Directory</h3>
 <p>The following database systems are included in the current version of <strong><code>DBSeeder</code></strong>:</p>
 <ul>
-<li><a href="https://bitnine.net/agensgraph" target="_blank">AgensGraph</a></li>
+<li><a href="https://bitnine.net/agensgraph" target="_blank">AgensGraph</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>derived from PostgreSQL</li>
 <li>property graph model and relational model</li>
-<li><a href="https://db.apache.org/derby" target="_blank">Apache Derby</a></li>
+</ul>
+</li>
+<li><a href="https://db.apache.org/derby" target="_blank">Apache Derby</a><ul>
 <li>client and embedded version</li>
 <li>open source</li>
 <li>relational model</li>
-<li><a href="https://www.cockroachlabs.com" target="_blank">CockroachDB</a></li>
+</ul>
+</li>
+<li><a href="https://www.cockroachlabs.com" target="_blank">CockroachDB</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>compatible with PostgreSQL JDBC</li>
 <li>relational model</li>
-<li><a href="https://crate.io" target="_blank">CrateDB</a></li>
+</ul>
+</li>
+<li><a href="https://crate.io" target="_blank">CrateDB</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>compatible with PostgreSQL</li>
 <li>relational model</li>
-<li><a href="https://www.cubrid.org" target="_blank">CUBRID</a></li>
+</ul>
+</li>
+<li><a href="https://www.cubrid.org" target="_blank">CUBRID</a><ul>
 <li>client only version</li>
 <li>compatible with MySQL</li>
 <li>open source</li>
 <li>relational model</li>
-<li><a href="https://www.exasol.com/en" target="_blank">Exasol</a></li>
+</ul>
+</li>
+<li><a href="https://www.exasol.com/en" target="_blank">Exasol</a><ul>
 <li>client only version</li>
 <li>commercial</li>
 <li>in-memory, column-oriented, relational model</li>
-<li><a href="https://firebirdsql.org" target="_blank">Firebird</a></li>
+</ul>
+</li>
+<li><a href="https://firebirdsql.org" target="_blank">Firebird</a><ul>
 <li>client and embedded (not supported here) version</li>
 <li>open source</li>
 <li>relational model</li>
-<li><a href="https://www.h2database.com/html/main.html" target="_blank">H2 Database Engine</a></li>
+</ul>
+</li>
+<li><a href="https://www.h2database.com/html/main.html" target="_blank">H2 Database Engine</a><ul>
 <li>client and embedded version</li>
 <li>compatible with HSQLDB, PostgreSQL</li>
 <li>open source</li>
 <li>relational model</li>
-<li><a href="https://hsqldb.org">HSQLDB</a> </li>
+</ul>
+</li>
+<li><a href="https://hsqldb.org">HSQLDB</a> <ul>
 <li>client and embedded version</li>
 <li>open source</li>
 <li>relational model</li>
-<li><a href="https://www.ibm.com/products/db2-database" target="_blank">IBM Db2 Database</a></li>
+</ul>
+</li>
+<li><a href="https://www.ibm.com/products/db2-database" target="_blank">IBM Db2 Database</a><ul>
 <li>client only version</li>
 <li>commercial</li>
 <li>relational model</li>
-<li><a href="https://www.ibm.com/products/informix" target="_blank">IBM Informix</a></li>
+</ul>
+</li>
+<li><a href="https://www.ibm.com/products/informix" target="_blank">IBM Informix</a><ul>
 <li>client only version</li>
 <li>commercial</li>
 <li>relational model</li>
-<li><a href="https://mariadb.com" target="_blank">MariaDB Server</a></li>
+</ul>
+</li>
+<li><a href="https://mariadb.com" target="_blank">MariaDB Server</a><ul>
 <li>client only version</li>
 <li>open source</li>
 <li>derived from MySQL</li>
 <li>relational model</li>
-<li><a href="https://www.mimer.com" target="_blank">Mimer SQL</a></li>
+</ul>
+</li>
+<li><a href="https://www.mimer.com" target="_blank">Mimer SQL</a><ul>
 <li>client only version</li>
 <li>commercial</li>
 <li>relational model</li>
-<li><a href="https://www.monetdb.org" target="_blank">MonetDB</a></li>
+</ul>
+</li>
+<li><a href="https://www.monetdb.org" target="_blank">MonetDB</a><ul>
 <li>client only version</li>
 <li>open source</li>
 <li>column-oriented relational model</li>
-<li><a href="https://www.mysql.com" target="_blank">MySQL Database</a></li>
+</ul>
+</li>
+<li><a href="https://www.mysql.com" target="_blank">MySQL Database</a><ul>
 <li>client only version</li>
 <li>open source</li>
 <li>relational model</li>
-<li><a href="https://www.omnisci.com" target="_blank">OmniSciDB</a></li>
+</ul>
+</li>
+<li><a href="https://www.omnisci.com" target="_blank">OmniSciDB</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>GPU and CPU version</li>
 <li>relational model</li>
-<li><a href="https://www.oracle.com/database" target="_blank">Oracle Database</a></li>
+</ul>
+</li>
+<li><a href="https://www.oracle.com/database" target="_blank">Oracle Database</a><ul>
 <li>client only version</li>
 <li>commercial</li>
 <li>relational model</li>
-<li><a href="https://www.percona.com/software/mysql-database/percona-server" target="_blank">Percona Server for MySQL</a></li>
+</ul>
+</li>
+<li><a href="https://www.percona.com/software/mysql-database/percona-server" target="_blank">Percona Server for MySQL</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>derived from MySQL</li>
 <li>relational model</li>
-<li><a href="https://www.postgresql.org" target="_blank">PostgreSQL</a></li>
+</ul>
+</li>
+<li><a href="https://www.postgresql.org" target="_blank">PostgreSQL</a><ul>
 <li>client only version</li>
 <li>open source</li>
 <li>relational model</li>
-<li><a href="https://www.microsoft.com/en-us/sql-server/sql-server-2019" target="_blank">SQL Server</a></li>
+</ul>
+</li>
+<li><a href="https://www.microsoft.com/en-us/sql-server/sql-server-2019" target="_blank">SQL Server</a><ul>
 <li>client only version</li>
 <li>commercial</li>
 <li>derived from Adaptive Server Enterprise</li>
 <li>relational model</li>
-<li><a href="https://www.sqlite.org">SQLite</a></li>
+</ul>
+</li>
+<li><a href="https://www.sqlite.org">SQLite</a><ul>
 <li>commercial, open source</li>
 <li>embedded only version</li>
 <li>relational model</li>
-<li><a href="https://www.timescale.com" target="_blank">TimescaleDB</a></li>
+</ul>
+</li>
+<li><a href="https://www.timescale.com" target="_blank">TimescaleDB</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>derived from PostgreSQL</li>
 <li>relational model</li>
-<li><a href="https://trino.io" target="_blank">trino</a></li>
+</ul>
+</li>
+<li><a href="https://trino.io" target="_blank">trino</a><ul>
 <li>compatible with Accumulo, Cassandra, Elasticsearch, Hive, Kudu, MongoDB, MySQL, Pinot, PostgreSQL, Redis, Redshift</li>
 <li>distributed query engine</li>
 <li>open source</li>
+</ul>
+</li>
 </ul>
 <p>For the RDBMS MySQL, Oracle, PostgreSQL and SQL Server the JDBC driver from trino can optionally be used instead of the original JDBC driver.
 The prerequisite for this is that trino is either installed locally (Linux) or is available as a Docker container (Linux and Windows).
 Details can be found here: <a href="#trino">trino</a>.</p>
 <ul>
-<li><a href="https://www.voltdb.com" target="_blank">VoltDB</a></li>
+<li><a href="https://www.voltdb.com" target="_blank">VoltDB</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>derived from H-Store, HSQLDB</li>
 <li>in-memory relational model</li>
-<li><a href="https://www.yugabyte.com" target="_blank">YugabyteDB</a></li>
+</ul>
+</li>
+<li><a href="https://www.yugabyte.com" target="_blank">YugabyteDB</a><ul>
 <li>client only version</li>
 <li>commercial, open source</li>
 <li>compatible with Cassandra, PostgreSQL, Redis</li>
@@ -1711,8 +1763,10 @@ Details can be found here: <a href="#trino">trino</a>.</p>
 <li>inspired by Cloud Spanner</li>
 <li>relational model</li>
 </ul>
+</li>
+</ul>
 <h2 id="2-data">2. Data</h2>
-<h3 id="21-database-schema"><a name="data_database_schema"></a> 2.1 Database Schema</h3>
+<h3 id="21-database-schema"><a name="database_schema"></a> 2.1 Database Schema</h3>
 <p>The underlying database schema is defined in a JSON-based parameter file and the associated program code is generated and compiled with the script <code>scripts/run_db_seeder_generate_schema</code>.
 To validate the database schema in the JSON parameter file, the JSON schema file <code>db_seeder_schema.schema.json</code> in the directory <code>src/main/resources</code> is used.</p>
 <h4 id="211-structure-of-the-database-schema-definition-file">2.1.1 Structure of the Database Schema Definition File</h4>
@@ -1729,7 +1783,7 @@ To validate the database schema in the JSON parameter file, the JSON schema file
 <ul>
 <li><code>tableName</code> - database table name</li>
 <li><code>numberOfRows</code> - number of table rows to be generated</li>
-<li><code>columns</code> - an array of column definitions</li>
+<li><code>columns</code> - an array of column definitions<ul>
 <li><code>columnName</code> - column name</li>
 <li><code>dataType</code> - data type, is one of BIGINT, BLOB, CLOB, TIMESTAMP or VARCHAR</li>
 <li><code>size</code> - for data type VARCHAR the maximum size of the column value </li>
@@ -1749,11 +1803,15 @@ To validate the database schema in the JSON parameter file, the JSON schema file
 <li><code>upperRangeString</code> - upper limit for an alphanumeric column</li>
 <li><code>validValuesInteger</code> - valid values for an integer column</li>
 <li><code>validValuesString</code> - valid values for an alphanumeric column</li>
-<li><code>tableConstraints</code> - an array of table constraint definitions</li>
+</ul>
+</li>
+<li><code>tableConstraints</code> - an array of table constraint definitions<ul>
 <li><code>constraintType</code> - constraint type, is one of FOREIGN, PRIMARY or UNIQUE</li>
 <li><code>columns</code> - an arry with the names of the affected columns</li>
 <li><code>referenceTable</code> - name of the reference database table, only for foreign keys</li>
 <li><code>referenceColumns</code> - an arry with the names of the affected reference columns, only for foreign keys</li>
+</ul>
+</li>
 </ul>
 <p>Only either a range restriction (<code>lowerRange...</code>, <code>upperRange...</code>) or a value restriction (<code>validValues...</code>) may be specified for each column.</p>
 <h4 id="212-mapping-of-data-types-in-the-jdbc-driver">2.1.2 Mapping of Data Types in the JDBC Driver</h4>
@@ -1831,7 +1889,7 @@ To validate the database schema in the JSON parameter file, the JSON schema file
 <ul>
 <li>If the column parameter <code>validValuesString</code> is defined in the database schema, a random value is taken from it. </li>
 <li>If the column parameters <code>lowerRangeString</code> and <code>upperRangeString</code> are defined in the database schema, a random value is taken from this interval. </li>
-<li>Otherwise content of the column is constructed depending on the row number and the encoding flags as follows:</li>
+<li>Otherwise content of the column is constructed depending on the row number and the encoding flags as follows:<ul>
 <li>ASCII (all rows where the index modulo 3 is 0):<ul>
 <li>column name in capital letters</li>
 <li>underscore <code>_</code></li>
@@ -1857,6 +1915,8 @@ To validate the database schema in the JSON parameter file, the JSON schema file
 </li>
 <li>the UTF-8 version can be prevented by choosing <code>encodingUTF_8</code> <code>false</code> in the database schema definition</li>
 <li>If the resulting value exceeds the permissible column size, the value is shortened accordingly from the left</li>
+</ul>
+</li>
 </ul>
 <h4 id="226-examples">2.2.6 Examples</h4>
 <h5 id="1-table-city">1. Table CITY</h5>
@@ -1888,13 +1948,17 @@ The creation of the databases also requires a working access to <a href="https:/
 <p>The <code>run_db_seeder</code> script is controlled by the following script parameters:: </p>
 <ul>
 <li><code>DB_SEEDER_DBMS</code>: the ticker symbol of the desired database management system (default value <code>sqlite</code>) or <code>complete</code> for all implemented RDBMS.</li>
-<li><code>DB_SEEDER_SETUP_DBMS</code>: should an empty database be created:</li>
+<li><code>DB_SEEDER_SETUP_DBMS</code>: should an empty database be created:<ul>
 <li><code>yes</code>: a new database is created based on a suitable Docker image</li>
 <li>otherwise: no database is created </li>
-<li><code>DB_SEEDER_NO_CREATE_RUNS</code>: Number of dummy data generation runs:</li>
+</ul>
+</li>
+<li><code>DB_SEEDER_NO_CREATE_RUNS</code>: Number of dummy data generation runs:<ul>
 <li>1: one run</li>
 <li>2: two runs</li>
 <li>otherwise: no run</li>
+</ul>
+</li>
 </ul>
 <p>For the run variants <code>complete</code>, <code>complete_client</code>, <code>complete_emb</code> and <code>complete_trino</code>, statistics files with the following data name structure are created in the file directory <code>resources/statistics</code> by default:</p>
 <pre><code>db_seeder_&lt;bash|cmd&gt;_&lt;run variant&gt;_unknown_&lt;DBSeeder release&gt;_&lt;vmware|win10|wsl2&gt;.&lt;csv|tsv&gt;
@@ -2166,16 +2230,20 @@ db_seeder.user=
 <p>Each new release is completed with the creation of 7 statistics files in the file directory <code>resources/statistics</code>.
 The data contained in these files show the DDL and DML performance of the individual databases under identical conditions:</p>
 <ul>
-<li>Operating systems: Ubuntu with VMware Workstation Player, Ubuntu with WSL (Windoiws Subsystem for Linux) on Windows and Windows.</li>
+<li>Operating systems: Ubuntu with VMware Workstation Player, Ubuntu with WSL (Windoiws Subsystem for Linux) on Windows and Windows.<ul>
 <li><code>..._vmware.tsv</code>: Ubuntu with VMware Workstation Player on Windows</li>
 <li><code>...._win10.tsv</code>: Windows 10</li>
 <li><code>....._wsl2.tsv</code>: Ubuntu LTS with Windows Subsystem for Linux 2 on Windows</li>
+</ul>
+</li>
 <li>DDL: Creation of the database schema consisting of the 5 relational tables CITY, COMPANY, COUNTRY, COUNTRY_STATE and TIMEZONE (see JSON file: <code>resources/json/db_seeder_schema.company_5400.json</code>).</li>
 <li>DML: Insert records into these database tables - CITY 1800, COMPANY 5400, COUNTRY 200, COUNTRY_STATE 600 and TIMEZONE 11.</li>
-<li>If possible, two runs are made for each database system: one run with constraints enabled and one run with constraints disabled - see column <code>constraints</code>:</li>
+<li>If possible, two runs are made for each database system: one run with constraints enabled and one run with constraints disabled - see column <code>constraints</code>:<ul>
 <li><code>active</code>: constraints are enabled</li>
 <li><code>active - no choice</code>: constraints are enabled and disabling is not possible</li>
 <li><code>inactive</code>: constraints are disabled</li>
+</ul>
+</li>
 </ul>
 <p>The creation of these statistics files is managed by the following control parameters (<a href="#operating_instructions_control">see here</a>):</p>
 <pre><code>db_seeder.file.improvement.header=DBMS;Type;ms;Constraints;Improvement
@@ -2280,19 +2348,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE: see PostgreSQL </li>
 <li>CREATE SCHEMA: see PostgreSQL</li>
 <li>CREATE TABLE: see PostgreSQL </li>
-<li>
-<p>CREATE USER: see PostgreSQL </p>
+<li>CREATE USER: see PostgreSQL </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull bitnine/agensgraph:v2.5.0</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/bitnine/agensgraph">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/bitnine/agensgraph">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: see PostgreSQL</p>
@@ -2302,10 +2372,10 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
+<ul>
 <li>version 1.4.2-c1</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc">Maven repository</a></p>
+<li><a href="https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/bitnine-oss/agensgraph">GitHub</a></p>
@@ -2346,19 +2416,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a </li>
 <li><a href="https://db.apache.org/derby/docs/10.15/ref/index.html">CREATE SCHEMA</a></li>
 <li><a href="https://db.apache.org/derby/docs/10.15/ref/index.html">CREATE TABLE</a> </li>
-<li>
-<p>CREATE USER - n/a </p>
+<li>CREATE USER - n/a </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest - only client version)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull konnexionsgmbh/apache_derby:10.15.2.0</code></li>
-<li>
-<p><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby">DockerHub</a></p>
+<li><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: by using the following JVM parameter: <code>-Dderby.ui.codeset=UTF8</code></p>
@@ -2368,19 +2440,19 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
+<ul>
 <li>client version: <a href="https://mvnrepository.com/artifact/org.apache.derby/derbyclient">Maven repository</a></li>
-<li>
-<p>embedded version: <a href="https://mvnrepository.com/artifact/org.apache.derby/derby">Maven repository</a></p>
+<li>embedded version: <a href="https://mvnrepository.com/artifact/org.apache.derby/derby">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://db.apache.org/derby/dev/derby_source.html">Apache Derby</a></p>
 </li>
 <li>
 <p><strong>DBeaver database connection settings</strong>:</p>
+<p>-- client version:</p>
 </li>
 </ul>
-<p>-- client version:</p>
 <p><img alt="" src="img/DBeaver_DERBY.png" /></p>
 <h3 id="53-cockroachdb">5.3 CockroachDB</h3>
 <ul>
@@ -2417,19 +2489,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://www.cockroachlabs.com/docs/v20.2/create-database.html">CREATE DATABASE</a></li>
 <li><a href="https://www.cockroachlabs.com/docs/v20.2/create-schema.html">CREATE SCHEMA</a></li>
 <li><a href="https://www.cockroachlabs.com/docs/v20.2/create-table.html">CREATE TABLE</a></li>
-<li>
-<p><a href="https://www.cockroachlabs.com/docs/v20.2/create-user.html">CREATE USER</a></p>
+<li><a href="https://www.cockroachlabs.com/docs/v20.2/create-user.html">CREATE USER</a></li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull cockroachdb/cockroach:v21.2.6</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/cockroachdb/cockroach">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/cockroachdb/cockroach">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: by default <code>utf8</code> encoding</p>
@@ -2439,9 +2513,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p>same as PostgreSQL</p>
+<ul>
+<li>same as PostgreSQL</li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: user <code>root</code></p>
@@ -2489,19 +2563,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a</li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://crate.io/docs/crate/reference/en/latest/sql/statements/create-table.html">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html">CREATE USER</a> </p>
+<li><a href="https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull crate:4.7.0</code></li>
-<li>
-<p><a href="https://hub.docker.com/_/crate">DockerHub</a></p>
+<li><a href="https://hub.docker.com/_/crate">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: by default <code>utf8</code> encoding</p>
@@ -2511,21 +2587,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://bintray.com/crate/crate/crate-jdbc">JFrog Bintray repository</a></p>
+<ul>
+<li><a href="https://bintray.com/crate/crate/crate-jdbc">JFrog Bintray repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: user <code>crate</code></p>
 </li>
 <li>
 <p><strong>restrictions</strong>:</p>
-</li>
+<ul>
 <li>no constraints (e.g. foreign keys or unique keys)</li>
 <li>no transaction concept</li>
 <li>no triggers </li>
-<li>
-<p>only a very proprietary BLOB implementation</p>
+<li>only a very proprietary BLOB implementation</li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/crate/crate">GitHub</a></p>
@@ -2570,34 +2646,36 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a   </li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://www.cubrid.org/manual/en/11.0/sql/schema/table_stmt.html?highlight=create%20database#create-table">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://www.cubrid.org/manual/en/11.0/sql/authorization.html">CREATE USER</a> </p>
+<li><a href="https://www.cubrid.org/manual/en/11.0/sql/authorization.html">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull cubrid/cubrid:11.0</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/cubrid/cubrid">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/cubrid/cubrid">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: by specifying after the database name when database is created: <code>kxn_db de_DE.utf8</code></p>
 </li>
 <li>
 <p><strong>issue tracking</strong>: </p>
-</li>
-<li>
-<p><a href="http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&amp;orderby=created+DESC">Jira</a></p>
+<ul>
+<li><a href="http://jira.cubrid.org/projects/CBRD/issues/CBRD-23979?filter=allissues&amp;orderby=created+DESC">Jira</a></li>
+</ul>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/cubrid/cubrid-jdbc?repo=cubrid">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: users <code>DBA</code> and <code>PUBLIC</code></p>
@@ -2648,34 +2726,36 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a</li>
 <li><a href="https://docs.exasol.com/7.0/sql/create_schema.htm">CREATE SCHEMA</a> </li>
 <li><a href="https://docs.exasol.com/7.0/sql/create_table.htm">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://docs.exasol.com/7.0/sql/create_user.htm">CREATE USER</a> </p>
+<li><a href="https://docs.exasol.com/7.0/sql/create_user.htm">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull exasol/docker-db:7.1.6</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/exasol/docker-db">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/exasol/docker-db">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/com.exasol/exasol-jdbc">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.exasol/exasol-jdbc">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: user <code>sys</code> password <code>exasol</code> </p>
 </li>
 <li>
 <p><strong>restrictions</strong>:</p>
-</li>
-<li>
-<p>no unique key constraints</p>
+<ul>
+<li>no unique key constraints</li>
+</ul>
 </li>
 <li>
 <p><strong>DBeaver database connection settings</strong>:</p>
@@ -2717,19 +2797,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create">CREATE DATABASE</a> </li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-tbl">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html">CREATE USER</a> </p>
+<li><a href="https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull jacobalberty/firebird:v4.0.1</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/jacobalberty/firebird">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/jacobalberty/firebird">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: by using the following JDBC URL parameter: <code>encoding=UTF8</code></p>
@@ -2739,9 +2821,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: user <code>SYSDBA</code></p>
@@ -2789,19 +2871,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a  </li>
 <li><a href="https://www.h2database.com/html/commands.html#create_schema">CREATE SCHEMA</a></li>
 <li><a href="https://www.h2database.com/html/commands.html#create_table">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://www.h2database.com/html/commands.html#create_user">CREATE USER</a> </p>
+<li><a href="https://www.h2database.com/html/commands.html#create_user">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull konnexionsgmbh/h2_database_engine:2.1.210</code></li>
-<li>
-<p><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine">DockerHub</a></p>
+<li><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.</p>
@@ -2811,9 +2895,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/com.h2database/h2">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.h2database/h2">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: user <code>sa</code></p>
@@ -2862,19 +2946,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a  </li>
 <li><a href="http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_schema_creation">CREATE SCHEMA</a></li>
 <li><a href="http://www.hsqldb.org/doc/2.0/guide/guide.html#dbc_tables">CREATE TABLE</a> </li>
-<li>
-<p><a href="http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html">CREATE USER</a> </p>
+<li><a href="http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull konnexionsgmbh/hypersql_database:2.6.1</code></li>
-<li>
-<p><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database">DockerHub</a></p>
+<li><a href="https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: by using the following system property <code>sqlfile.charset=UTF-8</code>.</p>
@@ -2884,9 +2970,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/org.hsqldb/hsqldb">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/org.hsqldb/hsqldb">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: user <code>SA</code></p>
@@ -2935,37 +3021,39 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001941.html">CREATE DATABASE</a> </li>
 <li><a href="https://www.ibm.com/support/knowledgecenter/SSFMBX/com.ibm.swg.im.dashdb.sql.ref.doc/doc/r0000925.html">CREATE SCHEMA</a></li>
 <li><a href="https://https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0000927.html">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html">CREATE USER</a> </p>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull ibmcom/db2:11.5.7.0</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/ibmcom/db2">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/ibmcom/db2">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>:</p>
-</li>
-<li>
-<p>by using the CCSID clause in the CREATE statements for any of the following objects:</p>
 <ul>
+<li>by using the CCSID clause in the CREATE statements for any of the following objects:<ul>
 <li>Database</li>
 <li>Table space</li>
 <li>Table</li>
 <li>procedure or function</li>
 </ul>
 </li>
-<li>
-<p><strong>JDBC driver (latest)</strong>:</p>
+</ul>
 </li>
 <li>
-<p><a href="https://mvnrepository.com/artifact/com.ibm.db2/jcc">Maven repository</a></p>
+<p><strong>JDBC driver (latest)</strong>:</p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.ibm.db2/jcc">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: user <code>db2inst1</code></p>
@@ -3013,47 +3101,49 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0368.htm">CREATE DATABASE</a> </li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0509.htm">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm">CREATE USER</a> </p>
+<li><a href="https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_1821.htm">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull ibmcom/informix-developer-database:14.10.FC7W1DE</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/ibmcom/informix-developer-database">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/ibmcom/informix-developer-database">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>:</p>
-</li>
-<li>
-<p>code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made</p>
+<ul>
+<li>code-set conversion value is extracted from the DB_LOCALE value specified at the time the connection is made</li>
+</ul>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/com.ibm.informix/jdbc">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.ibm.informix/jdbc">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>: </p>
-</li>
+<ul>
 <li>user <code>informix</code></li>
 <li>password <code>in4mix</code></li>
 <li>database / schema <code>sysmaster</code></li>
-<li>
-<p>INFORMIXSERVER <code>informix</code></p>
+<li>INFORMIXSERVER <code>informix</code></li>
+</ul>
 </li>
 <li>
 <p><strong>restrictions</strong>: </p>
-</li>
+<ul>
 <li>the IBM Informix DBMS only accepts operating system accounts or users mapped to operating system accounts as database users </li>
-<li>
-<p>no named constraints in ALTER TABLE ADD CONSTRAINT</p>
+<li>no named constraints in ALTER TABLE ADD CONSTRAINT</li>
+</ul>
 </li>
 <li>
 <p><strong>DBeaver database connection settings</strong>:</p>
@@ -3095,44 +3185,46 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://mariadb.com/kb/en/create-database">CREATE DATABASE</a> </li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://mariadb.com/kb/en/create-table">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://mariadb.com/kb/en/create-user">CREATE USER</a> </p>
+<li><a href="https://mariadb.com/kb/en/create-user">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull mariadb:10.7.1-focal</code></li>
-<li>
-<p><a href="https://hub.docker.com/_/mariadb">DockerHub</a></p>
+<li><a href="https://hub.docker.com/_/mariadb">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>:</p>
-</li>
+<ul>
 <li>server level: <code>SET character_set_server = 'latin2';</code></li>
 <li>database level: <code>CHARACTER SET = 'keybcs2'</code></li>
 <li>table level: <code>CHARACTER SET 'utf8'</code></li>
-<li>
-<p>column level: <code>CHARACTER SET 'greek'</code></p>
+<li>column level: <code>CHARACTER SET 'greek'</code></li>
+</ul>
 </li>
 <li>
 <p><strong>issue tracking</strong>: <a href="https://jira.mariadb.org/secure/Dashboard.jspa">Jira</a></p>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>user: <code>mysql</code></li>
-<li>
-<p>password; <code>root</code></p>
+<li>password; <code>root</code></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/MariaDB/server">GitHub</a></p>
@@ -3177,35 +3269,37 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm">CREATE DATABASE</a> </li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm">CREATE USER</a> </p>
+<li><a href="https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull mimersql/mimersql_v11.0.5a</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/mimersql/mimersql_v11.0">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/mimersql/mimersql_v11.0">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: NCHAR, NVARCHAR</p>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>: </p>
-</li>
-<li>
-<p><a href="https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se">Mimer Website</a></p>
+<ul>
+<li><a href="https://developer.mimer.com/download/mimer-jdbc-driver-3-40-java-ee-and-java-se">Mimer Website</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>database; <code>mimerdb</code></li>
-<li>
-<p>user: <code>SYSADM</code></p>
+<li>user: <code>SYSADM</code></li>
+</ul>
 </li>
 <li>
 <p><strong>DBeaver database connection settings</strong>:</p>
@@ -3247,19 +3341,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a</li>
 <li><a href="https://www.monetdb.org/Documentation/SQLReference/DataDefinition/SchemaDefinitions">CREATE SCHEMA</a> </li>
 <li><a href="https://www.monetdb.org/Documentation/SQLReference/TableDefinitions">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER">CREATE USER</a> </p>
+<li><a href="https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull monetdb/monetdb:Jan2022-SP1</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/monetdb/monetdb">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/monetdb/monetdb">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: no special configuration should be needed</p>
@@ -3269,17 +3365,17 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://www.monetdb.org/downloads/Java">MonetDB Java Download Area</a></p>
+<ul>
+<li><a href="https://www.monetdb.org/downloads/Java">MonetDB Java Download Area</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>database: <code>demo</code></li>
 <li>user: <code>monetdb</code></li>
-<li>
-<p>password: <code>monetdb</code></p>
+<li>password: <code>monetdb</code></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/MonetDB/MonetDB">GitHub</a></p>
@@ -3324,35 +3420,37 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://dev.mysql.com/doc/refman/8.0/en/create-database.html">CREATE DATABASE</a> </li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://dev.mysql.com/doc/refman/8.0/en/create-table.html">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/create-user.html">CREATE USER</a> </p>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/create-user.html">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull mysql:8.0.28</code></li>
-<li>
-<p><a href="https://hub.docker.com/_/mysql">DockerHub</a></p>
+<li><a href="https://hub.docker.com/_/mysql">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed</p>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/mysql/mysql-connector-java">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/mysql/mysql-connector-java">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>database: <code>sys</code></li>
-<li>
-<p>user: <code>root</code></p>
+<li>user: <code>root</code></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/mysql/mysql-server">GitHub</a></p>
@@ -3397,19 +3495,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases">CREATE DATABASE</a></li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://docs-new.omnisci.com/sql/data-definition-ddl/tables">CREATE TABLE</a></li>
-<li>
-<p><a href="https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases">CREATE USER</a></p>
+<li><a href="https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases">CREATE USER</a></li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull omnisci/core-os-cpu</code></li>
-<li>
-<p><a href="https://hub.docker.com/_/omnisci-open-source-edition">DockerHub</a></p>
+<li><a href="https://hub.docker.com/_/omnisci-open-source-edition">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: no special configuration should be needed</p>
@@ -3419,28 +3519,28 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>database: <code>omnisci</code></li>
-<li>
-<p>user: <code>admin</code></p>
+<li>user: <code>admin</code></li>
+</ul>
 </li>
 <li>
 <p><strong>restrictions</strong>: </p>
-</li>
+<ul>
 <li>column and table names case sensitive</li>
 <li>max. column length 32767 bytes  </li>
 <li>no binary columns</li>
 <li>no constraints, e.g. unique keys</li>
 <li>no foreign / referential keys</li>
 <li>no primary key</li>
-<li>
-<p>no triggerss</p>
+<li>no triggerss</li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/omnisci/omniscidb">GitHub</a></p>
@@ -3485,12 +3585,14 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a </li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-TABLE.html#GUID-F9CE0CC3-13AE-4744-A43C-EAC7A71AAAB6">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C">CREATE USER</a> </p>
+<li><a href="https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/CREATE-USER.html#GUID-F0246961-558F-480B-AC0F-14B50134621C">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image</strong>: <a href="https://github.com/oracle/docker-images/tree/master/OracleDatabase">DockerHub</a></p>
@@ -3500,16 +3602,16 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc11">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>database: <code>orclpdb1</code></li>
-<li>
-<p>user: <code>SYS AS SYSDBA</code></p>
+<li>user: <code>SYS AS SYSDBA</code></li>
+</ul>
 </li>
 <li>
 <p><strong>DBeaver database connection settings</strong>:</p>
@@ -3551,19 +3653,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE: see MySQL Database </li>
 <li>CREATE SCHEMA - n/a</li>
 <li>CREATE TABLE: see MySQL Database </li>
-<li>
-<p>CREATE USER: see MySQL Database </p>
+<li>CREATE USER: see MySQL Database </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull percona/percona-server:8.0.26-17</code></li>
-<li>
-<p><a href="https://hub.docker.com/_/percona-server">DockerHub</a></p>
+<li><a href="https://hub.docker.com/_/percona-server">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed</p>
@@ -3573,16 +3677,16 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p>same as MySQL</p>
+<ul>
+<li>same as MySQL</li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>database: <code>sys</code></li>
-<li>
-<p>user: <code>root</code></p>
+<li>user: <code>root</code></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/percona/percona-server">GitHub</a></p>
@@ -3627,19 +3731,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://www.postgresql.org/docs/12/sql-createdatabase.html">CREATE DATABASE</a> </li>
 <li><a href="https://www.postgresql.org/docs/12/sql-createschema.html">CREATE SCHEMA</a></li>
 <li><a href="https://www.postgresql.org/docs/12/sql-createtable.html">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://www.postgresql.org/docs/12/sql-createuser.html">CREATE USER</a> </p>
+<li><a href="https://www.postgresql.org/docs/12/sql-createuser.html">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull postgres:14.2-alpine</code></li>
-<li>
-<p><a href="https://hub.docker.com/_/postgres">DockerHub</a></p>
+<li><a href="https://hub.docker.com/_/postgres">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: when creating the database: <code>CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...</code></p>
@@ -3649,9 +3755,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/org.postgresql/postgresql">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/org.postgresql/postgresql">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>documentation</strong>: <a href="https://jdbc.postgresql.org/documentation/head/index.html">The PostgreSQL JDBC Interface</a></p>
@@ -3702,35 +3808,37 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15">CREATE DATABASE</a></li>
 <li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-schema-transact-sql?view=sql-server-ver15">CREATE SCHEMA</a></li>
 <li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql?view=sql-server-ver15">CREATE TABLE</a></li>
-<li>
-<p><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15">CREATE USER</a></p>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15">CREATE USER</a></li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04</code></li>
-<li>
-<p><a href="https://hub.docker.com/_/microsoft-mssql-server">DockerHub</a></p>
+<li><a href="https://hub.docker.com/_/microsoft-mssql-server">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)</p>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>privileged database access</strong>:</p>
-</li>
+<ul>
 <li>database: <code>master</code></li>
-<li>
-<p>user: <code>sa</code></p>
+<li>user: <code>sa</code></li>
+</ul>
 </li>
 <li>
 <p><strong>restrictions</strong>: no full UTF-8 support in the given Docker images</p>
@@ -3775,12 +3883,14 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a</li>
 <li>CREATE SCHEMA - n/a</li>
 <li><a href="https://sqlite.org/lang_createtable.html">CREATE TABLE</a> </li>
-<li>
-<p>CREATE USER - n/a     </p>
+<li>CREATE USER - n/a     </li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: by using the following parameter: <code>PRAGMA encoding='UTF-8';</code></p>
@@ -3790,17 +3900,17 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
+<ul>
 <li><a href="https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc">Maven repository</a></li>
-<li>
-<p>determines also the DBMS version</p>
+<li>determines also the DBMS version</li>
+</ul>
 </li>
 <li>
 <p><strong>restrictions</strong>:</p>
-</li>
+<ul>
 <li>no Docker image necessary, hence not available</li>
-<li>
-<p>no user management </p>
+<li>no user management </li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://sqlite.org/src/doc/trunk/README.md">SQLite</a></p>
@@ -3845,19 +3955,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE: see PostgreSQL</li>
 <li>CREATE SCHEMA: see PostgreSQL</li>
 <li>CREATE TABLE: see PostgreSQL</li>
-<li>
-<p>CREATE USER: see PostgreSQL</p>
+<li>CREATE USER: see PostgreSQL</li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull timescale/timescaledb:2.6.0-pg14</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/timescale/timescaledb">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/timescale/timescaledb">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: see PostgreSQL</p>
@@ -3867,9 +3979,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p>same as PostgreSQL</p>
+<ul>
+<li>same as PostgreSQL</li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/timescale/timescaledb">GitHub</a></p>
@@ -3911,19 +4023,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a</li>
 <li><a href="https://trino.io/docs/current/sql/create-schema.html">CREATE SCHEMA</a></li>
 <li><a href="https://trino.io/docs/current/sql/create-table.html">CREATE TABLE</a></li>
-<li>
-<p>CREATE USER - n/a</p>
+<li>CREATE USER - n/a</li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull trinodb/trino:368</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/trinodb/trino">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/trinodb/trino">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: full support of UTF-8 (see <a href="https://trino.io/docs/current/release/release-0.102.html?highlight=encoding">here</a>)</p>
@@ -3933,9 +4047,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/io.trino/trino-jdbc">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/io.trino/trino-jdbc">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/trinodb/trino">GitHub</a></p>
@@ -3980,28 +4094,30 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li>CREATE DATABASE - n/a  </li>
 <li>CREATE SCHEMA - n/a  </li>
 <li><a href="https://docs.voltdb.com/UsingVoltDB/ddlref_createtable.php">CREATE TABLE</a> </li>
-<li>
-<p>CREATE USER - n/a  </p>
+<li>CREATE USER - n/a  </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull voltdb/voltdb-community:9.2.1</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/voltdb/voltdb-community">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/voltdb/voltdb-community">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>issue tracking</strong>: <a href="https://issues.voltdb.com/secure/Dashboard.jspa">Jira</a></p>
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/org.hsqldb/hsqldb">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/org.hsqldb/hsqldb">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>restrictions</strong>: no support of autoincrement, check constraints or foreign keys</p>
@@ -4049,19 +4165,21 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </tbody>
 </table>
 <ul>
-<li><strong>DDL syntax</strong>:</li>
+<li>
+<p><strong>DDL syntax</strong>:</p>
+<ul>
 <li><a href="https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database">CREATE DATABASE</a> </li>
 <li><a href="https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_schema">CREATE SCHEMA</a></li>
 <li><a href="https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_table">CREATE TABLE</a> </li>
-<li>
-<p><a href="https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user">CREATE USER</a> </p>
+<li><a href="https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user">CREATE USER</a> </li>
+</ul>
 </li>
 <li>
 <p><strong>Docker image (latest)</strong>:</p>
-</li>
+<ul>
 <li>pull command: <code>docker pull yugabytedb/yugabyte:2.12.1.0-b41</code></li>
-<li>
-<p><a href="https://hub.docker.com/r/yugabytedb/yugabyte">DockerHub</a></p>
+<li><a href="https://hub.docker.com/r/yugabytedb/yugabyte">DockerHub</a></li>
+</ul>
 </li>
 <li>
 <p><strong>encoding</strong>: see PostgreSQL</p>
@@ -4071,9 +4189,9 @@ In the file directory <code>resources/dbeaver</code> you will also find a file e
 </li>
 <li>
 <p><strong>JDBC driver (latest)</strong>:</p>
-</li>
-<li>
-<p><a href="https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb">Maven repository</a></p>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.yugabyte/jdbc-yugabytedb">Maven repository</a></li>
+</ul>
 </li>
 <li>
 <p><strong>source code</strong>: <a href="https://github.com/yugabyte/yugabyte-db">GitHub</a></p>
