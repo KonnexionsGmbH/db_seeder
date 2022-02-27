@@ -1,0 +1,58 @@
+ticker symbol	DBMS	db type	total ms	start time	end time	host name	no. cores	operating system	total DDL ms	drop constr. ms	add constr. ms	total DML ms	constraints
+agens	AgensGraph	client	7033	2022-02-27 10:41:06.842579900	2022-02-27 10:41:13.876343000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	944	0	0	6089	active
+agens	AgensGraph	client	6984	2022-02-27 10:41:14.794062100	2022-02-27 10:41:21.778353000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	966	0	0	6018	active
+cockroach	CockroachDB	client	12469	2022-02-27 10:42:38.144662800	2022-02-27 10:42:50.614524000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	935	0	0	11534	active - no choice
+cockroach	CockroachDB	client	13295	2022-02-27 10:42:51.574049700	2022-02-27 10:43:04.869242200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1069	0	0	12226	active - no choice
+cratedb	CrateDB	client	9149	2022-02-27 10:44:41.821704600	2022-02-27 10:44:50.971174700	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	2566	0	0	6583	active - no choice
+cratedb	CrateDB	client	7075	2022-02-27 10:44:51.885619200	2022-02-27 10:44:58.961381800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1677	0	0	5398	active - no choice
+cubrid	CUBRID	client	10201	2022-02-27 10:46:35.100244600	2022-02-27 10:46:45.302161800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	551	0	0	9650	active
+cubrid	CUBRID	client	10157	2022-02-27 10:46:46.161130200	2022-02-27 10:46:56.318362000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	598	0	0	9559	active
+derby	Apache Derby	client	16314	2022-02-27 10:48:45.146466800	2022-02-27 10:49:01.460652400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	3843	0	0	12471	active
+derby	Apache Derby	client	14065	2022-02-27 10:49:02.344534400	2022-02-27 10:49:16.409801900	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	2875	0	0	11190	active
+derby_emb	Apache Derby	embedded	25037	2022-02-27 10:49:28.755110300	2022-02-27 10:49:53.792347000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	9673	0	0	15364	active
+derby_emb	Apache Derby	embedded	24436	2022-02-27 10:49:54.795193500	2022-02-27 10:50:19.231228700	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	6780	0	0	17656	active
+exasol	Exasol	client	7475	2022-02-27 10:56:32.622210800	2022-02-27 10:56:40.097623400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1197	0	0	6278	active
+exasol	Exasol	client	7253	2022-02-27 10:56:41.113005400	2022-02-27 10:56:48.366515300	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1084	0	0	6169	active
+firebird	Firebird	client	69260	2022-02-27 10:58:31.110635700	2022-02-27 10:59:40.371214800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	951	0	0	68309	active
+firebird	Firebird	client	68050	2022-02-27 10:59:41.301701300	2022-02-27 11:00:49.352627000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1023	0	0	67027	active
+h2	H2 Database Engine	client	12699	2022-02-27 11:02:20.970278700	2022-02-27 11:02:33.669730800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	915	0	0	11784	active - no choice
+h2	H2 Database Engine	client	13485	2022-02-27 11:02:34.615688200	2022-02-27 11:02:48.101329100	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1149	0	0	12336	active - no choice
+h2_emb	H2 Database Engine	embedded	4483	2022-02-27 11:03:01.637520000	2022-02-27 11:03:06.120834100	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1464	0	0	3019	active - no choice
+h2_emb	H2 Database Engine	embedded	4685	2022-02-27 11:03:07.043564700	2022-02-27 11:03:11.729353500	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1576	0	0	3109	active - no choice
+hsqldb	HSQLDB	client	14488	2022-02-27 11:04:44.672126600	2022-02-27 11:04:59.160448800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	772	0	0	13716	active
+hsqldb	HSQLDB	client	13320	2022-02-27 11:05:00.055453700	2022-02-27 11:05:13.375455200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	744	0	0	12576	active
+hsqldb_emb	HSQLDB	embedded	5032	2022-02-27 11:05:26.672871900	2022-02-27 11:05:31.705346800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	614	0	0	4418	active
+hsqldb_emb	HSQLDB	embedded	5000	2022-02-27 11:05:32.633346400	2022-02-27 11:05:37.633382400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	649	0	0	4351	active
+ibmdb2	IBM Db2 Database	client	14863	2022-02-27 11:13:13.104726400	2022-02-27 11:13:27.967824200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	2464	0	0	12399	active
+ibmdb2	IBM Db2 Database	client	11033	2022-02-27 11:13:28.825004100	2022-02-27 11:13:39.858729200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	2609	0	0	8424	active
+informix	IBM Informix	client	27008	2022-02-27 11:19:22.308679100	2022-02-27 11:19:49.317669200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	2107	0	0	24901	active
+informix	IBM Informix	client	57838	2022-02-27 11:19:50.207274000	2022-02-27 11:20:48.045575500	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	976	0	0	56862	active
+mariadb	MariaDB Server	client	4968	2022-02-27 11:22:14.484132800	2022-02-27 11:22:19.452430400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	626	0	0	4342	active
+mariadb	MariaDB Server	client	4946	2022-02-27 11:22:20.389362700	2022-02-27 11:22:25.335650000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	757	0	0	4189	active
+mimer	Mimer SQL	client	14461	2022-02-27 11:23:42.117642700	2022-02-27 11:23:56.579584700	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	614	0	0	13847	active
+mimer	Mimer SQL	client	14310	2022-02-27 11:23:57.472902000	2022-02-27 11:24:11.783159700	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	647	0	0	13663	active
+monetdb	MonetDB	client	18046	2022-02-27 11:25:19.513753700	2022-02-27 11:25:37.560089900	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1510	0	0	16536	active
+monetdb	MonetDB	client	16289	2022-02-27 11:25:38.433996200	2022-02-27 11:25:54.723421200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	461	0	0	15828	active
+mysql	MySQL Database	client	9872	2022-02-27 11:27:46.489732300	2022-02-27 11:27:56.361948000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	987	0	0	8885	active
+mysql	MySQL Database	client	9776	2022-02-27 11:27:57.319612000	2022-02-27 11:28:07.096300800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1024	0	0	8752	active
+mysql_trino	MySQL Database	trino	806096	2022-02-27 11:30:57.606527100	2022-02-27 11:44:23.702562400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1918	0	0	804178	active - no choice
+mysql_trino	MySQL Database	trino	744541	2022-02-27 11:44:24.846836700	2022-02-27 11:56:49.388100800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1850	0	0	742691	active - no choice
+omnisci	OmniSciDB	client	47013	2022-02-27 11:58:57.657564300	2022-02-27 11:59:44.671349500	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	6357	0	0	40656	active - no choice
+omnisci	OmniSciDB	client	47014	2022-02-27 11:59:45.613218400	2022-02-27 12:00:32.627717700	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	7401	0	0	39613	active - no choice
+oracle	Oracle Database	client	13506	2022-02-27 12:09:20.316477800	2022-02-27 12:09:33.823028300	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1415	0	0	12091	active
+oracle	Oracle Database	client	13559	2022-02-27 12:09:34.767461500	2022-02-27 12:09:48.326570000	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	2367	0	0	11192	active
+oracle_trino	Oracle Database	trino	607654	2022-02-27 12:19:44.501832900	2022-02-27 12:29:52.156262200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1364	0	0	606290	active - no choice
+percona	Percona Server for MySQL	client	11703	2022-02-27 12:32:10.863440900	2022-02-27 12:32:22.566755400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1168	0	0	10535	active
+percona	Percona Server for MySQL	client	11655	2022-02-27 12:32:23.816340800	2022-02-27 12:32:35.471585800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1207	0	0	10448	active
+postgresql	PostgreSQL	client	9249	2022-02-27 12:34:04.347537800	2022-02-27 12:34:13.597385100	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	891	0	0	8358	active
+postgresql	PostgreSQL	client	9047	2022-02-27 12:34:14.913725400	2022-02-27 12:34:23.960750800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1043	0	0	8004	active
+postgresql_trino	PostgreSQL	trino	1028929	2022-02-27 12:36:46.498351400	2022-02-27 12:53:55.427675600	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	824	0	0	1028105	active - no choice
+postgresql_trino	PostgreSQL	trino	1041033	2022-02-27 12:53:56.960436900	2022-02-27 13:11:17.993589800	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1052	0	0	1039981	active - no choice
+sqlserver	MS SQL Server	client	8666	2022-02-27 13:13:12.590026700	2022-02-27 13:13:21.256717900	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1313	0	0	7353	active
+sqlserver	MS SQL Server	client	8528	2022-02-27 13:13:22.186407400	2022-02-27 13:13:30.714589300	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1213	0	0	7315	active
+sqlserver_trino	MS SQL Server	trino	1069616	2022-02-27 13:16:24.196644700	2022-02-27 13:34:13.812816200	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1231	0	0	1068385	active - no choice
+sqlserver_trino	MS SQL Server	trino	1038609	2022-02-27 13:34:14.768884100	2022-02-27 13:51:33.378768400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1388	0	0	1037221	active - no choice
+sqlite	SQLite	embedded	10281	2022-02-27 13:51:49.772133600	2022-02-27 13:52:00.053172600	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	2136	0	0	8145	active - no choice
+sqlite	SQLite	embedded	9269	2022-02-27 13:52:01.072311700	2022-02-27 13:52:10.342267300	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	1428	0	0	7841	active - no choice
+yugabyte	YugabyteDB	client	19277	2022-02-27 13:54:05.164378100	2022-02-27 13:54:24.442205700	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	6790	0	0	12487	active
+yugabyte	YugabyteDB	client	19453	2022-02-27 13:54:25.379101200	2022-02-27 13:54:44.833015400	jfww-win-dt-14	8	amd64 / Windows 10 / 10.0	7102	0	0	12351	active
