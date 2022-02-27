@@ -19,6 +19,7 @@ export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_5400.jso
 export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax_1000.json
 
 export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_5400.json
+export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_50.json
 
 export DB_SEEDER_RELEASE=3.0.6
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
@@ -49,7 +50,7 @@ if [ -d "eclipse_workspace" ]; then
     rm -rf eclipse_workspace ¦¦ sudo rm -rf eclipse_workspace
 fi
 
-if [ "${HOME_ECLIPSE" != """ ]; then
+if [ "${HOME_ECLIPSE}" != "" ]; then
     mkdir -p eclipse_workspace
 
     if ! (${HOME_ECLIPSE}/eclipse -nosplash \
