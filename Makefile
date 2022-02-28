@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL := docs
 
 ##                                                                            .
 ## ============================================================================
@@ -12,8 +12,6 @@
 ## ----------------------------------------------------------------------------
 ## help:               Show this help.
 ## ----------------------------------------------------------------------------
-## docs:               Create and upload the user docs.
-## ----------------------------------------------------------------------------
 
 help:
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
@@ -21,7 +19,7 @@ help:
 # Project documentation with Markdown.
 # https://github.com/mkdocs/mkdocs/
 # Configuration file: none
-mkdocs:             ## Create and upload the user documentation with MkDocs.
+docs:               ## Create and upload the user documentation with MkDocs.
 	@echo "Info **********  Start: MkDocs **************************************"
 	python -m pip install --upgrade pip
 	python -m pip install --upgrade pipenv
