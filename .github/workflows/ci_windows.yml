@@ -33,11 +33,16 @@ jobs:
         run: gradle copyJarToLib
       - name: Generating the schema
         run: scripts\run_db_seeder_generate_schema.bat
+        shell: cmd
       - name: Run H2 Database Engine - Client
         run: run_db_seeder.bat h2               yes 1
+        shell: cmd
       - name: Run H2 Database Engine - Embedded
         run: run_db_seeder.bat h2_emb           yes 1
+        shell: cmd
       - name: Run PostgreSQL - Client
         run: run_db_seeder.bat postgresql       yes 1
+        shell: cmd
       - name: Run PostgreSQL - trino
         run: run_db_seeder.bat postgresql_trino yes 1
+        shell: cmd

@@ -9,7 +9,7 @@
 
 ## Version 3.0.6
 
-Release Date: dd.mm.2021
+Release Date: 01.03.2022
 
 ### System Requirements
 
@@ -22,6 +22,7 @@ Release Date: dd.mm.2021
 
 ### New Features
 
+- Travis CI replaced by GitHub Actions
 - Use of GitHub pages for user documentation
 
 ### Modified Features
@@ -45,10 +46,6 @@ Release Date: dd.mm.2021
 - TimescaleDB: DBMS 2.6.0-pg14
 - trino: DBMS 368 / JDBC 368
 - YugabyteDB: DBMS 2.12.1.0-b41
-
-### Deleted Features
-
-- n/a
 
 ### Open issues
 
