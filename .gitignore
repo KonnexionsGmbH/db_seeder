@@ -7,6 +7,7 @@
 /.gitconfig
 /.gradle/
 /.vs/
+/.vscode/
 /lib/db_seeder.jar
 /resources/docker/trino/catalog/db_seeder_mysql.properties
 /resources/docker/trino/catalog/db_seeder_oracle.properties

@@ -1,4 +1,4 @@
-name: Continuous Integration - Ubuntu
+name: Continuous Integration - Windows
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  DB_SEEDER_FILE_JSON_NAME: resources/json/db_seeder_schema.company_50.json
+  DB_SEEDER_FILE_JSON_NAME: resources\json\db_seeder_schema.company_50.json
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        os: ["ubuntu-18.04", "ubuntu-20.04"]
+        os: ["windows-2019", "windows-2022"]
         java-version: ["16", "17"]
     steps:
       - uses: actions/checkout@v2
@@ -32,12 +32,12 @@ jobs:
       - name: Compiling the project
         run: gradle copyJarToLib
       - name: Generating the schema
-        run: ./scripts/run_db_seeder_generate_schema.sh
+        run: scripts\run_db_seeder_generate_schema.bat
       - name: Run H2 Database Engine - Client
-        run: ./run_db_seeder.sh h2               yes 1
+        run: run_db_seeder.bat h2               yes 1
       - name: Run H2 Database Engine - Embedded
-        run: ./run_db_seeder.sh h2_emb           yes 1
+        run: run_db_seeder.bat h2_emb           yes 1
       - name: Run PostgreSQL - Client
-        run: ./run_db_seeder.sh postgresql       yes 1
+        run: run_db_seeder.bat postgresql       yes 1
       - name: Run PostgreSQL - trino
-        run: ./run_db_seeder.sh postgresql_trino yes 1
+        run: run_db_seeder.bat postgresql_trino yes 1
