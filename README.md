@@ -13,8 +13,11 @@ Please see the **[Documentation](https://konnexionsgmbh.github.io/db_seeder/)** 
 
 ## Features
 
-- Identifying scanned image pdf documents using [PyMuPDF](https://pymupdf.readthedocs.io/en/latest/module.html).
-- Converting scanned image pdf documents to a series of jpeg files using [pdf2image](https://pypi.org/project/pdf2image/).
+- Runs with 24 different database management systems.
+- Apache Derby, H2 Database Engine and HSQLDB are supported both in the client version and in the embedded version.
+- MySQL Database, Oracle Database, PostgreSQL and SQL Server can run stand-alone or in conjunction with the Trino query engine.
+- The database schema is defined in a JSON file and the resulting java code is automatically generated and compiled.
+- The runtime behaviour of the various databases is recorded in CSV files.
 - Much more!
 
 ## Support

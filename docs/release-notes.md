@@ -49,6 +49,7 @@ Release Date: 01.03.2022
 
 ### Open issues
 
+- HSQLDB: (see [here](#issues_hsqldb)
 - trino: (see [here](#issues_trino)
 - VoltDB: (see [here](#issues_voltdb)
 
@@ -78,6 +79,41 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
 
 ## Detailed Open Issues
 
+### <a name="issues_hsqldb"></a> HSQLDB
+
+- Issue: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100.
+
+The problem only occurs with Windows 10 with the "DROP CONSTRAINTS" functionality.
+
+```
+    2022-02-28 08:13:28,758 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='hsqldb_emb'
+    2022-02-28 08:13:28,758 [DatabaseSeeder.java] INFO  Start HSQLDB [embedded]
+    2022-02-28 08:13:28,763 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =hsqldb
+    2022-02-28 08:13:28,771 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =hsqldb_emb
+    java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+            at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
+            at org.hsqldb.jdbc.JDBCUtil.sqlException(Unknown Source)
+            at org.hsqldb.jdbc.JDBCStatement.fetchResult(Unknown Source)
+            at org.hsqldb.jdbc.JDBCStatement.execute(Unknown Source)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.executeSQLStmnts(AbstractJdbcSeeder.java:1367)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.dropTableConstraints(AbstractJdbcSeeder.java:1236)
+            at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:427)
+            at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:160)
+    Caused by: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+            at org.hsqldb.error.Error.error(Unknown Source)
+            at org.hsqldb.error.Error.error(Unknown Source)
+            at org.hsqldb.SchemaManager.getSchemaObject(Unknown Source)
+            at org.hsqldb.ParserDQL.readSchemaObjectName(Unknown Source)
+            at org.hsqldb.ParserDDL.compileAlterTableDropConstraint(Unknown Source)
+            at org.hsqldb.ParserDDL.compileAlterTable(Unknown Source)
+            at org.hsqldb.ParserDDL.compileAlter(Unknown Source)
+            at org.hsqldb.ParserCommand.compilePart(Unknown Source)
+            at org.hsqldb.ParserCommand.compileStatements(Unknown Source)
+            at org.hsqldb.Session.executeDirectStatement(Unknown Source)
+            at org.hsqldb.Session.execute(Unknown Source)
+            ... 6 more
+```
+
 ### <a name="issues_trino"></a> trino
 
 - Issue: all connectors: absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681){:target="_blank"}).
@@ -85,6 +121,7 @@ For example, the MonetDB database is faster with inactive constraints by 11.9% c
 ### <a name="issues_voltdb"></a> VoltDB
 
 - Issue: Java 16 not yet supported: `java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null`
+
 ```
     2021-09-02 03:39:41,112 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='voltdb'
     2021-09-02 03:39:41,112 [DatabaseSeeder.java] INFO  Start VoltDB
