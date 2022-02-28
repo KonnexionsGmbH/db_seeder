@@ -1,4 +1,4 @@
-name: Continuous Integration - Ubuntu
+name: Continuous Integration
 
 on:
   push:
