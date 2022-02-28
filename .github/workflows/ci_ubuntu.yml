@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  DB_SEEDER_FILE_JSON_NAME: resources/json/db_seeder_schema:company_50.json
+  DB_SEEDER_FILE_JSON_NAME: resources/json/db_seeder_schema_company_50.json
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
