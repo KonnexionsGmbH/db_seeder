@@ -33,11 +33,21 @@ jobs:
         run: gradle copyJarToLib
       - name: Generating the schema
         run: ./scripts/run_db_seeder_generate_schema.sh
+      - name: Run Apache Derby - Client
+        run: ./run_db_seeder.sh derby            yes 1
+      - name: Run Apache Derby - Embedded
+        run: ./run_db_seeder.sh derby_emb        yes 1
       - name: Run H2 Database Engine - Client
         run: ./run_db_seeder.sh h2               yes 1
       - name: Run H2 Database Engine - Embedded
         run: ./run_db_seeder.sh h2_emb           yes 1
+      - name: Run HSQLDB - Client
+        run: ./run_db_seeder.sh hsqldb           yes 1
+      - name: Run HSQLDB - Embedded
+        run: ./run_db_seeder.sh hsqldb_emb       yes 1
       - name: Run PostgreSQL - Client
         run: ./run_db_seeder.sh postgresql       yes 1
       - name: Run PostgreSQL - trino
         run: ./run_db_seeder.sh postgresql_trino yes 1
+      - name: Run SQLite - Client
+        run: ./run_db_seeder.sh sqlite           yes 1
