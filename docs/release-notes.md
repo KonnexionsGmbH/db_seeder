@@ -67,7 +67,7 @@ The detailed results can be found in the DBSeeder repository in the `resources/s
 
 The following table shows the results of the Windows 10 run. 
 If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
-For example, the MonetDB database is faster with inactive constraints by 11.9% compared to the run with activated constraints.
+For example, the MonetDB database is faster with inactive constraints by 17.5 % compared to the run with activated constraints.
 
 ![](img/Perf_Snap_3.0.6_win10.png)
 
