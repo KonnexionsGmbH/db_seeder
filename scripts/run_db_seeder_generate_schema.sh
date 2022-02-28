@@ -26,10 +26,6 @@ fi
 export DB_SEEDER_RELEASE=3.0.6
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
-if [ -z "${HOME_ECLIPSE}" ]; then
-    export HOME_ECLIPSE=/opt/eclipse
-fi
-
 echo "================================================================================"
 echo "Start $0"
 echo "--------------------------------------------------------------------------------"
@@ -48,11 +44,11 @@ if ! (java -cp "{${DB_SEEDER_JAVA_CLASSPATH}}" ch.konnexions.db_seeder.SchemaBui
     exit 255
 fi
 
-if [ -d "eclipse_workspace" ]; then
-    rm -rf eclipse_workspace ¦¦ sudo rm -rf eclipse_workspace
-fi
-
 if [ "${HOME_ECLIPSE}" != "" ]; then
+    if [ -d "eclipse_workspace" ]; then
+        rm -rf eclipse_workspace ¦¦ sudo rm -rf eclipse_workspace
+    fi
+
     mkdir -p eclipse_workspace
 
     if ! (${HOME_ECLIPSE}/eclipse -nosplash \

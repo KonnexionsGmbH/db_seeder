@@ -48,9 +48,9 @@ if ERRORLEVEL 1 (
     exit %ERRORLEVEL%
 )
 
-if exist eclipse_workspace\ rd /q /s eclipse_workspace
-
 if ["%HOME_ECLIPSE%"] NEQ [""] (
+    if exist eclipse_workspace\ rd /q /s eclipse_workspace
+
     md eclipse_workspace >nul 2>&1
 
     %HOME_ECLIPSE%\eclipse -nosplash ^
