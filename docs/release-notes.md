@@ -15,9 +15,11 @@ Release Date: 01.03.2022
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
 - Docker Desktop Community: 4.0.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes){:target="_blank"})
-- Eclipse IDE: 2021.12 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads){:target="_blank"})
 - Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases){:target="_blank"})
-- Java Development Kit 17, (e.g. from [here](https://jdk.java.net/java-se-ri/17){:target="_blank"})
+- Java Development Kit 16 or 17, (e.g. from [here](https://jdk.java.net/java-se-ri/17){:target="_blank"})
+
+#### optional: 
+- Eclipse IDE: 2021.12 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads){:target="_blank"})
 - an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-12\eclipse`
 
 ### New Features
@@ -47,7 +49,7 @@ Release Date: 01.03.2022
 - trino: DBMS 368 / JDBC 368
 - YugabyteDB: DBMS 2.12.1.0-b41
 
-### Open issues
+### Open Issues
 
 - HSQLDB: (see [here](#issues_hsqldb)
 - trino: (see [here](#issues_trino)
