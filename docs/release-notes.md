@@ -85,7 +85,7 @@ For example, the MonetDB database is faster with inactive constraints by 17.5 % 
 
 - Issue: org.hsqldb.HsqlException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100.
 
-The problem only occurs with Windows 10 with the "DROP CONSTRAINTS" functionality.
+The problem only occurs with the "DROP CONSTRAINTS" functionality.
 
 ```
     2022-02-28 08:13:28,758 [DatabaseSeeder.java] INFO  tickerSymbolAnyCase='hsqldb_emb'

@@ -90,7 +90,8 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh exasol           yes 1
 ./run_db_seeder.sh firebird         yes 1
 ./run_db_seeder.sh hsqldb           yes 1
-./run_db_seeder.sh hsqldb_emb       yes 1
+# java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+./run_db_seeder.sh hsqldb_emb       yes 0
 ./run_db_seeder.sh ibmdb2           yes 1
 ./run_db_seeder.sh informix         yes 1
 ./run_db_seeder.sh mariadb          yes 1
