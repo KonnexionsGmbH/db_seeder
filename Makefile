@@ -1,25 +1,26 @@
-.DEFAULT_GOAL := docs
+.DEFAULT_GOAL := help
 
 ##                                                                            .
 ## ============================================================================
 ## DBSeeder - Relational Database Data Generator - make Documentation.
 ##       ---------------------------------------------------------------
 ##       The purpose of this Makefile is to support the software
-##       development process for DBSeeder. it contains also the necessary
-##       tools for the CI activities.
+##       development process for DBSeeder.
 ##       ---------------------------------------------------------------
 ##       The available make commands are:
 ## ----------------------------------------------------------------------------
 ## help:               Show this help.
+## docs:               Create and upload the user documentation with MkDocs.
 ## ----------------------------------------------------------------------------
 
+docs: mkdocs
 help:
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
 # Project documentation with Markdown.
 # https://github.com/mkdocs/mkdocs/
 # Configuration file: none
-docs:               ## Create and upload the user documentation with MkDocs.
+mkdocs:
 	@echo "Info **********  Start: MkDocs **************************************"
 	python -m pip install --upgrade pip
 	python -m pip install --upgrade pipenv

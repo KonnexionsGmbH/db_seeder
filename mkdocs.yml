@@ -10,12 +10,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - About:
-    - Release Notes: release-notes.md
-    - Release History: release-history.md
-    - Code of Conduct: code_of_conduct.md
-    - Contributing Guide: contributing.md
-    - License: license.md
+  - Code of Conduct: code_of_conduct.md
+  - Contributing Guide: contributing.md
+  - License: license.md
+  - Release Notes: release-notes.md
+  - Release History: release-history.md
 
 plugins:
   - search
