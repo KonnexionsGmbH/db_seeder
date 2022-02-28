@@ -1009,6 +1009,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("FK_NAME         =" + resultSet.getString("FK_NAME"));
             logger.debug("PK_NAME         =" + resultSet.getString("PK_NAME"));
             logger.debug("DEFERRABILITY   =" + resultSet.getInt("DEFERRABILITY"));
+            logger.debug("");
           }
 
           constraintName = resultSet.getString("FK_NAME");
@@ -1086,6 +1087,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("COLUMN_NAME     =" + resultSet.getString("COLUMN_NAME"));
             logger.debug("KEY_SEQ         =" + resultSet.getInt("KEY_SEQ"));
             logger.debug("PK_NAME         =" + resultSet.getString("PK_NAME"));
+            logger.debug("");
           }
 
           // First primary key column
@@ -1152,6 +1154,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
             logger.debug("CARDINALITY     =" + resultSet.getInt("CARDINALITY"));
             logger.debug("PAGES           =" + resultSet.getInt("PAGES"));
             logger.debug("FILTER_CONDITION=" + resultSet.getString("FILTER_CONDITION"));
+            logger.debug("");
           }
 
           // Irrelevant entries
@@ -1206,7 +1209,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
 
     // =========================================================================
-    // Drop the constraints found 
+    // Drop the constraints found
     // =========================================================================
 
     if (constraints.isEmpty()) {
@@ -1220,6 +1223,12 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
       }
 
       statement = connection.createStatement();
+
+      if (isDebug) {
+        for (Constraint constraint : constraints.values()) {
+          logger.debug("constraint type=" + constraint.getConstraintType() + " name='" + constraint.getConstraintName() + "'");
+        }
+      }
 
       for (Constraint constraint : constraints.values()) {
         String dropConstraint = constraint.getDropConstraintStatement();
@@ -1574,7 +1583,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     }
   }
 
-  // ToDo 
+  // ToDo
   //  /**
   //   * Sets the designated optional column to a BIGINT value or to NULL.
   //   *
@@ -1679,7 +1688,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
       if (rowNo % nullFactor == 0) {
         if (dbmsEnum == DbmsEnum.AGENS
-                || dbmsEnum == DbmsEnum.EXASOL
+            || dbmsEnum == DbmsEnum.EXASOL
             || dbmsEnum == DbmsEnum.POSTGRESQL
             || dbmsEnum == DbmsEnum.TIMESCALE
             || dbmsEnum == DbmsEnum.VOLTDB

@@ -48,8 +48,8 @@ docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net a
 docker create --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-              monetdb/monetdb:%DB_SEEDER_VERSION%
- 
+              %DB_SEEDER_IMAGE%
+
 echo Docker start db_seeder_db (monetdb %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 

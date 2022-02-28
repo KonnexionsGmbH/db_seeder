@@ -2,7 +2,7 @@
 
 rem ------------------------------------------------------------------------------
 rem
-rem run_I5648.bat: Demonstration Issue 9999 (https://github.com/trinodb/trino/issues/5648).
+rem run_I5648.bat: Demonstration Issue 5648 (https://github.com/trinodb/trino/issues/5648).
 rem
 rem ------------------------------------------------------------------------------
 

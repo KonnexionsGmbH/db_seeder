@@ -51,7 +51,7 @@ docker create -e           DB_INIT=1 ^
               --network    db_seeder_net ^
               -p           %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               --privileged ^
-              ibmcom/informix-developer-database:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (IBM Informix %DB_SEEDER_VERSION%)
 docker start db_seeder_db

@@ -43,7 +43,7 @@ echo.
     )
 
     if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
-    
+
     echo ================================================================================
     echo Start %0
     echo --------------------------------------------------------------------------------
@@ -60,21 +60,21 @@ echo.
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
-    
+
     call scripts\run_db_seeder_generate_schema.bat
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
-    
+
     call scripts\run_db_seeder_trino_environment.bat complete
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
 
     call scripts\run_db_seeder_setup_trino.bat
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -82,51 +82,61 @@ echo.
     rem ------------------------------------------------------------------------------
     rem MySQL Database - via trino.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_MYSQL_TRINO%"] EQU ["yes"] (
         call run_db_seeder.bat mysql_trino yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
     rem ------------------------------------------------------------------------------
     rem Oracle Database - via trino.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_ORACLE_TRINO%"] EQU ["yes"] (
         call run_db_seeder.bat oracle_trino yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
     rem ------------------------------------------------------------------------------
     rem PostgreSQL.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_POSTGRESQL_TRINO%"] EQU ["yes"] (
         call run_db_seeder.bat postgresql yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
     rem ------------------------------------------------------------------------------
     rem SQL Server.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_SQLSERVER_TRINO%"] EQU ["yes"] (
         call run_db_seeder.bat sqlserver yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
+    rem ------------------------------------------------------------------------------
+    rem End of processing.
+    rem ------------------------------------------------------------------------------
+
+    start resources\audio\end_of_series.mp3
+    if ERRORLEVEL 1 (
+        echo Processing of the script: %0 - step: 'start resources\audio\end_of_series.mp3' was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo --------------------------------------------------------------------------------

@@ -1,0 +1,41 @@
+copyright: Copyright &copy;2020-2022, Konnexions GmbH.
+
+edit_uri: ""
+
+extra:
+  generator: false
+
+markdown_extensions:
+  - attr_list
+
+nav:
+  - Home: index.md
+  - About:
+    - Release Notes: release-notes.md
+    - Release History: release-history.md
+    - Code of Conduct: code_of_conduct.md
+    - Contributing Guide: contributing.md
+    - License: license.md
+
+plugins:
+  - search
+
+repo_url: https://github.com/KonnexionsGmbH/db_seeder/
+
+site_name: DBSeeder - Relational Database Data Generator
+site_url: https://www.konnexions.ch/
+site_description: Relational Database Data Generator
+site_author: Konnexions GmbH Team
+
+theme:
+  favicon: img/Icon.png
+  features:
+    - search.highlight
+    - search.suggest
+  language: en
+  logo: img/Logo.png
+  name: material
+  palette:
+    primary: blue
+    accent: red
+

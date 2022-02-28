@@ -68,7 +68,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
       entries.add("connection-user=" + user);
       entries.add("connection-password=" + password);
     }
-    
+
     entries.add("insert.non-transactional-insert.enabled=true");
 
     // issue #4764 wwe

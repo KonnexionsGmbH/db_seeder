@@ -52,11 +52,11 @@ docker create -e           DBNAME=%DB_SEEDER_DATABASE% ^
               --network    db_seeder_net ^
               -p           %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               --privileged=true ^
-              ibmcom/db2:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (IBM Db2 Database %DB_SEEDER_VERSION%)
 docker start db_seeder_db
- 
+
 ping -n 300 127.0.0.1>nul
 
 for /f "delims=" %%A in ('lib\Gammadyne\timer.exe /s') do set "CONSUMED=%%A"

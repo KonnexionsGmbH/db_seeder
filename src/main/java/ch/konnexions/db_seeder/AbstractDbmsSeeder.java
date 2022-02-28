@@ -120,7 +120,7 @@ public abstract class AbstractDbmsSeeder {
 
   /**
    * Initialises the DBMS details.
-   * 
+   *
    * Attributes: 0 - DBMS name long
    *             1 - db type
    *             2 - DBMS name short
@@ -387,7 +387,7 @@ public abstract class AbstractDbmsSeeder {
   /**
    * Initialises a new abstract DBMS seeder object.
    *
-   * @param tickerSymbolExtern the external DBMS ticker symbol 
+   * @param tickerSymbolExtern the external DBMS ticker symbol
    * @param dbmsOption client, embedded or trino
    */
   public AbstractDbmsSeeder(String tickerSymbolExtern, String dbmsOption) {
@@ -434,7 +434,7 @@ public abstract class AbstractDbmsSeeder {
    * Put the identifier in the correct case.
    *
    * @param identifier the identifier
-   * 
+   *
    * @return the converted identifier
    */
   public final String setCaseIdentifier(String identifier) {

@@ -50,7 +50,7 @@ docker create -e        FIREBIRD_DATABASE=%DB_SEEDER_DATABASE% ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-              jacobalberty/firebird:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (Firebird %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

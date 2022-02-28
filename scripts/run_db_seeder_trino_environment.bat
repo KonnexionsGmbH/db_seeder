@@ -114,7 +114,7 @@ echo ---------------------------------------------------------------------------
 del -f %DB_SEEDER_DIRECTORY_CATALOG_PROPERTY%\db_seeder_*.properties 2>nul
 
 java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.TrinoEnvironment %DB_SEEDER_DBMS%
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )

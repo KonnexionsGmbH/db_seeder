@@ -52,7 +52,7 @@ docker create -e        POSTGRES_DB=kxn_db_sys ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
-              timescale/timescaledb:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (TimescaleDB %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

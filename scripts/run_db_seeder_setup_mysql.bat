@@ -49,7 +49,7 @@ docker create -e        MYSQL_ROOT_PASSWORD=mysql ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-              mysql:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (MySQL Database %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

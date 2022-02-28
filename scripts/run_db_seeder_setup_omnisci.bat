@@ -52,7 +52,9 @@ docker create --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               -v        %cd%\tmp\omnisci-docker-storage:/omnisci-storage ^
-              omnisci/core-os-cpu
+              %DB_SEEDER_IMAGE%
+
+              docker pull omnisci/core-os-cpu:v5.10.2
 
 echo Docker start db_seeder_db (OmniSciDB %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

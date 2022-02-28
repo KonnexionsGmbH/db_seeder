@@ -1656,7 +1656,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
   /**
    * Validate the JSON format of the schema definition.
-   * 
+   *
    * @param jsonSchema the JSON schema definition
    * @param jsonSubject the db_seeder schema definition
    */
@@ -1995,7 +1995,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
    *
    * @param tableName the name of the database table
    * @param columns the database table columns columns
-   * 
+   *
    * @return the hash set containing the column names
    */
   private HashSet<String> validateSchemaColumns(String tableName, ArrayList<Column> columns) {

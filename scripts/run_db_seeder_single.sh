@@ -68,6 +68,8 @@ echo "FILE_JSON_NAME                    : ${DB_SEEDER_FILE_JSON_NAME}"
 echo "FILE_STATISTICS_DELIMITER         : ${DB_SEEDER_FILE_STATISTICS_DELIMITER}"
 echo "FILE_STATISTICS_HEADER            : ${DB_SEEDER_FILE_STATISTICS_HEADER}"
 echo "FILE_STATISTICS_NAME              : ${DB_SEEDER_FILE_STATISTICS_NAME}"
+echo "IMAGE                             : ${DB_SEEDER_IMAGE}"
+echo "IMAGE_TRINO                       : ${DB_SEEDER_IMAGE_TRINO}"
 echo "JAVA_CLASSPATH                    : ${DB_SEEDER_JAVA_CLASSPATH}"
 echo "NO_CREATE_RUNS                    : ${DB_SEEDER_NO_CREATE_RUNS}"
 echo "RELEASE                           : ${DB_SEEDER_RELEASE}"
@@ -104,27 +106,39 @@ echo "==========================================================================
 if [ "${DB_SEEDER_SETUP_DBMS}" = "yes" ]; then
     if ! ( ./scripts/run_db_seeder_setup_dbms.sh ); then
         exit 255
-    fi    
+    fi
 fi
 
 if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "1" ]; then
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
-    fi    
+    fi
 fi
 
 if [ "${DB_SEEDER_NO_CREATE_RUNS}" = "2" ]; then
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
-    fi    
+    fi
     if ! ( ./scripts/run_db_seeder_create_data.sh ); then
         exit 255
-    fi    
+    fi
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     rm -rf "${DB_SEEDER_DATABASE}" ¦¦ sudo rm -rf "${DB_SEEDER_DATABASE}"
 fi
+
+docker ps     | find "db_seeder_db" && docker stop db_seeder_db
+docker ps -a  | find "db_seeder_db" && docker rm --force db_seeder_db
+docker images | find "${DB_SEEDER_IMAGE}" && docker rmi --force "${DB_SEEDER_IMAGE}"
+
+if [ "${DB_SEEDER_DBMS_TRINO}" = "yes" ]; then
+    docker rm  --force db_seeder_trino
+    docker rmi --force "${DB_SEEDER_IMAGE_TRINO}"
+fi
+
+docker ps -a
+docker images
 
 echo "--------------------------------------------------------------------------------"
 date +"DATE TIME : %d.%m.%Y %H:%M:%S"

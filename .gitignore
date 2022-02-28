@@ -6,12 +6,15 @@
 /.git-credentials
 /.gitconfig
 /.gradle/
+/.vs/
+/.vscode/
 /lib/db_seeder.jar
 /resources/docker/trino/catalog/db_seeder_mysql.properties
 /resources/docker/trino/catalog/db_seeder_oracle.properties
 /resources/docker/trino/catalog/db_seeder_postgresql.properties
 /resources/docker/trino/catalog/db_seeder_sqlserver.properties
 /resources/third_party/
+/site/
 Transfer/
 bin
 build

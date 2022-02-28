@@ -1,0 +1,53 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  DB_SEEDER_FILE_JSON_NAME: resources/json/db_seeder_schema.company_50.json
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  standards:
+    # --------------------------------------------------------------------------
+    # Test of a few selected databases..
+    # --------------------------------------------------------------------------
+    name: OS ${{ matrix.os }} - Java ${{ matrix.java-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 4
+      matrix:
+        os: ["ubuntu-18.04", "ubuntu-20.04"]
+        java-version: ["16", "17"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+          cache: 'gradle'
+      - name: Compiling the project
+        run: gradle copyJarToLib
+      - name: Generating the schema
+        run: ./scripts/run_db_seeder_generate_schema.sh
+      - name: Run Apache Derby - Client
+        run: ./run_db_seeder.sh derby            yes 1
+      - name: Run Apache Derby - Embedded
+        run: ./run_db_seeder.sh derby_emb        yes 1
+      - name: Run H2 Database Engine - Client
+        run: ./run_db_seeder.sh h2               yes 1
+      - name: Run H2 Database Engine - Embedded
+        run: ./run_db_seeder.sh h2_emb           yes 1
+      - name: Run HSQLDB - Client
+        run: ./run_db_seeder.sh hsqldb           yes 1
+      - name: Run HSQLDB - Embedded
+        run: ./run_db_seeder.sh hsqldb_emb       yes 1
+      - name: Run PostgreSQL - Client
+        run: ./run_db_seeder.sh postgresql       yes 1
+      - name: Run PostgreSQL - trino
+        run: ./run_db_seeder.sh postgresql_trino yes 1
+      - name: Run SQLite - Client
+        run: ./run_db_seeder.sh sqlite           yes 1

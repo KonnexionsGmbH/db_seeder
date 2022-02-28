@@ -157,14 +157,16 @@ public final class HsqldbSeeder extends AbstractGenHsqldbSchema {
     // Setup the database.
     // -----------------------------------------------------------------------
 
-    try {
-      if (isClient) {
-        executeSQLStmnts(statement,
-                         "SET DATABASE SQL SYS INDEX NAMES TRUE",
-                         "CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
-                         "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
-      }
+    executeSQLStmnts(statement,
+                     "SET DATABASE SQL SYS INDEX NAMES TRUE");
 
+    if (isClient) {
+      executeSQLStmnts(statement,
+                       "CREATE USER " + userName + " PASSWORD '" + password + "' ADMIN",
+                       "CREATE SCHEMA " + schemaName + " AUTHORIZATION " + userName);
+    }
+
+    try {
       statement.close();
     } catch (SQLException e) {
       e.printStackTrace();

@@ -40,7 +40,7 @@ public final class CreateSummaryFile { // NO_UCD (unused code)
   private static final int      MAX_FILE_CONTENT_TOKENS    = 14;
   private static final int      MAX_FILE_NAME_TOKENS       = 7;
 
-  private static int            numberErrors               = 0;
+  private final static int      numberErrors               = 0;
   private static int            numberProcessedFiles       = 0;
   private static int            numberProcessedRecords     = 0;
   private static int            numberProcessedRecordsFile = 0;

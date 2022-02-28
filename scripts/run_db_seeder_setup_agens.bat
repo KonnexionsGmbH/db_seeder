@@ -51,7 +51,7 @@ docker create --name    db_seeder_db ^
               -e        POSTGRES_USER=agens ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
               -t ^
-              bitnine/agensgraph:%DB_SEEDER_VERSION%
+              %DB_SEEDER_IMAGE%
 
 echo Docker start db_seeder_db (AgensGraph %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

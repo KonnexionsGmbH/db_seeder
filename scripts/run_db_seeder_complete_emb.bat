@@ -43,7 +43,7 @@ echo.
     )
 
     if exist %DB_SEEDER_FILE_STATISTICS_NAME% del /f /q %DB_SEEDER_FILE_STATISTICS_NAME%
-    
+
     echo ================================================================================
     echo Start %0
     echo --------------------------------------------------------------------------------
@@ -60,55 +60,65 @@ echo.
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo ================================================================================
-    
+
     rem ------------------------------------------------------------------------------
     rem Apache Derby - embedded version.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_DERBY_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat derby_emb yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
     rem ------------------------------------------------------------------------------
     rem H2 Database Engine - embedded version.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_H2_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat h2_emb yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
     rem ------------------------------------------------------------------------------
     rem HSQLDB - embedded version.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_HSQLDB_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat hsqldb_emb yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
     rem ------------------------------------------------------------------------------
     rem SQLite.
     rem ------------------------------------------------------------------------------
-    
+
     if ["%DB_SEEDER_DBMS_SQLITE_EMB%"] EQU ["yes"] (
         call run_db_seeder.bat sqlite yes %DB_SEEDER_NO_CREATE_RUNS%
-        if %ERRORLEVEL% NEQ 0 (
+        if ERRORLEVEL 1 (
             echo Processing of the script was aborted, error code=%ERRORLEVEL%
             exit %ERRORLEVEL%
         )
     )
-    
+
+    rem ------------------------------------------------------------------------------
+    rem End of processing.
+    rem ------------------------------------------------------------------------------
+
+    start resources\audio\end_of_series.mp3
+    if ERRORLEVEL 1 (
+        echo Processing of the script: %0 - step: 'start resources\audio\end_of_series.mp3' was aborted, error code=%ERRORLEVEL%
+        exit %ERRORLEVEL%
+    )
+
     echo --------------------------------------------------------------------------------
     echo:| TIME
     echo --------------------------------------------------------------------------------

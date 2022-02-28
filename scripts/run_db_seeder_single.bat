@@ -70,6 +70,8 @@ echo FILE_JSON_NAME                  : %DB_SEEDER_FILE_JSON_NAME%
 echo FILE_STATISTICS_DELIMITER       : %DB_SEEDER_FILE_STATISTICS_DELIMITER%
 echo FILE_STATISTICS_HEADER          : %DB_SEEDER_FILE_STATISTICS_HEADER%
 echo FILE_STATISTICS_NAME            : %DB_SEEDER_FILE_STATISTICS_NAME%
+echo IMAGE                           : %DB_SEEDER_IMAGE%
+echo IMAGE_TRINO                     : %DB_SEEDER_IMAGE_TRINO%
 echo JAVA_CLASSPATH                  : %DB_SEEDER_JAVA_CLASSPATH%
 echo NO_CREATE_RUNS                  : %DB_SEEDER_NO_CREATE_RUNS%
 echo RELEASE                         : %DB_SEEDER_RELEASE%
@@ -101,32 +103,32 @@ echo VERSION                         : %DB_SEEDER_VERSION%
 echo --------------------------------------------------------------------------------
 echo:| TIME
 echo ================================================================================
-    
+
 if ["%DB_SEEDER_SETUP_DBMS%"] EQU ["yes"] (
     call scripts\run_db_seeder_setup_dbms.bat
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
 )
-    
+
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["1"] (
     call scripts\run_db_seeder_create_data.bat
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
 )
-    
+
 if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["2"] (
     call scripts\run_db_seeder_create_data.bat
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
-    
+
     call scripts\run_db_seeder_create_data.bat
-    if %ERRORLEVEL% NEQ 0 (
+    if ERRORLEVEL 1 (
         echo Processing of the script was aborted, error code=%ERRORLEVEL%
         exit %ERRORLEVEL%
     )
@@ -135,6 +137,18 @@ if ["%DB_SEEDER_NO_CREATE_RUNS%"] EQU ["2"] (
 if ["%DB_SEEDER_DBMS%"] EQU ["ibmdb2"] (
     rd /q /s %DB_SEEDER_DATABASE% || true
 )
+
+docker ps     | find "db_seeder_db" && docker stop db_seeder_db
+docker ps -a  | find "db_seeder_db" && docker rm --force db_seeder_db
+docker images | find "%DB_SEEDER_IMAGE%" && docker rmi --force %DB_SEEDER_IMAGE%
+
+if ["%DB_SEEDER_DBMS_TRINO%"] EQU ["yes"] (
+    docker rm  --force db_seeder_trino
+    docker rmi --force %DB_SEEDER_IMAGE_TRINO%
+)
+
+docker ps -a
+docker images
 
 echo --------------------------------------------------------------------------------
 echo:| TIME

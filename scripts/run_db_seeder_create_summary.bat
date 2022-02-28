@@ -31,7 +31,7 @@ echo:| TIME
 echo ================================================================================
 
 call gradle copyJarToLib
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )
@@ -39,7 +39,7 @@ if %ERRORLEVEL% NEQ 0 (
 if exist db_seeder.log del /f /q db_seeder.log
 
 java -cp %DB_SEEDER_JAVA_CLASSPATH% ch.konnexions.db_seeder.CreateSummaryFile
-if %ERRORLEVEL% NEQ 0 (
+if ERRORLEVEL 1 (
     echo Processing of the script was aborted, error code=%ERRORLEVEL%
     exit %ERRORLEVEL%
 )

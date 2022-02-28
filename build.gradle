@@ -4,12 +4,12 @@ plugins {
 
 compileJava.options.encoding = 'UTF-8'
 group 'ch.konnexions'
-version '3.0.5'
+version '3.0.6'
 
 repositories {
     mavenCentral()
-    maven { 
-        url 'https://jitpack.io' 
+    maven {
+        url 'https://jitpack.io'
     }
     maven {
         url "https://maven.cubrid.org"
@@ -19,16 +19,16 @@ repositories {
 
 dependencies {
     implementation 'com.github.everit-org.json-schema:org.everit.json.schema:1.14.0'
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'io.crate:crate-jdbc:2.6.0'
     implementation 'org.apache.commons:commons-configuration2:2.7'
     implementation 'org.apache.derby:derbyclient:10.15.2.0'
-    implementation 'org.apache.logging.log4j:log4j-api:2.16.0'
-    implementation 'org.apache.logging.log4j:log4j-core:2.16.0'
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.16.0'
-    implementation 'org.firebirdsql.jdbc:jaybird:4.0.4.java11'
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1'
+    implementation 'org.firebirdsql.jdbc:jaybird:4.0.5.java11'
     implementation 'org.javatuples:javatuples:1.2'
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
 }

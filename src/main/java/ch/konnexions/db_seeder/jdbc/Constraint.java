@@ -107,6 +107,13 @@ class Constraint {
   }
 
   /**
+   * @return the constraintName
+   */
+  public String getConstraintName() {
+    return constraintName;
+  }
+
+  /**
    * @return the constraintType
    */
   public String getConstraintType() {

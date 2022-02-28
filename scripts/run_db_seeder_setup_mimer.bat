@@ -49,8 +49,8 @@ docker create -e        MIMER_SYSADM_PASSWORD=mimer ^
               --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
-              mimersql/mimersql_v11.0:%DB_SEEDER_VERSION%
- 
+              %DB_SEEDER_IMAGE%
+
 echo Docker start db_seeder_db (Mimer SQL %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 

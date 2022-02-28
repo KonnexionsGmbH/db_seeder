@@ -51,8 +51,8 @@ docker run --detach ^
            --network    db_seeder_net ^
            -p           127.0.0.1:%DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT%/tcp ^
            --privileged ^
-           exasol/docker-db:%DB_SEEDER_VERSION%
- 
+           %DB_SEEDER_IMAGE%
+
 echo Docker start db_seeder_db (Exasol %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db
 
