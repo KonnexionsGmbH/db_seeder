@@ -3,13 +3,13 @@
 ![Travis (.com)](https://img.shields.io/travis/com/KonnexionsGmbH/db_seeder.svg?branch=master)
 ![GitHub release](https://img.shields.io/github/release/KonnexionsGmbH/db_seeder.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/KonnexionsGmbH/db_seeder.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.6.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/KonnexionsGmbH/db_seeder/3.0.7.svg)
 
 ----
 
-## Version 3.0.6
+## Version 3.0.7
 
-Release Date: 01.03.2022
+Release Date: dd.mm.2022
 
 ### System Requirements
 
@@ -24,30 +24,15 @@ Release Date: 01.03.2022
 
 ### New Features
 
-- Travis CI replaced by GitHub Actions
-- Use of GitHub pages for user documentation
+- n/a
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.2.65
-- CrateDB: DBMS 4.7.0
-- Exasol: DBMS 7.1.6 / JDBC 7.1.4
-- Firebird: DBMS v4.0.1 / JDBC 4.0.4.java11
-- H2 database Engine: DBMS 2.1.210 / JDBC 2.1.210
-- IBM Db2 Database: JDBC 11.5.7.0
-- IBM Informix: DBMS 14.10.FC7W1DE / JDBC 4.50.7
-- MariaDB Server: JDBC 3.0.3
-- Mimer SQL: JDBC 3.42.3
-- MonetDB: DBMS Jan2022-SP1 / JDBC 3.2.jre8
-- MySQL Database: DBMS 8.0.28 / JDBC 8.0.28
-- OmniSciDB: DBMS v5.10.2 / JDBC 5.10.0
-- Oracle Database: JDBC 21.4.0.0.1
-- Percona Server for MySQL: DBMS 8.0.26-17
-- PostgreSQL: DBMS 14.2 / JDBC 42.3.3
-- SQL Server: DBMS 2019-CU15-ubuntu-20.04
-- TimescaleDB: DBMS 2.6.0-pg14
-- trino: DBMS 368 / JDBC 368
-- YugabyteDB: DBMS 2.12.1.0-b41
+- xxx: DBMS 999 / JDBC 999
+
+### Deleted Features
+
+- n/a
 
 ### Open Issues
 
@@ -69,7 +54,7 @@ The following table shows the results of the Windows 10 run.
 If the database can run with both activated and deactivated constraints (foreign, primary and unique key), the table shows the better value and in the column `Improvement` the relative value to the worse run. 
 For example, the MonetDB database is faster with inactive constraints by 17.5 % compared to the run with activated constraints.
 
-![](img/Perf_Snap_3.0.6_win10.png)
+![](img/Perf_Snap_3.0.7_win10.png)
 
 - `DBMS` - official DBMS name
 - `Type` - client version, embedded version or via trino
