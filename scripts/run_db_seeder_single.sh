@@ -128,13 +128,15 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     rm -rf "${DB_SEEDER_DATABASE}" ¦¦ sudo rm -rf "${DB_SEEDER_DATABASE}"
 fi
 
-docker stop db_seeder_db
-docker rm --force db_seeder_db
-docker rmi --force "${DB_SEEDER_IMAGE}"
+if [ "${DB_SEEDER_DBMS_EMBEDDED}" = "no" ]; then
+    docker stop db_seeder_db
+    docker rm --force db_seeder_db
+    docker rmi --force "${DB_SEEDER_IMAGE}"
 
-if [ "${DB_SEEDER_DBMS_TRINO}" = "yes" ]; then
-    docker rm  --force db_seeder_trino
-    docker rmi --force "${DB_SEEDER_IMAGE_TRINO}"
+    if [ "${DB_SEEDER_DBMS_TRINO}" = "yes" ]; then
+        docker rm  --force db_seeder_trino
+        docker rmi --force "${DB_SEEDER_IMAGE_TRINO}"
+    fi
 fi
 
 docker ps -a
