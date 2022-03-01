@@ -1,0 +1,51 @@
+ticker symbol	DBMS	db type	total ms	start time	end time	host name	no. cores	operating system	total DDL ms	drop constr. ms	add constr. ms	total DML ms	constraints
+agens	AgensGraph	client	12759	2022-03-01 02:15:57.908481737	2022-03-01 02:16:10.668174211	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1467	0	0	11292	active
+cockroach	CockroachDB	client	25978	2022-03-01 02:17:09.017027744	2022-03-01 02:17:34.995893751	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1509	0	0	24469	active - no choice
+cratedb	CrateDB	client	21463	2022-03-01 02:18:41.447543614	2022-03-01 02:19:02.911395140	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	4059	0	0	17404	active - no choice
+cubrid	CUBRID	client	17110	2022-03-01 02:20:01.654064352	2022-03-01 02:20:18.764927075	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	742	0	0	16368	active
+derby	Apache Derby	client	14434	2022-03-01 02:21:29.161621608	2022-03-01 02:21:43.596585378	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2017	0	0	12417	active
+derby_emb	Apache Derby	embedded	11253	2022-03-01 02:21:48.304679326	2022-03-01 02:21:59.558452631	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2062	0	0	9191	active
+exasol	Exasol	client	11669	2022-03-01 02:28:06.779701701	2022-03-01 02:28:18.449421088	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	3563	0	0	8106	active
+firebird	Firebird	client	32339	2022-03-01 02:29:32.236337682	2022-03-01 02:30:04.575743829	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1330	0	0	31009	active
+h2	H2 Database Engine	client	10076	2022-03-01 02:31:15.865060887	2022-03-01 02:31:25.941076440	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2328	0	0	7748	active - no choice
+h2_emb	H2 Database Engine	embedded	4973	2022-03-01 02:31:30.771019953	2022-03-01 02:31:35.744225100	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1112	0	0	3861	active - no choice
+hsqldb	HSQLDB	client	11569	2022-03-01 02:32:18.138449110	2022-03-01 02:32:29.708361997	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1096	0	0	10473	active
+hsqldb_emb	HSQLDB	embedded	6218	2022-03-01 02:32:34.381986283	2022-03-01 02:32:40.600407821	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	861	0	0	5357	active
+ibmdb2	IBM Db2 Database	client	13240	2022-03-01 02:39:17.794398565	2022-03-01 02:39:31.035053552	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2375	0	0	10865	active
+informix	IBM Informix	client	13360	2022-03-01 02:44:30.416403520	2022-03-01 02:44:43.777056122	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1191	0	0	12169	active
+mariadb	MariaDB Server	client	6557	2022-03-01 02:45:45.456797566	2022-03-01 02:45:52.014627160	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	837	0	0	5720	active
+mimer	Mimer SQL	client	63836	2022-03-01 02:46:42.631516853	2022-03-01 02:47:46.467687687	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1000	0	0	62836	active
+monetdb	MonetDB	client	13667	2022-03-01 02:48:22.916328836	2022-03-01 02:48:36.584097249	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1681	0	0	11986	active
+mysql	MySQL Database	client	12471	2022-03-01 02:50:02.655415621	2022-03-01 02:50:15.126540654	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1350	0	0	11121	active
+mysql_trino	MySQL Database	trino	1182698	2022-03-01 02:52:46.883682721	2022-03-01 03:12:29.582230739	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2740	0	0	1179958	active - no choice
+omnisci	OmniSciDB	client	42863	2022-03-01 03:14:11.490670030	2022-03-01 03:14:54.354384907	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2768	0	0	40095	active - no choice
+oracle	Oracle Database	client	12549	2022-03-01 03:25:59.156962373	2022-03-01 03:26:11.706330542	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2440	0	0	10109	active
+oracle_trino	Oracle Database	trino	981037	2022-03-01 03:30:57.958546011	2022-03-01 03:47:18.995898694	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2693	0	0	978344	active - no choice
+percona	Percona Server for MySQL	client	12217	2022-03-01 03:49:03.310925608	2022-03-01 03:49:15.528916678	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1254	0	0	10963	active
+postgresql	PostgreSQL	client	8390	2022-03-01 03:50:08.940176407	2022-03-01 03:50:17.330203818	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1158	0	0	7232	active
+postgresql_trino	PostgreSQL	trino	1487389	2022-03-01 03:52:21.966200338	2022-03-01 04:17:09.355779542	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1984	0	0	1485405	active - no choice
+sqlite	SQLite	embedded	8459	2022-03-01 04:17:19.077945064	2022-03-01 04:17:27.537915273	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1303	0	0	7156	active - no choice
+sqlserver	MS SQL Server	client	11471	2022-03-01 04:18:47.360203765	2022-03-01 04:18:58.831637847	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	3113	0	0	8358	active
+sqlserver_trino	MS SQL Server	trino	1447883	2022-03-01 04:21:48.896105160	2022-03-01 04:45:56.779257045	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2706	0	0	1445177	active - no choice
+timescale	TimescaleDB	client	8665	2022-03-01 04:46:42.178855535	2022-03-01 04:46:50.844666649	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1159	0	0	7506	active
+yugabyte	YugabyteDB	client	22462	2022-03-01 04:49:14.349277834	2022-03-01 04:49:36.811567431	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	7856	0	0	14606	active
+agens	AgensGraph	client	8221	2022-03-01 04:50:13.667196815	2022-03-01 04:50:21.888694057	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1238	0	139	6983	inactive
+cockroach	CockroachDB	client	19254	2022-03-01 04:51:00.192037320	2022-03-01 04:51:19.446432711	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2385	8	886	16869	inactive
+cubrid	CUBRID	client	14077	2022-03-01 04:51:57.198390769	2022-03-01 04:52:11.275412469	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1253	172	175	12824	inactive
+derby	Apache Derby	client	15677	2022-03-01 04:53:31.916810088	2022-03-01 04:53:47.594801094	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	3511	462	675	12166	inactive
+derby_emb	Apache Derby	embedded	15855	2022-03-01 05:41:37.271575186	2022-03-01 05:41:53.127142142	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	5415	681	709	10440	inactive
+exasol	Exasol	client	14042	2022-03-01 05:44:03.517634270	2022-03-01 05:44:17.560413627	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	3771	61	437	10271	inactive
+firebird	Firebird	client	27800	2022-03-01 05:45:39.910610345	2022-03-01 05:46:07.711314597	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2082	152	156	25718	inactive
+hsqldb	HSQLDB	client	12761	2022-03-01 05:47:15.112381668	2022-03-01 05:47:27.873630842	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1195	144	125	11566	inactive
+ibmdb2	IBM Db2 Database	client	15346	2022-03-01 05:52:38.917360215	2022-03-01 05:52:54.264225898	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	3722	398	435	11624	inactive
+informix	IBM Informix	client	12920	2022-03-01 05:57:10.344461636	2022-03-01 05:57:23.265236340	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1564	82	301	11356	inactive
+mariadb	MariaDB Server	client	11700	2022-03-01 05:58:09.982157429	2022-03-01 05:58:21.682395390	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	6493	5505	130	5207	inactive
+mimer	Mimer SQL	client	67987	2022-03-01 05:58:59.554161168	2022-03-01 06:00:07.541930098	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2607	219	979	65380	inactive
+monetdb	MonetDB	client	15679	2022-03-01 06:00:19.929108993	2022-03-01 06:00:35.608710508	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	2834	0	372	12845	inactive
+mysql	MySQL Database	client	19840	2022-03-01 06:01:46.418101510	2022-03-01 06:02:06.258101748	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	8077	6532	251	11763	inactive
+oracle	Oracle Database	client	21929	2022-03-01 06:06:16.718725073	2022-03-01 06:06:38.648151270	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	9486	360	6538	12443	inactive
+percona	Percona Server for MySQL	client	18657	2022-03-01 06:07:49.129095285	2022-03-01 06:08:07.786726950	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	6913	5562	286	11744	inactive
+postgresql	PostgreSQL	client	8248	2022-03-01 06:08:45.554987683	2022-03-01 06:08:53.803207940	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1264	0	170	6984	inactive
+sqlserver	MS SQL Server	client	11494	2022-03-01 06:09:31.344944837	2022-03-01 06:09:42.838948306	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	3136	130	540	8358	inactive
+timescale	TimescaleDB	client	8333	2022-03-01 06:10:20.611536911	2022-03-01 06:10:28.944542471	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	1399	0	172	6934	inactive
+yugabyte	YugabyteDB	client	22268	2022-03-01 06:11:06.287944259	2022-03-01 06:11:28.556809448	ubuntu	2	amd64 / Linux / 5.13.0-30-generic	8276	0	702	13992	inactive
