@@ -65,6 +65,7 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder firebird         yes 1
     call run_db_seeder h2               yes 1
     call run_db_seeder h2_emb           yes 1
+    call run_db_seeder heavy            yes 1
     call run_db_seeder hsqldb           yes 1
     call run_db_seeder hsqldb_emb       yes 1
     call run_db_seeder ibmdb2           yes 1
@@ -74,7 +75,6 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder monetdb          yes 1
     call run_db_seeder mysql            yes 1
     call run_db_seeder mysql_trino      yes 1
-    call run_db_seeder omnisci          yes 1
     call run_db_seeder oracle           yes 1
     call run_db_seeder oracle_trino     yes 1
     call run_db_seeder percona          yes 1
@@ -126,6 +126,7 @@ rem > run_db_seeder_release.log 2>&1 (
     rem call run_db_seeder firebird         yes 1
     rem call run_db_seeder h2               no  1
     rem call run_db_seeder h2_emb           no  1
+    rem call run_db_seeder heavy            no  1
     rem call run_db_seeder hsqldb           yes 1
     rem call run_db_seeder hsqldb_emb       yes 1
     rem call run_db_seeder ibmdb2           yes 1
@@ -135,7 +136,6 @@ rem > run_db_seeder_release.log 2>&1 (
     rem call run_db_seeder monetdb          yes 1
     rem call run_db_seeder mysql            yes 1
     rem call run_db_seeder mysql_trino      no  1
-    rem call run_db_seeder omnisci          no  1
     rem call run_db_seeder oracle           yes 1
     rem call run_db_seeder oracle_trino     no  1
     rem call run_db_seeder percona          yes 1

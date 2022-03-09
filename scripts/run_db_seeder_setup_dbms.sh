@@ -277,6 +277,39 @@ if [ "${DB_SEEDER_DBMS_DB}" = "h2" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# HeavyDB                   https://hub.docker.com/_/omnisci-open-source-edition
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_DB}" = "heavy" ]; then
+    rm -rf tmp/heavy-docker-storage ¦¦ sudo rm -rf tmp/heavy-docker-storage
+    echo "HeavyDB."
+    echo "--------------------------------------------------------------------------------"
+    echo "Docker create db_seeder_db (HeavyDB ${DB_SEEDER_VERSION})"
+
+    rm    -rf tmp/heavy-docker-storage
+    mkdir     tmp/heavy-docker-storage
+
+    docker network create db_seeder_net  2>/dev/null || true
+    docker create --name    db_seeder_db \
+                  --network db_seeder_net \
+                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
+                  -v        "$PWD/tmp/heavy-docker-storage":/omnisci-storage \
+                  "${DB_SEEDER_IMAGE}"
+
+    echo "Docker start db_seeder_db (HeavyDB ${DB_SEEDER_VERSION}) ..."
+    if ! docker start db_seeder_db; then
+        exit 255
+    fi
+
+    sleep 60
+
+    docker network ls
+    docker network inspect db_seeder_net
+
+    end=$(date +%s)
+fi
+
+# ------------------------------------------------------------------------------
 # HSQLDB
 #      https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database
 # ------------------------------------------------------------------------------
@@ -469,39 +502,6 @@ if [ "${DB_SEEDER_DBMS_DB}" = "mysql" ]; then
                   "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (MySQL ${DB_SEEDER_VERSION}) ..."
-    if ! docker start db_seeder_db; then
-        exit 255
-    fi
-
-    sleep 60
-
-    docker network ls
-    docker network inspect db_seeder_net
-
-    end=$(date +%s)
-fi
-
-# ------------------------------------------------------------------------------
-# OmniSciDB                 https://hub.docker.com/_/omnisci-open-source-edition
-# ------------------------------------------------------------------------------
-
-if [ "${DB_SEEDER_DBMS_DB}" = "omnisci" ]; then
-    rm -rf tmp/omnisci-docker-storage ¦¦ sudo rm -rf tmp/omnisci-docker-storage
-    echo "OmniSciDB."
-    echo "--------------------------------------------------------------------------------"
-    echo "Docker create db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION})"
-
-    rm    -rf tmp/omnisci-docker-storage
-    mkdir     tmp/omnisci-docker-storage
-
-    docker network create db_seeder_net  2>/dev/null || true
-    docker create --name    db_seeder_db \
-                  --network db_seeder_net \
-                  -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  -v        "$PWD/tmp/omnisci-docker-storage":/omnisci-storage \
-                  "${DB_SEEDER_IMAGE}"
-
-    echo "Docker start db_seeder_db (OmniSciDB ${DB_SEEDER_VERSION}) ..."
     if ! docker start db_seeder_db; then
         exit 255
     fi

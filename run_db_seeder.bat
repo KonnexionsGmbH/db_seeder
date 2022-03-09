@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 set DB_SEEDER_RELEASE=3.0.7
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=371
+set DB_SEEDER_VERSION_TRINO=372
 set DB_SEEDER_IMAGE_TRINO=trinodb/trino:!DB_SEEDER_VERSION_TRINO!
 
 if ["%1"] EQU [""] (
@@ -39,6 +39,7 @@ if ["%1"] EQU [""] (
     echo firebird           - Firebird
     echo h2                 - H2 Database Engine [client]
     echo h2_emb             - H2 Database Engine [embedded]
+    echo heavy              - HeavyDB
     echo hsqldb             - HSQLDB [client]
     echo hsqldb_emb         - HSQLDB [embedded]
     echo ibmdb2             - IBM Db2 Database
@@ -48,7 +49,6 @@ if ["%1"] EQU [""] (
     echo monetdb            - MonetDB
     echo mysql              - MySQL Database
     echo mysql_trino        - MySQL Database via trino
-    echo omnisci            - OmniSciDB
     echo oracle             - Oracle Database
     echo oracle_trino       - Oracle Database via trino
     echo percona            - Percona Server for MySQL
@@ -299,6 +299,27 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2_emb"] (
     set DB_SEEDER_USER_SYS=sa
 )
 
+if ["%DB_SEEDER_DBMS%"] EQU ["heavy"] (
+    set DB_SEEDER_CONNECTION_PORT=6274
+    set DB_SEEDER_CONNECTION_PREFIX=jdbc:omnisci:
+    set DB_SEEDER_CONTAINER_PORT=6274
+    set DB_SEEDER_DATABASE=kxn_db
+    set DB_SEEDER_DATABASE_SYS=omnisci
+    set DB_SEEDER_PASSWORD=omnisci
+    set DB_SEEDER_PASSWORD_SYS=HyperInteractive
+    set DB_SEEDER_USER=kxn_user
+    set DB_SEEDER_USER_SYS=admin
+    set DB_SEEDER_VERSION=v5.6.1
+    set DB_SEEDER_VERSION=v5.6.4
+    set DB_SEEDER_VERSION=v5.7.0
+    set DB_SEEDER_VERSION=v5.7.1
+    set DB_SEEDER_VERSION=v5.8.0
+    set DB_SEEDER_VERSION=v5.9.0
+    set DB_SEEDER_VERSION=v5.10.1
+    set DB_SEEDER_VERSION=v5.10.2
+    set DB_SEEDER_IMAGE=omnisci/core-os-cpu:!DB_SEEDER_VERSION!
+)
+
 if ["%DB_SEEDER_DBMS%"] EQU ["hsqldb"] (
     set DB_SEEDER_CONNECTION_PORT=9001
     set DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
@@ -384,6 +405,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.6.3-focal
     set DB_SEEDER_VERSION=10.6.4-focal
     set DB_SEEDER_VERSION=10.7.1-focal
+    set DB_SEEDER_VERSION=10.7.3-focal
     set DB_SEEDER_IMAGE=mariadb:!DB_SEEDER_VERSION!
 )
 
@@ -473,27 +495,6 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mysql_trino"] (
     set DB_SEEDER_IMAGE=mysql:!DB_SEEDER_VERSION!
 )
 
-if ["%DB_SEEDER_DBMS%"] EQU ["omnisci"] (
-    set DB_SEEDER_CONNECTION_PORT=6274
-    set DB_SEEDER_CONNECTION_PREFIX=jdbc:omnisci:
-    set DB_SEEDER_CONTAINER_PORT=6274
-    set DB_SEEDER_DATABASE=kxn_db
-    set DB_SEEDER_DATABASE_SYS=omnisci
-    set DB_SEEDER_PASSWORD=omnisci
-    set DB_SEEDER_PASSWORD_SYS=HyperInteractive
-    set DB_SEEDER_USER=kxn_user
-    set DB_SEEDER_USER_SYS=admin
-    set DB_SEEDER_VERSION=v5.6.1
-    set DB_SEEDER_VERSION=v5.6.4
-    set DB_SEEDER_VERSION=v5.7.0
-    set DB_SEEDER_VERSION=v5.7.1
-    set DB_SEEDER_VERSION=v5.8.0
-    set DB_SEEDER_VERSION=v5.9.0
-    set DB_SEEDER_VERSION=v5.10.1
-    set DB_SEEDER_VERSION=v5.10.2
-    set DB_SEEDER_IMAGE=omnisci/core-os-cpu:!DB_SEEDER_VERSION!
-)
-
 if ["%DB_SEEDER_DBMS%"] EQU ["oracle"] (
     set DB_SEEDER_CONNECTION_PORT=1521
     set DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
@@ -548,6 +549,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_VERSION=8.0.25-15
     set DB_SEEDER_VERSION=8.0.26-16
     set DB_SEEDER_VERSION=8.0.26-17
+    set DB_SEEDER_VERSION=8.0.27-18
     set DB_SEEDER_IMAGE=percona/percona-server:!DB_SEEDER_VERSION!
 )
 
@@ -707,6 +709,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.11.1.0-b305
     set DB_SEEDER_VERSION=2.11.2.0-b89
     set DB_SEEDER_VERSION=2.12.1.0-b41
+    set DB_SEEDER_VERSION=2.13.0.0-b42
     set DB_SEEDER_IMAGE=yugabytedb/yugabyte:!DB_SEEDER_VERSION!
 )
 

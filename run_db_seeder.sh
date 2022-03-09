@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.7
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=371
+export DB_SEEDER_VERSION_TRINO=372
 export DB_SEEDER_IMAGE_TRINO=trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
 if [ -z "$1" ]; then
@@ -36,6 +36,7 @@ if [ -z "$1" ]; then
     echo "firebird           - Firebird"
     echo "h2                 - H2 Database Engine [client]"
     echo "h2_emb             - H2 Database Engine [embedded]"
+    echo "heavy              - HeavyDB"
     echo "hsqldb             - HSQLDB [client]"
     echo "hsqldb_emb         - HSQLDB [embedded]"
     echo "ibmdb2             - IBM Db2 Database"
@@ -45,7 +46,6 @@ if [ -z "$1" ]; then
     echo "monetdb            - MonetDB"
     echo "mysql              - MySQL Database"
     echo "mysql_trino        - MySQL Database via trino"
-    echo "omnisci            - OmniSciDB"
     echo "oracle             - Oracle Database"
     echo "oracle_trino       - Oracle Database via trino"
     echo "percona            - Percona Server for MySQL"
@@ -294,6 +294,27 @@ if [ "${DB_SEEDER_DBMS}" = "h2_emb" ]; then
     export DB_SEEDER_USER_SYS=sa
 fi
 
+if [ "${DB_SEEDER_DBMS}" = "heavy" ]; then
+    export DB_SEEDER_CONNECTION_PORT=6274
+    export DB_SEEDER_CONNECTION_PREFIX=jdbc:omnisci:
+    export DB_SEEDER_CONTAINER_PORT=6274
+    export DB_SEEDER_DATABASE=kxn_db
+    export DB_SEEDER_DATABASE_SYS=omnisci
+    export DB_SEEDER_PASSWORD=omnisci
+    export DB_SEEDER_PASSWORD_SYS=HyperInteractive
+    export DB_SEEDER_USER=kxn_user
+    export DB_SEEDER_USER_SYS=admin
+    export DB_SEEDER_VERSION=v5.6.1
+    export DB_SEEDER_VERSION=v5.6.4
+    export DB_SEEDER_VERSION=v5.7.0
+    export DB_SEEDER_VERSION=v5.7.1
+    export DB_SEEDER_VERSION=v5.8.0
+    export DB_SEEDER_VERSION=v5.9.0
+    export DB_SEEDER_VERSION=v5.10.1
+    export DB_SEEDER_VERSION=v5.10.2
+    export DB_SEEDER_IMAGE=omnisci/core-os-cpu:"${DB_SEEDER_VERSION}"
+fi
+
 if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
     export DB_SEEDER_CONNECTION_PORT=9001
     export DB_SEEDER_CONNECTION_PREFIX="jdbc:hsqldb:"
@@ -380,6 +401,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.6.3-focal
     export DB_SEEDER_VERSION=10.6.4-focal
     export DB_SEEDER_VERSION=10.7.1-focal
+    export DB_SEEDER_VERSION=10.7.3-focal
     export DB_SEEDER_IMAGE=mariadb:"${DB_SEEDER_VERSION}"
 fi
 
@@ -469,27 +491,6 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_IMAGE=mysql:"${DB_SEEDER_VERSION}"
 fi
 
-if [ "${DB_SEEDER_DBMS}" = "omnisci" ]; then
-    export DB_SEEDER_CONNECTION_PORT=6274
-    export DB_SEEDER_CONNECTION_PREFIX=jdbc:omnisci:
-    export DB_SEEDER_CONTAINER_PORT=6274
-    export DB_SEEDER_DATABASE=kxn_db
-    export DB_SEEDER_DATABASE_SYS=omnisci
-    export DB_SEEDER_PASSWORD=omnisci
-    export DB_SEEDER_PASSWORD_SYS=HyperInteractive
-    export DB_SEEDER_USER=kxn_user
-    export DB_SEEDER_USER_SYS=admin
-    export DB_SEEDER_VERSION=v5.6.1
-    export DB_SEEDER_VERSION=v5.6.4
-    export DB_SEEDER_VERSION=v5.7.0
-    export DB_SEEDER_VERSION=v5.7.1
-    export DB_SEEDER_VERSION=v5.8.0
-    export DB_SEEDER_VERSION=v5.9.0
-    export DB_SEEDER_VERSION=v5.10.1
-    export DB_SEEDER_VERSION=v5.10.2
-    export DB_SEEDER_IMAGE=omnisci/core-os-cpu:"${DB_SEEDER_VERSION}"
-fi
-
 if [ "${DB_SEEDER_DBMS}" = "oracle" ]; then
     export DB_SEEDER_CONNECTION_PORT=1521
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:oracle:thin:@//
@@ -544,6 +545,7 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
     export DB_SEEDER_VERSION=8.0.25-15
     export DB_SEEDER_VERSION=8.0.26-16
     export DB_SEEDER_VERSION=8.0.26-17
+    export DB_SEEDER_VERSION=8.0.27-18
     export DB_SEEDER_IMAGE=percona/percona-server:"${DB_SEEDER_VERSION}"
 fi
 
@@ -703,6 +705,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.11.1.0-b305
     export DB_SEEDER_VERSION=2.11.2.0-b89
     export DB_SEEDER_VERSION=2.12.1.0-b41
+    export DB_SEEDER_VERSION=2.13.0.0-b42
     export DB_SEEDER_IMAGE=yugabytedb/yugabyte:"${DB_SEEDER_VERSION}"
 fi
 

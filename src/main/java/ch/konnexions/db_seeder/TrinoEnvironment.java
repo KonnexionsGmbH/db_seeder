@@ -38,7 +38,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
 
   private static final ArrayList<String>   entries       = new ArrayList<>();
 
-  private static final Logger              logger        = LogManager.getLogger(TrinoEnvironment.class);
+  private static final Logger logger        = LogManager.getLogger(TrinoEnvironment.class);
   private static final boolean             isDebug       = logger.isDebugEnabled();
 
   private static final Map<String, String> osEnvironment = System.getenv();

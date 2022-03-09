@@ -88,7 +88,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
     case "BIGINT" -> switch (tickerSymbolIntern) {
       case "cockroach", "cubrid" -> "INT";
       case "firebird", "sqlite" -> "INTEGER";
-      case "omnisci" -> column.isNotNull()
+      case "heavy" -> column.isNotNull()
           ? "BIGINT NOT NULL"
           : "BIGINT";
       case "oracle" -> "NUMBER";
@@ -99,10 +99,10 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "cockroach" -> "BYTES";
       case "cratedb" -> "OBJECT";
       case "exasol" -> "VARCHAR(2000000)";
-      case "mariadb", "mysql", "percona" -> "LONGBLOB";
-      case "omnisci" -> column.isNotNull()
+      case "heavy" -> column.isNotNull()
           ? "TEXT NOT NULL ENCODING NONE"
           : "TEXT ENCODING NONE";
+      case "mariadb", "mysql", "percona" -> "LONGBLOB";
       case "sqlserver" -> "VARBINARY(MAX)";
       case "voltdb" -> "VARBINARY(1048576)";
       default -> "BLOB";
@@ -112,33 +112,33 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
       case "cockroach" -> "STRING";
       case "exasol" -> "VARCHAR(2000000)";
       case "firebird" -> "BLOB SUB_TYPE 1";
-      case "mariadb", "mysql", "percona" -> "LONGTEXT";
-      case "omnisci" -> column.isNotNull()
+      case "heavy" -> column.isNotNull()
           ? "TEXT NOT NULL ENCODING NONE"
           : "TEXT ENCODING NONE";
+      case "mariadb", "mysql", "percona" -> "LONGTEXT";
       case "sqlserver" -> "VARCHAR(MAX)";
       case "voltdb" -> "VARCHAR(1048576)";
       default -> "CLOB";
       };
     case "TIMESTAMP" -> switch (tickerSymbolIntern) {
-      case "informix" -> "DATETIME YEAR TO FRACTION";
-      case "mariadb", "mysql", "percona", "sqlite" -> "DATETIME";
-      case "omnisci" -> column.isNotNull()
+      case "heavy" -> column.isNotNull()
           ? "TIMESTAMP(0) NOT NULL"
           : "TIMESTAMP(0)";
+      case "informix" -> "DATETIME YEAR TO FRACTION";
+      case "mariadb", "mysql", "percona", "sqlite" -> "DATETIME";
       case "sqlserver" -> "DATETIME2";
       default -> "TIMESTAMP";
       };
     case "VARCHAR" -> switch (tickerSymbolIntern) {
       case "cockroach" -> "STRING";
       case "cratedb" -> "TEXT";
+      case "heavy" -> column.isNotNull()
+          ? "TEXT NOT NULL ENCODING NONE"
+          : "TEXT ENCODING NONE";
       case "informix" -> column.getSize() > 254
           ? "LVARCHAR(" + column.getSize() + ")"
           : "VARCHAR(" + column.getSize() + ")";
       case "mimer" -> "NVARCHAR(" + column.getSize() + ")";
-      case "omnisci" -> column.isNotNull()
-          ? "TEXT NOT NULL ENCODING NONE"
-          : "TEXT ENCODING NONE";
       case "oracle", "sqlite" -> "VARCHAR2(" + column.getSize() + ")";
       default -> "VARCHAR(" + column.getSize() + ")";
       };
@@ -185,7 +185,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
       constraintType = tableConstraint.getConstraintType().toUpperCase();
 
-      if ("omnisci".equals(tickerSymbolIntern)) {
+      if ("heavy".equals(tickerSymbolIntern)) {
         continue;
       }
 
@@ -507,8 +507,8 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
         if (!("cratedb".equals(tickerSymbolIntern)
             || "exasol".equals(tickerSymbolIntern)
-            || "informix".equals(tickerSymbolIntern)
-            || "omnisci".equals(tickerSymbolIntern))) {
+            || "heavy".equals(tickerSymbolIntern)
+            || "informix".equals(tickerSymbolIntern))) {
           editTableConstraintsUnique(tickerSymbolIntern,
                                      identifierDelimiter,
                                      tableName,
@@ -562,7 +562,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // NOT NULL ..........................................................
 
-          if (!("omnisci".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern))) {
+          if (!("heavy".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern))) {
             if (column.isNotNull() || column.isPrimaryKey() || column.isUnique()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -578,7 +578,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // PRIMARY KEY .......................................................
 
-          if (!("omnisci".equals(tickerSymbolIntern))) {
+          if (!("heavy".equals(tickerSymbolIntern))) {
             if (column.isPrimaryKey()) {
               if (isNewLineRequired) {
                 bw.append(workArea.toString());
@@ -594,7 +594,7 @@ public final class GenerateSchema extends AbstractDbmsSeeder {
 
           // REFERENCES .......................................................
 
-          if (!("cratedb".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern))) {
+          if (!("cratedb".equals(tickerSymbolIntern) || "heavy".equals(tickerSymbolIntern) || "voltdb".equals(tickerSymbolIntern))) {
             if (column.getReferences() != null && column.getReferences().size() > 0) {
               ArrayList<References> references = column.getReferences();
 

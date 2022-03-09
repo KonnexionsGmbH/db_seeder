@@ -43,39 +43,39 @@ The database systems considered meet the following conditions:
 
 ### 1.1 RDBMS Overview
 
-| RDBMS                           | Ticker Symbol(s)   | RDBMS Versions            | Latest JDBC    |
-|---                              |---                 |---------------------------|----------------|
-| AgensGraph                      | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1       |
-| Apache Derby                    | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0      |
-| CockroachDB                     | cockroach          | v20.2.5 - v21.2.6         | see PostgreSQL |
-| CrateDB                         | cratedb            | 4.1.6 - 4.7.0             | 2.6.0          |
-| CUBRID                          | cubrid             | 10.2 - 11.0               | 11.0.5.0299    |
-| Exasol                          | exasol             | 6.2.8-d1 - 7.1.6          | 7.1.4          |
-| Firebird                        | firebird           | 3.0.5 - v4.0.1            | 4.0.5.java11   | 
-| H2 Database Engine              | h2, h2_emb         | 1.4.200 - 2.1.210         | 2.1.210        | 
-| HSQLDB                          | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
-| IBM Db2 Database                | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.7.0       |
-| IBM Informix                    | informix           | 14.10 FC3DE -             | 4.50.7.1       |
-|                                 |                    | 14.10.FC7W1DE             |                | 
-| MariaDB Server                  | mariadb            | 10.4.13 - 10.7.1-focal    | 3.0.3          | 
-| Mimer SQL                       | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
-| MonetDB                         | monetdb            | Jun2020-SP1 - Jan2022-SP1 | 3.2.jre8       | 
-| MySQL Database                  | mysql              | 8.0.20 - 8.0.28           | 8.0.28         | 
-| OmniSciDB                       | omnisci            | v5.6.1 - v5.10.2          | 5.10.0         |
-| Oracle Database                 | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
-| Percona Server for MySQL        | percona            | 8.0.26-17                 | see MySQL      | 
-| PostgreSQL                      | postgresql         | 12.3 - 14.2-alpine        | 42.3.3         |
-| SQL Server                      | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16    |
-|                                 |                    | 2019-CU15-ubuntu-20.04    |                | 
-| SQLite                          | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3       |
-| TimescaleDB                     | timescale          | 2.3.1-pg13 - 2.6.0-pg14   | see PostgreSQL |
-| trino                           | mysql_trino,       | 339 - 368                 | 368            |
-|                                 | oracle_trino,      |                           |                |
-|                                 | postgresql_trino,  |                           |                |
-|                                 | sqlserver_trino    |                           |                |
-| VoltDB                          | voltdb             | 9.2.1                     | 11.0           |
-| YugabyteDB                      | yugabyte           | 2.2.2.0-b15 -             | see PostgreSQL |
-|                                 |                    | 2.12.1.0-b41              |                |
+| RDBMS                    | Ticker Symbol(s)   | RDBMS Versions            | Latest JDBC    |
+|--------------------------|--------------------|---------------------------|----------------|
+| AgensGraph               | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1       |
+| Apache Derby             | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0      |
+| CockroachDB              | cockroach          | v20.2.5 - v21.2.6         | see PostgreSQL |
+| CrateDB                  | cratedb            | 4.1.6 - 4.7.0             | 2.6.0          |
+| CUBRID                   | cubrid             | 10.2 - 11.0               | 11.0.6.0313    |
+| Exasol                   | exasol             | 6.2.8-d1 - 7.1.6          | 7.1.4          |
+| Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.5.java11   | 
+| H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.210         | 2.1.210        | 
+| HeavyDB                  | heavy              | v5.6.1 - v5.10.2          | 5.10.0         |
+| HSQLDB                   | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
+| IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.7.0       |
+| IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.7.1       |
+|                          |                    | 14.10.FC7W1DE             |                | 
+| MariaDB Server           | mariadb            | 10.4.13 - 10.7.3-focal    | 3.0.3          | 
+| Mimer SQL                | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
+| MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP1 | 3.2.jre8       | 
+| MySQL Database           | mysql              | 8.0.20 - 8.0.28           | 8.0.28         | 
+| Oracle Database          | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
+| Percona Server for MySQL | percona            | 8.0.27-18                 | see MySQL      | 
+| PostgreSQL               | postgresql         | 12.3 - 14.2-alpine        | 42.3.3         |
+| SQL Server               | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16    |
+|                          |                    | 2019-CU15-ubuntu-20.04    |                | 
+| SQLite                   | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3       |
+| TimescaleDB              | timescale          | 2.3.1-pg13 - 2.6.0-pg14   | see PostgreSQL |
+| trino                    | mysql_trino,       | 339 - 368                 | 368            |
+|                          | oracle_trino,      |                           |                |
+|                          | postgresql_trino,  |                           |                |
+|                          | sqlserver_trino    |                           |                |
+| VoltDB                   | voltdb             | 9.2.1                     | 11.0           |
+| YugabyteDB               | yugabyte           | 2.2.2.0-b15 -             | see PostgreSQL |
+|                          |                    | 2.13.0.0-b42              |                |
 
 [//]: # (===========================================================================================)
 
@@ -120,6 +120,11 @@ The following database systems are included in the current version of **`DBSeede
     - compatible with HSQLDB, PostgreSQL
     - open source
     - relational model
+- [HeavyDB](https://www.heavy.ai){:target="_blank"}
+  - client only version
+  - commercial, open source
+  - GPU and CPU version
+  - relational model
 - [HSQLDB](https://hsqldb.org) 
     - client and embedded version
     - open source
@@ -148,11 +153,6 @@ The following database systems are included in the current version of **`DBSeede
 - [MySQL Database](https://www.mysql.com){:target="_blank"}
     - client only version
     - open source
-    - relational model
-- [OmniSciDB](https://www.omnisci.com){:target="_blank"}
-    - client only version
-    - commercial, open source
-    - GPU and CPU version
     - relational model
 - [Oracle Database](https://www.oracle.com/database){:target="_blank"}
     - client only version
@@ -475,39 +475,39 @@ db_seeder.user=
 
 #### 4.3.2 Explanation and Cross-reference
 
-| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                            | Description |     
-| ---                                       | ---                               | ---                                                                                | --- |
-| batch.size=<9...9>                        | BATCH_SIZE                        | all RDBMS except                                                                   | number of insert operations for the bulk operation, default value 0 (a single bulk operation for each database table) |
-| character.set.server=<x...x>              | CHARACTER_SET_SERVER              | mariadb                                                                            | default server character set |
-| collation.server=<x...x>                  | COLLATION_SERVER                  | mariadb                                                                            | default server collation |
-| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                   | host name or ip address of the database server |
-| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | trino                                                                              | host name or ip address of the trino |
-| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                   | port number of the database server |
-| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | trino                                                                              | port number of the trino |
-| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                          | prefix of the database connection string |
-| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                             | service name of the database connection string |
-| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                           | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, informix, mariadb, mimer, monetdb, mysql, omnisci, percona,      | privileged database name |
-|                                           |                                   | postgresql, sqlserver, timescale, yugabyte                                         |     |
-| database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                          | database name |
-| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | all RDBMS except cockroach, cratedb, h2, omnisci, sqlite, trino                    | drop all contraints before the DML operations and recreate them afterwards |
-| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                                | directory and file name of the **`DBSeeder`** configuration file |
-| file.improvement.header=<x...x>           | FILE_IMPROVEMENT_HEADER           | all RDBMS                                                                          | header line of the improvement file created in `run_db_seeder_compute_improvement` |
-| file.improvement.name=<x...x>             | FILE_IMPROVEMENT_NAME             | all RDBMS                                                                           | directory and file name of the **`DBSeeder`** improvement file created in `run_db_seeder_compute_improvement` |
-| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                              | directory and file name of the JSON file containing the database schema |
-| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                          | separator of the statistics file created in `run_db_seeder` |
-| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                          | header line of the statistics file created in `run_db_seeder` |
-| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                          | file name of the statistics file created in `run_db_seeder` |
-| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                          | file name of the summary statistics file created in `run_db_seeder_create_summary` |
-| file.summary.source=<x...x>               | FILE_SUMMARY_SOURCE               | all RDBMS                                                                          | directory name(s) (separated by semicolon) of the source directories containing statistics files |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, ibmdb2, informix, mariadb, mimer, monetdb, mysql, omnisci,| password of the privileged user |
-|                                           |                                   | oracle, percona, postgresql, sqlserver, timescale                                  |   |
-| password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                                | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver,          | schema name |
-|                                           |                                   | timescale, yugabyte                                                                |     |
-| user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                     | name of the privileged user |
-| user=kxn_user                             | USER                              | all RDBMS except derby, ibmdb2, informix                                           | name of the normal user |
-|                                           |                                   |                                                                                    |     |
+| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                           | Description |     
+| ---                                       | ---                               |-----------------------------------------------------------------------------------| --- |
+| batch.size=<9...9>                        | BATCH_SIZE                        | all RDBMS except                                                                  | number of insert operations for the bulk operation, default value 0 (a single bulk operation for each database table) |
+| character.set.server=<x...x>              | CHARACTER_SET_SERVER              | mariadb                                                                           | default server character set |
+| collation.server=<x...x>                  | COLLATION_SERVER                  | mariadb                                                                           | default server collation |
+| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                  | host name or ip address of the database server |
+| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | trino                                                                             | host name or ip address of the trino |
+| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                  | port number of the database server |
+| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | trino                                                                             | port number of the trino |
+| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                         | prefix of the database connection string |
+| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                            | service name of the database connection string |
+| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                          | suffix of the database connection string |
+| database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, heavy, informix, mariadb, mimer, monetdb, mysql, percona,       | privileged database name |
+|                                           |                                   | postgresql, sqlserver, timescale, yugabyte                                        |     |
+| database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                         | database name |
+| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | all RDBMS except cockroach, cratedb, h2, heavy, sqlite, trino                     | drop all contraints before the DML operations and recreate them afterwards |
+| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                               | directory and file name of the **`DBSeeder`** configuration file |
+| file.improvement.header=<x...x>           | FILE_IMPROVEMENT_HEADER           | all RDBMS                                                                         | header line of the improvement file created in `run_db_seeder_compute_improvement` |
+| file.improvement.name=<x...x>             | FILE_IMPROVEMENT_NAME             | all RDBMS                                                                         | directory and file name of the **`DBSeeder`** improvement file created in `run_db_seeder_compute_improvement` |
+| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                             | directory and file name of the JSON file containing the database schema |
+| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                         | separator of the statistics file created in `run_db_seeder` |
+| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                         | header line of the statistics file created in `run_db_seeder` |
+| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                         | file name of the statistics file created in `run_db_seeder` |
+| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                         | file name of the summary statistics file created in `run_db_seeder_create_summary` |
+| file.summary.source=<x...x>               | FILE_SUMMARY_SOURCE               | all RDBMS                                                                         | directory name(s) (separated by semicolon) of the source directories containing statistics files |
+| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, heavy, ibmdb2, informix, mariadb, mimer, monetdb, mysql, | password of the privileged user |
+|                                           |                                   | oracle, percona, postgresql, sqlserver, timescale                                 |   |
+| password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                               | password of the normal user |
+| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver,         | schema name |
+|                                           |                                   | timescale, yugabyte                                                               |     |
+| user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                    | name of the privileged user |
+| user=kxn_user                             | USER                              | all RDBMS except derby, ibmdb2, informix                                          | name of the normal user |
+|                                           |                                   |                                                                                   |     |
 
 [//]: # (===========================================================================================)
 
@@ -929,17 +929,67 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   
 [//]: # (===========================================================================================)
 
-### 5.9 HSQLDB
+[//]: # (===========================================================================================)
+
+### 5.9 HeavyDB
+
+- **data types**:
+
+| **`DBSeeder`** Type | HeavyDB Type       |
+|---------------------|--------------------|
+| BIGINT              | BIGINT             |
+| BLOB                | TEXT ENCODING NONE |
+| CLOB                | TEXT ENCODING NONE |
+| TIMESTAMP           | TIMESTAMP(0)       |
+| VARCHAR             | TEXT ENCODING NONE |
+
+- **DDL syntax**:
+  - [CREATE DATABASE](https://docs.heavy.ai/sql/data-definition-ddl/users-and-databases#create-database)
+  - CREATE SCHEMA - n/a
+  - [CREATE TABLE](https://docs.heavy.ai/sql/data-definition-ddl/tables#create-table)
+  - [CREATE USER](https://docs.heavy.ai/sql/data-definition-ddl/users-and-databases#create-user)
+
+- **Docker image (latest)**:
+  - pull command: `docker pull omnisci/core-os-cpu`
+  - [DockerHub](https://hub.docker.com/_/omnisci-open-source-edition)
+
+- **encoding**: no special configuration should be needed
+
+- **issue tracking**: [GitHub](https://github.com/heavyai/heavydb/issues)
+
+- **JDBC driver (latest)**:
+  - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
+
+- **privileged database access**:
+  - database: `omnisci`
+  - user: `admin`
+
+- **restrictions**:
+  - column and table names case sensitive
+  - max. column length 32767 bytes
+  - no binary columns
+  - no constraints, e.g. unique keys
+  - no foreign / referential keys
+  - no primary key
+  - no triggerss
+
+- **source code**: [GitHub](https://github.com/heavyai/heavydb)
+
+- **DBeaver database connection settings**:
+
+![](img/DBeaver_HEAVY.png)
+
+### 5.10 HSQLDB
 
 - **data types**:
 
 | **`DBSeeder`** Type | HSQLDB Type |
-| ---            | ---         |
-| BIGINT         | BIGINT      |
-| BLOB           | BLOB        |
-| CLOB           | CLOB        |
-| TIMESTAMP      | TIMESTAMP   |
-| VARCHAR        | VARCHAR     |
+|---------------------| ---         |
+| BIGINT              | BIGINT      |
+| BLOB                | BLOB        |
+| CLOB                | CLOB        |
+| TIMESTAMP           | TIMESTAMP   |
+| VARCHAR             | VARCHAR     |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a  
@@ -970,7 +1020,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
   
 [//]: # (===========================================================================================)
 
-### 5.10 IBM Db2 Database
+### 5.11 IBM Db2 Database
 
 - **data types**:
 
@@ -1012,7 +1062,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 [//]: # (===========================================================================================)
 
-### 5.11 IBM Informix
+### 5.12 IBM Informix
 
 - **data types**:
 
@@ -1056,7 +1106,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 [//]: # (===========================================================================================)
 
-### 5.12 MariaDB Server
+### 5.13 MariaDB Server
 
 - **data types**:
 
@@ -1075,7 +1125,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull mariadb:10.7.1-focal`
+    - pull command: `docker pull mariadb:10.7.3-focal`
     - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1101,7 +1151,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 [//]: # (===========================================================================================)
 
-### 5.13 Mimer SQL
+### 5.14 Mimer SQL
 
 - **data types**:
 
@@ -1138,7 +1188,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 [//]: # (===========================================================================================)
 
-### 5.14 MonetDB
+### 5.15 MonetDB
 
 - **data types**:
 
@@ -1180,7 +1230,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 [//]: # (===========================================================================================)
 
-### 5.15 MySQL Database
+### 5.16 MySQL Database
 
 - **data types**:
 
@@ -1216,56 +1266,6 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **DBeaver database connection settings**:
 
 ![](img/DBeaver_MYSQL.png)
-
-[//]: # (===========================================================================================)
-
-### 5.16 OmniSciDB
-
-- **data types**:
-
-| **`DBSeeder`** Type | OmniSciDB Type     |
-| ---            | ---                |
-| BIGINT         | BIGINT             |
-| BLOB           | TEXT ENCODING NONE |
-| CLOB           | TEXT ENCODING NONE |
-| TIMESTAMP      | TIMESTAMP(0)       |
-| VARCHAR        | TEXT ENCODING NONE |
-
-- **DDL syntax**:
-    - [CREATE DATABASE](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
-    - CREATE SCHEMA - n/a
-    - [CREATE TABLE](https://docs-new.omnisci.com/sql/data-definition-ddl/tables)
-    - [CREATE USER](https://docs-new.omnisci.com/sql/data-definition-ddl/users-and-databases)
-
-- **Docker image (latest)**:
-    - pull command: `docker pull omnisci/core-os-cpu`
-    - [DockerHub](https://hub.docker.com/_/omnisci-open-source-edition)
-
-- **encoding**: no special configuration should be needed
-
-- **issue tracking**: [GitHub](https://github.com/omnisci/omniscidb/issues)
-
-- **JDBC driver (latest)**:
-    - [Maven repository](https://mvnrepository.com/artifact/com.omnisci/omnisci-jdbc)
-
-- **privileged database access**:
-    - database: `omnisci`
-    - user: `admin`
-
-- **restrictions**: 
-    - column and table names case sensitive
-    - max. column length 32767 bytes  
-    - no binary columns
-    - no constraints, e.g. unique keys
-    - no foreign / referential keys
-    - no primary key
-    - no triggerss
-
-- **source code**: [GitHub](https://github.com/omnisci/omniscidb)
-
-- **DBeaver database connection settings**:
-
-![](img/DBeaver_OMNISCI.png)
 
 [//]: # (===========================================================================================)
 
@@ -1323,7 +1323,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull percona/percona-server:8.0.26-17`
+    - pull command: `docker pull percona/percona-server:8.0.27-18`
     - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1591,7 +1591,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull yugabytedb/yugabyte:2.12.1.0-b41`
+    - pull command: `docker pull yugabytedb/yugabyte:2.13.0.0-b42`
     - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL

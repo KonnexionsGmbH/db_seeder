@@ -33,6 +33,7 @@ export DB_SEEDER_DBMS_DERBY=yes
 export DB_SEEDER_DBMS_EXASOL=yes
 export DB_SEEDER_DBMS_FIREBIRD=yes
 export DB_SEEDER_DBMS_H2=yes
+export DB_SEEDER_DBMS_HEAVY=no
 export DB_SEEDER_DBMS_HSQLDB=yes
 export DB_SEEDER_DBMS_IBMDB2=yes
 export DB_SEEDER_DBMS_INFORMIX=yes
@@ -40,7 +41,6 @@ export DB_SEEDER_DBMS_MARIADB=no
 export DB_SEEDER_DBMS_MIMER=no
 export DB_SEEDER_DBMS_MONETDB=no
 export DB_SEEDER_DBMS_MYSQL=no
-export DB_SEEDER_DBMS_OMNISCI=no
 export DB_SEEDER_DBMS_ORACLE=no
 export DB_SEEDER_DBMS_PERCONA=no
 export DB_SEEDER_DBMS_POSTGRESQL=no
@@ -75,6 +75,7 @@ echo "DBMS_DERBY                      : ${DB_SEEDER_DBMS_DERBY}"
 echo "DBMS_EXASOL                     : ${DB_SEEDER_DBMS_EXASOL}"
 echo "DBMS_FIREBIRD                   : ${DB_SEEDER_DBMS_FIREBIRD}"
 echo "DBMS_H2                         : ${DB_SEEDER_DBMS_H2}"
+echo "DBMS_HEAVY                      : ${DB_SEEDER_DBMS_HEAVY}"
 echo "DBMS_HSQLDB                     : ${DB_SEEDER_DBMS_HSQLDB}"
 echo "DBMS_IBMDB2                     : ${DB_SEEDER_DBMS_IBMDB2}"
 echo "DBMS_INFORMIX                   : ${DB_SEEDER_DBMS_INFORMIX}"
@@ -82,7 +83,6 @@ echo "DBMS_MARIADB                    : ${DB_SEEDER_DBMS_MARIADB}"
 echo "DBMS_MIMER                      : ${DB_SEEDER_DBMS_MIMER}"
 echo "DBMS_MONETDB                    : ${DB_SEEDER_DBMS_MONETDB}"
 echo "DBMS_MYSQL                      : ${DB_SEEDER_DBMS_MYSQL}"
-echo "DBMS_OMNISCI                    : ${DB_SEEDER_DBMS_OMNISCI}"
 echo "DBMS_ORACLE                     : ${DB_SEEDER_DBMS_ORACLE}"
 echo "DBMS_PERCONA                    : ${DB_SEEDER_DBMS_PERCONA}"
 echo "DBMS_POSTGRESQL                 : ${DB_SEEDER_DBMS_POSTGRESQL}"
@@ -95,7 +95,7 @@ echo "==========================================================================
 
 if ! ( ./scripts/run_db_seeder_generate_schema.sh ); then
     exit 255
-fi    
+fi
 
 unset -f "${DB_SEEDER_DBMS}"=
 
@@ -180,6 +180,16 @@ if [ "${DB_SEEDER_DBMS_H2}" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
+# HeavyDB.
+# ------------------------------------------------------------------------------
+
+if [ "${DB_SEEDER_DBMS_HEAVY}" = "yes" ]; then
+    if ! ( ./run_db_seeder.sh heavy yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
+        exit 255
+    fi
+fi
+
+# ------------------------------------------------------------------------------
 # HSQLDB - client version.
 # ------------------------------------------------------------------------------
 
@@ -250,16 +260,6 @@ if [ "${DB_SEEDER_DBMS_MYSQL}" = "yes" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# OmniSciDB.
-# ------------------------------------------------------------------------------
-
-if [ "${DB_SEEDER_DBMS_OMNISCI}" = "yes" ]; then
-    if ! ( ./run_db_seeder.sh omnisci yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
-        exit 255
-    fi
-fi
-
-# ------------------------------------------------------------------------------
 # Oracle Database.
 # ------------------------------------------------------------------------------
 
@@ -306,7 +306,7 @@ fi
 if [ "${DB_SEEDER_DBMS_TIMESCALE}" = "yes" ]; then
     if ! ( ./run_db_seeder.sh timescale yes "${DB_SEEDER_NO_CREATE_RUNS}" ); then
         exit 255
-    fi    
+    fi
 fi
 
 # ------------------------------------------------------------------------------

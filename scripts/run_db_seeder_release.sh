@@ -54,6 +54,7 @@ rm -rf ${DB_SEEDER_FILE_STATISTICS_NAME}
 ./run_db_seeder.sh firebird         yes 1
 ./run_db_seeder.sh h2               yes 1
 ./run_db_seeder.sh h2_emb           yes 1
+./run_db_seeder.sh heavy            yes 1
 ./run_db_seeder.sh hsqldb           yes 1
 ./run_db_seeder.sh hsqldb_emb       yes 1
 ./run_db_seeder.sh ibmdb2           yes 1
@@ -63,7 +64,6 @@ rm -rf ${DB_SEEDER_FILE_STATISTICS_NAME}
 ./run_db_seeder.sh monetdb          yes 1
 ./run_db_seeder.sh mysql            yes 1
 ./run_db_seeder.sh mysql_trino      yes 1
-./run_db_seeder.sh omnisci          yes 1
 ./run_db_seeder.sh oracle           yes 1
 ./run_db_seeder.sh oracle_trino     yes 1
 ./run_db_seeder.sh percona          yes 1
@@ -115,6 +115,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh firebird         yes 1
 #./run_db_seeder.sh h2               no  1
 #./run_db_seeder.sh h2_emb           no  1
+#./run_db_seeder.sh heavy            no  1
 #./run_db_seeder.sh hsqldb           yes 1
 #./run_db_seeder.sh hsqldb_emb       yes 1
 #./run_db_seeder.sh ibmdb2           yes 1
@@ -124,7 +125,6 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh monetdb          yes 1
 #./run_db_seeder.sh mysql            yes 1
 #./run_db_seeder.sh mysql_trino      no  1
-#./run_db_seeder.sh omnisci          no  1
 #./run_db_seeder.sh oracle           yes 1
 #./run_db_seeder.sh oracle_trino     no  1
 #./run_db_seeder.sh percona          yes 1

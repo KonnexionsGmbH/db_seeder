@@ -48,11 +48,11 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX     = 3;
+  private static final int    ENCODING_MAX   = 3;
 
-  private static final Logger logger           = LogManager.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger         = LogManager.getLogger(AbstractJdbcSeeder.class);
 
-  private static final int    XLOB_OMNISCI_MAX = 32767 / 2;
+  private static final int    XLOB_HEAVY_MAX = 32767 / 2;
 
   /**
    * Gets the catalog name.
@@ -748,7 +748,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     try {
       for (String tableName : TABLE_NAMES_DROP) {
         String queryStmnt = sqlStmnt.replace("?",
-                                             dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.OMNISCI
+                                             dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.HEAVY
 
                                                  ? tableName.toLowerCase()
                                                  : tableName.toUpperCase());
@@ -1649,14 +1649,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                     getContentBlobString(tableName,
                                                          columnName,
                                                          rowNo));
-      } else if (dbmsEnum == DbmsEnum.OMNISCI) {
+      } else if (dbmsEnum == DbmsEnum.HEAVY) {
         String dataValue = getContentBlobString(tableName,
                                                 columnName,
                                                 rowNo);
         preparedStatement.setString(columnPos,
                                     dataValue.substring(0,
                                                         Math.min(dataValue.length(),
-                                                                 XLOB_OMNISCI_MAX)));
+                                                                 XLOB_HEAVY_MAX)));
       } else {
         preparedStatement.setBytes(columnPos,
                                    getContentBlob(tableName,
@@ -1724,14 +1724,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (dbmsEnum == DbmsEnum.OMNISCI) {
+      if (dbmsEnum == DbmsEnum.HEAVY) {
         String dataValue = getContentClob(tableName,
                                           columnName,
                                           rowNo);
         preparedStatement.setString(columnPos,
                                     dataValue.substring(0,
                                                         Math.min(dataValue.length(),
-                                                                 XLOB_OMNISCI_MAX)));
+                                                                 XLOB_HEAVY_MAX)));
       } else {
         preparedStatement.setString(columnPos,
                                     getContentClob(tableName,
@@ -1795,7 +1795,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                       ArrayList<Object> fkList) {
 
     try {
-      if (dbmsEnum == DbmsEnum.OMNISCI) {
+      if (dbmsEnum == DbmsEnum.HEAVY) {
         preparedStatement.setLong(columnPos,
                                   getContentFkInt(tableName,
                                                   columnName,

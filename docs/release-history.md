@@ -7,6 +7,50 @@
 
 ----
 
+## Version 3.0.6
+
+Release Date: 01.03.2022
+
+### System Requirements
+
+- Operating system: any Java-enabled Linux, Mac or Windows variant
+- Docker Desktop Community: 4.0.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes){:target="_blank"})
+- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases){:target="_blank"})
+- Java Development Kit 16 or 17, (e.g. from [here](https://jdk.java.net/java-se-ri/17){:target="_blank"})
+
+#### optional: 
+- Eclipse IDE: 2021.12 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads){:target="_blank"})
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-12\eclipse`
+
+### New Features
+
+- Travis CI replaced by GitHub Actions
+- Use of GitHub pages for user documentation
+
+### Modified Features
+
+- CockroachDB: DBMS v21.2.65
+- CrateDB: DBMS 4.7.0
+- Exasol: DBMS 7.1.6 / JDBC 7.1.4
+- Firebird: DBMS v4.0.1 / JDBC 4.0.4.java11
+- H2 database Engine: DBMS 2.1.210 / JDBC 2.1.210
+- IBM Db2 Database: JDBC 11.5.7.0
+- IBM Informix: DBMS 14.10.FC7W1DE / JDBC 4.50.7
+- MariaDB Server: JDBC 3.0.3
+- Mimer SQL: JDBC 3.42.3
+- MonetDB: DBMS Jan2022-SP1 / JDBC 3.2.jre8
+- MySQL Database: DBMS 8.0.28 / JDBC 8.0.28
+- OmniSciDB: DBMS v5.10.2 / JDBC 5.10.0
+- Oracle Database: JDBC 21.4.0.0.1
+- Percona Server for MySQL: DBMS 8.0.26-17
+- PostgreSQL: DBMS 14.2 / JDBC 42.3.3
+- SQL Server: DBMS 2019-CU15-ubuntu-20.04
+- TimescaleDB: DBMS 2.6.0-pg14
+- trino: DBMS 371 / JDBC 371
+- YugabyteDB: DBMS 2.12.1.0-b41
+
+----
+
 ## Version 3.0.5
 
 Release Date: 14.12.2021

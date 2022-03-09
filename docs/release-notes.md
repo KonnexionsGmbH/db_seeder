@@ -24,11 +24,15 @@ Release Date: dd.mm.2022
 
 ### New Features
 
-- n/a
+- Rebranding from OmniSciDB to HeavyDB
 
 ### Modified Features
 
-- xxx: DBMS 999 / JDBC 999
+- CUBRID: JDBC 11.0.6.0313
+- MariaDB Server: DBMS 10.7.3-focal
+- Percona Server for MySQL: DBMS 8.0.27-18
+- trino: DBMS 372 / JDBC 372
+- YugabyteDB: DBMS 2.13.0.0-b42
 
 ### Deleted Features
 
