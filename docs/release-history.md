@@ -29,7 +29,7 @@ Release Date: 01.03.2022
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.2.65
+- CockroachDB: DBMS v21.2.6
 - CrateDB: DBMS 4.7.0
 - Exasol: DBMS 7.1.6 / JDBC 7.1.4
 - Firebird: DBMS v4.0.1 / JDBC 4.0.4.java11

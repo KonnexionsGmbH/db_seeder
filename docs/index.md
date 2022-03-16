@@ -47,15 +47,15 @@ The database systems considered meet the following conditions:
 |--------------------------|--------------------|---------------------------|----------------|
 | AgensGraph               | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1       |
 | Apache Derby             | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0      |
-| CockroachDB              | cockroach          | v20.2.5 - v21.2.6         | see PostgreSQL |
-| CrateDB                  | cratedb            | 4.1.6 - 4.7.0             | 2.6.0          |
+| CockroachDB              | cockroach          | v20.2.5 - v21.2.7         | see PostgreSQL |
+| CrateDB                  | cratedb            | 4.1.6 - 4.7.1             | 2.6.0          |
 | CUBRID                   | cubrid             | 10.2 - 11.0               | 11.0.6.0313    |
-| Exasol                   | exasol             | 6.2.8-d1 - 7.1.6          | 7.1.4          |
+| Exasol                   | exasol             | 6.2.8-d1 - 7.1.7          | 7.1.4          |
 | Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.5.java11   | 
 | H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.210         | 2.1.210        | 
 | HeavyDB                  | heavy              | v5.6.1 - v5.10.2          | 5.10.0         |
 | HSQLDB                   | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
-| IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0       | 11.5.7.0       |
+| IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0a      | 11.5.7.0       |
 | IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.7.1       |
 |                          |                    | 14.10.FC7W1DE             |                | 
 | MariaDB Server           | mariadb            | 10.4.13 - 10.7.3-focal    | 3.0.3          | 
@@ -707,7 +707,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-    - pull command: `docker pull cockroachdb/cockroach:v21.2.6`
+    - pull command: `docker pull cockroachdb/cockroach:v21.2.7`
     - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -746,7 +746,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull crate:4.7.0`
+    - pull command: `docker pull crate:4.7.1`
     - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -832,7 +832,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull exasol/docker-db:7.1.6`
+    - pull command: `docker pull exasol/docker-db:7.1.7`
     - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -1039,7 +1039,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull ibmcom/db2:11.5.7.0`
+    - pull command: `docker pull ibmcom/db2:11.5.7.0a`
     - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
 - **encoding**:

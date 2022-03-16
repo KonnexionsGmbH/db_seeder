@@ -28,10 +28,14 @@ Release Date: dd.mm.2022
 
 ### Modified Features
 
+- CockroachDB: DBMS v21.2.7
+- CrateDB: DBMS 4.7.1
 - CUBRID: JDBC 11.0.6.0313
+- Exasol: DBMS 7.1.7
+- IBM Db2 Database: DBMS 11.5.7.0a
 - MariaDB Server: DBMS 10.7.3-focal
 - Percona Server for MySQL: DBMS 8.0.27-18
-- trino: DBMS 372 / JDBC 372
+- trino: DBMS 373 / JDBC 373
 - YugabyteDB: DBMS 2.13.0.0-b42
 
 ### Deleted Features
@@ -108,6 +112,8 @@ The problem only occurs with the "DROP CONSTRAINTS" functionality.
 ### <a name="issues_trino"></a> trino
 
 - Issue: all connectors: absolutely unsatisfactory performance (see [here](https://github.com/trinodb/trino/issues/5681){:target="_blank"}).
+
+- Check [Add support for DatabaseMetaData.getImportedKeys in Trino JDBC](https://github.com/trinodb/trino/issues/8708)
     
 ### <a name="issues_voltdb"></a> VoltDB
 

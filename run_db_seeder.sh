@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.7
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=372
+export DB_SEEDER_VERSION_TRINO=373
 export DB_SEEDER_IMAGE_TRINO=trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
 if [ -z "$1" ]; then
@@ -152,6 +152,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.2.3
     export DB_SEEDER_VERSION=v21.2.5
     export DB_SEEDER_VERSION=v21.2.6
+    export DB_SEEDER_VERSION=v21.2.7
     export DB_SEEDER_IMAGE=cockroachdb/cockroach:"${DB_SEEDER_VERSION}"
 fi
 
@@ -187,6 +188,7 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.6.5
     export DB_SEEDER_VERSION=4.6.6
     export DB_SEEDER_VERSION=4.7.0
+    export DB_SEEDER_VERSION=4.7.1
     export DB_SEEDER_IMAGE=crate:"${DB_SEEDER_VERSION}"
 fi
 
@@ -247,6 +249,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.1.3
     export DB_SEEDER_VERSION=7.1.4
     export DB_SEEDER_VERSION=7.1.6
+    export DB_SEEDER_VERSION=7.1.7
     export DB_SEEDER_IMAGE=exasol/docker-db:"${DB_SEEDER_VERSION}"
 fi
 
@@ -355,6 +358,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.5.1
     export DB_SEEDER_VERSION=11.5.6.0a
     export DB_SEEDER_VERSION=11.5.7.0
+    export DB_SEEDER_VERSION=11.5.7.0a
     export DB_SEEDER_IMAGE=ibmcom/db2:"${DB_SEEDER_VERSION}"
 fi
 
