@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.7
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=373
+export DB_SEEDER_VERSION_TRINO=375
 export DB_SEEDER_IMAGE_TRINO=trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
 if [ -z "$1" ]; then
@@ -250,6 +250,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.1.4
     export DB_SEEDER_VERSION=7.1.6
     export DB_SEEDER_VERSION=7.1.7
+    export DB_SEEDER_VERSION=7.1.8
     export DB_SEEDER_IMAGE=exasol/docker-db:"${DB_SEEDER_VERSION}"
 fi
 
@@ -710,6 +711,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.11.2.0-b89
     export DB_SEEDER_VERSION=2.12.1.0-b41
     export DB_SEEDER_VERSION=2.13.0.0-b42
+    export DB_SEEDER_VERSION=2.13.0.1-b2
     export DB_SEEDER_IMAGE=yugabytedb/yugabyte:"${DB_SEEDER_VERSION}"
 fi
 

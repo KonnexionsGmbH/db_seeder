@@ -50,7 +50,7 @@ The database systems considered meet the following conditions:
 | CockroachDB              | cockroach          | v20.2.5 - v21.2.7         | see PostgreSQL |
 | CrateDB                  | cratedb            | 4.1.6 - 4.7.1             | 2.6.0          |
 | CUBRID                   | cubrid             | 10.2 - 11.0               | 11.0.6.0313    |
-| Exasol                   | exasol             | 6.2.8-d1 - 7.1.7          | 7.1.4          |
+| Exasol                   | exasol             | 6.2.8-d1 - 7.1.8          | 7.1.7          |
 | Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.5.java11   | 
 | H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.210         | 2.1.210        | 
 | HeavyDB                  | heavy              | v5.6.1 - v5.10.2          | 5.10.0         |
@@ -58,7 +58,7 @@ The database systems considered meet the following conditions:
 | IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0a      | 11.5.7.0       |
 | IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.7.1       |
 |                          |                    | 14.10.FC7W1DE             |                | 
-| MariaDB Server           | mariadb            | 10.4.13 - 10.7.3-focal    | 3.0.3          | 
+| MariaDB Server           | mariadb            | 10.4.13 - 10.7.3-focal    | 3.0.4          | 
 | Mimer SQL                | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
 | MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP1 | 3.2.jre8       | 
 | MySQL Database           | mysql              | 8.0.20 - 8.0.28           | 8.0.28         | 
@@ -75,7 +75,7 @@ The database systems considered meet the following conditions:
 |                          | sqlserver_trino    |                           |                |
 | VoltDB                   | voltdb             | 9.2.1                     | 11.0           |
 | YugabyteDB               | yugabyte           | 2.2.2.0-b15 -             | see PostgreSQL |
-|                          |                    | 2.13.0.0-b42              |                |
+|                          |                    | 2.13.0.1-b2               |                |
 
 [//]: # (===========================================================================================)
 
@@ -827,12 +827,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a
-    - [CREATE SCHEMA](https://docs.exasol.com/7.0/sql/create_schema.htm) 
-    - [CREATE TABLE](https://docs.exasol.com/7.0/sql/create_table.htm) 
-    - [CREATE USER](https://docs.exasol.com/7.0/sql/create_user.htm) 
+    - [CREATE SCHEMA](https://docs.exasol.com/db/latest/sql/create_schema.htm) 
+    - [CREATE TABLE](https://docs.exasol.com/latest/sql/create_table.htm) 
+    - [CREATE USER](https://docs.exasol.com/latest/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull exasol/docker-db:7.1.7`
+    - pull command: `docker pull exasol/docker-db:7.1.8`
     - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -1591,7 +1591,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull yugabytedb/yugabyte:2.13.0.0-b42`
+    - pull command: `docker pull yugabytedb/yugabyte:2.13.0.1-b2`
     - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL

@@ -31,12 +31,12 @@ Release Date: dd.mm.2022
 - CockroachDB: DBMS v21.2.7
 - CrateDB: DBMS 4.7.1
 - CUBRID: JDBC 11.0.6.0313
-- Exasol: DBMS 7.1.7
+- Exasol: DBMS 7.1.8 / JDBC 7.1.7
 - IBM Db2 Database: DBMS 11.5.7.0a
-- MariaDB Server: DBMS 10.7.3-focal
+- MariaDB Server: DBMS 10.7.3-focal / JDBC 3.0.4
 - Percona Server for MySQL: DBMS 8.0.27-18
-- trino: DBMS 373 / JDBC 373
-- YugabyteDB: DBMS 2.13.0.0-b42
+- trino: DBMS 375 / JDBC 375
+- YugabyteDB: DBMS 2.13.0.1-b2
 
 ### Deleted Features
 
