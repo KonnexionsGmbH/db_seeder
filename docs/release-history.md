@@ -33,7 +33,7 @@ Release Date: 01.03.2022
 - CrateDB: DBMS 4.7.0
 - Exasol: DBMS 7.1.6 / JDBC 7.1.4
 - Firebird: DBMS v4.0.1 / JDBC 4.0.4.java11
-- H2 database Engine: DBMS 2.1.210 / JDBC 2.1.210
+- H2 Database Engine: DBMS 2.1.210 / JDBC 2.1.210
 - IBM Db2 Database: JDBC 11.5.7.0
 - IBM Informix: DBMS 14.10.FC7W1DE / JDBC 4.50.7
 - MariaDB Server: JDBC 3.0.3

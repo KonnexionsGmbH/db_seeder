@@ -47,12 +47,12 @@ The database systems considered meet the following conditions:
 |--------------------------|--------------------|---------------------------|----------------|
 | AgensGraph               | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1       |
 | Apache Derby             | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0      |
-| CockroachDB              | cockroach          | v20.2.5 - v21.2.7         | see PostgreSQL |
+| CockroachDB              | cockroach          | v20.2.5 - v21.2.8         | see PostgreSQL |
 | CrateDB                  | cratedb            | 4.1.6 - 4.7.1             | 2.6.0          |
 | CUBRID                   | cubrid             | 10.2 - 11.0               | 11.0.6.0313    |
-| Exasol                   | exasol             | 6.2.8-d1 - 7.1.8          | 7.1.7          |
+| Exasol                   | exasol             | 6.2.8-d1 - 7.1.9          | 7.1.7          |
 | Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.5.java11   | 
-| H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.210         | 2.1.210        | 
+| H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.212         | 2.1.212        | 
 | HeavyDB                  | heavy              | v5.6.1 - v5.10.2          | 5.10.0         |
 | HSQLDB                   | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
 | IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0a      | 11.5.7.0       |
@@ -60,7 +60,7 @@ The database systems considered meet the following conditions:
 |                          |                    | 14.10.FC7W1DE             |                | 
 | MariaDB Server           | mariadb            | 10.4.13 - 10.7.3-focal    | 3.0.4          | 
 | Mimer SQL                | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
-| MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP1 | 3.2.jre8       | 
+| MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP2 | 3.2.jre8       | 
 | MySQL Database           | mysql              | 8.0.20 - 8.0.28           | 8.0.28         | 
 | Oracle Database          | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
 | Percona Server for MySQL | percona            | 8.0.27-18                 | see MySQL      | 
@@ -68,7 +68,7 @@ The database systems considered meet the following conditions:
 | SQL Server               | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16    |
 |                          |                    | 2019-CU15-ubuntu-20.04    |                | 
 | SQLite                   | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3       |
-| TimescaleDB              | timescale          | 2.3.1-pg13 - 2.6.0-pg14   | see PostgreSQL |
+| TimescaleDB              | timescale          | 2.3.1-pg13 - 2.6.1-pg14   | see PostgreSQL |
 | trino                    | mysql_trino,       | 339 - 368                 | 368            |
 |                          | oracle_trino,      |                           |                |
 |                          | postgresql_trino,  |                           |                |
@@ -707,7 +707,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-    - pull command: `docker pull cockroachdb/cockroach:v21.2.7`
+    - pull command: `docker pull cockroachdb/cockroach:v21.2.8`
     - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -832,7 +832,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.exasol.com/latest/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull exasol/docker-db:7.1.8`
+    - pull command: `docker pull exasol/docker-db:7.1.9`
     - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -907,7 +907,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.h2database.com/html/commands.html#create_user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.1.210`
+    - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.1.212`
     - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine)
 
 - **encoding**: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.
@@ -1207,7 +1207,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull monetdb/monetdb:Jan2022-SP1`
+    - pull command: `docker pull monetdb/monetdb:Jan2022-SP2`
     - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1482,7 +1482,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-    - pull command: `docker pull timescale/timescaledb:2.6.0-pg14`
+    - pull command: `docker pull timescale/timescaledb:2.6.1-pg14`
     - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL

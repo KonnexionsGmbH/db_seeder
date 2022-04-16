@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.7
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=375
+export DB_SEEDER_VERSION_TRINO=377
 export DB_SEEDER_IMAGE_TRINO=trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
 if [ -z "$1" ]; then
@@ -153,6 +153,7 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.2.5
     export DB_SEEDER_VERSION=v21.2.6
     export DB_SEEDER_VERSION=v21.2.7
+    export DB_SEEDER_VERSION=v21.2.8
     export DB_SEEDER_IMAGE=cockroachdb/cockroach:"${DB_SEEDER_VERSION}"
 fi
 
@@ -251,6 +252,7 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.1.6
     export DB_SEEDER_VERSION=7.1.7
     export DB_SEEDER_VERSION=7.1.8
+    export DB_SEEDER_VERSION=7.1.9
     export DB_SEEDER_IMAGE=exasol/docker-db:"${DB_SEEDER_VERSION}"
 fi
 
@@ -285,6 +287,7 @@ if [ "${DB_SEEDER_DBMS}" = "h2" ]; then
     export DB_SEEDER_VERSION=2.0.204
     export DB_SEEDER_VERSION=2.0.206
     export DB_SEEDER_VERSION=2.1.210
+    export DB_SEEDER_VERSION=2.1.212
     export DB_SEEDER_IMAGE=konnexionsgmbh/h2_database_engine:"${DB_SEEDER_VERSION}"
 fi
 
@@ -446,6 +449,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Jul2021-SP2
     export DB_SEEDER_VERSION=Jan2022
     export DB_SEEDER_VERSION=Jan2022-SP1
+    export DB_SEEDER_VERSION=Jan2022-SP2
     export DB_SEEDER_IMAGE=monetdb/monetdb:"${DB_SEEDER_VERSION}"
 fi
 
@@ -665,6 +669,7 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_VERSION=2.5.1-pg14
     export DB_SEEDER_VERSION=2.5.2-pg14
     export DB_SEEDER_VERSION=2.6.0-pg14
+    export DB_SEEDER_VERSION=2.6.1-pg14
     export DB_SEEDER_IMAGE=timescale/timescaledb:"${DB_SEEDER_VERSION}"
 fi
 
