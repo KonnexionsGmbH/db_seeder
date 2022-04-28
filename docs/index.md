@@ -51,20 +51,20 @@ The database systems considered meet the following conditions:
 | CrateDB                  | cratedb            | 4.1.6 - 4.7.1             | 2.6.0          |
 | CUBRID                   | cubrid             | 10.2 - 11.0               | 11.0.6.0313    |
 | Exasol                   | exasol             | 6.2.8-d1 - 7.1.9          | 7.1.7          |
-| Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.5.java11   | 
+| Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.6.java11   | 
 | H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.212         | 2.1.212        | 
 | HeavyDB                  | heavy              | v5.6.1 - v5.10.2          | 5.10.0         |
 | HSQLDB                   | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
 | IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0a      | 11.5.7.0       |
-| IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.7.1       |
+| IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.8         |
 |                          |                    | 14.10.FC7W1DE             |                | 
 | MariaDB Server           | mariadb            | 10.4.13 - 10.7.3-focal    | 3.0.4          | 
 | Mimer SQL                | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
 | MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP2 | 3.2.jre8       | 
-| MySQL Database           | mysql              | 8.0.20 - 8.0.28           | 8.0.28         | 
+| MySQL Database           | mysql              | 8.0.20 - 8.0.29           | 8.0.29         | 
 | Oracle Database          | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
 | Percona Server for MySQL | percona            | 8.0.27-18                 | see MySQL      | 
-| PostgreSQL               | postgresql         | 12.3 - 14.2-alpine        | 42.3.3         |
+| PostgreSQL               | postgresql         | 12.3 - 14.2-alpine        | 42.3.4         |
 | SQL Server               | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16    |
 |                          |                    | 2019-CU15-ubuntu-20.04    |                | 
 | SQLite                   | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3       |
@@ -75,7 +75,7 @@ The database systems considered meet the following conditions:
 |                          | sqlserver_trino    |                           |                |
 | VoltDB                   | voltdb             | 9.2.1                     | 11.0           |
 | YugabyteDB               | yugabyte           | 2.2.2.0-b15 -             | see PostgreSQL |
-|                          |                    | 2.13.0.1-b2               |                |
+|                          |                    | 2.13.1.0-b112             |                |
 
 [//]: # (===========================================================================================)
 
@@ -1249,7 +1249,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull mysql:8.0.28`
+    - pull command: `docker pull mysql:8.0.29`
     - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1591,7 +1591,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull yugabytedb/yugabyte:2.13.0.1-b2`
+    - pull command: `docker pull yugabytedb/yugabyte:2.13.1.0-b112`
     - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL

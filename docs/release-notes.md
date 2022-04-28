@@ -32,14 +32,18 @@ Release Date: dd.mm.2022
 - CrateDB: DBMS 4.7.1
 - CUBRID: JDBC 11.0.6.0313
 - Exasol: DBMS 7.1.9 / JDBC 7.1.7
+- Firebird: JDBC 4.0.6.java11
 - H2 Database Engine: DBMS 2.1.212 / JDBC 2.1.212
 - IBM Db2 Database: DBMS 11.5.7.0a
+- IBM Informix: JDBC 4.50.8
 - MariaDB Server: DBMS 10.7.3-focal / JDBC 3.0.4
 - MonetDB: DBMS Jan2022-SP2
+- MySQL Database: DBMS 8.0.29 / JDBC 8.0.29
 - Percona Server for MySQL: DBMS 8.0.27-18
+- PostgreSQL: JDBC 42.3.4
 - TimescaleDB: DBMS 2.6.1-pg14
-- trino: DBMS 377 / JDBC 377
-- YugabyteDB: DBMS 2.13.0.1-b2
+- trino: DBMS 378 / JDBC 378
+- YugabyteDB: DBMS 2.13.1.0-b112
 
 ### Deleted Features
 

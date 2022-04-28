@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.7
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=377
+export DB_SEEDER_VERSION_TRINO=378
 export DB_SEEDER_IMAGE_TRINO=trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
 if [ -z "$1" ]; then
@@ -473,6 +473,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_VERSION=8.0.26
     export DB_SEEDER_VERSION=8.0.27
     export DB_SEEDER_VERSION=8.0.28
+    export DB_SEEDER_VERSION=8.0.29
     export DB_SEEDER_IMAGE=mysql:"${DB_SEEDER_VERSION}"
 fi
 
@@ -497,6 +498,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_VERSION=8.0.26
     export DB_SEEDER_VERSION=8.0.27
     export DB_SEEDER_VERSION=8.0.28
+    export DB_SEEDER_VERSION=8.0.29
     export DB_SEEDER_IMAGE=mysql:"${DB_SEEDER_VERSION}"
 fi
 
@@ -717,6 +719,7 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.12.1.0-b41
     export DB_SEEDER_VERSION=2.13.0.0-b42
     export DB_SEEDER_VERSION=2.13.0.1-b2
+    export DB_SEEDER_VERSION=2.13.1.0-b112
     export DB_SEEDER_IMAGE=yugabytedb/yugabyte:"${DB_SEEDER_VERSION}"
 fi
 
