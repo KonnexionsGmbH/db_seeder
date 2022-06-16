@@ -19,7 +19,7 @@ set DB_SEEDER_DBMS_DEFAULT=sqlite
 set DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 set DB_SEEDER_RELEASE=3.0.7
 set DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-set DB_SEEDER_VERSION_TRINO=378
+set DB_SEEDER_VERSION_TRINO=386
 set DB_SEEDER_IMAGE_TRINO=trinodb/trino:!DB_SEEDER_VERSION_TRINO!
 
 if ["%1"] EQU [""] (
@@ -159,6 +159,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cockroach"] (
     set DB_SEEDER_VERSION=v21.2.6
     set DB_SEEDER_VERSION=v21.2.7
     set DB_SEEDER_VERSION=v21.2.8
+    set DB_SEEDER_VERSION=v22.1.1
     set DB_SEEDER_IMAGE=cockroachdb/cockroach:!DB_SEEDER_VERSION!
 )
 
@@ -195,6 +196,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cratedb"] (
     set DB_SEEDER_VERSION=4.6.6
     set DB_SEEDER_VERSION=4.7.0
     set DB_SEEDER_VERSION=4.7.1
+    set DB_SEEDER_VERSION=4.8.1
     set DB_SEEDER_IMAGE=crate:!DB_SEEDER_VERSION!
 )
 
@@ -208,6 +210,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["cubrid"] (
     set DB_SEEDER_USER_SYS=DBA
     set DB_SEEDER_VERSION=10.2
     set DB_SEEDER_VERSION=11.0
+    set DB_SEEDER_VERSION=11.2
     set DB_SEEDER_IMAGE=cubrid/cubrid:!DB_SEEDER_VERSION!
 )
 
@@ -218,6 +221,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["derby"] (
     set DB_SEEDER_DATABASE=.\tmp\derby_kxn_db
     set DB_SEEDER_SCHEMA=kxn_schema
     set DB_SEEDER_VERSION=10.15.2.0
+    set DB_SEEDER_VERSION=10.16.1.1
     set DB_SEEDER_IMAGE=konnexionsgmbh/apache_derby:!DB_SEEDER_VERSION!
 )
 
@@ -258,6 +262,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["exasol"] (
     set DB_SEEDER_VERSION=7.1.7
     set DB_SEEDER_VERSION=7.1.8
     set DB_SEEDER_VERSION=7.1.9
+    set DB_SEEDER_VERSION=7.1.11
     set DB_SEEDER_IMAGE=exasol/docker-db:!DB_SEEDER_VERSION!
 )
 
@@ -293,6 +298,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["h2"] (
     set DB_SEEDER_VERSION=2.0.206
     set DB_SEEDER_VERSION=2.1.210
     set DB_SEEDER_VERSION=2.1.212
+    set DB_SEEDER_VERSION=2.1.214
     set DB_SEEDER_IMAGE=konnexionsgmbh/h2_database_engine:!DB_SEEDER_VERSION!
 )
 
@@ -414,6 +420,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["mariadb"] (
     set DB_SEEDER_VERSION=10.6.4-focal
     set DB_SEEDER_VERSION=10.7.1-focal
     set DB_SEEDER_VERSION=10.7.3-focal
+    set DB_SEEDER_VERSION=10.8.3
     set DB_SEEDER_IMAGE=mariadb:!DB_SEEDER_VERSION!
 )
 
@@ -454,6 +461,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["monetdb"] (
     set DB_SEEDER_VERSION=Jan2022
     set DB_SEEDER_VERSION=Jan2022-SP1
     set DB_SEEDER_VERSION=Jan2022-SP2
+    set DB_SEEDER_VERSION=Jan2022-SP3
     set DB_SEEDER_IMAGE=monetdb/monetdb:!DB_SEEDER_VERSION!
 )
 
@@ -561,6 +569,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["percona"] (
     set DB_SEEDER_VERSION=8.0.26-16
     set DB_SEEDER_VERSION=8.0.26-17
     set DB_SEEDER_VERSION=8.0.27-18
+    set DB_SEEDER_VERSION=8.0.28
     set DB_SEEDER_IMAGE=percona/percona-server:!DB_SEEDER_VERSION!
 )
 
@@ -584,6 +593,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql"] (
     set DB_SEEDER_VERSION=14.0-alpine
     set DB_SEEDER_VERSION=14.1-alpine
     set DB_SEEDER_VERSION=14.2-alpine
+    set DB_SEEDER_VERSION=14.3-alpine
     set DB_SEEDER_IMAGE=postgres:!DB_SEEDER_VERSION!
 )
 
@@ -608,6 +618,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["postgresql_trino"] (
     set DB_SEEDER_VERSION=14.0-alpine
     set DB_SEEDER_VERSION=14.1-alpine
     set DB_SEEDER_VERSION=14.2-alpine
+    set DB_SEEDER_VERSION=14.3-alpine
     set DB_SEEDER_IMAGE=postgres:!DB_SEEDER_VERSION!
 )
 
@@ -633,6 +644,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver"] (
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU15-ubuntu-20.04
+    set DB_SEEDER_VERSION=2022-latest
     set DB_SEEDER_IMAGE=mcr.microsoft.com/mssql/server:!DB_SEEDER_VERSION!
 )
 
@@ -653,6 +665,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["sqlserver_trino"] (
     set DB_SEEDER_VERSION=2019-CU13-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU14-ubuntu-20.04
     set DB_SEEDER_VERSION=2019-CU15-ubuntu-20.04
+    set DB_SEEDER_VERSION=2022-latest
     set DB_SEEDER_IMAGE=mcr.microsoft.com/mssql/server:!DB_SEEDER_VERSION!
 )
 
@@ -676,6 +689,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["timescale"] (
     set DB_SEEDER_VERSION=2.5.2-pg14
     set DB_SEEDER_VERSION=2.6.0-pg14
     set DB_SEEDER_VERSION=2.6.1-pg14
+    set DB_SEEDER_VERSION=2.7.0-pg14
     set DB_SEEDER_IMAGE=timescale/timescaledb:!DB_SEEDER_VERSION!
 )
 
@@ -724,6 +738,7 @@ if ["%DB_SEEDER_DBMS%"] EQU ["yugabyte"] (
     set DB_SEEDER_VERSION=2.13.0.0-b42
     set DB_SEEDER_VERSION=2.13.0.1-b2
     set DB_SEEDER_VERSION=2.13.1.0-b112
+    set DB_SEEDER_VERSION=2.13.2.0-b135
     set DB_SEEDER_IMAGE=yugabytedb/yugabyte:!DB_SEEDER_VERSION!
 )
 

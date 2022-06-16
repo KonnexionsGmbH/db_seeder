@@ -28,22 +28,24 @@ Release Date: dd.mm.2022
 
 ### Modified Features
 
-- CockroachDB: DBMS v21.2.8
-- CrateDB: DBMS 4.7.1
-- CUBRID: JDBC 11.0.6.0313
-- Exasol: DBMS 7.1.9 / JDBC 7.1.7
+- Apache Derby: DBMS 10.16.1.1 / JDBC 10.16.1.1
+- CockroachDB: DBMS v22.1.1
+- CrateDB: DBMS 4.8.1
+- CUBRID: DBMS 11.2 / JDBC 11.1.0.0027
+- Exasol: DBMS 7.1.11 / JDBC 7.1.11
 - Firebird: JDBC 4.0.6.java11
-- H2 Database Engine: DBMS 2.1.212 / JDBC 2.1.212
+- H2 Database Engine: DBMS 2.1.214 / JDBC 2.1.214
 - IBM Db2 Database: DBMS 11.5.7.0a
 - IBM Informix: JDBC 4.50.8
-- MariaDB Server: DBMS 10.7.3-focal / JDBC 3.0.4
-- MonetDB: DBMS Jan2022-SP2
+- MariaDB Server: DBMS 10.8.3 / JDBC 3.0.5
+- MonetDB: DBMS Jan2022-SP3
 - MySQL Database: DBMS 8.0.29 / JDBC 8.0.29
-- Percona Server for MySQL: DBMS 8.0.27-18
-- PostgreSQL: JDBC 42.3.4
-- TimescaleDB: DBMS 2.6.1-pg14
-- trino: DBMS 378 / JDBC 378
-- YugabyteDB: DBMS 2.13.1.0-b112
+- Percona Server for MySQL: DBMS 8.0.28
+- PostgreSQL: DBMS 14.3 / JDBC 42.3.4
+- SQL Server: DBMS 2022-latest
+- TimescaleDB: DBMS 2.7.0-pg14
+- trino: DBMS 386 / JDBC 386
+- YugabyteDB: DBMS 2.13.2.0-b135
 
 ### Deleted Features
 

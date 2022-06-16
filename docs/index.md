@@ -46,36 +46,36 @@ The database systems considered meet the following conditions:
 | RDBMS                    | Ticker Symbol(s)   | RDBMS Versions            | Latest JDBC    |
 |--------------------------|--------------------|---------------------------|----------------|
 | AgensGraph               | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1       |
-| Apache Derby             | derby, derby_emb   | 10.15.2.0                 | 10.15.2.0      |
-| CockroachDB              | cockroach          | v20.2.5 - v21.2.8         | see PostgreSQL |
-| CrateDB                  | cratedb            | 4.1.6 - 4.7.1             | 2.6.0          |
-| CUBRID                   | cubrid             | 10.2 - 11.0               | 11.0.6.0313    |
-| Exasol                   | exasol             | 6.2.8-d1 - 7.1.9          | 7.1.7          |
+| Apache Derby             | derby, derby_emb   | 10.16.1.1                 | 10.16.1.1      |
+| CockroachDB              | cockroach          | v20.2.5 - v22.1.1         | see PostgreSQL |
+| CrateDB                  | cratedb            | 4.1.6 - 4.8.1             | 2.6.0          |
+| CUBRID                   | cubrid             | 10.2 - 11.2               | 11.1.0.0027    |
+| Exasol                   | exasol             | 6.2.8-d1 - 7.1.11         | 7.1.11         |
 | Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.6.java11   | 
-| H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.212         | 2.1.212        | 
+| H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.214         | 2.1.214        | 
 | HeavyDB                  | heavy              | v5.6.1 - v5.10.2          | 5.10.0         |
 | HSQLDB                   | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
 | IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0a      | 11.5.7.0       |
 | IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.8         |
 |                          |                    | 14.10.FC7W1DE             |                | 
-| MariaDB Server           | mariadb            | 10.4.13 - 10.7.3-focal    | 3.0.4          | 
+| MariaDB Server           | mariadb            | 10.4.13 - 10.8.3          | 3.0.5          | 
 | Mimer SQL                | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
-| MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP2 | 3.2.jre8       | 
+| MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP3 | 3.2.jre8       | 
 | MySQL Database           | mysql              | 8.0.20 - 8.0.29           | 8.0.29         | 
 | Oracle Database          | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
-| Percona Server for MySQL | percona            | 8.0.27-18                 | see MySQL      | 
-| PostgreSQL               | postgresql         | 12.3 - 14.2-alpine        | 42.3.4         |
-| SQL Server               | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16    |
-|                          |                    | 2019-CU15-ubuntu-20.04    |                | 
+| Percona Server for MySQL | percona            | 8.0.28                    | see MySQL      | 
+| PostgreSQL               | postgresql         | 12.3 - 14.3-alpine        | 42.4.0         |
+| SQL Server               | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16   |
+|                          |                    | 2022-latest               |                | 
 | SQLite                   | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3       |
-| TimescaleDB              | timescale          | 2.3.1-pg13 - 2.6.1-pg14   | see PostgreSQL |
+| TimescaleDB              | timescale          | 2.3.1-pg13 - 2.7.0-pg14   | see PostgreSQL |
 | trino                    | mysql_trino,       | 339 - 368                 | 368            |
 |                          | oracle_trino,      |                           |                |
 |                          | postgresql_trino,  |                           |                |
 |                          | sqlserver_trino    |                           |                |
 | VoltDB                   | voltdb             | 9.2.1                     | 11.0           |
 | YugabyteDB               | yugabyte           | 2.2.2.0-b15 -             | see PostgreSQL |
-|                          |                    | 2.13.1.0-b112             |                |
+|                          |                    | 2.13.2.0-b135             |                |
 
 [//]: # (===========================================================================================)
 
@@ -667,7 +667,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER - n/a 
 
 - **Docker image (latest - only client version)**:
-    - pull command: `docker pull konnexionsgmbh/apache_derby:10.15.2.0`
+    - pull command: `docker pull konnexionsgmbh/apache_derby:10.16.1.1`
     - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/apache_derby)
 
 - **encoding**: by using the following JVM parameter: `-Dderby.ui.codeset=UTF8`
@@ -707,7 +707,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-    - pull command: `docker pull cockroachdb/cockroach:v21.2.8`
+    - pull command: `docker pull cockroachdb/cockroach:v22.1.1`
     - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -746,7 +746,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull crate:4.7.1`
+    - pull command: `docker pull crate:4.8.1`
     - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -832,7 +832,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.exasol.com/latest/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull exasol/docker-db:7.1.9`
+    - pull command: `docker pull exasol/docker-db:7.1.11`
     - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -907,7 +907,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.h2database.com/html/commands.html#create_user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.1.212`
+    - pull command: `docker pull konnexionsgmbh/h2_database_engine:2.1.214`
     - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/h2_database_engine)
 
 - **encoding**: H2 internally uses Unicode, and supports all character encoding systems and character sets supported by the virtual machine you use.
@@ -1125,7 +1125,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull mariadb:10.7.3-focal`
+    - pull command: `docker pull mariadb:10.8.3`
     - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1207,7 +1207,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull monetdb/monetdb:Jan2022-SP2`
+    - pull command: `docker pull monetdb/monetdb:Jan2022-SP3`
     - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1323,7 +1323,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull percona/percona-server:8.0.27-18`
+    - pull command: `docker pull percona/percona-server:8.0.28`
     - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1364,7 +1364,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull postgres:14.2-alpine`
+    - pull command: `docker pull postgres:14.3-alpine`
     - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
@@ -1405,7 +1405,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-user-transact-sql?view=sql-server-ver15)
 
 - **Docker image (latest)**:
-    - pull command: `docker pull mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04`
+    - pull command: `docker pull mcr.microsoft.com/mssql/server:2022-latest`
     - [DockerHub](https://hub.docker.com/_/microsoft-mssql-server)
 
 - **encoding**: to use the UTF-8 collations that are available in SQL Server 2019 (15.x), you must select UTF-8 encoding-enabled collations (_UTF8)
@@ -1482,7 +1482,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-    - pull command: `docker pull timescale/timescaledb:2.6.1-pg14`
+    - pull command: `docker pull timescale/timescaledb:2.7.0-pg14`
     - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL
@@ -1591,7 +1591,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull yugabytedb/yugabyte:2.13.1.0-b112`
+    - pull command: `docker pull yugabytedb/yugabyte:2.13.2.0-b135`
     - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL
