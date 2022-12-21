@@ -45,37 +45,37 @@ The database systems considered meet the following conditions:
 
 | RDBMS                    | Ticker Symbol(s)   | RDBMS Versions            | Latest JDBC    |
 |--------------------------|--------------------|---------------------------|----------------|
-| AgensGraph               | agens              | v2.1.1 - v2.5.0           | 1.4.2-c1       |
+| AgensGraph               | agens              | v2.1.1 - v2.13.0          | 1.4.2-c1       |
 | Apache Derby             | derby, derby_emb   | 10.16.1.1                 | 10.16.1.1      |
-| CockroachDB              | cockroach          | v20.2.5 - v22.1.1         | see PostgreSQL |
-| CrateDB                  | cratedb            | 4.1.6 - 4.8.1             | 2.6.0          |
-| CUBRID                   | cubrid             | 10.2 - 11.2               | 11.1.0.0027    |
-| Exasol                   | exasol             | 6.2.8-d1 - 7.1.11         | 7.1.11         |
-| Firebird                 | firebird           | 3.0.5 - v4.0.1            | 4.0.6.java11   | 
+| CockroachDB              | cockroach          | v20.2.5 - v22.1.12        | see PostgreSQL |
+| CrateDB                  | cratedb            | 4.1.6 - 5.1.12            | 2.6.0          |
+| CUBRID                   | cubrid             | 10.2 - 11.2               | 11.1.0.0028    |
+| Exasol                   | exasol             | 6.2.8-d1 - 7.1.16         | 7.1.16         |
+| Firebird                 | firebird           | 3.0.5 - v4.0.2            | 4.0.8.java11   | 
 | H2 Database Engine       | h2, h2_emb         | 1.4.200 - 2.1.214         | 2.1.214        | 
-| HeavyDB                  | heavy              | v5.6.1 - v5.10.2          | 5.10.0         |
-| HSQLDB                   | hsqldb, hsqldb_emb | 2.5.1 - 2.6.1             | 2.6.1          | 
-| IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.7.0a      | 11.5.7.0       |
-| IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.8         |
+| HeavyDB                  | heavy              | v5.6.1 - v6.2.0           | 6.1.0          |
+| HSQLDB                   | hsqldb, hsqldb_emb | 2.5.1 - 2.7.1             | 2.7.1          | 
+| IBM Db2 Database         | ibmdb2             | 11.5.1.0 - 11.5.8.0       | 11.5.8.0       |
+| IBM Informix             | informix           | 14.10 FC3DE -             | 4.50.9         |
 |                          |                    | 14.10.FC7W1DE             |                | 
-| MariaDB Server           | mariadb            | 10.4.13 - 10.8.3          | 3.0.5          | 
+| MariaDB Server           | mariadb            | 10.4.13 - 10.10.2         | 3.1.0          | 
 | Mimer SQL                | mimer              | v11.0.3c - v11.0.5a       | 3.42.3         |
-| MonetDB                  | monetdb            | Jun2020-SP1 - Jan2022-SP3 | 3.2.jre8       | 
-| MySQL Database           | mysql              | 8.0.20 - 8.0.29           | 8.0.29         | 
-| Oracle Database          | oracle             | 12.1.0.2 - 21.3.0         | 21.4.0.0.1     |
-| Percona Server for MySQL | percona            | 8.0.28                    | see MySQL      | 
-| PostgreSQL               | postgresql         | 12.3 - 14.3-alpine        | 42.4.0         |
-| SQL Server               | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 9.4.1.jre16   |
+| MonetDB                  | monetdb            | Jun2020-SP1 - Sep2022-SP1 | 3.2.jre8       | 
+| MySQL Database           | mysql              | 8.0.20 - 8.0.31           | 8.0.31         | 
+| Oracle Database          | oracle             | 12.1.0.2 - 21.3.0         | 21.8.0.0       |
+| Percona Server for MySQL | percona            | 8.0.28-20 - 8.0.30-22     | see MySQL      | 
+| PostgreSQL               | postgresql         | 12.3 - 15.1-alpine        | 42.5.1         |
+| SQL Server               | sqlserver          | 2019-CU12-ubuntu-20.04 -  | 11.2.2.jre18   |
 |                          |                    | 2022-latest               |                | 
-| SQLite                   | sqlite             | 3.32.0 - 3.36.0           | 3.36.0.3       |
-| TimescaleDB              | timescale          | 2.3.1-pg13 - 2.7.0-pg14   | see PostgreSQL |
-| trino                    | mysql_trino,       | 339 - 368                 | 368            |
+| SQLite                   | sqlite             |                           | 3.40.0.0       |
+| TimescaleDB              | timescale          | 2.3.1-pg13 - 2.9.0-pg14   | see PostgreSQL |
+| trino                    | mysql_trino,       | 339 - 403                 | 403            |
 |                          | oracle_trino,      |                           |                |
 |                          | postgresql_trino,  |                           |                |
 |                          | sqlserver_trino    |                           |                |
-| VoltDB                   | voltdb             | 9.2.1                     | 11.0           |
+| VoltDB                   | voltdb             | 9.2.1                     | 11.4.2         |
 | YugabyteDB               | yugabyte           | 2.2.2.0-b15 -             | see PostgreSQL |
-|                          |                    | 2.13.2.0-b135             |                |
+|                          |                    | 2.17.0.0-b24              |                |
 
 [//]: # (===========================================================================================)
 
@@ -120,7 +120,7 @@ The following database systems are included in the current version of **`DBSeede
     - compatible with HSQLDB, PostgreSQL
     - open source
     - relational model
-- [HeavyDB](https://www.heavy.ai){:target="_blank"}
+- [HeavyDB](https://www.heavy.ai/product/heavydb){:target="_blank"}
   - client only version
   - commercial, open source
   - GPU and CPU version
@@ -256,14 +256,14 @@ Only either a range restriction (`lowerRange...`, `upperRange...`) or a value re
 
 #### 2.1.2 Mapping of Data Types in the JDBC Driver 
 
-| Data Type   | JDBC Method                                                |
-| ---         | ---                                                        |
-| `BIGINT`    | `setLong`                                                  |
-| `BLOB`      | `setBytes`                                                 |
-| `CLOB`      | `setString`                                                |
-| `TIMESTAMP` | `setTimestamp`                                             |
-| `VARCHAR`   | `setNString` (Firebird, MariaDB, MS SQL SERVER and Oracle) |
-|             | `setString` (else)                                         |
+| Data Type    | JDBC Method                                                 |
+|--------------|-------------------------------------------------------------|
+| `BIGINT`     | `setLong`                                                   |
+| `BLOB`       | `setBytes`                                                  |
+| `CLOB`       | `setString`                                                 |
+| `TIMESTAMP`  | `setTimestamp`                                              |
+| `VARCHAR`    | `setNString` (Firebird, MariaDB, MS SQL SERVER and Oracle)  |
+|              | `setString` (else)                                          |
 
 #### 2.1.3 Example File `db_seeder_schema.company_9...9.json` in the Directory `resources/json` 
 
@@ -475,39 +475,39 @@ db_seeder.user=
 
 #### 4.3.2 Explanation and Cross-reference
 
-| Property incl. Default Value [db.seeder.] | Environment Variable [DB_SEEDER_] | Used By                                                                           | Description |     
-| ---                                       | ---                               |-----------------------------------------------------------------------------------| --- |
-| batch.size=<9...9>                        | BATCH_SIZE                        | all RDBMS except                                                                  | number of insert operations for the bulk operation, default value 0 (a single bulk operation for each database table) |
-| character.set.server=<x...x>              | CHARACTER_SET_SERVER              | mariadb                                                                           | default server character set |
-| collation.server=<x...x>                  | COLLATION_SERVER                  | mariadb                                                                           | default server collation |
-| connection.host=<x...x>                   | CONNECTION_HOST                   | all client RDBMS                                                                  | host name or ip address of the database server |
-| connection.host_trino=<x...x>             | CONNECTION_HOST_TRINO             | trino                                                                             | host name or ip address of the trino |
-| connection.port=<9...9>                   | CONNECTION_PORT                   | all client RDBMS                                                                  | port number of the database server |
-| connection.port_trino=<9...9>             | CONNECTION_PORT_TRINO             | trino                                                                             | port number of the trino |
-| connection.prefix=<x...x>                 | CONNECTION_PREFIX                 | all RDBMS                                                                         | prefix of the database connection string |
-| connection.service=<x...x>                | CONNECTION_SERVICE                | oracle                                                                            | service name of the database connection string |
-| connection.suffix=<x...x>                 | CONNECTION_SUFFIX                 | firebird, hsqldb, mysql, percona, voltdb                                          | suffix of the database connection string |
-| database.sys=<x...x>                      | DATABASE_SYS                      | agens, cockroach, heavy, informix, mariadb, mimer, monetdb, mysql, percona,       | privileged database name |
-|                                           |                                   | postgresql, sqlserver, timescale, yugabyte                                        |     |
-| database=<x...x>                          | DATABASE                          | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                         | database name |
-| drop.constraints=<yes>                    | DROP_CONSTRAINTS                  | all RDBMS except cockroach, cratedb, h2, heavy, sqlite, trino                     | drop all contraints before the DML operations and recreate them afterwards |
-| file.configuration.name=<x...x>           | FILE_CONFIGURATION_NAME           | n/a                                                                               | directory and file name of the **`DBSeeder`** configuration file |
-| file.improvement.header=<x...x>           | FILE_IMPROVEMENT_HEADER           | all RDBMS                                                                         | header line of the improvement file created in `run_db_seeder_compute_improvement` |
-| file.improvement.name=<x...x>             | FILE_IMPROVEMENT_NAME             | all RDBMS                                                                         | directory and file name of the **`DBSeeder`** improvement file created in `run_db_seeder_compute_improvement` |
-| file.json.name=<x...x>                    | FILE_JSON_NAME                    | scripts/run_db_seeder_generate_schema                                             | directory and file name of the JSON file containing the database schema |
-| file.statistics.delimiter=<x...x>         | FILE_STATISTICS_DELIMITER         | all RDBMS                                                                         | separator of the statistics file created in `run_db_seeder` |
-| file.statistics.header=<x...x>            | FILE_STATISTICS_HEADER            | all RDBMS                                                                         | header line of the statistics file created in `run_db_seeder` |
-| file.statistics.name=<x...x>              | FILE_STATISTICS_NAME              | all RDBMS                                                                         | file name of the statistics file created in `run_db_seeder` |
-| file.summary.name=<x...x>                 | FILE_SUMMARY_NAME                 | all RDBMS                                                                         | file name of the summary statistics file created in `run_db_seeder_create_summary` |
-| file.summary.source=<x...x>               | FILE_SUMMARY_SOURCE               | all RDBMS                                                                         | directory name(s) (separated by semicolon) of the source directories containing statistics files |
-| password.sys=<x...x>                      | PASSWORD_SYS                      | agens, exasol, firebird, heavy, ibmdb2, informix, mariadb, mimer, monetdb, mysql, | password of the privileged user |
-|                                           |                                   | oracle, percona, postgresql, sqlserver, timescale                                 |   |
-| password=<x...x>                          | PASSWORD                          | all RDBMS except cockroach, derby, ibmdb2, informix                               | password of the normal user |
-| schema=kxn_schema                         | SCHEMA                            | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver,         | schema name |
-|                                           |                                   | timescale, yugabyte                                                               |     |
-| user.sys=<x...x>                          | USER_SYS                          | all RDBMS except derby, voltdb                                                    | name of the privileged user |
-| user=kxn_user                             | USER                              | all RDBMS except derby, ibmdb2, informix                                          | name of the normal user |
-|                                           |                                   |                                                                                   |     |
+| Property incl. Default Value [db.seeder.]  | Environment Variable [DB_SEEDER_]  | Used By                                                                           | Description                                                                                                           |     
+|--------------------------------------------|------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| batch.size=<9...9>                         | BATCH_SIZE                         | all RDBMS except                                                                  | number of insert operations for the bulk operation, default value 0 (a single bulk operation for each database table) |
+| character.set.server=<x...x>               | CHARACTER_SET_SERVER               | mariadb                                                                           | default server character set                                                                                          |
+| collation.server=<x...x>                   | COLLATION_SERVER                   | mariadb                                                                           | default server collation                                                                                              |
+| connection.host=<x...x>                    | CONNECTION_HOST                    | all client RDBMS                                                                  | host name or ip address of the database server                                                                        |
+| connection.host_trino=<x...x>              | CONNECTION_HOST_TRINO              | trino                                                                             | host name or ip address of the trino                                                                                  |
+| connection.port=<9...9>                    | CONNECTION_PORT                    | all client RDBMS                                                                  | port number of the database server                                                                                    |
+| connection.port_trino=<9...9>              | CONNECTION_PORT_TRINO              | trino                                                                             | port number of the trino                                                                                              |
+| connection.prefix=<x...x>                  | CONNECTION_PREFIX                  | all RDBMS                                                                         | prefix of the database connection string                                                                              |
+| connection.service=<x...x>                 | CONNECTION_SERVICE                 | oracle                                                                            | service name of the database connection string                                                                        |
+| connection.suffix=<x...x>                  | CONNECTION_SUFFIX                  | firebird, hsqldb, mysql, percona, voltdb                                          | suffix of the database connection string                                                                              |
+| database.sys=<x...x>                       | DATABASE_SYS                       | agens, cockroach, heavy, informix, mariadb, mimer, monetdb, mysql, percona,       | privileged database name                                                                                              |
+|                                            |                                    | postgresql, sqlserver, timescale, yugabyte                                        |                                                                                                                       |
+| database=<x...x>                           | DATABASE                           | all RDBMS except cratedb, exasol, monetdb, oracle, voltdb                         | database name                                                                                                         |
+| drop.constraints=<yes>                     | DROP_CONSTRAINTS                   | all RDBMS except cockroach, cratedb, h2, heavy, sqlite, trino                     | drop all contraints before the DML operations and recreate them afterwards                                            |
+| file.configuration.name=<x...x>            | FILE_CONFIGURATION_NAME            | n/a                                                                               | directory and file name of the **`DBSeeder`** configuration file                                                      |
+| file.improvement.header=<x...x>            | FILE_IMPROVEMENT_HEADER            | all RDBMS                                                                         | header line of the improvement file created in `run_db_seeder_compute_improvement`                                    |
+| file.improvement.name=<x...x>              | FILE_IMPROVEMENT_NAME              | all RDBMS                                                                         | directory and file name of the **`DBSeeder`** improvement file created in `run_db_seeder_compute_improvement`         |
+| file.json.name=<x...x>                     | FILE_JSON_NAME                     | scripts/run_db_seeder_generate_schema                                             | directory and file name of the JSON file containing the database schema                                               |
+| file.statistics.delimiter=<x...x>          | FILE_STATISTICS_DELIMITER          | all RDBMS                                                                         | separator of the statistics file created in `run_db_seeder`                                                           |
+| file.statistics.header=<x...x>             | FILE_STATISTICS_HEADER             | all RDBMS                                                                         | header line of the statistics file created in `run_db_seeder`                                                         |
+| file.statistics.name=<x...x>               | FILE_STATISTICS_NAME               | all RDBMS                                                                         | file name of the statistics file created in `run_db_seeder`                                                           |
+| file.summary.name=<x...x>                  | FILE_SUMMARY_NAME                  | all RDBMS                                                                         | file name of the summary statistics file created in `run_db_seeder_create_summary`                                    |
+| file.summary.source=<x...x>                | FILE_SUMMARY_SOURCE                | all RDBMS                                                                         | directory name(s) (separated by semicolon) of the source directories containing statistics files                      |
+| password.sys=<x...x>                       | PASSWORD_SYS                       | agens, exasol, firebird, heavy, ibmdb2, informix, mariadb, mimer, monetdb, mysql, | password of the privileged user                                                                                       |
+|                                            |                                    | oracle, percona, postgresql, sqlserver, timescale                                 |                                                                                                                       |
+| password=<x...x>                           | PASSWORD                           | all RDBMS except cockroach, derby, ibmdb2, informix                               | password of the normal user                                                                                           |
+| schema=kxn_schema                          | SCHEMA                             | agens, derby, exasol, h2, hsqldb, ibmdb2, monetdb, postgresql, sqlserver,         | schema name                                                                                                           |
+|                                            |                                    | timescale, yugabyte                                                               |                                                                                                                       |
+| user.sys=<x...x>                           | USER_SYS                           | all RDBMS except derby, voltdb                                                    | name of the privileged user                                                                                           |
+| user=kxn_user                              | USER                               | all RDBMS except derby, ibmdb2, informix                                          | name of the normal user                                                                                               |
+|                                            |                                    |                                                                                   |                                                                                                                       |
 
 [//]: # (===========================================================================================)
 
@@ -618,13 +618,13 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 - **data types**:
 
-| **`DBSeeder`** Type | AgensGraph Database Type |
-| ---            | ---                      |
-| BIGINT         | BIGINT                   |
-| BLOB           | BYTEA                    |
-| CLOB           | TEXT                     |
-| TIMESTAMP      | TIMESTAMP                |
-| VARCHAR        | VARCHAR                  |
+| **`DBSeeder`** Type | AgensGraph Database Type  |
+|---------------------|---------------------------|
+| BIGINT              | BIGINT                    |
+| BLOB                | BYTEA                     |
+| CLOB                | TEXT                      |
+| TIMESTAMP           | TIMESTAMP                 |
+| VARCHAR             | VARCHAR                   |
 
 - **DDL syntax**:
     - CREATE DATABASE: see PostgreSQL 
@@ -633,7 +633,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER: see PostgreSQL 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull bitnine/agensgraph:v2.5.0`
+    - pull command: `docker pull bitnine/agensgraph:v2.13.0`
     - [DockerHub](https://hub.docker.com/r/bitnine/agensgraph)
 
 - **encoding**: see PostgreSQL
@@ -652,13 +652,13 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 - **data types**:
 
-| **`DBSeeder`** Type | Apache Derby Type |
-| ---            | ---               |
-| BIGINT         | BIGINT            |
-| BLOB           | BLOB              |
-| CLOB           | CLOB              |
-| TIMESTAMP      | TIMESTAMP         |
-| VARCHAR        | VARCHAR           |
+| **`DBSeeder`** Type | Apache Derby Type  |
+|---------------------|--------------------|
+| BIGINT              | BIGINT             |
+| BLOB                | BLOB               |
+| CLOB                | CLOB               |
+| TIMESTAMP           | TIMESTAMP          |
+| VARCHAR             | VARCHAR            |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a 
@@ -693,12 +693,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | CockroachDB Type |
-| ---            | ---              |
-| BIGINT         | INT              |
-| BLOB           | BYTES            |
-| CLOB           | STRING           |
-| TIMESTAMP      | TIMESTAMP        |
-| VARCHAR        | STRING           |
+|---------------------|------------------|
+| BIGINT              | INT              |
+| BLOB                | BYTES            |
+| CLOB                | STRING           |
+| TIMESTAMP           | TIMESTAMP        |
+| VARCHAR             | STRING           |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://www.cockroachlabs.com/docs/v20.2/create-database.html)
@@ -707,7 +707,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.cockroachlabs.com/docs/v20.2/create-user.html)
 
 - **Docker image (latest)**:
-    - pull command: `docker pull cockroachdb/cockroach:v22.1.1`
+    - pull command: `docker pull cockroachdb/cockroach:latest`
     - [DockerHub](https://hub.docker.com/r/cockroachdb/cockroach)
 
 - **encoding**: by default `utf8` encoding
@@ -732,12 +732,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | CrateDB Type |
-| ---            | ---          |
-| BIGINT         | BIGINT       |
-| BLOB           | OBJECT       |
-| CLOB           | TEXT         |
-| TIMESTAMP      | TIMESTAMP    |
-| VARCHAR        | TEXT         |
+|---------------------|--------------|
+| BIGINT              | BIGINT       |
+| BLOB                | OBJECT       |
+| CLOB                | TEXT         |
+| TIMESTAMP           | TIMESTAMP    |
+| VARCHAR             | TEXT         |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a
@@ -746,7 +746,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://crate.io/docs/crate/reference/en/latest/sql/statements/create-user.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull crate:4.8.1`
+    - pull command: `docker pull crate:latest
     - [DockerHub](https://hub.docker.com/_/crate)
 
 - **encoding**: by default `utf8` encoding
@@ -777,12 +777,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | CUBRID Type |
-| ---            | ---         |
-| BIGINT         | INT         |
-| BLOB           | BLOB        |
-| CLOB           | CLOB        |
-| TIMESTAMP      | TIMESTAMP   |
-| VARCHAR        | VARCHAR     |
+|---------------------|-------------|
+| BIGINT              | INT         |
+| BLOB                | BLOB        |
+| CLOB                | CLOB        |
+| TIMESTAMP           | TIMESTAMP   |
+| VARCHAR             | VARCHAR     |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a   
@@ -818,12 +818,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | Exasol Type      |
-| ---            | ---              |
-| BIGINT         | BIGINT           |
-| BLOB           | VARCHAR(2000000) |
-| CLOB           | VARCHAR(2000000) |
-| TIMESTAMP      | TIMESTAMP        |
-| VARCHAR        | VARCHAR          |
+|---------------------|------------------|
+| BIGINT              | BIGINT           |
+| BLOB                | VARCHAR(2000000) |
+| CLOB                | VARCHAR(2000000) |
+| TIMESTAMP           | TIMESTAMP        |
+| VARCHAR             | VARCHAR          |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a
@@ -832,7 +832,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.exasol.com/latest/sql/create_user.htm) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull exasol/docker-db:7.1.11`
+    - pull command: `docker pull exasol/docker-db:latest`
     - [DockerHub](https://hub.docker.com/r/exasol/docker-db)
 
 - **JDBC driver (latest)**:
@@ -854,12 +854,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | Firebird Type   |
-| ---            | ---             |
-| BIGINT         | INTEGER         |
-| BLOB           | BLOB            |
-| CLOB           | BLOB SUB_TYPE 1 |
-| TIMESTAMP      | TIMESTAMP       |
-| VARCHAR        | VARCHAR         |
+|---------------------|-----------------|
+| BIGINT              | INTEGER         |
+| BLOB                | BLOB            |
+| CLOB                | BLOB SUB_TYPE 1 |
+| TIMESTAMP           | TIMESTAMP       |
+| VARCHAR             | VARCHAR         |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://firebirdsql.org/file/documentation/html/en/refdocs/fblangref25/firebird-25-language-reference.html#fblangref25-ddl-db-create) 
@@ -868,7 +868,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://firebirdsql.org/file/documentation/release_notes/html/en/3_0/rnfb30-access-sql.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull jacobalberty/firebird:v4.0.1`
+    - pull command: `docker pull jacobalberty/firebird:v4.0.2`
     - [DockerHub](https://hub.docker.com/r/jacobalberty/firebird)
 
 - **encoding**: by using the following JDBC URL parameter: `encoding=UTF8`
@@ -892,13 +892,13 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 
 - **data types**:
 
-| **`DBSeeder`** Type | H2 Database Engine Type |
-| ---            | ---                     |
-| BIGINT         | BIGINT                  |
-| BLOB           | BLOB                    |
-| CLOB           | CLOB                    |
-| TIMESTAMP      | TIMESTAMP               |
-| VARCHAR        | VARCHAR                 |
+| **`DBSeeder`** Type | H2 Database Engine Type  |
+|---------------------|--------------------------|
+| BIGINT              | BIGINT                   |
+| BLOB                | BLOB                     |
+| CLOB                | CLOB                     |
+| TIMESTAMP           | TIMESTAMP                |
+| VARCHAR             | VARCHAR                  |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a  
@@ -984,7 +984,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | HSQLDB Type |
-|---------------------| ---         |
+|---------------------|-------------|
 | BIGINT              | BIGINT      |
 | BLOB                | BLOB        |
 | CLOB                | CLOB        |
@@ -998,7 +998,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](http://www.hsqldb.org/doc/2.0/guide/accesscontrol-chapt.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull konnexionsgmbh/hypersql_database:2.6.1`
+    - pull command: `docker pull konnexionsgmbh/hypersql_database:latest`
     - [DockerHub](https://hub.docker.com/repository/docker/konnexionsgmbh/hypersql_database)
 
 - **encoding**: by using the following system property `sqlfile.charset=UTF-8`.
@@ -1025,12 +1025,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | IBM Db2 Database Type |
-| ---            | ---                   |
-| BIGINT         | BIGINT                |
-| BLOB           | BLOB                  |
-| CLOB           | CLOB                  |
-| TIMESTAMP      | TIMESTAMP             |
-| VARCHAR        | VARCHAR               |
+|---------------------|-----------------------|
+| BIGINT              | BIGINT                |
+| BLOB                | BLOB                  |
+| CLOB                | CLOB                  |
+| TIMESTAMP           | TIMESTAMP             |
+| VARCHAR             | VARCHAR               |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001941.html) 
@@ -1039,7 +1039,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/r0002172.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull ibmcom/db2:11.5.7.0a`
+    - pull command: `docker pull ibmcom/db2:11.5.8.0`
     - [DockerHub](https://hub.docker.com/r/ibmcom/db2)
 
 - **encoding**:
@@ -1067,12 +1067,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | IBM Informix Database Type |
-| ---            | ---                        |
-| BIGINT         | BIGINT                     |
-| BLOB           | BLOB                       |
-| CLOB           | CLOB                       |
-| TIMESTAMP      | DATETIME YEAR TO FRACTION  |
-| VARCHAR        | VARCHAR (1-254) / LVARCHAR |
+|---------------------|----------------------------|
+| BIGINT              | BIGINT                     |
+| BLOB                | BLOB                       |
+| CLOB                | CLOB                       |
+| TIMESTAMP           | DATETIME YEAR TO FRACTION  |
+| VARCHAR             | VARCHAR (1-254) / LVARCHAR |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0368.htm) 
@@ -1111,12 +1111,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | MariaDB Type |
-| ---            | ---          |
-| BIGINT         | BIGINT       |
-| BLOB           | LONGBLOB     |
-| CLOB           | LONGTEXT     |
-| TIMESTAMP      | DATETIME     |
-| VARCHAR        | VARCHAR      |
+|---------------------|--------------|
+| BIGINT              | BIGINT       |
+| BLOB                | LONGBLOB     |
+| CLOB                | LONGTEXT     |
+| TIMESTAMP           | DATETIME     |
+| VARCHAR             | VARCHAR      |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://mariadb.com/kb/en/create-database) 
@@ -1125,7 +1125,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://mariadb.com/kb/en/create-user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull mariadb:10.8.3`
+    - pull command: `docker pull mariadb:latest`
     - [DockerHub](https://hub.docker.com/_/mariadb)
 
 - **encoding**:
@@ -1156,12 +1156,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | MimerSQL Type |
-| ---            | ---           |
-| BIGINT         | BIGINT        |
-| BLOB           | BLOB          |
-| CLOB           | CLOB          |
-| TIMESTAMP      | TIMESTAMP     |
-| VARCHAR        | NVARCHAR      |
+|---------------------|---------------|
+| BIGINT              | BIGINT        |
+| BLOB                | BLOB          |
+| CLOB                | CLOB          |
+| TIMESTAMP           | TIMESTAMP     |
+| VARCHAR             | NVARCHAR      |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://download.mimer.com/pub/developer/docs/html_110/Mimer_SQL_Engine_DocSet/index.htm) 
@@ -1193,12 +1193,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | MonetDB Type |
-| ---            | ---          |
-| BIGINT         | BIGINT       |
-| BLOB           | BLOB         |
-| CLOB           | CLOB         |
-| TIMESTAMP      | TIMESTAMP    |
-| VARCHAR        | VARCHAR      |
+|---------------------|--------------|
+| BIGINT              | BIGINT       |
+| BLOB                | BLOB         |
+| CLOB                | CLOB         |
+| TIMESTAMP           | TIMESTAMP    |
+| VARCHAR             | VARCHAR      |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a
@@ -1207,7 +1207,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.monetdb.org/Documentation/SQLreference/SQLSyntaxOverview#CREATE_USER) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull monetdb/monetdb:Jan2022-SP3`
+    - pull command: `docker pull monetdb/monetdb:Sep2022-SP1`
     - [DockerHub](https://hub.docker.com/r/monetdb/monetdb)
 
 - **encoding**: no special configuration should be needed
@@ -1235,12 +1235,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | MySQL Database Type |
-| ---            | ---                 |
-| BIGINT         | BIGINT              |
-| BLOB           | LONGBLOB            |
-| CLOB           | LONGTEXT            |
-| TIMESTAMP      | DATETIME            |
-| VARCHAR        | VARCHAR             |
+|---------------------|---------------------|
+| BIGINT              | BIGINT              |
+| BLOB                | LONGBLOB            |
+| CLOB                | LONGTEXT            |
+| TIMESTAMP           | DATETIME            |
+| VARCHAR             | VARCHAR             |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://dev.mysql.com/doc/refman/8.0/en/create-database.html) 
@@ -1249,7 +1249,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull mysql:8.0.29`
+    - pull command: `docker pull mysql:8.0.31`
     - [DockerHub](https://hub.docker.com/_/mysql)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1274,12 +1274,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | Oracle Database Type |
-| ---            | ---                  |
-| BIGINT         | NUMBER               |
-| BLOB           | BLOB                 |
-| CLOB           | CLOB                 |
-| TIMESTAMP      | TIMESTAMP            |
-| VARCHAR        | VARCHAR2             |
+|---------------------|----------------------|
+| BIGINT              | NUMBER               |
+| BLOB                | BLOB                 |
+| CLOB                | CLOB                 |
+| TIMESTAMP           | TIMESTAMP            |
+| VARCHAR             | VARCHAR2             |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a 
@@ -1309,12 +1309,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | Percona Sercver Type |
-| ---            | ---                  |
-| BIGINT         | BIGINT               |
-| BLOB           | LONGBLOB             |
-| CLOB           | LONGTEXT             |
-| TIMESTAMP      | DATETIME             |
-| VARCHAR        | VARCHAR              |
+|---------------------|----------------------|
+| BIGINT              | BIGINT               |
+| BLOB                | LONGBLOB             |
+| CLOB                | LONGTEXT             |
+| TIMESTAMP           | DATETIME             |
+| VARCHAR             | VARCHAR              |
 
 - **DDL syntax**:
     - CREATE DATABASE: see MySQL Database 
@@ -1323,7 +1323,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER: see MySQL Database 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull percona/percona-server:8.0.28`
+    - pull command: `docker pull percona/percona-server:latest`
     - [DockerHub](https://hub.docker.com/_/percona-server)
 
 - **encoding**: for applications that store data using the default MySQL character set and collation (utf8mb4, utf8mb4_0900_ai_ci), no special configuration should be needed
@@ -1350,12 +1350,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | PostgreSQL Type |
-| ---            | ---             |
-| BIGINT         | BIGINT          |
-| BLOB           | BYTEA           |
-| CLOB           | TEXT            |
-| TIMESTAMP      | TIMESTAMP       |
-| VARCHAR        | VARCHAR         |
+|---------------------|-----------------|
+| BIGINT              | BIGINT          |
+| BLOB                | BYTEA           |
+| CLOB                | TEXT            |
+| TIMESTAMP           | TIMESTAMP       |
+| VARCHAR             | VARCHAR         |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://www.postgresql.org/docs/12/sql-createdatabase.html) 
@@ -1364,7 +1364,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://www.postgresql.org/docs/12/sql-createuser.html) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull postgres:14.3-alpine`
+    - pull command: `docker pull postgres:15.1-alpine`
     - [DockerHub](https://hub.docker.com/_/postgres)
 
 - **encoding**: when creating the database: `CREATE DATABASE testdb WITH ENCODING 'EUC_KR' ...`
@@ -1391,12 +1391,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | SQL Server Type |
-| ---            | ---             |
-| BIGINT         | BIGINT          |
-| BLOB           | VARBINARY (MAX) |
-| CLOB           | VARCHAR (MAX)   |
-| TIMESTAMP      | DATETIME2       |
-| VARCHAR        | VARCHAR         |
+|---------------------|-----------------|
+| BIGINT              | BIGINT          |
+| BLOB                | VARBINARY (MAX) |
+| CLOB                | VARCHAR (MAX)   |
+| TIMESTAMP           | DATETIME2       |
+| VARCHAR             | VARCHAR         |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://docs.microsoft.com/en-us/sql/t-sql/statements/create-database-transact-sql?view=sql-server-ver15)
@@ -1430,12 +1430,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | SQLite Type |
-| ---            | ---         |
-| BIGINT         | INTEGER     |
-| BLOB           | BLOB        |
-| CLOB           | CLOB        |
-| TIMESTAMP      | DATETIME    |
-| VARCHAR        | VARCHAR2    |
+|---------------------|-------------|
+| BIGINT              | INTEGER     |
+| BLOB                | BLOB        |
+| CLOB                | CLOB        |
+| TIMESTAMP           | DATETIME    |
+| VARCHAR             | VARCHAR2    |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a
@@ -1468,12 +1468,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | AgensGraph Database Type |
-| ---            | ---                      |
-| BIGINT         | BIGINT                   |
-| BLOB           | BYTEA                    |
-| CLOB           | TEXT                     |
-| TIMESTAMP      | TIMESTAMP                |
-| VARCHAR        | VARCHAR                  |
+|---------------------|--------------------------|
+| BIGINT              | BIGINT                   |
+| BLOB                | BYTEA                    |
+| CLOB                | TEXT                     |
+| TIMESTAMP           | TIMESTAMP                |
+| VARCHAR             | VARCHAR                  |
 
 - **DDL syntax**:
     - CREATE DATABASE: see PostgreSQL
@@ -1482,7 +1482,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER: see PostgreSQL
 
 - **Docker image (latest)**:
-    - pull command: `docker pull timescale/timescaledb:2.7.0-pg14`
+    - pull command: `docker pull timescale/timescaledb:latest`
     - [DockerHub](https://hub.docker.com/r/timescale/timescaledb)
 
 - **encoding**: see PostgreSQL
@@ -1517,7 +1517,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - CREATE USER - n/a
 
 - **Docker image (latest)**:
-    - pull command: `docker pull trinodb/trino:368`
+    - pull command: `docker pull trinodb/trino:403`
     - [DockerHub](https://hub.docker.com/r/trinodb/trino)
 
 - **encoding**: full support of UTF-8 (see [here](https://trino.io/docs/current/release/release-0.102.html?highlight=encoding))
@@ -1540,12 +1540,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | VoltDB Type        |
-| ---            | ---                |
-| BIGINT         | BIGINT             |
-| BLOB           | VARBINARY(1048576) |
-| CLOB           | VARCHAR(1048576)   |
-| TIMESTAMP      | TIMESTAMP          |
-| VARCHAR        | VARCHAR            |
+|---------------------|--------------------|
+| BIGINT              | BIGINT             |
+| BLOB                | VARBINARY(1048576) |
+| CLOB                | VARCHAR(1048576)   |
+| TIMESTAMP           | TIMESTAMP          |
+| VARCHAR             | VARCHAR            |
 
 - **DDL syntax**:
     - CREATE DATABASE - n/a  
@@ -1577,12 +1577,12 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
 - **data types**:
 
 | **`DBSeeder`** Type | YugabyteDB Database Type |
-| ---            | ---                      |
-| BIGINT         | BIGINT                   |
-| BLOB           | BYTEA                    |
-| CLOB           | TEXT                     |
-| TIMESTAMP      | TIMESTAMP                |
-| VARCHAR        | VARCHAR                  |
+|---------------------|--------------------------|
+| BIGINT              | BIGINT                   |
+| BLOB                | BYTEA                    |
+| CLOB                | TEXT                     |
+| TIMESTAMP           | TIMESTAMP                |
+| VARCHAR             | VARCHAR                  |
 
 - **DDL syntax**:
     - [CREATE DATABASE](https://docs.yugabyte.com/latest/api/ysql/commands/ddl_create_database) 
@@ -1591,7 +1591,7 @@ In the file directory `resources/dbeaver` you will also find a file exported fro
     - [CREATE USER](https://docs.yugabyte.com/latest/api/ysql/commands/dcl_create_user) 
 
 - **Docker image (latest)**:
-    - pull command: `docker pull yugabytedb/yugabyte:2.13.2.0-b135`
+    - pull command: `docker pull yugabytedb/yugabyte:latest`
     - [DockerHub](https://hub.docker.com/r/yugabytedb/yugabyte)
 
 - **encoding**: see PostgreSQL

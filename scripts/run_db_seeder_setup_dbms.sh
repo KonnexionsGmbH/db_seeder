@@ -277,7 +277,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "h2" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# HeavyDB                   https://hub.docker.com/_/omnisci-open-source-edition
+# HeavyDB                                   https://www.heavy.ai/product/heavydb
 # ------------------------------------------------------------------------------
 
 if [ "${DB_SEEDER_DBMS_DB}" = "heavy" ]; then
@@ -293,7 +293,7 @@ if [ "${DB_SEEDER_DBMS_DB}" = "heavy" ]; then
     docker create --name    db_seeder_db \
                   --network db_seeder_net \
                   -p        "${DB_SEEDER_CONNECTION_PORT}":"${DB_SEEDER_CONTAINER_PORT}"/tcp \
-                  -v        "$PWD/tmp/heavy-docker-storage":/omnisci-storage \
+                  -v        "$PWD/tmp/heavy-docker-storage":/heavyai-storage \
                   "${DB_SEEDER_IMAGE}"
 
     echo "Docker start db_seeder_db (HeavyDB ${DB_SEEDER_VERSION}) ..."

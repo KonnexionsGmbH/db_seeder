@@ -36,7 +36,7 @@ echo:| TIME
 echo ================================================================================
 
 rem ------------------------------------------------------------------------------
-rem HeavyDB                   https://hub.docker.com/_/omnisci-open-source-edition
+rem HeavyDB                                      https://hub.docker.com/u/heavyai
 rem ------------------------------------------------------------------------------
 
 echo HeavyDB
@@ -51,10 +51,10 @@ docker network create db_seeder_net 2>nul || echo Docker network db_seeder_net a
 docker create --name    db_seeder_db ^
               --network db_seeder_net ^
               -p        %DB_SEEDER_CONNECTION_PORT%:%DB_SEEDER_CONTAINER_PORT% ^
-              -v        %cd%\tmp\heavy-docker-storage:/omnisci-storage ^
+              -v        %cd%\tmp\heavy-docker-storage:/heavyai-storage ^
               %DB_SEEDER_IMAGE%
 
-              docker pull omnisci/core-os-cpu:v5.10.2
+docker pull heavyai/core-os-cpu:v6.1.0
 
 echo Docker start db_seeder_db (HeavyDB %DB_SEEDER_VERSION%) ...
 docker start db_seeder_db

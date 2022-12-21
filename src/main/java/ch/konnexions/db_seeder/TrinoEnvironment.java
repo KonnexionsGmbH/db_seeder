@@ -38,7 +38,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
 
   private static final ArrayList<String>   entries       = new ArrayList<>();
 
-  private static final Logger logger        = LogManager.getLogger(TrinoEnvironment.class);
+  private static final Logger              logger        = LogManager.getLogger(TrinoEnvironment.class);
   private static final boolean             isDebug       = logger.isDebugEnabled();
 
   private static final Map<String, String> osEnvironment = System.getenv();
@@ -411,6 +411,13 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                    "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_PREFIX");
     }
 
+    if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_CONNECTION_SUFFIX")) {
+      connectionSuffix = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_SUFFIX");
+    } else {
+      MessageHandling.abortProgram(logger,
+              "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_SUFFIX");
+    }
+
     if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_DATABASE")) {
       database = osEnvironment.get("DB_SEEDER_SQLSERVER_DATABASE");
     } else {
@@ -445,7 +452,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                       connectionPrefix,
                                       database,
                                       user,
-                                      password);
+                                      password)+connectionSuffix;
 
     createCatalog(tickerSymbolIntern);
 

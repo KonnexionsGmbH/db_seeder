@@ -48,7 +48,7 @@ public final class HeavySeeder extends AbstractGenHeavySchema {
 
     dbmsEnum = DbmsEnum.HEAVY;
 
-    driver   = "com.omnisci.jdbc.OmniSciDriver";
+    driver   = "com.omnisci.jdbc.omnisciDriver";
 
     urlSys   = getUrl(config.getConnectionHost(),
                       config.getConnectionPort(),

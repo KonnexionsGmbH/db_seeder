@@ -16,7 +16,7 @@ export DB_SEEDER_DBMS_DEFAULT=sqlite
 export DB_SEEDER_NO_CREATE_RUNS_DEFAULT=1
 export DB_SEEDER_RELEASE=3.0.7
 export DB_SEEDER_SETUP_DBMS_DEFAULT=yes
-export DB_SEEDER_VERSION_TRINO=386
+export DB_SEEDER_VERSION_TRINO=403
 export DB_SEEDER_IMAGE_TRINO=trinodb/trino:${DB_SEEDER_VERSION_TRINO}
 
 if [ -z "$1" ]; then
@@ -119,6 +119,7 @@ if [ "${DB_SEEDER_DBMS}" = "agens" ]; then
     export DB_SEEDER_VERSION=v2.1.1
     export DB_SEEDER_VERSION=v2.1.3
     export DB_SEEDER_VERSION=v2.5.0
+    export DB_SEEDER_VERSION=v2.13.0
     export DB_SEEDER_IMAGE=bitnine/agensgraph:"${DB_SEEDER_VERSION}"
 fi
 
@@ -155,6 +156,9 @@ if [ "${DB_SEEDER_DBMS}" = "cockroach" ]; then
     export DB_SEEDER_VERSION=v21.2.7
     export DB_SEEDER_VERSION=v21.2.8
     export DB_SEEDER_VERSION=v22.1.1
+    export DB_SEEDER_VERSION=v22.1.2
+    export DB_SEEDER_VERSION=v22.1.4
+    export DB_SEEDER_VERSION=v22.1.12
     export DB_SEEDER_IMAGE=cockroachdb/cockroach:"${DB_SEEDER_VERSION}"
 fi
 
@@ -192,6 +196,8 @@ if [ "${DB_SEEDER_DBMS}" = "cratedb" ]; then
     export DB_SEEDER_VERSION=4.7.0
     export DB_SEEDER_VERSION=4.7.1
     export DB_SEEDER_VERSION=4.8.1
+    export DB_SEEDER_VERSION=5.0.0
+    export DB_SEEDER_VERSION=5.1.2
     export DB_SEEDER_IMAGE=crate:"${DB_SEEDER_VERSION}"
 fi
 
@@ -258,6 +264,8 @@ if [ "${DB_SEEDER_DBMS}" = "exasol" ]; then
     export DB_SEEDER_VERSION=7.1.8
     export DB_SEEDER_VERSION=7.1.9
     export DB_SEEDER_VERSION=7.1.11
+    export DB_SEEDER_VERSION=7.1.12
+    export DB_SEEDER_VERSION=7.1.16
     export DB_SEEDER_IMAGE=exasol/docker-db:"${DB_SEEDER_VERSION}"
 fi
 
@@ -275,6 +283,7 @@ if [ "${DB_SEEDER_DBMS}" = "firebird" ]; then
     export DB_SEEDER_VERSION=3.0.7
     export DB_SEEDER_VERSION=v4.0.0
     export DB_SEEDER_VERSION=v4.0.1
+    export DB_SEEDER_VERSION=v4.0.2
     export DB_SEEDER_IMAGE=jacobalberty/firebird:"${DB_SEEDER_VERSION}"
 fi
 
@@ -325,7 +334,10 @@ if [ "${DB_SEEDER_DBMS}" = "heavy" ]; then
     export DB_SEEDER_VERSION=v5.9.0
     export DB_SEEDER_VERSION=v5.10.1
     export DB_SEEDER_VERSION=v5.10.2
-    export DB_SEEDER_IMAGE=omnisci/core-os-cpu:"${DB_SEEDER_VERSION}"
+    export DB_SEEDER_VERSION=v6.0.0
+    export DB_SEEDER_VERSION=v6.1.0
+    export DB_SEEDER_VERSION=v6.2.0
+    export DB_SEEDER_IMAGE=heavyai/core-os-cpu:"${DB_SEEDER_VERSION}"
 fi
 
 if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
@@ -341,6 +353,8 @@ if [ "${DB_SEEDER_DBMS}" = "hsqldb" ]; then
     export DB_SEEDER_VERSION=2.5.1
     export DB_SEEDER_VERSION=2.6.0
     export DB_SEEDER_VERSION=2.6.1
+    export DB_SEEDER_VERSION=2.7.0
+    export DB_SEEDER_VERSION=2.7.1
     export DB_SEEDER_IMAGE=konnexionsgmbh/hypersql_database:"${DB_SEEDER_VERSION}"
 fi
 
@@ -369,6 +383,7 @@ if [ "${DB_SEEDER_DBMS}" = "ibmdb2" ]; then
     export DB_SEEDER_VERSION=11.5.6.0a
     export DB_SEEDER_VERSION=11.5.7.0
     export DB_SEEDER_VERSION=11.5.7.0a
+    export DB_SEEDER_VERSION=11.5.8.0
     export DB_SEEDER_IMAGE=ibmcom/db2:"${DB_SEEDER_VERSION}"
 fi
 
@@ -417,6 +432,7 @@ if [ "${DB_SEEDER_DBMS}" = "mariadb" ]; then
     export DB_SEEDER_VERSION=10.7.1-focal
     export DB_SEEDER_VERSION=10.7.3-focal
     export DB_SEEDER_VERSION=10.8.3
+    export DB_SEEDER_VERSION=10.10.2
     export DB_SEEDER_IMAGE=mariadb:"${DB_SEEDER_VERSION}"
 fi
 
@@ -458,6 +474,7 @@ if [ "${DB_SEEDER_DBMS}" = "monetdb" ]; then
     export DB_SEEDER_VERSION=Jan2022-SP1
     export DB_SEEDER_VERSION=Jan2022-SP2
     export DB_SEEDER_VERSION=Jan2022-SP3
+    export DB_SEEDER_VERSION=Sep2022-SP1
     export DB_SEEDER_IMAGE=monetdb/monetdb:"${DB_SEEDER_VERSION}"
 fi
 
@@ -482,6 +499,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql" ]; then
     export DB_SEEDER_VERSION=8.0.27
     export DB_SEEDER_VERSION=8.0.28
     export DB_SEEDER_VERSION=8.0.29
+    export DB_SEEDER_VERSION=8.0.31
     export DB_SEEDER_IMAGE=mysql:"${DB_SEEDER_VERSION}"
 fi
 
@@ -507,6 +525,7 @@ if [ "${DB_SEEDER_DBMS}" = "mysql_trino" ]; then
     export DB_SEEDER_VERSION=8.0.27
     export DB_SEEDER_VERSION=8.0.28
     export DB_SEEDER_VERSION=8.0.29
+    export DB_SEEDER_VERSION=8.0.31
     export DB_SEEDER_IMAGE=mysql:"${DB_SEEDER_VERSION}"
 fi
 
@@ -566,6 +585,8 @@ if [ "${DB_SEEDER_DBMS}" = "percona" ]; then
     export DB_SEEDER_VERSION=8.0.26-17
     export DB_SEEDER_VERSION=8.0.27-18
     export DB_SEEDER_VERSION=8.0.28
+    export DB_SEEDER_VERSION=8.0.28-20
+    export DB_SEEDER_VERSION=8.0.30-22
     export DB_SEEDER_IMAGE=percona/percona-server:"${DB_SEEDER_VERSION}"
 fi
 
@@ -590,6 +611,8 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql" ]; then
     export DB_SEEDER_VERSION=14.1-alpine
     export DB_SEEDER_VERSION=14.2-alpine
     export DB_SEEDER_VERSION=14.3-alpine
+    export DB_SEEDER_VERSION=14.4-alpine
+    export DB_SEEDER_VERSION=15.1-alpine
     export DB_SEEDER_IMAGE=postgres:"${DB_SEEDER_VERSION}"
 fi
 
@@ -615,6 +638,8 @@ if [ "${DB_SEEDER_DBMS}" = "postgresql_trino" ]; then
     export DB_SEEDER_VERSION=14.1-alpine
     export DB_SEEDER_VERSION=14.2-alpine
     export DB_SEEDER_VERSION=14.3-alpine
+    export DB_SEEDER_VERSION=14.4-alpine
+    export DB_SEEDER_VERSION=15.1-alpine
     export DB_SEEDER_IMAGE=postgres:"${DB_SEEDER_VERSION}"
 fi
 
@@ -627,6 +652,7 @@ fi
 if [ "${DB_SEEDER_DBMS}" = "sqlserver" ]; then
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    export DB_SEEDER_CONNECTION_SUFFIX=";trustServerCertificate=true"
     export DB_SEEDER_CONTAINER_PORT=1433
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=master
@@ -647,6 +673,7 @@ fi
 if [ "${DB_SEEDER_DBMS}" = "sqlserver_trino" ]; then
     export DB_SEEDER_CONNECTION_PORT=1433
     export DB_SEEDER_CONNECTION_PREFIX=jdbc:sqlserver://
+    export DB_SEEDER_CONNECTION_SUFFIX=";trustServerCertificate=true"
     export DB_SEEDER_CONTAINER_PORT=1433
     export DB_SEEDER_DATABASE=kxn_db
     export DB_SEEDER_DATABASE_SYS=master
@@ -686,6 +713,8 @@ if [ "${DB_SEEDER_DBMS}" = "timescale" ]; then
     export DB_SEEDER_VERSION=2.6.0-pg14
     export DB_SEEDER_VERSION=2.6.1-pg14
     export DB_SEEDER_VERSION=2.7.0-pg14
+    export DB_SEEDER_VERSION=2.7.2-pg14
+    export DB_SEEDER_VERSION=2.9.0-pg14
     export DB_SEEDER_IMAGE=timescale/timescaledb:"${DB_SEEDER_VERSION}"
 fi
 
@@ -735,6 +764,9 @@ if [ "${DB_SEEDER_DBMS}" = "yugabyte" ]; then
     export DB_SEEDER_VERSION=2.13.0.1-b2
     export DB_SEEDER_VERSION=2.13.1.0-b112
     export DB_SEEDER_VERSION=2.13.2.0-b135
+    export DB_SEEDER_VERSION=2.15.0.0-b11
+    export DB_SEEDER_VERSION=2.15.1.0-b175
+    export DB_SEEDER_VERSION=2.17.0.0-b24
     export DB_SEEDER_IMAGE=yugabytedb/yugabyte:"${DB_SEEDER_VERSION}"
 fi
 

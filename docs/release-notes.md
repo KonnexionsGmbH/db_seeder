@@ -28,24 +28,30 @@ Release Date: dd.mm.2022
 
 ### Modified Features
 
+- AgensGraph: DBMS v2.13.0
 - Apache Derby: DBMS 10.16.1.1 / JDBC 10.16.1.1
-- CockroachDB: DBMS v22.1.1
-- CrateDB: DBMS 4.8.1
-- CUBRID: DBMS 11.2 / JDBC 11.1.0.0027
-- Exasol: DBMS 7.1.11 / JDBC 7.1.11
-- Firebird: JDBC 4.0.6.java11
+- CockroachDB: DBMS v22.1.12
+- CrateDB: DBMS 5.1.12
+- CUBRID: DBMS 11.2 / JDBC 11.1.0.0028
+- Exasol: DBMS 7.1.16 / JDBC 7.1.16
+- Firebird: DBMS v4.0.2 / JDBC 4.0.8.java11
 - H2 Database Engine: DBMS 2.1.214 / JDBC 2.1.214
-- IBM Db2 Database: DBMS 11.5.7.0a
-- IBM Informix: JDBC 4.50.8
-- MariaDB Server: DBMS 10.8.3 / JDBC 3.0.5
-- MonetDB: DBMS Jan2022-SP3
-- MySQL Database: DBMS 8.0.29 / JDBC 8.0.29
-- Percona Server for MySQL: DBMS 8.0.28
-- PostgreSQL: DBMS 14.3 / JDBC 42.3.4
-- SQL Server: DBMS 2022-latest
-- TimescaleDB: DBMS 2.7.0-pg14
-- trino: DBMS 386 / JDBC 386
-- YugabyteDB: DBMS 2.13.2.0-b135
+- HeavyDB: DBMS v6.2.0 / JDBC 6.1.0
+- HSQLDB: DBMS 2.7.0
+- IBM Db2 Database: DBMS 11.5.8.0 / JDBC 11.5.8.0
+- IBM Informix: JDBC 4.50.9
+- MariaDB Server: DBMS 10.10.2 / JDBC 3.1.0
+- MonetDB: DBMS Sep2022-SP1
+- MySQL Database: DBMS 8.0.31 / JDBC 8.0.31
+- Oracle Database: JDBC 21.8.0.0
+- Percona Server for MySQL: DBMS 8.0.30-22
+- PostgreSQL: DBMS 15.1 / JDBC 42.5.1
+- SQL Server: DBMS 2022-latest / JDBC 11.2.2.jre18
+- SQLite: JDBC 3.40.0.0
+- TimescaleDB: DBMS 2.9.0-pg14
+- trino: DBMS 403 / JDBC 403
+- VoltDB: JDBC 11.4.2
+- YugabyteDB: DBMS 2.17.0.0-b24
 
 ### Deleted Features
 
@@ -53,7 +59,9 @@ Release Date: dd.mm.2022
 
 ### Open Issues
 
+- HeavyDB: (see [here](#issues_heavydb)
 - HSQLDB: (see [here](#issues_hsqldb)
+- MonetDB: (see [here](#issues_monetdb)
 - trino: (see [here](#issues_trino)
 - VoltDB: (see [here](#issues_voltdb)
 
@@ -82,6 +90,29 @@ For example, the MonetDB database is faster with inactive constraints by 17.5 % 
 ----
 
 ## Detailed Open Issues
+
+### <a name="issues_heavydb"></a> HeavyDB
+
+- Issue: java.lang.ClassNotFoundException: com.omnisci.jdbc.omnisciDriver.
+
+```
+2022-12-21 09:22:16,341 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =heavy
+2022-12-21 09:22:16,348 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =heavy
+2022-12-21 09:22:16,359 [Statistics.java] INFO  missing statistics file created: file name=resources/statistics/db_seeder_statistics.tsv
+java.lang.ClassNotFoundException: com.omnisci.jdbc.omnisciDriver
+        at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+        at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+        at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+        at java.base/java.lang.Class.forName0(Native Method)
+        at java.base/java.lang.Class.forName(Class.java:390)
+        at java.base/java.lang.Class.forName(Class.java:381)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:314)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:286)
+        at ch.konnexions.db_seeder.jdbc.heavy.HeavySeeder.setupDatabase(HeavySeeder.java:93)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:410)
+        at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:154)
+Processing of the script was aborted, error code=1
+```
 
 ### <a name="issues_hsqldb"></a> HSQLDB
 
@@ -116,6 +147,32 @@ The problem only occurs with the "DROP CONSTRAINTS" functionality.
             at org.hsqldb.Session.executeDirectStatement(Unknown Source)
             at org.hsqldb.Session.execute(Unknown Source)
             ... 6 more
+```
+
+
+### <a name="issues_monetdb"></a> MonetDB
+
+- Issue: java.sql.SQLNonTransientConnectionException.
+
+```
+2022-12-21 09:59:18,739 [AbstractDbmsSeeder.java] INFO  tickerSymbolIntern =monetdb
+2022-12-21 09:59:18,747 [AbstractJdbcSeeder.java] INFO  tickerSymbolExtern =monetdb
+java.sql.SQLNonTransientConnectionException:
+        at org.monetdb.jdbc.MonetConnection.<init>(Unknown Source)
+        at org.monetdb.jdbc.MonetDriver.connect(Unknown Source)
+        at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+        at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:332)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.connect(AbstractJdbcSeeder.java:269)
+        at ch.konnexions.db_seeder.jdbc.monetdb.MonetdbSeeder.setupDatabase(MonetdbSeeder.java:145)
+        at ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder.createData(AbstractJdbcSeeder.java:410)
+        at ch.konnexions.db_seeder.DatabaseSeeder.main(DatabaseSeeder.java:196)
+Caused by: org.monetdb.mcl.MCLException:
+monetdbd: no such database 'demo', please create it first
+        at org.monetdb.mcl.net.MapiSocket.connect(Unknown Source)
+        at org.monetdb.mcl.net.MapiSocket.connect(Unknown Source)
+        ... 9 more
+Processing of the script was aborted, error code=1
 ```
 
 ### <a name="issues_trino"></a> trino
