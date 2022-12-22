@@ -85,6 +85,7 @@ echo "--------------------------------------------------------------------------
 export DB_SEEDER_DROP_CONSTRAINTS=yes
 
 ./run_db_seeder.sh agens            yes 1
+./run_db_seeder.sh cockroach        yes 1
 ./run_db_seeder.sh cubrid           yes 1
 ./run_db_seeder.sh derby            yes 1
 ./run_db_seeder.sh derby_emb        yes 1
@@ -108,7 +109,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh yugabyte         yes 1
 
 #./run_db_seeder.sh agens            yes 1
-#./run_db_seeder.sh cockroach        no  1
+#./run_db_seeder.sh cockroach        yes 1
 #./run_db_seeder.sh cratedb          no  1
 #./run_db_seeder.sh cubrid           yes 1
 #./run_db_seeder.sh derby            yes 1

@@ -9,7 +9,7 @@
 
 ## Version 3.0.7
 
-Release Date: dd.mm.2022
+Release Date: 22.12.2022
 
 ### System Requirements
 
@@ -52,10 +52,6 @@ Release Date: dd.mm.2022
 - trino: DBMS 403 / JDBC 403
 - VoltDB: JDBC 11.4.2
 - YugabyteDB: DBMS 2.17.0.0-b24
-
-### Deleted Features
-
-- n/a
 
 ### Open Issues
 

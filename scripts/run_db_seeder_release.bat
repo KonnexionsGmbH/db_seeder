@@ -96,6 +96,7 @@ rem > run_db_seeder_release.log 2>&1 (
     set DB_SEEDER_DROP_CONSTRAINTS=yes
 
     call run_db_seeder agens            yes 1
+    call run_db_seeder cockroach        yes 1
     call run_db_seeder cubrid           yes 1
     call run_db_seeder derby            yes 1
     call run_db_seeder derby_emb        yes 1
@@ -119,7 +120,7 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder yugabyte         yes 1
 
     rem call run_db_seeder agens            yes 1
-    rem call run_db_seeder cockroach        no  1
+    rem call run_db_seeder cockroach        yes 1
     rem call run_db_seeder cratedb          no  1
     rem call run_db_seeder cubrid           yes 1
     rem call run_db_seeder derby            yes 1
