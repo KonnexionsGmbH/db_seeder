@@ -20,10 +20,9 @@ if [ -z "${DB_SEEDER_FILE_JSON_NAME}" ]; then
     export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.syntax_1000.json
 
     export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_5400.json
-    export DB_SEEDER_FILE_JSON_NAME=resources/json/db_seeder_schema.company_50.json
 fi
 
-export DB_SEEDER_RELEASE=3.0.6
+export DB_SEEDER_RELEASE=3.0.7
 export DB_SEEDER_JAVA_CLASSPATH=".:lib/*:JAVA_HOME/lib"
 
 echo "================================================================================"

@@ -65,16 +65,18 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder firebird         yes 1
     call run_db_seeder h2               yes 1
     call run_db_seeder h2_emb           yes 1
+    rem faulty:
+    call run_db_seeder heavy            yes 0
     call run_db_seeder hsqldb           yes 1
     call run_db_seeder hsqldb_emb       yes 1
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
     call run_db_seeder mariadb          yes 1
     call run_db_seeder mimer            yes 1
-    call run_db_seeder monetdb          yes 1
+    rem faulty:
+    call run_db_seeder monetdb          yes 0
     call run_db_seeder mysql            yes 1
     call run_db_seeder mysql_trino      yes 1
-    call run_db_seeder omnisci          yes 1
     call run_db_seeder oracle           yes 1
     call run_db_seeder oracle_trino     yes 1
     call run_db_seeder percona          yes 1
@@ -84,7 +86,7 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder sqlserver        yes 1
     call run_db_seeder sqlserver_trino  yes 1
     call run_db_seeder timescale        yes 1
-    rem Java 15:
+    rem faulty (Java 15):
     call run_db_seeder voltdb           yes 0
     call run_db_seeder yugabyte         yes 1
 
@@ -101,13 +103,14 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder exasol           yes 1
     call run_db_seeder firebird         yes 1
     call run_db_seeder hsqldb           yes 1
-    rem java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+    rem faulty (java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100):
     call run_db_seeder hsqldb_emb       yes 0
     call run_db_seeder ibmdb2           yes 1
     call run_db_seeder informix         yes 1
     call run_db_seeder mariadb          yes 1
     call run_db_seeder mimer            yes 1
-    call run_db_seeder monetdb          yes 1
+    rem faulty:
+    call run_db_seeder monetdb          yes 0
     call run_db_seeder mysql            yes 1
     call run_db_seeder oracle           yes 1
     call run_db_seeder percona          yes 1
@@ -117,7 +120,7 @@ rem > run_db_seeder_release.log 2>&1 (
     call run_db_seeder yugabyte         yes 1
 
     rem call run_db_seeder agens            yes 1
-    rem call run_db_seeder cockroach        no  1
+    rem call run_db_seeder cockroach        yes 1
     rem call run_db_seeder cratedb          no  1
     rem call run_db_seeder cubrid           yes 1
     rem call run_db_seeder derby            yes 1
@@ -126,6 +129,7 @@ rem > run_db_seeder_release.log 2>&1 (
     rem call run_db_seeder firebird         yes 1
     rem call run_db_seeder h2               no  1
     rem call run_db_seeder h2_emb           no  1
+    rem call run_db_seeder heavy            no  1
     rem call run_db_seeder hsqldb           yes 1
     rem call run_db_seeder hsqldb_emb       yes 1
     rem call run_db_seeder ibmdb2           yes 1
@@ -135,7 +139,6 @@ rem > run_db_seeder_release.log 2>&1 (
     rem call run_db_seeder monetdb          yes 1
     rem call run_db_seeder mysql            yes 1
     rem call run_db_seeder mysql_trino      no  1
-    rem call run_db_seeder omnisci          no  1
     rem call run_db_seeder oracle           yes 1
     rem call run_db_seeder oracle_trino     no  1
     rem call run_db_seeder percona          yes 1

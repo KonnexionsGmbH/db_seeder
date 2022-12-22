@@ -83,14 +83,14 @@ public final class SqlserverSeeder extends AbstractGenSqlserverSchema {
                      config.getConnectionPrefix(),
                      config.getDatabaseSys(),
                      config.getUserSys(),
-                     config.getPasswordSys());
+                     config.getPasswordSys()) + config.getConnectionSuffix();
 
     urlUser = getUrl(config.getConnectionHost(),
                      config.getConnectionPort(),
                      config.getConnectionPrefix(),
                      config.getDatabase(),
                      config.getUser(),
-                     config.getPassword());
+                     config.getPassword()) + config.getConnectionSuffix();
 
     if (isDebug) {
       logger.debug("End   Constructor");

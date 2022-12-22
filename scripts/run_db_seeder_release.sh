@@ -54,16 +54,18 @@ rm -rf ${DB_SEEDER_FILE_STATISTICS_NAME}
 ./run_db_seeder.sh firebird         yes 1
 ./run_db_seeder.sh h2               yes 1
 ./run_db_seeder.sh h2_emb           yes 1
+# faulty:
+./run_db_seeder.sh heavy            yes 0
 ./run_db_seeder.sh hsqldb           yes 1
 ./run_db_seeder.sh hsqldb_emb       yes 1
 ./run_db_seeder.sh ibmdb2           yes 1
 ./run_db_seeder.sh informix         yes 1
 ./run_db_seeder.sh mariadb          yes 1
 ./run_db_seeder.sh mimer            yes 1
-./run_db_seeder.sh monetdb          yes 1
+# faulty:
+./run_db_seeder.sh monetdb          yes 0
 ./run_db_seeder.sh mysql            yes 1
 ./run_db_seeder.sh mysql_trino      yes 1
-./run_db_seeder.sh omnisci          yes 1
 ./run_db_seeder.sh oracle           yes 1
 ./run_db_seeder.sh oracle_trino     yes 1
 ./run_db_seeder.sh percona          yes 1
@@ -73,7 +75,7 @@ rm -rf ${DB_SEEDER_FILE_STATISTICS_NAME}
 ./run_db_seeder.sh sqlserver        yes 1
 ./run_db_seeder.sh sqlserver_trino  yes 1
 ./run_db_seeder.sh timescale        yes 1
-# Java 15:
+# faulty (Java 15):
 ./run_db_seeder.sh voltdb           yes 0
 ./run_db_seeder.sh yugabyte         yes 1
 
@@ -90,13 +92,14 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh exasol           yes 1
 ./run_db_seeder.sh firebird         yes 1
 ./run_db_seeder.sh hsqldb           yes 1
-# java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_10100
+# faulty (java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: SYS_IDX_KXN_26_1010):
 ./run_db_seeder.sh hsqldb_emb       yes 0
 ./run_db_seeder.sh ibmdb2           yes 1
 ./run_db_seeder.sh informix         yes 1
 ./run_db_seeder.sh mariadb          yes 1
 ./run_db_seeder.sh mimer            yes 1
-./run_db_seeder.sh monetdb          yes 1
+# faulty:
+./run_db_seeder.sh monetdb          yes 0
 ./run_db_seeder.sh mysql            yes 1
 ./run_db_seeder.sh oracle           yes 1
 ./run_db_seeder.sh percona          yes 1
@@ -106,7 +109,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 ./run_db_seeder.sh yugabyte         yes 1
 
 #./run_db_seeder.sh agens            yes 1
-#./run_db_seeder.sh cockroach        no  1
+#./run_db_seeder.sh cockroach        yes 1
 #./run_db_seeder.sh cratedb          no  1
 #./run_db_seeder.sh cubrid           yes 1
 #./run_db_seeder.sh derby            yes 1
@@ -115,6 +118,7 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh firebird         yes 1
 #./run_db_seeder.sh h2               no  1
 #./run_db_seeder.sh h2_emb           no  1
+#./run_db_seeder.sh heavy            no  1
 #./run_db_seeder.sh hsqldb           yes 1
 #./run_db_seeder.sh hsqldb_emb       yes 1
 #./run_db_seeder.sh ibmdb2           yes 1
@@ -124,7 +128,6 @@ export DB_SEEDER_DROP_CONSTRAINTS=yes
 #./run_db_seeder.sh monetdb          yes 1
 #./run_db_seeder.sh mysql            yes 1
 #./run_db_seeder.sh mysql_trino      no  1
-#./run_db_seeder.sh omnisci          no  1
 #./run_db_seeder.sh oracle           yes 1
 #./run_db_seeder.sh oracle_trino     no  1
 #./run_db_seeder.sh percona          yes 1

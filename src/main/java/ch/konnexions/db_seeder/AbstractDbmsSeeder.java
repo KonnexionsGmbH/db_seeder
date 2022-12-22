@@ -43,6 +43,9 @@ public abstract class AbstractDbmsSeeder {
     H2(
         "h2"
     ),
+    HEAVY(
+        "heavy"
+    ),
     HSQLDB(
         "hsqldb"
     ),
@@ -63,9 +66,6 @@ public abstract class AbstractDbmsSeeder {
     ),
     MYSQL(
         "mysql"
-    ),
-    OMNISCI(
-        "omnisci"
     ),
     ORACLE(
         "oracle"
@@ -201,6 +201,13 @@ public abstract class AbstractDbmsSeeder {
                         "embedded",
                         "H2",
                         "" });
+    dbmsDetails.put("heavy",
+                    new String[] {
+                        "heavy",
+                        "HeavyDB",
+                        "client",
+                        "HeavyDB",
+                        "" });
     dbmsDetails.put("hsqldb",
                     new String[] {
                         "hsqldb",
@@ -263,13 +270,6 @@ public abstract class AbstractDbmsSeeder {
                         "MySQL Database",
                         "trino",
                         "MySQL",
-                        "" });
-    dbmsDetails.put("omnisci",
-                    new String[] {
-                        "omnisci",
-                        "OmniSciDB",
-                        "client",
-                        "OmniSciDB",
                         "" });
     dbmsDetails.put("oracle",
                     new String[] {
@@ -438,7 +438,7 @@ public abstract class AbstractDbmsSeeder {
    * @return the converted identifier
    */
   public final String setCaseIdentifier(String identifier) {
-    if ("agens".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern)) {
+    if ("agens".equals(tickerSymbolIntern) || "heavy".equals(tickerSymbolIntern)) {
       return identifier.toLowerCase();
     }
 
@@ -451,7 +451,7 @@ public abstract class AbstractDbmsSeeder {
    * @param identifiers the identifier list
    */
   public final void setCaseIdentifiers(ArrayList<String> identifiers) {
-    if ("agens".equals(tickerSymbolIntern) || "omnisci".equals(tickerSymbolIntern)) {
+    if ("agens".equals(tickerSymbolIntern) || "heavy".equals(tickerSymbolIntern)) {
       identifiers.forEach(String::toLowerCase);
     }
 

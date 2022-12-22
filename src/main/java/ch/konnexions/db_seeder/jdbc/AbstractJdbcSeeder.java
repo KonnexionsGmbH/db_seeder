@@ -48,11 +48,11 @@ import ch.konnexions.db_seeder.utils.Statistics;
  */
 public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
-  private static final int    ENCODING_MAX     = 3;
+  private static final int    ENCODING_MAX   = 3;
 
-  private static final Logger logger           = LogManager.getLogger(AbstractJdbcSeeder.class);
+  private static final Logger logger         = LogManager.getLogger(AbstractJdbcSeeder.class);
 
-  private static final int    XLOB_OMNISCI_MAX = 32767 / 2;
+  private static final int    XLOB_HEAVY_MAX = 32767 / 2;
 
   /**
    * Gets the catalog name.
@@ -125,7 +125,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     super(tickerSymbolExtern, dbmsOption);
 
     if (isDebug) {
-      logger.debug("Start Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
+      logger.debug("Start AbstractJdbcSeeder() - Constructor - tickerSymbolExtern=" + tickerSymbolExtern + " - dbmsOption=" + dbmsOption);
     }
 
     this.tickerSymbolExtern = tickerSymbolExtern;
@@ -168,7 +168,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void commitDDL(Connection connection) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start commitDDL()");
     }
 
     if (!("cratedb".equals(tickerSymbolIntern) || "firebird".equals(tickerSymbolIntern) || "oracle".equals(tickerSymbolIntern))) {
@@ -194,7 +194,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void commitDML(Connection connection) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start commitDML()");
     }
 
     if (!("cratedb".equals(tickerSymbolIntern))) {
@@ -302,7 +302,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final Connection connect(String urlIn, String driver, String user, String password, boolean autoCommit) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start connect()");
     }
 
     if (driver != null) {
@@ -358,7 +358,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private int countData(String tableName) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start countData()");
     }
 
     int count = 0;
@@ -402,7 +402,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   public final void createData() {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start createData()");
     }
 
     Statistics statistics = new Statistics(config, tickerSymbolExtern, dbmsDetails);
@@ -489,9 +489,9 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
     int rowMaxSize = getMaxRowSize(tableName);
 
     if (isDebug) {
-      logger.debug("Start - database table " + String.format(FORMAT_TABLE_NAME,
-                                                             tableName) + " - " + String.format(FORMAT_ROW_NO,
-                                                                                                rowMaxSize) + " rows to be created");
+      logger.debug("Start createData() - database table " + String.format(FORMAT_TABLE_NAME,
+                                                                          tableName) + " - " + String.format(FORMAT_ROW_NO,
+                                                                                                             rowMaxSize) + " rows to be created");
     }
 
     String    editedTableName = setCaseIdentifier(tableName);
@@ -530,7 +530,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private void createDataInsert(String tableName, int rowMaxSize, ArrayList<Object> pkList) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start createDataInsert()");
     }
 
     String       editedTableName   = setCaseIdentifier(tableName);
@@ -651,7 +651,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void createSchema(Connection connection) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start createSchema())");
     }
 
     for (String tableName : TABLE_NAMES_CREATE) {
@@ -688,7 +688,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void disconnectDDL(Connection connection) {
     if (isDebug) {
-      logger.debug("Start [" + connection.toString() + "]");
+      logger.debug("Start disconnectDDL() [" + connection.toString() + "]");
     }
 
     try {
@@ -715,7 +715,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void disconnectDML(Connection connection) {
     if (isDebug) {
-      logger.debug("Start [" + connection.toString() + "]");
+      logger.debug("Start disconnectDML() [" + connection.toString() + "]");
     }
 
     try {
@@ -742,13 +742,13 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void dropAllTables(String sqlStmnt) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start dropAllTables()");
     }
 
     try {
       for (String tableName : TABLE_NAMES_DROP) {
         String queryStmnt = sqlStmnt.replace("?",
-                                             dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.OMNISCI
+                                             dbmsEnum == DbmsEnum.CRATEDB || dbmsEnum == DbmsEnum.HEAVY
 
                                                  ? tableName.toLowerCase()
                                                  : tableName.toUpperCase());
@@ -784,7 +784,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void dropAllTablesIfExists() {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start dropAllTablesIfExists()");
     }
 
     for (String tableName : TABLE_NAMES_DROP) {
@@ -817,7 +817,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void dropDatabase(String databaseName, String cascadeRestrict, String tableName, String columnName) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start dropDatabase()");
     }
 
     try {
@@ -867,7 +867,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void dropSchema(String schemaName, String cascadeRestrict, String tableName, String columnName) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start dropSchema()");
     }
 
     try {
@@ -912,7 +912,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void dropTableConstraints(Connection connection) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start dropTableConstraints()");
     }
 
     String                   catalog      = null;
@@ -1259,7 +1259,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void dropUser(String userName, String cascadeRestrict, String tableName, String columnName) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start dropUser()");
     }
 
     try {
@@ -1301,7 +1301,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private void executeSQLStmnt(String sqlStmnt) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start executeSQLStmnt()");
     }
 
     try {
@@ -1328,7 +1328,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void executeSQLStmntOptional(Statement statement, String sqlStmnt) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start executeSQLStmntOptional()");
     }
 
     try {
@@ -1356,7 +1356,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   protected final void executeSQLStmnts(Statement statement, String firstSQLStmnt, String... remainingSQLStmnts) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start executeSQLStmnts()");
     }
 
     try {
@@ -1437,7 +1437,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                      String upperRange,
                                      List<String> validValues) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start getContentVarchar()");
     }
 
     String columnValue;
@@ -1474,7 +1474,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private void getInformixConstraintNames() {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start getInformixConstraintNames()");
     }
 
     informixConstraintNames = new LinkedHashMap<>();
@@ -1561,7 +1561,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                     Integer upperRange,
                                     List<Integer> validValues) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start prepStmntColBigint()");
     }
 
     try {
@@ -1649,14 +1649,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                     getContentBlobString(tableName,
                                                          columnName,
                                                          rowNo));
-      } else if (dbmsEnum == DbmsEnum.OMNISCI) {
+      } else if (dbmsEnum == DbmsEnum.HEAVY) {
         String dataValue = getContentBlobString(tableName,
                                                 columnName,
                                                 rowNo);
         preparedStatement.setString(columnPos,
                                     dataValue.substring(0,
                                                         Math.min(dataValue.length(),
-                                                                 XLOB_OMNISCI_MAX)));
+                                                                 XLOB_HEAVY_MAX)));
       } else {
         preparedStatement.setBytes(columnPos,
                                    getContentBlob(tableName,
@@ -1724,14 +1724,14 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void prepStmntColClob(PreparedStatement preparedStatement, String tableName, String columnName, int columnPos, long rowNo) {
     try {
-      if (dbmsEnum == DbmsEnum.OMNISCI) {
+      if (dbmsEnum == DbmsEnum.HEAVY) {
         String dataValue = getContentClob(tableName,
                                           columnName,
                                           rowNo);
         preparedStatement.setString(columnPos,
                                     dataValue.substring(0,
                                                         Math.min(dataValue.length(),
-                                                                 XLOB_OMNISCI_MAX)));
+                                                                 XLOB_HEAVY_MAX)));
       } else {
         preparedStatement.setString(columnPos,
                                     getContentClob(tableName,
@@ -1795,7 +1795,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                       ArrayList<Object> fkList) {
 
     try {
-      if (dbmsEnum == DbmsEnum.OMNISCI) {
+      if (dbmsEnum == DbmsEnum.HEAVY) {
         preparedStatement.setLong(columnPos,
                                   getContentFkInt(tableName,
                                                   columnName,
@@ -1924,7 +1924,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                            String upperRange,
                                            List<String> validValues) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start prepStmntColVarchar()");
     }
 
     try {
@@ -1985,7 +1985,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
                                               String upperRange,
                                               List<String> validValues) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start prepStmntColVarcharOpt()");
     }
 
     try {
@@ -2026,7 +2026,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private byte[] readBlobFile2Bytes() {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start readBlobFile2Bytes()");
 
       logger.debug("BLOB_FILE ='" + BLOB_FILE + "'");
     }
@@ -2106,7 +2106,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   private void restoreTableConstraints(Connection connection) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start restoreTableConstraints()");
     }
 
     try {
@@ -2164,7 +2164,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   public Connection setupMysql(String driver, String urlSys, String urlUser) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start setupMysql()");
     }
 
     // -----------------------------------------------------------------------
@@ -2246,7 +2246,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
    */
   public Connection setupPostgresql(String driver, String urlSys, String urlUser) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Star setupPostgresql()");
     }
 
     // -----------------------------------------------------------------------
@@ -2374,7 +2374,7 @@ public abstract class AbstractJdbcSeeder extends AbstractJdbcSchema {
 
   private void validateNumberRows(String tableName, int expectedRows) {
     if (isDebug) {
-      logger.debug("Start");
+      logger.debug("Start validateNumberRows()");
     }
 
     int count = 0;

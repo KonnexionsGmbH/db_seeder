@@ -95,7 +95,7 @@ public final class Statistics {
           || "cratedb".equals(tickerSymbolExtern)
           || "h2".equals(tickerSymbolExtern)
           || "h2_emb".equals(tickerSymbolExtern)
-          || "omnisci".equals(tickerSymbolExtern)
+          || "heavy".equals(tickerSymbolExtern)
           || "sqlite".equals(tickerSymbolExtern)
           || "trino".equals(dbType)) {
         constraints = "active - no choice";

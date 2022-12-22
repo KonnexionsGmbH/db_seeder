@@ -3,8 +3,8 @@ package ch.konnexions.db_seeder.generated;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
 
@@ -12,7 +12,7 @@ import ch.konnexions.db_seeder.jdbc.AbstractJdbcSeeder;
  * Data Generator for a Database - Abstract Generated Schema.
  * <br>
  * @author  CreateSummaryFile.class
- * @version 3.0.6
+ * @version 3.0.7
  */
 abstract class AbstractGenSchema extends AbstractJdbcSeeder {
 

@@ -16,6 +16,7 @@ import ch.konnexions.db_seeder.jdbc.derby.DerbySeeder;
 import ch.konnexions.db_seeder.jdbc.exasol.ExasolSeeder;
 import ch.konnexions.db_seeder.jdbc.firebird.FirebirdSeeder;
 import ch.konnexions.db_seeder.jdbc.h2.H2Seeder;
+import ch.konnexions.db_seeder.jdbc.heavy.HeavySeeder;
 import ch.konnexions.db_seeder.jdbc.hsqldb.HsqldbSeeder;
 import ch.konnexions.db_seeder.jdbc.ibmdb2.Ibmdb2Seeder;
 import ch.konnexions.db_seeder.jdbc.informix.InformixSeeder;
@@ -23,7 +24,6 @@ import ch.konnexions.db_seeder.jdbc.mariadb.MariadbSeeder;
 import ch.konnexions.db_seeder.jdbc.mimer.MimerSeeder;
 import ch.konnexions.db_seeder.jdbc.monetdb.MonetdbSeeder;
 import ch.konnexions.db_seeder.jdbc.mysql.MysqlSeeder;
-import ch.konnexions.db_seeder.jdbc.omnisci.OmnisciSeeder;
 import ch.konnexions.db_seeder.jdbc.oracle.OracleSeeder;
 import ch.konnexions.db_seeder.jdbc.percona.PerconaSeeder;
 import ch.konnexions.db_seeder.jdbc.postgresql.PostgresqlSeeder;
@@ -75,7 +75,7 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
 
       if ("yes".equals(config.getDropConstraints())) {
         switch (tickerSymbolExtern) {
-        case "cratedb", "h2", "h2_emb", "mysql_trino", "omnisci", "oracle_trino", "postgresql_trino", "sqlite", "sqlserver_trino", "voltdb" -> {
+        case "cratedb", "h2", "h2_emb", "heavy", "mysql_trino", "oracle_trino", "postgresql_trino", "sqlite", "sqlserver_trino", "voltdb" -> {
           logger.info("==============================================================================================================================");
           logger.info("The run variant with parameter 'DB_SEEDER_DROP_CONSTRAINTS=yes' is not yet supported by the DBMS '" + tickerSymbolExtern + "'!");
           logger.info("==============================================================================================================================");
@@ -148,6 +148,12 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
         h2SeederEmbedded.createData();
         logger.info("End   H2 Database Engine [embedded]");
         break;
+      case "heavy":
+        logger.info("Start HeavyDB");
+        HeavySeeder heavySeeder = new HeavySeeder(tickerSymbolExtern, DBMS_OPTION_CLIENT);
+        heavySeeder.createData();
+        logger.info("End   HeavyDB");
+        break;
       case "hsqldb":
         logger.info("Start HSQLDB [client]");
         HsqldbSeeder hsqldbSeeder = new HsqldbSeeder(tickerSymbolExtern, DBMS_OPTION_CLIENT);
@@ -201,12 +207,6 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
         MysqlSeeder mysqlSeederTrino = new MysqlSeeder(tickerSymbolExtern, DBMS_OPTION_TRINO);
         mysqlSeederTrino.createData();
         logger.info("End   MySQL Database via trino");
-        break;
-      case "omnisci":
-        logger.info("Start OmniSciDB");
-        OmnisciSeeder omnisciSeeder = new OmnisciSeeder(tickerSymbolExtern, DBMS_OPTION_CLIENT);
-        omnisciSeeder.createData();
-        logger.info("End   OmniSciDB");
         break;
       case "oracle":
         logger.info("Start Oracle Database");
@@ -279,7 +279,7 @@ public final class DatabaseSeeder { // NO_UCD (unused code)
                                      "Program abort: command line argument missing");
       default:
         MessageHandling.abortProgram(logger,
-                                     "Program abort: unknown command line argument");
+                                     "Program abort: unknown command line argument: '" + tickerSymbolExtern + "'");
       }
     }
 
