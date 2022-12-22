@@ -2,32 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://www.konnexions.ch/</loc>
-         <lastmod>2022-03-01</lastmod>
+         <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.konnexions.ch/code_of_conduct/</loc>
-         <lastmod>2022-03-01</lastmod>
+         <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.konnexions.ch/contributing/</loc>
-         <lastmod>2022-03-01</lastmod>
+         <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.konnexions.ch/license/</loc>
-         <lastmod>2022-03-01</lastmod>
+         <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.konnexions.ch/release-history/</loc>
-         <lastmod>2022-03-01</lastmod>
+         <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.konnexions.ch/release-notes/</loc>
-         <lastmod>2022-03-01</lastmod>
+         <lastmod>2022-12-22</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.konnexions.ch/release_schedule/</loc>
+         <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
