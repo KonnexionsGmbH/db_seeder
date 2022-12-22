@@ -21,12 +21,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://www.konnexions.ch/release-history/</loc>
+         <loc>https://www.konnexions.ch/release_history/</loc>
          <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://www.konnexions.ch/release-notes/</loc>
+         <loc>https://www.konnexions.ch/release_notes/</loc>
          <lastmod>2022-12-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
