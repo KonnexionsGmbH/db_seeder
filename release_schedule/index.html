@@ -352,15 +352,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-finalise-the-new-release" class="md-nav__link">
-    5. Finalise the new release.
+  <a href="#5-update-the-software-environment" class="md-nav__link">
+    **5. Update the software environment.
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-preepare-the-next-release" class="md-nav__link">
-    6. Preepare the next release.
+  <a href="#6-run-the-performance-scripts" class="md-nav__link">
+    **6. Run the performance scripts.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-finalise-the-new-release" class="md-nav__link">
+    7. Finalise the new release.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-prepare-the-next-release" class="md-nav__link">
+    8. Prepare the next release.
   </a>
   
 </li>
@@ -480,15 +494,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-finalise-the-new-release" class="md-nav__link">
-    5. Finalise the new release.
+  <a href="#5-update-the-software-environment" class="md-nav__link">
+    **5. Update the software environment.
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-preepare-the-next-release" class="md-nav__link">
-    6. Preepare the next release.
+  <a href="#6-run-the-performance-scripts" class="md-nav__link">
+    **6. Run the performance scripts.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-finalise-the-new-release" class="md-nav__link">
+    7. Finalise the new release.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-prepare-the-next-release" class="md-nav__link">
+    8. Prepare the next release.
   </a>
   
 </li>
@@ -513,14 +541,11 @@
 It is not allowed to continue with the next step until the current step has been completed successfully, i.e. also without any errors. </p>
 <h3 id="1-manual-quality-control"><strong>1. Manual quality control</strong>.</h3>
 <h4 id="a-remove-all-personal-markers">a) Remove all personal markers.</h4>
-<p>It is good practice to mark experimental source code, such as source code comments or logging messages that are only used for testing, with a uniform personal marker, such as <strong><code>lho</code></strong> or <strong><code>wwe</code></strong>, so that this source code can be easily discovered and removed for release builds.</p>
+<p>It is good practice to mark experimental source code, such as source code comments or logging messages that are only used for testing, with a uniform personal marker, such as <strong><code>wwe</code></strong>, so that this source code can be easily discovered and removed for release builds.</p>
 <h4 id="b-check-all-todo-markers-for-necessity">b) Check all <strong><code>TODO</code></strong> markers for necessity.</h4>
 <h4 id="c-check-all-links-in-the-docs-file-directory">c) Check all links in the <strong><code>docs</code></strong> file directory.</h4>
 <p>Links should generally contain the following suffix: <strong><code>{:target="_blank"}</code></strong>. 
 This ensures that a web page activated by the link is opened in a new tab.</p>
-<h4 id="d-unnecessary-annotations-pytestmarkissue-in-the-file-directory-tests">d) Unnecessary annotations <strong><code>@pytest.mark.issue</code></strong> in the file directory <strong><code>tests</code></strong>.</h4>
-<p>This annotation can be used to run individual tests selectively. 
-To remove the remains of it one can use the regular expression <strong><code>^@pytest.mark.issue</code></strong>.</p>
 <h3 id="2-define-a-new-version-number"><strong>2. Define a new version number</strong>.</h3>
 <p>The rules of semantic versioning must be applied. 
 Given a version number MAJOR.MINOR.PATCH, increment the:</p>
@@ -532,20 +557,51 @@ Given a version number MAJOR.MINOR.PATCH, increment the:</p>
 <p>See <a href="https://semver.org/" target="_blank">here</a> for details.</p>
 <h4 id="a-update-the-version-number-in-the-io-avstats-files">a) Update the version number in the <strong>IO-AVSTATS</strong> files:</h4>
 <ul>
-<li>docs/release_history.md</li>
+<li>docs/code_of_conduct.md</li>
+<li>docs/contributing.md</li>
+<li>docs/license.md</li>
 <li>docs/release_notes.md</li>
-<li>src//io_glob.py</li>
 </ul>
 <h3 id="3-create-release-candidate-branch-rel_branch"><strong>3. Create release candidate branch <code>&lt;rel_branch&gt;</code></strong>.</h3>
 <h3 id="4-switch-to-the-release-candidate-branch-rel_branch"><strong>4. Switch to the release candidate branch <code>&lt;rel_branch&gt;</code></strong>.</h3>
 <div class="highlight"><pre><span></span><code>git checkout &lt;rel_branch&gt;
 </code></pre></div>
-<h3 id="5-finalise-the-new-release"><strong>5. Finalise the new release</strong>.</h3>
-<h4 id="a-execute-the-following-command-in-the-io-avstats-clone">a. Execute the following command in the <strong>IO-AVSTATS</strong> clone.</h4>
-<div class="highlight"><pre><span></span><code>make final
+<h3 id="5-update-the-software-environment">**5. Update the software environment.</h3>
+<h4 id="a-check-the-current-software-versions">a. Check the current software versions.</h4>
+<div class="highlight"><pre><span></span><code>Dropbox/SoftDevelopment/Software_Release_Management.xlsx
 </code></pre></div>
-<h4 id="b-create-the-final-pull-request">b. Create the final pull request.</h4>
-<h4 id="c-create-the-new-release-in-github">c. Create the new release in GitHub:</h4>
+<h4 id="b-create-a-new-version-in-repository-docker_images">b. Create a new version in repository <strong><code>docker_images</code></strong>.</h4>
+<h4 id="c-create-a-new-docker-image">c. Create a new Docker image.</h4>
+<h3 id="6-run-the-performance-scripts">**6. Run the performance scripts.</h3>
+<h4 id="a-check-the-generator-settings">a. Check the generator settings.</h4>
+<ul>
+<li>run <strong><code>scripts/run_db_seeder_generate_schema.bat</code></strong></li>
+<li>run <strong><code>scripts/run_db_seeder_generate_schema.sh</code></strong></li>
+</ul>
+<h4 id="b-update-the-windows-10-software">b. Update the Windows 10 software.</h4>
+<ul>
+<li>run <strong><code>scripts/run_db_seeder_reslease.bat</code></strong></li>
+<li>rename the resulting file <strong><code>resources/statistics/db_seeder_bash_complete_company_9.9.9_win10.tsv</code></strong></li>
+<li>rename the resulting file <strong><code>resources/statistics/db_seeder_bash_improvement_company_9.9.9_win10.tsv</code></strong></li>
+</ul>
+<h4 id="c-create-a-new-virtual-machine">c. Create a new virtual machine.</h4>
+<ul>
+<li>run <strong><code>scripts/run_db_seeder_reslease.sh</code></strong></li>
+<li>rename the resulting file <strong><code>resources/statistics/db_seeder_bash_complete_company_9.9.9_vmware.tsv</code></strong></li>
+<li>rename the resulting file <strong><code>resources/statistics/db_seeder_bash_improvement_company_9.9.9_vmware.tsv</code></strong></li>
+</ul>
+<h4 id="d-create-a-new-wsl">d. Create a new WSL.</h4>
+<ul>
+<li>run <strong><code>scripts/run_db_seeder_reslease.sh</code></strong></li>
+<li>rename the resulting file <strong><code>resources/statistics/db_seeder_bash_complete_company_9.9.9_wsl2.tsv</code></strong></li>
+<li>rename the resulting file <strong><code>resources/statistics/db_seeder_bash_improvement_company_9.9.9_wsl2.tsv</code></strong></li>
+</ul>
+<h4 id="e-rename-the-summary-file">e. Rename the summary file.</h4>
+<ul>
+<li>run <strong><code>db_seeder_summary_3.0.3-x.x.x.tsv</code></strong></li>
+</ul>
+<h3 id="7-finalise-the-new-release"><strong>7. Finalise the new release</strong>.</h3>
+<h4 id="a-create-the-new-release-in-github">a. Create the new release in GitHub:</h4>
 <ul>
 <li>Releases --&gt; Create a new release</li>
 <li>Choose a tag ---&gt; <strong><code>9.9.9</code></strong> ---&gt; + Create a new tag</li>
@@ -555,13 +611,12 @@ Given a version number MAJOR.MINOR.PATCH, increment the:</p>
 <li><strong><code>x</code></strong> Create a discussion for this release</li>
 <li>Publish release</li>
 </ul>
-<h3 id="6-preepare-the-next-release"><strong>6. Preepare the next release</strong>.</h3>
+<h3 id="8-prepare-the-next-release"><strong>8. Prepare the next release</strong>.</h3>
 <h4 id="a-choose-a-new-version-number">a. Choose a new version number.</h4>
 <h4 id="b-prepare-the-following-files-in-the-io-rsaster-repository-for-the-new-version">b. Prepare the following files in the <strong>io-rsaster</strong> repository for the new version:</h4>
 <ul>
 <li>docs/release_history.md</li>
 <li>docs/release_notes.md</li>
-<li>src//io_glob.py</li>
 </ul>
 
 
