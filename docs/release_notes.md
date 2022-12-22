@@ -14,13 +14,13 @@ Release Date: dd.mm.2022
 ### System Requirements
 
 - Operating system: any Java-enabled Linux, Mac or Windows variant
-- Docker Desktop Community: 4.0.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes){:target="_blank"})
-- Gradle Build Tool: 7 (e.g. from [here](https://gradle.org/releases){:target="_blank"})
-- Java Development Kit 16 or 17, (e.g. from [here](https://jdk.java.net/java-se-ri/17){:target="_blank"})
+- Docker Desktop Community: 4.15.0 (e.g. from [Docker for Windows release notes](https://docs.docker.com/docker-for-windows/release-notes){:target="_blank"})
+- Gradle Build Tool: 7.6 (e.g. from [here](https://gradle.org/releases){:target="_blank"})
+- Java Development Kit 19, (e.g. from [here](https://jdk.java.net/java-se-ri/19){:target="_blank"})
 
 #### optional: 
-- Eclipse IDE: 2021.12 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads){:target="_blank"})
-- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2021-12\eclipse`
+- Eclipse IDE: 2022.12 (e.g. from [Eclipse Download Page](https://www.eclipse.org/downloads){:target="_blank"})
+- an environment variable called `HOME_ECLIPSE` that points to the installation directory of Eclipse IDE, e.g.: `C:\Software\eclipse\java-2022-12\eclipse`
 
 ### New Features
 
@@ -59,11 +59,11 @@ Release Date: dd.mm.2022
 
 ### Open Issues
 
-- HeavyDB: (see [here](#issues_heavydb)
-- HSQLDB: (see [here](#issues_hsqldb)
-- MonetDB: (see [here](#issues_monetdb)
-- trino: (see [here](#issues_trino)
-- VoltDB: (see [here](#issues_voltdb)
+- HeavyDB: (see [here](#issues_heavydb))
+- HSQLDB: (see [here](#issues_hsqldb))
+- MonetDB: (see [here](#issues_monetdb))
+- trino: (see [here](#issues_trino))
+- VoltDB: (see [here](#issues_voltdb))
 
 ----
 
@@ -203,6 +203,3 @@ Processing of the script was aborted, error code=1
     Sept. 02, 2021 3:39:41 AM org.voltcore.logging.VoltUtilLoggingLogger log
     SEVERE: NULL : Throwable: java.lang.NullPointerException: Cannot invoke "io.netty_voltpatches.NinjaKeySet.size()" because "this.m_ninjaSelectedKeys" is null
 ```
-    
-----------
-

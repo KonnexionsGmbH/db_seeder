@@ -415,7 +415,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
       connectionSuffix = osEnvironment.get("DB_SEEDER_SQLSERVER_CONNECTION_SUFFIX");
     } else {
       MessageHandling.abortProgram(logger,
-              "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_SUFFIX");
+                                   "Program abort: parameter missing (null): DB_SEEDER_SQLSERVER_CONNECTION_SUFFIX");
     }
 
     if (osEnvironment.containsKey("DB_SEEDER_SQLSERVER_DATABASE")) {
@@ -452,7 +452,7 @@ public final class TrinoEnvironment { // NO_UCD (unused code)
                                       connectionPrefix,
                                       database,
                                       user,
-                                      password)+connectionSuffix;
+                                      password) + connectionSuffix;
 
     createCatalog(tickerSymbolIntern);
 
